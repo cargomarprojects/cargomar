@@ -46,6 +46,10 @@ export class TravelExpense {
     te_total_aprvd: number;
     te_travel_with: string;
 
+    te_travel_fare_amt: number;
+    te_travel_fare_by: string;
+    te_travel_fare_amt_aprvd: number;
+
     te_approved_by: string;
     te_sanctioned_by: string;
     te_rejected_by: string;

@@ -92,7 +92,7 @@ export class TravelExpenseComponent {
                 this.bCompany = true;
             if (this.menu_record.rights_email)
                 this.bEmail = true;
-              if (this.menu_record.rights_add)
+            if (this.menu_record.rights_add)
                 this.bAdd = true;
             if (this.menu_record.rights_approval.length > 0) {
 
@@ -287,6 +287,9 @@ export class TravelExpenseComponent {
         this.Record.te_conv_auto_amt_aprvd = 0;
         this.Record.te_conv_others_amt_aprvd = 0;
         this.Record.te_total_aprvd = 0;
+        this.Record.te_travel_fare_amt = 0;
+        this.Record.te_travel_fare_by = 'NA';
+        this.Record.te_travel_fare_amt_aprvd = 0;
 
         this.Record.rec_locked = false;
         this.Record.lock_record = false;
@@ -420,6 +423,8 @@ export class TravelExpenseComponent {
             REC.te_total = this.Record.te_total;
             REC.te_remarks = this.Record.te_remarks;
             REC.te_travel_with = this.Record.te_travel_with;
+            REC.te_travel_fare_amt = this.Record.te_travel_fare_amt;
+            REC.te_travel_fare_by = this.Record.te_travel_fare_by;
             REC.te_date_from = this.gs.ConvertDate2DisplayFormat(this.Record.te_date_from);
             REC.te_date_to = this.gs.ConvertDate2DisplayFormat(this.Record.te_date_to);
         }
@@ -458,6 +463,11 @@ export class TravelExpenseComponent {
         }
         if (controlname == 'te_travel_with') {
             this.Record.te_travel_with = this.Record.te_travel_with.toUpperCase();
+        }
+        if (controlname == 'te_travel_fare_amt') {
+            this.Record.te_travel_fare_amt = this.gs.roundNumber(this.Record.te_travel_fare_amt, 0);
+            if (this.bValueChanged)
+                this.FindTotal();
         }
         if (controlname == 'te_lodging_days') {
             this.Record.te_lodging_days = this.gs.roundNumber(this.Record.te_lodging_days, 0);
@@ -499,6 +509,12 @@ export class TravelExpenseComponent {
             this.Record.te_misc_amt = this.gs.roundNumber(this.Record.te_misc_amt, 0);
             if (this.bValueChanged)
                 this.FindTotal();
+        }
+
+        if (controlname == 'te_travel_fare_amt_aprvd') {
+            this.Record.te_travel_fare_amt_aprvd = this.gs.roundNumber(this.Record.te_travel_fare_amt_aprvd, 0);
+            if (this.bValueChanged)
+                this.FindTotalAprvd();
         }
 
         if (controlname == 'te_lodging_amt_aprvd') {
@@ -556,6 +572,8 @@ export class TravelExpenseComponent {
         if (field == 'te_conv_others_amt')
             this.bValueChanged = true;
 
+        if (field == 'te_travel_fare_amt')
+            this.bValueChanged = true;
         if (field == 'te_lodging_amt')
             this.bValueChanged = true;
         if (field == 'te_boarding_amt')
@@ -563,6 +581,8 @@ export class TravelExpenseComponent {
         if (field == 'te_misc_amt')
             this.bValueChanged = true;
 
+        if (field == 'te_travel_fare_amt_aprvd')
+            this.bValueChanged = true;
         if (field == 'te_lodging_amt_aprvd')
             this.bValueChanged = true;
         if (field == 'te_boarding_amt_aprvd')
@@ -590,6 +610,8 @@ export class TravelExpenseComponent {
         if (field == 'te_conv_others_amt')
             this.bValueChanged = false;
 
+        if (field == 'te_travel_fare_amt')
+            this.bValueChanged = false;
         if (field == 'te_lodging_amt')
             this.bValueChanged = false;
         if (field == 'te_boarding_amt')
@@ -597,6 +619,8 @@ export class TravelExpenseComponent {
         if (field == 'te_misc_amt')
             this.bValueChanged = false;
 
+        if (field == 'te_travel_fare_amt_aprvd')
+            this.bValueChanged = false;
         if (field == 'te_lodging_amt_aprvd')
             this.bValueChanged = false;
         if (field == 'te_boarding_amt_aprvd')
@@ -636,6 +660,7 @@ export class TravelExpenseComponent {
         grand_tot += this.Record.te_boarding_amt;
         grand_tot += this.Record.te_conv_total;
         grand_tot += this.Record.te_misc_amt;
+        grand_tot += this.Record.te_travel_fare_amt;
 
         grand_tot = this.gs.roundNumber(grand_tot, 0);
         this.Record.te_total = grand_tot;
@@ -654,6 +679,7 @@ export class TravelExpenseComponent {
         tot += this.Record.te_conv_taxi_amt_aprvd;
         tot += this.Record.te_conv_auto_amt_aprvd;
         tot += this.Record.te_conv_others_amt_aprvd;
+        tot += this.Record.te_travel_fare_amt_aprvd;
         tot = this.gs.roundNumber(tot, 0);
         this.Record.te_total_aprvd = tot;
     }

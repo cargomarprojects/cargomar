@@ -2,7 +2,8 @@
     <div class="col">
         <label>{{title}}{{ms.state.mode==''?'':'-'+ms.state.mode}}</label>
         <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
-        <button *ngIf="bAdd" [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+        <button *ngIf="bAdd" [disabled]="loading" (click)="ActionHandler('ADD','')"
+            class="btn btn-primary btn-sm">New</button>
         <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
         <i *ngIf="loading" class="fa fa-spinner"></i>
     </div>
@@ -156,10 +157,10 @@
 <div *ngIf="ms.state.currentTab=='DETAILS'" class="page-details">
     <!-- <div class="page-box"> -->
     <div class="row">
-        <div class="col-sm-8 pr-1">
-            <div class="page-box">
-                <div class="row">
-                    <div class="col-sm-6">
+        <div class="col-sm-8">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="page-box">
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label col-form-label-sm">SlNo</label>
                             <div class="col-sm-4">
@@ -231,12 +232,12 @@
                         </div>
 
                         <!-- <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm pr-0">To</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.te_travel_to"
+                         <label class="col-sm-4 col-form-label col-form-label-sm pr-0">To</label>
+                               <div class="col-sm-8">
+                         <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.te_travel_to"
                             required (blur)="OnBlur('te_travel_to')" maxlength="100" />
-                    </div>
-                </div> -->
+                           </div>
+                         </div> -->
 
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label col-form-label-sm">City Type</label>
@@ -269,27 +270,33 @@
                             <div class="col-sm-9">
                                 <!-- <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.te_remarks" required
                             (blur)="OnBlur('te_remarks')" maxlength="250" /> -->
-                                <textarea rows="2" class="form-control form-control-sm" [(ngModel)]="Record.te_remarks"
+                                <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.te_remarks"
                                     (blur)="OnBlur('te_remarks')" maxlength="250"></textarea>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                </div>
+                <div class="col-sm-6">
+                    <div class="page-box">
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label col-form-label-sm">{{Record.rec_branch_code}}</label>
-                            <div class="col-sm-9">
-                                <input type="checkbox" [(ngModel)]="Record.te_own_arrangement" id="chkownarrng">
-                                <label class="col-form-label col-form-label-sm" for="chkownarrng">Own
-                                    Arrangement</label>
+                            <label class="col-sm-3 col-form-label col-form-label-sm">Travel Fare</label>
+                            <div class="col-sm-3">
+                                <select class="form-control form-control-sm" name="travltype"
+                                    [(ngModel)]="Record.te_travel_fare_by">
+                                    <option [value]="'NA'">NA</option>
+                                    <option [value]="'SELF'">SELF</option>
+                                    <option [value]="'COMPANY'">COMPANY</option>
+                                </select>
                             </div>
-                            <!-- <div class="col-sm-3">Branch&nbsp;
-                        <app-autocomplete3 [disabled]="true" [controlname]="'BRANCH'" [tabletype]="'BRANCH'"
-                            [displaycolumn]="'CODE'" [displaydata]="Record.rec_branch_code"
-                            (ValueChanged)="LovSelected($event)">
-                        </app-autocomplete3>
-                    </div> -->
+                            <label class="col-sm-3 col-form-label col-form-label-sm">Amount</label>
+                            <div class="col-sm-3">
+                                <input type="number" class="form-control form-control-sm"
+                                    [(ngModel)]="Record.te_travel_fare_amt" required (blur)="OnBlur('te_travel_fare_amt')"
+                                    (change)="OnChange('te_travel_fare_amt')" (focus)="OnFocus('te_travel_fare_amt')"
+                                    maxlength="12" />
+                            </div>
                         </div>
-
+                        <hr>
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label col-form-label-sm">Lodging Days</label>
                             <div class="col-sm-3">
@@ -320,6 +327,23 @@
                                     maxlength="12" />
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <!-- <label class="col-sm-3 col-form-label col-form-label-sm">{{Record.rec_branch_code}}</label> -->
+                            <label class="col-sm-3 col-form-label col-form-label-sm"></label>
+                            <div class="col-sm-9">
+                                <input type="checkbox" [(ngModel)]="Record.te_own_arrangement" id="chkownarrng">
+                                <label class="col-form-label col-form-label-sm" for="chkownarrng">Own
+                                    Arrangement</label>
+                            </div>
+                            <!-- <div class="col-sm-3">Branch&nbsp;
+                        <app-autocomplete3 [disabled]="true" [controlname]="'BRANCH'" [tabletype]="'BRANCH'"
+                            [displaycolumn]="'CODE'" [displaydata]="Record.rec_branch_code"
+                            (ValueChanged)="LovSelected($event)">
+                        </app-autocomplete3>
+                    </div> -->
+                        </div>
+                        <hr>
                         <div class="form-group row">
                             <label class="col-sm-6 col-form-label col-form-label-sm">Misc. Charges</label>
                             <label class="col-sm-3 col-form-label col-form-label-sm">Amount</label>
@@ -330,9 +354,10 @@
                                     maxlength="12" />
                             </div>
                         </div>
+                        <hr>
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label col-form-label-sm"></label>
-                            <label class="col-sm-9  col-form-label col-form-label-sm">Local Conveyance</label>
+                            <label class="col-sm-9  col-form-label col-form-label-sm"><b>Local Conveyance</b></label>
                         </div>
 
                         <div class="form-group row">
@@ -380,6 +405,7 @@
                                     maxlength="12" />
                             </div>
                         </div>
+                        <hr>
                         <div class="form-group row">
                             <!-- <label class="col-sm-7 col-form-label col-form-label-sm pr-0"></label> -->
                             <div class="col-sm-6">
@@ -406,13 +432,22 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-4 pl-2">
+        <div class="col-sm-4">
             <div *ngIf="ms.state.mode=='EDIT'" class="page-box">
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group row mb-2">
                             <label class="col-sm-12 col-form-label col-form-label-sm"
                                 style="font-weight: bold;">APPROVED/PAID AMOUNT</label>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label col-form-label-sm pr-0">Travel Fare</label>
+                            <div class="col-sm-3">
+                                <input type="number" [disabled]="!bApproved" class="form-control form-control-sm"
+                                    [(ngModel)]="Record.te_travel_fare_amt_aprvd" required
+                                    (blur)="OnBlur('te_travel_fare_amt_aprvd')" (change)="OnChange('te_travel_fare_amt_aprvd')"
+                                    (focus)="OnFocus('te_travel_fare_amt_aprvd')" maxlength="12" />
+                            </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label col-form-label-sm pr-0">Lodging</label>
@@ -510,8 +545,10 @@
                     <div class="offset-3 col-sm-9">
                         <button [hidden]="disableSave" [disabled]="loading||bLocked" (click)="Save('SAVE')"
                             class="btn btn-primary btn-sm">Save</button>
-                        <button *ngIf="ms.state.mode=='EDIT'" (click)="PrintReceipt('PDF','')" class="btn btn-primary btn-sm">Print</button>
-                        <button *ngIf="ms.state.mode=='EDIT'&&bEmail" (click)="PrintReceipt('MAIL',emailsent)" class="btn btn-primary btn-sm">Mail</button>
+                        <button *ngIf="ms.state.mode=='EDIT'" (click)="PrintReceipt('PDF','')"
+                            class="btn btn-primary btn-sm">Print</button>
+                        <button *ngIf="ms.state.mode=='EDIT'&&bEmail" (click)="PrintReceipt('MAIL',emailsent)"
+                            class="btn btn-primary btn-sm">Mail</button>
                         <button [disabled]="loading" (click)="ActionHandler('LIST','')"
                             class="btn btn-primary btn-sm">Return</button>
                         <i *ngIf="loading" class="fa fa-spinner"></i>
@@ -603,8 +640,8 @@
     </div>
     <div class="modal-body">
         <app-mail [pkid]="ms.state.pkid" [type]="'TRAVEL EXPENSE'" [sHtml]="ms.state.sMsg" [defaultmessage]=""
-            [defaultcc_ids]="ms.state.cc_ids" [defaultsubject]="ms.state.sSubject" [updateto_ids]=false [disableUpdateIds]=true
-            [AttachList]="ms.state.AttachList"></app-mail>
+            [defaultcc_ids]="ms.state.cc_ids" [defaultsubject]="ms.state.sSubject" [updateto_ids]=false
+            [disableUpdateIds]=true [AttachList]="ms.state.AttachList"></app-mail>
     </div>
 </ng-template>
 <div *ngIf="ms.state.ErrorMessage" class="alert alert-info">
