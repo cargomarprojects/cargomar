@@ -84,7 +84,7 @@ export class HblSeaAirComponent {
 
     mode = '';
     pkid = '';
-
+    invoke_se_type = 'HBL';
 
     // Array For Displaying List
     RecordList: Hblm[] = [];
@@ -190,7 +190,7 @@ export class HblSeaAirComponent {
 
         if (this.type.toString() == "SEA EXPORT") {
             this.carriertype = "SEA CARRIER";
-            this.btnbltiltle = "House BL";
+            this.btnbltiltle = "FCR/House BL";
         }
         else {
             this.carriertype = "AIR CARRIER";
@@ -1091,7 +1091,8 @@ export class HblSeaAirComponent {
             bret = true;
         return bret;
     }
-    ShowBL() {
+    ShowBL(_type: string = "HBL") {
+        this.invoke_se_type = _type;
         this.currentPage = 'BLPAGE';
     }
 

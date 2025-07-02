@@ -622,8 +622,10 @@
               <!--<button *ngIf="mode == 'EDIT' && masterexist && jobexist" [disabled]="loading" (click)="ShowBL()" class="btn btn-success btn-sm">{{btnbltiltle}}</button>-->
               <button *ngIf="mode == 'EDIT' && bbuysellrate" [disabled]="loading" (click)=" ShowRate(buysellrate)"
                 class="btn btn-success btn-sm">Buy/Sell Rate</button>
-              <button *ngIf="mode == 'EDIT' && jobexist" [disabled]="loading" (click)="ShowBL()"
+              <button *ngIf="mode == 'EDIT' && jobexist" [disabled]="loading" (click)="ShowBL('HBL')"
                 class="btn btn-success btn-sm">{{btnbltiltle}}</button>
+              <button *ngIf="mode == 'EDIT' && jobexist" [disabled]="loading" (click)="ShowBL('FCR')"
+                class="btn btn-success btn-sm">FCR</button>
               <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="AmsFiling(amsedi)"
                 class="btn btn-success btn-sm">Data Transfer</button>
               <button *ngIf="mode == 'EDIT' &&  type=='SEA EXPORT'" [disabled]="loading" (click)="ISFReport(mailsent)"
@@ -680,7 +682,8 @@
 <div *ngIf="currentPage=='BLPAGE'">
   <div class="page-box">
     <div *ngIf="type=='SEA EXPORT'" class="col">
-      <app-seabl [parentid]="pkid" [type]="type" [invokefrom]="'HBL'" (PageChanged)="pageChanged($event)"></app-seabl>
+      <app-seabl [parentid]="pkid" [type]="type" [invokefrom]="invoke_se_type"
+        (PageChanged)="pageChanged($event)"></app-seabl>
     </div>
     <div *ngIf="type=='AIR EXPORT'" class="col">
       <app-airbl [parentid]="pkid" [type]="type" [invokefrom]="'HAWB'" (PageChanged)="pageChanged($event)"></app-airbl>
