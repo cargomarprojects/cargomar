@@ -296,5 +296,6 @@ export class Bl {
   bl_consignee_pin: string;
   bl_notify_city: string;
   bl_notify_pin: string;
+  bl_type: string;
 }
 

@@ -4,13 +4,13 @@
     <label>{{title}}</label>
     <button *ngIf="user_admin" [disabled]="loading" (click)="UnlockBLNo('UNLOCK')"
       class="btn btn-success btn-sm">Unlock</button>
-    <button *ngIf="user_admin && invokefrom=='HBL'" [disabled]="loading" (click)="UnlockBLNo('RESETBL')"
-      class="btn btn-success btn-sm">Reset BL#</button>
-    <button *ngIf="user_admin && invokefrom=='HBL'" [disabled]="loading" (click)="UnlockBLNo('RESETFCR')"
-      class="btn btn-success btn-sm">Reset FCR#</button>
-    <button *ngIf="user_admin && invokefrom=='HBL'" [disabled]="loading" (click)="UnlockBLNo('BOTH')"
-      class="btn btn-success btn-sm">Both FCR & BL</button>
-    <button *ngIf="user_admin" [disabled]="loading" (click)="UnlockBLNo('UNLOCK-SE-DRAFT')"
+    <button *ngIf="user_admin && (invokefrom=='HBL'||invokefrom=='FCR')" [disabled]="loading"
+      (click)="UnlockBLNo('RESETBL')" class="btn btn-success btn-sm">Reset BL#</button>
+    <button *ngIf="user_admin && (invokefrom=='HBL'||invokefrom=='FCR')" [disabled]="loading"
+      (click)="UnlockBLNo('RESETFCR')" class="btn btn-success btn-sm">Reset FCR#</button>
+    <button *ngIf="user_admin && (invokefrom=='HBL'||invokefrom=='FCR')" [disabled]="loading"
+      (click)="UnlockBLNo('BOTH')" class="btn btn-success btn-sm">Both FCR & BL</button>
+    <button *ngIf="user_admin && invokefrom!='FCR'" [disabled]="loading" (click)="UnlockBLNo('UNLOCK-SE-DRAFT')"
       class="btn btn-success btn-sm">Unlock Draft Pdf</button>
     <button [disabled]="loading" (click)="HideBlPage()" class="btn btn-success btn-sm">Return</button>
     <i *ngIf="loading" class="fa fa-spinner"></i>
@@ -302,64 +302,65 @@
       </div>
     </div>
 
-    <div *ngIf="invokefrom=='HBL'" class="col-sm-6">
+    <div *ngIf="invokefrom=='HBL'||invokefrom=='FCR'" class="col-sm-6">
       <div class="form-group row">
         <label class="col-12 col-form-label col-form-label-sm"></label>
       </div>
       <div class="form-group row">
         <label class="col-12 col-form-label col-form-label-sm"></label>
       </div>
-
-      <div class="form-group row">
-        <label class="col-4 col-form-label col-form-label-sm">Reg. No.</label>
-        <div class="col-4">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_reg_no"
-            (blur)="OnBlur('bl_reg_no')" disabled required maxlength="30" />
-        </div>
-        <label style="text-align:right" class="col-1 col-form-label col-form-label-sm">FMC.No.</label>
-        <div class="col-3">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_fmc_no"
-            (blur)="OnBlur('bl_fmc_no')" disabled required maxlength="30" />
-        </div>
-      </div>
-
-      <div class="page-box">
+      <div *ngIf="invokefrom=='HBL'||Record.hbl_bl_type=='OLD'">
         <div class="form-group row">
-
-          <label class="col-4 col-form-label col-form-label-sm">HBL No.</label>
+          <label class="col-4 col-form-label col-form-label-sm">Reg. No.</label>
           <div class="col-4">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_bl_no"
-              (blur)="OnBlur('hbl_bl_no')"
-              [disabled]="Record.hbl_blno_generated == 'G'|| Record.bl_original_print == 'Y'  || Record.hbl_fcr_no != ''"
-              required maxlength="30" />
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_reg_no"
+              (blur)="OnBlur('bl_reg_no')" disabled required maxlength="30" />
           </div>
-          <label style="text-align:right" class="col-1 col-form-label col-form-label-sm">Date</label>
+          <label style="text-align:right" class="col-1 col-form-label col-form-label-sm">FMC.No.</label>
           <div class="col-3">
-            <app-date [inputdate]="Record.hbl_date" (ValueChanged)="Record.hbl_date=$event"></app-date>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-4 col-form-label col-form-label-sm">HBL Sequence</label>
-          <div class="col-sm-8">
-            <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_seq_format_id"
-              [disabled]="(Record.hbl_blno_generated == 'G' || Record.hbl_fcr_no != '') && (Record.hbl_blno_generated != 'B')">
-              <option *ngFor="let rec of BLFormatList" [value]="rec.table_pkid">{{rec.table_name}}</option>
-            </select>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_fmc_no"
+              (blur)="OnBlur('bl_fmc_no')" disabled required maxlength="30" />
           </div>
         </div>
 
-        <div class="form-group row">
-          <div class="offset-4 col-8">
-            <button
-              [disabled]="(loading || Record.hbl_blno_generated == 'G'|| Record.hbl_bl_no != '' || Record.hbl_fcr_no != '' || mode=='ADD')  && (Record.hbl_blno_generated != 'B')"
-              (click)="GenerateBLNo('SEABL',Record.hbl_seq_format_id)" class="btn btn-success btn-sm">Generate BL No And
-              Save</button>
-            <i *ngIf="loading" class="fa fa-spinner"></i>
-          </div>
-        </div>
+        <div class="page-box">
+          <div class="form-group row">
 
+            <label class="col-4 col-form-label col-form-label-sm">HBL No.</label>
+            <div class="col-4">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_bl_no"
+                (blur)="OnBlur('hbl_bl_no')"
+                [disabled]="Record.hbl_blno_generated == 'G'|| Record.bl_original_print == 'Y'  || Record.hbl_fcr_no != ''"
+                required maxlength="30" />
+            </div>
+            <label style="text-align:right" class="col-1 col-form-label col-form-label-sm">Date</label>
+            <div class="col-3">
+              <app-date [inputdate]="Record.hbl_date" (ValueChanged)="Record.hbl_date=$event"></app-date>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-4 col-form-label col-form-label-sm">HBL Sequence</label>
+            <div class="col-sm-8">
+              <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_seq_format_id"
+                [disabled]="(Record.hbl_blno_generated == 'G' || Record.hbl_fcr_no != '') && (Record.hbl_blno_generated != 'B')">
+                <option *ngFor="let rec of BLFormatList" [value]="rec.table_pkid">{{rec.table_name}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="offset-4 col-8">
+              <button
+                [disabled]="(loading || Record.hbl_blno_generated == 'G'|| Record.hbl_bl_no != '' || Record.hbl_fcr_no != '' || mode=='ADD')  && (Record.hbl_blno_generated != 'B')"
+                (click)="GenerateBLNo('SEABL',Record.hbl_seq_format_id)" class="btn btn-success btn-sm">Generate BL No
+                And
+                Save</button>
+              <i *ngIf="loading" class="fa fa-spinner"></i>
+            </div>
+          </div>
+
+        </div>
       </div>
-
       <div class="form-group row">
         <label class="col-12 col-form-label col-form-label-sm"></label>
       </div>
@@ -367,7 +368,7 @@
         <label class="col-12 col-form-label col-form-label-sm"></label>
       </div> -->
 
-      <div class="page-box">
+      <div *ngIf="invokefrom=='FCR'||Record.hbl_bl_type=='OLD'" class="page-box">
         <div class="form-group row">
           <label class="col-4 col-form-label col-form-label-sm">FCR No.</label>
           <div class="col-8">
@@ -405,157 +406,157 @@
         </div>
 
       </div>
-
-      <div class="form-group row">
-        <label class="col-12 col-form-label col-form-label-sm"></label>
-      </div>
-      <!-- <div class="form-group row">
-        <label class="col-12 col-form-label col-form-label-sm"></label>
-      </div> -->
-
-      <div class="form-group row">
-        <label class="col-4 col-form-label col-form-label-sm">Issued By</label>
-        <div class="col-8">
-          <input type="text" [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm"
-            [(ngModel)]="Record.bl_issued_by1" (blur)="OnBlur('bl_issued_by1')" required maxlength="100" />
+      <div *ngIf="invokefrom=='HBL'">
+        <div class="form-group row">
+          <label class="col-12 col-form-label col-form-label-sm"></label>
         </div>
-      </div>
-
-      <div class="form-group row">
-        <div class="offset-4 col-8">
-          <input type="text" [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm"
-            [(ngModel)]="Record.bl_issued_by2" (blur)="OnBlur('bl_issued_by2')" required maxlength="100" />
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <div class="offset-4 col-8">
-          <input type="text" [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm"
-            [(ngModel)]="Record.bl_issued_by3" (blur)="OnBlur('bl_issued_by3')" required maxlength="100" />
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <div class="offset-4 col-8">
-          <input type="text" [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm"
-            [(ngModel)]="Record.bl_issued_by4" (blur)="OnBlur('bl_issued_by4')" required maxlength="100" />
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <div class="offset-4 col-8">
-          <input type="text" [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm"
-            [(ngModel)]="Record.bl_issued_by5" (blur)="OnBlur('bl_issued_by5')" required maxlength="100" />
-        </div>
-      </div>
-
-      <div *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="form-group row">
-        <div class="offset-4 col-8">
-          <button (click)="UpdateBLAddress()" class="btn btn-success btn-sm">Update Address</button>
-          <i *ngIf="loading" class="fa fa-spinner"></i>
-        </div>
-      </div>
-
-      <!-- <div class="form-group row">
-        <label class="col-12 col-form-label col-form-label-sm"></label>
-      </div>
-      <div class="form-group row">
+        <!-- <div class="form-group row">
         <label class="col-12 col-form-label col-form-label-sm"></label>
       </div> -->
-      <div class="form-group row">
-        <label class="col-4 col-form-label col-form-label-sm">Agent/Delivery</label>
-        <div class="col-8">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_delivery_contact1"
-            (blur)="OnBlur('bl_delivery_contact1')" required maxlength="60" />
-        </div>
-      </div>
 
-      <div class="form-group row">
-        <div class="offset-4 col-8">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_delivery_contact2"
-            (blur)="OnBlur('bl_delivery_contact2')" required maxlength="60" />
+        <div class="form-group row">
+          <label class="col-4 col-form-label col-form-label-sm">Issued By</label>
+          <div class="col-8">
+            <input type="text" [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm"
+              [(ngModel)]="Record.bl_issued_by1" (blur)="OnBlur('bl_issued_by1')" required maxlength="100" />
+          </div>
         </div>
+
+        <div class="form-group row">
+          <div class="offset-4 col-8">
+            <input type="text" [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm"
+              [(ngModel)]="Record.bl_issued_by2" (blur)="OnBlur('bl_issued_by2')" required maxlength="100" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="offset-4 col-8">
+            <input type="text" [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm"
+              [(ngModel)]="Record.bl_issued_by3" (blur)="OnBlur('bl_issued_by3')" required maxlength="100" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="offset-4 col-8">
+            <input type="text" [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm"
+              [(ngModel)]="Record.bl_issued_by4" (blur)="OnBlur('bl_issued_by4')" required maxlength="100" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="offset-4 col-8">
+            <input type="text" [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm"
+              [(ngModel)]="Record.bl_issued_by5" (blur)="OnBlur('bl_issued_by5')" required maxlength="100" />
+          </div>
+        </div>
+
+        <div *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="form-group row">
+          <div class="offset-4 col-8">
+            <button (click)="UpdateBLAddress()" class="btn btn-success btn-sm">Update Address</button>
+            <i *ngIf="loading" class="fa fa-spinner"></i>
+          </div>
+        </div>
+
+        <!-- <div class="form-group row">
+        <label class="col-12 col-form-label col-form-label-sm"></label>
       </div>
       <div class="form-group row">
-        <div class="offset-4 col-8">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_delivery_contact3"
-            (blur)="OnBlur('bl_delivery_contact3')" required maxlength="60" />
+        <label class="col-12 col-form-label col-form-label-sm"></label>
+      </div> -->
+        <div class="form-group row">
+          <label class="col-4 col-form-label col-form-label-sm">Agent/Delivery</label>
+          <div class="col-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_delivery_contact1"
+              (blur)="OnBlur('bl_delivery_contact1')" required maxlength="60" />
+          </div>
         </div>
-      </div>
+
+        <div class="form-group row">
+          <div class="offset-4 col-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_delivery_contact2"
+              (blur)="OnBlur('bl_delivery_contact2')" required maxlength="60" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="offset-4 col-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_delivery_contact3"
+              (blur)="OnBlur('bl_delivery_contact3')" required maxlength="60" />
+          </div>
+        </div>
 
 
-      <div class="form-group row">
-        <div class="offset-4 col-8">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_delivery_contact4"
-            (blur)="OnBlur('bl_delivery_contact4')" required maxlength="60" />
+        <div class="form-group row">
+          <div class="offset-4 col-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_delivery_contact4"
+              (blur)="OnBlur('bl_delivery_contact4')" required maxlength="60" />
+          </div>
         </div>
-      </div>
 
-      <div class="form-group row">
-        <div class="offset-4 col-8">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_delivery_contact5"
-            (blur)="OnBlur('bl_delivery_contact5')" required maxlength="60" />
+        <div class="form-group row">
+          <div class="offset-4 col-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_delivery_contact5"
+              (blur)="OnBlur('bl_delivery_contact5')" required maxlength="60" />
+          </div>
         </div>
-      </div>
 
-      <div class="form-group row">
-        <div class="offset-4 col-8">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_delivery_contact6"
-            (blur)="OnBlur('bl_delivery_contact6')" required maxlength="60" />
+        <div class="form-group row">
+          <div class="offset-4 col-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_delivery_contact6"
+              (blur)="OnBlur('bl_delivery_contact6')" required maxlength="60" />
+          </div>
         </div>
-      </div>
 
-      <div class="form-group row">
-        <label class="col-4 col-form-label col-form-label-sm">StuffingLocation</label>
-        <div class="col-8">
-          <app-autocomplete #locLov [inputdata]="LOCRECORD" (ValueChanged)="LovSelected($event)">
-          </app-autocomplete>
+        <div class="form-group row">
+          <label class="col-4 col-form-label col-form-label-sm">StuffingLocation</label>
+          <div class="col-8">
+            <app-autocomplete #locLov [inputdata]="LOCRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete>
+          </div>
         </div>
-      </div>
 
-      <div class="form-group row">
-        <label class="col-4 col-form-label col-form-label-sm"></label>
-        <div class="col-8">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_loc_name"
-            (blur)="OnBlur('bl_shipper_name')" required maxlength="60" />
+        <div class="form-group row">
+          <label class="col-4 col-form-label col-form-label-sm"></label>
+          <div class="col-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_loc_name"
+              (blur)="OnBlur('bl_shipper_name')" required maxlength="60" />
+          </div>
         </div>
-      </div>
 
-      <div class="form-group row">
-        <label class="col-4 col-form-label col-form-label-sm">Branch</label>
-        <div class="col-8">
-          <app-autocomplete #LocAddLov [inputdata]="LOCADDRECORD" (ValueChanged)="LovSelected($event)">
-          </app-autocomplete>
+        <div class="form-group row">
+          <label class="col-4 col-form-label col-form-label-sm">Branch</label>
+          <div class="col-8">
+            <app-autocomplete #LocAddLov [inputdata]="LOCADDRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete>
+          </div>
         </div>
-      </div>
 
-      <div class="form-group row">
-        <label class="col-4 col-form-label col-form-label-sm">Address</label>
-        <div class="col-8">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_loc_add1"
-            (blur)="OnBlur('bl_loc_add1')" required maxlength="60" />
+        <div class="form-group row">
+          <label class="col-4 col-form-label col-form-label-sm">Address</label>
+          <div class="col-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_loc_add1"
+              (blur)="OnBlur('bl_loc_add1')" required maxlength="60" />
+          </div>
         </div>
-      </div>
 
-      <div class="form-group row">
-        <div class="offset-4 col-8">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_loc_add2"
-            (blur)="OnBlur('bl_loc_add2')" required maxlength="60" />
+        <div class="form-group row">
+          <div class="offset-4 col-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_loc_add2"
+              (blur)="OnBlur('bl_loc_add2')" required maxlength="60" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="offset-4 col-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_loc_add3"
+              (blur)="OnBlur('bl_loc_add3')" required maxlength="60" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="offset-4 col-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_loc_add4"
+              (blur)="OnBlur('bl_loc_add4')" required maxlength="60" />
+          </div>
         </div>
       </div>
-      <div class="form-group row">
-        <div class="offset-4 col-8">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_loc_add3"
-            (blur)="OnBlur('bl_loc_add3')" required maxlength="60" />
-        </div>
-      </div>
-      <div class="form-group row">
-        <div class="offset-4 col-8">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_loc_add4"
-            (blur)="OnBlur('bl_loc_add4')" required maxlength="60" />
-        </div>
-      </div>
-
     </div>
 
   </div>
@@ -1231,9 +1232,10 @@
                 <td style="padding:0px 0px 0px 0px"><input type="text" name="marks" class="form-control form-control-sm"
                     [(ngModel)]="rec.bl_marks" (blur)="OnBlurTableCell('bl_marks',rec.bl_pkid)" required
                     maxlength="125" /></td>
-                    <td style="padding:0px 0px 0px 0px"><select class="form-control form-control-sm" [(ngModel)]="rec.bl_desc_type">
-                      <option *ngFor="let rec2 of DescTypeList" [value]="rec2.code">{{rec2.name}}</option>
-                    </select> </td>
+                <td style="padding:0px 0px 0px 0px"><select class="form-control form-control-sm"
+                    [(ngModel)]="rec.bl_desc_type">
+                    <option *ngFor="let rec2 of DescTypeList" [value]="rec2.code">{{rec2.name}}</option>
+                  </select> </td>
                 <td style="padding:0px 0px 0px 0px"><input type="text" name="desc" class="form-control form-control-sm"
                     [(ngModel)]="rec.bl_desc" (blur)="OnBlurTableCell('bl_desc',rec.bl_pkid)" required
                     maxlength="125" /></td>
@@ -1292,7 +1294,7 @@
 <div class="page-box">
   <div class="form-group row">
     <div class="col-sm-8">
-      <div *ngIf="invokefrom=='HBL'" class="form-group row">
+      <div *ngIf="invokefrom=='HBL'||invokefrom=='FCR'" class="form-group row">
         <div class="offset-3 col-8">
           <div class="form-check form-check-inline">
             <label class="form-check-label">
@@ -1300,19 +1302,21 @@
                 [disabled]="Record.bl_original_print == 'Y'">
               Original&nbsp;&nbsp;
             </label>
-            <label class="form-check-label">
-              <input class="form-check-input" type="checkbox" [(ngModel)]="Record.bl_brazil_declaration">
-              Brazil Declaration&nbsp;&nbsp;
-            </label>
-            <label class="form-check-label">
-              <input class="form-check-input" type="checkbox" [(ngModel)]="color_print">
-              Colour&nbsp;&nbsp;
-            </label>
-            <label class="form-check-label">
-              <input class="form-check-input" type="checkbox" [(ngModel)]="Record.bl_seawaybill"
-                [disabled]="Record.bl_seawaybill_disabled">
-              Sea Waybill
-            </label>
+            <div *ngIf="invokefrom=='HBL'">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" [(ngModel)]="Record.bl_brazil_declaration">
+                Brazil Declaration&nbsp;&nbsp;
+              </label>
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" [(ngModel)]="color_print">
+                Colour&nbsp;&nbsp;
+              </label>
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" [(ngModel)]="Record.bl_seawaybill"
+                  [disabled]="Record.bl_seawaybill_disabled">
+                Sea Waybill
+              </label>
+            </div>
           </div>
         </div>
       </div>
@@ -1336,15 +1340,16 @@
             class="btn btn-success btn-sm">BL Print</button>
           <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'" (click)="GetRecord('PDF','SEAWAYBILL')"
             class="btn btn-success btn-sm">Sea Waybill</button>
-          <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'" (click)="GetRecord('PDF','FCR')"
-            class="btn btn-success btn-sm">FCR</button>
+          <button [disabled]="loading" *ngIf="mode=='EDIT' && (invokefrom=='FCR'||Record.hbl_bl_type=='OLD')"
+            (click)="GetRecord('PDF','FCR')" class="btn btn-success btn-sm">FCR</button>
           <button [disabled]="loading" *ngIf="mode=='EDIT'&&bShowDraftPdf && (user_admin||!Record.bl_draft_lock)"
             (click)="GetRecord('PDF','DRAFT')" class="btn btn-success btn-sm">Draft Pdf</button>
-          <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GetBlDraft()" class="btn btn-success btn-sm">Draft
+          <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom !='FCR'" (click)="GetBlDraft()"
+            class="btn btn-success btn-sm">Draft
             Excel</button>
           <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'" (click)="GetRecord('PDF','BLANKBL')"
             class="btn btn-success btn-sm">Stationary</button>
-          <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'"
+          <button [disabled]="loading" *ngIf="mode=='EDIT' && (invokefrom=='HBL' || invokefrom=='FCR')"
             (click)="GetRecord('PDF','SEABL-PREVIEW')" class="btn btn-success btn-sm">Preview</button>
           <i *ngIf="loading" class="fa fa-spinner"></i>
         </div>

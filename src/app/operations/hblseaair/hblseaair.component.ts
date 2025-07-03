@@ -190,7 +190,7 @@ export class HblSeaAirComponent {
 
         if (this.type.toString() == "SEA EXPORT") {
             this.carriertype = "SEA CARRIER";
-            this.btnbltiltle = "FCR/House BL";
+            this.btnbltiltle = "House BL";
         }
         else {
             this.carriertype = "AIR CARRIER";
@@ -613,6 +613,9 @@ export class HblSeaAirComponent {
         this.Record.hbl_cf_date = this.gs.defaultValues.today;
         this.Record.hbl_old_exp_id = '';
         this.Record.hbl_old_imp_id = '';
+        this.Record.hbl_fcr_no = '';
+        this.Record.hbl_blno_generated = 'N';
+        this.Record.hbl_bl_type = '';
         this.InitLov();
         this.Record.rec_mode = this.mode;
     }
@@ -646,7 +649,12 @@ export class HblSeaAirComponent {
         this.Record.JobList = _Record.JobList;
         this.sExp_ID = _Record.hbl_exp_id;
         this.sImp_ID = _Record.hbl_imp_id;
-
+        if (this.type.toString() == "SEA EXPORT") {
+            if (this.Record.hbl_bl_type == "OLD")
+                this.btnbltiltle = "FCR/House BL";
+            else
+                this.btnbltiltle = "House BL";
+        }
         this.InitLov();
 
         this.BILLTORECORD.id = this.Record.hbl_billto_id;
@@ -700,6 +708,7 @@ export class HblSeaAirComponent {
 
         //Fill Duplicate Job
         if (this.mode == "ADD") {
+            this.btnbltiltle = "House BL";
             this.old_shipper_id = '';
             this.old_billto_id = '';
             this.Record.hbl_old_exp_id = '';
@@ -716,6 +725,9 @@ export class HblSeaAirComponent {
             this.Record.hbl_salesman_id = '';
             this.Record.hbl_salesman_code = '';
             this.Record.hbl_salesman_name = '';
+            this.Record.hbl_bl_type = '';
+            this.Record.hbl_blno_generated = 'N';
+            this.Record.hbl_fcr_no = '';
             this.SALESMANRECORD.id = this.Record.hbl_salesman_id;
             this.SALESMANRECORD.code = this.Record.hbl_salesman_code;
             this.SALESMANRECORD.name = this.Record.hbl_salesman_name;

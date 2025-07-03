@@ -449,6 +449,7 @@ export class BlComponent {
     this.loading = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
+    this.Record.bl_type = this.invokefrom;
     this.Record.rec_category = this.type;
     this.Record.bl_pkid = this.parentid;
     this.Record._globalvariables = this.gs.globalVariables;

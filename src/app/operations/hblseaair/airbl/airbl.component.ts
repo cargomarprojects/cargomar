@@ -424,6 +424,7 @@ export class AirBlComponent {
     this.loading = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
+    this.Record.bl_type = this.invokefrom;
     this.Record.rec_category = this.type;
     this.Record.bl_pkid = this.parentid;
     this.Record.bl_invoke_frm = this.invokefrom;

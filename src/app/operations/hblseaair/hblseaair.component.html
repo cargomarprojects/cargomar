@@ -624,7 +624,7 @@
                 class="btn btn-success btn-sm">Buy/Sell Rate</button>
               <button *ngIf="mode == 'EDIT' && jobexist" [disabled]="loading" (click)="ShowBL('HBL')"
                 class="btn btn-success btn-sm">{{btnbltiltle}}</button>
-              <button *ngIf="mode == 'EDIT' && jobexist" [disabled]="loading" (click)="ShowBL('FCR')"
+              <button *ngIf="mode == 'EDIT' && jobexist && Record.hbl_bl_type != 'OLD'" [disabled]="loading" (click)="ShowBL('FCR')"
                 class="btn btn-success btn-sm">FCR</button>
               <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="AmsFiling(amsedi)"
                 class="btn btn-success btn-sm">Data Transfer</button>

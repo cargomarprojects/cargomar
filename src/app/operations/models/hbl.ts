@@ -43,7 +43,7 @@ export class Hblm {
 
   hbl_billto_id: string;
   hbl_billto_code: string;
-  hbl_billto_name: string;  
+  hbl_billto_name: string;
 
 
   hbl_houseno: string;
@@ -148,19 +148,21 @@ export class Hblm {
   hbl_imp_br_email: string;
   hbl_rebate_amt_inr: number;
 
-  hbl_buy_remarks:string;
-  hbl_sell_remarks:string;
+  hbl_buy_remarks: string;
+  hbl_sell_remarks: string;
   hbl_cf_date: string;
-  hbl_itm_po:string;
-  
+  hbl_itm_po: string;
+
   hbl_old_exp_id: string;
   hbl_old_imp_id: string;
+  hbl_bl_type: string;
+  hbl_blno_generated: string;
 
-  hbl_unlockid : string;
+  hbl_unlockid: string;
   hbl_book_slno: number;
   rec_created_by: string;
   rec_created_date: string;
-  
+
   _globalvariables: GlobalVariables;
 
   JobList: Jobm[] = [];
