@@ -1108,7 +1108,10 @@ export class HblSeaAirComponent {
         this.currentPage = 'BLPAGE';
     }
 
-    pageChanged() {
+    pageChanged(params: any) {
+        this.Record.hbl_bl_no = params.hblno;
+        this.Record.hbl_fcr_no = params.fcrno;
+        this.Record.hbl_blno_generated = params.blnogenerated;
         this.currentPage = 'ROOTPAGE';
     }
     open(content: any) {

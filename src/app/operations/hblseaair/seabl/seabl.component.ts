@@ -1196,7 +1196,7 @@ export class BlComponent {
 
   HideBlPage() {
     if (this.PageChanged != null)
-      this.PageChanged.emit();
+      this.PageChanged.emit({ hblno: this.Record.hbl_bl_no, fcrno: this.Record.hbl_fcr_no, blnogenerated: this.Record.hbl_blno_generated });
   }
 
   SearchRecord(controlname: string, controlid: string, controlparentid: string) {
