@@ -622,7 +622,7 @@
               <!--<button *ngIf="mode == 'EDIT' && masterexist && jobexist" [disabled]="loading" (click)="ShowBL()" class="btn btn-success btn-sm">{{btnbltiltle}}</button>-->
               <button *ngIf="mode == 'EDIT' && bbuysellrate" [disabled]="loading" (click)=" ShowRate(buysellrate)"
                 class="btn btn-success btn-sm">Buy/Sell Rate</button>
-              <button *ngIf="mode == 'EDIT' && jobexist" [disabled]="loading||(Record.hbl_fcr_no != '' && Record.hbl_bl_no == '' && Record.hbl_blno_generated!='B' &&  type=='SEA EXPORT')" (click)="ShowBL('HBL')"
+              <button *ngIf="mode == 'EDIT' && jobexist" [disabled]="loading||(Record.hbl_bl_type != 'OLD' && Record.hbl_fcr_no != '' && Record.hbl_bl_no == '' && Record.hbl_blno_generated!='B' &&  type=='SEA EXPORT')" (click)="ShowBL('HBL')"
                 class="btn btn-success btn-sm">{{btnbltiltle}}</button>
               <button *ngIf="mode == 'EDIT' &&  type=='SEA EXPORT' && jobexist && Record.hbl_bl_type != 'OLD'" [disabled]="loading||(Record.hbl_bl_no != '' && Record.hbl_fcr_no == '' && Record.hbl_blno_generated!='B' &&  type=='SEA EXPORT')" (click)="ShowBL('FCR')"
                 class="btn btn-success btn-sm">FCR</button>
