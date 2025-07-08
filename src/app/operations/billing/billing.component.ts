@@ -678,7 +678,7 @@ export class BillingComponent {
       this.lock_record = false;
     if (this.Record.jvh_edit_code.indexOf("{D}") >= 0)
       this.lock_date = false;
-    
+
     if (this.LockErrorMessage.length > 0) {
       this.ErrorMessage = this.LockErrorMessage;
       this.lock_record = true;
@@ -725,8 +725,10 @@ export class BillingComponent {
     this.mainService.Save(this.Record)
       .subscribe(response => {
         this.loading = false;
-        if (this.mode == 'ADD')
+        if (this.mode == 'ADD') {
+          this.lock_date = true;
           this.InfoMessage = "New Record Successfully Saved";
+        }
         else
           this.InfoMessage = "Save Complete";
         this.mode = 'EDIT';

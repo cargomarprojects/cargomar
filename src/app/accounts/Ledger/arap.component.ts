@@ -754,8 +754,10 @@ export class ArApComponent {
       .subscribe(response => {
         this.loading = false;
 
-        if (this.mode == 'ADD')
+        if (this.mode == 'ADD') {
+          this.lock_date = true;
           this.InfoMessage = "New Record Successfully Saved";
+        }
         else
           this.InfoMessage = "Save Complete";
 
