@@ -651,7 +651,7 @@ export class HblSeaAirComponent {
         this.sImp_ID = _Record.hbl_imp_id;
         if (this.type.toString() == "SEA EXPORT") {
             if (this.Record.hbl_bl_type == "OLD")
-                this.btnbltiltle = "FCR/House BL";
+                this.btnbltiltle = "House BL/FCR";
             else
                 this.btnbltiltle = "House BL";
         }
