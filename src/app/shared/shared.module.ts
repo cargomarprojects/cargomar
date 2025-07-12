@@ -65,6 +65,7 @@ import { DatalinkComponent } from './datalink/datalink.component';
 import { EdilinkComponent } from './edilink/edilink.component';
 import { WarningAlertComponent } from './warningalert/warningalert.component';
 import { negParenPipe } from './negparen/negparen.component';
+import { FileUploadDirectComponent } from './fileupload-direct/fileupload-direct.component';
 
 //EDIT-AJITH-29-09-2021
 //EDIT-AJITH-01-10-2021
@@ -112,7 +113,8 @@ import { negParenPipe } from './negparen/negparen.component';
     DatalinkComponent,
     EdilinkComponent,
     WarningAlertComponent,
-    negParenPipe
+    negParenPipe,
+    FileUploadDirectComponent
   ],
   exports: [
     CommonModule,
@@ -154,7 +156,8 @@ import { negParenPipe } from './negparen/negparen.component';
     DatalinkComponent,
     EdilinkComponent,
     WarningAlertComponent,
-    negParenPipe
+    negParenPipe,
+    FileUploadDirectComponent
   ],
   providers: [
     AlertService,

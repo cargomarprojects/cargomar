@@ -1,0 +1,74 @@
+<div>
+    <button [disabled]="loading" class="btn btn-info btn-sm" (click)="GetFiles(fileuploadmodal)">Upload
+        File{{uploadFileName?' - '+uploadFileName: ''}}</button>
+</div>
+
+<ng-template #fileuploadmodal let-c="close" let-d="dismiss">
+    <div class="modal-body">
+        <div class="page-details">
+            <div class="page-box">
+                <div class="row">
+                    <div class="col-md-12 mt-2">
+
+                        <div style="display:inline">
+                            <input type="file" id="customfileInput" style="width: 600px;display: none;" #_fileinput
+                                (change)="getFileDetails($event)">
+                            <label for="customfileInput" class="custom-file-upload" (dragover)="onDragOver($event)"
+                                (dragleave)="onDragLeave($event)" (drop)="onDrop($event)"
+                                [style.background-color]="bDragged?'#45a049':''">
+                                Choose a file or drag it here
+                            </label>
+                            <span>{{uploadFileName?uploadFileName: 'No file chosen'}}</span>
+                        </div>
+
+                        <!-- <div class="page-box">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-2 col-form-label col-form-label-sm">REF# </label>
+                                    <div class="col-10">
+                                        <input class="form-control form-control-sm text-danger" disabled type="text"
+                                            [(ngModel)]="_refno" maxlength="250" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page-box">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-2 col-form-label col-form-label-sm">REMARKS </label>
+                                    <div class="col-10">
+                                        <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="_remarks"
+                                            (blur)="OnBlur('remarks')" maxlength="300"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    </div>
+                </div>
+            </div>
+            <div class="page-box">
+                <div class="row justify-content-center p-1">
+                    <button class="btn btn-primary btn-sm mr-1" (click)="CloseModal('OK')">Upload</button>
+                    <button class="btn btn-primary btn-sm mr-1" (click)="CloseModal('CLOSE')">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+
+
+<!-- <div style="display:inline">
+    <input type="file" id="customfileInput" style="width: 600px;display: none;" #fileinput
+        (change)="getFileDetails($event)">
+    <label for="customfileInput" class="custom-file-upload" (dragover)="onDragOver($event)"
+            (dragleave)="onDragLeave($event)" (drop)="onDrop($event)" [style.background-color]="bDragged?'#45a049':''">
+            Choose a file or drag it here
+        </label>
+    <span>{{uploadFileName?uploadFileName: 'No file chosen'}}</span>
+</div> -->

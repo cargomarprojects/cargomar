@@ -2765,7 +2765,15 @@ export class ArApComponent {
         });
   }
 
+  callbackeventupload(params: any) {
+    if (params.action == "UPLOAD") {//if master updated then mstatus length greater than zero
+      // REC.rec_aprvd_status = params.mstatus;
+      // REC.rec_aprvd_remark = params.mremarks;
+      // REC.rec_aprvd_by = this.gs.globalVariables.user_code;
+      alert('UPLOAD');
+    }
 
+  }
 }
 
 
