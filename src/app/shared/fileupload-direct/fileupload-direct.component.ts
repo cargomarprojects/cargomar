@@ -27,7 +27,8 @@ export class FileUploadDirectComponent {
     modal: any;
 
     uploadFileName: string = '';
-    uploadFilePath: string = '';
+    uploadedFilesName: string = '';
+    uploadedFilesPath: string = '';
     bDragged: boolean = false;
     constructor(
         private modalService: NgbModal,
@@ -51,12 +52,13 @@ export class FileUploadDirectComponent {
 
     GetFiles(fileuplodmodal: any = null) {
         this.uploadFileName = '';
-        this.uploadFilePath = '';
+        this.uploadedFilesName = '';
+        this.uploadedFilesPath = '';
         this.open(fileuplodmodal);
     }
 
     open(content: any) {
-        this.modal = this.modalService.open(content);
+        this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
     }
 
     oldgetFileDetails(e: any) {
@@ -167,7 +169,6 @@ export class FileUploadDirectComponent {
             }
         }
 
-        this.uploadFiles();
     }
 
     uploadFiles() {
@@ -217,7 +218,7 @@ export class FileUploadDirectComponent {
         frmData.append("COMPCODE", this.gs.globalVariables.comp_code);
         frmData.append("BRANCHCODE", this.gs.globalVariables.branch_code);
         frmData.append("PARENTID", this.gs.globalVariables.report_folder);
-        frmData.append("GROUPID", "TEMP-FILE");
+        frmData.append("GROUPID", "DOWNLOAD-DIRECT");
         frmData.append("TYPE", this.type);
         frmData.append("DESC", this.desc);
         frmData.append("CATGID", this.catg_id);
@@ -236,12 +237,19 @@ export class FileUploadDirectComponent {
                 data => {
                     this.loading = false;
                     this.filesSelected = false;
-                    this.uploadFileName = data.filedisplayname;
-                    this.uploadFilePath = data.filename;
+                    this.uploadedFilesName = data.filedisplayname;
+                    this.uploadedFilesPath = data.filename;
+                    this.uploadFileName = '';
                     this.desc = '';
                     this.bDragged = false;
                     if (!this.gs.isBlank(this.fileinput))
                         this.fileinput.nativeElement.value = '';
+
+                    if (this.callbackevent) {
+                        this.callbackevent.emit({ action: 'UPLOAD', filename: this.uploadedFilesPath, filedisplayname: this.uploadedFilesName });
+                        this.modal.close();
+                    }
+
                 },
                 error => {
                     this.loading = false;
@@ -311,15 +319,21 @@ export class FileUploadDirectComponent {
     }
 
     CloseModal(_type: string) {
-        if (_type == "OK") {
-            if (this.gs.isBlank(this.uploadFilePath)) {
-                alert('No File Selected');
-                return;
-            }
-            if (this.callbackevent) {
-                this.callbackevent.emit({ action: 'UPLOAD', filename: this.uploadFilePath, filedisplayname: this.uploadFileName });
-                this.modal.close();
-            }
+        // if (_type == "OK") {
+        //     if (this.gs.isBlank(this.uploadFilePath)) {
+        //         alert('No File Selected');
+        //         return;
+        //     }
+        //     if (this.callbackevent) {
+        //         this.callbackevent.emit({ action: 'UPLOAD', filename: this.uploadFilePath, filedisplayname: this.uploadFileName });
+        //         this.modal.close();
+        //     }
+        // } else
+        //     this.modal.close();
+
+
+        if (_type == "UPLOAD") {
+            this.uploadFiles();
         } else
             this.modal.close();
     }

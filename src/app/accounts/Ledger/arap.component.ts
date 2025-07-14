@@ -93,7 +93,8 @@ export class ArApComponent {
   modeDetail = '';
 
   diff: number = 0;
-
+  uploadedFilesName: string = '';
+  uploadedFilesPath: string = '';
 
   mSubject: string = '';
   mMsg: string = '';
@@ -548,7 +549,8 @@ export class ArApComponent {
   }
 
   NewRecord() {
-
+    this.uploadedFilesName = '';
+    this.uploadedFilesPath = '';
     this.lock_record = false;
     this.lock_date = false;
     this.lock_cc = false;
@@ -2770,7 +2772,10 @@ export class ArApComponent {
       // REC.rec_aprvd_status = params.mstatus;
       // REC.rec_aprvd_remark = params.mremarks;
       // REC.rec_aprvd_by = this.gs.globalVariables.user_code;
-      alert('UPLOAD');
+
+      this.uploadedFilesName = params.filedisplayname.replace(/'*'/gi, ",");
+      this.uploadedFilesPath = params.filename;
+      // alert('UPLOAD');
     }
 
   }
