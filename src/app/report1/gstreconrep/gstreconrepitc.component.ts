@@ -196,11 +196,11 @@ export class GstReconRepItcComponent {
         this.selectdeselect = false;
         this.initTot();
         this.mainService.state.gst_recon_itc_claim_period = response.claimperiod;
+        this.mainService.state.gst_recon_itc_imspending_tot = response.imspendingtot;
         if (_type == 'EXCEL') {
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         }
         else {
-          this.mainService.state.gst_recon_itc_imspending_tot = response.imspendingtot;
           this.mainService.state.RecordListItc = response.list;
         }
       },
