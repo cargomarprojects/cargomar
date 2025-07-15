@@ -194,16 +194,19 @@ export class GstReconRepItcComponent {
         this.loading = false;
         this.chkallselected = false;
         this.selectdeselect = false;
+        this.initTot();
         this.mainService.state.gst_recon_itc_claim_period = response.claimperiod;
         if (_type == 'EXCEL') {
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         }
         else {
+          this.mainService.state.gst_recon_itc_imspending_tot = response.imspendingtot;
           this.mainService.state.RecordListItc = response.list;
         }
       },
         error => {
           this.loading = false;
+          this.initTot();
           this.mainService.state.RecordListItc = null;
           this.ErrorMessage = this.gs.getError(error);
           alert(this.ErrorMessage);
@@ -217,10 +220,17 @@ export class GstReconRepItcComponent {
   OnChange(field: string) {
     if (field == 'rec_selected') {
       this.findTotGst();
-    } else
+    } else {
       this.mainService.state.RecordListItc = null;
+      this.initTot();
+    }
   }
-
+  initTot() {
+    this.mainService.state.gst_recon_itc_imspending_tot = 0;
+    this.mainService.state.gst_recon_itc_igst_tot = 0;
+    this.mainService.state.gst_recon_itc_cgst_tot = 0;
+    this.mainService.state.gst_recon_itc_sgst_tot = 0;
+  }
   Close() {
     this.gs.ClosePage('home');
   }
@@ -452,7 +462,7 @@ export class GstReconRepItcComponent {
       user_code: this.gs.globalVariables.user_code,
       year_code: this.gs.globalVariables.year_code,
       type: this.type,
-      invoiceno:_rec.invoice_number
+      invoiceno: _rec.invoice_number
     };
 
     this.ErrorMessage = '';

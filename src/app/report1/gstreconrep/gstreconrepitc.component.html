@@ -63,6 +63,7 @@
             </button>
             <button *ngIf="bPrint" [disabled]="loading" (click)="List('EXCEL')"
               class="btn btn-primary btn-sm">Excel</button>
+               
           </div>
         </div>
       </div>
@@ -86,6 +87,9 @@
 
           <div class="form-group row">
             <label class="col-sm-12 col-form-label col-form-label-sm">
+              <strong *ngIf="mainService.state.gst_recon_itc_imspending_tot!=0">IMS-PENDING: </strong> <span
+                *ngIf="mainService.state.gst_recon_itc_imspending_tot!=0"
+                style="color: red;">{{mainService.state.gst_recon_itc_imspending_tot}}</span>&nbsp;
               <strong *ngIf="mainService.state.gst_recon_itc_igst_tot!=0">IGST: </strong><span
                 *ngIf="mainService.state.gst_recon_itc_igst_tot!=0"
                 style="color: red;">{{mainService.state.gst_recon_itc_igst_tot}}</span>&nbsp;
@@ -95,6 +99,7 @@
               <strong *ngIf="mainService.state.gst_recon_itc_sgst_tot!=0">SGST: </strong> <span
                 *ngIf="mainService.state.gst_recon_itc_sgst_tot!=0"
                 style="color: red;">{{mainService.state.gst_recon_itc_sgst_tot}}</span>
+              
             </label>
           </div>
         </div>
@@ -189,7 +194,8 @@
           <td>{{rec.claim_created_by}}</td>
           <td>{{rec.claim_created_date}}</td>
           <td *ngIf="gs.globalVariables.user_code == 'ADMIN'">
-            <i *ngIf="rec.claim_status=='PENDING' && rec.download_source=='PURCHASE'" class="fa fa-trash fa-lg pointer" aria-hidden="true" (click)="RemoveRow(rec)"></i>
+            <i *ngIf="rec.claim_status=='PENDING' && rec.download_source=='PURCHASE'" class="fa fa-trash fa-lg pointer"
+              aria-hidden="true" (click)="RemoveRow(rec)"></i>
           </td>
         </tr>
         <tr *ngIf="rec.rec_displayed">

@@ -155,6 +155,7 @@ export interface iGstr2bDownloadModel {
     gst_recon_itc_igst_tot: number;
     gst_recon_itc_cgst_tot: number;
     gst_recon_itc_sgst_tot: number;
+    gst_recon_itc_imspending_tot: number;
     gst_recon_gensearch_state_code: string;
     gst_recon_gensearch_state_name: string;
     gst_recon_gensearch_supplier: string;
@@ -216,6 +217,7 @@ export const initialState: iGstr2bDownloadModel = {
     gst_recon_itc_igst_tot: 0,
     gst_recon_itc_cgst_tot: 0,
     gst_recon_itc_sgst_tot: 0,
+    gst_recon_itc_imspending_tot: 0,
     gst_recon_gensearch_state_code: '',
     gst_recon_gensearch_state_name: '',
     gst_recon_gensearch_supplier: '',
@@ -226,6 +228,6 @@ export const initialState: iGstr2bDownloadModel = {
     RecordListCdnr: [],
     RecordListRc: [],
     RecordListAment: [],
-    RecordListSearch:[],
+    RecordListSearch: [],
     RecordListImsr: []
 } 
