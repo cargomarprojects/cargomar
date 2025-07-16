@@ -135,6 +135,7 @@ export class Ledgerh {
 
   rec_created_by: string;
   rec_created_date: string;
+  jvh_upload_files: string;
 
   _globalvariables: GlobalVariables;
 

@@ -752,6 +752,7 @@ export class ArApComponent {
 
     this.Record._globalvariables = this.gs.globalVariables;
     this.Record.jvh_drcr = this.headerdrcr;
+    this.Record.jvh_upload_files = this.uploadedFilesPath;
     this.mainService.Save(this.Record)
       .subscribe(response => {
         this.loading = false;
@@ -2773,7 +2774,7 @@ export class ArApComponent {
       // REC.rec_aprvd_remark = params.mremarks;
       // REC.rec_aprvd_by = this.gs.globalVariables.user_code;
 
-      this.uploadedFilesName = params.filedisplayname.replace(/'*'/gi, ",");
+      this.uploadedFilesName = params.filedisplayname.replace(/\*/gi, ",");
       this.uploadedFilesPath = params.filename;
       // alert('UPLOAD');
     }
