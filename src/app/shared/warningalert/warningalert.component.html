@@ -1,6 +1,7 @@
 <ng-template #warningmodal let-c="close" let-d="dismiss">
     <div class="modal-header">
-        <i class='fa fa-exclamation-triangle' style='font-size:36px;color:red'></i><h4 class="modal-title mt-1">Warning Message</h4>
+        <i class='fa fa-exclamation-triangle' style='font-size:36px;color:red'></i>
+        <h4 class="modal-title mt-1">Warning Message</h4>
         <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -9,7 +10,8 @@
         <h1 style="font-family: Calibri; color: red;text-align: center;">{{WarningMessage}}</h1>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="d('N')">Ok</button>
+        <button *ngIf="!showYesNo" type="button" class="btn btn-outline-dark mr-1" (click)="d('N')">Ok</button>
+        <button *ngIf="showYesNo" type="button" class="btn btn-outline-dark mr-1" (click)="c('confirm')">Yes</button>
+        <button *ngIf="showYesNo" type="button" class="btn btn-outline-dark mr-1" (click)="d('cancel')">No</button>
     </div>
 </ng-template>
- 

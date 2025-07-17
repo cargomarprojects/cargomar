@@ -5,6 +5,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { SeaBuyRate } from '../models/seabuyrate';
 import { SeaBuyRateService } from '../services/seabuyrate.service';
 import { SearchTable } from '../../shared/models/searchtable';
+import { WarningAlertComponent } from '../../shared/warningalert/warningalert.component';
 
 @Component({
   selector: 'app-seabuyrate',
@@ -16,7 +17,7 @@ export class SeaBuyRateComponent {
   title = 'Sea Buyrate Details';
 
   // @ViewChild('addressComponent') addressComponent: any;
-
+  @ViewChild('WarnMsg') private _WarnMsg: WarningAlertComponent;
 
   mdate: string;
 
@@ -26,6 +27,7 @@ export class SeaBuyRateComponent {
   menu_record: any;
   selectedRowIndex = 0;
 
+  WarningMessage = "";
   ispercent = false;
   disableSave = true;
   loading = false;
@@ -311,7 +313,7 @@ export class SeaBuyRateComponent {
 
 
   NewRecord() {
-
+    this.WarningMessage = "";
     this.pkid = this.gs.getGuid();
 
     this.Record = new SeaBuyRate();
@@ -461,9 +463,17 @@ export class SeaBuyRateComponent {
       .subscribe(response => {
         this.loading = false;
         if (response.warningmsg.length > 0) {
-          if (confirm(response.warningmsg)) {
-            this.Save2();
-          }
+          // if (confirm(response.warningmsg)) {
+          //   this.Save2();
+          // }
+          this.WarningMessage = response.warningmsg;
+          //  "Do you want to save without Destination Free Time";
+          this._WarnMsg.showConfirm().then((confirmed) => {
+            if (confirmed) {
+             this.Save2();
+            }
+          });
+
         } else
           this.Save2();
 

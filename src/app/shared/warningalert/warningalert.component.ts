@@ -12,6 +12,7 @@ export class WarningAlertComponent {
     // Local Variables 
     title = 'Warning Message';
     @Input() WarningMessage: string = '';
+    @Input() showYesNo: boolean = false;
     @ViewChild('warningmodal') warningModal: any;
 
     modal: any;
@@ -29,15 +30,13 @@ export class WarningAlertComponent {
 
     }
 
-
     // Destroy Will be called when this component is closed
     ngOnDestroy() {
 
     }
 
-
     open(content: any) {
-        this.modal = this.modalService.open(content, {  size: "sm", backdrop: 'static', keyboard: true, windowClass :'modal-custom' });
+        this.modal = this.modalService.open(content, { size: "sm", backdrop: 'static', keyboard: true, windowClass: 'modal-custom' });
     }
 
     OnBlur(field: string) {
@@ -45,7 +44,6 @@ export class WarningAlertComponent {
         // if (field == 'ml_cust_name') {
         //     this.Record.ml_cust_name = this.Record.ml_cust_name.toUpperCase();
         // }
-
 
     }
 
@@ -56,8 +54,24 @@ export class WarningAlertComponent {
     Close() {
         this.modal.close();
     }
-    
+
     public show() {
         this.open(this.warningModal);
     }
+
+
+    public showConfirm(): Promise<boolean> {
+        this.modal = this.modalService.open(this.warningModal, {
+            size: "sm",
+            backdrop: 'static',
+            keyboard: true,
+            windowClass: 'modal-custom'
+        });
+
+        return this.modal.result.then(
+            (result) => result === 'confirm',
+            (reason) => false // dismissed
+        );
+    }
+
 }
