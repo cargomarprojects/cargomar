@@ -60,7 +60,8 @@ export class WarningAlertComponent {
     }
 
 
-    public showConfirm(): Promise<boolean> {
+    public showConfirm(_msg: string): Promise<boolean> {
+        this.WarningMessage = _msg;
         this.modal = this.modalService.open(this.warningModal, {
             size: "sm",
             backdrop: 'static',

@@ -26,8 +26,7 @@ export class SeaBuyRateComponent {
   InitCompleted: boolean = false;
   menu_record: any;
   selectedRowIndex = 0;
-
-  WarningMessage = "";
+  
   ispercent = false;
   disableSave = true;
   loading = false;
@@ -313,7 +312,6 @@ export class SeaBuyRateComponent {
 
 
   NewRecord() {
-    this.WarningMessage = "";
     this.pkid = this.gs.getGuid();
 
     this.Record = new SeaBuyRate();
@@ -466,9 +464,7 @@ export class SeaBuyRateComponent {
           // if (confirm(response.warningmsg)) {
           //   this.Save2();
           // }
-          this.WarningMessage = response.warningmsg;
-          //  "Do you want to save without Destination Free Time";
-          this._WarnMsg.showConfirm().then((confirmed) => {
+          this._WarnMsg.showConfirm(response.warningmsg).then((confirmed) => {
             if (confirmed) {
              this.Save2();
             }
