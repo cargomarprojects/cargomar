@@ -232,7 +232,7 @@ export class ArApComponent {
       if (this.type == 'PN')
         this.PARTYRECORD.where = " acc_type_id in (select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "'  and actype_name = 'CREDITORS') ";
       if (this.type == 'PN-JV')
-        this.PARTYRECORD.where = " acc_type_id in (select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "'  and actype_name in ('CREDITORS','ASSET')) ";
+        this.PARTYRECORD.where = " (acc_type_id in (select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "'  and actype_name in ('CREDITORS','ASSET'))) or (acc_group_id in (select acgrp_pkid from acgroupm where rec_company_code ='" + this.gs.globalVariables.comp_code + "'  and acgrp_name in ('SECURED LOANS'))) ";
     }
     if (saction == 'PARTYADDRESS' || saction == '') {
       this.PARTYADDRECORD = new SearchTable();
