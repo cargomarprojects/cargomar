@@ -881,6 +881,7 @@ export class CustomerComponent {
       user_pkid: '',
       user_code: '',
       user_name: '',
+      user_short_name: '',
       cust_code: '',
       cust_name: '',
       remarks: ''
@@ -896,6 +897,7 @@ export class CustomerComponent {
     SearchData.user_pkid = this.gs.globalVariables.user_pkid;
     SearchData.user_code = this.gs.globalVariables.user_code;
     SearchData.user_name = this.gs.globalVariables.user_name;
+    SearchData.user_short_name = this.gs.globalVariables.user_short_name;
     SearchData.cust_code = this.Record.cust_code;
     SearchData.cust_name = this.Record.cust_name;
 
@@ -938,6 +940,7 @@ export class CustomerComponent {
       branch_name: this.gs.globalVariables.branch_name,
       user_code: this.gs.globalVariables.user_code,
       user_name: this.gs.globalVariables.user_name,
+      user_short_name: this.gs.globalVariables.user_short_name,
       user_pkid: this.gs.globalVariables.user_pkid
     };
 
@@ -969,6 +972,7 @@ export class CustomerComponent {
       branch_name: this.gs.globalVariables.branch_name,
       user_code: this.gs.globalVariables.user_code,
       user_name: this.gs.globalVariables.user_name,
+      user_short_name: this.gs.globalVariables.user_short_name,
       user_pkid: this.gs.globalVariables.user_pkid,
       Is_Shipper: this.Is_Shipper,
       Is_Foreigner: this.Is_Foreigner,
