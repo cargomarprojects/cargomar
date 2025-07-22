@@ -11,6 +11,7 @@ export class FileUploadDirectComponent {
     @Input() public pkid: string = '';
     @Input() public groupid: string = '';
     @Input() public type: string = '';
+    @Input() public desc: string = '';
     @Input() public defaultdoctype: string = '';
     @Input() public uploadfilesize: number = 0;
     @Input() public uploadfiletype: string = '';
@@ -19,7 +20,6 @@ export class FileUploadDirectComponent {
     title = 'Documents';
     ErrorMessage = "";
     catg_id: string = '';
-    desc: string = '';
     copy_no: string = '';
     parentid: string = '';
     loading = false;
@@ -185,7 +185,7 @@ export class FileUploadDirectComponent {
 
 
         if (this.gs.defaultValues.sub_folder == '') {
-            alert('Root Folder is blank');
+            alert('Sub Folder is blank');
             return;
         }
 
@@ -198,7 +198,7 @@ export class FileUploadDirectComponent {
             alert('No File Selected');
             return;
         }
-
+         
         // const itm = this.DocTypeList.find(rec => rec.param_pkid == this.catg_id);
         // if (!itm) {
         //     alert('Pls Select Category');
@@ -217,7 +217,7 @@ export class FileUploadDirectComponent {
 
         frmData.append("COMPCODE", this.gs.globalVariables.comp_code);
         frmData.append("BRANCHCODE", this.gs.globalVariables.branch_code);
-        frmData.append("PARENTID", this.gs.globalVariables.report_folder);
+        frmData.append("PARENTID", this.pkid);
         frmData.append("GROUPID", "DOWNLOAD-DIRECT");
         frmData.append("TYPE", this.type);
         frmData.append("DESC", this.desc);
@@ -226,6 +226,7 @@ export class FileUploadDirectComponent {
 
         frmData.append("ROOT-FOLDER", this.gs.defaultValues.root_folder);
         frmData.append("SUB-FOLDER", this.gs.defaultValues.sub_folder);
+        frmData.append("REPORT-FOLDER", this.gs.globalVariables.report_folder);
 
         frmData.append("APP_NAME", 'WEB');
 

@@ -182,7 +182,7 @@
 <div *ngIf="currentTab=='DETAILS'" class="page-details">
 
   <div class="row">
-    <div class="col-sm-6">
+    <!-- <div class="col-sm-6">
 
       <div class="form-group row">
         <label class="col-sm-3 col-form-label  col-form-label-sm">Code</label>
@@ -244,13 +244,85 @@
         </div>
       </div>
 
-    </div>
-
-
+    </div> -->
 
     <div class="col-sm-6">
 
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label  col-form-label-sm">Code</label>
+        <div class="col-sm-2">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_no"
+            [disabled]="mode=='EDIT'&&gs.globalVariables.user_code != 'ADMIN'" required maxlength="30" />
+        </div>
+        <div class="col-sm-7 pr-0">
+          <input type="checkbox" [(ngModel)]="Record.emp_in_payroll" id="chkpayroll"> <label for="chkpayroll">In
+            Payroll&nbsp;&nbsp;</label>
+          <input type="checkbox" [(ngModel)]="Record.emp_in_csv" id="chkcsv"> <label for="chkcsv">In
+            CSV&nbsp;&nbsp;</label>
+          <input type="checkbox" [(ngModel)]="Record.emp_pf_exempted" id="chkpfexemptd"> <label for="chkpfexemptd">PF
+            Exempted</label>
+        </div>
+      </div>
 
+      <div class="form-group row">
+        <div class="col-sm-9">
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label  col-form-label-sm">Name</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_name"
+                (blur)="OnBlur('emp_name')" required maxlength="100" />
+            </div>
+          </div>
+
+
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label  col-form-label-sm">NickName</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_alias"
+                (blur)="OnBlur('emp_alias')" required maxlength="50" />
+            </div>
+          </div>
+
+
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label  col-form-label-sm">Father</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_father_name"
+                (blur)="OnBlur('emp_father_name')" required maxlength="60" />
+            </div>
+          </div>
+        </div>
+        <div *ngIf="mode=='EDIT'" class="col-sm-3">
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label  col-form-label-sm"></label>
+            <div class="col-sm-9">
+              <img [src]="Record.emp_image_src"
+                style="width: 95px; height: 90px; border: 2px solid green; border-radius: 5px;" alt="Photo not upload"
+                (error)="setDefaultImage($event)">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label  col-form-label-sm">Spouse</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_spouse_name"
+            (blur)="OnBlur('emp_spouse_name')" required maxlength="60" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label col-form-label-sm">Blood Group</label>
+        <div class="col-sm-9">
+          <select class="form-control form-control-sm" [(ngModel)]="Record.emp_blood_group">
+            <option *ngFor="let rec of BloodGrList" [value]="rec.name">{{rec.name}}</option>
+          </select>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-sm-6">
       <div class="form-group row">
         <label class="col-sm-3 col-form-label  col-form-label-sm">Gender</label>
         <div class="col-sm-3">
@@ -305,8 +377,10 @@
           <input type="checkbox" [(ngModel)]="Record.emp_is_relieved">
         </div> -->
         <div class="col-sm-3">
-          <input type="checkbox" [(ngModel)]="Record.emp_is_relieved" id="chkrelived"> <label for="chkrelived">Relieved&nbsp;&nbsp;&nbsp;</label>
-          <input *ngIf="bAdmin" type="checkbox" [(ngModel)]="Record.emp_is_retired" id="chkretired"> <label *ngIf="bAdmin" for="chkretired">Retired</label>
+          <input type="checkbox" [(ngModel)]="Record.emp_is_relieved" id="chkrelived"> <label
+            for="chkrelived">Relieved&nbsp;&nbsp;&nbsp;</label>
+          <input *ngIf="bAdmin" type="checkbox" [(ngModel)]="Record.emp_is_retired" id="chkretired"> <label
+            *ngIf="bAdmin" for="chkretired">Retired</label>
         </div>
 
         <label class="col-sm-3 col-form-label col-form-label-sm">Relieve Date</label>
@@ -897,12 +971,18 @@
 
 
   <div class="page-box">
-    <div class="col">
+    <div class="col input-group input-group-sm">
       <button [hidden]="disableSave" [disabled]="loading || lock_record" (click)="Save()"
-        class="btn btn-success btn-sm">Save</button>
+        class="btn btn-success btn-sm mr-1">Save</button>
       <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
-        class="btn btn-success btn-sm">Documents</button>
-      <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
+        class="btn btn-success btn-sm mr-1">Documents</button>
+
+      <app-fileupload-direct *ngIf="mode=='EDIT'" [pkid]="pkid" [type]="'EMPLOYEE-PHOTO'" [desc]="Record.emp_no" [uploadfilesize]="'10240'"
+        (callbackevent)="callbackeventupload($event)"></app-fileupload-direct>
+      <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm mr-1">{{uploadedFilesName}}</label>
+
+      <button [disabled]="loading" (click)="ActionHandler('LIST','')"
+        class="btn btn-success btn-sm mr-1">Return</button>
       <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
         <font color="RED">
           {{lock_record == true ? 'Details Closed, Cannot Edit' : ''}}

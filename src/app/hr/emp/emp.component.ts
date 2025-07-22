@@ -45,7 +45,7 @@ export class EmpComponent {
   doc_type = "";
   doc_file_type = "";
   doc_file_size = 0;
-
+  uploadedFilesName: string = '';
   searchstring = '';
   branch_id = '';
   company_id = '';
@@ -310,7 +310,7 @@ export class EmpComponent {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
   NewRecord() {
-
+    this.uploadedFilesName = '';
     this.pkid = this.gs.getGuid();
 
     this.Record = new Emp();
@@ -390,6 +390,8 @@ export class EmpComponent {
     this.Record.emp_incentive_type = 'NA';
     this.Record.emp_incentive_type_id = '';
     this.Record.emp_pf_exempted = false;
+    this.Record.emp_image_src = '';
+    this.Record.emp_image_name = '';
     this.lock_record = false;
     this.Initdefault();
 
@@ -451,6 +453,8 @@ export class EmpComponent {
     this.lock_record = true;
     if (this.Record.emp_edit_code.indexOf("{S}") >= 0)
       this.lock_record = false;
+
+    this.Record.emp_image_src = this.getImageUrl(this.Record.emp_image_name);
   }
   getBranchName(_BrCode: String) {
     let str = "";
@@ -940,6 +944,24 @@ export class EmpComponent {
     }
     return str;
   }
+
+  setDefaultImage(event: Event) {
+    (event.target as HTMLImageElement).src = this.getImageUrl("defaultphoto.png");
+  }
+
+  getImageUrl(_imgname) {
+    // return this.gs.baseUrl + "/resources/images/" + this.gs.globalVariables.comp_code.toLowerCase() + "/employee/" + _imgname;
+    return "https://software.cargomar.in/resources/images/" + this.gs.globalVariables.comp_code.toLowerCase() + "/employee/" + _imgname;
+  }
+
+  callbackeventupload(params: any) {
+    if (params.action == "UPLOAD") {//if master updated then mstatus length greater than zero
+      this.uploadedFilesName = params.filedisplayname.replace(/\*/gi, ",");
+      // alert('UPLOAD');
+    }
+
+  }
+
 }
 
 

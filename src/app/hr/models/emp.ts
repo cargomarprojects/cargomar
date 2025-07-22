@@ -80,6 +80,8 @@ export class Emp {
   emp_designation_name: string;
   emp_pf_exempted: boolean;
   emp_status_name: string;
+  emp_image_src: string;
+  emp_image_name: string;
   rec_mode: string;
   rec_branch_code: string;
 

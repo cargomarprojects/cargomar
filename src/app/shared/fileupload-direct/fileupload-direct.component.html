@@ -1,9 +1,5 @@
-<div class="input-group input-group-sm">
-    <button [disabled]="loading" class="btn btn-info btn-sm" (click)="GetFiles(fileuploadmodal)">Upload
-        File</button>
-    <!-- <label class="col col-form-label col-form-label-sm">{{uploadedFilesName}}</label> -->
-</div>
-
+<button [disabled]="loading" class="btn btn-success btn-sm"
+    (click)="GetFiles(fileuploadmodal)">{{type=='EMPLOYEE-PHOTO'?'Upload Photo':'Upload File'}}</button>
 <ng-template #fileuploadmodal let-c="close" let-d="dismiss">
     <div class="modal-body">
         <div class="page-details">
@@ -12,8 +8,8 @@
                     <div class="col-md-12 mt-2">
 
                         <div style="display:inline">
-                            <input type="file" multiple id="customfileInputdir" style="width: 600px;display: none;" #_fileinput
-                                (change)="getFileDetails($event)">
+                            <input type="file" multiple id="customfileInputdir" style="width: 600px;display: none;"
+                                #_fileinput (change)="getFileDetails($event)">
                             <label for="customfileInputdir" class="custom-file-upload" (dragover)="onDragOver($event)"
                                 (dragleave)="onDragLeave($event)" (drop)="onDrop($event)"
                                 [style.background-color]="bDragged?'#45a049':''">
