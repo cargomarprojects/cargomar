@@ -957,6 +957,7 @@ export class EmpComponent {
   callbackeventupload(params: any) {
     if (params.action == "UPLOAD") {//if master updated then mstatus length greater than zero
       this.uploadedFilesName = params.filedisplayname.replace(/\*/gi, ",");
+      this.Record.emp_image_src = this.getImageUrl(this.uploadedFilesName);
       // alert('UPLOAD');
     }
 

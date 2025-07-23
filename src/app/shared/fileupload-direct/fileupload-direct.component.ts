@@ -15,6 +15,7 @@ export class FileUploadDirectComponent {
     @Input() public defaultdoctype: string = '';
     @Input() public uploadfilesize: number = 0;
     @Input() public uploadfiletype: string = '';
+    @Input() public accepttype: string = '';
     @Output() callbackevent = new EventEmitter<any>();
 
     title = 'Documents';
@@ -241,7 +242,6 @@ export class FileUploadDirectComponent {
                     this.uploadedFilesName = data.filedisplayname;
                     this.uploadedFilesPath = data.filename;
                     this.uploadFileName = '';
-                    this.desc = '';
                     this.bDragged = false;
                     if (!this.gs.isBlank(this.fileinput))
                         this.fileinput.nativeElement.value = '';

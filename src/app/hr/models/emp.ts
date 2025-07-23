@@ -82,6 +82,8 @@ export class Emp {
   emp_status_name: string;
   emp_image_src: string;
   emp_image_name: string;
+  emp_image_upload: string;
+
   rec_mode: string;
   rec_branch_code: string;
 
