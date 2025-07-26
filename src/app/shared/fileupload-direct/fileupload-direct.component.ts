@@ -16,6 +16,7 @@ export class FileUploadDirectComponent {
     @Input() public uploadfilesize: number = 0;
     @Input() public uploadfiletype: string = '';
     @Input() public accepttype: string = '';
+    @Input() public islock: boolean = false;
     @Output() callbackevent = new EventEmitter<any>();
 
     title = 'Documents';
@@ -199,7 +200,7 @@ export class FileUploadDirectComponent {
             alert('No File Selected');
             return;
         }
-         
+
         // const itm = this.DocTypeList.find(rec => rec.param_pkid == this.catg_id);
         // if (!itm) {
         //     alert('Pls Select Category');

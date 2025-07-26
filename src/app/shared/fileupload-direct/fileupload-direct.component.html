@@ -1,4 +1,4 @@
-<button [disabled]="loading" class="btn btn-success btn-sm"
+<button [disabled]="loading||islock" class="btn btn-success btn-sm"
     (click)="GetFiles(fileuploadmodal)">{{type=='EMPLOYEE-PHOTO'?'Upload Photo':'Upload File'}}</button>
 <ng-template #fileuploadmodal let-c="close" let-d="dismiss">
     <div class="modal-body">

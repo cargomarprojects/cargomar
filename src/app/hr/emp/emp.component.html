@@ -975,7 +975,7 @@
       <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
         class="btn btn-success btn-sm mr-1">Documents</button>
 
-      <app-fileupload-direct *ngIf="mode=='EDIT'" class="mr-1" [pkid]="pkid" [type]="'EMPLOYEE-PHOTO'"
+      <app-fileupload-direct *ngIf="mode=='EDIT'" class="mr-1" [pkid]="pkid" [type]="'EMPLOYEE-PHOTO'" [islock]="false"
         [desc]="Record.emp_no" [uploadfilesize]="'10240'" [accepttype]="'.jpeg,.jpg,.png'"
         (callbackevent)="callbackeventupload($event)"></app-fileupload-direct>
       <!-- <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm mr-1">{{uploadedFilesName}}</label> -->
