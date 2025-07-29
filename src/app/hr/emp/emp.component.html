@@ -313,7 +313,7 @@
             <div class="col-sm-9">
               <img [src]="Record.emp_image_src"
                 style="width: 95px; height: 122px; border: 2px solid green; border-radius: 5px;" alt="Photo not upload"
-                (error)="setDefaultImage($event)">
+                (error)="setDefaultImage($event)" (contextmenu)="disableRightClick($event)">
             </div>
           </div>
         </div>
@@ -975,11 +975,10 @@
       <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
         class="btn btn-success btn-sm mr-1">Documents</button>
 
-      <app-fileupload-direct *ngIf="mode=='EDIT'" class="mr-1" [pkid]="pkid" [type]="'EMPLOYEE-PHOTO'" [islock]="false"
+      <app-fileupload-direct *ngIf="mode=='EDIT' && bPhoto" class="mr-1" [pkid]="pkid" [type]="'EMPLOYEE-PHOTO'" [islock]="false"
         [desc]="Record.emp_no" [uploadfilesize]="'10240'" [accepttype]="'.jpeg,.jpg,.png'"
         (callbackevent)="callbackeventupload($event)"></app-fileupload-direct>
-      <!-- <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm mr-1">{{uploadedFilesName}}</label> -->
-
+      
       <button [disabled]="loading" (click)="ActionHandler('LIST','')"
         class="btn btn-success btn-sm mr-1">Return</button>
       <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">

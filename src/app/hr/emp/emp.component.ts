@@ -64,6 +64,7 @@ export class EmpComponent {
   bAdmin: boolean = false;
   bDocs: boolean = false;
   bRelieved: boolean = false;
+  bPhoto: boolean = false;
   sub: any;
   urlid: string;
   // type: string;
@@ -131,6 +132,7 @@ export class EmpComponent {
     this.bPrint = false;
     this.bAdmin = false;
     this.bDocs = false;
+    this.bPhoto = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -140,7 +142,13 @@ export class EmpComponent {
         this.bAdmin = true;
       if (this.menu_record.rights_docs)
         this.bDocs = true;
+      if (this.menu_record.rights_approval.length > 0) {
+        if (this.menu_record.rights_approval.toString().indexOf('{PHOTO}') >= 0)
+          this.bPhoto = true;
+      }
     }
+    if (this.gs.globalVariables.user_code == "ADMIN")
+      this.bPhoto = true;
     this.LoadCombo();
   }
   // Destroy Will be called when this component is closed
@@ -950,8 +958,10 @@ export class EmpComponent {
   }
 
   getImageUrl(_imgname) {
-    // return this.gs.baseUrl + "/resources/images/" + this.gs.globalVariables.comp_code.toLowerCase() + "/employee/" + _imgname;
-    return "https://software.cargomar.in/resources/images/" + this.gs.globalVariables.comp_code.toLowerCase() + "/employee/" + _imgname;
+    if (this.gs.baseUrl.includes("localhost"))
+      return "https://software.cargomar.in/resources/images/" + this.gs.globalVariables.comp_code.toLowerCase() + "/employee/" + _imgname;
+    else
+      return this.gs.baseUrl + "/resources/images/" + this.gs.globalVariables.comp_code.toLowerCase() + "/employee/" + _imgname;
   }
 
   callbackeventupload(params: any) {
@@ -961,6 +971,10 @@ export class EmpComponent {
       // alert('UPLOAD');
     }
 
+  }
+
+  disableRightClick(event: MouseEvent) {
+    event.preventDefault();
   }
 
 }
