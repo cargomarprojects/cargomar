@@ -77,7 +77,7 @@
       <thead class="page-body-thead">
         <tr>
           <th>CODE</th>
-          <th>NAME</th>
+          <th style="white-space: nowrap; max-width: 200px; overflow: hidden; text-overflow: ellipsis;">NAME</th>
           <th *ngIf="Recorddet.a01_visible">{{Recorddet.a01_desc}}</th>
           <th *ngIf="Recorddet.a02_visible">{{Recorddet.a02_desc}}</th>
           <th *ngIf="Recorddet.a03_visible">{{Recorddet.a03_desc}}</th>
@@ -140,7 +140,7 @@
         <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
           (mousedown)="selectedRowIndex=i">
           <td class="hlink" (click)="ActionHandler('EDIT',rec.sal_pkid,rec.sal_emp_id)">{{rec.sal_emp_code}}</td>
-          <td>{{rec.sal_emp_name}}</td>
+          <td style="white-space: nowrap; max-width: 200px; overflow: hidden; text-overflow: ellipsis;">{{rec.sal_emp_name}}</td>
           <td *ngIf="Recorddet.a01_visible">{{rec.a01}}</td>
           <td *ngIf="Recorddet.a02_visible">{{rec.a02}}</td>
           <td *ngIf="Recorddet.a03_visible">{{rec.a03}}</td>

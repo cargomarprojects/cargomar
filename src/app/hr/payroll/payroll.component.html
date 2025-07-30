@@ -105,9 +105,9 @@
         <tr>
           <th><input type="checkbox" (click)="SelectDeselect()" [(ngModel)]="chkallselected"></th>
           <th>CODE</th>
-          <th>NAME</th>
+          <th style="white-space: nowrap; max-width: 200px; overflow: hidden; text-overflow: ellipsis;">NAME</th>
           <th>DOJ</th>
-          <th>GRADE</th>
+          <th style="white-space: nowrap; max-width: 200px; overflow: hidden; text-overflow: ellipsis;">GRADE</th>
           <th>SAL.DATE</th>
           <th>PAYSLIP</th>
           <th *ngIf="bAdmin">MAIL</th>
@@ -174,9 +174,9 @@
           (mousedown)="selectedRowIndex=i">
           <td><input type="checkbox" [(ngModel)]="rec.sal_selected"></td>
           <td class="hlink" (click)="ActionHandler('EDIT',rec.sal_pkid,rec.sal_emp_id)">{{rec.sal_emp_code}}</td>
-          <td>{{rec.sal_emp_name}}</td>
+          <td style="white-space: nowrap; max-width: 200px; overflow: hidden; text-overflow: ellipsis;">{{rec.sal_emp_name}}</td>
           <td>{{rec.sal_emp_do_joining}}</td>
-          <td>{{rec.sal_emp_grade}}</td>
+          <td style="white-space: nowrap; max-width: 200px; overflow: hidden; text-overflow: ellipsis;">{{rec.sal_emp_grade}}</td>
           <td>{{rec.sal_date}}</td>
           <td>{{rec.rec_printed ? 'YES' : 'NO'}}</td>
           <td *ngIf="bAdmin">{{rec.sal_mail_sent ? 'YES' : 'NO'}}</td>
