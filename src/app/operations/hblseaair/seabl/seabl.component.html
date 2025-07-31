@@ -12,6 +12,8 @@
       (click)="UnlockBLNo('BOTH')" class="btn btn-success btn-sm">Both FCR & BL</button>
     <button *ngIf="user_admin && invokefrom!='FCR'" [disabled]="loading" (click)="UnlockBLNo('UNLOCK-SE-DRAFT')"
       class="btn btn-success btn-sm">Unlock Draft Pdf</button>
+    <button *ngIf="user_admin && invokefrom=='HBL'" [disabled]="loading" (click)="UnlockBLNo('UNLOCK-AGENT')"
+      class="btn btn-success btn-sm">Unlock Agent/Delivery</button>
     <button [disabled]="loading" (click)="HideBlPage()" class="btn btn-success btn-sm">Return</button>
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
@@ -467,20 +469,23 @@
           <label class="col-4 col-form-label col-form-label-sm">Agent/Delivery</label>
           <div class="col-8">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_delivery_contact1"
-              (blur)="OnBlur('bl_delivery_contact1')" required maxlength="60" />
+              (blur)="OnBlur('bl_delivery_contact1')" required maxlength="60"
+              [disabled]="gs.isBlank(Record.bl_agent_lock_date)" />
           </div>
         </div>
 
         <div class="form-group row">
           <div class="offset-4 col-8">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_delivery_contact2"
-              (blur)="OnBlur('bl_delivery_contact2')" required maxlength="60" />
+              (blur)="OnBlur('bl_delivery_contact2')" required maxlength="60"
+              [disabled]="gs.isBlank(Record.bl_agent_lock_date)" />
           </div>
         </div>
         <div class="form-group row">
           <div class="offset-4 col-8">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_delivery_contact3"
-              (blur)="OnBlur('bl_delivery_contact3')" required maxlength="60" />
+              (blur)="OnBlur('bl_delivery_contact3')" required maxlength="60"
+              [disabled]="gs.isBlank(Record.bl_agent_lock_date)" />
           </div>
         </div>
 
@@ -488,21 +493,24 @@
         <div class="form-group row">
           <div class="offset-4 col-8">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_delivery_contact4"
-              (blur)="OnBlur('bl_delivery_contact4')" required maxlength="60" />
+              (blur)="OnBlur('bl_delivery_contact4')" required maxlength="60"
+              [disabled]="gs.isBlank(Record.bl_agent_lock_date)" />
           </div>
         </div>
 
         <div class="form-group row">
           <div class="offset-4 col-8">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_delivery_contact5"
-              (blur)="OnBlur('bl_delivery_contact5')" required maxlength="60" />
+              (blur)="OnBlur('bl_delivery_contact5')" required maxlength="60"
+              [disabled]="gs.isBlank(Record.bl_agent_lock_date)" />
           </div>
         </div>
 
         <div class="form-group row">
           <div class="offset-4 col-8">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_delivery_contact6"
-              (blur)="OnBlur('bl_delivery_contact6')" required maxlength="60" />
+              (blur)="OnBlur('bl_delivery_contact6')" required maxlength="60"
+              [disabled]="gs.isBlank(Record.bl_agent_lock_date)" />
           </div>
         </div>
 
@@ -1344,8 +1352,7 @@
             (click)="GetRecord('PDF','FCR')" class="btn btn-success btn-sm">FCR</button>
           <button [disabled]="loading" *ngIf="mode=='EDIT'&&bShowDraftPdf && (user_admin||!Record.bl_draft_lock)"
             (click)="GetRecord('PDF','DRAFT')" class="btn btn-success btn-sm">Draft Pdf</button>
-          <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GetBlDraft()"
-            class="btn btn-success btn-sm">Draft
+          <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GetBlDraft()" class="btn btn-success btn-sm">Draft
             Excel</button>
           <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'" (click)="GetRecord('PDF','BLANKBL')"
             class="btn btn-success btn-sm">Stationary</button>

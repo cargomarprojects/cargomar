@@ -1422,8 +1422,9 @@ export class BlComponent {
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
       formatid: this.Record.hbl_seq_format_id,
-      bl_no:this.Record.hbl_bl_no,
-      fcr_no:this.Record.hbl_fcr_no
+      bl_no: this.Record.hbl_bl_no,
+      fcr_no: this.Record.hbl_fcr_no,
+      bl_type: this.invokefrom
     };
 
     SearchData.pkid = this.parentid;
