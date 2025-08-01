@@ -1407,12 +1407,20 @@ export class BlComponent {
         });
 
   }
+
   UnlockBLNo(_type: string) {
     this.ErrorMessage = '';
     this.InfoMessage = '';
+    let _bl_type: string = this.invokefrom;
+
 
     if (this.gs.globalVariables.user_code != "ADMIN")
       return;
+
+    if (_type == "RESETFCR")
+      _bl_type = "FCR";
+    else if (_type == "RESETBL")
+      _bl_type = "HBL";
 
     this.loading = true;
     let SearchData = {
@@ -1424,7 +1432,7 @@ export class BlComponent {
       formatid: this.Record.hbl_seq_format_id,
       bl_no: this.Record.hbl_bl_no,
       fcr_no: this.Record.hbl_fcr_no,
-      bl_type: this.invokefrom
+      bl_type: _bl_type
     };
 
     SearchData.pkid = this.parentid;
@@ -1453,7 +1461,8 @@ export class BlComponent {
       itm_desc: sdesc,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
-      year_code: this.gs.globalVariables.year_code
+      year_code: this.gs.globalVariables.year_code,
+      bl_type: this.invokefrom
     }
 
     SearchData.pkid = this.parentid;
