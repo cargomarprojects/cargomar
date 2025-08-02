@@ -1428,6 +1428,7 @@ export class BlComponent {
       type: _type,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
+      user_code: this.gs.globalVariables.user_code,
       year_code: this.gs.globalVariables.year_code,
       formatid: this.Record.hbl_seq_format_id,
       bl_no: this.Record.hbl_bl_no,
