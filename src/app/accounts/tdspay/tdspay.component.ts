@@ -25,7 +25,7 @@ export class TdsPayComponent {
   InitCompleted: boolean = false;
   final: boolean = false;
   allbranch: boolean = false;
-  address:  boolean = false;
+  address: boolean = false;
   menu_record: any;
   sub: any;
   urlid: string;
@@ -40,6 +40,7 @@ export class TdsPayComponent {
   code: string = '';
   branch_code: string;
   branch_name: string;
+  show_payroll_consultant: boolean = false;
 
   disableSave = true;
   bCompany = false;
@@ -65,7 +66,8 @@ export class TdsPayComponent {
     final: false,
     allbranch: false,
     address: false,
-    show_payroll: false
+    show_payroll: false,
+    show_payroll_consultant: false
   };
 
   // Array For Displaying List
@@ -105,11 +107,15 @@ export class TdsPayComponent {
 
   InitComponent() {
     this.bCompany = false;
+    this.show_payroll_consultant = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_company)
         this.bCompany = true;
+      if (this.menu_record.rights_approval.indexOf('{SCG}') >= 0 || this.gs.globalVariables.user_code == "ADMIN") {
+        this.show_payroll_consultant = true;
+      }
     }
     this.Init();
     this.initLov();
@@ -217,6 +223,7 @@ export class TdsPayComponent {
     this.SearchData.allbranch = this.allbranch;
     this.SearchData.show_payroll = this.gs.globalVariables.user_show_payroll == 'Y' ? true : false;
     this.SearchData.address = this.address;
+    this.SearchData.show_payroll_consultant = this.show_payroll_consultant;
     this.ErrorMessage = '';
     this.mainService.List(this.SearchData)
       .subscribe(response => {

@@ -76,6 +76,7 @@ export class Customerm {
     rec_created_date: string;
     rec_aprvd_by: string;
     rec_aprvd_date: string;
+    rec_branch_code: string;
 
     cust_pan_doi: string;
     cust_pan_status: string;
