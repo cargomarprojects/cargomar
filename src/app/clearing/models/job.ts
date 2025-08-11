@@ -167,6 +167,7 @@ export class Jobm {
   job_sb_docs: number;
   job_inv_docs: number;
   job_pl_docs: number;
+  job_cntr_transporter:string;
 
   rec_mode: string;
   rec_category: string;

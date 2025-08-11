@@ -109,6 +109,7 @@
             <th>POL</th>
             <th>POD</th>
             <th>AGENT</th>
+            <th *ngIf="type=='SEA EXPORT'">TRANSPORTER</th>
             <th>COMMODITY</th>
             <th>TYPE</th>
             <th>NOMINATION</th>
@@ -147,6 +148,7 @@
             <td>{{rec.job_pol_name}}</td>
             <td>{{rec.job_pod_name}}</td>
             <td>{{rec.job_agent_name}}</td>
+              <td *ngIf="type=='SEA EXPORT'">{{rec.job_cntr_transporter}}</td>
             <td>{{rec.job_commodity_name}}</td>
             <td>{{rec.job_type}}</td>
             <td>{{rec.job_nomination}}</td>
