@@ -75,10 +75,12 @@ export class ImpMblSeaAirComponent {
   LINERRECORD: SearchTable = new SearchTable();
   AGENTRECORD: SearchTable = new SearchTable();
   AGENTADDRECORD: SearchTable = new SearchTable();
+  EXPRECORD: SearchTable = new SearchTable();
+  EXPADDRECORD: SearchTable = new SearchTable();
+  IMPRECORD: SearchTable = new SearchTable();
+  IMPADDRECORD: SearchTable = new SearchTable();
   CHARECORD: SearchTable = new SearchTable();
-  SHIPPERRECORD: SearchTable = new SearchTable();
   FACTORYLOCRECORD: SearchTable = new SearchTable();
-  CONSIGNEERECORD: SearchTable = new SearchTable();
   COMMODITYRECORD: SearchTable = new SearchTable();
   POLRECORD: SearchTable = new SearchTable();
   PODRECORD: SearchTable = new SearchTable();
@@ -215,6 +217,46 @@ export class ImpMblSeaAirComponent {
     this.AGENTADDRECORD.name = "";
     this.AGENTADDRECORD.parentid = "";
 
+    this.EXPRECORD = new SearchTable();
+    this.EXPRECORD.controlname = "SHIPPER";
+    this.EXPRECORD.displaycolumn = "CODE";
+    this.EXPRECORD.type = "CUSTOMER";
+    //this.EXPRECORD.where = " CUST_IS_SHIPPER = 'Y' ";
+    this.EXPRECORD.where = " CUST_IS_CONSIGNEE = 'Y' ";
+    this.EXPRECORD.id = "";
+    this.EXPRECORD.code = "";
+    this.EXPRECORD.name = "";
+
+    this.EXPADDRECORD = new SearchTable();
+    this.EXPADDRECORD.controlname = "SHIPPERADDRESS";
+    this.EXPADDRECORD.displaycolumn = "CODE";
+    this.EXPADDRECORD.type = "CUSTOMERADDRESS";
+    this.EXPADDRECORD.id = "";
+    this.EXPADDRECORD.code = "";
+    this.EXPADDRECORD.name = "";
+    this.EXPADDRECORD.parentid = "";
+
+
+    this.IMPRECORD = new SearchTable();
+    this.IMPRECORD.controlname = "CONSIGNEE";
+    this.IMPRECORD.displaycolumn = "CODE";
+    this.IMPRECORD.type = "CUSTOMER";
+    // this.IMPRECORD.where = " CUST_IS_CONSIGNEE = 'Y' ";
+    this.IMPRECORD.where = " CUST_IS_SHIPPER = 'Y' ";
+    this.IMPRECORD.id = "";
+    this.IMPRECORD.code = "";
+    this.IMPRECORD.name = "";
+    this.IMPRECORD.parentid = "";
+
+    this.IMPADDRECORD = new SearchTable();
+    this.IMPADDRECORD.controlname = "CONSIGNEEADDRESS";
+    this.IMPADDRECORD.displaycolumn = "CODE";
+    this.IMPADDRECORD.type = "CUSTOMERADDRESS";
+    this.IMPADDRECORD.id = "";
+    this.IMPADDRECORD.code = "";
+    this.IMPADDRECORD.name = "";
+    this.IMPADDRECORD.parentid = "";
+
     this.CHARECORD = new SearchTable();
     this.CHARECORD.controlname = "CHA";
     this.CHARECORD.displaycolumn = "CODE";
@@ -224,16 +266,6 @@ export class ImpMblSeaAirComponent {
     this.CHARECORD.code = "";
     this.CHARECORD.name = "";
 
-    this.SHIPPERRECORD = new SearchTable();
-    this.SHIPPERRECORD.controlname = "SHIPPER";
-    this.SHIPPERRECORD.displaycolumn = "CODE";
-    this.SHIPPERRECORD.type = "CUSTOMER";
-    // this.SHIPPERRECORD.where = " CUST_IS_SHIPPER = 'Y' ";
-    // this.SHIPPERRECORD.where = " CUST_IS_CONSIGNEE = 'Y' ";
-    this.SHIPPERRECORD.id = "";
-    this.SHIPPERRECORD.code = "";
-    this.SHIPPERRECORD.name = "";
-
     this.FACTORYLOCRECORD = new SearchTable();
     this.FACTORYLOCRECORD.controlname = "FACTORYLOCATION";
     this.FACTORYLOCRECORD.displaycolumn = "CODE";
@@ -241,16 +273,6 @@ export class ImpMblSeaAirComponent {
     this.FACTORYLOCRECORD.id = "";
     this.FACTORYLOCRECORD.code = "";
     this.FACTORYLOCRECORD.name = "";
-
-    this.CONSIGNEERECORD = new SearchTable();
-    this.CONSIGNEERECORD.controlname = "CONSIGNEE";
-    this.CONSIGNEERECORD.displaycolumn = "CODE";
-    this.CONSIGNEERECORD.type = "CUSTOMER";
-    // this.CONSIGNEERECORD.where = " CUST_IS_CONSIGNEE = 'Y' ";
-    // this.CONSIGNEERECORD.where = " CUST_IS_SHIPPER = 'Y' ";
-    this.CONSIGNEERECORD.id = "";
-    this.CONSIGNEERECORD.code = "";
-    this.CONSIGNEERECORD.name = "";
 
     this.COMMODITYRECORD = new SearchTable();
     this.COMMODITYRECORD.controlname = "COMMODITY";
@@ -367,11 +389,11 @@ export class ImpMblSeaAirComponent {
       this.Record.mbl_cha_name = _Record.name;
     }
 
-    if (_Record.controlname == "SHIPPER") {
-      this.Record.mbl_exp_id = _Record.id;
-      this.Record.mbl_exp_code = _Record.code;
-      this.Record.mbl_exp_name = _Record.name;
-    }
+    // if (_Record.controlname == "SHIPPER") {
+    //   this.Record.mbl_exp_id = _Record.id;
+    //   this.Record.mbl_exp_code = _Record.code;
+    //   this.Record.mbl_exp_name = _Record.name;
+    // }
 
     if (_Record.controlname == "FACTORYLOCATION") {
       this.Record.mbl_factloc_id = _Record.id;
@@ -379,11 +401,11 @@ export class ImpMblSeaAirComponent {
       this.Record.mbl_factloc_name = _Record.name;
     }
 
-    if (_Record.controlname == "CONSIGNEE") {
-      this.Record.mbl_imp_id = _Record.id;
-      this.Record.mbl_imp_code = _Record.code;
-      this.Record.mbl_imp_name = _Record.name;
-    }
+    // if (_Record.controlname == "CONSIGNEE") {
+    //   this.Record.mbl_imp_id = _Record.id;
+    //   this.Record.mbl_imp_code = _Record.code;
+    //   this.Record.mbl_imp_name = _Record.name;
+    // }
 
     if (_Record.controlname == "COMMODITY") {
       this.Record.mbl_commodity_id = _Record.id;
@@ -436,6 +458,65 @@ export class ImpMblSeaAirComponent {
       this.Record.mbl_coloader_code = _Record.code;
       this.Record.mbl_coloader_name = _Record.name;
     }
+
+    if (_Record.controlname == "SHIPPER") {
+
+      bchange = false;
+      if (this.Record.mbl_exp_id != _Record.id)
+        bchange = true;
+
+      this.Record.mbl_exp_id = _Record.id;
+      this.Record.mbl_exp_code = _Record.code;
+      this.Record.mbl_exp_name = _Record.name;
+
+      if (bchange) {
+        this.EXPADDRECORD = new SearchTable();
+        this.EXPADDRECORD.controlname = "SHIPPERADDRESS";
+        this.EXPADDRECORD.displaycolumn = "NAME";
+        this.EXPADDRECORD.type = "CUSTOMERADDRESS";
+        this.EXPADDRECORD.id = "";
+        this.EXPADDRECORD.code = "";
+        this.EXPADDRECORD.name = "";
+        this.EXPADDRECORD.parentid = this.Record.mbl_exp_id;
+        this.Record.mbl_exp_br_addr = "";
+      }
+    }
+
+    if (_Record.controlname == "SHIPPERADDRESS") {
+      this.Record.mbl_exp_br_id = _Record.id;
+      this.Record.mbl_exp_br_no = _Record.code;
+      this.Record.mbl_exp_br_addr = this.GetBrAddress(_Record.name).address;
+    }
+
+   if (_Record.controlname == "CONSIGNEE") {
+
+      bchange = false;
+      if (this.Record.mbl_imp_id != _Record.id)
+        bchange = true;
+
+      this.Record.mbl_imp_id = _Record.id;
+      this.Record.mbl_imp_code = _Record.code;
+      this.Record.mbl_imp_name = _Record.name;
+
+      if (bchange) {
+        this.IMPADDRECORD = new SearchTable();
+        this.IMPADDRECORD.controlname = "CONSIGNEEADDRESS";
+        this.IMPADDRECORD.displaycolumn = "NAME";
+        this.IMPADDRECORD.type = "CUSTOMERADDRESS";
+        this.IMPADDRECORD.id = "";
+        this.IMPADDRECORD.code = "";
+        this.IMPADDRECORD.name = "";
+        this.IMPADDRECORD.parentid = this.Record.mbl_imp_id;
+        this.Record.mbl_imp_br_addr = "";
+      }
+    }
+
+    if (_Record.controlname == "CONSIGNEEADDRESS") {
+      this.Record.mbl_imp_br_id = _Record.id;
+      this.Record.mbl_imp_br_no = _Record.code;
+      this.Record.mbl_imp_br_addr = this.GetBrAddress(_Record.name).address;
+    }
+
   }
 
   //function for handling LIST/NEW/EDIT Buttons
@@ -548,15 +629,22 @@ export class ImpMblSeaAirComponent {
     this.Record.mbl_cha_id = '';
     this.Record.mbl_cha_code = '';
     this.Record.mbl_cha_name = '';
-    this.Record.mbl_exp_id = '';
-    this.Record.mbl_exp_code = '';
-    this.Record.mbl_exp_name = '';
     this.Record.mbl_factloc_id = '';
     this.Record.mbl_factloc_code = '';
     this.Record.mbl_factloc_name = '';
+    this.Record.mbl_exp_id = '';
+    this.Record.mbl_exp_code = '';
+    this.Record.mbl_exp_name = '';
+    this.Record.mbl_exp_br_id = '';
+    this.Record.mbl_exp_br_no = '';
+    this.Record.mbl_exp_br_addr = '';
     this.Record.mbl_imp_id = '';
     this.Record.mbl_imp_code = '';
     this.Record.mbl_imp_name = '';
+    this.Record.mbl_imp_br_id = '';
+    this.Record.mbl_imp_br_no = '';
+    this.Record.mbl_imp_br_addr = '';
+
     this.Record.mbl_nomination = 'NA';
     this.Record.mbl_commodity_id = '';
     this.Record.mbl_commodity_code = '';
@@ -679,17 +767,23 @@ export class ImpMblSeaAirComponent {
     this.CHARECORD.code = this.Record.mbl_cha_code;
     this.CHARECORD.name = this.Record.mbl_cha_name;
 
-    this.SHIPPERRECORD.id = this.Record.mbl_exp_id;
-    this.SHIPPERRECORD.code = this.Record.mbl_exp_code;
-    this.SHIPPERRECORD.name = this.Record.mbl_exp_name;
+    this.EXPRECORD.id = this.Record.mbl_exp_id;
+    this.EXPRECORD.code = this.Record.mbl_exp_code;
+    this.EXPRECORD.name = this.Record.mbl_exp_name;
+    this.EXPADDRECORD.id = this.Record.mbl_exp_br_id;
+    this.EXPADDRECORD.code = this.Record.mbl_exp_br_no;
+    this.EXPADDRECORD.parentid = this.Record.mbl_exp_id;
+
+    this.IMPRECORD.id = this.Record.mbl_imp_id;
+    this.IMPRECORD.code = this.Record.mbl_imp_code;
+    this.IMPRECORD.name = this.Record.mbl_imp_name;
+    this.IMPADDRECORD.id = this.Record.mbl_imp_br_id;
+    this.IMPADDRECORD.code = this.Record.mbl_imp_br_no;
+    this.IMPADDRECORD.parentid = this.Record.mbl_imp_id;
 
     this.FACTORYLOCRECORD.id = this.Record.mbl_factloc_id;
     this.FACTORYLOCRECORD.code = this.Record.mbl_factloc_code;
     this.FACTORYLOCRECORD.name = this.Record.mbl_factloc_name;
-
-    this.CONSIGNEERECORD.id = this.Record.mbl_imp_id;
-    this.CONSIGNEERECORD.code = this.Record.mbl_imp_code;
-    this.CONSIGNEERECORD.name = this.Record.mbl_imp_name;
 
     this.COMMODITYRECORD.id = this.Record.mbl_commodity_id;
     this.COMMODITYRECORD.code = this.Record.mbl_commodity_code;
