@@ -389,23 +389,11 @@ export class ImpMblSeaAirComponent {
       this.Record.mbl_cha_name = _Record.name;
     }
 
-    // if (_Record.controlname == "SHIPPER") {
-    //   this.Record.mbl_exp_id = _Record.id;
-    //   this.Record.mbl_exp_code = _Record.code;
-    //   this.Record.mbl_exp_name = _Record.name;
-    // }
-
     if (_Record.controlname == "FACTORYLOCATION") {
       this.Record.mbl_factloc_id = _Record.id;
       this.Record.mbl_factloc_code = _Record.code;
       this.Record.mbl_factloc_name = _Record.name;
     }
-
-    // if (_Record.controlname == "CONSIGNEE") {
-    //   this.Record.mbl_imp_id = _Record.id;
-    //   this.Record.mbl_imp_code = _Record.code;
-    //   this.Record.mbl_imp_name = _Record.name;
-    // }
 
     if (_Record.controlname == "COMMODITY") {
       this.Record.mbl_commodity_id = _Record.id;
@@ -472,7 +460,7 @@ export class ImpMblSeaAirComponent {
       if (bchange) {
         this.EXPADDRECORD = new SearchTable();
         this.EXPADDRECORD.controlname = "SHIPPERADDRESS";
-        this.EXPADDRECORD.displaycolumn = "NAME";
+        this.EXPADDRECORD.displaycolumn = "CODE";
         this.EXPADDRECORD.type = "CUSTOMERADDRESS";
         this.EXPADDRECORD.id = "";
         this.EXPADDRECORD.code = "";
@@ -488,7 +476,7 @@ export class ImpMblSeaAirComponent {
       this.Record.mbl_exp_br_addr = this.GetBrAddress(_Record.name).address;
     }
 
-   if (_Record.controlname == "CONSIGNEE") {
+    if (_Record.controlname == "CONSIGNEE") {
 
       bchange = false;
       if (this.Record.mbl_imp_id != _Record.id)
@@ -501,7 +489,7 @@ export class ImpMblSeaAirComponent {
       if (bchange) {
         this.IMPADDRECORD = new SearchTable();
         this.IMPADDRECORD.controlname = "CONSIGNEEADDRESS";
-        this.IMPADDRECORD.displaycolumn = "NAME";
+        this.IMPADDRECORD.displaycolumn = "CODE";
         this.IMPADDRECORD.type = "CUSTOMERADDRESS";
         this.IMPADDRECORD.id = "";
         this.IMPADDRECORD.code = "";
@@ -961,6 +949,8 @@ export class ImpMblSeaAirComponent {
       REC.mbl_pofd_name = this.Record.mbl_pofd_name;
       REC.mbl_grwt = this.Record.mbl_grwt;
       REC.mbl_chwt = this.Record.mbl_chwt;
+      REC.mbl_exp_name = this.Record.mbl_exp_name;
+      REC.mbl_imp_name = this.Record.mbl_imp_name;
     }
   }
 
