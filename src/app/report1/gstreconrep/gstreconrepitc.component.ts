@@ -197,6 +197,7 @@ export class GstReconRepItcComponent {
         this.initTot();
         this.mainService.state.gst_recon_itc_claim_period = response.claimperiod;
         this.mainService.state.gst_recon_itc_imspending_tot = response.imspendingtot;
+        this.mainService.state.gst_recon_itc_crnpending_tot = response.crnpendingtot;
         if (_type == 'EXCEL') {
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         }
@@ -227,6 +228,7 @@ export class GstReconRepItcComponent {
   }
   initTot() {
     this.mainService.state.gst_recon_itc_imspending_tot = 0;
+    this.mainService.state.gst_recon_itc_crnpending_tot = 0;
     this.mainService.state.gst_recon_itc_igst_tot = 0;
     this.mainService.state.gst_recon_itc_cgst_tot = 0;
     this.mainService.state.gst_recon_itc_sgst_tot = 0;

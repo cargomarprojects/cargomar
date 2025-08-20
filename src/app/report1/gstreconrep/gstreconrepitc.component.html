@@ -63,7 +63,7 @@
             </button>
             <button *ngIf="bPrint" [disabled]="loading" (click)="List('EXCEL')"
               class="btn btn-primary btn-sm">Excel</button>
-               
+
           </div>
         </div>
       </div>
@@ -90,6 +90,9 @@
               <strong *ngIf="mainService.state.gst_recon_itc_imspending_tot!=0">IMS-PENDING: </strong> <span
                 *ngIf="mainService.state.gst_recon_itc_imspending_tot!=0"
                 style="color: red;">{{mainService.state.gst_recon_itc_imspending_tot}}</span>&nbsp;
+              <strong *ngIf="mainService.state.gst_recon_itc_crnpending_tot!=0">CN-PENDING: </strong> <span
+                *ngIf="mainService.state.gst_recon_itc_crnpending_tot!=0"
+                style="color: red;">{{mainService.state.gst_recon_itc_crnpending_tot}}</span>&nbsp;
               <strong *ngIf="mainService.state.gst_recon_itc_igst_tot!=0">IGST: </strong><span
                 *ngIf="mainService.state.gst_recon_itc_igst_tot!=0"
                 style="color: red;">{{mainService.state.gst_recon_itc_igst_tot}}</span>&nbsp;
@@ -99,7 +102,7 @@
               <strong *ngIf="mainService.state.gst_recon_itc_sgst_tot!=0">SGST: </strong> <span
                 *ngIf="mainService.state.gst_recon_itc_sgst_tot!=0"
                 style="color: red;">{{mainService.state.gst_recon_itc_sgst_tot}}</span>
-              
+
             </label>
           </div>
         </div>
