@@ -24,10 +24,13 @@
           </div>
           <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label>
           <div class="col-sm-4">
-            <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" (blur)="OnBlur('searchstring')"  />
+            <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring"
+              (blur)="OnBlur('searchstring')" />
           </div>
           <div class="col-sm-3">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+            <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
+              class="btn btn-primary btn-sm mr-1">Print</button>
 
             <button [disabled]="loading" *ngIf="bImport" (click)="PasteData(pastedata)"
               class="btn btn-primary btn-sm">Import Data</button>
@@ -965,6 +968,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-tdscertno [type]="type" [menuid]="menuid" [pan_id]="Recorddet.jv_pan_id" [tds_acc_id]="Recorddet.jv_acc_id" (ModifiedRecords)="AddTdsCertRecords($event)"></app-tdscertno>
+    <app-tdscertno [type]="type" [menuid]="menuid" [pan_id]="Recorddet.jv_pan_id" [tds_acc_id]="Recorddet.jv_acc_id"
+      (ModifiedRecords)="AddTdsCertRecords($event)"></app-tdscertno>
   </div>
 </ng-template>

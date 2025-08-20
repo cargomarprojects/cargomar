@@ -56,6 +56,7 @@ export class LedgerComponent {
   selectedRowIndex = 0;
   bMail: boolean = false;
   bAdmin: boolean = false;
+  bPrint: boolean = false;
   modal: any;
 
 
@@ -167,6 +168,7 @@ export class LedgerComponent {
     this.bAdmin = false;
     this.bChqprint = true;
     this.bImport = false;
+    this.bPrint = false;
     if (this.gs.defaultValues.print_cheque_only_after_ho_approved == 'Y')
       this.bChqprint = false;
 
@@ -182,6 +184,8 @@ export class LedgerComponent {
         this.bMail = true;
       if (this.menu_record.rights_admin)
         this.bAdmin = true;
+      if (this.menu_record.rights_print)
+        this.bPrint = true;
       if (this.menu_record.rights_approval.length > 0)
         this.bapprovalstatus = this.menu_record.rights_approval.toString();
       if (this.menu_record.rights_approval.toString() == "{IMPORT}" || (this.type == "BR" && this.gs.globalVariables.user_code == 'ADMIN'))
@@ -531,7 +535,8 @@ export class LedgerComponent {
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount,
       from_date: this.fromdate,
-      to_date: this.todate
+      to_date: this.todate,
+      report_folder: this.gs.globalVariables.report_folder
     };
 
 
@@ -540,16 +545,20 @@ export class LedgerComponent {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.RecordList = response.list;
-        this.page_count = response.page_count;
-        this.page_current = response.page_current;
-        this.page_rowcount = response.page_rowcount;
-        if (!this.gs.isBlank(this.RecordMailList) && !this.gs.isBlank(this.RecordList)) {
-          this.RecordMailList.forEach(rec => {
-            for (let rec2 of this.RecordList.filter(rec2 => rec2.jvh_pkid == rec.jvh_pkid)) {
-              rec2.jvh_selected = true;
-            }
-          });
+        if (_type == 'EXCEL')
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else {
+          this.RecordList = response.list;
+          this.page_count = response.page_count;
+          this.page_current = response.page_current;
+          this.page_rowcount = response.page_rowcount;
+          if (!this.gs.isBlank(this.RecordMailList) && !this.gs.isBlank(this.RecordList)) {
+            this.RecordMailList.forEach(rec => {
+              for (let rec2 of this.RecordList.filter(rec2 => rec2.jvh_pkid == rec.jvh_pkid)) {
+                rec2.jvh_selected = true;
+              }
+            });
+          }
         }
       },
         error => {
