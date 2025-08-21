@@ -299,5 +299,8 @@ export class Bl {
   bl_type: string;
   hbl_bl_type: string;
   bl_agent_lock_date: string;
+
+  hbl_sbl_no: string;
+  hbl_sbl_date: string;
 }
 

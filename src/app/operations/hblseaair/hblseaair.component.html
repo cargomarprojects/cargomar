@@ -626,6 +626,8 @@
                 class="btn btn-success btn-sm">{{btnbltiltle}}</button>
               <button *ngIf="mode == 'EDIT' &&  type=='SEA EXPORT' && jobexist && Record.hbl_bl_type != 'OLD'" [disabled]="loading||(Record.hbl_bl_no != '' && Record.hbl_fcr_no == '' && Record.hbl_blno_generated!='B' &&  type=='SEA EXPORT')" (click)="ShowBL('FCR')"
                 class="btn btn-success btn-sm">FCR</button>
+              <button *ngIf="mode == 'EDIT' &&  type=='SEA EXPORT' && jobexist" [hidden]="(Record.hbl_bl_no == '')" (click)="ShowBL('SBL')"
+                class="btn btn-success btn-sm">Switch BL</button>
               <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="AmsFiling(amsedi)"
                 class="btn btn-success btn-sm">Data Transfer</button>
               <button *ngIf="mode == 'EDIT' &&  type=='SEA EXPORT'" [disabled]="loading" (click)="ISFReport(mailsent)"

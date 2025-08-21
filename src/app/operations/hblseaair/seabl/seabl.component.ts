@@ -285,7 +285,8 @@ export class BlComponent {
       type: 'SEABL',
       comp_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
-      blf_type: "HBL"
+      blf_type: "HBL",
+      invokefrom: this.invokefrom
     };
     this.ErrorMessage = '';
     this.InfoMessage = '';
@@ -483,6 +484,14 @@ export class BlComponent {
         sError += "\n\r | BL Date Cannot be blank.";
       }
     }
+
+    if (this.invokefrom == "SBL" && this.Record.hbl_sbl_no.trim().length > 0) {
+      if (this.Record.hbl_sbl_date.trim().length <= 0) {
+        bret = false;
+        sError += "\n\r | Switch BL Date Cannot be blank.";
+      }
+    }
+
     //if (this.Record.ct_amount <= 0 ) {
     //    bret = false;
     //    sError += "\n\rAmount Cannot Be Blank";
@@ -678,6 +687,11 @@ export class BlComponent {
       case 'hbl_bl_no':
         {
           this.Record.hbl_bl_no = this.Record.hbl_bl_no.replace(oldChar2, '').toUpperCase();
+          break;
+        }
+      case 'hbl_sbl_no':
+        {
+          this.Record.hbl_sbl_no = this.Record.hbl_sbl_no.replace(oldChar2, '').toUpperCase();
           break;
         }
 
@@ -1196,7 +1210,7 @@ export class BlComponent {
 
   HideBlPage() {
     if (this.PageChanged != null)
-      this.PageChanged.emit({ hblno: this.Record.hbl_bl_no, fcrno: this.Record.hbl_fcr_no, blnogenerated: this.Record.hbl_blno_generated });
+      this.PageChanged.emit({ hblno: this.Record.hbl_bl_no, fcrno: this.Record.hbl_fcr_no, blnogenerated: this.Record.hbl_blno_generated, sblno: this.Record.hbl_sbl_no });
   }
 
   SearchRecord(controlname: string, controlid: string, controlparentid: string) {
@@ -1433,7 +1447,8 @@ export class BlComponent {
       formatid: this.Record.hbl_seq_format_id,
       bl_no: this.Record.hbl_bl_no,
       fcr_no: this.Record.hbl_fcr_no,
-      bl_type: _bl_type
+      bl_type: _bl_type,
+      sbl_no: this.Record.hbl_sbl_no
     };
 
     SearchData.pkid = this.parentid;
