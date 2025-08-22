@@ -162,6 +162,7 @@ export class Hblm {
   hbl_book_slno: number;
   rec_created_by: string;
   rec_created_date: string;
+  original_bl_printed: boolean;
 
   _globalvariables: GlobalVariables;
 

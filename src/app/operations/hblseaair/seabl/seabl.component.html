@@ -4,13 +4,13 @@
     <label>{{title}}</label>
     <button *ngIf="user_admin" [disabled]="loading" (click)="UnlockBLNo('UNLOCK')"
       class="btn btn-success btn-sm">Unlock</button>
-    <button *ngIf="user_admin && (invokefrom=='HBL'||invokefrom=='FCR'||invokefrom=='SBL')" [disabled]="loading"
+    <button *ngIf="user_admin && (invokefrom=='HBL'||invokefrom=='FCR')" [disabled]="loading"
       (click)="UnlockBLNo('RESETBL')" class="btn btn-success btn-sm">Reset BL#</button>
     <button *ngIf="user_admin && (invokefrom=='HBL'||invokefrom=='FCR')" [disabled]="loading"
       (click)="UnlockBLNo('RESETFCR')" class="btn btn-success btn-sm">Reset FCR#</button>
     <button *ngIf="user_admin && (invokefrom=='HBL'||invokefrom=='FCR')" [disabled]="loading"
       (click)="UnlockBLNo('BOTH')" class="btn btn-success btn-sm">Both FCR & BL</button>
-    <button *ngIf="user_admin && invokefrom!='FCR'" [disabled]="loading" (click)="UnlockBLNo('UNLOCK-SE-DRAFT')"
+    <button *ngIf="user_admin && invokefrom!='FCR'&& invokefrom!='SBL'" [disabled]="loading" (click)="UnlockBLNo('UNLOCK-SE-DRAFT')"
       class="btn btn-success btn-sm">Unlock Draft Pdf</button>
     <button *ngIf="user_admin && invokefrom=='HBL'" [disabled]="loading" (click)="UnlockBLNo('UNLOCK-AGENT')"
       class="btn btn-success btn-sm">Unlock Agent/Delivery</button>
@@ -413,12 +413,12 @@
           <label class="col-4 col-form-label col-form-label-sm">Switch BL#</label>
           <div class="col-4">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_sbl_no"
-              (blur)="OnBlur('hbl_sbl_no')"  required maxlength="100" />
+              (blur)="OnBlur('hbl_sbl_no')" required maxlength="100" />
           </div>
           <label style="text-align:right" class="col-1 col-form-label col-form-label-sm">Date</label>
-            <div class="col-3">
-              <app-date [inputdate]="Record.hbl_sbl_date" (ValueChanged)="Record.hbl_sbl_date=$event"></app-date>
-            </div>
+          <div class="col-3">
+            <app-date [inputdate]="Record.hbl_sbl_date" (ValueChanged)="Record.hbl_sbl_date=$event"></app-date>
+          </div>
         </div>
       </div>
       <div *ngIf="invokefrom=='HBL'||invokefrom=='SBL'">
@@ -522,8 +522,7 @@
         <div class="form-group row">
           <div class="offset-4 col-8">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_delivery_contact6"
-              (blur)="OnBlur('bl_delivery_contact6')" required maxlength="60"
-              [disabled]="gs.isBlank(Record.bl_agent_lock_date) && invokefrom=='HBL'" />
+              (blur)="OnBlur('bl_delivery_contact6')" required maxlength="60" />
           </div>
         </div>
 
@@ -1357,7 +1356,7 @@
           <button [disabled]="loading || Record.bl_original_print == 'Y'" (click)="Save()"
             class="btn btn-success btn-sm">Save</button>
           <button [disabled]="loading" (click)="HideBlPage()" class="btn btn-success btn-sm">Return</button>
-          <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'" (click)="GetRecord('PDF','SEABL')"
+          <button [disabled]="loading" *ngIf="mode=='EDIT' && (invokefrom=='HBL'||invokefrom=='SBL')" (click)="GetRecord('PDF','SEABL')"
             class="btn btn-success btn-sm">BL Print</button>
           <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'" (click)="GetRecord('PDF','SEAWAYBILL')"
             class="btn btn-success btn-sm">Sea Waybill</button>
