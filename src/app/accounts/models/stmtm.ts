@@ -3,10 +3,10 @@ import { GlobalVariables } from '../../core/models/globalvariables';
 
 export class Stmtm {
 
-  stm_pkid : string;
-  stm_no : number;
-  stm_year : number;
-  stm_accid : string;
+  stm_pkid: string;
+  stm_no: number;
+  stm_year: number;
+  stm_accid: string;
   stm_acc_code: string;
   stm_acc_name: string;
 
@@ -15,8 +15,8 @@ export class Stmtm {
   stm_acc_br_addr: string;
 
   stm_curr_code: string;
-  stm_isgroup : string;
-  stm_date : string;
+  stm_isgroup: string;
+  stm_date: string;
   stm_currencyid: string;
 
   stm_dr: number;
@@ -31,14 +31,14 @@ export class Stmtm {
 
   stm_edit_code: string;
   stm_edit_date: string;
-
+  stm_remarks: string;
 
   rec_created_by: string;
   rec_cretated_date: string;
   rec_mode: string;
   rec_locked: string;
 
-   PendingList: Stmtd[] = [];
+  PendingList: Stmtd[] = [];
 
 
 
@@ -60,25 +60,25 @@ export class Stmtd {
   jv_type: string;
   jv_date: string;
   jv_display_date: string;
-  jv_remarks: string; 
+  jv_remarks: string;
   jv_reference: string;
   jv_narration: string;
   jv_currency_rowid: string;
   jv_debit: number;
   jv_credit: number;
   jv_exchange_rate: number;
-  jv_docno:string;
+  jv_docno: string;
   inrbalance: number;
-  inrallocation: number; 
+  inrallocation: number;
   amount: number;
   dr: number;
   cr: number;
   balance: number;
-  allocation: number; 
+  allocation: number;
   jv_selected: boolean;
   rec_category: string;
   folderno: string;
-  master_no:string;
-  house_nos:string;
+  master_no: string;
+  house_nos: string;
 }
 

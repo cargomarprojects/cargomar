@@ -309,6 +309,14 @@
                 <label class="col-4 col-form-label  col-form-label-sm">AIR - {{AirAmt}}</label>
                 <label class="col-4 col-form-label  col-form-label-sm">OTH - {{OtherAmt}}</label>
               </div>
+
+              <div class="form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">Remarks</label>
+                <div class="col-10">
+                  <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.stm_remarks" (blur)="OnBlur('stm_remarks')"  maxlength="250"></textarea>
+                </div>
+              </div>
+
             </div>
 
 

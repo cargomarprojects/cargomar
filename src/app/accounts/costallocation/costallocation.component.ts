@@ -259,10 +259,10 @@ export class CostAllocationComponent {
         this.page_current = response.page_current;
         this.page_rowcount = response.page_rowcount;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -276,7 +276,7 @@ export class CostAllocationComponent {
       currid: this.Record.stm_currencyid,
       comp_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
-      stm_date: this.Record.stm_date ,
+      stm_date: this.Record.stm_date,
     };
 
     this.ErrorMessage = '';
@@ -286,12 +286,12 @@ export class CostAllocationComponent {
         this.PendingList = response.list;
         this.FindTotal();
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
-  
+
 
   NewRecord() {
 
@@ -310,6 +310,7 @@ export class CostAllocationComponent {
     this.Record.stm_curr_code = this.gs.defaultValues.param_curr_foreign_code;
 
     this.Record.rec_mode = this.mode;
+    this.Record.stm_remarks = "";
 
     this.PendingList = new Array<Stmtd>();
 
@@ -337,10 +338,10 @@ export class CostAllocationComponent {
         this.loading = false;
         this.LoadData(response.record);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   LoadData(_Record: Stmtm) {
@@ -350,7 +351,7 @@ export class CostAllocationComponent {
     this.AGENTRECORD.id = this.Record.stm_accid;
     this.AGENTRECORD.code = this.Record.stm_acc_code;
     this.AGENTRECORD.name = this.Record.stm_acc_name;
-    
+
     this.AGENTADDRECORD.id = this.Record.stm_acc_br_id;
     this.AGENTADDRECORD.code = this.Record.stm_acc_br_no;
     this.AGENTADDRECORD.parentid = this.Record.stm_accid;
@@ -407,11 +408,11 @@ export class CostAllocationComponent {
         this.Record.rec_mode = this.mode;
         this.RefreshList();
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+
+        });
   }
 
   allvalid() {
@@ -454,23 +455,28 @@ export class CostAllocationComponent {
 
   OnBlur(field: string) {
     switch (field) {
+      case 'stm_remarks':
+        {
+          this.Record.stm_remarks = this.Record.stm_remarks.toUpperCase();
+          break;
+        }
       case 'allocation':
         {
-          
+
 
           this.FindTotal();
           break;
         }
     }
   }
-  OnChange(field: string, _rec : Stmtd) {
+  OnChange(field: string, _rec: Stmtd) {
     switch (field) {
       case 'jv_selected': {
-          if (_rec.jv_selected) 
-              _rec.allocation = _rec.balance;
-          else 
-            _rec.allocation = 0;
-          this.FindTotal();
+        if (_rec.jv_selected)
+          _rec.allocation = _rec.balance;
+        else
+          _rec.allocation = 0;
+        this.FindTotal();
       }
     }
   }
@@ -528,7 +534,7 @@ export class CostAllocationComponent {
           this.SeaAmt += rec.allocation;
         else if (rec.rec_category == "AIR EXPORT" || rec.rec_category == "AIR IMPORT")
           this.AirAmt += rec.allocation;
-        else 
+        else
           this.OtherAmt += rec.allocation;
 
       }
@@ -577,7 +583,7 @@ export class CostAllocationComponent {
       pkid: this.pkid,
       accid: this.Record.stm_accid,
       currid: this.Record.stm_currencyid,
-      stm_date : this.Record.stm_date,
+      stm_date: this.Record.stm_date,
       report_folder: '',
       folderid: '',
       comp_code: '',
@@ -591,23 +597,23 @@ export class CostAllocationComponent {
     SearchData.folderid = this.folder_id;
     SearchData.comp_code = this.gs.globalVariables.comp_code;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
-    
+
     SearchData.report_caption = this.title;
 
 
     this.ErrorMessage = '';
-    
+
     this.mainService.PrintList(SearchData)
       .subscribe(response => {
         this.loading = false;
         this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
-  
+
 
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -628,9 +634,9 @@ export class CostAllocationComponent {
   }
 
 
-  getht(){
-    if ( this.ht < 300)
-      return '300px'; 
+  getht() {
+    if (this.ht < 300)
+      return '300px';
     else
       return this.ht + 'px';
   }
