@@ -1812,4 +1812,32 @@ export class BlComponent {
           alert(this.ErrorMessage);
         });
   }
+
+  ReloadAgent(_hblid: string) {
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.loading = true;
+    let SearchData = {
+      hblid: _hblid,
+      invokefrm: ''
+    }
+
+    SearchData.hblid = _hblid;
+    SearchData.invokefrm = this.invokefrom;
+
+    this.mainService.ReloadAgentData(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.Record.bl_delivery_contact1 = response.delivery_contact1;
+        this.Record.bl_delivery_contact2 = response.delivery_contact2;
+        this.Record.bl_delivery_contact3 = response.delivery_contact3;
+        this.Record.bl_delivery_contact4 = response.delivery_contact4;
+        this.Record.bl_delivery_contact5 = response.delivery_contact5;
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
 }

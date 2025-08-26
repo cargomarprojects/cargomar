@@ -54,5 +54,9 @@ export class  BlService {
     LoadJobBLData(SearchData: any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/Bl/LoadJobBLData', SearchData, this.gs.headerparam2('authorized'));
     }
+
+    ReloadAgentData(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/Bl/ReloadAgentData', SearchData, this.gs.headerparam2('authorized'));
+    }
 }
 
