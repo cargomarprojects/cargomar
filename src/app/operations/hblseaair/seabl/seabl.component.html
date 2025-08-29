@@ -10,8 +10,8 @@
       (click)="UnlockBLNo('RESETFCR')" class="btn btn-success btn-sm">Reset FCR#</button>
     <button *ngIf="user_admin && (invokefrom=='HBL'||invokefrom=='FCR')" [disabled]="loading"
       (click)="UnlockBLNo('BOTH')" class="btn btn-success btn-sm">Both FCR & BL</button>
-    <button *ngIf="user_admin && invokefrom!='FCR'&& invokefrom!='SBL'" [disabled]="loading" (click)="UnlockBLNo('UNLOCK-SE-DRAFT')"
-      class="btn btn-success btn-sm">Unlock Draft Pdf</button>
+    <button *ngIf="user_admin && invokefrom!='FCR'&& invokefrom!='SBL'" [disabled]="loading"
+      (click)="UnlockBLNo('UNLOCK-SE-DRAFT')" class="btn btn-success btn-sm">Unlock Draft Pdf</button>
     <button *ngIf="user_admin && invokefrom=='HBL'" [disabled]="loading" (click)="UnlockBLNo('UNLOCK-AGENT')"
       class="btn btn-success btn-sm">Unlock Agent/Delivery</button>
     <button [disabled]="loading" (click)="HideBlPage()" class="btn btn-success btn-sm">Return</button>
@@ -413,13 +413,41 @@
           <label class="col-4 col-form-label col-form-label-sm">Switch BL#</label>
           <div class="col-4">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_sbl_no"
-              (blur)="OnBlur('hbl_sbl_no')" required maxlength="100" />
+              (blur)="OnBlur('hbl_sbl_no')"
+              [disabled]="Record.bl_original_print == 'Y'"
+              required maxlength="100" />
           </div>
           <label style="text-align:right" class="col-1 col-form-label col-form-label-sm">Date</label>
           <div class="col-3">
             <app-date [inputdate]="Record.hbl_sbl_date" (ValueChanged)="Record.hbl_sbl_date=$event"></app-date>
           </div>
         </div>
+
+        <!-- [disabled]="(Record.hbl_blno_generated == 'G' && Record.hbl_sbl_no!='')|| Record.bl_original_print == 'Y'" -->
+
+        <!-- <div class="form-group row">
+          <label class="col-4 col-form-label col-form-label-sm">HBL Sequence</label>
+          <div class="col-sm-8">
+            <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_seq_format_id"
+              [disabled]="(Record.hbl_blno_generated == 'G' || Record.hbl_sbl_no != '')">
+              <option *ngFor="let rec of BLFormatList" [value]="rec.table_pkid">{{rec.table_name}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="offset-4 col-8">
+            <button
+              [disabled]="(loading || Record.hbl_blno_generated == 'G'|| Record.hbl_bl_no != '' || Record.hbl_fcr_no != '' || mode=='ADD')  && (Record.hbl_blno_generated != 'B')"
+              (click)="GenerateBLNo('SEABL',Record.hbl_seq_format_id)" class="btn btn-success btn-sm">Generate BL No
+              And
+              Save</button>
+            <i *ngIf="loading" class="fa fa-spinner"></i>
+          </div>
+        </div> -->
+
+
+
       </div>
       <div *ngIf="invokefrom=='HBL'||invokefrom=='SBL'">
         <div class="form-group row">
@@ -479,8 +507,8 @@
         <label class="col-12 col-form-label col-form-label-sm"></label>
       </div> -->
         <div class="form-group row">
-          <label class="col-4 col-form-label col-form-label-sm">Agent/Delivery  <i *ngIf="invokefrom=='HBL'" class="fa fa-refresh pointer"
-              aria-hidden="true" (click)="ReloadAgent(Record.bl_pkid)"></i></label>
+          <label class="col-4 col-form-label col-form-label-sm">Agent/Delivery <i *ngIf="invokefrom=='HBL'"
+              class="fa fa-refresh pointer" aria-hidden="true" (click)="ReloadAgent(Record.bl_pkid)"></i></label>
           <div class="col-8">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_delivery_contact1"
               (blur)="OnBlur('bl_delivery_contact1')" required maxlength="60"
@@ -1321,9 +1349,9 @@
             <label class="form-check-label">
               <input class="form-check-input" type="checkbox" [(ngModel)]="Record.bl_is_original"
                 [disabled]="Record.bl_original_print == 'Y'">
-              {{invokefrom=='SBL'?'Final':'Original'}}&nbsp;&nbsp;
+              Original&nbsp;&nbsp;
             </label>
-            <div *ngIf="invokefrom=='HBL'">
+            <div *ngIf="invokefrom=='HBL'||invokefrom=='SBL'">
               <label class="form-check-label">
                 <input class="form-check-input" type="checkbox" [(ngModel)]="Record.bl_brazil_declaration">
                 Brazil Declaration&nbsp;&nbsp;
@@ -1357,19 +1385,20 @@
           <button [disabled]="loading || Record.bl_original_print == 'Y'" (click)="Save()"
             class="btn btn-success btn-sm">Save</button>
           <button [disabled]="loading" (click)="HideBlPage()" class="btn btn-success btn-sm">Return</button>
-          <button [disabled]="loading" *ngIf="mode=='EDIT' && (invokefrom=='HBL'||invokefrom=='SBL')" (click)="GetRecord('PDF','SEABL')"
-            class="btn btn-success btn-sm">BL Print</button>
-          <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'" (click)="GetRecord('PDF','SEAWAYBILL')"
-            class="btn btn-success btn-sm">Sea Waybill</button>
+          <button [disabled]="loading" *ngIf="mode=='EDIT' && (invokefrom=='HBL'||invokefrom=='SBL')"
+            (click)="GetRecord('PDF','SEABL')" class="btn btn-success btn-sm">BL Print</button>
+          <button [disabled]="loading" *ngIf="mode=='EDIT' && (invokefrom=='HBL'||invokefrom=='SBL')"
+            (click)="GetRecord('PDF','SEAWAYBILL')" class="btn btn-success btn-sm">Sea Waybill</button>
           <button [disabled]="loading" *ngIf="mode=='EDIT' && (invokefrom=='FCR'||Record.hbl_bl_type=='OLD')"
             (click)="GetRecord('PDF','FCR')" class="btn btn-success btn-sm">FCR</button>
           <button [disabled]="loading" *ngIf="mode=='EDIT'&&bShowDraftPdf && (user_admin||!Record.bl_draft_lock)"
             (click)="GetRecord('PDF','DRAFT')" class="btn btn-success btn-sm">Draft Pdf</button>
           <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GetBlDraft()" class="btn btn-success btn-sm">Draft
             Excel</button>
-          <button [disabled]="loading" *ngIf="mode=='EDIT' && invokefrom=='HBL'" (click)="GetRecord('PDF','BLANKBL')"
-            class="btn btn-success btn-sm">Stationary</button>
-          <button [disabled]="loading" *ngIf="mode=='EDIT' && (invokefrom=='HBL' || invokefrom=='FCR')"
+          <button [disabled]="loading" *ngIf="mode=='EDIT' && (invokefrom=='HBL'||invokefrom=='SBL')"
+            (click)="GetRecord('PDF','BLANKBL')" class="btn btn-success btn-sm">Stationary</button>
+          <button [disabled]="loading"
+            *ngIf="mode=='EDIT' && (invokefrom=='HBL' || invokefrom=='FCR'||invokefrom=='SBL')"
             (click)="GetRecord('PDF','SEABL-PREVIEW')" class="btn btn-success btn-sm">Preview</button>
           <i *ngIf="loading" class="fa fa-spinner"></i>
         </div>

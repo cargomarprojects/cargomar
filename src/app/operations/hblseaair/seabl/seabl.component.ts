@@ -1187,7 +1187,7 @@ export class BlComponent {
       case 'bl_print_format_id':
         {
           this.bShowDraftPdf = false;
-          if (this.BLPrintFormatList != null && this.invokefrom == "HBL") {
+          if (this.BLPrintFormatList != null && (this.invokefrom == "HBL" || this.invokefrom == "SBL")) {
             var REC = this.BLPrintFormatList.find(rec => rec.blf_pkid == this.Record.bl_print_format_id);
             if (REC != null) {
               // this.Record.bl_issued_by1 = REC.blf_issued_add1;
