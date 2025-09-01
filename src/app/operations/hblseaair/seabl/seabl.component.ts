@@ -1398,7 +1398,8 @@ export class BlComponent {
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
       bldate: this.Record.hbl_date,
-      category: "SEA EXPORT"
+      category: "SEA EXPORT",
+      bl_type: this.invokefrom
     };
 
     this.mainService.GenerateBLNumber(SearchData)
