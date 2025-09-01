@@ -399,7 +399,7 @@ export class LedgerBalComponent {
 
     GenerateAll() {
         this.ErrorMessage = '';
-        if (!confirm("Generate ALL Ledger of " + this.gs.globalVariables.branch_name + ", " + this.gs.globalVariables.year_name)) {
+        if (!confirm("Generate ALL Ledger of " + this.branch_code + ", " + this.gs.globalVariables.year_name)) {
             return;
         }
         this.loading = true;
