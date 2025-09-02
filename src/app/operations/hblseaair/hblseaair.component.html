@@ -610,30 +610,38 @@
 
 
           <div class="page-box">
-            <div class="col">
+            <div class="col input-group input-group-sm">
               <button [hidden]="disableSave" [disabled]="loading || Record.lock_record" (click)="Save()"
-                class="btn btn-success btn-sm">Save</button>
+                class="btn btn-success btn-sm mr-1">Save</button>
               <button [disabled]="loading" (click)="ActionHandler('LIST','')"
-                class="btn btn-success btn-sm">Return</button>
+                class="btn btn-success btn-sm mr-1">Return</button>
 
-              <button [disabled]="loading" class="btn btn-success btn-sm" (click)="CheckCrLimit()">Check
+              <button [disabled]="loading" class="btn btn-success btn-sm mr-1" (click)="CheckCrLimit()">Check
                 CR-Limit</button>
 
               <!--<button *ngIf="mode == 'EDIT' && masterexist && jobexist" [disabled]="loading" (click)="ShowBL()" class="btn btn-success btn-sm">{{btnbltiltle}}</button>-->
-              <button *ngIf="mode == 'EDIT' && bbuysellrate" [disabled]="loading" (click)=" ShowRate(buysellrate)"
-                class="btn btn-success btn-sm">Buy/Sell Rate</button>
-              <button *ngIf="mode == 'EDIT' && jobexist" [disabled]="loading||(Record.hbl_bl_type != 'OLD' &&  type=='SEA EXPORT' && Record.hbl_fcr_no != '' && Record.hbl_bl_no == '' && Record.hbl_blno_generated!='B')" (click)="ShowBL('HBL')"
-                class="btn btn-success btn-sm">{{btnbltiltle}}</button>
-              <button *ngIf="mode == 'EDIT' &&  type=='SEA EXPORT' && jobexist && Record.hbl_bl_type != 'OLD'" [disabled]="loading||(Record.hbl_bl_no != '' && Record.hbl_fcr_no == '' && Record.hbl_blno_generated!='B' &&  type=='SEA EXPORT')" (click)="ShowBL('FCR')"
-                class="btn btn-success btn-sm">FCR</button>
-              <button *ngIf="mode == 'EDIT' &&  type=='SEA EXPORT' && jobexist && Record.hbl_bl_no != '' && Record.original_bl_printed" (click)="ShowBL('SBL')"
-                class="btn btn-success btn-sm">Switch BL</button>
-              <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="AmsFiling(amsedi)"
-                class="btn btn-success btn-sm">Data Transfer</button>
+              <button *ngIf="mode == 'EDIT' && bbuysellrate" [disabled]="loading" (click)="ShowRate(buysellrate)"
+                class="btn btn-success btn-sm mr-1">Buy/Sell Rate</button>
+              <button *ngIf="mode == 'EDIT' && jobexist"
+                [disabled]="loading||(Record.hbl_bl_type != 'OLD' &&  type=='SEA EXPORT' && Record.hbl_fcr_no != '' && Record.hbl_bl_no == '' && Record.hbl_blno_generated!='B')"
+                (click)="ShowBL('HBL')" class="btn btn-success btn-sm mr-1">{{btnbltiltle}}</button>
+              <button *ngIf="mode == 'EDIT' &&  type=='SEA EXPORT' && jobexist && Record.hbl_bl_type != 'OLD'"
+                [disabled]="loading||(Record.hbl_bl_no != '' && Record.hbl_fcr_no == '' && Record.hbl_blno_generated!='B' &&  type=='SEA EXPORT')"
+                (click)="ShowBL('FCR')" class="btn btn-success btn-sm mr-1">FCR</button>
+              <div class="style=width: 25%; mr-1">
+                <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_sbl_desc">
+                  <option *ngFor="let rec of SblList" [value]="rec.param_code">{{rec.param_name}}</option>
+                </select>
+              </div>
+              <button
+                *ngIf="mode == 'EDIT' &&  type=='SEA EXPORT' && jobexist && Record.hbl_bl_no != '' && Record.original_bl_printed"
+                (click)="ShowBL('SBL')" class="btn btn-success btn-sm mr-1">Switch BL</button>
+              <!-- <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="AmsFiling(amsedi)"
+                class="btn btn-success btn-sm">Data Transfer</button> -->
               <button *ngIf="mode == 'EDIT' &&  type=='SEA EXPORT'" [disabled]="loading" (click)="ISFReport(mailsent)"
-                class="btn btn-success btn-sm">ISF</button>
+                class="btn btn-success btn-sm mr-1">ISF</button>
               <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)"
-                class="btn btn-success btn-sm">History</button>
+                class="btn btn-success btn-sm mr-1">History</button>
               <i *ngIf="loading" class="fa fa-spinner"></i>
             </div>
           </div>
@@ -684,7 +692,7 @@
 <div *ngIf="currentPage=='BLPAGE'">
   <div class="page-box">
     <div *ngIf="type=='SEA EXPORT'" class="col">
-      <app-seabl [parentid]="pkid" [type]="type" [invokefrom]="invoke_se_type"
+      <app-seabl [parentid]="pkid" [type]="type" [invokefrom]="invoke_se_type" [sblmode]="Record.hbl_sbl_desc"
         (PageChanged)="pageChanged($event)"></app-seabl>
     </div>
     <div *ngIf="type=='AIR EXPORT'" class="col">

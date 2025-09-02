@@ -29,6 +29,7 @@ export class BlComponent {
   @Input() type: string = '';
   @Input() invokefrom: string = '';
   @Input() parentid: string = '';
+  @Input() sblmode: string = '';
   @Output() PageChanged = new EventEmitter<any>();
 
   loading = false;
@@ -339,7 +340,8 @@ export class BlComponent {
       issuedplace: this.gs.defaultValues.bl_issued_place,
       branch_code: this.gs.globalVariables.branch_code,
       invokefrm: this.invokefrom,
-      user_code: this.gs.globalVariables.user_code
+      user_code: this.gs.globalVariables.user_code,
+      sblmode: this.sblmode
     };
 
     this.mainService.GetRecord(SearchData)
@@ -450,7 +452,8 @@ export class BlComponent {
     this.loading = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    this.Record.bl_type = this.invokefrom;
+    this.Record.bl_invoke_frm = this.invokefrom ;
+    this.Record.bl_type = this.invokefrom == "SBL" ? this.sblmode : this.invokefrom;
     this.Record.rec_category = this.type;
     this.Record.bl_pkid = this.parentid;
     this.Record._globalvariables = this.gs.globalVariables;

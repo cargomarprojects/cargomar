@@ -163,6 +163,7 @@ export class Hblm {
   rec_created_by: string;
   rec_created_date: string;
   original_bl_printed: boolean;
+  hbl_sbl_desc: string;
 
   _globalvariables: GlobalVariables;
 

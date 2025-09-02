@@ -8,6 +8,7 @@ import { Hblm } from '../models/hbl';
 import { HblService } from '../services/hbl.service';
 
 import { SearchTable } from '../../shared/models/searchtable';
+import { Param } from '../../master/models/param';
 
 @Component({
     selector: 'app-hblseaair',
@@ -91,6 +92,7 @@ export class HblSeaAirComponent {
     // Single Record for add/edit/view details
     Record: Hblm = new Hblm;
 
+    SblList: Param[] = [];
     //JobTypeList: any[] = [];
 
     // Shipper
@@ -616,6 +618,7 @@ export class HblSeaAirComponent {
         this.Record.hbl_fcr_no = '';
         this.Record.hbl_blno_generated = 'N';
         this.Record.hbl_bl_type = '';
+        this.Record.hbl_sbl_desc='NEW';
         this.InitLov();
         this.Record.rec_mode = this.mode;
     }
@@ -633,6 +636,7 @@ export class HblSeaAirComponent {
         this.mainService.GetRecord(SearchData)
             .subscribe(response => {
                 this.loading = false;
+                this.SblList = response.sbllist;
                 this.LoadData(response.record);
             },
                 error => {
