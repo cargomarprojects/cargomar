@@ -302,5 +302,14 @@ export class Bl {
 
   hbl_sbl_no: string;
   hbl_sbl_date: string;
+
+  bl_slno: number;
+  bl_seq_format_id: string;
+  bl_blno_generated: string;
+  bl_bl_status: string;
+  bl_parent_type: string;
+  bl_bl_date: string;
+
+
 }
 

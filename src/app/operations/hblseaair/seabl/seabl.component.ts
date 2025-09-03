@@ -384,7 +384,10 @@ export class BlComponent {
       if (this.BLFormatList != null) {
         var REC = this.BLFormatList.find(rec => rec.table_name == 'NA');
         if (REC != null) {
-          this.Record.hbl_seq_format_id = REC.table_pkid;
+          if (this.Record.hbl_seq_format_id.length <= 0)
+            this.Record.hbl_seq_format_id = REC.table_pkid;
+          if (this.Record.bl_seq_format_id.length <= 0)
+            this.Record.bl_seq_format_id = REC.table_pkid;
         }
       }
 
@@ -399,7 +402,7 @@ export class BlComponent {
   }
   LoadData(_Record: Bl) {
     this.Record = _Record;
-    if (this.Record.hbl_seq_format_id.length <= 0)
+    if (this.Record.hbl_seq_format_id.length <= 0 || this.Record.bl_seq_format_id.length <= 0)
       this.Initdefault('SEQ');
     this.AttchRecordList = _Record.AttachList;
     this.NewAttchRecord();
@@ -470,6 +473,8 @@ export class BlComponent {
         this.InfoMessage = "Save Complete";
         this.mode = "EDIT";
         this.Record.rec_mode = this.mode;
+        if (this.sblmode == "NEW")
+          this.sblmode = "SBL-" + response.sblslno;
         this.SblList = response.sbllist;
         this.sblslno = response.sblslno;
       },
@@ -1383,7 +1388,7 @@ export class BlComponent {
 
     if (_type == 'SEABL') {
       if (this.BLFormatList != null) {
-        var REC = this.BLFormatList.find(rec => rec.table_pkid == this.Record.hbl_seq_format_id)
+        var REC = this.BLFormatList.find(rec => rec.table_pkid == (this.invokefrom == "SBL" ? this.Record.bl_seq_format_id : this.Record.hbl_seq_format_id))
         if (REC != null) {
           if (REC.table_name == "NA") {
             this.ErrorMessage += "\n\r | Please select BL Sequence format and continue....";
@@ -1404,19 +1409,28 @@ export class BlComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
-      bldate: this.Record.hbl_date,
+      bldate: this.invokefrom == "SBL" ? this.Record.hbl_sbl_date : this.Record.hbl_date,
       category: "SEA EXPORT",
-      bl_type: this.invokefrom
+      invokefrom: this.invokefrom,
+      bl_type: this.invokefrom == "SBL" ? this.sblmode : this.invokefrom
     };
 
     this.mainService.GenerateBLNumber(SearchData)
       .subscribe(response => {
         this.loading = false;
         if (_type == "SEABL") {
-          this.Record.hbl_bl_no = response.newno;
-          if (this.Record.hbl_bl_no.trim().length > 0) {
-            this.Record.hbl_blno_generated = "G";
-            this.Record.bl_issued_date = this.Record.hbl_date;
+          if (this.invokefrom == "SBL") {
+            this.Record.hbl_sbl_no = response.newno;
+            if (this.Record.hbl_sbl_no.trim().length > 0) {
+              this.Record.bl_blno_generated = "G";
+              this.Record.bl_issued_date = this.Record.hbl_sbl_date;
+            }
+          } else {
+            this.Record.hbl_bl_no = response.newno;
+            if (this.Record.hbl_bl_no.trim().length > 0) {
+              this.Record.hbl_blno_generated = "G";
+              this.Record.bl_issued_date = this.Record.hbl_date;
+            }
           }
         }
         else if (_type == "FCR")
@@ -1433,7 +1447,7 @@ export class BlComponent {
   UnlockBLNo(_type: string) {
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    let _bl_type: string = this.invokefrom;
+    let _bl_type: string = this.invokefrom == "SBL" ? this.sblmode : this.invokefrom;
 
 
     if (this.gs.globalVariables.user_code != "ADMIN")
@@ -1452,7 +1466,7 @@ export class BlComponent {
       branch_code: this.gs.globalVariables.branch_code,
       user_code: this.gs.globalVariables.user_code,
       year_code: this.gs.globalVariables.year_code,
-      formatid: this.Record.hbl_seq_format_id,
+      formatid: this.invokefrom == "SBL" ? this.Record.bl_seq_format_id : this.Record.hbl_seq_format_id,
       bl_no: this.Record.hbl_bl_no,
       fcr_no: this.Record.hbl_fcr_no,
       bl_type: _bl_type,
@@ -1486,7 +1500,7 @@ export class BlComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
-      bl_type: this.invokefrom
+      bl_type: this.invokefrom == "SBL" ? this.sblmode : this.invokefrom
     }
 
     SearchData.pkid = this.parentid;

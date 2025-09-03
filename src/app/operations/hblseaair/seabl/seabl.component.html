@@ -413,9 +413,7 @@
           <label class="col-4 col-form-label col-form-label-sm">Switch BL#</label>
           <div class="col-4">
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_sbl_no"
-              (blur)="OnBlur('hbl_sbl_no')"
-              [disabled]="Record.bl_original_print == 'Y'"
-              required maxlength="100" />
+              (blur)="OnBlur('hbl_sbl_no')" [disabled]="Record.bl_original_print == 'Y'" required maxlength="100" />
           </div>
           <label style="text-align:right" class="col-1 col-form-label col-form-label-sm">Date</label>
           <div class="col-3">
@@ -425,11 +423,11 @@
 
         <!-- [disabled]="(Record.hbl_blno_generated == 'G' && Record.hbl_sbl_no!='')|| Record.bl_original_print == 'Y'" -->
 
-        <!-- <div class="form-group row">
-          <label class="col-4 col-form-label col-form-label-sm">HBL Sequence</label>
+        <div class="form-group row">
+          <label class="col-4 col-form-label col-form-label-sm">SBL Sequence</label>
           <div class="col-sm-8">
-            <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_seq_format_id"
-              [disabled]="(Record.hbl_blno_generated == 'G' || Record.hbl_sbl_no != '')">
+            <select class="form-control form-control-sm" [(ngModel)]="Record.bl_seq_format_id"
+              [disabled]="(Record.bl_blno_generated == 'G')">
               <option *ngFor="let rec of BLFormatList" [value]="rec.table_pkid">{{rec.table_name}}</option>
             </select>
           </div>
@@ -437,14 +435,13 @@
 
         <div class="form-group row">
           <div class="offset-4 col-8">
-            <button
-              [disabled]="(loading || Record.hbl_blno_generated == 'G'|| Record.hbl_bl_no != '' || Record.hbl_fcr_no != '' || mode=='ADD')  && (Record.hbl_blno_generated != 'B')"
-              (click)="GenerateBLNo('SEABL',Record.hbl_seq_format_id)" class="btn btn-success btn-sm">Generate BL No
+            <button [disabled]="(loading || Record.bl_blno_generated == 'G'|| Record.bl_bl_no != '' || mode=='ADD')"
+              (click)="GenerateBLNo('SEABL',Record.bl_seq_format_id)" class="btn btn-success btn-sm">Generate BL No
               And
               Save</button>
             <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>
-        </div> -->
+        </div>
 
 
 
