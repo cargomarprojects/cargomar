@@ -628,7 +628,7 @@
               <button *ngIf="mode == 'EDIT' &&  type=='SEA EXPORT' && jobexist && Record.hbl_bl_type != 'OLD'"
                 [disabled]="loading||(Record.hbl_bl_no != '' && Record.hbl_fcr_no == '' && Record.hbl_blno_generated!='B' &&  type=='SEA EXPORT')"
                 (click)="ShowBL('FCR')" class="btn btn-success btn-sm mr-1">FCR</button>
-              <div class="style=width: 25%; mr-1">
+              <div  *ngIf="mode == 'EDIT' &&  type=='SEA EXPORT' && jobexist && Record.hbl_bl_no != '' && Record.original_bl_printed" class="style=width: 25%; mr-1">
                 <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_sbl_desc">
                   <option *ngFor="let rec of SblList" [value]="rec.param_code">{{rec.param_name}}</option>
                 </select>

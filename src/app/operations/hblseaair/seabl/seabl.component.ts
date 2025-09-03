@@ -5,6 +5,7 @@ import { GlobalService } from '../../../core/services/global.service';
 import { Bl } from '../../models/bl';
 import { BlService } from '../../services/bl.service';
 import { SearchTable } from '../../../shared/models/searchtable';
+import { Param } from '../../../master/models/param';
 
 import { Bldesc } from '../../models/bdesc';
 import { IfObservable } from 'rxjs/observable/IfObservable';
@@ -42,6 +43,7 @@ export class BlComponent {
   mode = 'ADD';
   pkid = '';
   folder_id = '';
+  sblslno = 0;
   color_print = true;
   user_admin = false;
   bShowPasteData: boolean = false;
@@ -50,7 +52,7 @@ export class BlComponent {
   BLFormatList: any[] = [];
   BLPrintFormatList: any[] = [];
   DescTypeList: any[] = [];
-
+  SblList: Param[] = [];
   // Single Record for add/edit/view details
   Record: Bl = new Bl;
 
@@ -452,7 +454,7 @@ export class BlComponent {
     this.loading = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    this.Record.bl_invoke_frm = this.invokefrom ;
+    this.Record.bl_invoke_frm = this.invokefrom;
     this.Record.bl_type = this.invokefrom == "SBL" ? this.sblmode : this.invokefrom;
     this.Record.rec_category = this.type;
     this.Record.bl_pkid = this.parentid;
@@ -468,6 +470,8 @@ export class BlComponent {
         this.InfoMessage = "Save Complete";
         this.mode = "EDIT";
         this.Record.rec_mode = this.mode;
+        this.SblList = response.sbllist;
+        this.sblslno = response.sblslno;
       },
         error => {
           this.loading = false;
@@ -1213,7 +1217,7 @@ export class BlComponent {
 
   HideBlPage() {
     if (this.PageChanged != null)
-      this.PageChanged.emit({ hblno: this.Record.hbl_bl_no, fcrno: this.Record.hbl_fcr_no, blnogenerated: this.Record.hbl_blno_generated, sblno: this.Record.hbl_sbl_no });
+      this.PageChanged.emit({ hblno: this.Record.hbl_bl_no, fcrno: this.Record.hbl_fcr_no, blnogenerated: this.Record.hbl_blno_generated, sblno: this.Record.hbl_sbl_no, invokefrom: this.invokefrom, sblmode: this.sblmode, sblist: this.SblList, sblslno: this.sblslno });
   }
 
   SearchRecord(controlname: string, controlid: string, controlparentid: string) {

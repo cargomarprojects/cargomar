@@ -618,7 +618,7 @@ export class HblSeaAirComponent {
         this.Record.hbl_fcr_no = '';
         this.Record.hbl_blno_generated = 'N';
         this.Record.hbl_bl_type = '';
-        this.Record.hbl_sbl_desc='NEW';
+        this.Record.hbl_sbl_desc = 'NEW';
         this.InitLov();
         this.Record.rec_mode = this.mode;
     }
@@ -1116,6 +1116,15 @@ export class HblSeaAirComponent {
         this.Record.hbl_bl_no = params.hblno;
         this.Record.hbl_fcr_no = params.fcrno;
         this.Record.hbl_blno_generated = params.blnogenerated;
+        if (params.invokefrom == "SBL") {
+            if (params.sblist.length > 1) {
+                this.SblList = params.sblist;
+                if (params.sblmode == "NEW")
+                    this.Record.hbl_sbl_desc = 'SBL-' + params.sblslno;
+                else
+                    this.Record.hbl_sbl_desc = params.sblmode;
+            }
+        }
         this.currentPage = 'ROOTPAGE';
     }
     open(content: any) {
