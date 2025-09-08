@@ -410,39 +410,54 @@
       </div>
       <div *ngIf="invokefrom=='SBL'">
         <div class="form-group row">
-          <label class="col-4 col-form-label col-form-label-sm">Switch BL#</label>
+          <label class="col-4 col-form-label col-form-label-sm">Reg. No.</label>
           <div class="col-4">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_sbl_no"
-              (blur)="OnBlur('hbl_sbl_no')" [disabled]="Record.bl_original_print == 'Y'" required maxlength="100" />
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_reg_no"
+              (blur)="OnBlur('bl_reg_no')" disabled required maxlength="30" />
           </div>
-          <label style="text-align:right" class="col-1 col-form-label col-form-label-sm">Date</label>
+          <label style="text-align:right" class="col-1 col-form-label col-form-label-sm">FMC.No.</label>
           <div class="col-3">
-            <app-date [inputdate]="Record.hbl_sbl_date" (ValueChanged)="Record.hbl_sbl_date=$event"></app-date>
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_fmc_no"
+              (blur)="OnBlur('bl_fmc_no')" disabled required maxlength="30" />
           </div>
         </div>
+        <div class="page-box">
+          <div class="form-group row">
+            <label class="col-4 col-form-label col-form-label-sm">Switch BL#</label>
+            <div class="col-4">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_sbl_no"
+                (blur)="OnBlur('hbl_sbl_no')"
+                [disabled]="Record.bl_blno_generated == 'G'|| Record.bl_original_print == 'Y'" required
+                maxlength="100" />
+            </div>
+            <label style="text-align:right" class="col-1 col-form-label col-form-label-sm">Date</label>
+            <div class="col-3">
+              <app-date [inputdate]="Record.hbl_sbl_date" (ValueChanged)="Record.hbl_sbl_date=$event"></app-date>
+            </div>
+          </div>
 
-        <!-- [disabled]="(Record.hbl_blno_generated == 'G' && Record.hbl_sbl_no!='')|| Record.bl_original_print == 'Y'" -->
+          <!-- [disabled]="(Record.hbl_blno_generated == 'G' && Record.hbl_sbl_no!='')|| Record.bl_original_print == 'Y'" -->
 
-        <div class="form-group row">
-          <label class="col-4 col-form-label col-form-label-sm">SBL Sequence</label>
-          <div class="col-sm-8">
-            <select class="form-control form-control-sm" [(ngModel)]="Record.bl_seq_format_id"
-              [disabled]="(Record.bl_blno_generated == 'G')">
-              <option *ngFor="let rec of BLFormatList" [value]="rec.table_pkid">{{rec.table_name}}</option>
-            </select>
+          <div class="form-group row">
+            <label class="col-4 col-form-label col-form-label-sm">SBL Sequence</label>
+            <div class="col-sm-8">
+              <select class="form-control form-control-sm" [(ngModel)]="Record.bl_seq_format_id"
+                [disabled]="(Record.bl_blno_generated == 'G')">
+                <option *ngFor="let rec of BLFormatList" [value]="rec.table_pkid">{{rec.table_name}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="offset-4 col-8">
+              <button [disabled]="(loading || Record.bl_blno_generated == 'G'|| Record.hbl_sbl_no != '' || mode=='ADD')"
+                (click)="GenerateBLNo('SEABL',Record.bl_seq_format_id)" class="btn btn-success btn-sm">Generate BL No
+                And
+                Save</button>
+              <i *ngIf="loading" class="fa fa-spinner"></i>
+            </div>
           </div>
         </div>
-
-        <div class="form-group row">
-          <div class="offset-4 col-8">
-            <button [disabled]="(loading || Record.bl_blno_generated == 'G'|| Record.hbl_sbl_no != '' || mode=='ADD')"
-              (click)="GenerateBLNo('SEABL',Record.bl_seq_format_id)" class="btn btn-success btn-sm">Generate BL No
-              And
-              Save</button>
-            <i *ngIf="loading" class="fa fa-spinner"></i>
-          </div>
-        </div>
-
 
 
       </div>

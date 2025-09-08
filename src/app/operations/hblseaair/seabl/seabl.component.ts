@@ -473,8 +473,10 @@ export class BlComponent {
         this.InfoMessage = "Save Complete";
         this.mode = "EDIT";
         this.Record.rec_mode = this.mode;
-        if (this.sblmode == "NEW")
+        if (this.sblmode == "NEW") {
           this.sblmode = "SBL-" + response.sblslno;
+          this.Record.bl_type = this.sblmode;
+        }
         this.SblList = response.sbllist;
         this.sblslno = response.sblslno;
       },
@@ -1382,8 +1384,11 @@ export class BlComponent {
   GenerateBLNo(_type: string, _formatid: string) {
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    if (_type == "SEABL" && this.Record.hbl_date.trim().length <= 0) {
-      this.ErrorMessage = "\n\r | BL Date Cannot Be Blank";
+    if (_type == "SEABL") {
+      if (this.invokefrom == "HBL" && this.Record.hbl_date.trim().length <= 0)
+        this.ErrorMessage = "\n\r | BL Date Cannot Be Blank";
+      if (this.invokefrom == "SBL" && this.Record.hbl_sbl_date.trim().length <= 0)
+        this.ErrorMessage = "\n\r | BL Date Cannot Be Blank";
     }
 
     if (_type == 'SEABL') {
@@ -1432,6 +1437,7 @@ export class BlComponent {
               this.Record.bl_issued_date = this.Record.hbl_date;
             }
           }
+          this.SblList = response.sbllist;
         }
         else if (_type == "FCR")
           this.Record.hbl_fcr_no = response.newno;
@@ -1767,7 +1773,8 @@ export class BlComponent {
       report_folder: this.gs.globalVariables.report_folder,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
-      invokefrm: this.invokefrom
+      invokefrm: this.invokefrom,
+      bl_type: this.invokefrom == "SBL" ? this.sblmode : this.invokefrom
     };
 
     this.mainService.GetBlDraftReport(SearchData)
