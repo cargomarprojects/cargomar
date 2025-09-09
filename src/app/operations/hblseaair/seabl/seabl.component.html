@@ -14,6 +14,8 @@
       (click)="UnlockBLNo('UNLOCK-SE-DRAFT')" class="btn btn-success btn-sm">Unlock Draft Pdf</button>
     <button *ngIf="user_admin && invokefrom=='HBL'" [disabled]="loading" (click)="UnlockBLNo('UNLOCK-AGENT')"
       class="btn btn-success btn-sm">Unlock Agent/Delivery</button>
+    <button *ngIf="user_admin && (invokefrom=='HBL'||invokefrom=='SBL')" [disabled]="loading" (click)="UnlockBLNo('CANCEL-ORIGINAL')"
+      class="btn btn-success btn-sm">Cancel Original</button>
     <button [disabled]="loading" (click)="HideBlPage()" class="btn btn-success btn-sm">Return</button>
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
