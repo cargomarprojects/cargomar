@@ -1697,6 +1697,16 @@ export class LedgerComponent {
       }
     }
 
+    //Edited By Ajith On 15/09/2025
+    if (this.type == "JV") {
+      if (this.Recorddet.jv_drcr == "CR") {
+        if (this.Recorddet.jv_acc_type_name == 'DIRECT INCOME' || this.Recorddet.jv_acc_type_name == 'DIRECT EXPENSE') {
+          this.ErrorMessage = 'Direct Income/Expense not allowed';
+          alert(this.ErrorMessage);
+          return;
+        }
+      }
+    }
 
     if (this.type == "CP") {
       if (this.Recorddet.jv_acc_type_name == 'CASH' && this.Recorddet.jv_drcr == "DR") {
@@ -1966,6 +1976,7 @@ export class LedgerComponent {
           return;
       }
     }
+
 
     // Tds certificate bal Check
     if (!this.gs.isBlank(this.Recorddet.jv_pan_id)) {
