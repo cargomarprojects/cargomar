@@ -947,7 +947,9 @@ export class MblAirComponent {
       company_code: '',
       branch_code: '',
       rec_category: '',
-      hbl_type: ''
+      hbl_type: '',
+      user_code:'',
+      mbl_slno:''
     };
 
     if (controlname == 'updatemaster') {
@@ -960,6 +962,8 @@ export class MblAirComponent {
       SearchData.branch_code = this.gs.globalVariables.branch_code;
       SearchData.rec_category = this.type;
       SearchData.hbl_type = 'MBL-AE';
+      SearchData.user_code = this.gs.globalVariables.user_code;
+      SearchData.mbl_slno = this.Record.mbl_bookslno.toString();
     }
 
     this.gs.SearchRecord(SearchData)
@@ -1082,4 +1086,8 @@ export class MblAirComponent {
         });
   }
 
+  ShowHistory(history: any) {
+    this.ErrorMessage = '';
+    this.open(history);
+  }
 }

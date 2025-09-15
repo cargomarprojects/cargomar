@@ -707,11 +707,14 @@
                   (click)="PrintCheckList('','AIR EXPORT','EXCEL')" class="btn btn-success btn-sm">Check List</button>
                 <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowBL()"
                   class="btn btn-success btn-sm">MAWB</button>
-                  <label  *ngIf="mode == 'EDIT'"  class="col-form-label col-form-label-sm">
-                    <input class="form-check-input ml-2" type="checkbox" [(ngModel)]="is_express_mode"><span class="ml-4" >Express Mode</span>
-                  </label>
+                <label *ngIf="mode == 'EDIT'" class="col-form-label col-form-label-sm">
+                  <input class="form-check-input ml-2" type="checkbox" [(ngModel)]="is_express_mode"><span
+                    class="ml-4">Express Mode</span>
+                </label>
                 <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="PrintBarcode()"
                   class="btn btn-success btn-sm">Barcode</button>
+                <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)"
+                  class="btn btn-success btn-sm">History</button>
                 <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
                   <font color="RED">
                     <strong>
@@ -793,6 +796,17 @@
     <div class="modal-body">
       <!-- <app-history [pkid]="pkid" [type]="'MBL-SE'"></app-history> -->
       <app-tracking [parentid]="pkid" [type]="type"></app-tracking>
+    </div>
+  </ng-template>
+  <ng-template #history let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">History</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <app-history [pkid]="pkid" [type]="'MBL-AE'"></app-history>
     </div>
   </ng-template>
 </div>

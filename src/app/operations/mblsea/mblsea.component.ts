@@ -1310,7 +1310,9 @@ export class MblSeaComponent {
       rowtype: '',
       book_slno: '',
       book_free_days: 0,
-      hbl_terms: ''
+      hbl_terms: '',
+      user_code: '',
+      mbl_slno: ''
     };
 
     if (controlname == 'updatemaster') {
@@ -1328,6 +1330,8 @@ export class MblSeaComponent {
       SearchData.hbl_buy_remarks = this.Record.book_cust_comments;
       SearchData.book_free_days = this.Record.book_free_days;
       SearchData.hbl_terms = this.Record.book_terms;
+      SearchData.user_code = this.gs.globalVariables.user_code;
+      SearchData.mbl_slno = this.Record.book_slno.toString();
     }
 
     if (controlname == 'bookno') {

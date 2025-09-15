@@ -1105,7 +1105,9 @@ export class ImpMblSeaAirComponent {
       company_code: '',
       branch_code: '',
       rec_category: '',
-      hbl_type: ''
+      hbl_type: '',
+      user_code: '',
+      mbl_slno: ''
     };
 
     if (controlname == 'updatemaster') {
@@ -1119,6 +1121,8 @@ export class ImpMblSeaAirComponent {
       SearchData.company_code = this.gs.globalVariables.comp_code,
         SearchData.branch_code = this.gs.globalVariables.branch_code,
         SearchData.rec_category = this.type;
+      SearchData.user_code = this.gs.globalVariables.user_code;
+      SearchData.mbl_slno = this.Record.mbl_bookslno.toString();
       if (this.type == 'SEA IMPORT')
         SearchData.hbl_type = 'MBL-SI';
       else
