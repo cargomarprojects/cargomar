@@ -309,7 +309,8 @@ export class Bl {
   bl_bl_status: string;
   bl_parent_type: string;
   bl_bl_date: string;
-
+  bl_shipper_acc_no: string;
+  bl_consignee_acc_no: string;
 
 }
 

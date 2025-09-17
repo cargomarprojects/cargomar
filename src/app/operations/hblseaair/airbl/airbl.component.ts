@@ -1403,6 +1403,16 @@ export class AirBlComponent {
           this.Record.bl_place_receipt = this.Record.bl_place_receipt.toUpperCase();
           break;
         }
+      case 'bl_shipper_acc_no':
+        {
+          this.Record.bl_shipper_acc_no = this.Record.bl_shipper_acc_no.toUpperCase();
+          break;
+        }case 'bl_consignee_acc_no':
+        {
+          this.Record.bl_consignee_acc_no = this.Record.bl_consignee_acc_no.toUpperCase();
+          break;
+        }
+
     }
   }
   OnChange(field: string) {
