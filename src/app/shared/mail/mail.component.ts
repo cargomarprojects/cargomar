@@ -387,7 +387,7 @@ export class MailComponent {
     SearchData.root_folder = this.gs.defaultValues.root_folder;
     SearchData.sub_folder = this.gs.defaultValues.sub_folder;
     SearchData.filedocid = filedocid;
-
+    SearchData.user_short_name = this.gs.globalVariables.user_short_name;
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
