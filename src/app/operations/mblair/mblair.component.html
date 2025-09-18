@@ -711,8 +711,10 @@
                   <input class="form-check-input ml-2" type="checkbox" [(ngModel)]="is_express_mode"><span
                     class="ml-4">Express Mode</span>
                 </label>
-                <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="PrintBarcode()"
+                <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="PrintBarcode('CUSTOM-SIZE')"
                   class="btn btn-success btn-sm">Barcode</button>
+                <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="PrintBarcode('A4')"
+                  class="btn btn-success btn-sm">Barcode(A4)</button>
                 <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)"
                   class="btn btn-success btn-sm">History</button>
                 <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">

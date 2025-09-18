@@ -948,8 +948,8 @@ export class MblAirComponent {
       branch_code: '',
       rec_category: '',
       hbl_type: '',
-      user_code:'',
-      mbl_slno:''
+      user_code: '',
+      mbl_slno: ''
     };
 
     if (controlname == 'updatemaster') {
@@ -1052,16 +1052,18 @@ export class MblAirComponent {
         });
   }
 
-  PrintBarcode() {
+  PrintBarcode(_type: string) {
     this.folder_id = this.gs.getGuid();
     this.loading = true;
     let SearchData = {
+      type: _type,
       pkid: '',
       report_folder: '',
       branch_code: '',
       comp_code: '',
       is_express_mode: false
     };
+    SearchData.type = _type;
     SearchData.pkid = this.pkid;
     SearchData.report_folder = this.gs.globalVariables.report_folder;
     SearchData.comp_code = this.gs.globalVariables.comp_code;
