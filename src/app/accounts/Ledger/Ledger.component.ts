@@ -1701,9 +1701,11 @@ export class LedgerComponent {
     if (this.type == "JV") {
       if (this.Recorddet.jv_drcr == "CR") {
         if (this.Recorddet.jv_acc_type_name == 'DIRECT INCOME' || this.Recorddet.jv_acc_type_name == 'DIRECT EXPENSE') {
-          this.ErrorMessage = 'Direct Income/Expense not allowed';
-          alert(this.ErrorMessage);
-          return;
+          if (this.Recorddet.jv_acc_main_code != '1108') {
+            this.ErrorMessage = 'Direct Income/Expense not allowed';
+            alert(this.ErrorMessage);
+            return;
+          }
         }
       }
     }
