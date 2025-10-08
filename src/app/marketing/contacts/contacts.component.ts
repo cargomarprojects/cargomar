@@ -243,6 +243,12 @@ export class ContactsComponent {
       this.Record.cont_country = _Record.name;
     }
 
+    if (_Record.controlname == "CUST") {
+      this.Record.cont_cust_id = _Record.id;
+      this.Record.cont_cust_code = _Record.code;
+      this.Record.cont_cust_name = _Record.name;
+    }
+
   }
 
 
@@ -425,6 +431,11 @@ export class ContactsComponent {
     this.Record.rec_locked = false;
     this.Record.cont_is_project = false;
     this.Record.cont_doc_attached = 'N';
+    this.Record.cont_is_converted = false;
+    this.Record.cont_cust_id = '';
+    this.Record.cont_cust_code = '';
+    this.Record.cont_cust_name = '';
+
     this.InitLov();
     if (!this.gs.isBlank(this.clientType)) {
       if (this.clientType == "SHIPPER" && this.gs.globalVariables.comp_code == "CPL") {

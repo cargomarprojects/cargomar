@@ -43,7 +43,7 @@ export class MarkContacts {
     cont_contact: string;
     cont_lead_source: string;
     cont_converted: string;
-    cont_is_project:boolean;
+    cont_is_project: boolean;
 
     cont_is_seclr: boolean;
     cont_is_sefwd: boolean;
@@ -56,16 +56,21 @@ export class MarkContacts {
     cont_is_pj: boolean;
     cont_is_wh: boolean;
     cont_is_tp: boolean;
-    cont_visit_tot:number;
-    cont_type2_remarks:string;
-    cont_doc_attached:string;
-    cont_infocount:string;
-    
+    cont_visit_tot: number;
+    cont_type2_remarks: string;
+    cont_doc_attached: string;
+    cont_infocount: string;
+
+    cont_is_converted: boolean;
+    cont_cust_id: string;
+    cont_cust_code: string;
+    cont_cust_name: string;
+
     rec_created_by: string;
     rec_created_date: string;
-    
+
     rec_locked: boolean;
-    
+
     _globalvariables: GlobalVariables;
 }
 
