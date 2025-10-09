@@ -87,41 +87,48 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-4">
+      <div class="col-sm-5">
         <div class="form-group row">
-          <div class="col-sm-4">
+          <div class="col-sm-3">
             <input type="checkbox" [(ngModel)]="cont_is_shipper" id="_chkshipper">
             <label class="col-form-label col-form-label-sm" for="_chkshipper">Shipper</label>
           </div>
-          <div class="col-sm-4">
+          <div class="col-sm-3">
             <input type="checkbox" [(ngModel)]="cont_is_consignee" id="_chkconsignee">
             <label class="col-form-label col-form-label-sm" for="_chkconsignee">Consignee</label>
           </div>
-          <div class="col-sm-4">
+          <div class="col-sm-3">
             <input type="checkbox" [(ngModel)]="cont_is_agent" id="_chkagent">
             <label class="col-form-label col-form-label-sm" for="_chkagent">Agent</label>
           </div>
-        </div>
-        <div class="form-group row">
-          <div class="col-sm-4">
+          <div class="col-sm-3">
             <input type="checkbox" [(ngModel)]="cont_is_carrier" id="_chkcarrier">
             <label class="col-form-label col-form-label-sm" for="_chkcarrier">Carrier</label>
           </div>
-          <div class="col-sm-4">
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-3">
             <input type="checkbox" [(ngModel)]="cont_is_buyingagent" id="_chkbuyingagent">
             <label class="col-form-label col-form-label-sm" for="_chkbuyingagent">Buying Agent</label>
           </div>
-          <div class="col-sm-4">
+          <div class="col-sm-3">
             <input type="checkbox" [(ngModel)]="cont_is_corporate" id="_chkcorporate">
             <label class="col-form-label col-form-label-sm" for="_chkcorporate">Is Corporate</label>
           </div>
+          <div class="col-sm-3">
+            <input type="checkbox" [(ngModel)]="cont_is_convert" id="_chkisconvert">
+            <label class="col-form-label col-form-label-sm" for="_chkisconvert">Is Convert</label>
+          </div>
         </div>
       </div>
-      <div class="col-sm-2">
-        <label class="col-sm-4 col-form-label col-form-label-sm"></label>
+      <div class="col-sm-1">
         <div class="form-group row">
-          <div class="col-sm-8">
+          <div class="col-sm-12">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-12">
             <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
               class="btn btn-primary btn-sm mr-1">Print</button>
           </div>
@@ -181,7 +188,7 @@
           <td class="hlink" (click)="ActionHandler('EDIT',rec.cont_pkid,rec.cont_name,rec.cont_saleman_id)">
             {{rec.cont_name}}</td>
           <td>{{rec.cont_add1}}</td>
-          <td  [style.color]="rec.cont_cust_id!=''?'green':'red'" >{{rec.cont_is_converted?'Y':''}}</td>
+          <td [style.color]="rec.cont_cust_id!=''?'green':'red'">{{rec.cont_is_converted?'Y':''}}</td>
           <td>{{rec.cont_state}}</td>
           <td>{{rec.cont_country}}</td>
           <td>{{rec.cont_tel}}</td>

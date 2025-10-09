@@ -79,6 +79,7 @@ export class ContactsComponent {
   cont_is_carrier: boolean = false;
   cont_is_buyingagent: boolean = false;
   cont_is_corporate: boolean = false;
+  cont_is_convert: boolean = false;
 
   CATEGORYRECORD: SearchTable = new SearchTable();
   SALESMANRECORD: SearchTable = new SearchTable();
@@ -343,6 +344,7 @@ export class ContactsComponent {
       todate: this.todate,
       category: sCategory,
       iscorporate: this.cont_is_corporate ? "Y" : "N",
+      isconvert: this.cont_is_convert ? "Y" : "N",
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
