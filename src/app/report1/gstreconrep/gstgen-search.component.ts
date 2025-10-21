@@ -172,4 +172,35 @@ export class GstGenSearchComponent {
     open(content: any) {
         this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
     }
+
+    RemoveRecord(_rec: Gstr2bDownload) {
+        if (!confirm("Do you want to Delete Record of " + _rec.supplier_name + ", Invoice# " + _rec.invoice_number)) {
+            return;
+        }
+        this.loading = true;
+        let SearchData = {
+            pkid: _rec.pkid,
+            claimstatus: _rec.claim_status,
+            downloadsource: _rec.download_source,
+            company_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code,
+            user_code: this.gs.globalVariables.user_code,
+            year_code: this.gs.globalVariables.year_code,
+            type: this.type,
+            invoiceno: _rec.invoice_number
+        };
+
+        this.ErrorMessage = '';
+        this.mainService.DeleteRecord(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                this.mainService.state.RecordListSearch.splice(this.mainService.state.RecordListSearch.findIndex(rec => rec.pkid == _rec.pkid), 1);
+                alert("Removed Successfully");
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
+                });
+    }
 }

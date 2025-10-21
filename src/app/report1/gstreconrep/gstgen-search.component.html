@@ -72,6 +72,7 @@
                     <th *ngIf="type=='GSTR-2B'">CLAIMED PERIOD</th>
                     <th *ngIf="type=='GSTR-2B'">CLAIMED.STATUS</th>
                     <th>REF#</th>
+                    <th *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="text-center">DELETE</th>
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of mainService.state.RecordListSearch; let i = index">
@@ -96,6 +97,11 @@
                     <td *ngIf="type=='GSTR-2B'">{{rec.display_claimed_period}}</td>
                     <td *ngIf="type=='GSTR-2B'">{{rec.claim_status}}</td>
                     <td>{{rec.source}}</td>
+                    <td *ngIf="gs.globalVariables.user_code == 'ADMIN'"
+                        style="text-align: center; vertical-align: middle; cursor: pointer;" class="hlink"><i
+                            *ngIf="rec.download_source=='PURCHASE'" class="fa fa-trash  fa-lg pointer"
+                            aria-hidden="true" (click)="RemoveRecord(rec)"></i>
+                    </td>
                 </tr>
             </tbody>
         </table>
