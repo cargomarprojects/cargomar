@@ -169,6 +169,7 @@ export interface iGstr2bDownloadModel {
     RecordListAment: Gstr2bDownload[];
     RecordListSearch: Gstr2bDownload[];
     RecordListImsr: Gstr2bDownload[];
+    RecordListImsp: Gstr2bDownload[];
 };
 
 export const initialState: iGstr2bDownloadModel = {
@@ -231,5 +232,6 @@ export const initialState: iGstr2bDownloadModel = {
     RecordListRc: [],
     RecordListAment: [],
     RecordListSearch: [],
-    RecordListImsr: []
+    RecordListImsr: [],
+    RecordListImsp: []
 } 

@@ -480,4 +480,35 @@ export class GstReconRepItcComponent {
           alert(this.ErrorMessage);
         });
   }
+
+  showImsPendingList(_imsModal: any) {
+    this.loading = true;
+    let SearchData = {
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      user_code: this.gs.globalVariables.user_code,
+      year_code: this.gs.globalVariables.year_code,
+      type: this.type,
+      report_folder: this.gs.globalVariables.report_folder,
+      state_code: this.mainService.state.gst_recon_itc_list_state_code
+    };
+
+    this.ErrorMessage = '';
+    this.mainService.ImsPendingList(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.mainService.state.RecordListImsp = response.list;
+        this.open(_imsModal);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
+
+  closeModal() {
+    this.modal.close();
+
+  }
 }

@@ -87,9 +87,11 @@
 
           <div class="form-group row">
             <label class="col-sm-12 col-form-label col-form-label-sm">
-              <strong *ngIf="mainService.state.gst_recon_itc_imspending_tot!=0">IMS-PENDING: </strong> <span
-                *ngIf="mainService.state.gst_recon_itc_imspending_tot!=0"
-                style="color: red;">{{mainService.state.gst_recon_itc_imspending_tot}}</span>&nbsp;
+              <strong *ngIf="mainService.state.gst_recon_itc_imspending_tot!=0">IMS-PENDING:
+                <span *ngIf="mainService.state.gst_recon_itc_imspending_tot!=0"
+                  style="color: red;">{{mainService.state.gst_recon_itc_imspending_tot}}&nbsp;<i
+                    (click)="showImsPendingList(imspendlist)" style="color: chocolate;" class="fa fa-eye fa-lg pointer"
+                    aria-hidden="true"></i></span></strong>&nbsp;
               <strong *ngIf="mainService.state.gst_recon_itc_crnpending_tot!=0">CN-PENDING: </strong> <span
                 *ngIf="mainService.state.gst_recon_itc_crnpending_tot!=0"
                 style="color: red;">{{mainService.state.gst_recon_itc_crnpending_tot}}</span>&nbsp;
@@ -220,3 +222,78 @@
     {{ErrorMessage}}
   </div>
 </div>
+
+<ng-template #imspendlist let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">IMS-Pending List</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="page-box">
+          <div style="max-height: 400px; overflow-y: scroll;">
+            <div class="page-body table-responsive">
+              <table class="table  table-hover table-sm">
+                <thead class="page-body-thead">
+                  <tr>
+                    <th>{{type}} PERIOD</th>
+                    <th>SOURCE</th>
+                    <th>SUPPLIER GSTIN</th>
+                    <th>SUPPLIER NAME</th>
+                    <th>FILING PERIOD</th>
+                    <th>TYPE</th>
+                    <th>REF#</th>
+                    <th>INV#</th>
+                    <th>INVDATE</th>
+                    <th class="text-right">INV.AMT</th>
+                    <th class="text-right">TAXABLE.AMT</th>
+                    <th class="text-right">IGST</th>
+                    <th class="text-right">CGST</th>
+                    <th class="text-right">SGST</th>
+                    <th class="text-right">DIFF</th>
+                    <th>IMS CLAIMED PERIOD</th>
+                    <th>REMARKS</th>
+                    <th>CLAIMED BY</th>
+                    <th>CLAIMED DATE</th>
+                  </tr>
+                </thead>
+                <tbody class="page-body-tbody" *ngFor="let rec of mainService.state.RecordListImsp; let i = index">
+                  <tr [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
+                    <td>{{rec.display_download_period}}</td>
+                    <td>{{rec.download_source}}</td>
+                    <td>{{rec.gstin_supplier}}</td>
+                    <td>{{rec.supplier_name}}</td>
+                    <td>{{rec.gstr1_period}}</td>
+                    <td>{{rec.download_type}}</td>
+                    <td>{{rec.source}}</td>
+                    <td>{{rec.invoice_number}}</td>
+                    <td>{{rec.invoice_date}}</td>
+                    <td class="text-right">{{rec.invoice_value | number : '1.2-2' }}</td>
+                    <td class="text-right">{{rec.taxable_value | number : '1.2-2' }}</td>
+                    <td class="text-right">{{rec.integrated_tax | number : '1.2-2'}}</td>
+                    <td class="text-right">{{rec.central_tax | number : '1.2-2' }}</td>
+                    <td class="text-right">{{rec.state_ut_tax | number : '1.2-2' }}</td>
+                    <td class="text-right">{{ rec.gst_diff | number : '1.2-2' }}</td>
+                    <td>{{rec.display_claimed_period}}</td>
+                    <td>{{rec.reason}}</td>
+                    <td>{{rec.claim_created_by}}</td>
+                    <td>{{rec.claim_created_date}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-box">
+      <div class="row justify-content-center p-1">
+        <button [disabled]="loading" (click)="closeModal()" class="btn btn-primary btn-sm">Close</button>
+      </div>
+    </div>
+  </div>
+
+</ng-template>
