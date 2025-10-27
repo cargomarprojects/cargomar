@@ -193,7 +193,7 @@ export class UserComponent {
         this.Record.user_tp_name = '';
         this.Record.user_dsc_slno = '';
         this.Record.rec_mode = this.mode;
-        this.Record.user_branch_user = false;
+        this.Record.user_branch_user = true;
         this.Record.user_show_payroll = false;
         this.Record.user_is_coreteam = false;
         this.Record.user_emp_id = '';
