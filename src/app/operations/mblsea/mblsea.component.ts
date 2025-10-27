@@ -1374,12 +1374,25 @@ export class MblSeaComponent {
         });
   }
 
-  FolderSent() {
+   
+  FolderSent(event: any) {
     this.folder_chk = !this.folder_chk;
-    if (this.folder_chk)
-      this.Record.book_folder_sent_date = this.gs.defaultValues.today;
-    else
+    const checked = event.target.checked;
+    if (checked) {
+      // Ask for confirmation
+      if (confirm("Do you want to send folder?")) {
+        this.Record.book_folder_sent_date = this.gs.defaultValues.today;
+      } else {
+        // User cancelled — revert checkbox and clear date
+        setTimeout(() => {
+          this.chk_foldersent = false;
+        });
+        this.Record.book_folder_sent_date = "";
+      }
+    } else {
+      // Checkbox unchecked manually — clear date
       this.Record.book_folder_sent_date = "";
+    }
   }
 
   NewCntrRecord() {
