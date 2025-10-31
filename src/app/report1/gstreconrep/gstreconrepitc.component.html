@@ -291,6 +291,8 @@
     </div>
     <div class="page-box">
       <div class="row justify-content-center p-1">
+        <button [disabled]="loading" (click)="showImsPendingList(imspendlist,'PRINT')"
+          class="btn btn-primary btn-sm mr-1">Excel</button>
         <button [disabled]="loading" (click)="closeModal()" class="btn btn-primary btn-sm">Close</button>
       </div>
     </div>

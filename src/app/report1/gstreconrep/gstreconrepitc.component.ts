@@ -481,7 +481,7 @@ export class GstReconRepItcComponent {
         });
   }
 
-  showImsPendingList(_imsModal: any) {
+  showImsPendingList(_imsModal: any, _action: string = "SCREEN") {
     this.loading = true;
     let SearchData = {
       company_code: this.gs.globalVariables.comp_code,
@@ -490,15 +490,21 @@ export class GstReconRepItcComponent {
       year_code: this.gs.globalVariables.year_code,
       type: this.type,
       report_folder: this.gs.globalVariables.report_folder,
-      state_code: this.mainService.state.gst_recon_itc_list_state_code
+      state_code: this.mainService.state.gst_recon_itc_list_state_code,
+      state_name: this.mainService.state.gst_recon_itc_list_state_name,
+      action: _action
     };
 
     this.ErrorMessage = '';
     this.mainService.ImsPendingList(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.mainService.state.RecordListImsp = response.list;
-        this.open(_imsModal);
+        if (_action == "PRINT") {
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        } else {
+          this.mainService.state.RecordListImsp = response.list;
+          this.open(_imsModal);
+        }
       },
         error => {
           this.loading = false;
