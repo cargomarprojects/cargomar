@@ -238,6 +238,7 @@ export class LeaveDetComponent {
     this.Record.lev_emp_id = '';
     this.Record.lev_emp_code = '';
     this.Record.lev_emp_name = '';
+    this.Record.lev_remarks = '';
     this.Record.lev_year = 0;
     this.Record.lev_month = 0;
     this.Record.lev_sl = 0;
@@ -375,6 +376,7 @@ export class LeaveDetComponent {
       REC.lev_cl = this.Record.lev_cl;
       REC.lev_sl = this.Record.lev_sl;
       REC.lev_lp = this.Record.lev_lp;
+      REC.lev_remarks = this.Record.lev_remarks;
     }
   }
 
@@ -399,6 +401,10 @@ export class LeaveDetComponent {
     if (field == 'lev_days_worked') {
       this.FindLpDays();
     }
+    if (field == 'lev_remarks') {
+      this.Record.lev_remarks = this.Record.lev_remarks.toUpperCase();
+    }
+
   }
   FindDaysWorked() {
     if (this.bJoinRelieve)

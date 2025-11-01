@@ -1,4 +1,3 @@
-
 <div class="page-header">
   <div class="col">
     <label>{{title}}</label>
@@ -23,11 +22,13 @@
         <div class="form-group row">
           <label style="padding-right:0px" class="col-sm-2 col-form-label col-form-label-sm">Year</label>
           <div style="padding-right:0px;padding-left:0px" class="col-sm-2">
-            <input type="number" class="col form-control form-control-sm" (blur)="OnBlur('levyear')" [(ngModel)]="levyear" />
+            <input type="number" class="col form-control form-control-sm" (blur)="OnBlur('levyear')"
+              [(ngModel)]="levyear" />
           </div>
           <label style="padding-right:0px" class="offset-1 col-sm-3 col-form-label col-form-label-sm">Month</label>
           <div style="padding-right:0px;padding-left:0px" class="col-sm-2">
-            <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('levmonth')" [(ngModel)]="levmonth" />
+            <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('levmonth')"
+              [(ngModel)]="levmonth" />
           </div>
         </div>
       </div>
@@ -35,7 +36,8 @@
         <div class="form-group row">
           <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label>
           <div class="col-sm-7">
-            <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('Search')" name="Search" [(ngModel)]="searchstring" />
+            <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('Search')" name="Search"
+              [(ngModel)]="searchstring" />
           </div>
           <div class="col-sm-2">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
@@ -48,10 +50,13 @@
   <div class="page-pager">
     <div *ngIf="page_count">
       <ul class="pagination pagination-sm">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
       </ul>
     </div>
@@ -69,12 +74,13 @@
           <th width="5%">CL</th>
           <th width="5%">SL</th>
           <th width="5%">OTH</th>
-          <th width="30%">LoP</th>
+          <th width="5%">LoP</th>
+          <th width="25%">REMARKS</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr  *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i"
-         >
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+          (mousedown)="selectedRowIndex=i">
           <td class="hlink" (click)="ActionHandler('EDIT',rec.lev_pkid)">{{rec.lev_emp_code}}</td>
           <td>{{rec.lev_emp_name}}</td>
           <td>{{rec.lev_year}}</td>
@@ -84,6 +90,7 @@
           <td>{{rec.lev_sl}}</td>
           <td>{{rec.lev_others}}</td>
           <td>{{rec.lev_lp}}</td>
+          <td>{{rec.lev_remarks}}</td>
         </tr>
       </tbody>
     </table>
@@ -92,10 +99,13 @@
   <div class="page-pager">
     <div *ngIf="page_count">
       <ul class="pagination pagination-sm">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
       </ul>
     </div>
@@ -110,17 +120,22 @@
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">Year</label>
           <div class="col-sm-3">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.lev_year" (focus)="OnFocus('lev_year')" (change)="OnChange('lev_year')" (blur)="OnBlur('lev_year')" required maxlength="4" />
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.lev_year"
+              (focus)="OnFocus('lev_year')" (change)="OnChange('lev_year')" (blur)="OnBlur('lev_year')" required
+              maxlength="4" />
           </div>
           <label class="col-sm-2 col-form-label col-form-label-sm">Month</label>
           <div class="col-sm-3">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.lev_month" (focus)="OnFocus('lev_month')" (change)="OnChange('lev_month')" (blur)="OnBlur('lev_month')" required maxlength="2" />
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.lev_month"
+              (focus)="OnFocus('lev_month')" (change)="OnChange('lev_month')" (blur)="OnBlur('lev_month')" required
+              maxlength="2" />
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">Holidays</label>
           <div class="col-sm-3">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.lev_holidays" (blur)="OnBlur('lev_holidays')" required maxlength="5" />
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.lev_holidays"
+              (blur)="OnBlur('lev_holidays')" required maxlength="5" />
           </div>
         </div>
         <div class="form-group row">
@@ -137,20 +152,23 @@
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">Privelege Leave</label>
           <div class="col-sm-3">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.lev_pl" (blur)="OnBlur('lev_pl')" required maxlength="10" />
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.lev_pl"
+              (blur)="OnBlur('lev_pl')" required maxlength="10" />
           </div>
 
         </div>
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">Casual Leave</label>
           <div class="col-sm-3">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.lev_cl" (blur)="OnBlur('lev_cl')" required maxlength="10" />
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.lev_cl"
+              (blur)="OnBlur('lev_cl')" required maxlength="10" />
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">Sick Leave</label>
           <div class="col-sm-3">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.lev_sl" (blur)="OnBlur('lev_sl')" required maxlength="5" />
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.lev_sl"
+              (blur)="OnBlur('lev_sl')" required maxlength="5" />
           </div>
         </div>
       </div>
@@ -159,7 +177,8 @@
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">Others</label>
           <div class="col-sm-3">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.lev_others" (blur)="OnBlur('lev_others')" required maxlength="10" />
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.lev_others"
+              (blur)="OnBlur('lev_others')" required maxlength="10" />
           </div>
         </div>
         <!-- <div *ngIf="Record.rec_category=='CONFIRMED' || Record.rec_category=='TRANSFER'" class="form-group row">
@@ -177,20 +196,34 @@
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">Loss of Pay</label>
           <div class="col-sm-3">
-            <input type="number" [disabled]="lock_sal_record" class="form-control form-control-sm" [(ngModel)]="Record.lev_lp" (blur)="OnBlur('lev_lp')" required maxlength="10" />
+            <input type="number" [disabled]="lock_sal_record" class="form-control form-control-sm"
+              [(ngModel)]="Record.lev_lp" (blur)="OnBlur('lev_lp')" required maxlength="10" />
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">Days Worked</label>
           <div class="col-sm-3">
-            <input type="number" [disabled]="!bJoinRelieve"  class="form-control form-control-sm" [(ngModel)]="Record.lev_days_worked" (blur)="OnBlur('lev_days_worked')" required maxlength="10" />
+            <input type="number" [disabled]="!bJoinRelieve" class="form-control form-control-sm"
+              [(ngModel)]="Record.lev_days_worked" (blur)="OnBlur('lev_days_worked')" required maxlength="10" />
           </div>
         </div>
       </div>
       <div class="col-sm-4">
-
       </div>
     </div>
+    <hr style="padding-bottom: 2px;">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Remarks</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.lev_remarks"
+              (blur)="OnBlur('lev_remarks')" required maxlength="100" />
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
   <div class="page-box">
     <div class="row">
@@ -198,10 +231,11 @@
         <div class="form-group row">
           <div class="offset-2 col-sm-10">
             <button [disabled]="loading || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
-            <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-success btn-sm">Return</button>
+            <button [disabled]="loading" (click)="ActionHandler('LIST','')"
+              class="btn btn-success btn-sm">Return</button>
             <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
               <font color="RED">
-                  {{lock_record == true ? 'Details Closed, Cannot Edit' : ''}}
+                {{lock_record == true ? 'Details Closed, Cannot Edit' : ''}}
               </font>
             </label>
             <i *ngIf="loading" class="fa fa-spinner"></i>
@@ -219,4 +253,3 @@
 <div *ngIf="ErrorMessage" class="alert alert-danger">
   {{ErrorMessage}}
 </div>
-

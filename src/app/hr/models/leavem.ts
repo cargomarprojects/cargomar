@@ -30,6 +30,7 @@ export class Leavem {
   lev_pl_bal: number;
   lev_edit_code:string;
   sal_edit_code:string;
+  lev_remarks:string;
   
   rec_category: string;
   rec_mode: string;
