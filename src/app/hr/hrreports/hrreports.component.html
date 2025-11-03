@@ -50,7 +50,12 @@
               </option>
               <option *ngIf="bAdmin||bapprovalstatus.indexOf('ESI-N')>=0" [value]="'ESI-NORTH'">ESI-NORTH-BRANCHES
               </option>
-              <option *ngIf="bAdmin||bapprovalstatus.indexOf('JOIN-RELIV')>=0" [value]="'JOIN-RELIVED'">JOIN-RELIVED
+              <option [value]="'ECR'">ECR</option>
+              <option *ngIf="bAdmin||bapprovalstatus.indexOf('ECR-S')>=0" [value]="'ECR-SOUTH'">ECR-SOUTH-BRANCHES
+              </option>
+              <option *ngIf="bAdmin||bapprovalstatus.indexOf('ECR-N')>=0" [value]="'ECR-NORTH'">ECR-NORTH-BRANCHES
+              </option>
+               <option *ngIf="bAdmin||bapprovalstatus.indexOf('JOIN-RELIV')>=0" [value]="'JOIN-RELIVED'">JOIN-RELIVED
               </option>
               <option *ngIf="bAdmin||bapprovalstatus.indexOf('JOIN-RELIV-ALL')>=0" [value]="'JOIN-RELIVED-ALL'">
                 JOIN-RELIVED-ALL-BRANCHES</option>
@@ -139,6 +144,27 @@
           <td>{{rec.emply_esi}}</td>
           <td>{{rec.emplr_esi | number : '1.2-2'}}</td>
           <td>{{rec.total | number : '1.2-2'}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="reporttype=='ECR' || reporttype=='ECR-SOUTH' || reporttype=='ECR-NORTH'"
+    class="page-body table-responsive">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th *ngIf="reporttype=='ECR-SOUTH' || reporttype=='ECR-NORTH'">BRANCH</th>
+          <th>CODE</th>
+          <th>NAME</th>
+          <th>SALARY</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
+        <tr [style.color]="rec.row_colour">
+          <td *ngIf="reporttype=='ECR-SOUTH' || reporttype=='ECR-NORTH'">{{rec.branch}}</td>
+          <td>{{rec.emp_no}}</td>
+          <td>{{rec.emp_name}}</td>
+          <td>{{rec.sal_gross_earn | number : '1.2-2'}}</td>
         </tr>
       </tbody>
     </table>

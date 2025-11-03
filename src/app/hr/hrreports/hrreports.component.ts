@@ -165,8 +165,17 @@ export class HrReportsComponent {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-        if (_type == 'EXCEL' || _type == 'CONSOL-EXCEL')
-          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        if (_type == 'EXCEL' || _type == 'CONSOL-EXCEL') {
+          if (!this.gs.isBlank(response.filelist)) {
+            if (response.filelist.length > 0) {
+              for (let rec of response.filelist) {
+                this.Downloadfile(rec.filename, rec.filetype, rec.filedisplayname);
+              }
+            } else
+              this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+          } else
+            this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        }
         else
           this.RecordList = response.list;
 

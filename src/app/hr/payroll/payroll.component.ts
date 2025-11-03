@@ -1043,8 +1043,8 @@ export class PayRollComponent {
 
   }
 
-  DownloadPaySlip( _rec:Salarym) {
-   
+  DownloadPaySlip(_rec: Salarym) {
+
     if (!confirm("Do you want to Download Payslip of " + _rec.sal_emp_name + ", Dated " + _rec.sal_date)) {
       return;
     }
