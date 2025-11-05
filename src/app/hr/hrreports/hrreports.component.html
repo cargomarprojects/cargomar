@@ -162,6 +162,7 @@
           <th>EDLI</th>
           <th>PF.EMPLY</th>
           <th>PF.EMPLR</th>
+          <th>NCP DAYS</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
@@ -175,6 +176,7 @@
           <td>{{rec.edli_chrg | number : '1.2-2'}}</td>
           <td>{{rec.pf_deduction | number : '1.2-2'}}</td>
           <td>{{rec.emplyr_share | number : '1.2-2'}}</td>
+          <td>{{rec.emp_lp_days }}</td>
         </tr>
       </tbody>
     </table>

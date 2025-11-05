@@ -26,6 +26,7 @@ export class HrReport {
   emp_status_month: string;
   emp_doj: string;
   emp_dor: string;
-  emp_uan_no:string;
+  emp_uan_no: string;
+  emp_lp_days: number;
   _globalvariables: GlobalVariables;
 }
