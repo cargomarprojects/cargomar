@@ -1407,7 +1407,7 @@ export class AirBlComponent {
         {
           this.Record.bl_shipper_acc_no = this.Record.bl_shipper_acc_no.toUpperCase();
           break;
-        }case 'bl_consignee_acc_no':
+        } case 'bl_consignee_acc_no':
         {
           this.Record.bl_consignee_acc_no = this.Record.bl_consignee_acc_no.toUpperCase();
           break;
@@ -1650,7 +1650,11 @@ export class AirBlComponent {
       type: _type,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
-      year_code: this.gs.globalVariables.year_code
+      year_code: this.gs.globalVariables.year_code,
+      formatid: this.Record.hbl_seq_format_id,
+      bl_no: this.Record.hbl_bl_no,
+      fcr_no: this.Record.hbl_fcr_no,
+      bl_type: this.invokefrom
     };
 
     SearchData.pkid = this.parentid;
