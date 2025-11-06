@@ -28,6 +28,10 @@ export class SearchShipment {
   fwd_nos: number;
   both_nos: number;
   job_year: string;
+  hbl_ar_amt: number;
+  hbl_ar_gst: number;
+  hbl_ar_invnos: string;
+  hbl_rebate_amt_inr: number;
   rec_category: string;
   remarks: string;
   rec_mode: string;
