@@ -28,7 +28,8 @@ export class HrReportsComponent {
   currentTab = 'LIST';
 
   searchstring = '';
-
+  selectedRowIndex = 0;
+  
   page_count = 0;
   page_current = 0;
   page_rows = 0;

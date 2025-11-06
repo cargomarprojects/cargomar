@@ -103,8 +103,8 @@
           <th>EPS</th>
         </tr>
       </thead>
-      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr [style.color]="rec.row_colour">
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
+        <tr [style.color]="rec.row_colour" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
           <td *ngIf="reporttype=='EPF-SOUTH' || reporttype=='EPF-NORTH'">{{rec.branch}}</td>
           <td>{{rec.emp_no}}</td>
           <td>{{rec.emp_name}}</td>
@@ -135,8 +135,8 @@
           <th>TOTAL</th>
         </tr>
       </thead>
-      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr [style.color]="rec.row_colour">
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
+        <tr [style.color]="rec.row_colour" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
           <td *ngIf="reporttype=='ESI-SOUTH' || reporttype=='ESI-NORTH'">{{rec.branch}}</td>
           <td>{{rec.emp_no}}</td>
           <td>{{rec.emp_name}}</td>
@@ -165,14 +165,14 @@
           <th>NCP DAYS</th>
         </tr>
       </thead>
-      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr [style.color]="rec.row_colour">
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
+        <tr [style.color]="rec.row_colour" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
           <td *ngIf="reporttype=='ECR-SOUTH' || reporttype=='ECR-NORTH'">{{rec.branch}}</td>
           <td>{{rec.emp_uan_no}}</td>
           <td>{{rec.emp_name}}</td>
-          <td>{{rec.sal_gross_earn | number : '1.2-2'}}</td>
-          <td>{{rec.pf_base_salary | number : '1.2-2'}}</td>
-          <td>{{rec.eps_amt | number : '1.2-2'}}</td>
+          <td>{{rec.sal_gross_earn}}</td>
+          <td>{{rec.pf_base_salary}}</td>
+          <td>{{rec.eps_amt}}</td>
           <td>{{rec.edli_chrg | number : '1.2-2'}}</td>
           <td>{{rec.pf_deduction | number : '1.2-2'}}</td>
           <td>{{rec.emplyr_share | number : '1.2-2'}}</td>
@@ -193,8 +193,8 @@
           <th>RELIVED</th>
         </tr>
       </thead>
-      <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-        <tr [style.color]="rec.row_colour">
+      <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
+        <tr [style.color]="rec.row_colour" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
           <td *ngIf="reporttype=='JOIN-RELIVED-ALL'">{{rec.branch}}</td>
           <td>{{rec.emp_name}}</td>
           <td>{{rec.emp_status}}</td>
