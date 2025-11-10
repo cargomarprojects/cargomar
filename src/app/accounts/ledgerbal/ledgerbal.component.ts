@@ -90,7 +90,9 @@ export class LedgerBalComponent {
         page_current: 0,
         page_rows: 0,
         page_rowcount: 0,
-        hide_ho_entries: ''
+        hide_ho_entries: '',
+        user_code: '',
+        login_branch: ''
     };
 
     ledgerreportstate: Observable<LedgerReportState>;
@@ -219,6 +221,8 @@ export class LedgerBalComponent {
         this.SearchData.searchstring = this.searchstring.toUpperCase();
         this.SearchData.from_date = this.from_date;
         this.SearchData.to_date = this.to_date;
+        this.SearchData.user_code = this.gs.globalVariables.user_code;
+        this.SearchData.login_branch = this.gs.globalVariables.branch_code;
 
         this.SearchData.ismaincode = this.ismaincode;
         this.SearchData.transdet = this.transdet;
