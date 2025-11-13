@@ -30,6 +30,7 @@ export class GstComponent {
   mode = '';
   pkid = '';
 
+  public bapprovalrights: string = "";
   branch_code: string = '';
   format_type: string = '';
   from_date: string = '';
@@ -102,7 +103,7 @@ export class GstComponent {
   constructor(
     private mainService: RepService,
     private route: ActivatedRoute,
-    private gs: GlobalService
+    public gs: GlobalService
   ) {
     // URL Query Parameter 
     this.sub = this.route.queryParams.subscribe(params => {
@@ -131,6 +132,8 @@ export class GstComponent {
       this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_company)
         this.bCompany = true;
+      if (this.menu_record.rights_approval.length > 0)
+        this.bapprovalrights = this.menu_record.rights_approval.toString();
     }
     this.initLov();
     this.LoadCombo();
@@ -140,8 +143,10 @@ export class GstComponent {
   Init() {
     this.branch_code = this.gs.globalVariables.branch_code;
     this.format_type = "GSTR1";
-    this.from_date = this.gs.defaultValues.monthbegindate;
-    this.to_date = this.gs.defaultValues.today;
+    if (this.gs.globalVariables.user_code != 'GSTAUDIT') {
+      this.from_date = this.gs.defaultValues.monthbegindate;
+      this.to_date = this.gs.defaultValues.today;
+    }
     this.display_format_type = this.format_type;
   }
 
@@ -176,25 +181,32 @@ export class GstComponent {
     }
   }
   LoadCombo() {
+    if (this.gs.globalVariables.user_code != 'GSTAUDIT')
+      return;
 
-    // this.loading = true;
-    // let SearchData = {
-    //   type: 'type',
-    //   comp_code: this.gs.globalVariables.comp_code,
-    //   branch_code: this.gs.globalVariables.branch_code
-    // };
-    // SearchData.comp_code = this.gs.globalVariables.comp_code;
-    // SearchData.branch_code = this.gs.globalVariables.branch_code;
-    // this.ErrorMessage = '';
-    // this.mainService.LoadDefault(SearchData)
-    //   .subscribe(response => {
-    //     this.loading = false;
-    //     this.BranchList = response.branchlist;
-    //   },
-    //     error => {
-    //       this.loading = false;
-    //       this.ErrorMessage = this.gs.getError(error);
-    //     });
+    this.loading = true;
+    let SearchData5 = {
+      type: 'type',
+      comp_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      user_code: this.gs.globalVariables.user_code
+    };
+    SearchData5.comp_code = this.gs.globalVariables.comp_code;
+    SearchData5.branch_code = this.gs.globalVariables.branch_code;
+    SearchData5.year_code = this.gs.globalVariables.year_code;
+    SearchData5.user_code = this.gs.globalVariables.user_code;
+    this.ErrorMessage = '';
+    this.mainService.LoadDefault(SearchData5)
+      .subscribe(response => {
+        this.loading = false;
+        this.from_date = response.fromdate;
+        this.to_date = response.todate;
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
 
   }
 

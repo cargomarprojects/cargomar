@@ -34,7 +34,7 @@ export class RepService {
   DsrList(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/DsrList', SearchData, this.gs.headerparam2('authorized'));
   }
-  
+
   OsReport(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/OsList', SearchData, this.gs.headerparam2('authorized'));
   }
@@ -112,11 +112,11 @@ export class RepService {
   UpdateMonReport(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/UpdateMonReport', SearchData, this.gs.headerparam2('authorized'));
   }
-  
+
   GenerateXmlCostingInvoice(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Xml/XmlEdi/GenerateXmlCostingInvoice', SearchData, this.gs.headerparam2('authorized'));
   }
-  
+
   ShipTrackList(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/ShipTrackList', SearchData, this.gs.headerparam2('authorized'));
   }
@@ -186,9 +186,13 @@ export class RepService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/CostGstList', SearchData, this.gs.headerparam2('authorized'));
   }
 
- 
+
   GenerateGspOtp(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/GenerateGspOtp', SearchData, this.gs.headerparam2('authorized'));
+  }
+
+  LoadDefault(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
   }
 }
 
