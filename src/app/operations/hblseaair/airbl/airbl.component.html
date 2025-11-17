@@ -615,8 +615,8 @@
         </div>
         <div class="col-5">
           <div class="form-group row">
-            <label style="padding-right:0;padding-left:1px" class="col-3 col-form-label col-form-label-sm">CH.WT</label>
-            <label style="padding-right:0;padding-left:1px" class="col-3 col-form-label col-form-label-sm">RATE</label>
+            <label style="padding-right:0;padding-left:1px" class="col-2 col-form-label col-form-label-sm">CH.WT</label>
+            <label style="padding-right:0;padding-left:1px" class="col-4 col-form-label col-form-label-sm">RATE</label>
             <label style="padding-right:0;padding-left:1px" class="col-3 col-form-label col-form-label-sm">TOTAL</label>
             <label style="padding-left:1px" class="col-3 col-form-label col-form-label-sm">CBM</label>
           </div>
@@ -653,14 +653,28 @@
         </div>
         <div class="col-5">
           <div class="form-group row">
-            <div style="padding-right:0;padding-left:1px" class="col-3">
+            <div style="padding-right:0;padding-left:1px" class="col-2">
               <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_chwt"
                 (blur)="OnBlur('bl_chwt')" required maxlength="15" />
             </div>
-            <div style="padding-right:0;padding-left:1px" class="col-3">
+
+            <div style="padding-right:0;padding-left:1px"  class="col-4 d-flex align-items-center">
+              <div style="width: 50%;">
+                <select class="form-control form-control-sm" [(ngModel)]="Record.bl_rate_desc" >
+                  <option [value]="'NA'">NA</option>
+                  <option [value]="'MIN'">MIN</option>
+                </select>
+              </div>
+              <div style="width: 50%; padding-left: 0px;">
+                 <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_rate"
+                (blur)="OnBlur('bl_rate')" required maxlength="15" />
+              </div>
+            </div>
+
+            <!-- <div style="padding-right:0;padding-left:1px" class="col-4">
               <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_rate"
                 (blur)="OnBlur('bl_rate')" required maxlength="15" />
-            </div>
+            </div> -->
             <div style="padding-right:0;padding-left:1px" class="col-3">
               <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.bl_total"
                 (blur)="OnBlur('bl_total')" required maxlength="15" />
