@@ -38,6 +38,9 @@ export class AddressmComponent {
     mode = '';
     pkid = '';
     modal: any;
+    public shipperAddrLen: number = 34;
+    public consigneeAddrLen: number = 20;
+
 
     // Array For Displaying List
     @Input() RecordList: Addressm[] = [];
@@ -436,6 +439,43 @@ export class AddressmComponent {
         }
         if (params.saction == "CLOSE") {
             this.modal.close();
+        }
+    }
+
+
+    OnBlur(field: string) {
+
+        if (field == 'add_line1') {
+            this.Record.add_line1 = this.Record.add_line1.toUpperCase();
+        }
+        if (field == 'add_line2') {
+            this.Record.add_line2 = this.Record.add_line2.toUpperCase();
+        }
+        if (field == 'add_line3') {
+            this.Record.add_line3 = this.Record.add_line3.toUpperCase();
+        }
+        if (field == 'add_line4') {
+            this.Record.add_line4 = this.Record.add_line4.toUpperCase();
+        }
+    }
+
+    OnFocus(field: string) {
+
+        if (field == 'add_line1') {
+            this.shipperAddrLen = 34;
+            this.consigneeAddrLen = 20;
+        }
+        if (field == 'add_line2') {
+            this.shipperAddrLen = 34;
+            this.consigneeAddrLen = 20;
+        }
+        if (field == 'add_line3') {
+            this.shipperAddrLen = 0;
+            this.consigneeAddrLen = 28;
+        }
+        if (field == 'add_line4') {
+            this.shipperAddrLen = 0;
+            this.consigneeAddrLen = 20;
         }
     }
 }

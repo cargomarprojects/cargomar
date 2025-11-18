@@ -72,33 +72,45 @@
 
       <div class="form-group row">
         <label class="col-2 col-form-label  col-form-label-sm">Address</label>
-        <div class="col-10">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.add_line1" required
+        <div class="col-10 input-group input-group-sm">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.add_line1" (blur)="OnBlur('add_line1')" (focus)="OnFocus('add_line1')" required
             maxlength="60" />
+          <input type="text" disabled class="form-control form-control-sm w-auto" style="max-width: 40px;"
+            [style.color]="Record.add_line1.length > (bShipper?shipperAddrLen:consigneeAddrLen) ?'red':'green'"
+            [(ngModel)]="Record.add_line1.length" required maxlength="5" />
         </div>
       </div>
 
       <div class="form-group row">
         <label class="col-2 col-form-label  col-form-label-sm"></label>
-        <div class="col-10">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.add_line2" required
+        <div class="col-10 input-group input-group-sm">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.add_line2" (blur)="OnBlur('add_line2')" (focus)="OnFocus('add_line2')" required
             maxlength="60" />
+          <input type="text" disabled class="form-control form-control-sm w-auto" style="max-width: 40px;"
+            [style.color]="Record.add_line2.length > (bShipper?shipperAddrLen:consigneeAddrLen)  ?'red':'green'"
+            [(ngModel)]="Record.add_line2.length" required maxlength="5" />
         </div>
       </div>
 
       <div class="form-group row">
         <label class="col-2 col-form-label  col-form-label-sm"></label>
-        <div class="col-10">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.add_line3" required
+        <div class="col-10 input-group input-group-sm">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.add_line3" (blur)="OnBlur('add_line3')" (focus)="OnFocus('add_line3')" required
             maxlength="60" />
+          <input type="text" disabled class="form-control form-control-sm w-auto" style="max-width: 40px;"
+            [style.color]="Record.add_line3.length >  (bShipper?shipperAddrLen:consigneeAddrLen)  ?'red':'green'"
+            [(ngModel)]="Record.add_line3.length" required maxlength="5" />
         </div>
       </div>
 
       <div class="form-group row">
         <label class="col-2 col-form-label  col-form-label-sm"></label>
-        <div class="col-10">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.add_line4" required
+        <div class="col-10 input-group input-group-sm">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.add_line4" (blur)="OnBlur('add_line4')"  (focus)="OnFocus('add_line4')" required
             maxlength="60" />
+          <input type="text" disabled class="form-control form-control-sm w-auto" style="max-width: 40px;"
+            [style.color]="Record.add_line4.length >  (bShipper?shipperAddrLen:consigneeAddrLen)  ?'red':'green'"
+            [(ngModel)]="Record.add_line4.length" required maxlength="5" />
         </div>
       </div>
 
@@ -185,8 +197,8 @@
 
         <label class="col-2 col-form-label col-form-label-sm">Location</label>
         <div class="col-4">
-          <input type="text" [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm" [(ngModel)]="Record.add_location" required
-            maxlength="60" />
+          <input type="text" [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm"
+            [(ngModel)]="Record.add_location" required maxlength="60" />
         </div>
         <label class="col-2 col-form-label col-form-label-sm">ForeignState</label>
         <div class="col-4">
@@ -222,6 +234,7 @@
         <div class="offset-2 col-10">
           <button [disabled]="loading" (click)="Save()" class="btn btn-default btn-sm">OK</button>
           <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-default btn-sm">Cancel</button>
+          <label class="col-form-label col-form-label-sm text-danger">*Address limits (SB Filing):&nbsp;&nbsp;<span style="color: black;">Shipper: </span> {{shipperAddrLen}} Chars/line, &nbsp;&nbsp;<span style="color: black;">Consignee: </span> {{consigneeAddrLen}} Chars/line.</label>
         </div>
       </div>
     </div>
