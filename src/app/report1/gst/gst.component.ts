@@ -148,6 +148,8 @@ export class GstComponent {
       this.to_date = this.gs.defaultValues.today;
     }
     this.display_format_type = this.format_type;
+    this.reconcile_state_code = this.gs.globalVariables.branch_gstin_state_code;
+    this.reconcile_state_name = this.gs.globalVariables.branch_gstin_state_name;
   }
 
   // // Destroy Will be called when this component is closed

@@ -51,6 +51,7 @@
               <option *ngIf="bapprovalrights.indexOf('{17}') >= 0" [value]="'GSTR-3B ITC SUMMARY'">GSTR-3B ITC SUMMARY</option>
               <option *ngIf="bapprovalrights.indexOf('{18}') >= 0" [value]="'LEDGER-SUBCODE'">LEDGER SUMMARY SUBCODE WISE</option>
               <option *ngIf="bapprovalrights.indexOf('{19}') >= 0" [value]="'LEDGER-MAINCODE'">LEDGER SUMMARY MAINCODE WISE</option>
+              <option *ngIf="bapprovalrights.indexOf('{20}') >= 0" [value]="'GSTR2B-CONSOL'">GSTR2B-CONSOL</option>
             </select>
             <div *ngIf="format_type=='PURCHASE'||format_type=='PURCHASE-DETAILS'||format_type=='PURCHASE-RATE-WISE'"
               class="ml-1">
@@ -82,6 +83,7 @@
               <option [value]="'GSTR-3B ITC SUMMARY'">GSTR-3B ITC SUMMARY</option>
               <option [value]="'LEDGER-SUBCODE'">LEDGER SUMMARY SUBCODE WISE</option>
               <option [value]="'LEDGER-MAINCODE'">LEDGER SUMMARY MAINCODE WISE</option>
+              <option [value]="'GSTR2B-CONSOL'">GSTR2B-CONSOL</option>
             </select>
             <div *ngIf="format_type=='PURCHASE'||format_type=='PURCHASE-DETAILS'||format_type=='PURCHASE-RATE-WISE'"
               class="ml-1">
@@ -102,7 +104,7 @@
           <label class="col-sm-2 col-form-label col-form-label-sm">State</label>
           <div class="col-sm-4">
             <app-autocomplete3
-              [disabled]="format_type!='RECONCILE-PURCHASE'&&format_type!='RECONCILE-GSTR2B'&&format_type!='GSTR-3B ITC SUMMARY'"
+              [disabled]="format_type!='RECONCILE-PURCHASE'&&format_type!='RECONCILE-GSTR2B'&&format_type!='GSTR-3B ITC SUMMARY'&&format_type!='GSTR2B-CONSOL'"
               [controlname]="'STATE'" [tabletype]="'STATE'" [displaycolumn]="'NAME'"
               [displaydata]="reconcile_state_name" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
