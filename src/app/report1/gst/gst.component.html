@@ -37,21 +37,27 @@
               <option *ngIf="bapprovalrights.indexOf('{3}') >= 0" [value]="'INVOICE-DETAILS'">INVOICE-DETAILS</option>
               <option *ngIf="bapprovalrights.indexOf('{4}') >= 0" [value]="'PURCHASE'">PURCHASE</option>
               <option *ngIf="bapprovalrights.indexOf('{5}') >= 0" [value]="'PURCHASE-DETAILS'">PURCHASE-DETAILS</option>
-              <option *ngIf="bapprovalrights.indexOf('{6}') >= 0" [value]="'PURCHASE-RATE-WISE'">PURCHASE-RATE-WISE</option>
+              <option *ngIf="bapprovalrights.indexOf('{6}') >= 0" [value]="'PURCHASE-RATE-WISE'">PURCHASE-RATE-WISE
+              </option>
               <option *ngIf="bapprovalrights.indexOf('{7}') >= 0" [value]="'FORM 3B'">FORM 3B</option>
               <option *ngIf="bapprovalrights.indexOf('{8}') >= 0" [value]="'FORM 3B NEW'">FORM 3B NEW</option>
-              <option *ngIf="bapprovalrights.indexOf('{9}') >= 0" [value]="'FORM 3B-RATE WISE'">FORM 3B-RATE WISE</option>
+              <option *ngIf="bapprovalrights.indexOf('{9}') >= 0" [value]="'FORM 3B-RATE WISE'">FORM 3B-RATE WISE
+              </option>
               <option *ngIf="bapprovalrights.indexOf('{10}') >= 0" [value]="'DN'">DEBIT NOTE</option>
               <option *ngIf="bapprovalrights.indexOf('{11}') >= 0" [value]="'CN'">CREDIT NOTE</option>
               <option *ngIf="bapprovalrights.indexOf('{12}') >= 0" [value]="'DI'">INWARD DEBIT NOTE</option>
               <option *ngIf="bapprovalrights.indexOf('{13}') >= 0" [value]="'CI-SUMMARY'">INWARD CREDIT NOTE</option>
               <option *ngIf="bapprovalrights.indexOf('{14}') >= 0" [value]="'CI'">INWARD CREDIT NOTE DETAILS</option>
               <option *ngIf="bapprovalrights.indexOf('{15}') >= 0" [value]="'GSTR2B'">GSTR2B</option>
-              <option *ngIf="bapprovalrights.indexOf('{16}') >= 0" [value]="'RECONCILE-GSTR2B'">RECONCILE GSTR2B</option>
-              <option *ngIf="bapprovalrights.indexOf('{17}') >= 0" [value]="'GSTR-3B ITC SUMMARY'">GSTR-3B ITC SUMMARY</option>
-              <option *ngIf="bapprovalrights.indexOf('{18}') >= 0" [value]="'LEDGER-SUBCODE'">LEDGER SUMMARY SUBCODE WISE</option>
-              <option *ngIf="bapprovalrights.indexOf('{19}') >= 0" [value]="'LEDGER-MAINCODE'">LEDGER SUMMARY MAINCODE WISE</option>
-              <option *ngIf="bapprovalrights.indexOf('{20}') >= 0" [value]="'GSTR2B-CONSOL'">GSTR2B-CONSOL</option>
+              <option *ngIf="bapprovalrights.indexOf('{16}') >= 0" [value]="'RECONCILE-GSTR2B'">RECONCILE GSTR2B
+              </option>
+              <option *ngIf="bapprovalrights.indexOf('{17}') >= 0" [value]="'GSTR-3B ITC SUMMARY'">GSTR-3B ITC SUMMARY
+              </option>
+              <option *ngIf="bapprovalrights.indexOf('{18}') >= 0" [value]="'LEDGER-SUBCODE'">LEDGER SUMMARY SUBCODE
+                WISE</option>
+              <option *ngIf="bapprovalrights.indexOf('{19}') >= 0" [value]="'LEDGER-MAINCODE'">LEDGER SUMMARY MAINCODE
+                WISE</option>
+              <option *ngIf="bapprovalrights.indexOf('{20}') >= 0" [value]="'GSTR-2B-ITC-CLAIM-CONSOL'">GSTR-2B ITC CLAIM - CONSOLIDATED</option>
             </select>
             <div *ngIf="format_type=='PURCHASE'||format_type=='PURCHASE-DETAILS'||format_type=='PURCHASE-RATE-WISE'"
               class="ml-1">
@@ -83,7 +89,7 @@
               <option [value]="'GSTR-3B ITC SUMMARY'">GSTR-3B ITC SUMMARY</option>
               <option [value]="'LEDGER-SUBCODE'">LEDGER SUMMARY SUBCODE WISE</option>
               <option [value]="'LEDGER-MAINCODE'">LEDGER SUMMARY MAINCODE WISE</option>
-              <option [value]="'GSTR2B-CONSOL'">GSTR2B-CONSOL</option>
+              <option [value]="'GSTR-2B-ITC-CLAIM-CONSOL'">GSTR-2B ITC CLAIM - CONSOLIDATED</option>
             </select>
             <div *ngIf="format_type=='PURCHASE'||format_type=='PURCHASE-DETAILS'||format_type=='PURCHASE-RATE-WISE'"
               class="ml-1">
@@ -104,7 +110,7 @@
           <label class="col-sm-2 col-form-label col-form-label-sm">State</label>
           <div class="col-sm-4">
             <app-autocomplete3
-              [disabled]="format_type!='RECONCILE-PURCHASE'&&format_type!='RECONCILE-GSTR2B'&&format_type!='GSTR-3B ITC SUMMARY'&&format_type!='GSTR2B-CONSOL'"
+              [disabled]="format_type!='RECONCILE-PURCHASE'&&format_type!='RECONCILE-GSTR2B'&&format_type!='GSTR-3B ITC SUMMARY'&&format_type!='GSTR-2B-ITC-CLAIM-CONSOL'"
               [controlname]="'STATE'" [tabletype]="'STATE'" [displaycolumn]="'NAME'"
               [displaydata]="reconcile_state_name" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
@@ -123,7 +129,7 @@
           <div class="col-sm-10">
             <!-- <app-autocomplete [disabled]="!bCompany"  #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)">
             </app-autocomplete> -->
-            <app-autocompletemulti #BrLov [disabled]="!bCompany" [controlname]="controlname" [tabletype]="tabletype"
+            <app-autocompletemulti #BrLov [disabled]="!bCompany||format_type=='GSTR-2B-ITC-CLAIM-CONSOL'" [controlname]="controlname" [tabletype]="tabletype"
               [subtype]="subtype" [where]="where" [displaycolumn]="'NAME'" [displaydata]="displaydata"
               (ValueChanged)="LovSelected($event)">
             </app-autocompletemulti>
@@ -492,8 +498,8 @@
 
 
 
-    <div *ngIf="display_format_type=='FORM 3B'||display_format_type=='FORM 3B NEW'" class="page-body table-responsive fixedTableHead my-0 p-0"
-      style="height: calc(100vh - 310px);">
+    <div *ngIf="display_format_type=='FORM 3B'||display_format_type=='FORM 3B NEW'"
+      class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 310px);">
       <table class="table table-hover table-sm table-bordered table-striped">
         <thead class="page-body-thead">
           <tr>
@@ -844,6 +850,69 @@
             <td align='right'>{{ rec.g_igst_amt | number : '1.2-2' }}</td>
             <td align='right'>{{ rec.g_cgst_amt | number : '1.2-2' }}</td>
             <td align='right'>{{ rec.g_sgst_amt | number : '1.2-2' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="display_format_type=='GSTR-2B-ITC-CLAIM-CONSOL'" class="page-body table-responsive fixedTableHead my-0 p-0"
+      style="height: calc(100vh - 310px);">
+      <table class="table table-hover table-sm table-bordered table-striped">
+        <thead class="page-body-thead">
+          <tr>
+            <th>CLAIMED PERIOD</th>
+            <th>CLAIMED STATUS</th>
+            <th>GSTR2B PERIOD</th>
+            <th>STATUS</th>
+            <th>SOURCE</th>
+            <th>SUPPLIER GSTIN</th>
+            <th>SUPPLIER NAME</th>
+            <th>FILING PERIOD</th>
+            <th>TYPE</th>
+            <th>REF#</th>
+            <th>INV#</th>
+            <th>INVDATE</th>
+            <th class="text-right">INV.AMT</th>
+            <th class="text-right">TAXABLE.AMT</th>
+            <th class="text-right">IGST.ORG</th>
+            <th class="text-right">CGST.ORG</th>
+            <th class="text-right">SGST.ORG</th>
+            <th class="text-right">IGST</th>
+            <th class="text-right">CGST</th>
+            <th class="text-right">SGST</th>
+            <th class="text-right">PENDING</th>
+            <th class="text-right">DIFF</th>
+            <th>REMARKS</th>
+            <th>CLAIMED BY</th>
+            <th>CLAIMED DATE</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody" *ngFor="let rec of RecordList2; let i = index">
+          <tr [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
+            <td>{{rec.display_claimed_period}}</td>
+            <td>{{rec.claim_status}}</td>
+            <td>{{rec.display_download_period}}</td>
+            <td>{{rec.reconcile_status}}</td>
+            <td>{{rec.download_source}}</td>
+            <td>{{rec.gstin_supplier}}</td>
+            <td>{{rec.supplier_name}}</td>
+            <td>{{rec.gstr1_period}}</td>
+            <td>{{rec.download_type}}</td>
+            <td>{{rec.source}}</td>
+            <td>{{rec.invoice_number}}</td>
+            <td>{{rec.invoice_date}}</td>
+            <td class="text-right">{{ rec.invoice_value | number : '1.2-2' }}</td>
+            <td class="text-right">{{ rec.taxable_value | number : '1.2-2' }}</td>
+            <td class="text-right">{{ rec.integrated_tax_actual | number : '1.2-2'}}</td>
+            <td class="text-right">{{ rec.central_tax_actual | number : '1.2-2' }}</td>
+            <td class="text-right">{{ rec.state_ut_tax_actual | number : '1.2-2' }}</td>
+            <td class="text-right">{{ rec.integrated_tax | number : '1.2-2'}}</td>
+            <td class="text-right">{{ rec.central_tax | number : '1.2-2' }}</td>
+            <td class="text-right">{{ rec.state_ut_tax | number : '1.2-2' }}</td>
+            <td class="text-right">{{ rec.gst_bal | number : '1.2-2' }}</td>
+            <td class="text-right">{{ rec.gst_diff | number : '1.2-2' }}</td>
+            <td>{{rec.reason}}</td>
+            <td>{{rec.claim_created_by}}</td>
+            <td>{{rec.claim_created_date}}</td>
           </tr>
         </tbody>
       </table>
