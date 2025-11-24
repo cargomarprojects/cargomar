@@ -319,4 +319,11 @@ export class LoadQtnComponent {
     return bret;
   }
 
+  Removerow(_qtnd_pkid: string, _slno: number, _accname: string) {
+    if (!confirm("Do you want to Delete SL# " + _slno.toString() + ", " + _accname)) {
+      return;
+    }
+    this.RecordList.splice(this.RecordList.findIndex(rec => rec.qtnd_pkid == _qtnd_pkid), 1);
+  }
+
 }

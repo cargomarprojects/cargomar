@@ -67,6 +67,7 @@
                   <th>CURR</th>
                   <th>EXRATE</th>
                   <th>TOTAL</th>
+                  <th style="text-align: center;">DELETE</th>
                 </tr>
               </thead>
               <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
@@ -93,6 +94,8 @@
                   <td style="padding:0px">{{rec.qtnd_curr_code}}</td>
                   <td style="padding:0px">{{rec.qtnd_exrate}}</td>
                   <td style="padding:0px">{{rec.qtnd_total}}</td>
+                  <td style="padding:0px;text-align: center;"><i class="fa fa-trash  fa-lg pointer" aria-hidden="true"
+                      (click)="Removerow(rec.qtnd_pkid,i+1,rec.qtnd_qtnacc_name)"></i></td>
                 </tr>
               </tbody>
             </table>
