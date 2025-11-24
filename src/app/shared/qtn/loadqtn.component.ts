@@ -320,10 +320,11 @@ export class LoadQtnComponent {
   }
 
   Removerow(_qtnd_pkid: string, _slno: number, _accname: string) {
-    if (!confirm("Do you want to Delete SL# " + _slno.toString() + ", " + _accname)) {
-      return;
-    }
+    // if (!confirm("Do you want to Remove SL# " + _slno.toString() + ", " + _accname+" From the List.")) {
+    //   return;
+    // }
     this.RecordList.splice(this.RecordList.findIndex(rec => rec.qtnd_pkid == _qtnd_pkid), 1);
+    this.FindListTotal();
   }
 
 }
