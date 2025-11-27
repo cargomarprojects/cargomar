@@ -38,9 +38,12 @@
             <button [disabled]="loading" *ngIf="bMail&&(type=='BP'||type=='JV-BP')" (click)="Showmail(mailsent)"
               class="btn btn-primary btn-sm">Mail</button>
 
-            <button [disabled]="loading" *ngIf="bAdmin&&type=='IN-ES'" (click)="GenerateAll()"
+            <button [disabled]="loading" *ngIf="bAdmin&&type=='IN-ES'" (click)="GenerateAll('FC')"
               class="btn btn-primary btn-sm">Generate
-              All</button>
+              All (FC)</button>
+            <button [disabled]="loading" *ngIf="bAdmin&&type=='IN-ES'" (click)="GenerateAll('SUMMARY')"
+              class="btn btn-primary btn-sm">Generate
+              All (INR)</button>
           </div>
         </div>
       </div>

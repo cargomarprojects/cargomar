@@ -2949,7 +2949,7 @@ export class LedgerComponent {
     this.modal.close();
   }
 
-  GenerateAll() {
+  GenerateAll(report_format: string) {
     this.ErrorMessage = '';
 
     let msg: string = "";
@@ -2987,7 +2987,8 @@ export class LedgerComponent {
 
     SearchData.type = this.type;
     SearchData.pkid = '';
-    SearchData.report_format = 'FC';
+    //SearchData.report_format = 'FC';
+    SearchData.report_format = report_format;
     SearchData.report_folder = this.gs.globalVariables.report_folder;
     SearchData.company_code = this.gs.globalVariables.comp_code;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
