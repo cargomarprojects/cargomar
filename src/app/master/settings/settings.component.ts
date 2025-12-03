@@ -79,6 +79,7 @@ export class SettingsComponent {
   CO_BL_ISSUE_BY3: string = '';
   CO_BL_ISSUE_BY4: string = '';
   CO_BL_ISSUE_BY5: string = '';
+  CO_GSTR2B_START_YEAR: number = 202411;
 
   SW_ENABLED = false;
 
@@ -920,6 +921,8 @@ export class SettingsComponent {
         this.CO_BL_ISSUE_BY4 = rec.name;
       if (rec.caption == "BL-ISSUED-BY5")
         this.CO_BL_ISSUE_BY5 = rec.name;
+      if (rec.caption == "GSTR2B-START-YEAR")
+        this.CO_GSTR2B_START_YEAR = +rec.name;
 
       if (rec.caption == "SW-ENABLED")
         this.SW_ENABLED = rec.name == "Y" ? true : false;
@@ -1127,6 +1130,8 @@ export class SettingsComponent {
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'BL-ISSUED-BY3', '', '', this.CO_BL_ISSUE_BY3));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'BL-ISSUED-BY4', '', '', this.CO_BL_ISSUE_BY4));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'BL-ISSUED-BY5', '', '', this.CO_BL_ISSUE_BY5));
+    this.SaveList.push(this.addRec(_parentid, 'TEXT', 'GSTR2B-START-YEAR', '', '', this.CO_GSTR2B_START_YEAR.toString()));
+
 
 
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'SW-ENABLED', '', '', (this.SW_ENABLED) ? "Y" : "N"));
