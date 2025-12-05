@@ -46,7 +46,7 @@ export class ParamImportComponent implements OnInit {
         this.currentTab = "PASTEDATA";
     }
 
-    ConvertData() {
+    OldConvertData() {
         let bRet = false;
         const CurrArray = this.cbdata.split('\n');
         this.RecordList = new Array<Currency>();
@@ -60,6 +60,40 @@ export class ParamImportComponent implements OnInit {
                 this.Record.curr_imp_rate = parseFloat(CurrArray[i + 4]);
                 this.Record.curr_exp_rate = parseFloat(CurrArray[i + 5]);
                 this.RecordList.push(this.Record);
+            } catch (error) {
+                bRet = false;
+                this.ErrorMessage = error.message;
+                alert(this.ErrorMessage);
+                break;
+            }
+            bRet = true;
+        }
+        return bRet;
+    }
+
+    ConvertData() {
+        let bRet = false;
+        const CurrArray = this.cbdata.split('\n');
+        this.RecordList = new Array<Currency>();
+        for (let i = 1; i < CurrArray.length; i++) {
+            try {
+                const parts = CurrArray[i].split(" ").filter(p => p.trim().length > 0);
+                if (parts.length < 6) continue;
+
+                this.Record = new Currency();
+                this.Record.curr_slno = parseInt(parts[0], 10);
+                this.Record.curr_code = parts[1];
+                let currIndex = 2;
+                while (currIndex < parts.length && isNaN(Number(parts[currIndex]))) {
+                    currIndex++;
+                }
+                const currencyName = parts.slice(2, currIndex).join(" ");
+                this.Record.curr_name = currencyName;
+                this.Record.curr_per_rate = Number(parts[currIndex++]);
+                this.Record.curr_imp_rate = Number(parts[currIndex++]);
+                this.Record.curr_exp_rate = Number(parts[currIndex++]);
+                this.RecordList.push(this.Record);
+                
             } catch (error) {
                 bRet = false;
                 this.ErrorMessage = error.message;
