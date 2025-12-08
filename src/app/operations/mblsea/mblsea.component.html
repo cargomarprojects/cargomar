@@ -400,8 +400,10 @@
                     <input disabled type="text" class="form-control form-control-sm" [(ngModel)]="Record.book_folder_no"
                       (blur)="OnBlur('book_folder_no')" required maxlength="20" />
                   </div>
-                  <label class="col-2 col-form-label col-form-label-sm" style="padding-left:0;padding-right:0">{{lockChar}}Sent.On
-                     <input type="checkbox" [disabled]="foldersent"  [(ngModel)]="chk_foldersent" (change)="FolderSent($event)" >
+                  <label class="col-2 col-form-label col-form-label-sm"
+                    style="padding-left:0;padding-right:0">{{lockChar}}Sent.On
+                    <input type="checkbox" [disabled]="foldersent" [(ngModel)]="chk_foldersent"
+                      (change)="FolderSent($event)">
                   </label>
                   <div style="padding-left:0" class="col-3">
                     <app-date [disabled]="gs.globalVariables.user_code != 'ADMIN'"
@@ -902,10 +904,13 @@
                 class="btn btn-success btn-sm">Booking/FTP</button>
               <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="MailFtp(ftpsent,'Y')"
                 class="btn btn-success btn-sm">ISF/FTP</button>
+              <!-- <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="CheckCrLimit()"
+                class="btn btn-success btn-sm">Check CR-Limit</button> -->
               <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="ShowFtpHistory(ftphistory)"
                 class="btn btn-success btn-sm">FTPHistory</button>
               <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)"
                 class="btn btn-success btn-sm">History</button>
+
               <button [disabled]="loading" (click)="ActionHandler('LIST','')"
                 class="btn btn-success btn-sm">Return</button>
               <button *ngIf="mode=='EDIT' && bAdmin" [disabled]="loading"
@@ -913,8 +918,8 @@
                 List</button>
               <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowBL()"
                 class="btn btn-success btn-sm">Master BL</button>
-              <button *ngIf="mode == 'EDIT'&&gs.globalVariables.user_code == 'ADMIN'" [disabled]="loading" (click)="GetEnsFiling()"
-                class="btn btn-success btn-sm">EnsFiling</button>
+              <button *ngIf="mode == 'EDIT'&&gs.globalVariables.user_code == 'ADMIN'" [disabled]="loading"
+                (click)="GetEnsFiling()" class="btn btn-success btn-sm">EnsFiling</button>
               <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
                 <font color="RED">
                   <strong>
@@ -1085,6 +1090,10 @@
       <app-tracking [parentid]="pkid" [type]="type"></app-tracking>
     </div>
   </ng-template>
+  <app-crlimit [visible]="showalert" [msg]="ErrorMessage" [RecordList]="CrList" [type]="Mail_type"
+    [parentid]="unlockparentid" [customername]="unlockcustomername" [consigneeid]="Record.job_imp_id"
+    (hidealert)="showalert=$event">
+  </app-crlimit>
 </div>
 <div *ngIf="currentPage=='BLPAGE'">
   <div class="page-box">

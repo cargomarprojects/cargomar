@@ -136,34 +136,35 @@ export class LinerBkm {
   book_cust_comments: string;
   book_partner_email: string;
   book_ftp_agent: boolean;
-  book_agent_br_email:string;
-  book_ftp_agent_folder:boolean;
-  book_pol_eta:string;
-  book_pol_eta_confirm:boolean;
-  
-  book_inland_haulage_status:string;
-  book_dest_charges_status:string;
-  book_free_days:number;
-  
+  book_agent_br_email: string;
+  book_ftp_agent_folder: boolean;
+  book_pol_eta: string;
+  book_pol_eta_confirm: boolean;
+
+  book_inland_haulage_status: string;
+  book_dest_charges_status: string;
+  book_free_days: number;
+
   book_mpcs: number;
   book_mkgs: number;
-  book_si_cutoff:string;
-  book_cy_cutoff:string;  
+  book_si_cutoff: string;
+  book_cy_cutoff: string;
   book_vgmwt: number;
-  book_track_comments:string;  
+  book_track_comments: string;
+  book_unlockid: string;
 
   rec_category: string;
   rec_mode: string;
-  rec_created_by:string;
-  rec_created_date:string;
-  
+  rec_created_by: string;
+  rec_created_date: string;
+
   _globalvariables: GlobalVariables;
 
   HblList: Hblm[] = [];
   BkmCntrList: BkmCntrtype[] = [];
   BkmPayList: BkmPayment[] = [];
   BkmCargoList: BkmCargo[] = [];
-  TransitList:Trackingm[] = [];
+  TransitList: Trackingm[] = [];
   HblBkmPartyList: HblBkmParty[] = [];
 }
 

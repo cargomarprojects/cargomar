@@ -71,11 +71,13 @@ export class LinerBkmService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/LinerBooking/BlSurrenderMail', SearchData, this.gs.headerparam2('authorized'));
   }
 
-
   GetEnsFilingData(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/GetEnsFilingData', SearchData, this.gs.headerparam2('anonymous'));
   }
 
+  GetCreditLimit(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/LinerBooking/GetCreditLimit', SearchData, this.gs.headerparam2('authorized'));
+  }
 
 }
 

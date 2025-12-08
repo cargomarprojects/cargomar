@@ -67,6 +67,14 @@ export class MblSeaComponent {
   trk_vsl_1_eta: string = '';
   trk_vsl_1_eta_confirm: boolean = false;
 
+  Mail_type: string = '';
+  unlockcustomername = '';
+  unlockparentid = '';
+  old_agent_id = '';
+  bCreditLimit: boolean = false;
+  showalert = false;
+  CrList: any[];
+
   page_count = 0;
   page_current = 0;
   page_rows = 0;
@@ -575,6 +583,7 @@ export class MblSeaComponent {
   }
 
   NewRecord() {
+    this.old_agent_id = '';
     this.bookno = "";
     this.foldersent = false;
     this.chk_foldersent = false;
@@ -693,6 +702,7 @@ export class MblSeaComponent {
     this.Record.book_cy_cutoff = '';
     this.Record.book_vgmwt = 0;
     this.Record.book_track_comments = '';
+    this.Record.book_unlockid = '';
     this.Record.BkmCntrList = new Array<BkmCntrtype>();
     this.Record.BkmPayList = new Array<BkmPayment>();
     this.Record.BkmCargoList = new Array<BkmCargo>();
@@ -824,6 +834,8 @@ export class MblSeaComponent {
     this.POFDCRECORD.code = this.Record.book_pofdc_code;
     this.POFDCRECORD.name = this.Record.book_pofdc_name;
 
+    this.old_agent_id = this.Record.book_agent_id;
+
     this.Record.rec_mode = this.mode;
     if (this.Record.BkmCargoList.length == 0)
       this.NewCargoRecord();
@@ -840,6 +852,7 @@ export class MblSeaComponent {
       this.chk_foldersent = false;
       this.folder_chk = false;
       this.lockChar = "";
+      this.old_agent_id = '';
 
       this.Record.book_pkid = this.pkid;
       this.Record.book_slno = null;
@@ -931,6 +944,80 @@ export class MblSeaComponent {
           if (response.mailmsg.length > 0)
             this.InfoMessage += ", " + response.mailmsg;
         }
+        this.mode = 'EDIT';
+        this.foldersent = response.foldersent;
+        this.Record.rec_mode = this.mode;
+        this.RefreshList();
+        for (let rec of this.Record.HblBkmPartyList) {
+          if (this.gs.isZero(rec.hp_order)) { //After saving hp_order is set for new records
+            for (let rec2 of response.bkmlist.filter(x => x.hp_pkid == rec.hp_pkid)) {
+              rec.hp_order = rec2.hp_order;
+            }
+          }
+        }
+        alert(this.InfoMessage);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
+
+  //  Save() {
+  //     try {
+  //       if (this.old_agent_id != this.Record.book_agent_id)
+  //         this.CheckCrLimit(true);
+  //       else
+  //         this.SaveFinal();
+  //     }
+  //     catch (error) {
+  //       alert(error.message);
+  //     }
+  //   }
+
+  SaveFinal() {
+
+    if (!this.allvalid())
+      return;
+
+    this.FindCntrTotal();
+    this.FindVolTotal();
+    this.loading = true;
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.Record.rec_category = this.type;
+    this.Record._globalvariables = this.gs.globalVariables;
+    //Saving Shipper and consignee to master
+    this.Record.book_exporter_id = '';
+    this.Record.book_consignee_id = '';
+    if (!this.gs.isBlank(this.Record.HblBkmPartyList)) {
+      for (let rec of this.Record.HblBkmPartyList) {
+        if (rec.hp_bkm_status != 'CANCELLED') {
+          for (let rec2 of this.Record.HblBkmPartyList.filter(x => x.hp_pkid == this.Record.book_pkid)) { //for master ref record pkid and parentid are same
+            rec2.hp_pkid = this.gs.getGuid();
+          }
+          rec.hp_pkid = this.Record.book_pkid;
+          this.Record.book_exporter_id = rec.hp_exp_id;
+          this.Record.book_consignee_id = rec.hp_imp_id;
+          break;
+        }
+      }
+    }
+
+    this.mainService.Save(this.Record)
+      .subscribe(response => {
+        this.loading = false;
+        if (this.mode == 'ADD') {
+          this.Record.book_slno = response.bookslno;
+          this.InfoMessage = "New Record " + this.Record.book_slno + " Generated Successfully";
+        } else {
+          this.InfoMessage = "Save Complete";
+          if (response.mailmsg.length > 0)
+            this.InfoMessage += ", " + response.mailmsg;
+        }
+        this.Record.book_unlockid = '';
+        this.old_agent_id = this.Record.book_agent_id;
         this.mode = 'EDIT';
         this.foldersent = response.foldersent;
         this.Record.rec_mode = this.mode;
@@ -1095,6 +1182,54 @@ export class MblSeaComponent {
     }
     return bret;
   }
+
+
+  CheckCrLimit(bCallSave: boolean = false) {
+
+    if (this.Record.book_agent_id == "") {
+      alert('Agent cannot be blank');
+      return;
+    }
+
+    this.loading = true;
+    let SearchData = {
+      type: 'MBL ' + this.type,
+      searchfrom: 'MBL-SE',
+      comp_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      customerid: this.Record.book_agent_id
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.GetCreditLimit(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.CrList = response.list;
+        this.bCreditLimit = response.retvalue;
+        this.unlockparentid = response.unlockparentid;
+        this.unlockcustomername = response.unlockcustomername;
+
+        if (!this.bCreditLimit) {
+          this.ErrorMessage = response.message;
+
+          this.showalert = true;
+
+        }
+        if (this.bCreditLimit && bCallSave) {
+          if (response.unlockid != '') {
+            this.Record.book_unlockid = response.unlockid;
+          }
+          this.SaveFinal();
+        }
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
+
 
   RefreshList() {
     if (this.RecordList == null)
@@ -1374,7 +1509,7 @@ export class MblSeaComponent {
         });
   }
 
-   
+
   FolderSent(event: any) {
     this.folder_chk = !this.folder_chk;
     const checked = event.target.checked;
