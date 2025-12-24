@@ -66,6 +66,8 @@ import { EdilinkComponent } from './edilink/edilink.component';
 import { WarningAlertComponent } from './warningalert/warningalert.component';
 import { negParenPipe } from './negparen/negparen.component';
 import { FileUploadDirectComponent } from './fileupload-direct/fileupload-direct.component';
+import { MemoComponent } from './memo/memo.component';
+import { CustMemoService } from './services/custmemo.service';
 
 //EDIT-AJITH-29-09-2021
 //EDIT-AJITH-01-10-2021
@@ -114,7 +116,8 @@ import { FileUploadDirectComponent } from './fileupload-direct/fileupload-direct
     EdilinkComponent,
     WarningAlertComponent,
     negParenPipe,
-    FileUploadDirectComponent
+    FileUploadDirectComponent,
+    MemoComponent
   ],
   exports: [
     CommonModule,
@@ -157,7 +160,8 @@ import { FileUploadDirectComponent } from './fileupload-direct/fileupload-direct
     EdilinkComponent,
     WarningAlertComponent,
     negParenPipe,
-    FileUploadDirectComponent
+    FileUploadDirectComponent,
+    MemoComponent
   ],
   providers: [
     AlertService,
@@ -166,7 +170,8 @@ import { FileUploadDirectComponent } from './fileupload-direct/fileupload-direct
     GenRemarksService,
     MailDirectService,
     ApprovedDetService,
-    EdilinkService
+    EdilinkService,
+    CustMemoService
   ]
 })
 export class SharedModule { }

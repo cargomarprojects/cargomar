@@ -383,7 +383,9 @@
               <div class="form-group row">
                 <label class="col-12 col-form-label col-form-label-sm"
                   style="color:red;font-size: 12px">IEC,PAN,TAN,GST,KYC,AUTHORISATION LETTER MUST BE UPLOADED FOR
-                  SHIPPER.&nbsp;<span style="color: black;" >|</span>&nbsp;NAME LIMITS (SB FILING):&nbsp; <span style="color: black;" >SHIPPER:&nbsp;</span>50 Chars,&nbsp;&nbsp;<span style="color: black;" >CONSIGNEE:&nbsp;</span>34 Chars</label>
+                  SHIPPER.&nbsp;<span style="color: black;">|</span>&nbsp;NAME LIMITS (SB FILING):&nbsp; <span
+                    style="color: black;">SHIPPER:&nbsp;</span>50 Chars,&nbsp;&nbsp;<span
+                    style="color: black;">CONSIGNEE:&nbsp;</span>34 Chars</label>
               </div>
             </div>
             <div class="col-sm-3">
@@ -624,23 +626,25 @@
         </div>
 
         <div class="page-box">
-          <div class="col">
+          <div class="col-sm-12 input-group input-group-sm">
             <button [hidden]="disableSave" [disabled]="loading" (click)="Save()"
-              class="btn btn-success btn-sm">Save</button>
+              class="btn btn-success btn-sm mr-1">Save</button>
             <button [disabled]="loading" (click)="ActionHandler('LIST','')"
-              class="btn btn-success btn-sm">Return</button>
+              class="btn btn-success btn-sm mr-1">Return</button>
             <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)"
-              class="btn btn-success btn-sm">History</button>
+              class="btn btn-success btn-sm mr-1">History</button>
             <button *ngIf="mode == 'EDIT' && bCanLock && Record.rec_locked" [disabled]="loading"
-              (click)="UnlockCustomer('UNLOCKED')" class="btn btn-success btn-sm">Unlock</button>
+              (click)="UnlockCustomer('UNLOCKED')" class="btn btn-success btn-sm mr-1">Unlock</button>
             <button *ngIf="mode == 'EDIT' && bCanLock && !Record.rec_locked" [disabled]="loading"
-              (click)="UnlockCustomer('LOCKED')" class="btn btn-success btn-sm">Lock</button>
-
-            <button [disabled]="loading" *ngIf="mode == 'EDIT'" class="btn btn-primary btn-sm"
+              (click)="UnlockCustomer('LOCKED')" class="btn btn-success btn-sm mr-1">Lock</button>
+            <app-memo  *ngIf="mode == 'EDIT'" [parentid]="Record.cust_pkid" [type]="'CUSTOMER-MEMO'"></app-memo>
+            <button [disabled]="loading" *ngIf="mode == 'EDIT'" class="btn btn-primary btn-sm mr-1"
               (click)="CheckCrLimit()">Check
               CR-Limit</button>
-            <button [disabled]="loading||!Record.cust_is_editable" *ngIf="mode == 'EDIT'" class="btn btn-primary btn-sm"
-              (click)="MailApproval(Record.cust_pkid)">Approval Request Mail</button>
+            <button [disabled]="loading||!Record.cust_is_editable" *ngIf="mode == 'EDIT'"
+              class="btn btn-primary btn-sm mr-1" (click)="MailApproval(Record.cust_pkid)">Approval Request
+              Mail</button>
+
             <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>
         </div>
