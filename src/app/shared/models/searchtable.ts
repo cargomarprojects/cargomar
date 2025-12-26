@@ -18,6 +18,7 @@ export class SearchTable {
     col7: string;
     col8: string;
     col9: string;
+    col10: string;
     colchecked: boolean;
     showlocked: boolean;
     branchchecked: boolean;
@@ -40,6 +41,7 @@ export class SearchTable {
         _col7: string = '',
         _col8: string = '',
         _col9: string = '',
+        _col10: string = '',
         _colchecked: boolean = false,
         _showlocked: boolean = false,
         _branchchecked: boolean = true
@@ -63,6 +65,7 @@ export class SearchTable {
         this.col7 = _col7;
         this.col8 = _col8;
         this.col9 = _col9;
+        this.col10 = _col10;
         this.colchecked = _colchecked;
         this.showlocked = _showlocked;
         this.branchchecked = _branchchecked;

@@ -7,6 +7,8 @@ import { QuotationAirService } from '../services/quotationair.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { Param } from '../../master/models/param';
 import { GenRemarks } from '../../shared/models/genremarks';
+import { WarningMsg } from '../../shared/models/warningmsg';
+import { WarningAlert2Component } from '../../shared/warningalert/warningalert2.component';
 
 @Component({
     selector: 'app-quotation-air',
@@ -17,7 +19,7 @@ export class QuotationAirComponent {
 
     // Local Variables 
     title = 'Quotation';
-
+    @ViewChild('WarnMsg') private _WarnMsg: WarningAlert2Component;
     @Input() iisModalWindow: string = 'N';
     @Input() menuid: string = '';
     @Input() type: string = '';
@@ -66,6 +68,7 @@ export class QuotationAirComponent {
     CUSTRECORD: SearchTable = new SearchTable();
     CUSTADDRECORD: SearchTable = new SearchTable();
     CONTRECORD: SearchTable = new SearchTable();
+    WarningList: WarningMsg[] = [];
     IsCompany: boolean = false;
     IsAdmin: boolean = false;
     bPrint: boolean = false;
@@ -221,6 +224,21 @@ export class QuotationAirComponent {
                     this.CONTRECORD.id = "";
                     this.CONTRECORD.code = "";
                     this.CONTRECORD.name = "";
+
+                    this.WarningList = new Array<WarningMsg>();
+                    let _Rec = new WarningMsg();
+                    if (_Record.col2 != "") {
+                        _Rec = new WarningMsg();
+                        _Rec.cust_category = "QUOTE-TO";
+                        _Rec.cust_name = _Record.name;
+                        _Rec.message_type = "MEMO";
+                        _Rec.message = _Record.col2;
+                        _Rec.ctr = this.WarningList.length + 1;
+                        this.WarningList.push(_Rec);
+                    }
+                    if (!this.gs.isBlank(this._WarnMsg)) {
+                        this._WarnMsg.show(this.WarningList);
+                    }
                 }
             }
         }
@@ -238,7 +256,7 @@ export class QuotationAirComponent {
                     this.Record.qtnm_to_addr2 = _Record.col2;
                     this.Record.qtnm_to_addr3 = _Record.col3;
                     this.Record.qtnm_to_addr4 = '';
-                    
+
                     this.Record.qtnm_to_id = '';
                     this.Record.qtnm_to_code = '';
                     this.CUSTRECORD = new SearchTable();
@@ -258,6 +276,21 @@ export class QuotationAirComponent {
                     this.CUSTADDRECORD.code = "";
                     this.CUSTADDRECORD.name = "";
                     this.CUSTADDRECORD.parentid = this.Record.qtnm_to_id;
+
+                    this.WarningList = new Array<WarningMsg>();
+                    let _Rec = new WarningMsg();
+                    if (_Record.col10 != "") {
+                        _Rec = new WarningMsg();
+                        _Rec.cust_category = "QUOTE-TO";
+                        _Rec.cust_name = _Record.name;
+                        _Rec.message_type = "MEMO";
+                        _Rec.message = _Record.col10;
+                        _Rec.ctr = this.WarningList.length + 1;
+                        this.WarningList.push(_Rec);
+                    }
+                    if (!this.gs.isBlank(this._WarnMsg)) {
+                        this._WarnMsg.show(this.WarningList);
+                    }
                 }
             }
         }
@@ -560,6 +593,9 @@ export class QuotationAirComponent {
                 this.loading = false;
                 this.LoadData(response.record);
                 this.NewDetRecord();
+                if (!this.gs.isBlank(this._WarnMsg)) {
+                    this._WarnMsg.show(response.waringmsg);
+                }
             },
                 error => {
                     this.loading = false;

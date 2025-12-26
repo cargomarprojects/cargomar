@@ -54,7 +54,7 @@ export class WarningAlert2Component {
         this.modal.close();
     }
 
-    public showList(_warningRecords: WarningMsg[]) {
+    public show(_warningRecords: WarningMsg[]) {
         this.RecordList = _warningRecords;
         if (!this.gs.isBlank(this.RecordList)) {
             if (this.RecordList.length > 0)

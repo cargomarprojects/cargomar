@@ -318,6 +318,9 @@ export class AutoCompleteMultiComponent {
     this.inputdata.col5 = '';
     this.inputdata.col6 = '';
     this.inputdata.col7 = '';
+    this.inputdata.col8 = '';
+    this.inputdata.col9 = '';
+    this.inputdata.col10 = '';
     this.parentid = '';
     this.showDiv = false;
     this.ValueChanged.emit(this.inputdata);

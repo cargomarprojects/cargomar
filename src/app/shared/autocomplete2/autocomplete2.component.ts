@@ -30,7 +30,7 @@ import { GlobalService } from '../../core/services/global.service';
 
 export class AutoComplete2Component {
 
-  @Input() inputdata: any = { controlname: '', type: '', displaycolumn: '', parentid: '', id: '', code: '', name: '', rate: 0, col1: '', col2: '', col3: '', col4: '',col5 :'',col6:'',col7:'', col8:'' };
+  @Input() inputdata: any = { controlname: '', type: '', displaycolumn: '', parentid: '', id: '', code: '', name: '', rate: 0, col1: '', col2: '', col3: '', col4: '', col5: '', col6: '', col7: '', col8: '', col9: '', col10: '' };
   @Output() ValueChanged = new EventEmitter<SearchTable>();
 
   @Input() disabled: boolean = false;
@@ -94,7 +94,7 @@ export class AutoComplete2Component {
   }
 
   ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
-    
+
     for (let propName in changes) {
 
       let changedProp = changes[propName];
@@ -111,7 +111,7 @@ export class AutoComplete2Component {
         this.displaydata = this.inputdata.name;
       }
     }
-   
+
   }
 
   Focus() {
@@ -185,11 +185,11 @@ export class AutoComplete2Component {
           this.showDiv = true;
         }
       },
-      error => {
-        this.loading = false;
-        this.alertService.error(error.error);
-        
-      }
+        error => {
+          this.loading = false;
+          this.alertService.error(error.error);
+
+        }
       );
   }
 
@@ -218,6 +218,10 @@ export class AutoComplete2Component {
         this.inputdata.col7 = '';
       if (this.inputdata.hasOwnProperty('col8'))
         this.inputdata.col8 = '';
+      if (this.inputdata.hasOwnProperty('col9'))
+        this.inputdata.col9 = '';
+      if (this.inputdata.hasOwnProperty('col10'))
+        this.inputdata.col10 = '';
 
       this.displaydata = '';
       this.parentid = '';
@@ -252,7 +256,11 @@ export class AutoComplete2Component {
       if (this.inputdata.hasOwnProperty('col7'))
         this.inputdata.col7 = _Record.col7;
       if (this.inputdata.hasOwnProperty('col8'))
-        this.inputdata.col8 = _Record.col8;        
+        this.inputdata.col8 = _Record.col8;
+      if (this.inputdata.hasOwnProperty('col9'))
+        this.inputdata.col9 = _Record.col9;
+      if (this.inputdata.hasOwnProperty('col10'))
+        this.inputdata.col10 = _Record.col10;
 
     }
 

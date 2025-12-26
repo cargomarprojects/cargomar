@@ -520,9 +520,27 @@ export class JobComponent {
         this.EXPADDRECORD.parentid = this.Record.job_exp_id;
         this.Record.job_exp_br_addr = "";
 
+        this.WarningList = new Array<WarningMsg>();
+        let _Rec = new WarningMsg();
         if (_Record.col1.includes("-N")) {
-          this.WarningList = new Array<WarningMsg>();
-          this.AddtoWaringList("SHIPPER", _Record.name, "DOCUMENT STATUS", _Record.col1,true)
+          _Rec.cust_category = "SHIPPER";
+          _Rec.cust_name = _Record.name;
+          _Rec.message_type = "DOCUMENT STATUS";
+          _Rec.message = _Record.col1;
+          _Rec.ctr = this.WarningList.length + 1;
+          this.WarningList.push(_Rec);
+        }
+        if (_Record.col2 != "") {
+          _Rec = new WarningMsg();
+          _Rec.cust_category = "SHIPPER";
+          _Rec.cust_name = _Record.name;
+          _Rec.message_type = "MEMO";
+          _Rec.message = _Record.col2;
+          _Rec.ctr = this.WarningList.length + 1;
+          this.WarningList.push(_Rec);
+        }
+        if (!this.gs.isBlank(this._WarnMsg)) {
+          this._WarnMsg.show(this.WarningList);
         }
       }
     }
@@ -723,22 +741,6 @@ export class JobComponent {
       this.Record.job_toorder_country_name = _Record.name;
     }
   }
-
-  AddtoWaringList(_category: string, _name: string, _message_type: string, _message: string, _show: boolean) {
-   
-    let _Rec = new WarningMsg();
-    _Rec.cust_category = _category;
-    _Rec.cust_name = _name;
-    _Rec.message_type = _message_type;
-    _Rec.message = _message;
-    _Rec.ctr = this.WarningList.length + 1;
-    this.WarningList.push(_Rec);
-
-    if (!this.gs.isBlank(this._WarnMsg) && _show) {
-      this._WarnMsg.showList(this.WarningList);
-    }
-  }
-
 
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string) {
@@ -1146,6 +1148,10 @@ export class JobComponent {
       .subscribe(response => {
         this.loading = false;
         this.LoadData(response.record);
+
+         if (!this.gs.isBlank(this._WarnMsg)) {
+          this._WarnMsg.show(response.waringmsg);
+        }
       },
         error => {
           this.loading = false;
