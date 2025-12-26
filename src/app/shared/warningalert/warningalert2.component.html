@@ -1,0 +1,38 @@
+<ng-template #warningmodal2 let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <i class='fa fa-exclamation-triangle' style='font-size:36px;color:red'></i>
+        <h4 class="modal-title mt-1">Warning Message</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="page-list">
+            <div [style.height]="RecordList.length>5?'250px':'auto'" [style.overflow-y]="RecordList.length>5?'scroll':'auto'">
+                <div class="page-body table-responsive">
+                    <table class="table table-hover table-sm table-bordered table-striped">
+                        <thead class="page-body-thead">
+                            <tr>
+                                <th width="10%">CATEGORY</th>
+                                <th width="25%">NAME</th>
+                                <th width="15%">TYPE</th>
+                                <th width="50%">MESSAGE</th>
+                            </tr>
+                        </thead>
+                        <tbody class="page-body-tbody">
+                            <tr *ngFor="let rec of RecordList">
+                                <td>{{rec.cust_category}}</td>
+                                <td>{{rec.cust_name}}</td>
+                                <td>{{rec.message_type}}</td>
+                                <td style="color: red;">{{rec.message}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark mr-1" (click)="d('N')">Ok</button>
+    </div>
+</ng-template>

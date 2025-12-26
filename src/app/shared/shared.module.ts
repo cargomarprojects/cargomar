@@ -64,6 +64,7 @@ import { ClipBoard2Component } from './clipboarddata2/clipboard2.component';
 import { DatalinkComponent } from './datalink/datalink.component';
 import { EdilinkComponent } from './edilink/edilink.component';
 import { WarningAlertComponent } from './warningalert/warningalert.component';
+import { WarningAlert2Component } from './warningalert/warningalert2.component';
 import { negParenPipe } from './negparen/negparen.component';
 import { FileUploadDirectComponent } from './fileupload-direct/fileupload-direct.component';
 import { MemoComponent } from './memo/memo.component';
@@ -117,7 +118,8 @@ import { CustMemoService } from './services/custmemo.service';
     WarningAlertComponent,
     negParenPipe,
     FileUploadDirectComponent,
-    MemoComponent
+    MemoComponent,
+    WarningAlert2Component
   ],
   exports: [
     CommonModule,
@@ -161,7 +163,8 @@ import { CustMemoService } from './services/custmemo.service';
     WarningAlertComponent,
     negParenPipe,
     FileUploadDirectComponent,
-    MemoComponent
+    MemoComponent,
+    WarningAlert2Component
   ],
   providers: [
     AlertService,

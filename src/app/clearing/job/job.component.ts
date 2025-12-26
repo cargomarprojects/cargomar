@@ -5,7 +5,8 @@ import { GlobalService } from '../../core/services/global.service';
 import { Jobm } from '../models/job';
 import { JobService } from '../services/job.service';
 import { SearchTable } from '../../shared/models/searchtable';
-import { WarningAlertComponent } from '../../shared/warningalert/warningalert.component';
+import { WarningMsg } from '../../shared/models/warningmsg';
+import { WarningAlert2Component } from '../../shared/warningalert/warningalert2.component';
 
 //EDIT-AJITH-20-11-2021
 
@@ -18,7 +19,7 @@ export class JobComponent {
   // Local Variables 
   title = 'JOB MASTER';
 
-  @ViewChild('WarnMsg') private _WarnMsg: WarningAlertComponent;
+  @ViewChild('WarnMsg') private _WarnMsg: WarningAlert2Component;
 
   @Input() menuid: string = '';
   @Input() type: string = '';
@@ -89,7 +90,7 @@ export class JobComponent {
   RecordList: Jobm[] = [];
   // Single Record for add/edit/view details
   Record: Jobm = new Jobm;
-
+  WarningList: WarningMsg[] = [];
   // JobTypeList: any[] = [];
 
   BILLTORECORD: SearchTable = new SearchTable();
@@ -520,8 +521,8 @@ export class JobComponent {
         this.Record.job_exp_br_addr = "";
 
         if (_Record.col1.includes("-N")) {
-          this.WarningMessage = "DOCUMENT STATUS :- " + _Record.col1;
-          this._WarnMsg.show();
+          this.WarningList = new Array<WarningMsg>();
+          this.AddtoWaringList("SHIPPER", _Record.name, "DOCUMENT STATUS", _Record.col1,true)
         }
       }
     }
@@ -722,6 +723,22 @@ export class JobComponent {
       this.Record.job_toorder_country_name = _Record.name;
     }
   }
+
+  AddtoWaringList(_category: string, _name: string, _message_type: string, _message: string, _show: boolean) {
+   
+    let _Rec = new WarningMsg();
+    _Rec.cust_category = _category;
+    _Rec.cust_name = _name;
+    _Rec.message_type = _message_type;
+    _Rec.message = _message;
+    _Rec.ctr = this.WarningList.length + 1;
+    this.WarningList.push(_Rec);
+
+    if (!this.gs.isBlank(this._WarnMsg) && _show) {
+      this._WarnMsg.showList(this.WarningList);
+    }
+  }
+
 
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string) {
