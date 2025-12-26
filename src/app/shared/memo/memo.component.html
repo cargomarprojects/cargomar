@@ -3,47 +3,40 @@
 </div>
 <ng-template #memomodal let-c="close" let-d="dismiss">
     <div class="modal-body">
-        <div class="page-details">
-            <div class="page-box">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="page-body table-responsive">
-                            <table class="table  table-hover table-sm mb-1">
-                                <thead class="page-body-thead">
-                                    <tr>
-                                        <th width="90%">MEMO</th>
-                                        <th width="10%"></th>
-                                    </tr>
-                                </thead>
-                                <tbody class="page-body-tbody">
-                                    <tr *ngFor="let rec of MemoList; let i = index">
-                                        <!-- <td style="padding:0px 0px 0px 0px"><input type="text" autocomplete="off"
-                                            name="desc" class="form-control form-control-sm"
+        <div class="page-box">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-body table-responsive">
+                        <table class="table  table-hover table-sm mb-1">
+                            <thead class="page-body-thead">
+                                <tr>
+                                    <th width="90%">MEMO</th>
+                                    <th width="10%"></th>
+                                </tr>
+                            </thead>
+                            <tbody class="page-body-tbody">
+                                <tr *ngFor="let rec of MemoList; let i = index">
+                                    <td>
+                                        <textarea rows="3" class="form-control form-control-sm"
                                             [(ngModel)]="rec.cm_memo" required maxlength="500"
-                                            (blur)="OnBlur('cm_memo',rec)" /></td> -->
-                                        <td>
-                                            <textarea rows="3" class="form-control form-control-sm"
-                                                [(ngModel)]="rec.cm_memo" required maxlength="500"
-                                                (blur)="OnBlur('cm_memo',rec)"></textarea>
-                                        </td>
-                                        <td>
-                                            <i class="fa fa-plus fa-lg pointer" aria-hidden="true"
-                                                (click)="AddRow()"></i>
-                                            <i class="fa fa-trash fa-lg pointer" aria-hidden="true"
-                                                (click)="RemoveRow(rec.cm_pkid)"></i>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                                            (blur)="OnBlur('cm_memo',rec)"></textarea>
+                                    </td>
+                                    <td>
+                                        <i class="fa fa-plus fa-lg pointer" aria-hidden="true" (click)="AddRow()"></i>
+                                        <i class="fa fa-trash fa-lg pointer" aria-hidden="true"
+                                            (click)="RemoveRow(rec.cm_pkid)"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-            <div class="page-box">
-                <div class="row justify-content-center p-1">
-                    <button class="btn btn-primary btn-sm mr-1" (click)="CloseModal('OK')">Save</button>
-                    <button class="btn btn-primary btn-sm mr-1" (click)="CloseModal('CLOSE')">Cancel</button>
-                </div>
+        </div>
+        <div class="page-box">
+            <div class="row justify-content-center p-1">
+                <button class="btn btn-primary btn-sm mr-1" (click)="CloseModal('OK')">Save</button>
+                <button class="btn btn-primary btn-sm mr-1" (click)="CloseModal('CLOSE')">Cancel</button>
             </div>
         </div>
     </div>

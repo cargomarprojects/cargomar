@@ -71,7 +71,7 @@ export class MemoComponent implements OnInit {
 
     }
     open(content: any) {
-        this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
+        this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true } );
     }
 
 
