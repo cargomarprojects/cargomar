@@ -458,7 +458,7 @@
             <td>{{rec.qtnd_category}}</td>
             <td>{{rec.qtnd_acc_code}}</td>
             <td>{{rec.qtnd_acc_name}}</td>
-          
+
             <td>{{rec.qtnd_type}}</td>
             <td>{{rec.qtnd_qty}}</td>
             <td>{{rec.qtnd_rate}}</td>
@@ -778,38 +778,54 @@
         </div>
       </div>
     </div>
-    <div class="page-box">
-      <div class="row">
-        <div class="col-sm-8">
-          <div class="offset-1 col-11">
-            <button [hidden]="disableSave" [disabled]="loading" (click)="Save()"
-              class="btn btn-success btn-sm">Save</button>
-            <button [disabled]="loading" (click)="ActionHandler('LIST','')"
-              class="btn btn-success btn-sm">Return</button>
-            <!-- <button *ngIf="mode=='EDIT' && type=='GENERAL'" [disabled]="loading" (click)="PrintQuotation('SUMMARY')"
-              class="btn btn-success btn-sm">Print Summary</button>
-            <button *ngIf="mode=='EDIT' && type=='GENERAL'" [disabled]="loading" (click)="PrintQuotation('DETAIL')"
-              class="btn btn-success btn-sm">Print Detail</button>
-            <button *ngIf="mode=='EDIT' && type=='GENERAL'" [disabled]="loading" (click)="PrintQuotation('SUMMARY-FC')"
-              class="btn btn-success btn-sm">Print FC Summary</button>
-            <button *ngIf="mode=='EDIT' && type=='GENERAL'" [disabled]="loading" (click)="PrintQuotation('DETAIL-FC')"
-              class="btn btn-success btn-sm">Print FC Detail</button> -->
-            <button *ngIf="mode=='EDIT' && type=='AIR'" [disabled]="loading" (click)="PrintQuotation('DETAIL')"
-              class="btn btn-success btn-sm">Print</button>
-            <button *ngIf="mode=='EDIT' && type=='AIR'" [disabled]="loading" (click)="PrintQuotation('AIRFREIGHT')"
-              class="btn btn-success btn-sm">Print Airfreight</button>
-            <i *ngIf="loading" class="fa fa-spinner"></i>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="offset-2 col-10">
-            <button [disabled]="loading" (click)="SaveTerms()" class="btn btn-success btn-sm">Save Terms & Conditions
-            </button>
+  </div>
+  <div *ngIf="mode=='EDIT'" class="page-box">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label  col-form-label-sm">Print Format</label>
+          <div class="col-sm-4">
+            <select class="form-control form-control-sm" name="pformat" [(ngModel)]="print_format">
+              <option [value]="'DETAIL'">General</option>
+              <option [value]="'AIRFREIGHT'">Airfreight</option>
+            </select>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <div class="page-box">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group row">
+          <label class="col-sm-2 col-form-label  col-form-label-sm"></label>
+          <div class="col-sm-10">
+            <button [hidden]="disableSave" [disabled]="loading" (click)="Save()"
+              class="btn btn-success btn-sm">Save</button>
+            <button [disabled]="loading" (click)="ActionHandler('LIST','')"
+              class="btn btn-success btn-sm">Return</button>
+
+            <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="PrintQuotation('PRINT',mailsent)"
+              class="btn btn-success btn-sm">Print</button>
+            <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="PrintQuotation('MAIL',mailsent)"
+              class="btn btn-success btn-sm">Mail</button>
+            <!-- <button *ngIf="mode=='EDIT' && type=='AIR'" [disabled]="loading" (click)="PrintQuotation('DETAIL')"
+            class="btn btn-success btn-sm">Print</button>
+          <button *ngIf="mode=='EDIT' && type=='AIR'" [disabled]="loading" (click)="PrintQuotation('AIRFREIGHT')"
+            class="btn btn-success btn-sm">Print Airfreight</button>
+          <i *ngIf="loading" class="fa fa-spinner"></i> -->
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="offset-2 col-10">
+          <button [disabled]="loading" (click)="SaveTerms()" class="btn btn-success btn-sm">Save Terms & Conditions
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- <br /> -->
   <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
   <div *ngIf="InfoMessage" class="alert alert-success">
@@ -818,4 +834,17 @@
   <div *ngIf="ErrorMessage" class="alert alert-danger">
     {{ErrorMessage}}
   </div>
-   <app-warningalert2 #WarnMsg ></app-warningalert2>
+  <app-warningalert2 #WarnMsg></app-warningalert2>
+  <ng-template #mailsent let-c="close" let-d="dismiss">
+    <div class="modal-header">
+      <h4 class="modal-title">Message Details</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <app-mail [pkid]="pkid" [type]="'QUOTATION-AIR-'+gs.globalVariables.branch_code" [defaultto_ids]="sTo_ids"
+        [sHtml]="sHtml" [defaultmessage]="sMsg" [defaultsubject]="sSubject" [updateto_ids]=false
+        [AttachList]="AttachList"></app-mail>
+    </div>
+  </ng-template>

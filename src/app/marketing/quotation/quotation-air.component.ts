@@ -69,6 +69,13 @@ export class QuotationAirComponent {
     CUSTADDRECORD: SearchTable = new SearchTable();
     CONTRECORD: SearchTable = new SearchTable();
     WarningList: WarningMsg[] = [];
+    print_format: string = "DETAIL";
+
+    sSubject: string = '';
+    sMsg: string = '';
+    sHtml: string = '';
+    sTo_ids: string = '';
+    AttachList: any[] = [];
     IsCompany: boolean = false;
     IsAdmin: boolean = false;
     bPrint: boolean = false;
@@ -439,7 +446,7 @@ export class QuotationAirComponent {
     }
 
     NewRecord() {
-
+        this.print_format = "DETAIL";
         this.pkid = this.gs.getGuid();
         this.Record = new Mark_Qtnm();
         this.Record.qtnm_pkid = this.pkid;
@@ -1015,7 +1022,7 @@ export class QuotationAirComponent {
     }
 
     open(content: any) {
-        this.modal = this.modalService.open(content);
+        this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
     }
 
     RemoveList(event: any) {
@@ -1214,11 +1221,12 @@ export class QuotationAirComponent {
 
     }
 
-    PrintQuotation(_format: string) {
+    PrintQuotation(_type: string, mailsent: any) {
         this.loading = true;
         let SearchData = {
             pkid: this.Record.qtnm_pkid,
-            format: _format,
+            type: _type,
+            format: this.print_format,
             report_folder: this.gs.globalVariables.report_folder,
             comp_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
@@ -1230,7 +1238,17 @@ export class QuotationAirComponent {
         this.mainService.PrintQuotation(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+                if (_type == 'PRINT') {
+                    this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+                }
+                else if (_type == 'MAIL') {
+                    this.AttachList = new Array<any>();
+                    this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filesize: response.filesize });
+                    this.sSubject = response.subject;
+                    this.sMsg = response.message;
+                    this.sTo_ids = response.toids;
+                    this.open(mailsent);
+                }
             },
                 error => {
                     this.loading = false;
