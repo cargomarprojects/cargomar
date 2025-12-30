@@ -175,7 +175,7 @@ export class CcReportComponent {
 
   // Query List Data
   List(_type: string, _CanUpdate: string) {
-     
+
     if (this.cc_type.trim().length <= 0) {
       this.ErrorMessage = 'Type Cannot Be Blank';
       alert(this.ErrorMessage);
@@ -191,7 +191,7 @@ export class CcReportComponent {
     }
 
     if (_CanUpdate == "Y") {
-      if (this.cc_type == "CNTR SEA EXPORT" || this.cc_type == "GENERAL JOB" || this.cc_type == "EMPLOYEE" || this.cc_type == "ACC CODE") {
+      if (this.cc_type == "CNTR SEA EXPORT" || this.cc_type == "GENERAL JOB" || this.cc_type == "EMPLOYEE" || this.cc_type == "ACC CODE" || this.cc_type == "COST CENTER") {
         this.ErrorMessage = "Cannot Update this type";
         alert(this.ErrorMessage);
         return;
@@ -223,7 +223,7 @@ export class CcReportComponent {
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')
-          this.Downloadfile(response.reportfile,_type,response.filedisplayname);
+          this.Downloadfile(response.reportfile, _type, response.filedisplayname);
         else {
           this.RecordList = response.list;
         }
@@ -255,7 +255,7 @@ export class CcReportComponent {
     let sWhere: string = '';
 
     sWhere = " cc_type ='" + this.cc_type + "'"
-    if (this.cc_type != "EMPLOYEE")
+    if (this.cc_type != "EMPLOYEE" && this.cc_type != "COST CENTER")
       sWhere += " and cc_year =" + this.gs.globalVariables.year_code;
 
     this.CCRECORD.where = sWhere;

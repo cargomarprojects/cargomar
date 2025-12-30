@@ -55,7 +55,7 @@ export class costCenterComponent {
     private mainService: LedgerService,
     private route: ActivatedRoute,
     private gs: GlobalService,
-    private modalService: NgbModal,    
+    private modalService: NgbModal,
   ) {
 
     this.CCGrpList = [
@@ -181,7 +181,7 @@ export class costCenterComponent {
     }
     this.RecordList.forEach(rec => {
 
-      if (rec.ct_cost_code == ''  || rec.ct_cost_name == 'Invalid Cost Center Code') {
+      if (rec.ct_cost_code == '' || rec.ct_cost_name == 'Invalid Cost Center Code') {
         bret = false;
         sError += "\n\rInvalid Cost Center";
       }
@@ -203,12 +203,12 @@ export class costCenterComponent {
 
   OnBlur(field: string, _rec: CostCentert) {
     if (field == 'ct_cost_code') {
+      _rec.ct_cost_code = _rec.ct_cost_code.toUpperCase();
       this.SearchRecord('ct_cost_code', _rec);
       return;
     }
-    if (field == 'ct_amount') 
-    {
-      _rec.ct_amount = this.gs.roundNumber( _rec.ct_amount, 2);
+    if (field == 'ct_amount') {
+      _rec.ct_amount = this.gs.roundNumber(_rec.ct_amount, 2);
       this.findtotal();
       return;
     }
@@ -246,17 +246,17 @@ export class costCenterComponent {
           _rec.ct_cost_id = response.costcenterm[0].cc_pkid;
           _rec.ct_cost_name = response.costcenterm[0].cc_name;
           _rec.ct_cost_year = +this.gs.globalVariables.year_code;
-          if ( response.costcenterm[0].cc_year > 0)
+          if (response.costcenterm[0].cc_year > 0)
             _rec.ct_cost_year = response.costcenterm[0].cc_year;
         }
         else {
           _rec.ct_cost_name = 'Invalid Cost Center Code';
         }
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   findtotal() {
@@ -276,7 +276,7 @@ export class costCenterComponent {
     this.gs.ClosePage('home');
   }
 
-  PasteData( content : any ) {
+  PasteData(content: any) {
     this.bShowClipBoard = true;
     this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
   }
@@ -291,7 +291,7 @@ export class costCenterComponent {
         this.Record = new CostCentert();
         this.Record.ct_pkid = this.pkid;
         this.Record.ct_jv_id = this.parentid;
-        this.Record.ct_category = rec.type ;
+        this.Record.ct_category = rec.type;
         this.Record.ct_year = +this.gs.globalVariables.year_code;
         this.Record.ct_cost_year = +this.gs.globalVariables.year_code;
         this.Record.ct_cost_id = rec.id;
@@ -310,7 +310,7 @@ export class costCenterComponent {
 
   closeModal() {
     this.modal.close();
- 
+
   }
 
 
