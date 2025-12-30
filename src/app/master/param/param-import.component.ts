@@ -46,32 +46,36 @@ export class ParamImportComponent implements OnInit {
         this.currentTab = "PASTEDATA";
     }
 
-    OldConvertData() {
+    ConvertData() {
         let bRet = false;
         const CurrArray = this.cbdata.split('\n');
-        this.RecordList = new Array<Currency>();
-        for (let i = 1; i < CurrArray.length; i += 6) {
-            try {
-                this.Record = new Currency();
-                this.Record.curr_slno = parseInt(CurrArray[i], 10);
-                this.Record.curr_code = CurrArray[i + 1];
-                this.Record.curr_name = CurrArray[i + 2];
-                this.Record.curr_per_rate = parseFloat(CurrArray[i + 3]);
-                this.Record.curr_imp_rate = parseFloat(CurrArray[i + 4]);
-                this.Record.curr_exp_rate = parseFloat(CurrArray[i + 5]);
-                this.RecordList.push(this.Record);
-            } catch (error) {
-                bRet = false;
-                this.ErrorMessage = error.message;
-                alert(this.ErrorMessage);
-                break;
+        if (CurrArray[1] == '1') {
+            this.RecordList = new Array<Currency>();
+            for (let i = 1; i < CurrArray.length; i += 6) {
+                try {
+                    this.Record = new Currency();
+                    this.Record.curr_slno = parseInt(CurrArray[i], 10);
+                    this.Record.curr_code = CurrArray[i + 1];
+                    this.Record.curr_name = CurrArray[i + 2];
+                    this.Record.curr_per_rate = parseFloat(CurrArray[i + 3]);
+                    this.Record.curr_imp_rate = parseFloat(CurrArray[i + 4]);
+                    this.Record.curr_exp_rate = parseFloat(CurrArray[i + 5]);
+                    this.RecordList.push(this.Record);
+                } catch (error) {
+                    bRet = false;
+                    this.ErrorMessage = error.message;
+                    alert(this.ErrorMessage);
+                    break;
+                }
+                bRet = true;
             }
-            bRet = true;
+        } else {
+            bRet = this.rowConvertData();
         }
         return bRet;
     }
 
-    ConvertData() {
+    rowConvertData() {
         let bRet = false;
         const CurrArray = this.cbdata.split('\n');
         this.RecordList = new Array<Currency>();
@@ -93,7 +97,7 @@ export class ParamImportComponent implements OnInit {
                 this.Record.curr_imp_rate = Number(parts[currIndex++]);
                 this.Record.curr_exp_rate = Number(parts[currIndex++]);
                 this.RecordList.push(this.Record);
-                
+
             } catch (error) {
                 bRet = false;
                 this.ErrorMessage = error.message;
