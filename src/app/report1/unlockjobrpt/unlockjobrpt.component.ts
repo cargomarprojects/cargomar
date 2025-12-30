@@ -363,7 +363,10 @@ export class UnlockJobrptComponent {
             user_code: this.gs.globalVariables.user_code,
             user_name: this.gs.globalVariables.user_name,
             user_short_name: this.gs.globalVariables.user_short_name,
-            user_pkid: this.gs.globalVariables.user_pkid
+            user_pkid: this.gs.globalVariables.user_pkid,
+            report_folder: this.gs.globalVariables.report_folder,
+            root_folder: this.gs.defaultValues.root_folder,
+            sub_folder: this.gs.defaultValues.sub_folder
         };
 
         this.ErrorMessage = '';
