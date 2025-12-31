@@ -20,8 +20,27 @@ import { pendinglist } from '../models/pendinglist';
 import { SearchTable } from '../../shared/models/searchtable';
 
 import { PendingListComponent } from './Pendinglist.component';
-//EDIT-AJITH-11-11-2021
-//EDIT-AJITH-12-11-2021
+
+//Arap Component
+// 1.Invoice
+// 2.Payment Invoice
+// 3.General Expense
+// 4.Debit Note
+// 5.Credit Note
+// 6.Inward Debit Note
+// 7.Inward Credit Note
+// 8.Inward Credit Note(GE)
+
+//Ledger Component
+// 1.Costing Invoice
+// 2.Costing JV
+// 3.Cash Receipt
+// 4.Cash Payment
+// 5.Bank Receipt
+// 6.Bank Payment
+// 7.Bank Payment HO
+// 8.Journal Voucher
+
 
 @Component({
   selector: 'app-ledger',
