@@ -11,8 +11,10 @@
 
                 <span class="userAC" *ngIf="gs.IsAuthenticated"><i
                         class="fa fa-user"></i>{{gs.globalVariables.user_name}}</span>
+                <span class="userAC" *ngIf="gs.IsAuthenticated && gs.globalVariables.user_code == 'ADMIN'"><i
+                        class="fa fa-exchange"></i><a (click)="Logout('BRANCH')">Change Branch</a></span>
                 <span class="lgOut" *ngIf="gs.IsAuthenticated"><i class="fa fa-sign-out"></i><a
-                        (click)="Logout()">Logout</a></span>
+                        (click)="Logout('LOGOUT')">Logout</a></span>
                 <span class="lgOut" *ngIf="!gs.IsAuthenticated"><i class="fa fa-sign-in"></i><a
                         (click)="Login()">Login</a></span>
 

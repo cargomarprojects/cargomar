@@ -75,6 +75,15 @@ export class LoginBranchComponent {
         if (this.gs.globalVariables.user_code == "SP") //For sivaprasad, he will select the fin year 
           this.yearid = '';
 
+        if (this.gs.changeBrData.user_login == "BRANCH") {
+          this.branchid = this.gs.changeBrData.user_branch_id;
+          this.gs.changeBrData.user_login = '';
+          this.gs.changeBrData.user_code = '';
+          this.gs.changeBrData.user_pwd = '';
+          this.gs.changeBrData.user_comp_code = '';
+          this.gs.changeBrData.user_branch_id = '';
+        }
+
         // if trading partner login no branch selection allowed
         if (this.gs.globalVariables.tp_code != '')
           this.Login();

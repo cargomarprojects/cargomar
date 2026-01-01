@@ -18,6 +18,7 @@ export class HeaderComponent {
     public gs: GlobalService;
     title = "Pls Login";
     id: string = "";
+
     constructor(
         private router: Router,
         private gs1: GlobalService,
@@ -26,7 +27,7 @@ export class HeaderComponent {
     }
 
     LoadPage(rec: Menum) {
-        let _replaceurl : boolean = true;
+        let _replaceurl: boolean = true;
         let bFlag: boolean = false;
         this.getUrlID();
         /* this.router.navigate([rec.menu_route1], { queryParams: { parameter: rec.menu_route2 }, replaceUrl: true }); */
@@ -40,29 +41,40 @@ export class HeaderComponent {
             bFlag = true;
 
         // replaceurl parameter has to be added in menu_route2 or menu master
-        if ( rec.menu_route2 != "")  {
-            let mobj = JSON.parse( rec.menu_route2);
-            if ( mobj.hasOwnProperty('replaceurl'))
-            {
-                _replaceurl = mobj.replaceurl; 
+        if (rec.menu_route2 != "") {
+            let mobj = JSON.parse(rec.menu_route2);
+            if (mobj.hasOwnProperty('replaceurl')) {
+                _replaceurl = mobj.replaceurl;
             }
         }
-        
+
         if (bFlag)
             this.router.navigate([rec.menu_route1], { queryParams: { appid: this.gs.appid, id: this.id, parameter: rec.menu_route2 }, replaceUrl: _replaceurl });
         else {
-            if ( _replaceurl)
+            if (_replaceurl)
                 this.router.navigate([rec.menu_route1], { queryParams: { appid: this.gs.appid, parameter: rec.menu_route2 }, replaceUrl: true });
-            else 
-                this.router.navigate([rec.menu_route1], { queryParams: { appid: this.gs.appid, parameter: rec.menu_route2 }});
+            else
+                this.router.navigate([rec.menu_route1], { queryParams: { appid: this.gs.appid, parameter: rec.menu_route2 } });
         }
     }
 
 
 
 
-    Logout() {
-
+    Logout(_type: string = "LOGOUT") {
+        this.gs.changeBrData.user_login = '';
+        this.gs.changeBrData.user_code = '';
+        this.gs.changeBrData.user_pwd = '';
+        this.gs.changeBrData.user_comp_code = '';
+        this.gs.changeBrData.user_branch_id = '';
+        if (_type == "BRANCH") {
+            this.gs.changeBrData.user_login = 'BRANCH';
+            this.gs.changeBrData.user_code = this.gs.globalVariables.user_code;
+            this.gs.changeBrData.user_pwd = this.gs.globalVariables.user_password;
+            this.gs.changeBrData.user_comp_code = this.gs.globalVariables.comp_code;
+            this.gs.changeBrData.user_branch_id = this.gs.globalVariables.branch_pkid;
+        }
+        
         let SearchData = {
             usercode: this.gs.globalVariables.user_code,
             companycode: this.gs.globalVariables.comp_code,
@@ -80,7 +92,6 @@ export class HeaderComponent {
 
         this.Login();
 
-
     }
 
 
@@ -95,8 +106,6 @@ export class HeaderComponent {
 
         this.title = 'Pls Login';
         this.router.navigate(['login'], { replaceUrl: true });
-
-
     }
 
 

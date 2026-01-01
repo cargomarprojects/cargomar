@@ -25,13 +25,12 @@ export class LoginComponent {
   username: string = 'ADMIN';
   password: string = 'cpl2001*';
 
-
   server_software_version_string: string = '';
   showloginbutton: boolean = true;
 
   company_code: string = '';
 
-
+  sub: any;
   loading = false;
   showlogin = false;
 
@@ -48,9 +47,6 @@ export class LoginComponent {
     this.gs = gs1;
     this.LoadCombo();
   }
-
-
-
 
   LoadCombo() {
 
@@ -78,6 +74,13 @@ export class LoginComponent {
         this.showlogin = true;
         this.gs.setTopbarContact(this.company_code);
         this.getCompanyName();
+
+        if (this.gs.changeBrData.user_login == "BRANCH") {
+          this.username = this.gs.changeBrData.user_code;
+          this.password = this.gs.changeBrData.user_pwd;
+          this.company_code = this.gs.changeBrData.user_comp_code;
+          this.Login();
+        }
       },
         error => {
           this.loading = false;
