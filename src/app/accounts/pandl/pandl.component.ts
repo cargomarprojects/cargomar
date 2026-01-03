@@ -37,6 +37,7 @@ export class PandLComponent {
   currentTab = 'LIST';
 
   searchstring = '';
+  filterstring = '';
 
   sub: any;
   storesub: any;
@@ -87,6 +88,8 @@ export class PandLComponent {
   // Single Record for add/edit/view details
   Record: LedgerReport = new LedgerReport;
   BranchList: any[] = [];
+
+  FilteredRecordList: LedgerReport[] = [];
   constructor(
     private mainService: AccReportService,
     private route: ActivatedRoute,
@@ -269,12 +272,29 @@ export class PandLComponent {
     this.gs.Naviagete("accounts/ledger", JSON.stringify(param));
   }
 
+  OnChange(field: string) {
+    if (field == "filterstring")
+      this.FilterRecords();
+  }
 
 
   Close() {
     this.store.dispatch(new pandlactions.Delete({ id: this.urlid }));
     this.gs.ClosePage('home');
 
+  }
+
+
+  FilterRecords(): void {
+
+    this.filterstring = this.filterstring.toUpperCase();
+    if (this.gs.isBlank(this.filterstring.trim())) {
+      this.FilteredRecordList = this.RecordList;
+      return;
+    }
+    this.FilteredRecordList = this.RecordList.filter(rec =>
+      rec.acc_name.includes(this.filterstring)
+    );
   }
 
   //Not use
