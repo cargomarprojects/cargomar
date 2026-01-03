@@ -83,7 +83,7 @@ Ajith 31/05/2019 copy user rights from one user to another implemented
     }
 
     ngOnInit() {
-        this.copyto_menu_name='';
+        this.copyto_menu_name = '';
     }
     InitLov() {
         this.USERRECORD = new SearchTable();
@@ -167,6 +167,8 @@ Ajith 31/05/2019 copy user rights from one user to another implemented
 
         this.user_name = _Rec.user_name;
         this.branch_name = _Rec.user_branch_name;
+        this.user_id = _Rec.user_pkid;
+        this.branch_id = _Rec.user_branch_id;
 
         let SearchData = {
             type: _type,
@@ -283,6 +285,49 @@ Ajith 31/05/2019 copy user rights from one user to another implemented
                 }
             );
     }
+
+    Removerights() {
+        this.ErrorMessage = "";
+        if (this.user_id.length <= 0 || this.branch_id.length<=0) {
+            this.ErrorMessage += "| Please select a user and continue....... ";
+        }
+
+        if (this.ErrorMessage.length > 0) {
+            alert(this.ErrorMessage);
+            return;
+        }
+
+        let Msg: string = "";
+
+        Msg = "Do you want to Remove All Rights of " + this.user_name + " - " + this.branch_name;
+
+        if (!confirm(Msg)) {
+            return;
+        }
+
+        let SearchData = {
+            comp_code: this.gs.globalVariables.comp_code,
+            branchid: this.branch_id,
+            userid: this.user_id,
+        };
+
+        this.loading = true;
+        this.rightsService.RemoveRights(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                this.ErrorMessage = "Successfully Removed";
+                this.currentTab = 'LIST';
+            },
+                error => {
+                    this.ErrorMessage = this.gs.getError(error);
+                    this.loading = false;
+                    alert(this.ErrorMessage);
+                }
+            );
+    }
+
+
+
 }
 
 

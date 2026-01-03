@@ -80,7 +80,14 @@
 
   <div class="row">
     <div class="col-6">
-      User : {{user_name}} - Branch : {{branch_name}}
+      <div class="form-group row">
+        <div class="col-10">
+          User : {{user_name}} - Branch : {{branch_name}}
+        </div>
+        <div class="col-2">
+          <button [disabled]="loading" (click)="Removerights()" class="btn btn-primary btn-sm">Remove Rights</button>
+        </div>
+      </div>
     </div>
     <div class="col-6">
       <div class="form-group row">
@@ -192,7 +199,7 @@
     <p class="p-0 m-0">
       Hr-Employee Master <b> {{'{PHOTO}'}} </b> Upload photo
     </p>
-     <p class="p-0 m-0">
+    <p class="p-0 m-0">
       Tds Payable Report <b> {{'{SCG}'}} </b> To show consultant gross in report
     </p>
   </div>

@@ -27,5 +27,10 @@ export class RightsService {
     CopyRights(Record: UserRights_VM ) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Admin/UserRight/CopyRights', Record, this.gs.headerparam2('authorized'));
     }
+
+    RemoveRights(SearchData: any) {
+
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Admin/UserRight/RemoveRights', SearchData, this.gs.headerparam2('authorized'));
+    }
 }
 
