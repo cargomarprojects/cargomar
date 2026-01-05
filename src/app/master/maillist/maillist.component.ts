@@ -28,6 +28,7 @@ export class MailListComponent {
 
     disableSave = true;
     loading = false;
+    bPrint = false;
     currentTab = 'LIST';
 
     searchstring = '';
@@ -94,8 +95,10 @@ export class MailListComponent {
     InitComponent() {
 
         this.menu_record = this.gs.getMenu(this.menuid);
-        if (this.menu_record)
+        if (this.menu_record) {
             this.title = this.menu_record.menu_name;
+            this.bPrint = this.menu_record.rights_print;
+        }
         this.InitLov();
         this.LoadCombo();
 
@@ -223,7 +226,8 @@ export class MailListComponent {
             page_count: this.page_count,
             page_current: this.page_current,
             page_rows: this.page_rows,
-            page_rowcount: this.page_rowcount
+            page_rowcount: this.page_rowcount,
+            report_folder: this.gs.globalVariables.report_folder
         };
 
         this.ErrorMessage = '';
@@ -231,10 +235,14 @@ export class MailListComponent {
         this.mainService.List(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                this.RecordList = response.list;
-                this.page_count = response.page_count;
-                this.page_current = response.page_current;
-                this.page_rowcount = response.page_rowcount;
+                if (_type == 'EXCEL')
+                    this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+                else {
+                    this.RecordList = response.list;
+                    this.page_count = response.page_count;
+                    this.page_current = response.page_current;
+                    this.page_rowcount = response.page_rowcount;
+                }
             },
                 error => {
                     this.loading = false;
@@ -243,6 +251,9 @@ export class MailListComponent {
                 });
     }
 
+    Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+        this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+    }
 
     NewRecord() {
 
