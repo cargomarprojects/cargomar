@@ -33,7 +33,7 @@ export class YearmComponent {
 
     sub: any;
     urlid: string;
-
+    selectedRowIndex = 0;
 
     ErrorMessage = "";
     InfoMessage = "";
@@ -53,7 +53,7 @@ export class YearmComponent {
 
     ) {
         this.page_count = 0;
-        this.page_rows = 10;
+        this.page_rows = 15;
         this.page_current = 0;
 
 
@@ -306,8 +306,8 @@ export class YearmComponent {
         else {
             REC.year_code = this.Record.year_code;
             REC.year_name = this.Record.year_name;
-            REC.year_start_date = this.Record.year_start_date;
-            REC.year_end_date = this.Record.year_end_date;
+            REC.year_start_date = this.gs.ConvertDate2DisplayFormat(this.Record.year_start_date);
+            REC.year_end_date = this.gs.ConvertDate2DisplayFormat(this.Record.year_end_date);
             REC.year_closed = this.Record.year_closed;
         }
     }
