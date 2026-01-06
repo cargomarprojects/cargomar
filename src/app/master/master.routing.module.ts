@@ -34,6 +34,7 @@ import { SeaBuyRateComponent } from './seabuyrate/seabuyrate.component';
 import { AirBuyRateComponent } from './airbuyrate/airbuyrate.component';
 import { ChemCatgComponent } from './chemcatg/chemcatg.component';
 import { ProcessReportComponent } from './processreport/processreport.component';
+import { YearmComponent } from './yearm/yearm.component';
 
 
 const routes: Routes = [
@@ -62,6 +63,7 @@ const routes: Routes = [
     { path: 'efileupload', component: EfileUploadComponent },
     { path: 'airbuyrate', component: AirBuyRateComponent },
     { path: 'chemcatg', component: ChemCatgComponent },
+    { path: 'yearm', component: YearmComponent },
     { path: 'processreport', component: ProcessReportComponent }
 ];
 

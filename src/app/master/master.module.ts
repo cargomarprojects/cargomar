@@ -50,6 +50,7 @@ import { ProcessReportComponent } from './processreport/processreport.component'
 import { CustdetConsigneeComponent } from './customer/custdetconsignee.component';
 import { RitcdComponent } from './ritcm/ritcd/ritcd.component';
 import { ParamImportComponent } from './param/param-import.component';
+import { YearmComponent } from './yearm/yearm.component';
 
 @NgModule({
   imports: [
@@ -94,7 +95,8 @@ import { ParamImportComponent } from './param/param-import.component';
     ProcessReportComponent,
     CustdetConsigneeComponent,
     RitcdComponent,
-    ParamImportComponent
+    ParamImportComponent,
+    YearmComponent
   ],
   providers: [
   ],
