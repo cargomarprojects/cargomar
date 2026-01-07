@@ -701,7 +701,7 @@
 
   </div>
 
- <!-- <br /> -->
+  <!-- <br /> -->
   <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
   <div *ngIf="InfoMessage" class="alert alert-success">
     {{InfoMessage}}
@@ -725,3 +725,5 @@
 <app-crlimit [visible]="showalert" [msg]="ErrorMessage" [RecordList]="CrList" [type]="CrLimitType"
   [parentid]="unlockparentid" [customername]="unlockcustomername" [consigneeid]="Record.hbl_exp_id"
   (hidealert)="showalert=$event"></app-crlimit>
+
+<app-warningalert #WarnMsg></app-warningalert>

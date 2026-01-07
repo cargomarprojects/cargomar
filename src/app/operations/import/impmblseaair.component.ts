@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
@@ -7,6 +7,7 @@ import { ImpMblService } from '../services/impmbl.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { Param } from '../../master/models/param';
 import { Trackingm } from '../models/tracking';
+import { WarningAlertComponent } from '../../shared/warningalert/warningalert.component';
 
 //EDIT-AJITH-01-12-2021
 
@@ -19,6 +20,7 @@ export class ImpMblSeaAirComponent {
   // Local Variables 
   title = 'MASTER';
 
+  @ViewChild('WarnMsg') private _WarnMsg: WarningAlertComponent;
   @Input() menuid: string = '';
   @Input() type: string = '';
   InitCompleted: boolean = false;
@@ -545,7 +547,9 @@ export class ImpMblSeaAirComponent {
     if (this.mode == "EDIT" && this.menu_record.rights_edit)
       this.disableSave = false;
 
-
+    if (this.mode == "ADD" && this.gs.globalVariables.year_closed == "Y")
+      this._WarnMsg.show("Financial Year (" + this.gs.globalVariables.year_name + ") closed. No Changes allowed.");
+    
     return this.disableSave;
   }
 
@@ -1147,7 +1151,7 @@ export class ImpMblSeaAirComponent {
           alert(this.ErrorMessage);
         });
   }
-   
+
   FolderSent(event: any) {
     this.folder_chk = !this.folder_chk;
     const checked = event.target.checked;
