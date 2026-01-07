@@ -55,7 +55,8 @@ export class WarningAlertComponent {
         this.modal.close();
     }
 
-    public show() {
+    public show(_msg: string) {
+        this.WarningMessage = _msg;
         this.open(this.warningModal);
     }
 

@@ -7,6 +7,7 @@ import { JobService } from '../services/job.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { WarningMsg } from '../../shared/models/warningmsg';
 import { WarningAlert2Component } from '../../shared/warningalert/warningalert2.component';
+import { WarningAlertComponent } from '../../shared/warningalert/warningalert.component';
 
 //EDIT-AJITH-20-11-2021
 
@@ -19,7 +20,9 @@ export class JobComponent {
   // Local Variables 
   title = 'JOB MASTER';
 
-  @ViewChild('WarnMsg') private _WarnMsg: WarningAlert2Component;
+  @ViewChild('WarnMsg') private _WarnMsg: WarningAlertComponent;
+  @ViewChild('WarnMsg2') private _WarnMsg2: WarningAlert2Component;
+
 
   @Input() menuid: string = '';
   @Input() type: string = '';
@@ -539,8 +542,8 @@ export class JobComponent {
           _Rec.ctr = this.WarningList.length + 1;
           this.WarningList.push(_Rec);
         }
-        if (!this.gs.isBlank(this._WarnMsg)) {
-          this._WarnMsg.show(this.WarningList);
+        if (!this.gs.isBlank(this._WarnMsg2)) {
+          this._WarnMsg2.show(this.WarningList);
         }
       }
     }
@@ -791,6 +794,8 @@ export class JobComponent {
     if (this.mode == "EDIT" && this.menu_record.rights_docs)
       this.bDocs = true;
 
+    if (this.gs.globalVariables.year_closed == "Y")
+      this._WarnMsg.show("Year (" + this.gs.globalVariables.year_name + ") closed. No Changes allowed.");
 
     return this.disableSave;
   }
@@ -1149,8 +1154,8 @@ export class JobComponent {
         this.loading = false;
         this.LoadData(response.record);
 
-         if (!this.gs.isBlank(this._WarnMsg)) {
-          this._WarnMsg.show(response.waringmsg);
+        if (!this.gs.isBlank(this._WarnMsg2)) {
+          this._WarnMsg2.show(response.waringmsg);
         }
       },
         error => {
