@@ -59,7 +59,8 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+          (mousedown)="selectedRowIndex=i">
           <td class="hlink" (click)="ActionHandler('EDIT',rec.gj_pkid)">{{rec.gj_job_prefix}}</td>
           <td>{{rec.gj_type_name}}</td>
           <td>{{rec.gj_job_date}}</td>
@@ -521,3 +522,4 @@
 <div *ngIf="ErrorMessage" class="alert alert-danger">
   {{ErrorMessage}}
 </div>
+<app-warningalert #WarnMsg></app-warningalert>

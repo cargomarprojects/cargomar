@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 
@@ -8,6 +8,7 @@ import { MblService } from '../services/mbl.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { Param } from '../../master/models/param';
 import { Trackingm } from '../models/tracking';
+import { WarningAlertComponent } from '../../shared/warningalert/warningalert.component';
 
 @Component({
   selector: 'app-mblm',
@@ -18,6 +19,7 @@ export class MblAirComponent {
   // Local Variables 
   title = 'MBL AIR MASTER';
 
+  @ViewChild('WarnMsg') private _WarnMsg: WarningAlertComponent;
   @Input() menuid: string = '';
   @Input() type: string = '';
   InitCompleted: boolean = false;
@@ -452,6 +454,9 @@ export class MblAirComponent {
       this.disableSave = false;
     if (this.mode == "EDIT" && this.menu_record.rights_edit)
       this.disableSave = false;
+
+    if (this.mode == "ADD" && this.gs.globalVariables.year_closed == "Y")
+      this._WarnMsg.show("Financial Year (" + this.gs.globalVariables.year_name + ") closed. No Changes allowed.");
 
     return this.disableSave;
   }

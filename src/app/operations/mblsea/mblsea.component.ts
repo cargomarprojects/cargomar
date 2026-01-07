@@ -17,6 +17,7 @@ import { transition } from '@angular/core/src/animation/dsl';
 import { Hblm } from '../models/hbl';
 import { isNull } from 'util';
 import { FileUploadComponent } from '../../shared/fileupload/fileupload.component';
+import { WarningAlertComponent } from '../../shared/warningalert/warningalert.component';
 //EDIT-AJITH-01-12-2021
 //EDIT-AJITH-20-12-2021
 //EDIT-AJITH-05-01-2022
@@ -32,6 +33,7 @@ export class MblSeaComponent {
   // Local Variables
   title = 'BOOKING MASTER';
   @ViewChild('blsurrendermail') _ctrlblsurrendermail: FileUploadComponent;
+  @ViewChild('WarnMsg') private _WarnMsg: WarningAlertComponent;
 
   @Input() menuid: string = '';
   @Input() type: string = '';
@@ -533,6 +535,9 @@ export class MblSeaComponent {
       this.disableSave = false;
     if (this.mode == "EDIT" && this.menu_record.rights_edit)
       this.disableSave = false;
+
+    if (this.mode == "ADD" && this.gs.globalVariables.year_closed == "Y")
+      this._WarnMsg.show("Financial Year (" + this.gs.globalVariables.year_name + ") closed. No Changes allowed.");
 
     return this.disableSave;
   }

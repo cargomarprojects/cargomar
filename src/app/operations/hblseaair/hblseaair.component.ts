@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 
@@ -9,6 +9,7 @@ import { HblService } from '../services/hbl.service';
 
 import { SearchTable } from '../../shared/models/searchtable';
 import { Param } from '../../master/models/param';
+import { WarningAlertComponent } from '../../shared/warningalert/warningalert.component';
 
 @Component({
     selector: 'app-hblseaair',
@@ -18,6 +19,7 @@ import { Param } from '../../master/models/param';
 export class HblSeaAirComponent {
     // Local Variables 
     title = 'HBL MASTER';
+    @ViewChild('WarnMsg') private _WarnMsg: WarningAlertComponent;
 
     @Input() menuid: string = '';
     @Input() type: string = '';
@@ -485,6 +487,9 @@ export class HblSeaAirComponent {
             this.disableSave = false;
         if (this.mode == "EDIT" && this.menu_record.rights_edit)
             this.disableSave = false;
+
+        if (this.mode == "ADD" && this.gs.globalVariables.year_closed == "Y")
+            this._WarnMsg.show("Financial Year (" + this.gs.globalVariables.year_name + ") closed. No Changes allowed.");
 
         return this.disableSave;
     }

@@ -794,8 +794,8 @@ export class JobComponent {
     if (this.mode == "EDIT" && this.menu_record.rights_docs)
       this.bDocs = true;
 
-    if (this.gs.globalVariables.year_closed == "Y")
-      this._WarnMsg.show("Year (" + this.gs.globalVariables.year_name + ") closed. No Changes allowed.");
+    if (this.mode == "ADD" && this.gs.globalVariables.year_closed == "Y")
+      this._WarnMsg.show("Financial Year (" + this.gs.globalVariables.year_name + ") closed. No Changes allowed.");
 
     return this.disableSave;
   }

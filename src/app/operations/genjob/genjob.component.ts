@@ -1,10 +1,10 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { GenJobm } from '../models/genjob';
 import { GenJobService } from '../services/genjob.service';
 import { SearchTable } from '../../shared/models/searchtable';
-
+import { WarningAlertComponent } from '../../shared/warningalert/warningalert.component';
 
 @Component({
   selector: 'app-genjobm',
@@ -15,6 +15,7 @@ export class GenJobComponent {
   // Local Variables 
   title = 'GENERAL JOB MASTER';
 
+  @ViewChild('WarnMsg') private _WarnMsg: WarningAlertComponent;
   @Input() menuid: string = '';
   @Input() type: string = '';
   InitCompleted: boolean = false;
@@ -265,8 +266,11 @@ export class GenJobComponent {
       this.disableSave = false;
     if (this.mode == "EDIT" && this.menu_record.rights_edit)
       this.disableSave = false;
-    if (this.mode == "EDIT")
-      return this.disableSave;
+
+    if (this.mode == "ADD" && this.gs.globalVariables.year_closed == "Y")
+      this._WarnMsg.show("Financial Year (" + this.gs.globalVariables.year_name + ") closed. No Changes allowed.");
+
+    return this.disableSave;
   }
 
   // Query List Data
