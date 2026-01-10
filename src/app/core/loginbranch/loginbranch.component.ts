@@ -74,7 +74,7 @@ export class LoginBranchComponent {
 
         if (this.gs.changeBrData.user_login == "BRANCH") {
           this.branchid = this.gs.changeBrData.user_branch_id;
-          // this.yearid = this.gs.changeBrData.user_year_id;
+          this.yearid = this.gs.changeBrData.user_year_id;
           this.gs.changeBrData.user_login = '';
           this.gs.changeBrData.user_code = '';
           this.gs.changeBrData.user_pwd = '';
