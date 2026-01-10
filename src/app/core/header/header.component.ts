@@ -67,12 +67,14 @@ export class HeaderComponent {
         this.gs.changeBrData.user_pwd = '';
         this.gs.changeBrData.user_comp_code = '';
         this.gs.changeBrData.user_branch_id = '';
+        this.gs.changeBrData.user_year_id = '';
         if (_type == "BRANCH") {
             this.gs.changeBrData.user_login = 'BRANCH';
             this.gs.changeBrData.user_code = this.gs.globalVariables.user_code;
             this.gs.changeBrData.user_pwd = this.gs.globalVariables.user_password;
             this.gs.changeBrData.user_comp_code = this.gs.globalVariables.comp_code;
             this.gs.changeBrData.user_branch_id = this.gs.globalVariables.branch_pkid;
+            this.gs.changeBrData.user_year_id = this.gs.globalVariables.year_pkid;
         }
         
         let SearchData = {

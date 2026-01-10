@@ -47,7 +47,8 @@ export class GlobalService {
     user_code: '',
     user_pwd: '',
     user_comp_code: '',
-    user_branch_id: ''
+    user_branch_id: '',
+    user_year_id: ''
   };
   // change this is false in production and update
   public isolderror: boolean = false;
