@@ -286,7 +286,7 @@ export class AgentInvoiceComponent {
       to_date: this.gs.globalData.cost_agentinvoice_todate,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
-      year_code:this.gs.globalVariables.year_code,
+      year_code: this.gs.globalVariables.year_code,
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
@@ -341,7 +341,10 @@ export class AgentInvoiceComponent {
     this.Record.cost_remarks = "";
     this.Record.cost_drcr = "";
     this.Record.cost_category = "";
-    this.Record.cost_type = 'SEA';
+    if (this.gs.globalVariables.branch_type == "BOTH")
+      this.Record.cost_type = 'SEA';
+    else
+      this.Record.cost_type = this.gs.globalVariables.branch_type;
     this.Record.cost_source = 'AGENT INVOICE';
     this.Record.cost_book_cntr = '';
     this.Record.cost_jv_agent_id = "";
@@ -479,6 +482,11 @@ export class AgentInvoiceComponent {
     if (this.Record.cost_drcr_amount == 0) {
       bret = false;
       sError += "| Invalid Amount";
+    }
+
+    if ( this.gs.isBlank(this.Record.cost_type)) {
+      bret = false;
+      sError += "| Cost Type Cannot Be Blank";
     }
 
     if (bret === false) {

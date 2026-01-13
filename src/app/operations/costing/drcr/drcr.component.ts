@@ -351,7 +351,10 @@ export class DrCrComponent {
     this.Record.cost_remarks = "";
     this.Record.cost_drcr = "";
     this.Record.cost_category = "";
-    this.Record.cost_type = 'SEA';
+    if (this.gs.globalVariables.branch_type == "BOTH")
+      this.Record.cost_type = 'SEA';
+    else
+      this.Record.cost_type = this.gs.globalVariables.branch_type;
     this.Record.cost_source = 'DRCR ISSUE';
     this.Record.cost_book_cntr = '';
     this.Record.cost_jv_agent_id = "";
@@ -362,7 +365,7 @@ export class DrCrComponent {
     this.Record.cost_jv_agent_br_addr = "";
     this.Record.cost_jv_br_inv_id = '';
     this.Record.cost_print_bank = false;
-    
+
     this.Record.rec_mode = this.mode;
     this.NewDetRecord(1);
     //this.InitDetList();
@@ -541,7 +544,10 @@ export class DrCrComponent {
       sError += "| Invalid Amount";
     }
 
-
+    if (this.gs.isBlank(this.Record.cost_type)) {
+      bret = false;
+      sError += "| Cost Type Cannot Be Blank";
+    }
 
     if (bret === false) {
       this.ErrorMessage = sError;
