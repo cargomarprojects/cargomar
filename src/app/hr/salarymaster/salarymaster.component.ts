@@ -41,6 +41,7 @@ export class SalaryMasterComponent {
   porttype = 'PORT';
   radio_emp: string = 'EMPLOYEE';
   csvamt: string;
+  esibasedon: string = "GROSS";
 
   ErrorMessage = "";
   InfoMessage = "";
@@ -183,6 +184,7 @@ export class SalaryMasterComponent {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
+        this.esibasedon = response.esibasedon;
         if (_type == 'EXCEL' || _type == 'CSV')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
@@ -192,6 +194,7 @@ export class SalaryMasterComponent {
           this.page_rowcount = response.page_rowcount;
           this.Recorddet = response.record;
         }
+
       },
         error => {
           this.loading = false;
@@ -536,6 +539,8 @@ export class SalaryMasterComponent {
     let PF_ExcludedAmt: number = 0;//HRA (A04) not included in PF Calculation
     let ESI_Amt: number = 0;
     let ESI_ExcludedAmt: number = 0;//CONVEYANCE (A06) not included in ESI Calculation
+    let BasicAmt: number = 0;
+    let DaAmt: number = 0;
     // if (this.Record.sal_emp_status == "CONSULTANT" || this.Record.sal_emp_status == "APPRENTICE")
     if (this.Record.sal_emp_pf_exempted) {
       this.Record.sal_esi_emply_per = 0;
@@ -547,6 +552,11 @@ export class SalaryMasterComponent {
     for (let rec of this.Record.DetList) {
       TotEarning += rec.e_amt1;
       TotEarning += rec.e_amt2;
+
+      if (rec.e_code1 == 'A01')
+        BasicAmt = rec.e_amt1;
+      else if (rec.e_code1 == 'A02')
+        DaAmt = rec.e_amt1;
 
       if (this.gs.defaultValues.pf_col_excluded.toString().indexOf(rec.e_code1) >= 0)
         PF_ExcludedAmt += rec.e_amt1;
@@ -568,11 +578,20 @@ export class SalaryMasterComponent {
     PF_Amt = this.gs.roundNumber(PF_Amt, 0);
 
     ESI_Amt = 0
-    if ((TotEarning - ESI_ExcludedAmt) <= this.gs.defaultValues.esi_limit || this.Record.sal_is_esi) {
-      ESI_Amt = (TotEarning - ESI_ExcludedAmt) * (this.Record.sal_esi_emply_per / 100);
-      ESI_Amt = this.gs.roundNumber(ESI_Amt, 2);
-      ESI_Amt = Math.ceil(ESI_Amt);
+    if (this.esibasedon == "GROSS") {
+      if ((TotEarning - ESI_ExcludedAmt) <= this.gs.defaultValues.esi_limit || this.Record.sal_is_esi) {
+        ESI_Amt = (TotEarning - ESI_ExcludedAmt) * (this.Record.sal_esi_emply_per / 100);
+        ESI_Amt = this.gs.roundNumber(ESI_Amt, 2);
+        ESI_Amt = Math.ceil(ESI_Amt);
+      }
+    } else { //BASIC + DA
+      if ((BasicAmt + DaAmt) <= this.gs.defaultValues.esi_limit || this.Record.sal_is_esi) {
+        ESI_Amt = (BasicAmt + DaAmt) * (this.Record.sal_esi_emply_per / 100);
+        ESI_Amt = this.gs.roundNumber(ESI_Amt, 2);
+        ESI_Amt = Math.ceil(ESI_Amt);
+      }
     }
+
     for (let rec of this.Record.DetList) {
       if (rec.d_code1 == "D01") //Employee PF Deduction
         rec.d_amt1 = PF_Amt;
