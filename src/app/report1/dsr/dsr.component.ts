@@ -53,9 +53,15 @@ export class DsrComponent {
   agent_name: string;
 
   carrier_id: string;
+  carrier_code: string;
+  carrier_name: string;
   carriertype: string;
   pol_id: string;
+  pol_code: string;
+  pol_name: string;
   pod_id: string;
+  pod_code: string;
+  pod_name: string;
   porttype: string;
 
   search_bookingrpt: boolean = false;
@@ -92,8 +98,14 @@ export class DsrComponent {
     agent_code: '',
     agent_name: '',
     carrier_id: '',
+    carrier_code: '',
+    carrier_name: '',
     pol_id: '',
+    pol_code: '',
+    pol_name: '',
     pod_id: '',
+    pod_code: '',
+    pod_name: '',
     all: false,
     format_type: '',
     bookingrpt: false,
@@ -192,11 +204,21 @@ export class DsrComponent {
     this.EXPRECORD.id = '';
     this.IMPRECORD.id = '';
     this.shipper_id = '';
+    this.shipper_name = '';
     this.consignee_id = '';
+    this.consignee_name = '';
     this.agent_id = '';
+    this.agent_code = '';
+    this.agent_name = '';
     this.carrier_id = '';
+    this.carrier_code = '';
+    this.carrier_name = '';
     this.pol_id = '';
+    this.pol_code = '';
+    this.pol_name = '';
     this.pod_id = '';
+    this.pod_code = '';
+    this.pod_name = '';
     this.format_type = 'GENERAL';
   }
 
@@ -297,18 +319,18 @@ export class DsrComponent {
     }
     if (_Record.controlname == "CARRIER") {
       this.carrier_id = _Record.id;
-      // this.carrier_code = _Record.code;
-      // this.carrier_name = _Record.name;
+      this.carrier_code = _Record.code;
+      this.carrier_name = _Record.name;
     }
     if (_Record.controlname == "POL") {
       this.pol_id = _Record.id;
-      // this.pol_code = _Record.code;
-      //  this.pol_name = _Record.name;
+      this.pol_code = _Record.code;
+      this.pol_name = _Record.name;
     }
     if (_Record.controlname == "POD") {
       this.pod_id = _Record.id;
-      // this.pod_code = _Record.code;
-      // this.pod_name = _Record.name;
+      this.pod_code = _Record.code;
+      this.pod_name = _Record.name;
     }
 
   }
@@ -386,13 +408,21 @@ export class DsrComponent {
     this.SearchData.to_date = this.to_date;
     this.SearchData.job_type = this.job_type;
     this.SearchData.shipper_id = this.shipper_id;
+    this.SearchData.shipper_name = this.shipper_name;
     this.SearchData.consignee_id = this.consignee_id;
+    this.SearchData.consignee_name = this.consignee_name;
     this.SearchData.agent_id = this.agent_id;
     this.SearchData.agent_name = this.agent_name;
     this.SearchData.agent_code = this.agent_code;
     this.SearchData.carrier_id = this.carrier_id;
+    this.SearchData.carrier_code = this.carrier_code;
+    this.SearchData.carrier_name = this.carrier_name;
     this.SearchData.pol_id = this.pol_id;
+    this.SearchData.pol_code = this.pol_code;
+    this.SearchData.pol_name = this.pol_name;
     this.SearchData.pod_id = this.pod_id;
+    this.SearchData.pod_code = this.pod_code;
+    this.SearchData.pod_name = this.pod_name;
     this.SearchData.all = this.all;
     this.SearchData.format_type = this.format_type;
     this.SearchData.bookingrpt = this.bookingrpt;
