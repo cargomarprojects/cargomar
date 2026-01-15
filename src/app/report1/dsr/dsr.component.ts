@@ -7,6 +7,7 @@ import { SearchTable } from '../../shared/models/searchtable';
 import { Dsr } from '../models/dsr';
 import { RepService } from '../services/report.service';
 import { DateComponent } from '../../shared/date/date.component';
+import { CustomReportD } from '../../shared/models/customreporth';
 //EDIT-AJITH-21-10-2021
 //EDIT-AJITH-22-10-2021
 
@@ -117,7 +118,7 @@ export class DsrComponent {
   sHtml: string = '';
   sTo_ids: string = '';
   AttachList: any[] = [];
-
+  CustomReportList: CustomReportD[] = [];
   // Array For Displaying List
   RecordList: Dsr[] = [];
   // Single Record for add/edit/view details
@@ -335,8 +336,63 @@ export class DsrComponent {
 
   }
   LoadCombo() {
+    this.CustomReportList = new Array<CustomReportD>();
+    this.AddToCustomReport(1, "JOB#", "job_docno");
+    this.AddToCustomReport(2, "DATE", "job_date");
+    this.AddToCustomReport(3, "REF#", "job_prefix");
+    this.AddToCustomReport(4, "SHIPPER", "job_shipper");
+    this.AddToCustomReport(5, "CONSIGNEE", "job_consignee");
+    this.AddToCustomReport(6, "INV-NO", "job_invoice_nos");
+    this.AddToCustomReport(7, "POL", "job_pol");
+    this.AddToCustomReport(8, "POD", "job_pod");
+    this.AddToCustomReport(9, "JOB/AGENT/CARRIER", "job_liner_agent");
+    this.AddToCustomReport(10, "JOB/CNTR", "job_cntr");
+    this.AddToCustomReport(11, "COMMODITY", "job_commodity");
+    this.AddToCustomReport(12, "SMAN", "salesman");
+    this.AddToCustomReport(13, "TYPE", "job_type");
+    this.AddToCustomReport(14, "NOMINATION", "job_nomination");
+    this.AddToCustomReport(15, "TERMS", "job_terms");
+    this.AddToCustomReport(16, "STATUS", "job_status");
+    this.AddToCustomReport(17, "SBILL-NO", "opr_sbill_no");
+    this.AddToCustomReport(18, "DATE", "opr_sbill_date");
+    this.AddToCustomReport(19, "CHA", "job_cha_name");
+    this.AddToCustomReport(20, "E/P-RECEIVED-ON", "opr_ep_rec_date");
+    this.AddToCustomReport(21, "SI#", "hbl_no");
+    this.AddToCustomReport(22, "HBL-NO", "hbl_bl_no");
+    this.AddToCustomReport(23, "AGENT", "job_agent_name");
+    this.AddToCustomReport(24, "MSL#", "mbl_no");
+    this.AddToCustomReport(25, "MBL-NO", "mbl_bl_no");
+    this.AddToCustomReport(26, "CBM", "job_cbm");
+    this.AddToCustomReport(27, "PKG", "job_pkg");
+    this.AddToCustomReport(28, "PCS", "job_pcs");
+    this.AddToCustomReport(29, "NTWT", "job_ntwt");
+    this.AddToCustomReport(30, "GRWT", "job_grwt");
+    this.AddToCustomReport(31, "CARRIER", "liner_name");
+    this.AddToCustomReport(32, "CARGO-RECEIVED-ON", "opr_cargo_received_on");
+    this.AddToCustomReport(33, "VESSEL", "mbl_vessel_name");
+    this.AddToCustomReport(34, "VESSEL-NO", "mbl_vessel_no");
+    this.AddToCustomReport(35, "STUFFED-AT", "opr_stuffed_at");
+    this.AddToCustomReport(36, "STUFFED-ON", "opr_stuffed_on");
+    this.AddToCustomReport(37, "CNTR", "hbl_book_cntr");
+    this.AddToCustomReport(38, "SOB", "mbl_pol_etd");
+    this.AddToCustomReport(39, "DESTINATION-ETA", "mbl_pofd_eta");
+    this.AddToCustomReport(40, "REMARKS", "job_remarks");
+    this.AddToCustomReport(41, "OUR INVOICE#", "hbl_ar_invnos");
+    this.AddToCustomReport(42, "AMOUNT", "hbl_ar_invamt");
+    this.AddToCustomReport(43, "GST-AMOUNT", "hbl_ar_gstamt");
+    this.AddToCustomReport(44, "CREATED", "rec_created_date");
+
   }
 
+  AddToCustomReport(_ctr: number, _caption: string, _filed: string) {
+    let _rec = new CustomReportD();
+    _rec.rd_pkid = this.gs.getGuid();
+    _rec.rd_ctr = _ctr;
+    _rec.rd_caption = _caption;
+    _rec.rd_field = _filed;
+    _rec.rd_selected = false;
+    this.CustomReportList.push(_rec);
+  }
 
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string) {
@@ -520,5 +576,13 @@ export class DsrComponent {
         error => {
           this.ErrorMessage = this.gs.getError(error);
         });
+  }
+
+  customreportcallbackevent(params: any) {
+
+    if (params.saction == "SAVE") {
+
+    }
+    
   }
 }

@@ -173,11 +173,13 @@
               <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL')"
                 class="btn btn-primary btn-sm">Excel</button>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-4 input-group input-group-sm">
               <!-- <app-mail-direct [menuid]="menuid" [type]="'WEEKLY-KGS-TEU'"
                 (mailcallbackevent)="mailcallbackevent($event)"></app-mail-direct> -->
               <button [disabled]="loading" *ngIf="bEmail" (click)="List('MAIL',dsrmailsent)"
-                class="btn btn-primary btn-sm">Mail</button>
+                class="btn btn-primary btn-sm mr-1">Mail</button>
+                <app-customreport [fieldList]="CustomReportList" [type]="'DSR-'+type"
+                (callbackevent)="customreportcallbackevent($event)"></app-customreport>
             </div>
           </div>
         </div>

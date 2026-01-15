@@ -69,6 +69,8 @@ import { negParenPipe } from './negparen/negparen.component';
 import { FileUploadDirectComponent } from './fileupload-direct/fileupload-direct.component';
 import { MemoComponent } from './memo/memo.component';
 import { CustMemoService } from './services/custmemo.service';
+import { CustomReportComponent } from './customreport/customreport.component';
+import { CustomReportService } from './services/customreport.service';
 
 //EDIT-AJITH-29-09-2021
 //EDIT-AJITH-01-10-2021
@@ -119,7 +121,8 @@ import { CustMemoService } from './services/custmemo.service';
     negParenPipe,
     FileUploadDirectComponent,
     MemoComponent,
-    WarningAlert2Component
+    WarningAlert2Component,
+    CustomReportComponent
   ],
   exports: [
     CommonModule,
@@ -164,7 +167,8 @@ import { CustMemoService } from './services/custmemo.service';
     negParenPipe,
     FileUploadDirectComponent,
     MemoComponent,
-    WarningAlert2Component
+    WarningAlert2Component,
+    CustomReportComponent
   ],
   providers: [
     AlertService,
@@ -174,7 +178,8 @@ import { CustMemoService } from './services/custmemo.service';
     MailDirectService,
     ApprovedDetService,
     EdilinkService,
-    CustMemoService
+    CustMemoService,
+    CustomReportService
   ]
 })
 export class SharedModule { }

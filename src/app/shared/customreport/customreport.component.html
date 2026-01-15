@@ -1,0 +1,80 @@
+<div>
+    <button [disabled]="loading" class="btn btn-info btn-sm" (click)="ShowReport(customrptmodal)">Custom Report</button>
+</div>
+<ng-template #customrptmodal let-c="close" let-d="dismiss">
+
+   <div class="modal-body">
+        <div class="page-details">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="page-box">
+                        <div class="page-body table-responsive">
+                            <table class="table table-hover table-sm table-bordered table-striped">
+                                <thead class="page-body-thead">
+                                    <tr>
+                                        <th>SL#</th>
+                                        <th>FORMATS</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="page-body-tbody">
+                                    <tr *ngFor="let rec of RecordList; let i = index"
+                                        [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i"
+                                        (click)="ActionHandler('EDIT',rec.rh_pkid)">
+                                        <td>{{i+1}}</td>
+                                        <td>{{rec.rh_report_format}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="page-box">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group row">
+                                    <label class="col-2 col-form-label col-form-label-sm">Format </label>
+                                    <div class="col-4">
+                                        <input class="form-control form-control-sm" type="text"
+                                            [(ngModel)]="Record.rh_report_format" maxlength="60" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="page-box">
+                        <div class="table-responsive flex-fill" [style.height]="Record.recordDet.length>14?'450px':'auto'"
+                            [style.overflow-y]="RecordList.length>8?'scroll':'auto'">
+                            <table class="table table-hover table-sm table-bordered table-striped">
+                                <thead class="page-body-thead">
+                                    <tr>
+                                        <th>SLNO</th>
+                                        <th>SELECTED</th>
+                                        <th>CAPTIONS</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="page-body-tbody" *ngFor="let rec of Record.recordDet">
+                                    <tr>
+                                        <td>{{rec.rd_ctr}}</td>
+                                        <td><input type="checkbox" [(ngModel)]="rec.rd_selected" /></td>
+                                        <td>{{rec.rd_caption}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="page-box">
+                        <div class="row justify-content-center p-1">
+                            <button class="btn btn-primary btn-sm mr-1" (click)="Save()">Save</button>
+                            <button class="btn btn-primary btn-sm mr-1" (click)="ActionHandler('ADD','')">New
+                                Format</button>
+                            <button class="btn btn-primary btn-sm mr-1" (click)="CloseModal()">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</ng-template>
