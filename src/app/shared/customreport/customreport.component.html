@@ -4,89 +4,107 @@
 <ng-template #customrptmodal let-c="close" let-d="dismiss">
 
     <div class="modal-body">
-        <div class="page-box">
-            <div class="row">
-                <div class="col-md-4" style="border-right: 1px solid lightgrey;">
-                    <label class="col col-form-label col-form-label-sm"> <b>{{_type}}-REPORT FORMATS</b></label>
-                </div>
-                <div class="col-md-8" >
-<label class="col col-form-label col-form-label-sm"> <b>ADD / EDIT</b></label>
-                </div>
-            </div>
-        </div>
 
-        <div class="page-box">
-            <div class="row">
-                <div class="col-md-4" style="border-right: 1px solid lightgrey;">
-                    <div class="page-box">
-                        <div class="page-body table-responsive">
-                            <table class="table table-hover table-sm table-bordered table-striped">
-                                <thead class="page-body-thead">
-                                    <tr>
-                                        <th>SL#</th>
-                                        <th>FORMATS</th>
-                                        <th>REMOVE</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="page-body-tbody">
-                                    <tr *ngFor="let rec of RecordList; let i = index"
-                                        [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i"
-                                        (click)="ActionHandler('EDIT',rec.rh_pkid)">
-                                        <td>{{i+1}}</td>
-                                        <td>{{rec.rh_report_format}}</td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="page-box">
+                    <div class="page-body table-responsive" [style.height]="'494px'"
+                        [style.overflow-y]="RecordList.length>14?'scroll':'auto'">
+                        <table class="table table-hover table-sm table-bordered table-striped">
+                            <thead class="page-body-thead">
+                                <tr>
+                                    <th>SL#</th>
+                                    <th>FORMATS</th>
+                                    <th>REMOVE</th>
+                                </tr>
+                            </thead>
+                            <tbody class="page-body-tbody">
+                                <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+                                    (mousedown)="selectedRowIndex=i">
+                                    <td class="hlink" (click)="ActionHandler('EDIT',rec.rh_pkid)">{{i+1}}</td>
+                                    <td (click)="ActionHandler('EDIT',rec.rh_pkid)">{{rec.rh_report_format}}</td>
+                                    <td class="text-center"><i class="fa fa-trash  fa-lg pointer" aria-hidden="true"
+                                            (click)="RemoveFormat(rec.rh_pkid,rec.rh_report_format)"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="col-md-8" >
-                    <div class="page-box">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group row">
-                                    <label class="col-2 col-form-label col-form-label-sm">Format </label>
-                                    <div class="col-4">
-                                        <input class="form-control form-control-sm" type="text"
-                                            [(ngModel)]="Record.rh_report_format" maxlength="60" />
-                                    </div>
+            </div>
+            <div class="col-md-8">
+                <div class="page-box">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="col-2 col-form-label col-form-label-sm">Format </label>
+                                <div class="col-4 input-group input-group-sm">
+                                    <input class="form-control form-control-sm mr-1" type="text"
+                                        [(ngModel)]="Record.rh_report_format" (blur)="OnBlur('rh_report_format')"
+                                        maxlength="60" />
+                                    <label class="col-form-label col-form-label-sm text-danger">{{mode}} </label>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="page-box">
-                        <div class="table-responsive" [style.height]="Record.recordDet.length>14?'450px':'auto'"
-                            [style.overflow-y]="RecordList.length>8?'scroll':'auto'">
-                            <table class="table table-hover table-sm table-bordered table-striped">
-                                <thead class="page-body-thead">
-                                    <tr>
-                                        <th>SLNO</th>
-                                        <th>SELECTED</th>
-                                        <th>CAPTIONS</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="page-body-tbody">
-                                    <tr *ngFor="let rec of Record.recordDet">
-                                        <td>{{rec.rd_ctr}}</td>
-                                        <td><input type="checkbox" [(ngModel)]="rec.rd_selected" /></td>
-                                        <td>{{rec.rd_caption}}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                </div>
+                <div class="page-box">
+                    <div class="table-responsive" [style.height]="'450px'"
+                        [style.overflow-y]="RecordList.length>14?'scroll':'auto'">
+                        <table class="table table-hover table-sm table-bordered table-striped">
+                            <thead class="page-body-thead">
+                                <tr>
+                                    <th>SLNO</th>
+                                    <th>SELECTED</th>
+                                    <th>CAPTIONS</th>
+                                </tr>
+                            </thead>
+                            <tbody class="page-body-tbody">
+                                <tr *ngFor="let rec of Record.recordDet">
+                                    <td>{{rec.rd_ctr}}</td>
+                                    <td><input type="checkbox" [(ngModel)]="rec.rd_selected" /></td>
+                                    <td>{{rec.rd_caption}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="page-box">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <div class="offset-1 col-md-11">
+                                    <button class="btn btn-primary btn-sm " (click)="ActionHandler('ADD','')">New
+                                        Format</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="page-box">
-                        <div class="row justify-content-center p-1">
-                            <button class="btn btn-primary btn-sm mr-1" (click)="Save()">Save</button>
-                            <button class="btn btn-primary btn-sm mr-1" (click)="ActionHandler('ADD','')">New
-                                Format</button>
-                            <button class="btn btn-primary btn-sm mr-1" (click)="CloseModal()">Close</button>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="page-box">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <div class="offset-1 col-md-11">
+                                    <button class="btn btn-primary btn-sm " (click)="Save()">Save</button>
+                                    <button class="btn btn-primary btn-sm " (click)="CloseModal()">Close</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
     </div>
 
 

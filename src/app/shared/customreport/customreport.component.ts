@@ -5,7 +5,6 @@ import { CustomReportService } from '../services/customreport.service';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { SearchTable } from '../../shared/models/searchtable';
 import { CustomReportH, CustomReportD } from '../models/customreporth';
-import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
     selector: 'app-customreport',
@@ -52,7 +51,7 @@ export class CustomReportComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.List('NEW');
+
     }
 
     ShowReport(rptmodal: any = null) {
@@ -64,7 +63,7 @@ export class CustomReportComponent implements OnInit {
             alert('Data List not found');
             return;
         }
-        this.ActionHandler('ADD', '');
+        this.List('NEW');
         this.open(rptmodal);
     }
 
@@ -126,10 +125,12 @@ export class CustomReportComponent implements OnInit {
             .subscribe(response => {
                 this.loading = false;
                 this.RecordList = response.list;
+                this.ActionHandler('ADD', '');
             },
                 error => {
                     this.loading = false;
                     this.errorMessage = this.gs.getError(error);
+                    alert(this.errorMessage);
                 });
     }
 
@@ -145,8 +146,12 @@ export class CustomReportComponent implements OnInit {
         this.Record.rh_pkid = this.pkid;
         this.Record.rh_report_format = '';
         this.Record.rh_report_source = this._type;
+        this.Record.rec_mode = this.mode;
         // clone array + objects
         this.Record.recordDet = this._fieldList.map(f => ({ ...f }));
+        for (let _rec of this.Record.recordDet) {
+            _rec.rd_pkid = this.gs.getGuid();
+        }
         this.InitLov();
     }
 
@@ -169,28 +174,22 @@ export class CustomReportComponent implements OnInit {
                 error => {
                     this.loading = false;
                     this.errorMessage = this.gs.getError(error);
+                    alert(this.errorMessage);
                 });
     }
 
     LoadData(_Record: CustomReportH) {
         this.Record = _Record;
         this.Record.rec_mode = this.mode;
-        // for (let _rec of this.fieldList) {
-        //     var REC = this.Record.recordDet.find(rec => rec.rd_field == _rec.rd_field);
-        //     if (REC == null) {
-        //         this.Record.recordDet.push(_rec);
-        //     }
-        // }
-
-        // Build lookup for existing records
         const existing = new Set(
             this.Record.recordDet.map(r => r.rd_field)
         );
-        for (const field of this.fieldList) {
+        for (const field of this._fieldList) {
             if (!existing.has(field.rd_field)) {
                 this.Record.recordDet.push({ ...field }); // clone
             }
         }
+        this.Record.recordDet.sort((a, b) => a.rd_ctr - b.rd_ctr);
         this.InitLov();
     }
 
@@ -204,15 +203,16 @@ export class CustomReportComponent implements OnInit {
         this.mainservice.Save(this.Record)
             .subscribe(response => {
                 this.loading = false;
-                this.errorMessage = "Save Complete";
                 this.mode = 'EDIT';
                 this.Record.rec_mode = this.mode;
+                this.errorMessage = "Save Complete";
+                alert(this.errorMessage);
                 this.RefreshList();
             },
                 error => {
                     this.loading = false;
                     this.errorMessage = this.gs.getError(error);
-
+                    alert(this.errorMessage);
                 });
     }
 
@@ -236,8 +236,10 @@ export class CustomReportComponent implements OnInit {
             sError += " | No rows selected";
         }
 
-        if (bret === false)
+        if (bret === false) {
             this.errorMessage = sError;
+            alert(this.errorMessage);
+        }
         return bret;
     }
 
@@ -272,8 +274,32 @@ export class CustomReportComponent implements OnInit {
     }
 
 
+    RemoveFormat(_rh_pkid: string, _rh_format: string) {
 
-
+        if (!confirm("Do you want to Delete Format " + _rh_format)) {
+            return;
+        }
+        this.loading = true;
+        let SearchData = {
+            rowtype: this._type,
+            pkid: _rh_pkid,
+            comp_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code,
+            user_code: this.gs.globalVariables.user_code,
+        };
+        this.errorMessage = '';
+        this.mainservice.DeleteRecord(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                this.RecordList.splice(this.RecordList.findIndex(rec => rec.rh_pkid == _rh_pkid), 1);
+                alert("Removed Successfully");
+            },
+                error => {
+                    this.loading = false;
+                    this.errorMessage = this.gs.getError(error);
+                    alert(this.errorMessage);
+                });
+    }
 
 
 }

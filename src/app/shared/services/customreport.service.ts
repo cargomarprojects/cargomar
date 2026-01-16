@@ -26,4 +26,8 @@ export class CustomReportService {
     Save(Record: CustomReportH) {
         return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/CustomReport/Save', Record, this.gs.headerparam2('authorized'));
     }
+
+     DeleteRecord(SearchData: any) {
+        return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/CustomReport/DeleteRecord', SearchData, this.gs.headerparam2('authorized'));
+    }
 }
