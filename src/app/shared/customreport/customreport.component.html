@@ -3,10 +3,21 @@
 </div>
 <ng-template #customrptmodal let-c="close" let-d="dismiss">
 
-   <div class="modal-body">
-        <div class="page-details">
+    <div class="modal-body">
+        <div class="page-box">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4" style="border-right: 1px solid lightgrey;">
+                    <label class="col col-form-label col-form-label-sm"> <b>{{_type}}-REPORT FORMATS</b></label>
+                </div>
+                <div class="col-md-8" >
+<label class="col col-form-label col-form-label-sm"> <b>ADD / EDIT</b></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-box">
+            <div class="row">
+                <div class="col-md-4" style="border-right: 1px solid lightgrey;">
                     <div class="page-box">
                         <div class="page-body table-responsive">
                             <table class="table table-hover table-sm table-bordered table-striped">
@@ -14,6 +25,7 @@
                                     <tr>
                                         <th>SL#</th>
                                         <th>FORMATS</th>
+                                        <th>REMOVE</th>
                                     </tr>
                                 </thead>
                                 <tbody class="page-body-tbody">
@@ -22,13 +34,14 @@
                                         (click)="ActionHandler('EDIT',rec.rh_pkid)">
                                         <td>{{i+1}}</td>
                                         <td>{{rec.rh_report_format}}</td>
+                                        <td></td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-8" >
                     <div class="page-box">
                         <div class="row">
                             <div class="col-md-12">
@@ -53,7 +66,7 @@
                                         <th>CAPTIONS</th>
                                     </tr>
                                 </thead>
-                                <tbody class="page-body-tbody" >
+                                <tbody class="page-body-tbody">
                                     <tr *ngFor="let rec of Record.recordDet">
                                         <td>{{rec.rd_ctr}}</td>
                                         <td><input type="checkbox" [(ngModel)]="rec.rd_selected" /></td>
