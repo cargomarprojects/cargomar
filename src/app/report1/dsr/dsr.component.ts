@@ -390,7 +390,7 @@ export class DsrComponent {
     _rec.rd_ctr = _ctr;
     _rec.rd_caption = _caption;
     _rec.rd_field = _filed;
-    _rec.rd_selected = false;
+    _rec.rd_selected = true;
     this.CustomReportList.push(_rec);
   }
 

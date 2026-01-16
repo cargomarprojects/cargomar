@@ -33,7 +33,9 @@ export class CustomReportComponent implements OnInit {
     modal: any;
     mode = '';
     pkid = '';
-
+    chkallselected: boolean = true;
+    selectdeselect: boolean = true;
+    selectedformat: string = '';
     // Array For Displaying List
     RecordList: CustomReportH[] = [];
     // Single Record for add/edit/view details
@@ -51,7 +53,7 @@ export class CustomReportComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        this.List('NEW');
     }
 
     ShowReport(rptmodal: any = null) {
@@ -125,6 +127,10 @@ export class CustomReportComponent implements OnInit {
             .subscribe(response => {
                 this.loading = false;
                 this.RecordList = response.list;
+                this.selectedRowIndex = 0;
+                if (this.RecordList && this.RecordList.length > 0) {
+                    this.selectedformat = this.RecordList[0].rh_report_format;
+                }
                 this.ActionHandler('ADD', '');
             },
                 error => {
@@ -140,7 +146,8 @@ export class CustomReportComponent implements OnInit {
 
 
     NewRecord() {
-
+        this.selectdeselect = true;
+        this.chkallselected = true;
         this.pkid = this.gs.getGuid();
         this.Record = new CustomReportH();
         this.Record.rh_pkid = this.pkid;
@@ -186,7 +193,10 @@ export class CustomReportComponent implements OnInit {
         );
         for (const field of this._fieldList) {
             if (!existing.has(field.rd_field)) {
-                this.Record.recordDet.push({ ...field }); // clone
+                this.Record.recordDet.push({
+                    ...field,
+                    rd_selected: false
+                }); // clone ,override rd_selected ONLY in clone
             }
         }
         this.Record.recordDet.sort((a, b) => a.rd_ctr - b.rd_ctr);
@@ -206,7 +216,7 @@ export class CustomReportComponent implements OnInit {
                 this.mode = 'EDIT';
                 this.Record.rec_mode = this.mode;
                 this.errorMessage = "Save Complete";
-                alert(this.errorMessage);
+                // alert(this.errorMessage);
                 this.RefreshList();
             },
                 error => {
@@ -251,10 +261,13 @@ export class CustomReportComponent implements OnInit {
         var REC = this.RecordList.find(rec => rec.rh_pkid == this.Record.rh_pkid);
         if (REC == null) {
             this.RecordList.push(this.Record);
+            this.selectedRowIndex = this.RecordList.length - 1;
         }
         else {
             REC.rh_report_format = this.Record.rh_report_format;
         }
+
+
     }
 
     ModifiedRecords(params: any) {
@@ -292,7 +305,7 @@ export class CustomReportComponent implements OnInit {
             .subscribe(response => {
                 this.loading = false;
                 this.RecordList.splice(this.RecordList.findIndex(rec => rec.rh_pkid == _rh_pkid), 1);
-                alert("Removed Successfully");
+                // alert("Removed Successfully");
             },
                 error => {
                     this.loading = false;
@@ -301,5 +314,15 @@ export class CustomReportComponent implements OnInit {
                 });
     }
 
+    changeChkChecked(_rec: CustomReportD) {
+        _rec.rd_selected = !_rec.rd_selected;
+    }
 
+    SelectDeselect() {
+        this.selectdeselect = !this.selectdeselect;
+        for (let rec of this.Record.recordDet) {
+            rec.rd_selected = this.selectdeselect;
+        }
+        this.chkallselected = this.selectdeselect;
+    }
 }
