@@ -1,5 +1,5 @@
 <div class="input-group input-group-sm">
-    <select class="form-control form-control-sm" [(ngModel)]="selectedformat">
+    <select class="form-control form-control-sm" [(ngModel)]="selectedformat" (change)="OnChange('selectedformat')">
         <option *ngFor="let rec of RecordList" [value]="rec.rh_report_format">
             {{rec.rh_report_format}}
         </option>
@@ -108,8 +108,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group row">
-                                <label class="col-2 col-form-label col-form-label-sm">Format-<span
-                                        class="text-danger">{{mode=='ADD'?'NEW':'EDIT'}} </span> </label>
+                                <label class="col-2 col-form-label col-form-label-sm"><span
+                                        class="text-danger">{{mode=='ADD'?'New':'Edit'}}</span>&nbsp;Format </label>
                                 <div class="col-6 input-group input-group-sm">
                                     <input class="form-control form-control-sm mr-1" type="text"
                                         [(ngModel)]="Record.rh_report_format" (blur)="OnBlur('rh_report_format')"
@@ -118,8 +118,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <button class="btn btn-primary btn-sm " (click)="Save()">Save</button>
-                                    <button class="btn btn-primary btn-sm " (click)="SelectDeselect()">Select
-                                        All</button>
+                                    <button class="btn btn-primary btn-sm " (click)="SelectDeselect()">Select/Deselect</button>
                                     <button class="btn btn-primary btn-sm " (click)="CloseModal()">Close</button>
                                 </div>
                             </div>

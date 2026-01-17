@@ -33,7 +33,7 @@ export class CustomReportComponent implements OnInit {
     modal: any;
     mode = '';
     pkid = '';
-    chkallselected: boolean = true;
+
     selectdeselect: boolean = true;
     selectedformat: string = '';
     // Array For Displaying List
@@ -130,6 +130,7 @@ export class CustomReportComponent implements OnInit {
                 this.selectedRowIndex = 0;
                 if (this.RecordList && this.RecordList.length > 0) {
                     this.selectedformat = this.RecordList[0].rh_report_format;
+                    this.callBackFormat();
                 }
                 this.ActionHandler('ADD', '');
             },
@@ -147,7 +148,6 @@ export class CustomReportComponent implements OnInit {
 
     NewRecord() {
         this.selectdeselect = true;
-        this.chkallselected = true;
         this.pkid = this.gs.getGuid();
         this.Record = new CustomReportH();
         this.Record.rh_pkid = this.pkid;
@@ -158,6 +158,7 @@ export class CustomReportComponent implements OnInit {
         this.Record.recordDet = this._fieldList.map(f => ({ ...f }));
         for (let _rec of this.Record.recordDet) {
             _rec.rd_pkid = this.gs.getGuid();
+            _rec.rd_selected = true;
         }
         this.InitLov();
     }
@@ -195,6 +196,7 @@ export class CustomReportComponent implements OnInit {
             if (!existing.has(field.rd_field)) {
                 this.Record.recordDet.push({
                     ...field,
+                    rd_pkid: this.gs.getGuid(),
                     rd_selected: false
                 }); // clone ,override rd_selected ONLY in clone
             }
@@ -262,6 +264,10 @@ export class CustomReportComponent implements OnInit {
         if (REC == null) {
             this.RecordList.push(this.Record);
             this.selectedRowIndex = this.RecordList.length - 1;
+            if (this.gs.isBlank(this.selectedformat)) {
+                this.selectedformat = this.Record.rh_report_format;
+                this.callBackFormat();
+            }
         }
         else {
             REC.rh_report_format = this.Record.rh_report_format;
@@ -286,7 +292,14 @@ export class CustomReportComponent implements OnInit {
 
     }
 
+    OnChange(field: string) {
+        this.callBackFormat();
+    }
 
+    callBackFormat() {
+        if (this.callbackevent != null)
+            this.callbackevent.emit({ saction: 'FORMAT', format: this.selectedformat });
+    }
     RemoveFormat(_rh_pkid: string, _rh_format: string) {
 
         if (!confirm("Do you want to Delete Format " + _rh_format)) {
@@ -306,6 +319,7 @@ export class CustomReportComponent implements OnInit {
                 this.loading = false;
                 this.RecordList.splice(this.RecordList.findIndex(rec => rec.rh_pkid == _rh_pkid), 1);
                 // alert("Removed Successfully");
+                this.ActionHandler('ADD', '');
             },
                 error => {
                     this.loading = false;
@@ -323,6 +337,6 @@ export class CustomReportComponent implements OnInit {
         for (let rec of this.Record.recordDet) {
             rec.rd_selected = this.selectdeselect;
         }
-        this.chkallselected = this.selectdeselect;
+
     }
 }

@@ -118,7 +118,7 @@ export class DsrComponent {
   sHtml: string = '';
   sTo_ids: string = '';
   AttachList: any[] = [];
-  CustomReportList: CustomReportD[] = [];
+  CustomReportList: any[] = [];
   // Array For Displaying List
   RecordList: Dsr[] = [];
   // Single Record for add/edit/view details
@@ -335,64 +335,59 @@ export class DsrComponent {
     }
 
   }
+
   LoadCombo() {
-    this.CustomReportList = new Array<CustomReportD>();
-    this.AddToCustomReport(1, "JOB#", "job_docno");
-    this.AddToCustomReport(2, "DATE", "job_date");
-    this.AddToCustomReport(3, "REF#", "job_prefix");
-    this.AddToCustomReport(4, "SHIPPER", "job_shipper");
-    this.AddToCustomReport(5, "CONSIGNEE", "job_consignee");
-    this.AddToCustomReport(6, "INV-NO", "job_invoice_nos");
-    this.AddToCustomReport(7, "POL", "job_pol");
-    this.AddToCustomReport(8, "POD", "job_pod");
-    this.AddToCustomReport(9, "JOB/AGENT/CARRIER", "job_liner_agent");
-    this.AddToCustomReport(10, "JOB/CNTR", "job_cntr");
-    this.AddToCustomReport(11, "COMMODITY", "job_commodity");
-    this.AddToCustomReport(12, "SMAN", "salesman");
-    this.AddToCustomReport(13, "TYPE", "job_type");
-    this.AddToCustomReport(14, "NOMINATION", "job_nomination");
-    this.AddToCustomReport(15, "TERMS", "job_terms");
-    this.AddToCustomReport(16, "STATUS", "job_status");
-    this.AddToCustomReport(17, "SBILL-NO", "opr_sbill_no");
-    this.AddToCustomReport(18, "DATE", "opr_sbill_date");
-    this.AddToCustomReport(19, "CHA", "job_cha_name");
-    this.AddToCustomReport(20, "E/P-RECEIVED-ON", "opr_ep_rec_date");
-    this.AddToCustomReport(21, "SI#", "hbl_no");
-    this.AddToCustomReport(22, "HBL-NO", "hbl_bl_no");
-    this.AddToCustomReport(23, "AGENT", "job_agent_name");
-    this.AddToCustomReport(24, "MSL#", "mbl_no");
-    this.AddToCustomReport(25, "MBL-NO", "mbl_bl_no");
-    this.AddToCustomReport(26, "CBM", "job_cbm");
-    this.AddToCustomReport(27, "PKG", "job_pkg");
-    this.AddToCustomReport(28, "PCS", "job_pcs");
-    this.AddToCustomReport(29, "NTWT", "job_ntwt");
-    this.AddToCustomReport(30, "GRWT", "job_grwt");
-    this.AddToCustomReport(31, "CARRIER", "liner_name");
-    this.AddToCustomReport(32, "CARGO-RECEIVED-ON", "opr_cargo_received_on");
-    this.AddToCustomReport(33, "VESSEL", "mbl_vessel_name");
-    this.AddToCustomReport(34, "VESSEL-NO", "mbl_vessel_no");
-    this.AddToCustomReport(35, "STUFFED-AT", "opr_stuffed_at");
-    this.AddToCustomReport(36, "STUFFED-ON", "opr_stuffed_on");
-    this.AddToCustomReport(37, "CNTR", "hbl_book_cntr");
-    this.AddToCustomReport(38, "SOB", "mbl_pol_etd");
-    this.AddToCustomReport(39, "DESTINATION-ETA", "mbl_pofd_eta");
-    this.AddToCustomReport(40, "REMARKS", "job_remarks");
-    this.AddToCustomReport(41, "OUR INVOICE#", "hbl_ar_invnos");
-    this.AddToCustomReport(42, "AMOUNT", "hbl_ar_invamt");
-    this.AddToCustomReport(43, "GST-AMOUNT", "hbl_ar_gstamt");
-    this.AddToCustomReport(44, "CREATED", "rec_created_date");
+
+    this.CustomReportList = [
+      { "rd_ctr": 1, "rd_caption": "JOB#", "rd_field": "job_docno" },
+      { "rd_ctr": 2, "rd_caption": "DATE", "rd_field": "job_date" },
+      { "rd_ctr": 3, "rd_caption": "REF#", "rd_field": "job_prefix" },
+      { "rd_ctr": 4, "rd_caption": "SHIPPER", "rd_field": "job_shipper" },
+      { "rd_ctr": 5, "rd_caption": "CONSIGNEE", "rd_field": "job_consignee" },
+      { "rd_ctr": 6, "rd_caption": "INV-NO", "rd_field": "job_invoice_nos" },
+      { "rd_ctr": 7, "rd_caption": "POL", "rd_field": "job_pol" },
+      { "rd_ctr": 8, "rd_caption": "POD", "rd_field": "job_pod" },
+      { "rd_ctr": 9, "rd_caption": "JOB/AGENT/CARRIER", "rd_field": "job_liner_agent" },
+      { "rd_ctr": 10, "rd_caption": "JOB/CNTR", "rd_field": "job_cntr" },
+      { "rd_ctr": 11, "rd_caption": "COMMODITY", "rd_field": "job_commodity" },
+      { "rd_ctr": 12, "rd_caption": "SMAN", "rd_field": "salesman" },
+      { "rd_ctr": 13, "rd_caption": "TYPE", "rd_field": "job_type" },
+      { "rd_ctr": 14, "rd_caption": "NOMINATION", "rd_field": "job_nomination" },
+      { "rd_ctr": 15, "rd_caption": "TERMS", "rd_field": "job_terms" },
+      { "rd_ctr": 16, "rd_caption": "STATUS", "rd_field": "job_status" },
+      { "rd_ctr": 17, "rd_caption": "SBILL-NO", "rd_field": "opr_sbill_no" },
+      { "rd_ctr": 18, "rd_caption": "DATE", "rd_field": "opr_sbill_date" },
+      { "rd_ctr": 19, "rd_caption": "CHA", "rd_field": "job_cha_name" },
+      { "rd_ctr": 20, "rd_caption": "E/P-RECEIVED-ON", "rd_field": "opr_ep_rec_date" },
+      { "rd_ctr": 21, "rd_caption": "SI#", "rd_field": "hbl_no" },
+      { "rd_ctr": 22, "rd_caption": "HBL-NO", "rd_field": "hbl_bl_no" },
+      { "rd_ctr": 23, "rd_caption": "AGENT", "rd_field": "job_agent_name" },
+      { "rd_ctr": 24, "rd_caption": "MSL#", "rd_field": "mbl_no" },
+      { "rd_ctr": 25, "rd_caption": "MBL-NO", "rd_field": "mbl_bl_no" },
+      { "rd_ctr": 26, "rd_caption": "CBM", "rd_field": "job_cbm" },
+      { "rd_ctr": 27, "rd_caption": "PKG", "rd_field": "job_pkg" },
+      { "rd_ctr": 28, "rd_caption": "PCS", "rd_field": "job_pcs" },
+      { "rd_ctr": 29, "rd_caption": "NTWT", "rd_field": "job_ntwt" },
+      { "rd_ctr": 30, "rd_caption": "GRWT", "rd_field": "job_grwt" },
+      { "rd_ctr": 31, "rd_caption": "CARRIER", "rd_field": "liner_name" },
+      { "rd_ctr": 32, "rd_caption": "CARGO-RECEIVED-ON", "rd_field": "opr_cargo_received_on" },
+      { "rd_ctr": 33, "rd_caption": "VESSEL", "rd_field": "mbl_vessel_name" },
+      { "rd_ctr": 34, "rd_caption": "VESSEL-NO", "rd_field": "mbl_vessel_no" },
+      { "rd_ctr": 35, "rd_caption": "STUFFED-AT", "rd_field": "opr_stuffed_at" },
+      { "rd_ctr": 36, "rd_caption": "STUFFED-ON", "rd_field": "opr_stuffed_on" },
+      { "rd_ctr": 37, "rd_caption": "CNTR", "rd_field": "hbl_book_cntr" },
+      { "rd_ctr": 38, "rd_caption": "SOB", "rd_field": "mbl_pol_etd" },
+      { "rd_ctr": 39, "rd_caption": "DESTINATION-ETA", "rd_field": "mbl_pofd_eta" },
+      { "rd_ctr": 40, "rd_caption": "REMARKS", "rd_field": "job_remarks" },
+      { "rd_ctr": 41, "rd_caption": "OUR INVOICE#", "rd_field": "hbl_ar_invnos" },
+      { "rd_ctr": 42, "rd_caption": "AMOUNT", "rd_field": "hbl_ar_invamt" },
+      { "rd_ctr": 43, "rd_caption": "GST-AMOUNT", "rd_field": "hbl_ar_gstamt" },
+      { "rd_ctr": 44, "rd_caption": "CREATED", "rd_field": "rec_created_date" }
+    ];
 
   }
 
-  AddToCustomReport(_ctr: number, _caption: string, _filed: string) {
-    let _rec = new CustomReportD();
-    _rec.rd_pkid = this.gs.getGuid();
-    _rec.rd_ctr = _ctr;
-    _rec.rd_caption = _caption;
-    _rec.rd_field = _filed;
-    _rec.rd_selected = true;
-    this.CustomReportList.push(_rec);
-  }
+
 
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string) {
@@ -579,10 +574,6 @@ export class DsrComponent {
   }
 
   customreportcallbackevent(params: any) {
-
-    if (params.saction == "SAVE") {
-
-    }
-    
+    this.format_type = params.format;
   }
 }
