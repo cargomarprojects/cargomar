@@ -382,7 +382,9 @@ export class DsrComponent {
       { "rd_ctr": 41, "rd_caption": "OUR INVOICE#", "rd_field": "hbl_ar_invnos" },
       { "rd_ctr": 42, "rd_caption": "AMOUNT", "rd_field": "hbl_ar_invamt" },
       { "rd_ctr": 43, "rd_caption": "GST-AMOUNT", "rd_field": "hbl_ar_gstamt" },
-      { "rd_ctr": 44, "rd_caption": "CREATED", "rd_field": "rec_created_date" }
+      { "rd_ctr": 44, "rd_caption": "CREATED", "rd_field": "rec_created_date" },
+      { "rd_ctr": 45, "rd_caption": "NATURE", "rd_field": "job_nature" },
+      { "rd_ctr": 46, "rd_caption": "VESSEL2", "rd_field": "mbl_vessel2" }
     ];
 
   }

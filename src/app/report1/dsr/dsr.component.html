@@ -148,15 +148,15 @@
             </div>
             <label class="col-sm-2 col-form-label col-form-label-sm">Format</label>
             <div class="col-sm-4">
-              <select [disabled]="bookingrpt" class="form-control form-control-sm" [(ngModel)]="format_type"
+              <!-- <select [disabled]="bookingrpt" class="form-control form-control-sm" [(ngModel)]="format_type"
                 (change)="OnChange('format')">
                 <option [value]="'GENERAL'">GENERAL</option>
                 <option [value]="'STATUS'">STATUS</option>
                 <option [value]="'PENDING'">PENDING</option>
                 <option *ngIf="rec_category=='SEA EXPORT'" [value]="'SHIPPER'">SHIPPER</option>
-              </select>
-              <!-- <app-customreport *ngIf="!bookingrpt"  [fieldList]="CustomReportList" [type]="'DSR-'+type"
-                (callbackevent)="customreportcallbackevent($event)"></app-customreport> -->
+              </select> -->
+              <app-customreport *ngIf="!bookingrpt"  [fieldList]="CustomReportList" [type]="'DSR-'+type"
+                (callbackevent)="customreportcallbackevent($event)"></app-customreport>
             </div>
           </div>
 
