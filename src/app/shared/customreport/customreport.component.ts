@@ -14,6 +14,11 @@ export class CustomReportComponent implements OnInit {
 
     public errorMessage: string = '';
 
+    private _menuid: string = '';
+    @Input() set menuid(value: string) {
+        this._menuid = value;
+    }
+
     private _type: string = '';
     @Input() set type(value: string) {
         this._type = value;
@@ -30,10 +35,13 @@ export class CustomReportComponent implements OnInit {
     loading = false;
     selectedRowIndex = 0;
 
+    menu_record: any;
     modal: any;
     mode = '';
     pkid = '';
 
+    bDelete: boolean = false;
+    disableSave = true;
     selectdeselect: boolean = true;
     selectedformat: string = '';
     // Array For Displaying List
@@ -53,8 +61,19 @@ export class CustomReportComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.InitComponent();
         this.List('NEW');
     }
+
+    InitComponent() {
+        this.bDelete = false;
+        this.menu_record = this.gs.getMenu(this._menuid);
+        if (this.menu_record) {
+            this.title = this.menu_record.menu_name;
+            this.bDelete = this.menu_record.rights_delete;
+        }
+    }
+
 
     ShowReport(rptmodal: any = null) {
         if (this.gs.isBlank(this._type)) {
@@ -101,13 +120,30 @@ export class CustomReportComponent implements OnInit {
         }
         else if (action === 'ADD') {
             this.mode = 'ADD';
+            this.ResetControls();
             this.NewRecord();
         }
         else if (action === 'EDIT') {
             this.mode = 'EDIT';
+            this.ResetControls();
             this.pkid = id;
             this.GetRecord(id);
         }
+    }
+
+    ResetControls() {
+        this.disableSave = true;
+        if (!this.menu_record)
+            return;
+
+        if (this.menu_record.rights_admin)
+            this.disableSave = false;
+        if (this.mode == "ADD" && this.menu_record.rights_add)
+            this.disableSave = false;
+        if (this.mode == "EDIT" && this.menu_record.rights_edit)
+            this.disableSave = false;
+
+        return this.disableSave;
     }
 
     // Query List Data
@@ -262,6 +298,8 @@ export class CustomReportComponent implements OnInit {
 
         var REC = this.RecordList.find(rec => rec.rh_pkid == this.Record.rh_pkid);
         if (REC == null) {
+            this.Record.rec_created_by = this.gs.globalVariables.user_code;
+            this.Record.rec_created_date = this.gs.ConvertDate2DisplayFormat(this.gs.defaultValues.today);
             this.RecordList.push(this.Record);
             this.selectedRowIndex = this.RecordList.length - 1;
             if (this.gs.isBlank(this.selectedformat)) {
@@ -337,6 +375,13 @@ export class CustomReportComponent implements OnInit {
         for (let rec of this.Record.recordDet) {
             rec.rd_selected = this.selectdeselect;
         }
-
     }
+
+    get filteredRecordList() {
+        if (this.gs.globalVariables.user_code === 'ADMIN') {
+            return this.RecordList;
+        }
+        return this.RecordList.filter(r => r.rec_created_by !== 'ADMIN');
+    }
+
 }

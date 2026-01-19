@@ -27,17 +27,21 @@
                                 <tr>
                                     <th>SL#</th>
                                     <th>FORMAT</th>
-                                    <th>REMOVE</th>
+                                    <th>CREATED.BY</th>
+                                    <!-- <th>CREATED.DT</th> -->
+                                    <th *ngIf="bDelete">REMOVE</th>
                                 </tr>
                             </thead>
                             <tbody class="page-body-tbody">
-                                <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
-                                    (mousedown)="selectedRowIndex=i">
+                                <tr *ngFor="let rec of filteredRecordList; let i = index" [class.active]="i == selectedRowIndex"
+                                    (mousedown)="selectedRowIndex=i" style="font-size: 10px ;">
                                     <td style="cursor: pointer;" (click)="ActionHandler('EDIT',rec.rh_pkid)">{{i+1}}
                                     </td>
                                     <td style="cursor: pointer;" (click)="ActionHandler('EDIT',rec.rh_pkid)">
                                         {{rec.rh_report_format}}</td>
-                                    <td class="text-center"><i class="fa fa-trash  fa-lg pointer" aria-hidden="true"
+                                    <td>{{rec.rec_created_by}}</td>
+                                    <!-- <td>{{rec.rec_created_date}}</td> -->
+                                    <td *ngIf="bDelete" class="text-center"><i class="fa fa-trash  fa-lg pointer" aria-hidden="true"
                                             (click)="RemoveFormat(rec.rh_pkid,rec.rh_report_format)"></i>
                                     </td>
                                 </tr>
@@ -114,11 +118,12 @@
                                     <input class="form-control form-control-sm mr-1" type="text"
                                         [(ngModel)]="Record.rh_report_format" (blur)="OnBlur('rh_report_format')"
                                         maxlength="60" />
-                                    <!-- <label class="col-form-label col-form-label-sm text-danger">{{mode}} </label> -->
+                                    <!-- <label class="col-form-label col-form-label-sm text-danger">{{mode}}  </label> -->
                                 </div>
                                 <div class="col-md-4">
-                                    <button class="btn btn-primary btn-sm " (click)="Save()">Save</button>
-                                    <button class="btn btn-primary btn-sm " (click)="SelectDeselect()">Select/Deselect</button>
+                                    <button [hidden]="disableSave" class="btn btn-primary btn-sm " (click)="Save()">Save</button>
+                                    <button class="btn btn-primary btn-sm "
+                                        (click)="SelectDeselect()">Select/Deselect</button>
                                     <button class="btn btn-primary btn-sm " (click)="CloseModal()">Close</button>
                                 </div>
                             </div>

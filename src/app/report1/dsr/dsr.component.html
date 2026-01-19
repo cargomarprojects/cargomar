@@ -155,7 +155,7 @@
                 <option [value]="'PENDING'">PENDING</option>
                 <option *ngIf="rec_category=='SEA EXPORT'" [value]="'SHIPPER'">SHIPPER</option>
               </select> -->
-              <app-customreport *ngIf="!bookingrpt"  [fieldList]="CustomReportList" [type]="'DSR-'+type"
+              <app-customreport *ngIf="!bookingrpt"  [menuid]="menuid" [fieldList]="CustomReportList" [type]="'DSR-'+type"
                 (callbackevent)="customreportcallbackevent($event)"></app-customreport>
             </div>
           </div>
@@ -193,7 +193,7 @@
     style="height: calc(100vh - 340px);">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
-        <tr *ngIf="format_type=='GENERAL'||format_type=='PENDING'">
+        <tr *ngIf="format_type!='STATUS'&&format_type!='SHIPPER'">
           <th *ngIf="all">BRANCH</th>
           <th>JOB#</th>
           <th>DATE</th>
@@ -290,7 +290,7 @@
 
       </thead>
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
-        <tr *ngIf="format_type=='GENERAL'||format_type=='PENDING'" [style.color]="rec.row_colour"
+        <tr *ngIf="format_type!='STATUS'&&format_type!='SHIPPER'" [style.color]="rec.row_colour"
           [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
           <td *ngIf="all">{{rec.branch}}</td>
           <td>{{rec.job_docno}}</td>

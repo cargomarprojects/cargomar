@@ -7,6 +7,8 @@ export class CustomReportH {
     rh_report_format: string;
     recordDet: CustomReportD[] = [];
     rec_mode: string;
+    rec_created_by: string;
+    rec_created_date: string;
     _globalvariables: GlobalVariables;
 }
 
