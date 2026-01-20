@@ -345,47 +345,57 @@ export class DsrComponent {
         { "rd_ctr": 3, "rd_caption": "REF#", "rd_field": "job_prefix" },
         { "rd_ctr": 4, "rd_caption": "SHIPPER", "rd_field": "job_shipper" },
         { "rd_ctr": 5, "rd_caption": "CONSIGNEE", "rd_field": "job_consignee" },
-        { "rd_ctr": 6, "rd_caption": "INVOICE-NO", "rd_field": "job_invoice_nos" },
-        { "rd_ctr": 7, "rd_caption": "POL", "rd_field": "job_pol" },
-        { "rd_ctr": 8, "rd_caption": "POD", "rd_field": "job_pod" },
-        { "rd_ctr": 9, "rd_caption": "JOB/AGENT/CARRIER", "rd_field": "job_liner_agent" },
-        { "rd_ctr": 10, "rd_caption": "JOB/CONTAINER", "rd_field": "job_cntr" },
-        { "rd_ctr": 11, "rd_caption": "COMMODITY", "rd_field": "job_commodity" },
-        { "rd_ctr": 12, "rd_caption": "SALESMAN", "rd_field": "salesman" },
-        { "rd_ctr": 13, "rd_caption": "JOB TYPE", "rd_field": "job_type" },
-        { "rd_ctr": 14, "rd_caption": "NOMINATION", "rd_field": "job_nomination" },
-        { "rd_ctr": 15, "rd_caption": "TERMS", "rd_field": "job_terms" },
-        { "rd_ctr": 16, "rd_caption": "JOB STATUS", "rd_field": "job_status" },
-        { "rd_ctr": 17, "rd_caption": "SBILL-NO", "rd_field": "opr_sbill_no" },
-        { "rd_ctr": 18, "rd_caption": "SBILL-DATE", "rd_field": "opr_sbill_date" },
-        { "rd_ctr": 19, "rd_caption": "CHA", "rd_field": "job_cha_name" },
-        { "rd_ctr": 20, "rd_caption": "E/P-RECEIVED-ON", "rd_field": "opr_ep_rec_date" },
-        { "rd_ctr": 21, "rd_caption": "SI#", "rd_field": "hbl_no" },
-        { "rd_ctr": 22, "rd_caption": "HBL-NO", "rd_field": "hbl_bl_no" },
-        { "rd_ctr": 23, "rd_caption": "AGENT", "rd_field": "job_agent_name" },
-        { "rd_ctr": 24, "rd_caption": "MSL#", "rd_field": "mbl_no" },
-        { "rd_ctr": 25, "rd_caption": "MBL-NO", "rd_field": "mbl_bl_no" },
-        { "rd_ctr": 26, "rd_caption": "CBM", "rd_field": "job_cbm" },
-        { "rd_ctr": 27, "rd_caption": "PKG", "rd_field": "job_pkg" },
-        { "rd_ctr": 28, "rd_caption": "PCS", "rd_field": "job_pcs" },
-        { "rd_ctr": 29, "rd_caption": "NTWT", "rd_field": "job_ntwt" },
-        { "rd_ctr": 30, "rd_caption": "GRWT", "rd_field": "job_grwt" },
-        { "rd_ctr": 31, "rd_caption": "CARRIER", "rd_field": "liner_name" },
-        { "rd_ctr": 32, "rd_caption": "CARGO-RECEIVED-ON", "rd_field": "opr_cargo_received_on" },
-        { "rd_ctr": 33, "rd_caption": "VESSEL", "rd_field": "mbl_vessel_name" },
-        { "rd_ctr": 34, "rd_caption": "VESSEL-NO", "rd_field": "mbl_vessel_no" },
-        { "rd_ctr": 35, "rd_caption": "STUFFED-AT", "rd_field": "opr_stuffed_at" },
-        { "rd_ctr": 36, "rd_caption": "STUFFED-ON", "rd_field": "opr_stuffed_on" },
-        { "rd_ctr": 37, "rd_caption": "CONTAINER", "rd_field": "hbl_book_cntr" },
-        { "rd_ctr": 38, "rd_caption": "SOB", "rd_field": "mbl_pol_etd" },
-        { "rd_ctr": 39, "rd_caption": "DESTINATION-ETA", "rd_field": "mbl_pofd_eta" },
-        { "rd_ctr": 40, "rd_caption": "REMARKS", "rd_field": "job_remarks" },
-        { "rd_ctr": 41, "rd_caption": "OUR INVOICE#", "rd_field": "hbl_ar_invnos" },
-        { "rd_ctr": 42, "rd_caption": "AMOUNT", "rd_field": "hbl_ar_invamt" },
-        { "rd_ctr": 43, "rd_caption": "GST-AMOUNT", "rd_field": "hbl_ar_gstamt" },
-        { "rd_ctr": 44, "rd_caption": "CREATED DATE", "rd_field": "rec_created_date" },
-        { "rd_ctr": 45, "rd_caption": "NATURE", "rd_field": "job_nature" },
-        { "rd_ctr": 46, "rd_caption": "VESSEL2", "rd_field": "mbl_vessel2" }
+        { "rd_ctr": 6, "rd_caption": "JOB/AGENT/CARRIER", "rd_field": "job_liner_agent" },
+        { "rd_ctr": 7, "rd_caption": "NOMINATION", "rd_field": "job_nomination" },
+        { "rd_ctr": 8, "rd_caption": "JOB TYPE", "rd_field": "job_type" },
+        { "rd_ctr": 9, "rd_caption": "POL", "rd_field": "job_pol" },
+        { "rd_ctr": 10, "rd_caption": "POD", "rd_field": "job_pod" },
+        { "rd_ctr": 11, "rd_caption": "TERMS", "rd_field": "job_terms" },
+        { "rd_ctr": 12, "rd_caption": "JOB INVOICE-NO", "rd_field": "job_invoice_nos" },
+        { "rd_ctr": 13, "rd_caption": "JOB INVOICE-AMT", "rd_field": "job_invoice_amt" },
+        { "rd_ctr": 14, "rd_caption": "PCS", "rd_field": "job_pcs" },
+        { "rd_ctr": 15, "rd_caption": "PKG", "rd_field": "job_pkg" },
+        { "rd_ctr": 16, "rd_caption": "NTWT", "rd_field": "job_ntwt" },
+        { "rd_ctr": 17, "rd_caption": "GRWT", "rd_field": "job_grwt" },
+        { "rd_ctr": 18, "rd_caption": "CBM", "rd_field": "job_cbm" },
+        { "rd_ctr": 19, "rd_caption": "COMMODITY", "rd_field": "job_commodity" },
+        { "rd_ctr": 20, "rd_caption": "NATURE/SHIPMENT MODE", "rd_field": "job_nature" },
+        { "rd_ctr": 21, "rd_caption": "JOB CONTAINER SIZE/TYPE", "rd_field": "job_cntr_type" },
+        { "rd_ctr": 22, "rd_caption": "SBILL-NO", "rd_field": "opr_sbill_no" },
+        { "rd_ctr": 23, "rd_caption": "SBILL-DATE", "rd_field": "opr_sbill_date" },
+        { "rd_ctr": 24, "rd_caption": "CHA", "rd_field": "job_cha_name" },
+        { "rd_ctr": 25, "rd_caption": "CARGO-RECEIVED-ON", "rd_field": "opr_cargo_received_on" },
+        { "rd_ctr": 26, "rd_caption": "BOOKING NUMBER", "rd_field": "mbl_book_no" },
+        { "rd_ctr": 27, "rd_caption": "BOOKING DATE", "rd_field": "mbl_book_date" },
+        { "rd_ctr": 28, "rd_caption": "STUFFED-AT", "rd_field": "opr_stuffed_at" },
+        { "rd_ctr": 29, "rd_caption": "STUFFED-ON", "rd_field": "opr_stuffed_on" },
+        { "rd_ctr": 30, "rd_caption": "VESSEL", "rd_field": "mbl_vessel_name" },
+        { "rd_ctr": 31, "rd_caption": "VESSEL-NO", "rd_field": "mbl_vessel_no" },
+        { "rd_ctr": 32, "rd_caption": "ETD", "rd_field": "mbl_pol_etd" },
+        { "rd_ctr": 33, "rd_caption": "JOB/CONTAINER", "rd_field": "job_cntr" },
+        { "rd_ctr": 34, "rd_caption": "SI FILED ON", "rd_field": "mbl_book_date" },
+        { "rd_ctr": 35, "rd_caption": "SOB", "rd_field": "mbl_pol_etd" },
+        { "rd_ctr": 36, "rd_caption": "DESTINATION-ETA", "rd_field": "mbl_pofd_eta" },
+        { "rd_ctr": 37, "rd_caption": "SI#", "rd_field": "hbl_no" },
+        { "rd_ctr": 38, "rd_caption": "HBL-NO", "rd_field": "hbl_bl_no" },
+        { "rd_ctr": 39, "rd_caption": "AGENT", "rd_field": "job_agent_name" },
+        { "rd_ctr": 40, "rd_caption": "CARRIER", "rd_field": "liner_name" },
+        { "rd_ctr": 41, "rd_caption": "CONTAINER", "rd_field": "hbl_book_cntr" },
+        { "rd_ctr": 42, "rd_caption": "HBL RELEASED ON", "rd_field": "hbl_released_date" },
+        { "rd_ctr": 43, "rd_caption": "MBLBK#", "rd_field": "mbl_no" },
+        { "rd_ctr": 44, "rd_caption": "MBL-NO", "rd_field": "mbl_bl_no" },
+        { "rd_ctr": 45, "rd_caption": "MBL RELEASED ON", "rd_field": "mbl_released_date" },
+        { "rd_ctr": 46, "rd_caption": "PRE-ALERT SEND ON", "rd_field": "mbl_prealert_date" }
+        { "rd_ctr": 47, "rd_caption": "OUR INVOICE#", "rd_field": "hbl_ar_invnos" },
+        { "rd_ctr": 48, "rd_caption": "AMOUNT", "rd_field": "hbl_ar_invamt" },
+        { "rd_ctr": 49, "rd_caption": "GST-AMOUNT", "rd_field": "hbl_ar_gstamt" },
+        { "rd_ctr": 50, "rd_caption": "JOB STATUS", "rd_field": "job_status" },
+        { "rd_ctr": 51, "rd_caption": "TOTAL NUMBER OF TUES", "rd_field": "job_cntr_teu" },
+        { "rd_ctr": 52, "rd_caption": "SALESMAN", "rd_field": "salesman" },
+        { "rd_ctr": 53, "rd_caption": "REMARKS", "rd_field": "job_remarks" },
+        { "rd_ctr": 54, "rd_caption": "E/P-RECEIVED-ON", "rd_field": "opr_ep_rec_date" },
+        { "rd_ctr": 55, "rd_caption": "VESSEL2", "rd_field": "mbl_vessel2" },
+        { "rd_ctr": 56, "rd_caption": "SCHEME", "rd_field": "job_billtype_id" }
       ];
     } else if (this.type == "AIR EXPORT") {
       this.CustomReportList = [
@@ -432,8 +442,8 @@ export class DsrComponent {
         { "rd_ctr": 41, "rd_caption": "GST-AMOUNT", "rd_field": "hbl_ar_gstamt" },
         { "rd_ctr": 42, "rd_caption": "CREATED DATE", "rd_field": "rec_created_date" }
       ];
-    } else if (this.type == "SEA IMPORT"||this.type == "AIR IMPORT") {
-      
+    } else if (this.type == "SEA IMPORT" || this.type == "AIR IMPORT") {
+
       this.CustomReportList = [
         { "rd_ctr": 1, "rd_caption": "MASTER DATE", "rd_field": "mbl_date" },
         { "rd_ctr": 2, "rd_caption": "MSL#", "rd_field": "mbl_no" },
@@ -476,7 +486,7 @@ export class DsrComponent {
         { "rd_ctr": 39, "rd_caption": "CREATED DATE", "rd_field": "rec_created_date" }
       ];
     }
-    
+
   }
 
 
