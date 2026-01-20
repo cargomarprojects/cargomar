@@ -146,7 +146,7 @@
             <div *ngIf="bCompany" class="col-sm-4">
               <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
             </div>
-            <label class="col-sm-2 col-form-label col-form-label-sm">Format</label>
+            <label  *ngIf="!bookingrpt"  class="col-sm-2 col-form-label col-form-label-sm">Format</label>
             <div class="col-sm-4">
               <!-- <select [disabled]="bookingrpt" class="form-control form-control-sm" [(ngModel)]="format_type"
                 (change)="OnChange('format')">

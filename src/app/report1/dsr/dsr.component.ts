@@ -432,18 +432,51 @@ export class DsrComponent {
         { "rd_ctr": 41, "rd_caption": "GST-AMOUNT", "rd_field": "hbl_ar_gstamt" },
         { "rd_ctr": 42, "rd_caption": "CREATED", "rd_field": "rec_created_date" }
       ];
-    } else if (this.type == "SEA IMPORT") {
+    } else if (this.type == "SEA IMPORT"||this.type == "AIR IMPORT") {
+      
       this.CustomReportList = [
-        { "rd_ctr": 1, "rd_caption": "JOB#", "rd_field": "job_docno" },
-        { "rd_ctr": 2, "rd_caption": "JOB DATE", "rd_field": "job_date" }
+        { "rd_ctr": 1, "rd_caption": "MASTER DATE", "rd_field": "mbl_date" },
+        { "rd_ctr": 2, "rd_caption": "MSL#", "rd_field": "mbl_no" },
+        { "rd_ctr": 3, "rd_caption": "MASTER#", "rd_field": "mbl_bl_no" },
+        { "rd_ctr": 4, "rd_caption": "SI#", "rd_field": "hbl_no" },
+        { "rd_ctr": 5, "rd_caption": "HOUSE DATE", "rd_field": "hbl_date" },
+        { "rd_ctr": 6, "rd_caption": "HOUSE#", "rd_field": "hbl_bl_no" },
+        { "rd_ctr": 7, "rd_caption": "EXPORTER", "rd_field": "hbl_exporter_name" },
+        { "rd_ctr": 8, "rd_caption": "IMPORTER", "rd_field": "hbl_importer_name" },
+        { "rd_ctr": 9, "rd_caption": "AGENT", "rd_field": "hbl_agent_name" },
+        { "rd_ctr": 10, "rd_caption": "SMAN", "rd_field": "salesman" },
+        { "rd_ctr": 11, "rd_caption": "INV-NO", "rd_field": "hbl_invoice_nos" },
+        { "rd_ctr": 12, "rd_caption": "PKG", "rd_field": "hbl_pkg" },
+        { "rd_ctr": 13, "rd_caption": "CBM", "rd_field": "hbl_cbm" },
+        { "rd_ctr": 14, "rd_caption": "GRWT", "rd_field": "hbl_grwt" },
+        { "rd_ctr": 15, "rd_caption": "CHWT", "rd_field": "hbl_chwt" },
+        { "rd_ctr": 16, "rd_caption": "POL", "rd_field": "mbl_pol" },
+        { "rd_ctr": 17, "rd_caption": "POD", "rd_field": "mbl_pod" },
+        { "rd_ctr": 18, "rd_caption": "POD-ETA", "rd_field": "hbl_pod_eta" },
+        { "rd_ctr": 19, "rd_caption": "BE TYPE", "rd_field": "impj_be_type" },
+        { "rd_ctr": 20, "rd_caption": "NOMINATION", "rd_field": "job_nomination" },
+        { "rd_ctr": 21, "rd_caption": "DOCS-REQUIRED", "rd_field": "impj_docs_required" },
+        { "rd_ctr": 22, "rd_caption": "EDI-CHECKLIST-SENT", "rd_field": "impj_edichklst_sent_on" },
+        { "rd_ctr": 23, "rd_caption": "BE.NO", "rd_field": "hbl_beno" },
+        { "rd_ctr": 24, "rd_caption": "BE.DATE", "rd_field": "hbl_bedate" },
+        { "rd_ctr": 25, "rd_caption": "WAYBILL.NO", "rd_field": "impj_waybill_no" },
+        { "rd_ctr": 26, "rd_caption": "WAYBILL.DATE", "rd_field": "impj_waybill_date" },
+        { "rd_ctr": 27, "rd_caption": "STATUS", "rd_field": "impj_status" },
+        { "rd_ctr": 28, "rd_caption": "STATUS DATE", "rd_field": "impj_status_date" },
+        { "rd_ctr": 29, "rd_caption": "CLEARED", "rd_field": "impj_cleared_on" },
+        { "rd_ctr": 30, "rd_caption": "REMARKS", "rd_field": "hbl_remarks" },
+        { "rd_ctr": 31, "rd_caption": "CARRIER", "rd_field": "liner_name" },
+        { "rd_ctr": 32, "rd_caption": "DOC-RECEIVED", "rd_field": "impj_doc_recvd_date" },
+        { "rd_ctr": 33, "rd_caption": "DOC-SENT", "rd_field": "impj_doc_send_date" },
+        { "rd_ctr": 34, "rd_caption": "OUR INVOICE#", "rd_field": "hbl_ar_invnos" },
+        { "rd_ctr": 35, "rd_caption": "AMOUNT", "rd_field": "hbl_ar_invamt" },
+        { "rd_ctr": 36, "rd_caption": "GST-AMOUNT", "rd_field": "hbl_ar_gstamt" },
+        { "rd_ctr": 37, "rd_caption": "CHA", "rd_field": "cha_name" },
+        { "rd_ctr": 38, "rd_caption": "JOB-STATUS", "rd_field": "job_status" },
+        { "rd_ctr": 39, "rd_caption": "CREATED", "rd_field": "rec_created_date" }
       ];
     }
-    else if (this.type == "AIR IMPORT") {
-      this.CustomReportList = [
-        { "rd_ctr": 1, "rd_caption": "JOB#", "rd_field": "job_docno" },
-        { "rd_ctr": 2, "rd_caption": "JOB DATE", "rd_field": "job_date" }
-      ];
-    }
+    
   }
 
 

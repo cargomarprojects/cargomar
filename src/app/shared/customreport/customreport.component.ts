@@ -39,7 +39,7 @@ export class CustomReportComponent implements OnInit {
     modal: any;
     mode = '';
     pkid = '';
-
+     
     bDelete: boolean = false;
     disableSave = true;
     selectdeselect: boolean = true;
