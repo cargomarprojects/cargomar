@@ -15,6 +15,7 @@ export class CustomReportH {
 export class CustomReportD {
     rd_pkid: string;
     rd_parent_id: string;
+    rd_code: string;
     rd_caption: string;
     rd_field: string;
     rd_selected: boolean;
