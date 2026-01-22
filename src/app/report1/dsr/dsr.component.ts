@@ -385,7 +385,7 @@ export class DsrComponent {
         { "rd_ctr": 43, "rd_caption": "MBLBK#", "rd_field": "mbl_no" },
         { "rd_ctr": 44, "rd_caption": "MBL-NO", "rd_field": "mbl_bl_no" },
         { "rd_ctr": 45, "rd_caption": "MBL RELEASED ON", "rd_field": "mbl_released_date" },
-        { "rd_ctr": 46, "rd_caption": "PRE-ALERT SEND ON", "rd_field": "mbl_prealert_date" }
+        { "rd_ctr": 46, "rd_caption": "PRE-ALERT SEND ON", "rd_field": "mbl_prealert_date" },
         { "rd_ctr": 47, "rd_caption": "OUR INVOICE#", "rd_field": "hbl_ar_invnos" },
         { "rd_ctr": 48, "rd_caption": "AMOUNT", "rd_field": "hbl_ar_invamt" },
         { "rd_ctr": 49, "rd_caption": "GST-AMOUNT", "rd_field": "hbl_ar_gstamt" },
