@@ -76,7 +76,7 @@
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.add_line1" (blur)="OnBlur('add_line1')" (focus)="OnFocus('add_line1')" required
             maxlength="60" />
           <input type="text" disabled class="form-control form-control-sm w-auto" style="max-width: 40px;"
-            [style.color]="Record.add_line1.length > (bShipper?shipperAddrLen:consigneeAddrLen) ?'red':'green'"
+            [style.color]="Record.add_line1.length > (bShipper?shipperAddr1Len:consigneeAddr1Len) ?'red':'green'"
             [(ngModel)]="Record.add_line1.length" required maxlength="5" />
         </div>
       </div>
@@ -87,7 +87,7 @@
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.add_line2" (blur)="OnBlur('add_line2')" (focus)="OnFocus('add_line2')" required
             maxlength="60" />
           <input type="text" disabled class="form-control form-control-sm w-auto" style="max-width: 40px;"
-            [style.color]="Record.add_line2.length > (bShipper?shipperAddrLen:consigneeAddrLen)  ?'red':'green'"
+            [style.color]="Record.add_line2.length > (bShipper?shipperAddr2Len:consigneeAddr2Len)  ?'red':'green'"
             [(ngModel)]="Record.add_line2.length" required maxlength="5" />
         </div>
       </div>
@@ -98,7 +98,7 @@
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.add_line3" (blur)="OnBlur('add_line3')" (focus)="OnFocus('add_line3')" required
             maxlength="60" />
           <input type="text" disabled class="form-control form-control-sm w-auto" style="max-width: 40px;"
-            [style.color]="Record.add_line3.length >  (bShipper?shipperAddrLen:consigneeAddrLen)  ?'red':'green'"
+            [style.color]="Record.add_line3.length >  (bShipper?shipperAddr3Len:consigneeAddr3Len)  ?'red':'green'"
             [(ngModel)]="Record.add_line3.length" required maxlength="5" />
         </div>
       </div>
@@ -109,7 +109,7 @@
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.add_line4" (blur)="OnBlur('add_line4')"  (focus)="OnFocus('add_line4')" required
             maxlength="60" />
           <input type="text" disabled class="form-control form-control-sm w-auto" style="max-width: 40px;"
-            [style.color]="Record.add_line4.length >  (bShipper?shipperAddrLen:consigneeAddrLen)  ?'red':'green'"
+            [style.color]="Record.add_line4.length >  (bShipper?shipperAddr4Len:consigneeAddr4Len)  ?'red':'green'"
             [(ngModel)]="Record.add_line4.length" required maxlength="5" />
         </div>
       </div>

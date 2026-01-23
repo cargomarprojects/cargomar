@@ -56,6 +56,15 @@ export class AddressmComponent {
     @Input() bUnregistered: boolean = false;
     @Input() fStateList: any[] = [];
 
+    shipperAddr1Len: number = 34;
+    shipperAddr2Len: number = 34;
+    shipperAddr3Len: number = 0;
+    shipperAddr4Len: number = 0;
+    consigneeAddr1Len: number = 20;
+    consigneeAddr2Len: number = 20;
+    consigneeAddr3Len: number = 28;
+    consigneeAddr4Len: number = 20;
+
     GstList: any[] = [];
 
     // Single Record for add/edit/view details
@@ -462,20 +471,20 @@ export class AddressmComponent {
     OnFocus(field: string) {
 
         if (field == 'add_line1') {
-            this.shipperAddrLen = 34;
-            this.consigneeAddrLen = 20;
+            this.shipperAddrLen = this.shipperAddr1Len;
+            this.consigneeAddrLen = this.consigneeAddr1Len;
         }
         if (field == 'add_line2') {
-            this.shipperAddrLen = 34;
-            this.consigneeAddrLen = 20;
+            this.shipperAddrLen = this.shipperAddr2Len;
+            this.consigneeAddrLen = this.consigneeAddr2Len;
         }
         if (field == 'add_line3') {
-            this.shipperAddrLen = 0;
-            this.consigneeAddrLen = 28;
+            this.shipperAddrLen = this.shipperAddr3Len;
+            this.consigneeAddrLen = this.consigneeAddr3Len;
         }
         if (field == 'add_line4') {
-            this.shipperAddrLen = 0;
-            this.consigneeAddrLen = 20;
+            this.shipperAddrLen = this.shipperAddr4Len;
+            this.consigneeAddrLen = this.consigneeAddr4Len;
         }
     }
 }
