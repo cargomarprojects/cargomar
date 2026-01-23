@@ -226,10 +226,10 @@ export class CustomReportComponent implements OnInit {
         this.Record = _Record;
         this.Record.rec_mode = this.mode;
         const existing = new Set(
-            this.Record.recordDet.map(r => r.rd_field)
+            this.Record.recordDet.map(r => r.rd_code)
         );
         for (const field of this._fieldList) {
-            if (!existing.has(field.rd_field)) {
+            if (!existing.has(field.rd_code)) {
                 this.Record.recordDet.push({
                     ...field,
                     rd_pkid: this.gs.getGuid(),

@@ -479,7 +479,7 @@ export class DsrComponent {
         { "rd_ctr": 31, "rd_code": "CARRIER", "rd_caption": "CARRIER", "rd_field": "liner_name" },
         { "rd_ctr": 32, "rd_code": "DOC-RECEIVED", "rd_caption": "DOC-RECEIVED", "rd_field": "impj_doc_recvd_date" },
         { "rd_ctr": 33, "rd_code": "DOC-SENT", "rd_caption": "DOC-SENT", "rd_field": "impj_doc_send_date" },
-        { "rd_ctr": 34, "rd_code": "OUR INVOICE#", "rd_caption": "OUR INVOICE#", "rd_field": "hbl_ar_invnos" },
+        { "rd_ctr": 34, "rd_code": "OUR-INVOICE#", "rd_caption": "OUR INVOICE#", "rd_field": "hbl_ar_invnos" },
         { "rd_ctr": 35, "rd_code": "AMOUNT", "rd_caption": "AMOUNT", "rd_field": "hbl_ar_invamt" },
         { "rd_ctr": 36, "rd_code": "GST-AMOUNT", "rd_caption": "GST-AMOUNT", "rd_field": "hbl_ar_gstamt" },
         { "rd_ctr": 37, "rd_code": "CHA", "rd_caption": "CHA", "rd_field": "cha_name" },
