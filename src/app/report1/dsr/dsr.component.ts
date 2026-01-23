@@ -428,7 +428,7 @@ export class DsrComponent {
         { "rd_ctr": 27, "rd_code": "HOUSE", "rd_caption": "HOUSE", "rd_field": "hbl_bl_no" },
         { "rd_ctr": 28, "rd_code": "HOUSE-DATE", "rd_caption": "HOUSE DATE", "rd_field": "hbl_date" },
         { "rd_ctr": 29, "rd_code": "AGENT", "rd_caption": "AGENT", "rd_field": "job_agent_name" },
-        { "rd_ctr": 30, "rd_code": "MAWBKNO", "rd_caption": "MSL#", "rd_field": "mbl_no" },
+        { "rd_ctr": 30, "rd_code": "MAWBKNO", "rd_caption": "MAWBK#", "rd_field": "mbl_no" },
         { "rd_ctr": 31, "rd_code": "MASTER", "rd_caption": "MASTER", "rd_field": "mbl_bl_no" },
         { "rd_ctr": 32, "rd_code": "MASTER-DATE", "rd_caption": "MASTER DATE", "rd_field": "mbl_date" },
         { "rd_ctr": 33, "rd_code": "CARRIER", "rd_caption": "CARRIER", "rd_field": "liner_name" },
@@ -447,7 +447,7 @@ export class DsrComponent {
 
       this.CustomReportList = [
         { "rd_ctr": 1, "rd_code": "MASTER-DATE", "rd_caption": "MASTER DATE", "rd_field": "mbl_date" },
-        { "rd_ctr": 2, "rd_code": "MBLBKNO", "rd_caption": "MSL#", "rd_field": "mbl_no" },
+        { "rd_ctr": 2, "rd_code": "MBLBKNO", "rd_caption": "MBLBK#", "rd_field": "mbl_no" },
         { "rd_ctr": 3, "rd_code": "MASTERNO", "rd_caption": "MASTER#", "rd_field": "mbl_bl_no" },
         { "rd_ctr": 4, "rd_code": "SINO", "rd_caption": "SI#", "rd_field": "hbl_no" },
         { "rd_ctr": 5, "rd_code": "HOUSE-DATE", "rd_caption": "HOUSE DATE", "rd_field": "hbl_date" },
