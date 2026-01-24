@@ -382,8 +382,11 @@
                 <div class="col-sm-4">
                   <input type="checkbox" [(ngModel)]="Record.dm_is_be_10">&nbsp;Bills of Entry#
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-5 pr-0">
                   <input type="checkbox" [(ngModel)]="Record.dm_is_othcert_21">&nbsp;Others
+                </div>
+                <div class="col-sm-3 pl-0">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.dm_oth_certno" (blur)="OnBlur('dm_oth_certno')" required maxlength="60" />
                 </div>
               </div>
 

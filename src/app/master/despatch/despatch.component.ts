@@ -348,7 +348,7 @@ export class DespatchComponent {
     this.Record.dm_trans_billno = '';
     this.Record.dm_liner_taxno = '';
     this.Record.dm_fumi_taxno = '';
-
+    this.Record.dm_oth_certno = '';
     this.InitLov();
     this.Record.rec_mode = this.mode;
   }
@@ -518,6 +518,11 @@ export class DespatchComponent {
     if (field == 'dm_fumi_taxno') {
       this.Record.dm_fumi_taxno = this.Record.dm_fumi_taxno.toUpperCase();
     }
+
+    if (field == 'dm_oth_certno') {
+      this.Record.dm_oth_certno = this.Record.dm_oth_certno.toUpperCase();
+    }
+
   }
 
   Close() {

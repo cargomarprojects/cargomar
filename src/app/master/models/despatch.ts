@@ -68,7 +68,8 @@ export class Despatchm {
   dm_trans_billno: string;
   dm_liner_taxno: string;
   dm_fumi_taxno: string;
-
+  dm_oth_certno: string;
+  
   rec_mode: string;
   rec_category: string;
   rec_created_by: string;
