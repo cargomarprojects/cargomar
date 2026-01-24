@@ -203,6 +203,7 @@ export class UserComponent {
         this.Record.user_remarks = '';
         this.Record.user_tp_type = '';
         this.Record.user_short_name = '';
+        this.Record.user_otp_enabled = false;
         this.InitLov();
     }
 
@@ -319,6 +320,7 @@ export class UserComponent {
             REC.user_remarks = this.Record.user_remarks;
             REC.user_show_payroll = this.Record.user_show_payroll;
             REC.user_short_name = this.Record.user_short_name;
+            REC.user_otp_enabled = this.Record.user_otp_enabled;
         }
     }
 

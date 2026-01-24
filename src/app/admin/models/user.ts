@@ -26,6 +26,7 @@ export class User {
     user_show_payroll: boolean;
     user_is_coreteam: boolean;
     user_tp_type: string;
+    user_otp_enabled: boolean;
 
     rec_mode: string;
     rec_locked: boolean;
