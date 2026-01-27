@@ -175,13 +175,9 @@
           <input type="checkbox" [(ngModel)]="Record.user_branch_user" id="branch_user" />
           <label class="col-form-label  col-form-label-sm ml-1" for="branch_user">Branch User</label>
         </div>
-        <div class="col-3">
+        <div class="col-6">
           <input type="checkbox" [(ngModel)]="Record.user_show_payroll" id="spayroll" />
           <label class="col-form-label  col-form-label-sm ml-1" for="spayroll">Show Payroll</label>
-        </div>
-        <div class="col-3">
-          <input type="checkbox" [(ngModel)]="Record.user_otp_enabled" id="sotp" />
-          <label class="col-form-label  col-form-label-sm ml-1" for="sotp">Otp</label>
         </div>
       </div>
 
@@ -236,7 +232,11 @@
           <input type="checkbox" [(ngModel)]="Record.rec_locked" id="ulocked" />
           <label class="col-form-label  col-form-label-smml-1" for="ulocked">Locked</label>
         </div>
-        <div class="col-6">
+        <div class="col-3">
+          <input type="checkbox" [(ngModel)]="Record.user_otp_enabled" id="sotp" />
+          <label class="col-form-label  col-form-label-sm ml-1" for="sotp">Otp Enabled</label>
+        </div>
+        <div class="col-3">
           <input type="checkbox" [(ngModel)]="Record.user_is_coreteam" id="coreteam" />
           <label class="col-form-label  col-form-label-smml-1" for="coreteam">Core Team</label>
         </div>
