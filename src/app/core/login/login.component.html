@@ -5,7 +5,7 @@
 
 
     <section id="loginSec">
-      <div class="container" >
+      <div class="container">
         <div class="row">
 
           <!-- <div class="col-sm-4 col-md-6 col-lg-6 order-last order-md-first">
@@ -28,7 +28,7 @@
 
               <div class="form-group">
                 <!-- <label for="password">Password <span class="pass-opt">Forgot password?</span> </label> -->
-                <label for="password">Password</label>
+                <label for="password">Password/OTP</label>
                 <input class="form-control ng-untouched ng-pristine ng-valid" name="password" type="password"
                   [(ngModel)]="password">
               </div>
@@ -41,12 +41,17 @@
                 </select>
               </div>
 
-              
+
               <div class="form-group" *ngIf="showloginbutton">
                 <button class="btn btn-primary btn-sm login-btn" (click)="Login()">Login</button>
+                <button class="btn btn-primary btn-sm login-btn" (click)="GenerateOtp()"
+                  [disabled]="loading || showOtpTimer">Generate OTP</button>
+                <span *ngIf="showOtpTimer" class="text-danger ms-2">
+                  OTP valid for {{ otpTimer | number:'2.0' }} sec
+                </span>
               </div>
 
-<!--               <p class="log-divider"><span>or</span></p>
+              <!--               <p class="log-divider"><span>or</span></p>
 
               <button class="btn btn-primary btn-sm g-login ">
                 <span class="g-login-img"><img src="assets/img/g.png"></span>
@@ -56,14 +61,15 @@
               </button> -->
 
 
-              <div *ngIf="showloginbutton">
+              <div *ngIf="showloginbutton&&!errorMessage">
                 <h5 class="text-primary">Version : {{gs.software_version_string}}</h5>
               </div>
+
               <div>
                 <h5>{{errorMessage}}</h5>
               </div>
-              <div *ngIf="!showloginbutton">
-                <h5> <a  class="text-danger" (click)="reload()"> Old Version, Please Click Here To Reload </a> </h5>
+              <div *ngIf="!showloginbutton&&!errorMessage">
+                <h5> <a class="text-danger" (click)="reload()"> Old Version, Please Click Here To Reload </a> </h5>
               </div>
 
             </div>

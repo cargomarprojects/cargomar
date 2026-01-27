@@ -33,7 +33,9 @@ export class LoginComponent {
   sub: any;
   loading = false;
   showlogin = false;
-
+  otpTimer = 0;
+  otpInterval: any;
+  showOtpTimer = false;
   CompanyList: Companym[] = [];
 
   public gs: GlobalService;
@@ -142,4 +144,53 @@ export class LoginComponent {
     }
   }
 
+  GenerateOtp() {
+    if (this.gs.isBlank(this.username)) {
+      alert('Login ID Cannot Be Blank');
+      return;
+    }
+
+    if (this.gs.isBlank(this.company_code)) {
+      alert('Please Select Company');
+      return;
+    }
+
+    this.loading = true;
+    let SearchData = {
+      user_code: this.username,
+      company_code: this.company_code,
+      report_folder: "c:\\reports"
+    };
+
+    this.loginservice.GenerateOtp(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        if (response.msg) {
+          alert(response.msg);
+          if (response.retvalue)
+            this.startOtpTimer();
+        }
+      },
+        error => {
+          this.loading = false;
+          alert(error.error.Message);
+        });
+  }
+
+  startOtpTimer() {
+    this.otpTimer = 60; // 1 minute
+    this.showOtpTimer = true;
+
+    if (this.otpInterval)
+      clearInterval(this.otpInterval);
+
+    this.otpInterval = setInterval(() => {
+      this.otpTimer--;
+
+      if (this.otpTimer <= 0) {
+        clearInterval(this.otpInterval);
+        this.showOtpTimer = false;
+      }
+    }, 1000);
+  }
 }
