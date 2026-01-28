@@ -26,11 +26,16 @@
                   [(ngModel)]="username">
               </div>
 
-              <div class="form-group">
+              <div class="form-group input-group">
                 <!-- <label for="password">Password <span class="pass-opt">Forgot password?</span> </label> -->
                 <label for="password">Password/OTP</label>
-                <input class="form-control ng-untouched ng-pristine ng-valid" name="password" type="password"
-                  [(ngModel)]="password">
+                <!-- <input class="form-control ng-untouched ng-pristine ng-valid" name="password" type="password"
+                  [(ngModel)]="password"> -->
+                <input class="form-control ng-untouched ng-pristine ng-valid" name="password"
+                  [type]="show_pwd_visible ? 'text' : 'password'" [(ngModel)]="password">
+                <span class="input-group-text" (click)="passwordVisibility()">
+                  <i class="fa" [ngClass]="show_pwd_visible ? 'fa-eye' : 'fa-eye-slash'"></i>
+                </span>
               </div>
 
               <div class="form-group">
@@ -49,6 +54,7 @@
                 <span *ngIf="showOtpTimer" class="text-danger ms-2">
                   OTP valid for {{ otpTimer | number:'2.0' }} sec
                 </span>
+                <h5 class="text-warning">{{errorMessage}}</h5>
               </div>
 
               <!--               <p class="log-divider"><span>or</span></p>
@@ -66,7 +72,7 @@
               </div>
 
               <div>
-                <h5 class="text-danger" >{{errorMessage}}</h5>
+                <h5>{{errorMessage}}</h5>
               </div>
               <div *ngIf="!showloginbutton&&!errorMessage">
                 <h5> <a class="text-danger" (click)="reload()"> Old Version, Please Click Here To Reload </a> </h5>

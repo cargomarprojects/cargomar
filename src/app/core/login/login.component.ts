@@ -27,6 +27,7 @@ export class LoginComponent {
 
   server_software_version_string: string = '';
   showloginbutton: boolean = true;
+  show_pwd_visible: boolean = false;
 
   company_code: string = '';
 
@@ -155,7 +156,7 @@ export class LoginComponent {
       alert('Please Select Company');
       return;
     }
-    
+
     this.errorMessage = '';
     this.loading = true;
     let SearchData = {
@@ -167,12 +168,14 @@ export class LoginComponent {
     this.loginservice.GenerateOtp(SearchData)
       .subscribe(response => {
         this.loading = false;
+
         if (response.msg) {
           this.errorMessage = response.msg;
           // alert(response.msg);
-          if (response.bmail)
-            this.startOtpTimer();
         }
+
+        if (response.bmail)
+          this.startOtpTimer();
       },
         error => {
           this.loading = false;
@@ -193,7 +196,12 @@ export class LoginComponent {
       if (this.otpTimer <= 0) {
         clearInterval(this.otpInterval);
         this.showOtpTimer = false;
+        this.errorMessage = '';
       }
     }, 1000);
+  }
+
+  passwordVisibility() {
+    this.show_pwd_visible = !this.show_pwd_visible;
   }
 }
