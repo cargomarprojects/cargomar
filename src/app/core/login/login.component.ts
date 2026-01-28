@@ -145,6 +145,7 @@ export class LoginComponent {
   }
 
   GenerateOtp() {
+
     if (this.gs.isBlank(this.username)) {
       alert('Login ID Cannot Be Blank');
       return;
@@ -154,7 +155,8 @@ export class LoginComponent {
       alert('Please Select Company');
       return;
     }
-
+    
+    this.errorMessage = '';
     this.loading = true;
     let SearchData = {
       user_code: this.username,
@@ -166,8 +168,9 @@ export class LoginComponent {
       .subscribe(response => {
         this.loading = false;
         if (response.msg) {
-          alert(response.msg);
-          if (response.retvalue)
+          this.errorMessage = response.msg;
+          // alert(response.msg);
+          if (response.bmail)
             this.startOtpTimer();
         }
       },

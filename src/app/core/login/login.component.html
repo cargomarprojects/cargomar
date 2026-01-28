@@ -66,7 +66,7 @@
               </div>
 
               <div>
-                <h5>{{errorMessage}}</h5>
+                <h5 class="text-danger" >{{errorMessage}}</h5>
               </div>
               <div *ngIf="!showloginbutton&&!errorMessage">
                 <h5> <a class="text-danger" (click)="reload()"> Old Version, Please Click Here To Reload </a> </h5>
