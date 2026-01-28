@@ -137,6 +137,7 @@ export class ContactsComponent {
   }
 
   InitComponent() {
+    this.searchSalesperson = this.gs.globalVariables.sman_name;
     this.fromdate = "";
     this.todate = "";
     this.IsAdmin = false;
