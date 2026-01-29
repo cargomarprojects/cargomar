@@ -37,6 +37,9 @@ export class ContactsComponent {
   searchSalesperson = '';
   searchSalesperson_id = '';
   searchstring = '';
+  searchvalidation = 'NA';
+  searchsortby = 'a.cont_last_visit desc';
+  searchdatetype = 'LAST-VISIT-DATE';
   page_count = 0;
   page_current = 0;
   page_rows = 0;
@@ -253,11 +256,11 @@ export class ContactsComponent {
       this.Record.cont_cust_name = _Record.name;
     }
 
-if (_Record.controlname == "SMAN") {
+    if (_Record.controlname == "SMAN") {
       this.searchSalesperson_id = _Record.id;
       this.searchSalesperson = _Record.name;
     }
-    
+
   }
 
 
@@ -360,7 +363,10 @@ if (_Record.controlname == "SMAN") {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
-      report_folder: this.gs.globalVariables.report_folder
+      report_folder: this.gs.globalVariables.report_folder,
+      searchvalidation: this.searchvalidation,
+      searchsortby: this.searchsortby,
+      searchdatetype: this.searchdatetype
     };
 
     this.ErrorMessage = '';
