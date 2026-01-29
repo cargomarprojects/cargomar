@@ -35,6 +35,7 @@ export class ContactsComponent {
   searchLeadSource = 'ALL';
   searchConvrtStatus = 'ALL';
   searchSalesperson = '';
+  searchSalesperson_id = '';
   searchstring = '';
   page_count = 0;
   page_current = 0;
@@ -138,6 +139,7 @@ export class ContactsComponent {
 
   InitComponent() {
     this.searchSalesperson = this.gs.globalVariables.sman_name;
+    this.searchSalesperson_id = this.gs.globalVariables.sman_id;
     this.fromdate = "";
     this.todate = "";
     this.IsAdmin = false;
@@ -251,6 +253,11 @@ export class ContactsComponent {
       this.Record.cont_cust_name = _Record.name;
     }
 
+if (_Record.controlname == "SMAN") {
+      this.searchSalesperson_id = _Record.id;
+      this.searchSalesperson = _Record.name;
+    }
+    
   }
 
 
