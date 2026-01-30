@@ -627,21 +627,18 @@
           <!-- <h6 style="color: white;background-color: darkcyan; padding: 5px; font-size: small;" class="my-1">VISIT
             DETAILS</h6> -->
           <div>
-            <app-visitreport [menuid]="'MARKVISITREPORT'" [type]="''" [customer_name]="cust_name"
+            <app-visitreport [menuid]="'MARKVISITREPORT'" [type]="'INVOKE-FRM-CONTACT'" [customer_name]="cust_name"
               [sman_id]="sman_id"></app-visitreport>
           </div>
         </div>
         <div *ngIf="mode=='EDIT'&&IsAdmin" class="page-details">
           <h6 style="color: white;background-color: darkcyan; padding: 5px; font-size: small;" class="my-1">CUSTOMER
             INFO</h6>
-          <div class="page-details">
-            <div class="row">
-
-              <div class="col-sm-12">
-                <app-action [menuid]="menuid" [parentData]="ActionsRecord" [rec_user_id]="gs.globalVariables.user_pkid"
-                  (actionsChanged)="actionsChanged($event,Record)">
-                </app-action>
-              </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <app-action [menuid]="menuid" [parentData]="ActionsRecord" [rec_user_id]="gs.globalVariables.user_pkid"
+                (actionsChanged)="actionsChanged($event,Record)">
+              </app-action>
             </div>
           </div>
         </div>
@@ -679,4 +676,4 @@
 <div *ngIf="ErrorMessage" class="alert alert-danger">
   {{ErrorMessage}}
 </div>
-
+<div>
