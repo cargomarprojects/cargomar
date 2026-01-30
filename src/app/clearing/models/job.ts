@@ -164,10 +164,12 @@ export class Jobm {
   job_toorder_city: string;
   job_toorder_pin: string;
 
+
   job_sb_docs: number;
   job_inv_docs: number;
   job_pl_docs: number;
   job_cntr_transporter:string;
+  job_date_display:string;
 
   rec_mode: string;
   rec_category: string;

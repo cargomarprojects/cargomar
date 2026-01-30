@@ -30,7 +30,9 @@ export class MarkContactService {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkContact/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
     }
 
-    
+    JobList(SearchData : any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkContact/JobList', SearchData, this.gs.headerparam2('authorized'));
+    }
 
 }
 

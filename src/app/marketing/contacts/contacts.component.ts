@@ -58,6 +58,8 @@ export class ContactsComponent {
     followupstatus: ''
   };
 
+  jobno: string = '';
+
   ErrorMessage = "";
   InfoMessage = "";
   bDocs: boolean = false;
@@ -779,4 +781,19 @@ export class ContactsComponent {
       }
     }
   }
+
+  ModifiedRecords(params: any) {
+
+    // for (let rec of this.RecordList.filter(rec => rec.cost_pkid == params.sid)) {
+    //   if (params.saction == "SENT-ON")
+    //     rec.cost_sent_on = params.sdate;
+    //   if (params.saction == "CHECKED-ON")
+    //     rec.cost_checked_on = params.sdate;
+    // }
+
+    this.jobno = params.jobno;
+    this.Record.cont_converted_date = params.jobdate;
+
+  }
+
 }

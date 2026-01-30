@@ -14,7 +14,8 @@ import { QuotationComponent } from './quotation/quotation.component';
 import { QuotationAirComponent } from './quotation/quotation-air.component';
 import { BizDevtReportComponent } from './marketing/bizdevtreport.component';
 import { QuotationFclComponent } from './quotation/quotation-fcl.component';
- 
+import { JobListComponent } from './contacts/joblist/joblist.component';
+
 @NgModule({
   imports: [
     SharedModule,
@@ -32,7 +33,8 @@ import { QuotationFclComponent } from './quotation/quotation-fcl.component';
     QuotationComponent,
     BizDevtReportComponent,
     QuotationAirComponent,
-    QuotationFclComponent
+    QuotationFclComponent,
+    JobListComponent
   ],
   providers: [
     MarkMarketingService

@@ -593,13 +593,13 @@
                 <!-- <label class="col-sm-2 col-form-label col-form-label-sm"></label> -->
                 <div class="col-sm-4">
                   <input type="checkbox" [(ngModel)]="Record.cont_is_converted" id="_isconverted">
-                  <label class="checkbox-inline" for="_isconverted">Converted</label>
+                  <label class="checkbox-inline" for="_isconverted">Converted &nbsp;&nbsp;&nbsp;Job#:&nbsp;<span class="text-danger">{{jobno}} </span> </label>
                 </div>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label col-form-label-sm">Converted Date</label>
+                <label class="col-sm-2 col-form-label col-form-label-sm">Converted On</label>
                 <div class="col-sm-3">
                   <app-date [inputdate]="Record.cont_converted_date" (ValueChanged)="Record.cont_converted_date=$event">
                   </app-date>
@@ -611,7 +611,8 @@
                 </div>
                 <label class="col-sm-1 col-form-label col-form-label-sm">Unit</label>
                 <div class="col-sm-2">
-                  <select class="form-control form-control-sm" name="covrtdunt" [(ngModel)]="Record.cont_converted_unit">
+                  <select class="form-control form-control-sm" name="covrtdunt"
+                    [(ngModel)]="Record.cont_converted_unit">
                     <option [value]="'CHWT'">CHWT</option>
                     <option [value]="'NA'">NA</option>
                     <option [value]="'TEU'">TEU</option>
@@ -639,6 +640,17 @@
               </div>
             </div>
           </div>
+        </div>
+
+        <div *ngIf="Record.cont_cust_id&&mode=='EDIT'">
+          <app-joblist [pkid]="Record.cont_cust_id" [type]="''" (ModifiedRecords)="ModifiedRecords($event)"></app-joblist>
+        </div>
+
+        <div *ngIf="InfoMessage" class="alert alert-success">
+          {{InfoMessage}}
+        </div>
+        <div *ngIf="ErrorMessage" class="alert alert-danger">
+          {{ErrorMessage}}
         </div>
       </ng-template>
     </ngb-tab>
@@ -689,13 +701,4 @@
   </div>
 </ng-template>
 
-
-<!-- <br /> -->
-<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
-<div *ngIf="InfoMessage" class="alert alert-success">
-  {{InfoMessage}}
-</div>
-<div *ngIf="ErrorMessage" class="alert alert-danger">
-  {{ErrorMessage}}
-</div>
 <div>
