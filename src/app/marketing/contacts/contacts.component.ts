@@ -38,7 +38,7 @@ export class ContactsComponent {
   searchSalesperson_id = '';
   searchstring = '';
   searchvalidation = 'NA';
-  searchsortby = 'a.cont_last_visit desc';
+  searchsortby = 'a.cont_name';
   searchdatetype = 'LAST-VISIT-DATE';
   page_count = 0;
   page_current = 0;
@@ -451,6 +451,9 @@ export class ContactsComponent {
     this.Record.cont_cust_id = '';
     this.Record.cont_cust_code = '';
     this.Record.cont_cust_name = '';
+    this.Record.cont_converted_date = '';
+    this.Record.cont_converted_vol = 0;
+    this.Record.cont_converted_unit = 'NA';
 
     this.InitLov();
     if (!this.gs.isBlank(this.clientType)) {
@@ -695,6 +698,10 @@ export class ContactsComponent {
     }
     if (field == 'cont_type2_remarks') {
       this.Record.cont_type2_remarks = this.Record.cont_type2_remarks.toUpperCase();
+    }
+
+    if (field == 'cont_converted_vol') {
+      this.Record.cont_converted_vol = this.gs.roundNumber(this.Record.cont_converted_vol, 3);
     }
   }
 

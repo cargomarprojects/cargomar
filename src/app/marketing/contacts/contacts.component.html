@@ -17,8 +17,8 @@
           <!-- <label class="col-sm-4 col-form-label col-form-label-sm">From</label> -->
           <div class="col-sm-4">
             <select class="form-control form-control-sm" name="vstdt" [(ngModel)]="searchdatetype">
-              <option [value]="'LAST-VISIT-DATE'">Visit Date</option>
               <option [value]="'CREATED-DATE'">Created Date</option>
+              <option [value]="'LAST-VISIT-DATE'">Visit Date</option>
             </select>
           </div>
           <div class="col-sm-8">
@@ -40,9 +40,9 @@
           <div class="col-sm-8">
             <select class="form-control form-control-sm" name="tpecovrtd" [(ngModel)]="searchLeadSource">
               <option [value]="'ALL'">ALL</option>
+              <option [value]="'HO-MARKETING'">HO-MARKETING</option>
               <option [value]="'NA'">NA</option>
               <option [value]="'SELF'">SELF</option>
-              <option [value]="'HO-MARKETING'">HO-MARKETING</option>
             </select>
           </div>
         </div>
@@ -51,12 +51,12 @@
           <div class="col-sm-8">
             <select class="form-control form-control-sm" name="lcovrtd" [(ngModel)]="searchConvrtStatus">
               <option [value]="'ALL'">ALL</option>
+              <option value="ALMOST CUSTOMER">ALMOST CUSTOMER</option>
+              <option value="CONVERTED CUSTOMER">CONVERTED CUSTOMER</option>
+              <option value="FOLLOW-UP CUSTOMER">FOLLOW-UP CUSTOMER</option>
+              <option value="IRRELEVANT CUSTOMER">IRRELEVANT CUSTOMER</option>
               <option value="NA">NA</option>
               <option value="TARGET CUSTOMER">TARGET CUSTOMER</option>
-              <option value="ALMOST CUSTOMER">ALMOST CUSTOMER</option>
-              <option value="FOLLOW-UP CUSTOMER">FOLLOW-UP CUSTOMER</option>
-              <option value="CONVERTED CUSTOMER">CONVERTED CUSTOMER</option>
-              <option value="IRRELEVANT CUSTOMER">IRRELEVANT CUSTOMER</option>
             </select>
           </div>
         </div>
@@ -126,9 +126,9 @@
           <label class="col-sm-1 col-form-label col-form-label-sm">Sort.By</label>
           <div class="col-sm-3">
             <select class="form-control form-control-sm" name="sper" [(ngModel)]="searchsortby">
-              <option [value]="'a.cont_last_visit asc'">VISIT DATE ASC</option>
-              <option [value]="'a.cont_last_visit desc'">VISIT DATE DESC</option>
               <option [value]="'a.cont_name'">NAME</option>
+              <option [value]="'a.cont_last_visit asc'">VISIT DATE</option>
+              <option [value]="'a.cont_last_visit desc'">VISIT DATE DESC</option>
             </select>
           </div>
           <div class="col-sm-3">
@@ -164,7 +164,7 @@
     </div>
   </div>
 
-  <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 340px);">
+  <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 385px);">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
@@ -185,8 +185,8 @@
           <!-- <th>CONV.STATUS</th> -->
           <!-- <th>REMARKS</th> -->
           <th>LOCKED</th>
-          <th>VISIT.TOT</th>
           <th>LAST.VISIT.DT</th>
+          <th>VISIT.TOT</th>
           <!-- <th>INFO</th> -->
           <th>DOCS</th>
           <th>CREATED.BY</th>
@@ -214,8 +214,8 @@
           <!-- <td>{{rec.cont_converted}}</td> -->
           <!-- <td>{{rec.cont_remark}}</td> -->
           <td>{{rec.rec_locked?'Y':'N'}}</td>
-          <td>{{rec.cont_visit_tot==0?'':rec.cont_visit_tot}}</td>
           <td>{{rec.cont_last_visit}}</td>
+          <td>{{rec.cont_visit_tot==0?'':rec.cont_visit_tot}}</td>
           <!-- <td>{{rec.cont_infocount?'Y':''}}</td> -->
           <td style="text-align:center" (click)="ShowDocuments(doc,rec)"> <i class="fa fa-file fa-md pointer"
               [style.color]="rec.cont_doc_attached=='Y'?'red':'chocolate'" aria-hidden="true"></i></td>
@@ -594,6 +594,28 @@
                 <div class="col-sm-4">
                   <input type="checkbox" [(ngModel)]="Record.cont_is_converted" id="_isconverted">
                   <label class="checkbox-inline" for="_isconverted">Converted</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Converted Date</label>
+                <div class="col-sm-3">
+                  <app-date [inputdate]="Record.cont_converted_date" (ValueChanged)="Record.cont_converted_date=$event">
+                  </app-date>
+                </div>
+                <label class="col-sm-1 col-form-label col-form-label-sm">Volume</label>
+                <div class="col-sm-3">
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cont_converted_vol"
+                    (blur)="OnBlur('cont_converted_vol')" required maxlength="15" />
+                </div>
+                <label class="col-sm-1 col-form-label col-form-label-sm">Unit</label>
+                <div class="col-sm-2">
+                  <select class="form-control form-control-sm" name="covrtdunt" [(ngModel)]="Record.cont_converted_unit">
+                    <option [value]="'CHWT'">CHWT</option>
+                    <option [value]="'NA'">NA</option>
+                    <option [value]="'TEU'">TEU</option>
+                  </select>
                 </div>
               </div>
             </div>

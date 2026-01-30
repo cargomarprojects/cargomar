@@ -66,6 +66,10 @@ export class MarkContacts {
     cont_cust_code: string;
     cont_cust_name: string;
     cont_last_visit: string;
+    cont_converted_date: string;
+    cont_converted_vol: number;
+    cont_converted_unit: string;
+
 
     rec_created_by: string;
     rec_created_date: string;
