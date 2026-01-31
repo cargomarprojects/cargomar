@@ -131,6 +131,7 @@ export class Jobm {
   job_si_no: string;
   job_hblnos: string;
   job_cntr: string;
+  job_cntr_teu:number;
   jobs_hbl_id: string;
   lock_record: boolean;
   job_billtype_id: string;

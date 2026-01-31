@@ -171,14 +171,15 @@
           <th>NAME</th>
           <th>ADDRESS</th>
           <th>CONVERTED</th>
+          <th>CONV.DT</th>
           <th>STATE</th>
           <th>COUNTRY</th>
-          <th>TEL</th>
+          <!-- <th>TEL</th> -->
           <th>MOBILE</th>
           <th>EMAIL</th>
           <th>CATEGORY</th>
           <!-- <th>INITIAL.CATEGORY</th> -->
-          <th>CORPORATE</th>
+          <!-- <th>CORPORATE</th> -->
           <th>SALESPERSON</th>
           <th>BRANCH</th>
           <!-- <th>LEAD.SOURCE</th> -->
@@ -190,7 +191,7 @@
           <!-- <th>INFO</th> -->
           <th>DOCS</th>
           <th>CREATED.BY</th>
-          <th>CREATED.DATE</th>
+          <th>CREATED.DT</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
@@ -200,14 +201,15 @@
             {{rec.cont_name}}</td>
           <td>{{rec.cont_add1}}</td>
           <td [style.color]="rec.cont_cust_id!=''?'green':'red'">{{rec.cont_is_converted?'Y':''}}</td>
+          <td>{{rec.cont_converted_date}}</td>
           <td>{{rec.cont_state}}</td>
           <td>{{rec.cont_country}}</td>
-          <td>{{rec.cont_tel}}</td>
+          <!-- <td>{{rec.cont_tel}}</td> -->
           <td>{{rec.cont_mobile}}</td>
           <td>{{rec.cont_email}}</td>
           <td>{{rec.cont_type_name}}</td>
           <!-- <td>{{rec.cont_type_2}}</td> -->
-          <td>{{rec.cont_iscorporat?'Y':'N'}}</td>
+          <!-- <td>{{rec.cont_iscorporat?'Y':'N'}}</td> -->
           <td>{{rec.cont_saleman_name}}</td>
           <td>{{rec.cont_saleman_branch}}</td>
           <!-- <td>{{rec.cont_lead_source}}</td> -->
@@ -246,8 +248,8 @@
 
 
 <div *ngIf="currentTab=='DETAILS' && showDetails" class="page-details">
-  <ngb-tabset>
-    <ngb-tab title="Contact Details">
+  <ngb-tabset [(activeId)]="activeTabId" (tabChange)="onTabChange($event)">
+    <ngb-tab id="contactTab" title="Contact Details">
       <ng-template ngbTabContent>
         <div class="page-box">
           <div class="row">
@@ -493,7 +495,7 @@
               </div>
 
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label col-form-label-sm">Salesman</label>
+                <label class="col-sm-2 col-form-label col-form-label-sm">Salesperson</label>
                 <div class="col-sm-4">
                   <app-autocomplete #SalesmanLov [inputdata]="SALESMANRECORD" (ValueChanged)="LovSelected($event)">
                   </app-autocomplete>
@@ -568,8 +570,8 @@
                 </div>
                 <!-- <div class="col-sm-4">
               <label class="checkbox-inline" for="_is_project">Is Projects Customer</label>
-            <input type="checkbox" [(ngModel)]="Record.cont_is_project" id="_is_project">
-          </div> -->
+              <input type="checkbox" [(ngModel)]="Record.cont_is_project" id="_is_project">
+             </div> -->
                 <div *ngIf="mode=='EDIT' && IsAdmin" class="col-sm-2">
                   <input type="checkbox" [(ngModel)]="Record.rec_locked" id="_locked">
                   <label class="checkbox-inline" for="_locked">Locked</label>
@@ -580,39 +582,46 @@
 
           </div>
         </div>
-        <div class="page-box">
+        <div class="page-box" *ngIf="mode=='EDIT'">
           <div class="row">
             <div class="col-sm-6">
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label col-form-label-sm">Customer</label>
                 <div class="col-sm-6">
-                  <app-autocomplete3 [controlname]="'CUST'" [tabletype]="'CUSTOMER'" [where]="''"
-                    [displaycolumn]="'NAME'" [displaydata]="Record.cont_cust_name" (ValueChanged)="LovSelected($event)">
-                  </app-autocomplete3>
+                  <!-- <app-autocomplete3 [controlname]="'CUST'" [tabletype]="'CUSTOMER'" [where]="''"
+                    [displaycolumn]="'NAME'" [displaydata]="Record.cont_cust_name" [disabled]="gs.globalVariables.user_code != 'ADMIN'" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete3> -->
+                   <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cont_cust_name"
+                     required maxlength="60"
+                    disabled />
                 </div>
                 <!-- <label class="col-sm-2 col-form-label col-form-label-sm"></label> -->
                 <div class="col-sm-4">
-                  <input type="checkbox" [(ngModel)]="Record.cont_is_converted" id="_isconverted">
-                  <label class="checkbox-inline" for="_isconverted">Converted &nbsp;&nbsp;&nbsp;Job#:&nbsp;<span class="text-danger">{{jobno}} </span> </label>
+                  <input type="checkbox" [(ngModel)]="Record.cont_is_converted" id="_isconverted" disabled>
+                  <label class="checkbox-inline" for="_isconverted">Converted &nbsp;&nbsp;&nbsp;<span
+                      *ngIf="Record.cont_converted_jobno">Job#:</span>&nbsp;<span
+                      class="text-danger">{{Record.cont_converted_jobno}} </span> </label>
                 </div>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label col-form-label-sm">Converted On</label>
+                <label class="col-sm-2 col-form-label col-form-label-sm">Converted Dt</label>
                 <div class="col-sm-3">
-                  <app-date [inputdate]="Record.cont_converted_date" (ValueChanged)="Record.cont_converted_date=$event">
+                  <app-date [inputdate]="Record.cont_converted_date" (ValueChanged)="Record.cont_converted_date=$event"
+                    [disabled]="gs.globalVariables.user_code != 'ADMIN'">
                   </app-date>
                 </div>
                 <label class="col-sm-1 col-form-label col-form-label-sm">Volume</label>
                 <div class="col-sm-3">
                   <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cont_converted_vol"
-                    (blur)="OnBlur('cont_converted_vol')" required maxlength="15" />
+                    (blur)="OnBlur('cont_converted_vol')" required maxlength="15"
+                    [disabled]="gs.globalVariables.user_code != 'ADMIN'" />
                 </div>
                 <label class="col-sm-1 col-form-label col-form-label-sm">Unit</label>
                 <div class="col-sm-2">
-                  <select class="form-control form-control-sm" name="covrtdunt"
-                    [(ngModel)]="Record.cont_converted_unit">
+                  <select class="form-control form-control-sm" name="covrtdunt" [(ngModel)]="Record.cont_converted_unit"
+                    [disabled]="gs.globalVariables.user_code != 'ADMIN'">
                     <option [value]="'CHWT'">CHWT</option>
                     <option [value]="'NA'">NA</option>
                     <option [value]="'TEU'">TEU</option>
@@ -642,9 +651,7 @@
           </div>
         </div>
 
-        <div *ngIf="Record.cont_cust_id&&mode=='EDIT'">
-          <app-joblist [pkid]="Record.cont_cust_id" [type]="''" (ModifiedRecords)="ModifiedRecords($event)"></app-joblist>
-        </div>
+
 
         <div *ngIf="InfoMessage" class="alert alert-success">
           {{InfoMessage}}
@@ -654,7 +661,7 @@
         </div>
       </ng-template>
     </ngb-tab>
-    <ngb-tab title="Visit Details" *ngIf="mode=='EDIT'">
+    <ngb-tab id="visitTab" title="Visit Details" *ngIf="mode=='EDIT'">
       <ng-template ngbTabContent>
 
         <div *ngIf="mode=='EDIT' && currentTab=='DETAILS' && iisModalWindow=='N'" class="page-details">
@@ -701,4 +708,7 @@
   </div>
 </ng-template>
 
-<div>
+<div *ngIf="activeTabId === 'contactTab'&&mode=='EDIT'">
+  <app-joblist [pkid]="Record.cont_pkid" [type]="''" [cust_id]="Record.cont_cust_id" [cust_name]="Record.cont_cust_name" [cust_lock]="cust_lock" [cust_type]="Record.cont_type_name"
+    (ModifiedRecords)="ModifiedRecords($event)"></app-joblist>
+</div>

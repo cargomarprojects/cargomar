@@ -60,6 +60,8 @@ export class ContactsComponent {
 
   jobno: string = '';
 
+  cust_lock: boolean = false;
+  activeTabId = 'contactTab';
   ErrorMessage = "";
   InfoMessage = "";
   bDocs: boolean = false;
@@ -256,6 +258,7 @@ export class ContactsComponent {
       this.Record.cont_cust_id = _Record.id;
       this.Record.cont_cust_code = _Record.code;
       this.Record.cont_cust_name = _Record.name;
+      this.Record.cont_is_converted = true;
     }
 
     if (_Record.controlname == "SMAN") {
@@ -397,7 +400,7 @@ export class ContactsComponent {
   }
 
   NewRecord() {
-
+    this.cust_lock = false;
     this.pkid = this.gs.getGuid();
     this.Record = new MarkContacts();
     this.Record.cont_pkid = this.pkid;
@@ -456,6 +459,8 @@ export class ContactsComponent {
     this.Record.cont_converted_date = '';
     this.Record.cont_converted_vol = 0;
     this.Record.cont_converted_unit = 'NA';
+    this.Record.cont_converted_jobid = '';
+    this.Record.cont_converted_jobno = '';
 
     this.InitLov();
     if (!this.gs.isBlank(this.clientType)) {
@@ -510,6 +515,9 @@ export class ContactsComponent {
       this.Record.rec_mode = "ADD";
     }
 
+    this.cust_lock = false;
+    if (this.Record.cont_cust_id && this.gs.globalVariables.user_code != 'ADMIN')
+      this.cust_lock = true;
 
     this.InitLov();
 
@@ -783,17 +791,17 @@ export class ContactsComponent {
   }
 
   ModifiedRecords(params: any) {
-
-    // for (let rec of this.RecordList.filter(rec => rec.cost_pkid == params.sid)) {
-    //   if (params.saction == "SENT-ON")
-    //     rec.cost_sent_on = params.sdate;
-    //   if (params.saction == "CHECKED-ON")
-    //     rec.cost_checked_on = params.sdate;
-    // }
-
-    this.jobno = params.jobno;
+    this.Record.cont_converted_jobno = params.jobno;
     this.Record.cont_converted_date = params.jobdate;
+    this.Record.cont_converted_vol = params.volume;
+    this.Record.cont_converted_unit = params.unit;
+    this.Record.cont_cust_id = params.custid;
+    this.Record.cont_cust_name = params.custname;
+    this.Record.cont_is_converted = true;
+  }
 
+  onTabChange(event: any) {
+    this.activeTabId = event.nextId;
   }
 
 }

@@ -69,7 +69,8 @@ export class MarkContacts {
     cont_converted_date: string;
     cont_converted_vol: number;
     cont_converted_unit: string;
-
+    cont_converted_jobid: string;
+    cont_converted_jobno: string;
 
     rec_created_by: string;
     rec_created_date: string;

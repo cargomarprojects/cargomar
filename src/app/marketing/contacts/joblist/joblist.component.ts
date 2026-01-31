@@ -12,8 +12,12 @@ export class JobListComponent {
 
     title = 'Job Details';
 
-    @Input() public pkid: string = '';
-    @Input() public type: string = '';
+    @Input() public pkid: string = "";
+    @Input() public type: string = "";
+    @Input() cust_id: string = "";
+    @Input() cust_name: string = "";
+    @Input() public cust_type: string = "";
+    @Input() cust_lock: boolean = false;
     @Output() ModifiedRecords = new EventEmitter<any>();
 
     InitCompleted: boolean = false;
@@ -53,7 +57,10 @@ export class JobListComponent {
 
     }
     LovSelected(_Record: SearchTable) {
-
+        if (_Record.controlname == "CUST") {
+            this.cust_id = _Record.id;
+            this.cust_name = _Record.name;
+        }
     }
     // Destroy Will be called when this component is closed
     ngOnDestroy() {
@@ -79,7 +86,7 @@ export class JobListComponent {
         let SearchData = {
             type: _type,
             rowtype: this.type,
-            cust_id: this.pkid,
+            cust_id: this.cust_id,
             company_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
             year_code: this.gs.globalVariables.year_code,
@@ -105,9 +112,51 @@ export class JobListComponent {
 
     ShowFirstJob(_rec: Jobm) {
 
-        confirm("First Job (" + _rec.job_docno + ")?")
+        if (!confirm("First Job (" + _rec.job_docno + ")?")) {
+            return;
+        }
 
-        if (this.ModifiedRecords != null)
-            this.ModifiedRecords.emit({ saction: 'SAVE', jobid: _rec.job_pkid, jobno: _rec.job_docno, jobdate: _rec.job_date });
+        let _vol: number = 0;
+        let _volunit: string = 'NA';
+        if (_rec.rec_category == "SEA EXPORT" || _rec.rec_category == "SEA IMPORT") {
+            _vol = _rec.job_cntr_teu;
+            _volunit = 'TEU';
+        } else if (_rec.rec_category == "AIR EXPORT" || _rec.rec_category == "AIR IMPORT") {
+            _vol = _rec.job_chwt;
+            _volunit = 'CHWT';
+        }
+
+
+        this.loading = true;
+        let SearchData = {
+            cont_pkid: this.pkid,
+            job_pkid: _rec.job_pkid,
+            job_docno: _rec.job_docno,
+            job_date: _rec.job_date,
+            volume: _vol,
+            unit: _volunit,
+            category: _rec.rec_category,
+            cust_id: this.cust_id,
+            company_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code,
+            year_code: this.gs.globalVariables.year_code,
+            user_code: this.gs.globalVariables.user_code
+        };
+
+        this.mainService.UpdateJobDetail(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                if (response.retmsg)
+                    alert(response.retmsg);
+                if (response.retvalue) {
+                    if (this.ModifiedRecords != null)
+                        this.ModifiedRecords.emit({ saction: 'SAVE', jobid: _rec.job_pkid, jobno: _rec.job_docno, jobdate: _rec.job_date, volume: _vol, unit: _volunit, custid: this.cust_id, custname: this.cust_name });
+                }
+
+            },
+                error => {
+                    this.loading = false;
+                    alert(this.gs.getError(error));
+                });
     }
 }
