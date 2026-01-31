@@ -512,6 +512,8 @@ export class ContactsComponent {
     this.Record.rec_mode = "EDIT";
     if (this.mode == "ADD") {
       this.Record.cont_pkid = this.pkid;
+      this.Record.cont_cust_id = '';
+      this.Record.cont_cust_name = '';
       this.Record.rec_mode = "ADD";
     }
 
