@@ -514,6 +514,12 @@ export class ContactsComponent {
       this.Record.cont_pkid = this.pkid;
       this.Record.cont_cust_id = '';
       this.Record.cont_cust_name = '';
+      this.Record.cont_is_converted = false;
+      this.Record.cont_converted_date = '';
+      this.Record.cont_converted_unit = '';
+      this.Record.cont_converted_jobid = '';
+      this.Record.cont_converted_jobno = '';
+      this.Record.cont_converted_vol = 0;
       this.Record.rec_mode = "ADD";
     }
 
