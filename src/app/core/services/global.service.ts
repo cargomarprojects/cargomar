@@ -278,7 +278,8 @@ export class GlobalService {
         this.globalVariables.user_code = user.usercode;
         this.globalVariables.user_name = user.userName;
         this.globalVariables.user_short_name = user.usershortname;
-        this.globalVariables.user_password = _password;
+        // this.globalVariables.user_password = _password;
+        this.globalVariables.user_password = user.userpwd;
         this.globalVariables.user_email = user.useremail;
         this.globalVariables.user_company_id = user.usercompanyid;
         this.globalVariables.user_company_code = user.usercompanycode;
