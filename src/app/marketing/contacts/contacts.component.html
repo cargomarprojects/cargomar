@@ -344,56 +344,56 @@
 
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label col-form-label-sm">Mode</label>
-                <div class="col-sm-4 pr-0">
+                <div class="col-sm-4 pr-0" [ngClass]="{ 'input-group': iisModalWindow === 'Y' }">
                   <input type="checkbox" [(ngModel)]="Record.cont_is_seclr" id="_seclr">
                   <label class="col-form-label col-form-label-sm" for="_seclr">Sea Export CLR</label>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-3" [ngClass]="{ 'input-group': iisModalWindow === 'Y' }">
                   <input type="checkbox" [(ngModel)]="Record.cont_is_sefwd" id="_sefwd">
                   <label class="col-form-label col-form-label-sm" for="_sefwd">Sea Export FWD</label>
                 </div>
-                <div class="col-sm-3 pr-0">
+                <div class="col-sm-3 pr-0" [ngClass]="{ 'input-group': iisModalWindow === 'Y' }">
                   <input type="checkbox" [(ngModel)]="Record.cont_is_pj" id="_pj">
                   <label class="col-form-label col-form-label-sm" for="_pj">Projects</label>
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label col-form-label-sm"></label>
-                <div class="col-sm-4 pr-0">
+                <div class="col-sm-4 " [ngClass]="{ 'input-group': iisModalWindow === 'Y' }">
                   <input type="checkbox" [(ngModel)]="Record.cont_is_siclr" id="_siclr">
                   <label class="col-form-label col-form-label-sm" for="_siclr">Sea Import CLR</label>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-3 " [ngClass]="{ 'input-group': iisModalWindow === 'Y' }">
                   <input type="checkbox" [(ngModel)]="Record.cont_is_sifwd" id="_sifwd">
                   <label class="col-form-label col-form-label-sm" for="_sifwd">Sea Import FWD</label>
                 </div>
-                <div class="col-sm-3 pr-0">
+                <div class="col-sm-3 pr-0" [ngClass]="{ 'input-group': iisModalWindow === 'Y' }">
                   <input type="checkbox" [(ngModel)]="Record.cont_is_wh" id="_wh">
                   <label class="col-form-label col-form-label-sm" for="_wh">Warehouse</label>
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label col-form-label-sm"></label>
-                <div class="col-sm-4 pr-0">
+                <div class="col-sm-4 pr-0" [ngClass]="{ 'input-group': iisModalWindow === 'Y' }">
                   <input type="checkbox" [(ngModel)]="Record.cont_is_aeclr" id="_aeclr">
                   <label class="col-form-label col-form-label-sm" for="_aeclr">Air Export CLR</label>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-3" [ngClass]="{ 'input-group': iisModalWindow === 'Y' }">
                   <input type="checkbox" [(ngModel)]="Record.cont_is_aefwd" id="_aefwd">
                   <label class="col-form-label col-form-label-sm" for="_aefwd">Air Export FWD</label>
                 </div>
-                <div class="col-sm-3 pr-0">
+                <div class="col-sm-3 pr-0" [ngClass]="{ 'input-group': iisModalWindow === 'Y' }">
                   <input type="checkbox" [(ngModel)]="Record.cont_is_tp" id="_tp">
                   <label class="col-form-label col-form-label-sm" for="_tp">Transport</label>
                 </div>
               </div>
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label col-form-label-sm"></label>
-                <div class="col-sm-4 pr-0">
+                <div class="col-sm-4 pr-0" [ngClass]="{ 'input-group': iisModalWindow === 'Y' }">
                   <input type="checkbox" [(ngModel)]="Record.cont_is_aiclr" id="_aiclr">
                   <label class="col-form-label col-form-label-sm" for="_aiclr">Air Import CLR</label>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-3" [ngClass]="{ 'input-group': iisModalWindow === 'Y' }">
                   <input type="checkbox" [(ngModel)]="Record.cont_is_aifwd" id="_aifwd">
                   <label class="col-form-label col-form-label-sm" for="_aifwd">Air Import FWD</label>
                 </div>
@@ -564,17 +564,17 @@
               </div>
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label col-form-label-sm"></label>
-                <div class="col-sm-6">
+                <div class="col-sm-6 " [ngClass]="{ 'input-group': iisModalWindow === 'Y' }">
                   <input type="checkbox" [(ngModel)]="Record.cont_iscorporat" id="_iscorporat">
-                  <label class="checkbox-inline" for="_iscorporat">Corporate Customer</label>
+                  <label class="col-form-label col-form-label-sm" for="_iscorporat">Corporate Customer</label>
                 </div>
                 <!-- <div class="col-sm-4">
               <label class="checkbox-inline" for="_is_project">Is Projects Customer</label>
               <input type="checkbox" [(ngModel)]="Record.cont_is_project" id="_is_project">
              </div> -->
-                <div *ngIf="mode=='EDIT' && IsAdmin" class="col-sm-2">
+                <div *ngIf="mode=='EDIT' && IsAdmin" class="col-sm-4" [ngClass]="{ 'input-group': iisModalWindow === 'Y' }">
                   <input type="checkbox" [(ngModel)]="Record.rec_locked" id="_locked">
-                  <label class="checkbox-inline" for="_locked">Locked</label>
+                  <label class="col-form-label col-form-label-sm" for="_locked">Locked</label>
                 </div>
               </div>
 
@@ -582,7 +582,7 @@
 
           </div>
         </div>
-        <div class="page-box" *ngIf="mode=='EDIT'">
+        <div class="page-box" *ngIf="mode=='EDIT'&&iisModalWindow=='N'">
           <div class="row">
             <div class="col-sm-6">
               <div class="form-group row">
@@ -591,9 +591,8 @@
                   <!-- <app-autocomplete3 [controlname]="'CUST'" [tabletype]="'CUSTOMER'" [where]="''"
                     [displaycolumn]="'NAME'" [displaydata]="Record.cont_cust_name" [disabled]="gs.globalVariables.user_code != 'ADMIN'" (ValueChanged)="LovSelected($event)">
                   </app-autocomplete3> -->
-                   <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cont_cust_name"
-                     required maxlength="60"
-                    disabled />
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cont_cust_name" required
+                    maxlength="60" disabled />
                 </div>
                 <!-- <label class="col-sm-2 col-form-label col-form-label-sm"></label> -->
                 <div class="col-sm-4">
@@ -661,7 +660,7 @@
         </div>
       </ng-template>
     </ngb-tab>
-    <ngb-tab id="visitTab" title="Visit Details" *ngIf="mode=='EDIT'">
+    <ngb-tab id="visitTab" title="Visit Details" *ngIf="mode=='EDIT'&&iisModalWindow=='N'">
       <ng-template ngbTabContent>
 
         <div *ngIf="mode=='EDIT' && currentTab=='DETAILS' && iisModalWindow=='N'" class="page-details">
@@ -708,7 +707,8 @@
   </div>
 </ng-template>
 
-<div *ngIf="activeTabId === 'contactTab'&&mode=='EDIT'">
-  <app-joblist [pkid]="Record.cont_pkid" [type]="''" [cust_id]="Record.cont_cust_id" [cust_name]="Record.cont_cust_name" [cust_lock]="cust_lock" [cust_type]="Record.cont_type_name"
+<div *ngIf="activeTabId === 'contactTab'&&mode=='EDIT'&&iisModalWindow=='N'">
+  <app-joblist [pkid]="Record.cont_pkid" [type]="''" [cust_id]="Record.cont_cust_id" [cust_name]="Record.cont_cust_name"
+    [cust_lock]="cust_lock" [cust_type]="Record.cont_type_name"
     (ModifiedRecords)="ModifiedRecords($event)"></app-joblist>
 </div>
