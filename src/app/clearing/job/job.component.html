@@ -133,6 +133,8 @@
             <th>REMARK</th>
             <th *ngIf="type=='SEA EXPORT'">CONTAINER</th>
             <th *ngIf="type=='SEA EXPORT'">VESSEL</th>
+            <th>CREATED.BY</th>
+            <th>CREATED.DT</th>
           </tr>
         </thead>
         <tbody class="page-body-tbody">
@@ -148,7 +150,7 @@
             <td>{{rec.job_pol_name}}</td>
             <td>{{rec.job_pod_name}}</td>
             <td>{{rec.job_agent_name}}</td>
-              <td *ngIf="type=='SEA EXPORT'">{{rec.job_cntr_transporter}}</td>
+            <td *ngIf="type=='SEA EXPORT'">{{rec.job_cntr_transporter}}</td>
             <td>{{rec.job_commodity_name}}</td>
             <td>{{rec.job_type}}</td>
             <td>{{rec.job_nomination}}</td>
@@ -172,6 +174,8 @@
             <td>{{rec.job_remarks}}</td>
             <td *ngIf="type=='SEA EXPORT'">{{rec.job_cntr}}</td>
             <td *ngIf="type=='SEA EXPORT'">{{rec.job_feeder_vessel}}</td>
+            <td>{{rec.rec_created_by}}</td>
+            <td>{{rec.rec_created_date}}</td>
           </tr>
         </tbody>
       </table>
@@ -1310,8 +1314,9 @@
 
 
 <app-crlimit [visible]="showalert" [msg]="ErrorMessage" [RecordList]="CrList" [type]="Mail_type"
-  [parentid]="unlockparentid" [customername]="unlockcustomername" [consigneeid]="Record.job_imp_id" (hidealert)="showalert=$event">
+  [parentid]="unlockparentid" [customername]="unlockcustomername" [consigneeid]="Record.job_imp_id"
+  (hidealert)="showalert=$event">
 </app-crlimit>
 
-<app-warningalert #WarnMsg ></app-warningalert>
-<app-warningalert2 #WarnMsg2 ></app-warningalert2>
+<app-warningalert #WarnMsg></app-warningalert>
+<app-warningalert2 #WarnMsg2></app-warningalert2>
