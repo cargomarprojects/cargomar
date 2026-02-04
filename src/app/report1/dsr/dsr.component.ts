@@ -486,8 +486,8 @@ export class DsrComponent {
         { "rd_ctr": 36, "rd_code": "GST-AMOUNT", "rd_caption": "GST-AMOUNT", "rd_field": "hbl_ar_gstamt" },
         { "rd_ctr": 37, "rd_code": "CHA", "rd_caption": "CHA", "rd_field": "cha_name" },
         { "rd_ctr": 38, "rd_code": "JOB-STATUS", "rd_caption": "JOB-STATUS", "rd_field": "job_status" },
-        { "rd_ctr": 39, "rd_code": "CREATED-DATE", "rd_caption": "CREATED DATE", "rd_field": "rec_created_date" }
-
+        { "rd_ctr": 39, "rd_code": "CREATED-DATE", "rd_caption": "CREATED DATE", "rd_field": "rec_created_date" },
+        { "rd_ctr": 40, "rd_code": "CONTAINER", "rd_caption": "CONTAINER", "rd_field": "hbl_book_cntr" }
       ];
     }
 
