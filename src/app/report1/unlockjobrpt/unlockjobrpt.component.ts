@@ -31,6 +31,7 @@ export class UnlockJobrptComponent {
     bEmail = false;
     bApprove = false;
     bPending: boolean = true;
+    bshowDeleted: boolean = false;
 
     modal: any;
     selectedRowIndex = 0;
@@ -278,6 +279,7 @@ export class UnlockJobrptComponent {
             billto_id: this.billto_id,
             billto_name: this.billto_name,
             bpending: this.bPending,
+            bshowDeleted:this.bshowDeleted,
             auto_mail: "N"
         };
 
