@@ -26,7 +26,7 @@ export class JobUnlock {
     ul_user_remarks: string;
     ul_bal_amt: number;
     ul_overdue_amt: number;
-    ul_lock_type:string;
+    ul_lock_type: string;
     ul_consignee_id: string;
     ul_consignee_name: string;
 
@@ -36,6 +36,8 @@ export class JobUnlock {
     rec_branch_code: string;
     rec_created_by: string;
     rec_created_date: string;
+    rec_deleted_by: string;
+    rec_deleted_date: string;
 
     _globalvariables: GlobalVariables;
 }

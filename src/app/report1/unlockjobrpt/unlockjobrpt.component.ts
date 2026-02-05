@@ -32,6 +32,7 @@ export class UnlockJobrptComponent {
     bApprove = false;
     bPending: boolean = true;
     bshowDeleted: boolean = false;
+    listShowDeleted: boolean = false;
 
     modal: any;
     selectedRowIndex = 0;
@@ -249,7 +250,7 @@ export class UnlockJobrptComponent {
                 return;
             }
         }
-
+        this.listShowDeleted = this.bshowDeleted;
         this.InfoMessage = "";
         this.ErrorMessage = '';
         this.pkid = this.gs.getGuid();
@@ -279,7 +280,7 @@ export class UnlockJobrptComponent {
             billto_id: this.billto_id,
             billto_name: this.billto_name,
             bpending: this.bPending,
-            bshowDeleted:this.bshowDeleted,
+            bshowDeleted: this.bshowDeleted,
             auto_mail: "N"
         };
 
