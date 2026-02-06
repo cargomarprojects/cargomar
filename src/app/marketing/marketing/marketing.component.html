@@ -1,615 +1,576 @@
 <div class="page-header">
-    <div class="col-sm-12">
-        <label>{{title}}</label>
-        <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
-        <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
-        <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
-        <i *ngIf="loading" class="fa fa-spinner"></i>
-    </div>
+  <div class="col-sm-12">
+    <label>{{title}}</label>
+    <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
+    <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
 </div>
 <div *ngIf="currentTab=='LIST'" class="page-list">
-    <div class="page-search">
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="form-group row">
-                    <div class="col-sm-3">
-                        <select class="form-control form-control-sm" name="vstdt" [(ngModel)]="search_datetype">
-                            <option [value]="'VISIT-DATE'">Visit Date</option>
-                            <option [value]="'ENTRY-DATE'">Entry Date</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-4">
-                        <app-date [inputdate]="gs.globalData.mark_fromdate"
-                            (ValueChanged)="gs.globalData.mark_fromdate=$event">
-                        </app-date>
-                    </div>
-                    <label class="col-sm-1 col-form-label col-form-label-sm pr-0">To</label>
-                    <div class="col-sm-4">
-                        <app-date [inputdate]="gs.globalData.mark_todate"
-                            (ValueChanged)="gs.globalData.mark_todate=$event">
-                        </app-date>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label col-form-label-sm pr-0">Branch</label>
-                    <div class="col-sm-9">
-                        <app-autocomplete3 [controlname]="'BR'" [tabletype]="'BRANCH'" [displaycolumn]="'CODE'"
-                            [displaydata]="search_branch_code" (ValueChanged)="LovSelected($event)">
-                        </app-autocomplete3>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label col-form-label-sm">Customer</label>
-                    <div class="col-sm-9">
-                        <app-autocomplete3 [controlname]="'CONTACT'" [tabletype]="'MARKETING CONTACT'"
-                            [displaycolumn]="'NAME'" [displaydata]="search_cust_name"
-                            (ValueChanged)="LovSelected($event)">
-                        </app-autocomplete3>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label col-form-label-sm">Salesperson</label>
-                    <div class="col-sm-9">
-                        <app-autocomplete3 [controlname]="'USER'" [tabletype]="'USER'" [displaycolumn]="'NAME'"
-                            [displaydata]="search_user_name" [where]="'user_sman_id is not null'"
-                            (ValueChanged)="LovSelected($event)">
-                        </app-autocomplete3>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label col-form-label-sm">Joint Visit</label>
-                    <div class="col-sm-9">
-                        <app-autocomplete3 [controlname]="'SMAN'" [tabletype]="'SALESMAN'" [displaycolumn]="'NAME'"
-                            [displaydata]="search_salesman_name" (ValueChanged)="LovSelected($event)">
-                        </app-autocomplete3>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label col-form-label-sm">Commodity</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="col form-control form-control-sm"
-                            name="Search" [(ngModel)]="search_commodity" (blur)="OnBlur('search_commodity')" />
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label col-form-label-sm">Lead.Source</label>
-                    <div class="col-sm-9">
-                        <select class="form-control form-control-sm" name="tpecovrtd" [(ngModel)]="search_leadsource">
-                            <option [value]="'ALL'">ALL</option>
-                            <option [value]="'NA'">NA</option>
-                            <option [value]="'SELF'">SELF</option>
-                            <option [value]="'HO-MARKETING'">HO-MARKETING</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label col-form-label-sm">Init.Cust.Category</label>
-                    <div class="col-sm-4">
-                        <select class="form-control form-control-sm" name="lcovrtd" [(ngModel)]="search_convrtstatus">
-                            <option [value]="'ALL'">ALL</option>
-                            <option value="NA">NA</option>
-                            <option value="TARGET CUSTOMER">TARGET CUSTOMER</option>
-                            <option value="ALMOST CUSTOMER">ALMOST CUSTOMER</option>
-                            <option value="FOLLOW-UP CUSTOMER">FOLLOW-UP CUSTOMER</option>
-                            <option value="CONVERTED CUSTOMER">CONVERTED CUSTOMER</option>
-                            <option value="IRRELEVANT CUSTOMER">IRRELEVANT CUSTOMER</option>
-                        </select>
-                    </div>
-                    <label class="col-sm-1 col-form-label col-form-label-sm">Mode</label>
-                    <div class="col-sm-4">
-                        <select class="form-control form-control-sm" name="modertd" [(ngModel)]="mark_mode">
-                            <option [value]="'ALL'">ALL</option>
-                            <option value="PERSONAL VISIT">PERSONAL VISIT</option>
-                            <option value="TELE MARKETING">TELE MARKETING</option>
-                            <option value="EMAIL MARKETING">EMAIL MARKETING</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-3 col-form-label col-form-label-sm"></label>
-                    <div class="col-sm-2">
-                        <button [disabled]="loading" (click)="List('NEW')"
-                            class="btn btn-primary btn-sm">Search</button>
-                    </div>
-                    <div class="col-sm-7 input-group input-group-sm">
-                        <select *ngIf="bPrint" class="form-control form-control-sm mr-1" [(ngModel)]="print_format">
-                            <option value="DETAIL">GENERAL</option>
-                            <option value="SUMMARY">SUMMARY</option>
-                        </select>
-                        <button *ngIf="bPrint" [disabled]="loading" (click)="List('EXCEL')"
-                            class="btn btn-primary btn-sm mr-1">Print</button>
-                        <div class="mt-1" *ngIf="IsAdmin||gs.globalVariables.user_code == 'ADMIN'">
-                            <input type="checkbox" [(ngModel)]="IsHeader"> Header
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- <div class="col-sm-12">
-                <div class="form-group row">
-                    <div class="col-sm-1">
-                        <select class="form-control form-control-sm" name="vstdt" [(ngModel)]="search_datetype">
-                            <option [value]="'VISIT-DATE'">Visit Date</option>
-                            <option [value]="'ENTRY-DATE'">Entry Date</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-1">
-                        <app-date [inputdate]="gs.globalData.mark_fromdate"
-                            (ValueChanged)="gs.globalData.mark_fromdate=$event">
-                        </app-date>
-                    </div>
-                    <label class="col-sm-1 col-form-label col-form-label-sm">To</label>
-                    <div class="col-sm-1">
-                        <app-date [inputdate]="gs.globalData.mark_todate"
-                            (ValueChanged)="gs.globalData.mark_todate=$event">
-                        </app-date>
-                    </div>
-                    <div class="col-sm-2">
-                        <select class="form-control form-control-sm" [(ngModel)]="searchby">
-                            <option [value]="'NA'">NA</option>
-                            <option [value]="'BRANCH'">BRANCH</option>
-                            <option [value]="'COMMODITY'">COMMODITY </option>
-                            <option [value]="'CUSTOMER'">CUSTOMER</option>
-                            <option [value]="'INITIAL-CUSTOMER-CATEGORY'">INITIAL CUSTOMER CATEGORY</option>
-                            <option [value]="'JOIN-VISIT-WITH'">JOINT VISIT WITH</option>
-                            <option [value]="'LEAD-SOURCE'">LEAD SOURCE </option>
-                            <option [value]="'SALES-PERSON'">SALES PERSON </option>
-                        </select>
-                    </div>
-                    <div class="col-sm-2">
-                        <input type="text" [disabled]="searchby=='NA'" class="col form-control form-control-sm"
-                            name="Search" [(ngModel)]="searchstring" (blur)="OnBlur('searchstring')" />
-                    </div>
-                    <div class="col-sm-1">
-                        <button [disabled]="loading" (click)="List('NEW')"
-                            class="btn btn-primary btn-sm">Search</button>
-                    </div>
-                    <div class="col-sm-3 input-group input-group-sm">
-                        <select *ngIf="bPrint" class="form-control form-control-sm mr-1" [(ngModel)]="print_format">
-                            <option value="DETAIL">GENERAL</option>
-                            <option value="SUMMARY">SUMMARY</option>
-                        </select>
-                        <button *ngIf="bPrint" [disabled]="loading" (click)="List('EXCEL')"
-                            class="btn btn-primary btn-sm mr-1">Print</button>
-                        <div class="mt-1" *ngIf="IsAdmin||gs.globalVariables.user_code == 'ADMIN'">
-                            <input type="checkbox" [(ngModel)]="IsHeader"> Header
-                        </div>
-                    </div>
-                </div>
-            </div> -->
+  <div class="page-search">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <div class="col-sm-3">
+            <select class="form-control form-control-sm" name="vstdt" [(ngModel)]="search_datetype">
+              <option [value]="'VISIT-DATE'">Visit Date</option>
+              <option [value]="'ENTRY-DATE'">Entry Date</option>
+            </select>
+          </div>
+          <div class="col-sm-4">
+            <app-date [inputdate]="gs.globalData.mark_fromdate" (ValueChanged)="gs.globalData.mark_fromdate=$event">
+            </app-date>
+          </div>
+          <label class="col-sm-1 col-form-label col-form-label-sm pr-0">To</label>
+          <div class="col-sm-4">
+            <app-date [inputdate]="gs.globalData.mark_todate" (ValueChanged)="gs.globalData.mark_todate=$event">
+            </app-date>
+          </div>
         </div>
-
-
-    </div>
-
-    <div class="page-pager">
-        <div *ngIf="page_count">
-            <ul class="pagination pagination-sm mb-1">
-                <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
-                        (Records-{{page_rowcount}})</a>
-                </li>
-                <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
-                            class="fa fa-backward"></span></a></li>
-                <li class="page-item"><a class="page-link" (click)="List('PREV')"><span
-                            class="fa fa-arrow-left"></span></a>
-                </li>
-                <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span
-                            class="fa fa-arrow-right"></span></a>
-                </li>
-                <li class="page-item"><a class="page-link" (click)="List('LAST')"><span
-                            class="fa fa-forward"></span></a></li>
-            </ul>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label col-form-label-sm pr-0">Branch</label>
+          <div class="col-sm-9">
+            <app-autocomplete3 [controlname]="'BR'" [tabletype]="'BRANCH'" [displaycolumn]="'CODE'"
+              [displaydata]="search_branch_code" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
+          </div>
         </div>
-    </div>
-
-    <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 5px);">
-        <table class="table table-hover table-sm table-bordered table-striped">
-            <thead class="page-body-thead">
-                <tr>
-                    <th>SL#</th>
-                    <th>VISIT DATE</th>
-                    <th>SALES PERSON</th>
-                    <th>BRANCH</th>
-                    <th>JOINT VISIT WITH</th>
-                    <th *ngIf="type=='VISIT'">NEXT VISIT DATE</th>
-                    <th>MODE</th>
-                    <th>CUSTOMER</th>
-                    <th>CUST-REMARKS</th>
-                    <th>LEAD SOURCE</th>
-                    <th>INIT.CUST.CATEGORY</th>
-                    <!-- <th>CONV.STATUS</th> -->
-                    <th>CONTACT PERSON</th>
-                    <!-- <th>MOBILE</th>
-                    <th>EMAIL</th>
-                    <th>TARGET MARKET</th> -->
-                    <th *ngIf="type=='VISIT'">COMMODITY</th>
-                    <th *ngIf="type=='VISIT'">NEXT ACTION</th>
-                    <th *ngIf="type=='VISIT'">FOLLOW.UP</th>
-                    <th *ngIf="type=='VISIT'">CUST.INFO</th>
-                    <th>DOCS</th>
-                    <th>CREATED DATE</th>
-                </tr>
-            </thead>
-            <tbody class="page-body-tbody">
-                <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
-                    (mousedown)="selectedRowIndex=i">
-                    <td class="hlink" (click)="ActionHandler('EDIT',rec.mark_pkid)">{{rec.mark_id}}</td>
-                    <td>{{rec.mark_visit_date}}</td>
-                    <td>{{rec.mark_user_name}}</td>
-                    <td>{{rec.branch_name}}</td>
-                    <td>{{rec.mark_jointsalesman_name}}</td>
-                    <td *ngIf="type=='VISIT'">{{rec.mark_next_visit_date}}</td>
-                    <td>{{rec.mark_mode}}</td>
-                    <td>{{rec.mark_customer_name}}</td>
-                    <td>{{rec.mark_cont_remarks}}</td>
-                    <td>{{rec.mark_lead_source}}</td>
-                    <td>{{rec.mark_cont_type_2}}</td>
-                    <!-- <td>{{rec.mark_cont_converted}}</td> -->
-                    <td>{{rec.mark_contact_person}}</td>
-                    <!-- <td>{{rec.mobile}}</td>
-                    <td>{{rec.email}}</td>
-                    <td>{{rec.target}}</td> -->
-                    <td *ngIf="type=='VISIT'">{{rec.mark_commodity}}</td>
-                    <td *ngIf="type=='VISIT'">{{rec.mark_next_action}}</td>
-                    <td *ngIf="type=='VISIT'" [style.color]="rec.mark_followupstatus">{{rec.mark_followupcount}}</td>
-                    <td *ngIf="type=='VISIT'">{{rec.mark_cust_infocount?'Y':''}}</td>
-                    <td style="text-align:center" (click)="ShowDocuments(doc,rec)"> <i class="fa fa-file fa-md pointer"
-                            [style.color]="rec.mark_doc_attached=='Y'?'red':'chocolate'" aria-hidden="true"></i></td>
-                    <td>{{rec.rec_created_date}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="page-pager">
-        <div *ngIf="page_count">
-            <ul class="pagination pagination-sm mb-1">
-                <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
-                        (Records-{{page_rowcount}})</a>
-                </li>
-                <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
-                            class="fa fa-backward"></span></a></li>
-                <li class="page-item"><a class="page-link" (click)="List('PREV')"><span
-                            class="fa fa-arrow-left"></span></a>
-                </li>
-                <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span
-                            class="fa fa-arrow-right"></span></a>
-                </li>
-                <li class="page-item"><a class="page-link" (click)="List('LAST')"><span
-                            class="fa fa-forward"></span></a></li>
-            </ul>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label col-form-label-sm">Customer</label>
+          <div class="col-sm-9">
+            <app-autocomplete3 [controlname]="'CONTACT'" [tabletype]="'MARKETING CONTACT'" [displaycolumn]="'NAME'"
+              [displaydata]="search_cust_name" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
+          </div>
         </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label col-form-label-sm">Salesperson</label>
+          <div class="col-sm-9">
+            <app-autocomplete3 [controlname]="'USER'" [tabletype]="'USER'" [displaycolumn]="'NAME'"
+              [displaydata]="search_user_name" [where]="'user_sman_id is not null'"
+              (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label col-form-label-sm">Joint Visit</label>
+          <div class="col-sm-9">
+            <app-autocomplete3 [controlname]="'SMAN'" [tabletype]="'SALESMAN'" [displaycolumn]="'NAME'"
+              [displaydata]="search_salesman_name" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label col-form-label-sm">Commodity</label>
+          <div class="col-sm-9">
+            <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="search_commodity"
+              (blur)="OnBlur('search_commodity')" />
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label col-form-label-sm">Lead.Source</label>
+          <div class="col-sm-9">
+            <select class="form-control form-control-sm" name="tpecovrtd" [(ngModel)]="search_leadsource">
+              <option [value]="'ALL'">ALL</option>
+              <option [value]="'NA'">NA</option>
+              <option [value]="'SELF'">SELF</option>
+              <option [value]="'HO-MARKETING'">HO-MARKETING</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label col-form-label-sm">Init.Cust.Category</label>
+          <div class="col-sm-4">
+            <select class="form-control form-control-sm" name="lcovrtd" [(ngModel)]="search_convrtstatus">
+              <option [value]="'ALL'">ALL</option>
+              <option value="NA">NA</option>
+              <option value="TARGET CUSTOMER">TARGET CUSTOMER</option>
+              <option value="ALMOST CUSTOMER">ALMOST CUSTOMER</option>
+              <option value="FOLLOW-UP CUSTOMER">FOLLOW-UP CUSTOMER</option>
+              <option value="CONVERTED CUSTOMER">CONVERTED CUSTOMER</option>
+              <option value="IRRELEVANT CUSTOMER">IRRELEVANT CUSTOMER</option>
+            </select>
+          </div>
+          <label class="col-sm-1 col-form-label col-form-label-sm">Mode</label>
+          <div class="col-sm-4">
+            <select class="form-control form-control-sm" name="modertd" [(ngModel)]="mark_mode">
+              <option [value]="'ALL'">ALL</option>
+              <option value="PERSONAL VISIT">PERSONAL VISIT</option>
+              <option value="TELE MARKETING">TELE MARKETING</option>
+              <option value="EMAIL MARKETING">EMAIL MARKETING</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label col-form-label-sm"></label>
+          <div class="col-sm-2">
+            <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+          </div>
+          <div class="col-sm-7 input-group input-group-sm">
+            <select *ngIf="bPrint" class="form-control form-control-sm mr-1" [(ngModel)]="print_format">
+              <option value="DETAIL">GENERAL</option>
+              <option value="SUMMARY">SUMMARY</option>
+            </select>
+            <button *ngIf="bPrint" [disabled]="loading" (click)="List('EXCEL')"
+              class="btn btn-primary btn-sm mr-1">Print</button>
+            <div class="mt-1" *ngIf="IsAdmin||gs.globalVariables.user_code == 'ADMIN'">
+              <input type="checkbox" [(ngModel)]="IsHeader"> Header
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm mb-1">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+            (Records-{{page_rowcount}})</a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 5px);">
+    <table class="table table-hover table-sm table-bordered table-striped">
+      <thead class="page-body-thead">
+        <tr>
+          <th>SL#</th>
+          <th>VISIT DATE</th>
+          <th>SALES PERSON</th>
+          <th>BRANCH</th>
+          <th>JOINT VISIT WITH</th>
+          <th *ngIf="type=='VISIT'">NEXT VISIT DATE</th>
+          <th>MODE</th>
+          <th>CUSTOMER</th>
+          <th>CUST-REMARKS</th>
+          <th>LEAD SOURCE</th>
+          <th>INIT.CUST.CATEGORY</th>
+          <th>CONTACT PERSON</th>
+          <th *ngIf="type=='VISIT'">COMMODITY</th>
+          <th *ngIf="type=='VISIT'">NEXT ACTION</th>
+          <th *ngIf="type=='VISIT'">FOLLOW.UP</th>
+          <th *ngIf="type=='VISIT'">CUST.INFO</th>
+          <th>DOCS</th>
+          <th>CREATED DATE</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+          (mousedown)="selectedRowIndex=i">
+          <td class="hlink" (click)="ActionHandler('EDIT',rec.mark_pkid)">{{rec.mark_id}}</td>
+          <td>{{rec.mark_visit_date}}</td>
+          <td>{{rec.mark_user_name}}</td>
+          <td>{{rec.branch_name}}</td>
+          <td>{{rec.mark_jointsalesman_name}}</td>
+          <td *ngIf="type=='VISIT'">{{rec.mark_next_visit_date}}</td>
+          <td>{{rec.mark_mode}}</td>
+          <td>{{rec.mark_customer_name}}</td>
+          <td>{{rec.mark_cont_remarks}}</td>
+          <td>{{rec.mark_lead_source}}</td>
+          <td>{{rec.mark_cont_type_2}}</td>
+          <td>{{rec.mark_contact_person}}</td>
+          <td *ngIf="type=='VISIT'">{{rec.mark_commodity}}</td>
+          <td *ngIf="type=='VISIT'">{{rec.mark_next_action}}</td>
+          <td *ngIf="type=='VISIT'" [style.color]="rec.mark_followupstatus">{{rec.mark_followupcount}}</td>
+          <td *ngIf="type=='VISIT'">{{rec.mark_cust_infocount?'Y':''}}</td>
+          <td style="text-align:center" (click)="ShowDocuments(doc,rec)"> <i class="fa fa-file fa-md pointer"
+              [style.color]="rec.mark_doc_attached=='Y'?'red':'chocolate'" aria-hidden="true"></i></td>
+          <td>{{rec.rec_created_date}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm mb-1">
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
+            (Records-{{page_rowcount}})</a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
 </div>
 <div *ngIf="currentTab=='DETAILS'" class="page-details">
-    <div class="page-box">
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Visit Date</label>
-                    <div class="col-sm-8">
-                        <app-date #_mark_visit_date [inputdate]="Record.mark_visit_date"
-                            (ValueChanged)="Record.mark_visit_date=$event">
-                        </app-date>
-                    </div>
-                </div>
+  <div class="page-box">
+    <div class="row">
+      <div class="col-sm-6">
 
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Time</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mark_time_visit"
-                            maxlength="25" (blur)="OnBlur('mark_time_visit')" />
-                    </div>
-                </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Visit Date</label>
+          <div class="col-sm-8">
+            <app-date #_mark_visit_date [inputdate]="Record.mark_visit_date"
+              (ValueChanged)="Record.mark_visit_date=$event">
+            </app-date>
+          </div>
+        </div>
 
-                <div class="form-group row">
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Time</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mark_time_visit" maxlength="25"
+              (blur)="OnBlur('mark_time_visit')" />
+          </div>
+        </div>
 
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Mode</label>
-                    <!-- <div class="col-sm-8">
+        <div class="form-group row">
+
+          <label class="col-sm-4 col-form-label col-form-label-sm">Mode</label>
+          <!-- <div class="col-sm-8">
                         <select class="form-control form-control-sm" [(ngModel)]="Record.mark_mode">
                             <option value="PERSONAL VISIT">PERSONAL VISIT</option>
                             <option value="TELE MARKETING">TELE MARKETING</option>
                         </select>
                     </div> -->
-                    <div class="col-sm-8">
-                        <input type="radio" name="mark_mode" id="personalvisit" [(ngModel)]="Record.mark_mode"
-                            [value]="'PERSONAL VISIT'" />
-                        <label class="col-form-label col-form-label-sm" for="personalvisit">PERSONAL
-                            VISIT</label>&nbsp;&nbsp;
-                        <input type="radio" name="mark_mode" id="telemarketing" [(ngModel)]="Record.mark_mode"
-                            [value]="'TELE MARKETING'" />
-                        <label class="col-form-label col-form-label-sm" for="telemarketing">TELE
-                            MARKETING</label>&nbsp;&nbsp;
-                        <input type="radio" name="mark_mode" id="emailmarketing" [(ngModel)]="Record.mark_mode"
-                            [value]="'EMAIL MARKETING'" />
-                        <label class="col-form-label col-form-label-sm" for="emailmarketing">EMAIL MARKETING</label>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Client</label>
-                    <div class="col-sm-8">
-                        <app-autocomplete #ClientLov [inputdata]="CUSTRECORD" (ValueChanged)="LovSelected($event)">
-                        </app-autocomplete>
-                    </div>
-                </div>
-
-
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm"></label>
-                    <div *ngIf="CanAddContacts" class="col-sm-4 pr-0">
-                        <button (click)="AddClient(content)" class="btn btn-link btn-sm mr-1 hlink">(Add New Client)
-                        </button>
-                        <button *ngIf="Record.mark_customer_id" (click)="EditClient(content)"
-                            class="btn btn-link btn-sm hlink">(Edit Client)
-                        </button>
-                    </div>
-                    <label class="col-sm-4 col-form-label col-form-label-sm">{{Record.rec_category}}</label>
-                </div>
-
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Joint Visit With</label>
-                    <div class="col-sm-8">
-                        <app-autocomplete #SalesmanLov [inputdata]="SALESMANRECORD"
-                            (ValueChanged)="LovSelected($event)">
-                        </app-autocomplete>
-                    </div>
-                </div>
-                <div *ngIf="type=='VISIT'" class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Contact Person</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mark_contact_person"
-                            maxlength="100" (blur)="OnBlur('mark_contact_person')" />
-                    </div>
-                </div>
-                <div *ngIf="type!='VISIT'" class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Contact Person</label>
-                    <div class="col-sm-4">
-                        <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mark_contact_person"
-                            maxlength="100" (blur)="OnBlur('mark_contact_person')" />
-                    </div>
-                    <div *ngIf="mode == 'EDIT'" class="col-sm-4">
-                        <input [disabled]="lock_chk_visited" type="checkbox" [(ngModel)]="Record.mark_visited_b" id="visited"><label
-                            class="col-form-label col-form-label-sm ml-1" for="visited">Visited</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-sm-6">
-
-                <div *ngIf="Record.mark_visited_b">
-
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label col-form-label-sm"></label>
-                        <div class="col-sm-8">
-                            <!-- <a (click)="loadVisit()" style="cursor: pointer;">(Click Here To Fill Visit Details)</a> -->
-                            <button (click)="loadVisit()" class="btn btn-link btn-sm hlink">(Click Here To Fill Visit
-                                Details)
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label col-form-label-sm">Deciding Person</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control form-control-sm"
-                                [(ngModel)]="Record.mark_deciding_person" maxlength="100"
-                                (blur)="OnBlur('mark_deciding_person')" />
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label col-form-label-sm">Present Agent</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mark_agent_name"
-                                maxlength="100" (blur)="OnBlur('mark_agent_name')" />
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label col-form-label-sm">Commodity</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mark_commodity"
-                                maxlength="60" (blur)="OnBlur('mark_commodity')" />
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label col-form-label-sm">Competition</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control form-control-sm"
-                                [(ngModel)]="Record.mark_competition" maxlength="100"
-                                (blur)="OnBlur('mark_competition')" />
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-
-                        <label class="col-sm-4 col-form-label col-form-label-sm">Nomination</label>
-
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mark_nomination"
-                                maxlength="100" (blur)="OnBlur('mark_nomination')" />
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label col-form-label-sm">Last Shipment</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control form-control-sm"
-                                [(ngModel)]="Record.mark_last_shipment" maxlength="100"
-                                (blur)="OnBlur('mark_last_shipment')" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div *ngIf="Record.mark_visited_b" class="page-box">
-        <div class="row">
-            <div class="col-sm-12">
-
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Next Visit Status</label>
-                    <!-- <div class="col-sm-8">
-                        <select class="form-control form-control-sm" [(ngModel)]="Record.mark_next_visit_status">
-                            <option value="FOLLOW UP REQUIRED">FOLLOW UP REQUIRED</option>
-                            <option value="FOLLOW UP NOT REQUIRED">FOLLOW UP NOT REQUIRED</option>
-                            <option value="NO IMMEDIATE FOLLOW UP REQUIRED">NO IMMEDIATE FOLLOW UP REQUIRED</option>
-                        </select>
-                    </div> -->
-                    <div class="col-sm-10">
-                        <input type="radio" name="mark_next_visit_status" id="fupreq"
-                            [(ngModel)]="Record.mark_next_visit_status" [value]="'FOLLOW UP REQUIRED'" />
-                        <label class="col-form-label col-form-label-sm" for="fupreq">FOLLOW UP REQUIRED&nbsp;<span
-                                style="color: red;">( Next Visit Date Required )</span></label>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm"></label>
-                    <div class="col-sm-10">
-                        <input type="radio" name="mark_next_visit_status" id="fupnotreq"
-                            [(ngModel)]="Record.mark_next_visit_status" [value]="'FOLLOW UP NOT REQUIRED'" />
-                        <label class="col-form-label col-form-label-sm" for="fupnotreq">FOLLOW UP NOT
-                            REQUIRED&nbsp;<span style="color: blue;">( Next Visit Date Not Required )</span></label>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm"></label>
-                    <div class="col-sm-10">
-                        <input type="radio" name="mark_next_visit_status" id="nifupreq"
-                            [(ngModel)]="Record.mark_next_visit_status" [value]="'NO IMMEDIATE FOLLOW UP REQUIRED'" />
-                        <label class="col-form-label col-form-label-sm" for="nifupreq">NO IMMEDIATE FOLLOW UP
-                            REQUIRED&nbsp;<span style="color: red;">( Approx. Date Required )</span></label>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Next Visit Date</label>
-                    <div class="col-sm-4">
-                        <app-date [disabled]="Record.mark_next_visit_status=='FOLLOW UP NOT REQUIRED'"
-                            [inputdate]="Record.mark_next_visit_date"
-                            (ValueChanged)="Record.mark_next_visit_date=$event"></app-date>
-                    </div>
-                    <!-- <label class="col-4 col-form-label col-form-label-sm pl-0 pt-0" style="color:red">Required only if 'FOLLOW UP REQUIRED' is selected</label> -->
-                </div>
-            </div>
-        </div>
-    </div>
-    <div *ngIf="Record.mark_visited_b" class="page-box">
-        <div class="form-group row">
-            <label class="col-sm-2 col-form-label col-form-label-sm">Comments on visit</label>
-            <div class="col-sm-10 padding-left-0">
-                <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.mark_result"
-                    maxlength="1000" (blur)="OnBlur('mark_result')"></textarea>
-            </div>
+          <div class="col-sm-8">
+            <input type="radio" name="mark_mode" id="personalvisit" [(ngModel)]="Record.mark_mode"
+              [value]="'PERSONAL VISIT'" />
+            <label class="col-form-label col-form-label-sm" for="personalvisit">PERSONAL
+              VISIT</label>&nbsp;&nbsp;
+            <input type="radio" name="mark_mode" id="telemarketing" [(ngModel)]="Record.mark_mode"
+              [value]="'TELE MARKETING'" />
+            <label class="col-form-label col-form-label-sm" for="telemarketing">TELE
+              MARKETING</label>&nbsp;&nbsp;
+            <input type="radio" name="mark_mode" id="emailmarketing" [(ngModel)]="Record.mark_mode"
+              [value]="'EMAIL MARKETING'" />
+            <label class="col-form-label col-form-label-sm" for="emailmarketing">EMAIL MARKETING</label>
+          </div>
         </div>
 
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label col-form-label-sm">Next Action</label>
-            <div class="col-sm-10">
-                <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.mark_next_action"
-                    maxlength="255" (blur)="OnBlur('mark_next_action')"></textarea>
-            </div>
+          <label class="col-sm-4 col-form-label col-form-label-sm">Client</label>
+          <div class="col-sm-8">
+            <app-autocomplete #ClientLov [inputdata]="CUSTRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete>
+          </div>
         </div>
+
+
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm"></label>
+          <div *ngIf="CanAddContacts" class="col-sm-4 pr-0">
+            <button (click)="AddClient(content)" class="btn btn-link btn-sm mr-1 hlink">(Add New Client)
+            </button>
+            <button *ngIf="Record.mark_customer_id" (click)="EditClient(content)"
+              class="btn btn-link btn-sm hlink">(Edit Client)
+            </button>
+          </div>
+          <label class="col-sm-4 col-form-label col-form-label-sm">{{Record.rec_category}}</label>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Joint Visit With</label>
+          <div class="col-sm-8">
+            <app-autocomplete #SalesmanLov [inputdata]="SALESMANRECORD" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete>
+          </div>
+        </div>
+        <div *ngIf="type=='VISIT'" class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Contact Person</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mark_contact_person"
+              maxlength="100" (blur)="OnBlur('mark_contact_person')" />
+          </div>
+        </div>
+        <div *ngIf="type!='VISIT'" class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Contact Person</label>
+          <div class="col-sm-4">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mark_contact_person"
+              maxlength="100" (blur)="OnBlur('mark_contact_person')" />
+          </div>
+          <div *ngIf="mode == 'EDIT'" class="col-sm-4">
+            <input [disabled]="lock_chk_visited" type="checkbox" [(ngModel)]="Record.mark_visited_b" id="visited"><label
+              class="col-form-label col-form-label-sm ml-1" for="visited">Visited</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6">
+
+        <div *ngIf="Record.mark_visited_b">
+
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label col-form-label-sm"></label>
+            <div class="col-sm-8">
+              <!-- <a (click)="loadVisit()" style="cursor: pointer;">(Click Here To Fill Visit Details)</a> -->
+              <button (click)="loadVisit()" class="btn btn-link btn-sm hlink">(Click Here To Fill Visit
+                Details)
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label col-form-label-sm">Deciding Person</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mark_deciding_person"
+                maxlength="100" (blur)="OnBlur('mark_deciding_person')" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label col-form-label-sm">Present Agent</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mark_agent_name"
+                maxlength="100" (blur)="OnBlur('mark_agent_name')" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label col-form-label-sm">Commodity</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mark_commodity" maxlength="60"
+                (blur)="OnBlur('mark_commodity')" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label col-form-label-sm">Competition</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mark_competition"
+                maxlength="100" (blur)="OnBlur('mark_competition')" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+
+            <label class="col-sm-4 col-form-label col-form-label-sm">Nomination</label>
+
+            <div class="col-sm-8">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mark_nomination"
+                maxlength="100" (blur)="OnBlur('mark_nomination')" />
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label class="col-sm-4 col-form-label col-form-label-sm">Last Shipment</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mark_last_shipment"
+                maxlength="100" (blur)="OnBlur('mark_last_shipment')" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- next visit status -->
+  <div *ngIf="Record.mark_visited_b" class="page-box">
+    <div class="row">
+      <div class="col-sm-6">
+
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Next Visit Status</label>
+          <div class="col-sm-8">
+            <input type="radio" name="mark_next_visit_status" id="fupreq" [(ngModel)]="Record.mark_next_visit_status"
+              [value]="'FOLLOW UP REQUIRED'" />
+            <label class="col-form-label col-form-label-sm" for="fupreq">FOLLOW UP REQUIRED&nbsp;<span
+                style="color: red;">( Next Visit Date Required )</span></label>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm"></label>
+          <div class="col-sm-8">
+            <input type="radio" name="mark_next_visit_status" id="fupnotreq" [(ngModel)]="Record.mark_next_visit_status"
+              [value]="'FOLLOW UP NOT REQUIRED'" />
+            <label class="col-form-label col-form-label-sm" for="fupnotreq">FOLLOW UP NOT
+              REQUIRED&nbsp;<span style="color: blue;">( Next Visit Date Not Required )</span></label>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm"></label>
+          <div class="col-sm-8">
+            <input type="radio" name="mark_next_visit_status" id="nifupreq" [(ngModel)]="Record.mark_next_visit_status"
+              [value]="'NO IMMEDIATE FOLLOW UP REQUIRED'" />
+            <label class="col-form-label col-form-label-sm" for="nifupreq">NO IMMEDIATE FOLLOW UP
+              REQUIRED&nbsp;<span style="color: red;">( Approx. Date Required )</span></label>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm"></label>
+          <div class="col-sm-8">
+            <input type="radio" name="mark_next_visit_status" id="fupnotreq" [(ngModel)]="Record.mark_next_visit_status"
+              [value]="'BUSINESS CONVERTED'" />
+            <label class="col-form-label col-form-label-sm" for="fupnotreq">BUSINESS CONVERTED
+            </label>
+          </div>
+        </div>
+
+
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Next Visit Date</label>
+          <div class="col-sm-8">
+            <app-date
+              [disabled]="Record.mark_next_visit_status=='FOLLOW UP NOT REQUIRED' || Record.mark_next_visit_status=='BUSINESS CONVERTED'"
+              [inputdate]="Record.mark_next_visit_date" (ValueChanged)="Record.mark_next_visit_date=$event"></app-date>
+          </div>
+          <!-- <label class="col-4 col-form-label col-form-label-sm pl-0 pt-0" style="color:red">Required only if 'FOLLOW UP REQUIRED' is selected</label> -->
+        </div>
+      </div>
+
+      <div class="col-sm-6" *ngIf="Record.mark_next_visit_status=='BUSINESS CONVERTED'">
+        <div class=" form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Conversion Date</label>
+          <div class="col-sm-8">
+            <app-date #_mark_visit_date [inputdate]="Record.mark_conv_date"
+              (ValueChanged)="Record.mark_conv_date=$event">
+            </app-date>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Teu</label>
+          <div class="col-sm-8">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.mark_conv_teu" maxlength="15"
+              (blur)="OnBlur('mark_conv_remarks')" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Cbm</label>
+          <div class="col-sm-8">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.mark_conv_cbm" maxlength="15"
+              (blur)="OnBlur('mark_conv_cbm')" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">GrWt</label>
+          <div class="col-sm-8">
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.mark_conv_grwt" maxlength="15"
+              (blur)="OnBlur('mark_conv_grwt')" />
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+  <div *ngIf="Record.mark_visited_b" class="page-box">
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label col-form-label-sm">Comments on visit</label>
+      <div class="col-sm-10 padding-left-0">
+        <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.mark_result" maxlength="1000"
+          (blur)="OnBlur('mark_result')"></textarea>
+      </div>
     </div>
 
-    <div class="page-box">
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="form-group row">
-                    <div class="offset-4 col-sm-8">
-                        <button [hidden]="disableSave"
-                            [disabled]="loading || Record.mark_user_id !=gs.globalVariables.user_pkid" (click)="Save()"
-                            class="btn btn-success btn-sm">Save</button>
-                        <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
-                            [style.color]="Record.mark_doc_attached=='Y'?'darkred':'white'"
-                            class="btn btn-success btn-sm">Documents</button>
-                        <button [disabled]="loading" (click)="ActionHandler('LIST','')"
-                            class="btn btn-success btn-sm">Return</button>
-                        <label class="col-form-label col-form-label-sm" *ngIf="Record.rec_created_by"> Created By:
-                            {{Record.rec_created_by}}
-                            /
-                            {{Record.rec_created_date}} </label>
-                        <i *ngIf="loading" class="fa fa-spinner"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label col-form-label-sm">Next Action</label>
+      <div class="col-sm-10">
+        <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.mark_next_action" maxlength="255"
+          (blur)="OnBlur('mark_next_action')"></textarea>
+      </div>
     </div>
+  </div>
+
+  <div class="page-box">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group row">
+          <div class="offset-4 col-sm-8">
+            <button [hidden]="disableSave" [disabled]="loading || Record.mark_user_id !=gs.globalVariables.user_pkid"
+              (click)="Save()" class="btn btn-success btn-sm">Save</button>
+            <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
+              [style.color]="Record.mark_doc_attached=='Y'?'darkred':'white'"
+              class="btn btn-success btn-sm">Documents</button>
+            <button [disabled]="loading" (click)="ActionHandler('LIST','')"
+              class="btn btn-success btn-sm">Return</button>
+            <label class="col-form-label col-form-label-sm" *ngIf="Record.rec_created_by"> Created By:
+              {{Record.rec_created_by}}
+              /
+              {{Record.rec_created_date}} </label>
+            <i *ngIf="loading" class="fa fa-spinner"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 <div *ngIf="InfoMessage" class="alert alert-success">
-    {{InfoMessage}}
+  {{InfoMessage}}
 </div>
 <div *ngIf="ErrorMessage" class="alert alert-danger">
-    {{ErrorMessage}}
+  {{ErrorMessage}}
 </div>
 
 <ng-template #content let-c="close" let-d="dismiss">
-    <div class="modal-header">
-        <h4 class="modal-title">Contact Master</h4>
-        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <app-contacts [iisModalWindow]="'Y'" [menuid]="'MARKCONTACTS'" [clientid]="clientid"></app-contacts>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-primary btn-sm" (click)="d('Cross click')">Close</button>
-    </div>
+  <div class="modal-header">
+    <h4 class="modal-title">Contact Master</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-contacts [iisModalWindow]="'Y'" [menuid]="'MARKCONTACTS'" [clientid]="clientid"></app-contacts>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary btn-sm" (click)="d('Cross click')">Close</button>
+  </div>
 </ng-template>
 <ng-template #doc let-c="close" let-d="dismiss">
-    <div class="modal-header">
-        <h4 class="modal-title">Documents</h4>
-        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <app-upload [pkid]="pkid" [type]="'MARK-VISITS'" [canupload]="bDocsUpload"></app-upload>
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-primary btn-sm" (click)="c('Close click')">Close</button>
-    </div>
+  <div class="modal-header">
+    <h4 class="modal-title">Documents</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-upload [pkid]="pkid" [type]="'MARK-VISITS'" [canupload]="bDocsUpload"></app-upload>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary btn-sm" (click)="c('Close click')">Close</button>
+  </div>
 </ng-template>
 <div *ngIf="Record.mark_visited_b&&mode=='EDIT'&&(IsAdmin||Record.mark_user_id ==gs.globalVariables.user_pkid)"
-    class="page-details">
-    <ngb-tabset #_tabset>
-        <ngb-tab *ngIf="IsAdmin||Record.mark_user_id ==gs.globalVariables.user_pkid" title="Follow Up Details"
-            id="FollowUp">
-            <ng-template ngbTabContent>
-                <div class="page-details">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <app-action [menuid]="menuid" [parentData]="ActionsRecord"
-                                [rec_user_id]="gs.globalVariables.user_pkid"
-                                (actionsChanged)="actionsChanged($event,Record)">
-                            </app-action>
-                        </div>
-                    </div>
-                </div>
-            </ng-template>
-        </ngb-tab>
-        <ngb-tab *ngIf="IsAdmin" title="Customer Info" id="CustomerInfo">
-            <ng-template ngbTabContent>
-                <div class="page-details">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <app-action [menuid]="'MARKCONTACTS'" [parentData]="ActionsRecordContact"
-                                [rec_user_id]="gs.globalVariables.user_pkid"
-                                (actionsChanged)="actionsChanged2($event,Record)">
-                            </app-action>
-                        </div>
-                    </div>
-                </div>
-            </ng-template>
-        </ngb-tab>
-    </ngb-tabset>
+  class="page-details">
+  <ngb-tabset #_tabset>
+    <ngb-tab *ngIf="IsAdmin||Record.mark_user_id ==gs.globalVariables.user_pkid" title="Follow Up Details"
+      id="FollowUp">
+      <ng-template ngbTabContent>
+        <div class="page-details">
+          <div class="row">
+            <div class="col-sm-12">
+              <app-action [menuid]="menuid" [parentData]="ActionsRecord" [rec_user_id]="gs.globalVariables.user_pkid"
+                (actionsChanged)="actionsChanged($event,Record)">
+              </app-action>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab *ngIf="IsAdmin" title="Customer Info" id="CustomerInfo">
+      <ng-template ngbTabContent>
+        <div class="page-details">
+          <div class="row">
+            <div class="col-sm-12">
+              <app-action [menuid]="'MARKCONTACTS'" [parentData]="ActionsRecordContact"
+                [rec_user_id]="gs.globalVariables.user_pkid" (actionsChanged)="actionsChanged2($event,Record)">
+              </app-action>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
 </div>
