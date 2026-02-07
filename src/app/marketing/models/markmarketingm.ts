@@ -43,6 +43,7 @@ export class MarkMarketingm {
   mark_source: string;
   mark_visited_b: boolean;
 
+  mark_conv_type: string;
   mark_conv_date: string;
   mark_conv_teu: number;
   mark_conv_cbm: number;

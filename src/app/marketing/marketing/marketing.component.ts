@@ -410,6 +410,7 @@ export class MarketingComponent {
     this.Record.rec_created_by = "";
     this.Record.mark_parent_id = "";
 
+    this.Record.mark_conv_type = "NA";
     this.Record.mark_conv_date = "";
     this.Record.mark_conv_teu = 0;
     this.Record.mark_conv_cbm = 0;
