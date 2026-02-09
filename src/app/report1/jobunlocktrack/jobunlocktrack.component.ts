@@ -75,7 +75,7 @@ export class JobUnlockTrackComponent {
 
     InitComponent() {
         this.to_date = this.gs.defaultValues.today;
-        this.from_date = this.gs.defaultValues.today;
+        this.from_date = this.gs.getNewdate(1);
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
