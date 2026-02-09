@@ -1,5 +1,7 @@
 import { GlobalVariables } from '../../core/models/globalvariables';
 export class JobUnlock {
+    row_type: string;
+    row_color: string;
 
     ul_pkid: string;
     ul_parent_id: string;
@@ -33,7 +35,7 @@ export class JobUnlock {
     ul_si_no: string;
     ul_inv_no: string;
     ul_inv_amt: number;
-    ul_billed_amt: number;
+    ul_diff_amt: number;
 
     rec_mode: string;
 
