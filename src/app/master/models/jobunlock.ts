@@ -30,6 +30,11 @@ export class JobUnlock {
     ul_consignee_id: string;
     ul_consignee_name: string;
 
+    ul_si_no: string;
+    ul_inv_no: string;
+    ul_inv_amt: number;
+    ul_billed_amt: number;
+
     rec_mode: string;
 
     rec_company_code: string;
