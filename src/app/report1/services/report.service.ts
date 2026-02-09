@@ -194,5 +194,10 @@ export class RepService {
   LoadDefault(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
   }
+
+  JobUnlocktrackRpt(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/JobUnlocktrackRpt', SearchData, this.gs.headerparam2('authorized'));
+  }
+
 }
 

@@ -22,10 +22,10 @@ import { TdsCertReportComponent } from './tdscertreport/tdscertreport.component'
 import { MappingComponent } from './mapping/mapping.component';
 import { FtpLogComponent } from './ftplog/ftplog.component';
 import { TdspaidReportComponent } from './tdspaidreport/tdspaidreport.component';
-import { TdsosComponent} from './tdsos/tdsos.component';
-import { TdsosPartyComponent} from './tdsos/tdsosparty.component';
-import { TdsosDetComponent} from './tdsos/tdsosdet.component';
-import { AuditLogComponent} from './auditlog/auditlog.component';
+import { TdsosComponent } from './tdsos/tdsos.component';
+import { TdsosPartyComponent } from './tdsos/tdsosparty.component';
+import { TdsosDetComponent } from './tdsos/tdsosdet.component';
+import { AuditLogComponent } from './auditlog/auditlog.component';
 
 import { ArrivalNoticeComponent } from './arrivalnotice/arrivalnotice.component';
 import { ShipTrackComponent } from './shiptrackrep/shiptrackrep.component';
@@ -37,12 +37,13 @@ import { AddReportsComponent } from './addreports/addreports.component';
 import { ShipDataParentComponent } from './shipdata/shipdataparent.component';
 import { UsrRightsComponent } from './usrrights/usrrights.component';
 import { ShipmentReportComponent } from './shipmentrpt/shipmentrpt.component';
-import { UnlockJobrptComponent} from './unlockjobrpt/unlockjobrpt.component';
+import { UnlockJobrptComponent } from './unlockjobrpt/unlockjobrpt.component';
 import { CostGstRptComponent } from './costgstrpt/costgstrpt.component';
 import { GenReportComponent } from './genreport/genreport.component';
 import { GstReconRepComponent } from './gstreconrep/gstreconrep.component';
 import { AiDocComponent } from './aidoc/aidoc.component';
 import { ShipTrackMasterComponent } from './shiptrackmaster/shiptrackmaster.component';
+import { JobUnlockTrackComponent } from './jobunlocktrack/jobunlocktrack.component';
 
 const routes: Routes = [
   { path: 'teu', component: TeuComponent },
@@ -65,14 +66,14 @@ const routes: Routes = [
   { path: 'mapping', component: MappingComponent },
   { path: 'ftplog', component: FtpLogComponent },
   { path: 'tdspaidreport', component: TdspaidReportComponent },
-  { path: 'tdsos', component: TdsosComponent},
-  { path: 'tdsosparty', component: TdsosPartyComponent},
-  { path: 'tdsosdet', component: TdsosDetComponent},
-  { path: 'auditlog', component: AuditLogComponent},
-  { path: 'arrivalnotice', component: ArrivalNoticeComponent},
-  { path: 'shiptrack', component: ShipTrackComponent},
+  { path: 'tdsos', component: TdsosComponent },
+  { path: 'tdsosparty', component: TdsosPartyComponent },
+  { path: 'tdsosdet', component: TdsosDetComponent },
+  { path: 'auditlog', component: AuditLogComponent },
+  { path: 'arrivalnotice', component: ArrivalNoticeComponent },
+  { path: 'shiptrack', component: ShipTrackComponent },
   { path: 'einvoice', component: EinvoiceComponent },
-  { path: 'prealert', component: PreAlertRepComponent},
+  { path: 'prealert', component: PreAlertRepComponent },
   { path: 'costbilling', component: CostBillingComponent },
   { path: 'salesfollowup', component: SalesFollowupComponent },
   { path: 'addreports', component: AddReportsComponent },
@@ -84,7 +85,8 @@ const routes: Routes = [
   { path: 'genreport', component: GenReportComponent },
   { path: 'gstreconrep', component: GstReconRepComponent },
   { path: 'aidoc', component: AiDocComponent },
-  { path: 'shiptrackmaster', component: ShipTrackMasterComponent }
+  { path: 'shiptrackmaster', component: ShipTrackMasterComponent },
+  { path: 'jobunlocktrack', component: JobUnlockTrackComponent }
 ];
 
 @NgModule({

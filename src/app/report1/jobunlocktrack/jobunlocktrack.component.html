@@ -1,0 +1,136 @@
+<div class="page-header">
+    <div class="col">
+        <label>{{title}}</label>
+        <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+        <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+</div>
+<div class="page-list">
+    <div class="page-search">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Date</label>
+                    <div class="col-sm-8">
+                        <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">To</label>
+                    <div class="col-sm-8">
+                        <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Type</label>
+                    <div class="col-sm-8">
+                        <select class="form-control form-control-sm" [(ngModel)]="searchtype">
+                            <option [value]="'ALL'">ALL</option>
+                            <option [value]="'JOB SEA EXPORT'">JOB SEA EXPORT</option>
+                            <option [value]="'SI SEA EXPORT'">SI SEA EXPORT</option>
+                            <option [value]="'JOB AIR EXPORT'">JOB AIR EXPORT</option>
+                            <option [value]="'SI AIR EXPORT'">SI AIR EXPORT</option>
+                            <option [value]="'SI SEA IMPORT'">SI SEA IMPORT</option>
+                            <option [value]="'SI AIR IMPORT'">SI AIR IMPORT</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Customer</label>
+                    <div class="col-sm-8">
+                        <app-autocomplete3 [controlname]="'CUST'" [tabletype]="'CUSTOMER'" [where]="''"
+                            [displaycolumn]="'NAME'" [displaydata]="cust_name" (ValueChanged)="LovSelected($event)">
+                        </app-autocomplete3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Branch</label>
+                    <div class="col-sm-8">
+                        <app-autocomplete3 [controlname]="'BRANCH'" [tabletype]="'BRANCH'" [displaycolumn]="'CODE'"
+                            [displaydata]="branch_code" (ValueChanged)="LovSelected($event)" [disabled]="!bCompany">
+                        </app-autocomplete3>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="offset-4 col-sm-8">
+                        <button [disabled]="loading" (click)="List('NEW')"
+                            class="btn btn-primary btn-sm mr-1">Search</button>
+                        <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL')"
+                            class="btn btn-primary btn-sm mr-1">Excel</button>
+                        <!-- <button *ngIf="bEmail" [disabled]="loading" (click)="List('MAIL')"
+                            class="btn btn-primary btn-sm ">Mail</button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 375px);">
+    <table class="table table-hover table-sm table-bordered table-striped">
+        <thead class="page-body-thead">
+            <tr>
+                <th>BRANCH</th>
+                <th>ISSUED-BY</th>
+                <th>ISSUED-DATE</th>
+                <th>CUSTOMER</th>
+                <th>CONSIGNEE</th>
+                <th>SALESPERSON</th>
+                <th>EXPECT-AMT</th>
+                <th>COMMIT-DATE</th>
+                <th>REQ-JOB-NOS</th>
+                <th>COMMENTS</th>
+                <th>REMARKS</th>
+                <th>TYPE</th>
+                <th>JOB#</th>
+                <th>SHIPPER</th>
+                <th>CONSIGNEE</th>
+                <th>BILL-TO</th>
+                <th>APPROVED</th>
+                <th>APPROVED-BY</th>
+                <th>APPROVED-ON</th>
+                <th *ngIf="listShowDeleted">DELETED-BY</th>
+                <th *ngIf="listShowDeleted">DELETED-DT</th>
+            </tr>
+        </thead>
+        <tbody class="page-body-tbody">
+            <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+                (mousedown)="selectedRowIndex=i" [style.color]="rec.ul_sman_name=='LEGAL'?'red':'dark grey'">
+                <td>{{rec.rec_branch_code}}</td>
+                <td>{{rec.rec_created_by}}</td>
+                <td>{{rec.rec_created_date}}</td>
+                <td>{{rec.cust_name}}</td>
+                <td>{{rec.ul_consignee_name}}</td>
+                <td>{{rec.ul_sman_name}}</td>
+                <td align='right'>{{rec.ul_expected_bill_amt | number : '1.2-2'}}</td>
+                <td>{{rec.ul_firm_commited_date}}</td>
+                <td>{{rec.ul_job_nos_required}}</td>
+                <td>{{rec.ul_comments}}</td>
+                <td>{{rec.ul_user_remarks}}</td>
+                <td>{{rec.ul_type}}</td>
+                <td>{{rec.ul_remarks}}</td>
+                <td>{{rec.shipper_name}}</td>
+                <td>{{rec.consignee_name}}</td>
+                <td>{{rec.billto_name}}</td>
+                <td>{{rec.ul_locked=='P'?'NO':'YES'}}</td>
+                <td>{{rec.ul_approved_by}}</td>
+                <td>{{rec.ul_approved_date}}</td>
+                <td *ngIf="listShowDeleted">{{rec.rec_deleted_by}}</td>
+                <td *ngIf="listShowDeleted">{{rec.rec_deleted_date}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- <br /> -->
+
+<div *ngIf="ErrorMessage" class="alert alert-info">
+    {{ErrorMessage}}
+</div>
+<div *ngIf="InfoMessage" class="alert alert-success">
+    {{InfoMessage}}
+</div>
