@@ -88,6 +88,7 @@ import { AiDocComponent } from './aidoc/aidoc.component';
 import { AiDocDetComponent } from './aidoc/aidoc-det.component';
 import { ShipTrackMasterComponent } from './shiptrackmaster/shiptrackmaster.component';
 import { ShipTrackMasterDetComponent } from './shiptrackmaster/shiptrackmasterdet.component';
+import { JobUnlockTrackComponent} from './jobunlocktrack/jobunlocktrack.component';
 
 @NgModule({
   imports: [
@@ -159,7 +160,8 @@ import { ShipTrackMasterDetComponent } from './shiptrackmaster/shiptrackmasterde
     AiDocComponent,
     AiDocDetComponent,
     ShipTrackMasterComponent,
-    ShipTrackMasterDetComponent
+    ShipTrackMasterDetComponent,
+    JobUnlockTrackComponent
   ],
   providers: [GstReconRepService
   ],
