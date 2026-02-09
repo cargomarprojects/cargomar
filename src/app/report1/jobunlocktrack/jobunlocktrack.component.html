@@ -70,8 +70,8 @@
     </div>
 </div>
 
-<div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 375px);">
-    <table class="table table-hover table-sm table-bordered table-striped">
+<div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 275px);">
+    <table class="table table-hover table-sm table-bordered">
         <thead class="page-body-thead">
             <tr>
                 <th>BRANCH</th>
@@ -79,7 +79,7 @@
                 <th>ISSUED-DATE</th>
                 <th>CUSTOMER</th>
                 <th>SALESPERSON</th>
-                <th>EXPECT-AMT</th>
+                <th>REQUESTED-AMT</th>
                 <th>COMMIT-DATE</th>
                 <th>REQ-JOB-NOS</th>
                 <th>TYPE</th>
@@ -87,26 +87,28 @@
                 <th>SI#</th>
                 <th>INV#</th>
                 <th>INV-AMT</th>
-                <th>BILLED-AMT</th>
+                <!-- <th>BILLED-AMT</th> -->
+                 <th>DIFF-AMT</th>
             </tr>
         </thead>
-        <tbody class="page-body-tbody">
-            <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
-                (mousedown)="selectedRowIndex=i" >
+        <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
+            <tr  [class.active]="i == selectedRowIndex"
+                (mousedown)="selectedRowIndex=i" [style.background-color]="rec.row_color" [style.color]="rec.row_type=='TOTAL'?'red':''">
                 <td>{{rec.rec_branch_code}}</td>
                 <td>{{rec.rec_created_by}}</td>
                 <td>{{rec.rec_created_date}}</td>
                 <td>{{rec.cust_name}}</td>
                 <td>{{rec.ul_sman_name}}</td>
-                <td align='right'>{{rec.ul_expected_bill_amt | number : '1.2-2'}}</td>
+                <td align='right'>{{rec.ul_expected_bill_amt>0?rec.ul_expected_bill_amt:null | number : '1.2-2'}}</td>
                 <td>{{rec.ul_firm_commited_date}}</td>
-                <td>{{rec.ul_job_nos_required}}</td>
+                <td>{{rec.ul_job_nos_required>0?rec.ul_job_nos_required:null}}</td>
                 <td>{{rec.ul_type}}</td>
                 <td>{{rec.ul_remarks}}</td>
                 <td>{{rec.ul_si_no}}</td>
                 <td>{{rec.ul_inv_no}}</td>
-                <td>{{rec.ul_inv_amt}}</td>
-                <td>{{rec.ul_billed_amt}}</td>
+                <td>{{rec.ul_inv_amt>0?rec.ul_inv_amt:null}}</td>
+                <!-- <td>{{rec.ul_billed_amt>0?rec.ul_billed_amt:null}}</td> -->
+                 <td>{{rec.ul_diff_amt==0?null:rec.ul_diff_amt}}</td>
             </tr>
         </tbody>
     </table>
