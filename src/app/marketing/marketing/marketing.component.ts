@@ -35,6 +35,9 @@ export class MarketingComponent {
 
   currentTab = 'LIST';
 
+
+  old_customer_id = '';
+
   searchby = "";
   searchstring = '';
   search_datetype = 'VISIT-DATE';
@@ -237,6 +240,16 @@ export class MarketingComponent {
       this.Record.mark_customer_id = _Record.id;
       this.Record.mark_customer_name = _Record.name;
       this.Record.mark_contact_person = _Record.col5;
+
+      if (this.old_customer_id != this.Record.mark_customer_id) {
+        this.old_customer_id = this.Record.mark_customer_id;
+        this.Record.mark_conv_type = _Record.col11;
+        if (_Record.col11 == "")
+          this.Record.mark_conv_type = "NA";
+        if (_Record.col11 == "NEW CUSTOMER")
+          this.Record.mark_conv_type = "REGULAR";
+      }
+
       this.ActionsRecordContact.parent_id = this.Record.mark_customer_id;
     }
 
@@ -412,10 +425,10 @@ export class MarketingComponent {
 
     this.Record.mark_conv_type = "NA";
     this.Record.mark_conv_date = "";
-    this.Record.mark_conv_teu = 0;
-    this.Record.mark_conv_cbm = 0;
-    this.Record.mark_conv_grwt = 0;
+    this.Record.mark_conv_vol = 0;
+    this.Record.mark_conv_unit = "NA";
 
+    this.old_customer_id = '';
 
     if (this.type == 'VISIT')
       this.Record.mark_visited_b = true;
@@ -434,6 +447,8 @@ export class MarketingComponent {
       user_pkid: this.gs.globalVariables.user_pkid,
       status_color1: this.status_color1
     };
+
+    this.old_customer_id = '';
 
     this.ErrorMessage = '';
     this.InfoMessage = '';
@@ -457,6 +472,9 @@ export class MarketingComponent {
     this.Record.rec_mode = "EDIT";
 
     this.InitLov();
+
+
+    this.old_customer_id = this.Record.mark_customer_id.toString();
 
     this.SALESMANRECORD.id = this.Record.mark_jointsalesman_id.toString();
     this.SALESMANRECORD.name = this.Record.mark_jointsalesman_name;
@@ -613,9 +631,8 @@ export class MarketingComponent {
       REC.mark_next_action = this.Record.mark_next_action;
 
       REC.mark_conv_date = this.Record.mark_conv_date;
-      REC.mark_conv_teu = this.Record.mark_conv_teu;
-      REC.mark_conv_cbm = this.Record.mark_conv_cbm;
-      REC.mark_conv_grwt = this.Record.mark_conv_grwt;
+      REC.mark_conv_vol = this.Record.mark_conv_vol;
+      REC.mark_conv_unit = this.Record.mark_conv_unit;
 
 
     }

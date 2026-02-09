@@ -45,9 +45,8 @@ export class MarkMarketingm {
 
   mark_conv_type: string;
   mark_conv_date: string;
-  mark_conv_teu: number;
-  mark_conv_cbm: number;
-  mark_conv_grwt: number;
+  mark_conv_vol: number;
+  mark_conv_unit: string;
 
 
   rec_company_code: string;

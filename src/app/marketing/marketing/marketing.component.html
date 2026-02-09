@@ -420,14 +420,14 @@
       <div class="col-sm-6">
 
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label col-form-label-sm">Visit/Customer Status </label>
+          <label class="col-sm-4 col-form-label col-form-label-sm">Customer Status </label>
           <div class="col-sm-8">
             <select class="form-control form-control-sm" [(ngModel)]="Record.mark_conv_type">
               <option [value]="'NA'">NA</option>
-              <option [value]="'NEW CUSTOMER'">NEW BUSINESS-CONVERTED</option>
               <option [value]="'REGULAR'">REGULAR CUSTOMER</option>
-              <option [value]="'DORMANT CUSTOMER'">DORMANT CUSTOMER</option>
+              <option [value]="'DORMANT CUSTOMER'">DORMANT-NO BUSINESS ABOVE 6 MONTHS</option>
               <option [value]="'REACTIVATED'">REACTIVATED</option>
+              <option [value]="'NEW CUSTOMER'">NEW BUSINESS-CONVERTED</option>
               <option [value]="'PROSPECT'">PROSPECT-NO BUSIENESS YET</option>
             </select>
           </div>
@@ -443,23 +443,22 @@
         </div>
 
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label col-form-label-sm">Teu</label>
+          <label class="col-sm-4 col-form-label col-form-label-sm">Volume</label>
           <div class="col-sm-3">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.mark_conv_teu" maxlength="15"
+            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.mark_conv_vol" maxlength="15"
               (blur)="OnBlur('mark_conv_remarks')" />
-          </div>
-          <label class="col-sm-2 col-form-label col-form-label-sm">Cbm</label>
-          <div class="col-sm-3">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.mark_conv_cbm" maxlength="15"
-              (blur)="OnBlur('mark_conv_cbm')" />
           </div>
         </div>
 
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label col-form-label-sm">GrWt</label>
+          <label class="col-sm-4 col-form-label col-form-label-sm">Unit</label>
           <div class="col-sm-3">
-            <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.mark_conv_grwt" maxlength="15"
-              (blur)="OnBlur('mark_conv_grwt')" />
+            <select class="form-control form-control-sm" [(ngModel)]="Record.mark_conv_unit">
+              <option [value]="'NA'">NA</option>
+              <option [value]="'TEU'">TEU</option>
+              <option [value]="'CBM'">CBM</option>
+              <option [value]="'CHWT'">CHWT</option>
+            </select>
           </div>
         </div>
 

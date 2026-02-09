@@ -15,8 +15,8 @@ import { GlobalService } from '../../core/services/global.service';
                 cursor: pointer;
                 border-style: solid;
                 border-width: 1px;
-                overflow-y: scroll; 
-                position: absolute;     
+                overflow-y: scroll;
+                position: absolute;
                 height:300px;
                 width:auto;
                 min-width:300px;
@@ -198,6 +198,7 @@ export class AutoComplete3Component {
         // if (this.rows_ending_number >= this.rows_total)
         //     this.bShowMore = false;
 
+
         if (response.list == null)
           this.bShowMore = false;
 
@@ -249,6 +250,7 @@ export class AutoComplete3Component {
 
       this.inputdata.col9 = '';
       this.inputdata.col10 = '';
+      this.inputdata.col11 = '';
       this.displaydata = '';
       this.parentid = '';
 
@@ -282,6 +284,7 @@ export class AutoComplete3Component {
       this.inputdata.col8 = _Record.col8;
       this.inputdata.col9 = _Record.col9;
       this.inputdata.col10 = _Record.col10;
+      this.inputdata.col11 = _Record.col11;
 
     }
 

@@ -14,7 +14,8 @@
     </button>
     <ul *ngFor="let item of RecList">
       <li><a (click)="SelectedItem('LIST',item)">{{item.code}}</a></li>
-      <li style="border-bottom: 1px solid black;"><a (click)="SelectedItem('LIST',item)">{{TableType=='MARKETING CONTACT'?item.col4+'-'+item.col9 : item.name}}</a></li>
+      <li style="border-bottom: 1px solid black;"><a (click)="SelectedItem('LIST',item)">{{TableType=='MARKETING
+          CONTACT'?item.col4+'-'+item.col9 : item.name}}</a></li>
 
     </ul>
     <ul *ngIf="bShowMore">

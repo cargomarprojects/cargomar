@@ -572,7 +572,8 @@
               <label class="checkbox-inline" for="_is_project">Is Projects Customer</label>
               <input type="checkbox" [(ngModel)]="Record.cont_is_project" id="_is_project">
              </div> -->
-                <div *ngIf="mode=='EDIT' && IsAdmin" class="col-sm-4" [ngClass]="{ 'input-group': iisModalWindow === 'Y' }">
+                <div *ngIf="mode=='EDIT' && IsAdmin" class="col-sm-4"
+                  [ngClass]="{ 'input-group': iisModalWindow === 'Y' }">
                   <input type="checkbox" [(ngModel)]="Record.rec_locked" id="_locked">
                   <label class="col-form-label col-form-label-sm" for="_locked">Locked</label>
                 </div>
@@ -588,11 +589,11 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label col-form-label-sm">Customer</label>
                 <div class="col-sm-6">
-                  <!-- <app-autocomplete3 [controlname]="'CUST'" [tabletype]="'CUSTOMER'" [where]="''"
-                    [displaycolumn]="'NAME'" [displaydata]="Record.cont_cust_name" [disabled]="gs.globalVariables.user_code != 'ADMIN'" (ValueChanged)="LovSelected($event)">
-                  </app-autocomplete3> -->
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cont_cust_name" required
-                    maxlength="60" disabled />
+                  <app-autocomplete3 [controlname]="'CUST'" [tabletype]="'CUSTOMER'" [where]="''"
+                    [displaycolumn]="'NAME'" [displaydata]="Record.cont_cust_name" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete3>
+                  <!-- <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.cont_cust_name" required
+                    maxlength="60" disabled /> -->
                 </div>
                 <!-- <label class="col-sm-2 col-form-label col-form-label-sm"></label> -->
                 <div class="col-sm-4">

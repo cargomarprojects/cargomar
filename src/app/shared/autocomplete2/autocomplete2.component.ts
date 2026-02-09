@@ -15,8 +15,8 @@ import { GlobalService } from '../../core/services/global.service';
                 cursor: pointer;
                 border-style: solid;
                 border-width: 1px;
-                overflow-y: scroll; 
-                position: absolute;     
+                overflow-y: scroll;
+                position: absolute;
                 height:200px;
                 width:auto;
                 min-width:250px;
@@ -30,7 +30,7 @@ import { GlobalService } from '../../core/services/global.service';
 
 export class AutoComplete2Component {
 
-  @Input() inputdata: any = { controlname: '', type: '', displaycolumn: '', parentid: '', id: '', code: '', name: '', rate: 0, col1: '', col2: '', col3: '', col4: '', col5: '', col6: '', col7: '', col8: '', col9: '', col10: '' };
+  @Input() inputdata: any = { controlname: '', type: '', displaycolumn: '', parentid: '', id: '', code: '', name: '', rate: 0, col1: '', col2: '', col3: '', col4: '', col5: '', col6: '', col7: '', col8: '', col9: '', col10: '', col11: '' };
   @Output() ValueChanged = new EventEmitter<SearchTable>();
 
   @Input() disabled: boolean = false;
@@ -222,6 +222,8 @@ export class AutoComplete2Component {
         this.inputdata.col9 = '';
       if (this.inputdata.hasOwnProperty('col10'))
         this.inputdata.col10 = '';
+      if (this.inputdata.hasOwnProperty('col11'))
+        this.inputdata.col11 = '';
 
       this.displaydata = '';
       this.parentid = '';
@@ -261,6 +263,8 @@ export class AutoComplete2Component {
         this.inputdata.col9 = _Record.col9;
       if (this.inputdata.hasOwnProperty('col10'))
         this.inputdata.col10 = _Record.col10;
+      if (this.inputdata.hasOwnProperty('col11'))
+        this.inputdata.col11 = _Record.col11;
 
     }
 
