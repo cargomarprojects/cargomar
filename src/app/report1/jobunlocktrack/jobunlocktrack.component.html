@@ -59,9 +59,10 @@
                     <div class="offset-4 col-sm-8">
                         <button [disabled]="loading" (click)="List('NEW')"
                             class="btn btn-primary btn-sm mr-1">Search</button>
-                        <!-- <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL')"
-                            class="btn btn-primary btn-sm mr-1">Excel</button> -->
-                            <button [disabled]="loading" (click)="List('UPDATE')" class="btn btn-primary btn-sm mr-1">Update</button>
+                        <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL')"
+                            class="btn btn-primary btn-sm mr-1">Excel</button>
+                        <button [disabled]="loading" (click)="List('UPDATE')"
+                            class="btn btn-primary btn-sm mr-1">Update</button>
                         <!-- <button *ngIf="bEmail" [disabled]="loading" (click)="List('MAIL')"
                             class="btn btn-primary btn-sm ">Mail</button> -->
                     </div>
@@ -71,14 +72,14 @@
     </div>
 </div>
 
-<div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 275px);">
+<div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 300px);">
     <table class="table table-hover table-sm table-bordered">
         <thead class="page-body-thead">
             <tr>
                 <th>SLNO</th>
                 <th>BRANCH</th>
-                <th>ISSUED-BY</th>
-                <th>ISSUED-DATE</th>
+                <th>REQUESTED-BY</th>
+                <th>REQ-DATE</th>
                 <th>CUSTOMER</th>
                 <th>SALESPERSON</th>
                 <th>REQUESTED-AMT</th>
@@ -87,31 +88,33 @@
                 <th>TYPE</th>
                 <th>JOB#</th>
                 <th>SI#</th>
+                <th>INV-EDITED</th>
                 <th>INV#</th>
                 <th>INV-AMT</th>
                 <!-- <th>BILLED-AMT</th> -->
-                 <th>DIFF-AMT</th>
+                <th>DIFF-AMT</th>
             </tr>
         </thead>
         <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
-            <tr  [class.active]="i == selectedRowIndex"
-                (mousedown)="selectedRowIndex=i" [style.background-color]="rec.row_color" [style.color]="rec.row_type=='TOTAL'?'red':''">
-                 <td>{{rec.ul_ctr>0?rec.ul_ctr:null}}</td>
+            <tr [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i"
+                [style.background-color]="rec.row_color" [style.color]="rec.row_type=='TOTAL'?'red':''">
+                <td>{{rec.ul_ctr>0?rec.ul_ctr:null}}</td>
                 <td>{{rec.rec_branch_code}}</td>
                 <td>{{rec.rec_created_by}}</td>
                 <td>{{rec.rec_created_date}}</td>
                 <td>{{rec.cust_name}}</td>
                 <td>{{rec.ul_sman_name}}</td>
-                <td align='right'>{{rec.ul_expected_bill_amt>0?rec.ul_expected_bill_amt:null | number : '1.2-2'}}</td>
+                <td class="text-right">{{(rec.ul_expected_bill_amt>0?rec.ul_expected_bill_amt:null) | number : '1.2-2'}}</td>
                 <td>{{rec.ul_firm_commited_date}}</td>
                 <td>{{rec.ul_job_nos_required>0?rec.ul_job_nos_required:null}}</td>
                 <td>{{rec.ul_type}}</td>
                 <td>{{rec.ul_remarks}}</td>
                 <td>{{rec.ul_si_no}}</td>
+                <td>{{rec.ul_updated_dt}}</td>
                 <td>{{rec.ul_inv_no}}</td>
-                <td>{{rec.ul_inv_amt>0?rec.ul_inv_amt:null}}</td>
+                <td>{{(rec.ul_inv_amt>0?rec.ul_inv_amt:null) | number : '1.2-2'}}</td>
                 <!-- <td>{{rec.ul_billed_amt>0?rec.ul_billed_amt:null}}</td> -->
-                 <td>{{rec.ul_diff_amt==0?null:rec.ul_diff_amt}}</td>
+                <td>{{(rec.ul_diff_amt==0?null:rec.ul_diff_amt) | number : '1.2-2'}}</td>
             </tr>
         </tbody>
     </table>

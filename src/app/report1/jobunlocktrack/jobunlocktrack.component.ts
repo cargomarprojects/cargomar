@@ -139,8 +139,8 @@ export class JobUnlockTrackComponent {
         //     }
         // }
 
-         if (_type == 'UPDATE') {
-            if (!confirm("Do you want to update?")) {
+        if (_type == 'UPDATE') {
+            if (!confirm("Do you want to update ?")) {
                 return;
             }
         }
@@ -192,10 +192,9 @@ export class JobUnlockTrackComponent {
                 // }
                 else if (_type == 'UPDATE') {
                     alert("Updated Successfully");
-                } else
-                    if (_type == 'UPDATE') {
-                        this.RecordList = response.list;
-                    }
+                } else {
+                    this.RecordList = response.list;
+                }
             },
                 error => {
                     this.loading = false;

@@ -36,6 +36,7 @@ export class JobUnlock {
     ul_inv_no: string;
     ul_inv_amt: number;
     ul_diff_amt: number;
+    ul_updated_dt: string;
 
     rec_mode: string;
 
