@@ -138,6 +138,12 @@ export class JobUnlockTrackComponent {
         //         return;
         //     }
         // }
+
+         if (_type == 'UPDATE') {
+            if (!confirm("Do you want to update?")) {
+                return;
+            }
+        }
         this.InfoMessage = "";
         this.ErrorMessage = '';
         this.pkid = this.gs.getGuid();
@@ -184,9 +190,12 @@ export class JobUnlockTrackComponent {
                 //     this.sHtml = response.message;
                 //     this.open(mailsent);
                 // }
-                else {
-                    this.RecordList = response.list;
-                }
+                else if (_type == 'UPDATE') {
+                    alert("Updated Successfully");
+                } else
+                    if (_type == 'UPDATE') {
+                        this.RecordList = response.list;
+                    }
             },
                 error => {
                     this.loading = false;

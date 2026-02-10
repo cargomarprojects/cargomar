@@ -59,8 +59,9 @@
                     <div class="offset-4 col-sm-8">
                         <button [disabled]="loading" (click)="List('NEW')"
                             class="btn btn-primary btn-sm mr-1">Search</button>
-                        <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL')"
-                            class="btn btn-primary btn-sm mr-1">Excel</button>
+                        <!-- <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL')"
+                            class="btn btn-primary btn-sm mr-1">Excel</button> -->
+                            <button [disabled]="loading" (click)="List('UPDATE')" class="btn btn-primary btn-sm mr-1">Update</button>
                         <!-- <button *ngIf="bEmail" [disabled]="loading" (click)="List('MAIL')"
                             class="btn btn-primary btn-sm ">Mail</button> -->
                     </div>
