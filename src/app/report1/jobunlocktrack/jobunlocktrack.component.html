@@ -74,6 +74,7 @@
     <table class="table table-hover table-sm table-bordered">
         <thead class="page-body-thead">
             <tr>
+                <th>SLNO</th>
                 <th>BRANCH</th>
                 <th>ISSUED-BY</th>
                 <th>ISSUED-DATE</th>
@@ -94,6 +95,7 @@
         <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
             <tr  [class.active]="i == selectedRowIndex"
                 (mousedown)="selectedRowIndex=i" [style.background-color]="rec.row_color" [style.color]="rec.row_type=='TOTAL'?'red':''">
+                 <td>{{rec.ul_ctr>0?rec.ul_ctr:null}}</td>
                 <td>{{rec.rec_branch_code}}</td>
                 <td>{{rec.rec_created_by}}</td>
                 <td>{{rec.rec_created_date}}</td>
