@@ -35,6 +35,8 @@ export class JobUnlockTrackComponent {
     pkid: string;
     searchstring: string = '';
     searchtype: string = 'ALL';
+    searchformat: string = 'SUMMARY';
+    listformat: string = 'SUMMARY';
     from_date: string = '';
     to_date: string = '';
     branch_code = '';
@@ -144,6 +146,7 @@ export class JobUnlockTrackComponent {
                 return;
             }
         }
+        this.listformat = this.searchformat;
         this.InfoMessage = "";
         this.ErrorMessage = '';
         this.pkid = this.gs.getGuid();
@@ -162,6 +165,7 @@ export class JobUnlockTrackComponent {
             from_date: this.from_date,
             to_date: this.to_date,
             searchtype: this.searchtype,
+            searchformat: this.searchformat,
             cust_id: this.cust_id,
             cust_name: this.cust_name,
             auto_mail: "N"
