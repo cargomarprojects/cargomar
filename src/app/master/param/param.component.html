@@ -12,21 +12,49 @@
 
   <div class="page-search">
     <div class="row">
-      <label class="col-2">Search</label>
-      <div class="col">
-        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring"
-          (blur)="OnBlur('searchstring')" />
+      <div class="col-sm-3">
+        <div class="form-group row">
+          <label class="col-sm-4">Search</label>
+          <div class="col-sm-8">
+            <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring"
+              (blur)="OnBlur('searchstring')" />
+          </div>
+        </div>
       </div>
-      <div class="col-2">
-        <input type="checkbox" [(ngModel)]="sortby" />
-        <span>Sort By Code</span>
+      <div *ngIf="type == 'SALESMAN'" class="col-sm-3">
+        <div class="form-group row">
+          <label class="col-sm-4">Category</label>
+          <div class="col-sm-8">
+            <select class="form-control form-control-sm" [(ngModel)]="searchid1">
+              <option [value]="'NA'">NA</option>
+              <option [value]="'CSD'">CSD</option>
+              <option [value]="'SALESPERSON'">SALESPERSON</option>
+            </select>
+          </div>
+        </div>
       </div>
-      <div class="col">
-        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
-        <button *ngIf="bPrint" [disabled]="loading" (click)="List('EXCEL')"
-          class="btn btn-primary btn-sm">Print</button>
-        <button [disabled]="loading" *ngIf="type == 'CURRENCY' && gs.globalVariables.user_code == 'ADMIN'"
-          (click)="ImportData(paramimport)" class="btn btn-primary btn-sm">Import Data</button>
+      <div class="col-sm-3">
+        <div class="form-group row">
+          <div *ngIf="type == 'SALESMAN'" class="col-sm-5">
+            <input type="checkbox" [(ngModel)]="reclocked" id="_chklocked" />
+            <label class="col-form-label col-form-label-sm" for="_chklocked">Locked</label>
+          </div>
+          <div class="col-sm-7">
+            <input type="checkbox" [(ngModel)]="sortby" id="_chksortby" />
+            <label class="col-form-label col-form-label-sm" for="_chksortby">Sort By Code</label>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group row">
+          <div class="col-sm-12">
+            <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
+            <button *ngIf="bPrint" [disabled]="loading" (click)="List('EXCEL')"
+              class="btn btn-primary btn-sm mr-1">Print</button>
+            <button [disabled]="loading" *ngIf="type == 'CURRENCY' && gs.globalVariables.user_code == 'ADMIN'"
+              (click)="ImportData(paramimport)" class="btn btn-primary btn-sm">Import Data</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -60,6 +88,7 @@
           <th *ngIf="type == 'SAC'">SAC CODE</th>
           <th *ngIf="type == 'CURRENCY'">{{id1}}</th>
           <th *ngIf="type == 'CURRENCY'">{{param_rate_caption}}</th>
+          <th *ngIf="type == 'SALESMAN'">CATEGORY</th>
           <th *ngIf="type == 'SALESMAN'">BRANCH</th>
           <th *ngIf="type == 'SALESMAN'">EMAIL</th>
           <th *ngIf="type == 'SALESMAN'||type == 'TAN'||type == 'PAN'">LOCKED</th>
@@ -116,6 +145,7 @@
           <td *ngIf="type == 'SAC'">{{rec.param_id1}}</td>
           <td *ngIf="type == 'CURRENCY'">{{rec.param_id1}}</td>
           <td *ngIf="type == 'CURRENCY'">{{rec.param_rate!=0?rec.param_rate:''}}</td>
+          <td *ngIf="type == 'SALESMAN'">{{rec.param_id1}}</td>
           <td *ngIf="type == 'SALESMAN'">{{rec.param_id5_code}}</td>
           <td *ngIf="type == 'SALESMAN'">{{rec.param_email}}</td>
           <td *ngIf="type == 'SALESMAN'||type == 'TAN'||type == 'PAN'">{{rec.rec_locked?'Y':'N'}}</td>

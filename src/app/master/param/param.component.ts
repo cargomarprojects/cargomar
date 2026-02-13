@@ -37,7 +37,10 @@ export class ParamComponent {
   bDocs: boolean = false;
   showDocs: boolean = false;
 
+  reclocked: boolean = false;
   searchstring = '';
+  searchid1 = '';
+
   page_count = 0;
   page_current = 0;
   page_rows = 0;
@@ -179,6 +182,8 @@ export class ParamComponent {
       this.id1 = "Category";
       this.id5 = "Branch";
       this.id5_lovtype = "BRANCH";
+      this.searchid1 = "NA";
+      this.reclocked = false;
     }
 
 
@@ -377,7 +382,9 @@ export class ParamComponent {
       type: _type,
       rowtype: this.type,
       searchstring: this.searchstring.toUpperCase(),
+      searchid1: this.searchid1.toUpperCase(),
       sortby: '',
+      reclocked: this.reclocked,
       report_folder: this.gs.globalVariables.report_folder,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
