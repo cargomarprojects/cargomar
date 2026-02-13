@@ -417,7 +417,7 @@
                 <label class="col-4 col-form-label col-form-label-sm">Credit-Date</label>
 
                 <div class="col-8">
-                  <app-date [disabled]="!Record.cust_is_editable" [inputdate]="Record.cust_crdate"
+                  <app-date [disabled]="!Record.cust_is_editable||(Record.cust_crdate_locked&&gs.globalVariables.user_code != 'ADMIN')" [inputdate]="Record.cust_crdate"
                     (ValueChanged)="Record.cust_crdate=$event"></app-date>
                 </div>
               </div>

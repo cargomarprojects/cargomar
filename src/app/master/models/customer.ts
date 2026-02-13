@@ -95,6 +95,7 @@ export class Customerm {
     cust_cons_wise_sman: boolean;
     cust_acq_date: string;
     cust_ho_docs: number;
+    cust_crdate_locked: boolean;
 
     _globalvariables: GlobalVariables;
 

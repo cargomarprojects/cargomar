@@ -182,7 +182,7 @@ export class ParamComponent {
       this.id1 = "Category";
       this.id5 = "Branch";
       this.id5_lovtype = "BRANCH";
-      this.searchid1 = "NA";
+      this.searchid1 = "ALL";
       this.reclocked = false;
     }
 
