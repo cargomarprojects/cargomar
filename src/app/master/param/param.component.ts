@@ -170,12 +170,13 @@ export class ParamComponent {
       this.id2 = "Cha#";
       this.id3 = "IceGateID";
       this.id4 = "Email Pwd";
-      this.email = "e-Mail";
+      this.email = "Email";
     }
 
 
     if (this.type == 'SALESMAN') {
-      this.email = "e-Mail";
+      this.email = "Email";
+      this.id1 = "Category";
       this.id5 = "Branch";
       this.id5_lovtype = "BRANCH";
     }
@@ -260,7 +261,7 @@ export class ParamComponent {
     if (this.type == 'SALESAGENT') {
       this.id5 = "Agent";
       this.id5_lovtype = "CUSTOMER";
-      this.email = "e-Mail";
+      this.email = "Email";
     }
 
     if (this.type == 'MAILING TYPE') {
@@ -440,6 +441,9 @@ export class ParamComponent {
     if (this.type == "PAN") {
       this.Record.param_id2 = "N";
       this.Record.param_id3 = "N";
+    }
+    if (this.type == "SALESMAN") {
+      this.Record.param_id1 = "NA";
     }
 
     this.InitLov();
@@ -701,12 +705,12 @@ export class ParamComponent {
     this.List("NEW");
   }
 
-   OnBlur(field: string) {
+  OnBlur(field: string) {
     var oldChar = / /gi;//replace all blank space in a string
     if (field == 'searchstring') {
       this.searchstring = this.searchstring.toUpperCase().trim();
     }
- 
+
   }
 
 }
