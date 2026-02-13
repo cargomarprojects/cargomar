@@ -8,7 +8,7 @@
     </div>
     <div class="page-list">
         <div *ngIf="invokeByMenu" class="page-search">
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-sm-5">
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label col-form-label-sm">Year</label>
@@ -17,10 +17,13 @@
                                 maxlength="4" />
                         </div>
                         <div class="col-sm-5">
-                            <input type="radio" name="mark_mode" id="sperson" [(ngModel)]="report_type" [value]="'SALES PERSON'" />
-                            <label class="col-form-label col-form-label-sm" for="sperson">Sales Person</label>&nbsp;&nbsp;
-                            <input type="radio" name="mark_mode"  id="scustomer" [(ngModel)]="report_type" [value]="'CUSTOMER'" />
-                            <label class="col-form-label col-form-label-sm"  for="scustomer">Customer</label>
+                            <input type="radio" name="mark_mode" id="sperson" [(ngModel)]="report_type"
+                                [value]="'SALES PERSON'" />
+                            <label class="col-form-label col-form-label-sm" for="sperson">Sales
+                                Person</label>&nbsp;&nbsp;
+                            <input type="radio" name="mark_mode" id="scustomer" [(ngModel)]="report_type"
+                                [value]="'CUSTOMER'" />
+                            <label class="col-form-label col-form-label-sm" for="scustomer">Customer</label>
                         </div>
                     </div>
                 </div>
@@ -41,6 +44,72 @@
                     </div>
                 </div>
                 <div class="col-sm-2">
+                </div>
+            </div> -->
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label col-form-label-sm">Year</label>
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control form-control-sm" [(ngModel)]="iYear"
+                                maxlength="4" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label col-form-label-sm">Branch</label>
+                        <div class="col-sm-8">
+                            <app-autocomplete3 [controlname]="'BRANCH'" [tabletype]="'BRANCH'" [displaycolumn]="'CODE'"
+                                [displaydata]="branch_code" (ValueChanged)="LovSelected($event)"
+                                [disabled]="!IsCompany">
+                            </app-autocomplete3>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label col-form-label-sm"></label>
+                        <div class="col-sm-4">
+                            <input type="radio" name="mark_mode" id="sperson" [(ngModel)]="report_type"
+                                [value]="'SALES PERSON'" />
+                            <label class="col-form-label col-form-label-sm" for="sperson">Sales
+                                Person</label>
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="radio" name="mark_mode" id="scustomer" [(ngModel)]="report_type"
+                                [value]="'CUSTOMER'" />
+                            <label class="col-form-label col-form-label-sm" for="scustomer">Customer</label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label col-form-label-sm">{{report_type=='SALES
+                            PERSON'?'Salesperson':'Customer'}}</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control form-control-sm" [(ngModel)]="searchstring"
+                                maxlength="100" (blur)="OnBlur('searchstring')" />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label col-form-label-sm">Sort by</label>
+                        <div class="col-sm-8">
+                            <select class="form-control form-control-sm" [(ngModel)]="sortby">
+                                <option [value]="'DEFAULT'">DEFAULT</option>
+                                <option [value]="'max(user_branch),user_name'">BRANCH</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label col-form-label-sm"></label>
+                        <div class="col-sm-8">
+                            <button [disabled]="loading" (click)="List('NEW','SCREEN')"
+                                class="btn btn-primary btn-sm mr-1">Search</button>
+                            <button [disabled]="loading" *ngIf="bPrint" (click)="List('PRINT', 'EXCEL')"
+                                class="btn btn-primary btn-sm">Print</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -63,14 +132,16 @@
                 </ul>
             </div>
         </div>
-        <div class="page-body table-responsive fixedTableHead my-0 p-0" [style.height]="type === 'INVOKE-FRM-CONTACT'?'auto':'calc(100vh - 320px)'">
+        <div class="page-body table-responsive fixedTableHead my-0 p-0"
+            [style.height]="type === 'INVOKE-FRM-CONTACT'?'auto':'calc(100vh - 320px)'">
             <table class="table table-hover table-sm table-bordered table-striped">
                 <thead class="page-body-thead">
                     <tr>
+                        <th *ngIf="search_report_type=='SALES PERSON'">BRANCH</th>
                         <th><span *ngIf="search_report_type=='SALES PERSON'">SALES EXECUTIVE</span><span
                                 *ngIf="search_report_type=='CUSTOMER'">CUSTOMER</span></th>
-                        <th *ngIf="search_report_type=='SALES PERSON'">BRANCH</th>
-                        <th><{{iYearCaption}}</th>
+
+
                         <th>JAN</th>
                         <th>FEB</th>
                         <th>MAR</th>
@@ -89,99 +160,81 @@
                 <tbody class="page-body-tbody">
                     <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
                         (mousedown)="selectedRowIndex=i">
-                        <td>
-                            <div class="hlink"
-                                (click)="ShowReport(rec,'ALL')">
-                                <a>{{rec.user_name}}</a>
-                            </div>
-                        </td>
                         <td *ngIf="search_report_type=='SALES PERSON'">
-                            <div  style="color: chocolate;font-weight: bold;">
+                            <div style="color: chocolate;font-weight: bold;">
                                 <a>{{rec.user_branch}}</a>
                             </div>
                         </td>
                         <td>
-                            <div  class="hlink"
-                                (click)="ShowReport(rec,'PREV')">
-                                <a>{{rec.prev_total}}</a>
+                            <div class="hlink" (click)="ShowReport(rec,'ALL')">
+                                <a>{{rec.user_name}}</a>
+                            </div>
+                        </td>
+
+
+                        <td>
+                            <div class="hlink" (click)="ShowReport(rec,'JAN')">
+                                <a>{{rec.jan>0?rec.jan:null}}</a>
                             </div>
                         </td>
                         <td>
-                            <div  class="hlink"
-                                (click)="ShowReport(rec,'JAN')">
-                                <a>{{rec.jan}}</a>
+                            <div class="hlink" (click)="ShowReport(rec,'FEB')">
+                                <a>{{rec.feb>0?rec.feb:null}}</a>
                             </div>
                         </td>
                         <td>
-                            <div  class="hlink"
-                                (click)="ShowReport(rec,'FEB')">
-                                <a>{{rec.feb}}</a>
+                            <div class="hlink" (click)="ShowReport(rec,'MAR')">
+                                <a>{{rec.mar>0?rec.mar:null}}</a>
                             </div>
                         </td>
                         <td>
-                            <div class="hlink"
-                                (click)="ShowReport(rec,'MAR')">
-                                <a>{{rec.mar}}</a>
+                            <div class="hlink" (click)="ShowReport(rec,'APR')">
+                                <a>{{rec.apr>0?rec.apr:null}}</a>
                             </div>
                         </td>
                         <td>
-                            <div  class="hlink"
-                                (click)="ShowReport(rec,'APR')">
-                                <a>{{rec.apr}}</a>
+                            <div class="hlink" (click)="ShowReport(rec,'MAY')">
+                                <a>{{rec.may>0?rec.may:null}}</a>
                             </div>
                         </td>
                         <td>
-                            <div  class="hlink"
-                                (click)="ShowReport(rec,'MAY')">
-                                <a>{{rec.may}}</a>
+                            <div class="hlink" (click)="ShowReport(rec,'JUN')">
+                                <a>{{rec.jun>0?rec.jun:null}}</a>
                             </div>
                         </td>
                         <td>
-                            <div  class="hlink"
-                                (click)="ShowReport(rec,'JUN')">
-                                <a>{{rec.jun}}</a>
+                            <div class="hlink" (click)="ShowReport(rec,'JUL')">
+                                <a>{{rec.jul>0?rec.jul:null}}</a>
                             </div>
                         </td>
                         <td>
-                            <div  class="hlink"
-                                (click)="ShowReport(rec,'JUL')">
-                                <a>{{rec.jul}}</a>
+                            <div class="hlink" (click)="ShowReport(rec,'AUG')">
+                                <a>{{rec.aug>0?rec.aug:null}}</a>
                             </div>
                         </td>
                         <td>
-                            <div  class="hlink"
-                                (click)="ShowReport(rec,'AUG')">
-                                <a>{{rec.aug}}</a>
+                            <div class="hlink" (click)="ShowReport(rec,'SEP')">
+                                <a>{{rec.sep>0?rec.sep:null}}</a>
                             </div>
                         </td>
                         <td>
-                            <div  class="hlink"
-                                (click)="ShowReport(rec,'SEP')">
-                                <a>{{rec.sep}}</a>
+                            <div class="hlink" (click)="ShowReport(rec,'OCT')">
+                                <a>{{rec.oct>0?rec.oct:null}}</a>
                             </div>
                         </td>
                         <td>
-                            <div  class="hlink"
-                                (click)="ShowReport(rec,'OCT')">
-                                <a>{{rec.oct}}</a>
+                            <div class="hlink" (click)="ShowReport(rec,'NOV')">
+                                <a>{{rec.nov>0?rec.nov:null}}</a>
                             </div>
                         </td>
                         <td>
-                            <div  class="hlink"
-                                (click)="ShowReport(rec,'NOV')">
-                                <a>{{rec.nov}}</a>
+                            <div class="hlink" (click)="ShowReport(rec,'DEC')">
+                                <a>{{rec.dec>0?rec.dec:null}}</a>
                             </div>
                         </td>
                         <td>
-                            <div  class="hlink"
-                                (click)="ShowReport(rec,'DEC')">
-                                <a>{{rec.dec}}</a>
-                            </div>
-                        </td>
-                        <td>
-                            <div  class="hlink"
-                                (click)="ShowReport(rec,'ALL')">
-                                <a>{{rec.total}}</a>
+                            <div class="hlink" (click)="ShowReport(rec,'ALL')">
+                                <a>{{rec.total>0?rec.total:null}}</a>
                             </div>
                         </td>
                     </tr>

@@ -33,7 +33,9 @@ export class VisitReportComponent {
     currentPage = "ROOT";
     invokeByMenu = true;
     selectedRowIndex = 0;
-
+    branch_code: string = '';
+    branch_name: string = '';
+    sortby: string = 'DEFAULT';
     searchstring = '';
     page_count = 0;
     page_current = 0;
@@ -128,6 +130,8 @@ export class VisitReportComponent {
             if (this.menu_record.rights_print)
                 this.bPrint = true;
         }
+        if (!this.IsCompany)
+            this.branch_code = this.gs.globalVariables.branch_code;
         this.LoadCombo();
         this.List('NEW', 'SCREEN');
         this.InitCompleted = true;
@@ -169,7 +173,10 @@ export class VisitReportComponent {
 
 
     LovSelected(_Record: any) {
-
+        if (_Record.controlname == "BRANCH") {
+            this.branch_code = _Record.code;
+            this.branch_name = _Record.name;
+        }
     }
 
     // Query List Data
@@ -198,8 +205,18 @@ export class VisitReportComponent {
             report_folder: this.gs.globalVariables.report_folder,
             report_type: this.report_type,
             sman_id: this.gs.isBlank(this.sman_id) ? this.gs.globalVariables.sman_id : this.sman_id,
-            searchstring: this.searchstring
+            searchstring: this.searchstring,
+            sortby: this.sortby
         };
+
+        if (this.IsCompany) {
+            SearchData.branchid = this.branch_code;
+            SearchData.branchids = this.branch_code;
+        }
+        else {
+            SearchData.branchid = this.gs.globalVariables.branch_code;
+            SearchData.branchid = this.gs.globalVariables.branch_code;
+        }
 
         this.ErrorMessage = '';
         this.InfoMessage = '';
