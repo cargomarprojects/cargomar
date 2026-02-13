@@ -14,7 +14,8 @@
     <div class="row">
       <label class="col-2">Search</label>
       <div class="col">
-        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" (blur)="OnBlur('searchstring')" />
+        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring"
+          (blur)="OnBlur('searchstring')" />
       </div>
       <div class="col-2">
         <input type="checkbox" [(ngModel)]="sortby" />
@@ -202,9 +203,16 @@
 
       <div *ngIf="id1 != ''" class="form-group row">
         <label class="col-2 col-form-label  col-form-label-sm">{{id1}}</label>
-        <div class="col-10">
+        <div *ngIf="type != 'SALESMAN'" class="col-10">
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.param_id1" required
             maxlength="200" />
+        </div>
+        <div *ngIf="type == 'SALESMAN'" class="col-10">
+          <select class="form-control form-control-sm" [(ngModel)]="Record.param_id1">
+            <option [value]="'NA'">NA</option>
+            <option [value]="'CSD'">CSD</option>
+            <option [value]="'SALESPERSON'">SALESPERSON</option>
+          </select>
         </div>
       </div>
 
