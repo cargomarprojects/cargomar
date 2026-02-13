@@ -19,7 +19,7 @@ import { SearchTable } from '../../shared/models/searchtable';
 
 
 export class OscrComponent {
-  // Local Variables 
+  // Local Variables
   title = 'Oscr Report';
 
   @Input() menuid: string = '';
@@ -46,6 +46,7 @@ export class OscrComponent {
 
   showzero: boolean = false;
 
+  from_date: string;
   to_date: string;
 
 
@@ -65,6 +66,7 @@ export class OscrComponent {
     company_code: '',
     year_code: '',
     searchstring: '',
+    from_date: '',
     to_date: '',
     acc_id: '',
     acc_name: '',
@@ -89,7 +91,7 @@ export class OscrComponent {
   ) {
 
 
-    // URL Query Parameter 
+    // URL Query Parameter
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
         this.InitCompleted = true;
@@ -120,6 +122,7 @@ export class OscrComponent {
       if (this.menu_record.rights_admin)
         this.bAdmin = true;
     }
+    this.from_date = "";
     this.to_date = this.gs.defaultValues.today;
 
     this.Init();
@@ -237,6 +240,7 @@ export class OscrComponent {
     this.SearchData.all = this.all;
     this.SearchData.showzero = this.showzero;
 
+    this.SearchData.from_date = this.from_date;
     this.SearchData.to_date = this.to_date;
     this.SearchData.acc_id = this.ACCRECORD.id;
     this.SearchData.acc_name = this.ACCRECORD.name;

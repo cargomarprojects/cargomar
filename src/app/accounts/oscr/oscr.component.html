@@ -12,6 +12,14 @@
     <div class="page-search">
       <div class="row">
         <div class="col-3">
+
+          <div class="form-group row">
+            <label class="col-4 col-form-label col-form-label-sm">From Date</label>
+            <div class="col-8">
+              <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+            </div>
+          </div>
+
           <div class="form-group row">
             <label class="col-4 col-form-label col-form-label-sm">As On Date</label>
             <div class="col-8">
@@ -96,7 +104,7 @@
           <th class="text-right">180+</th>
 
           <th class="text-right">PAID-LATER-AMT</th>
-          <th >PAID-LATER-DATE</th>
+          <th>PAID-LATER-DATE</th>
 
 
           <th>STATUS</th>
