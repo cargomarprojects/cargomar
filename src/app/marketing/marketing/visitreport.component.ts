@@ -130,8 +130,6 @@ export class VisitReportComponent {
             if (this.menu_record.rights_print)
                 this.bPrint = true;
         }
-        if (!this.IsCompany)
-            this.branch_code = this.gs.globalVariables.branch_code;
         this.LoadCombo();
         this.List('NEW', 'SCREEN');
         this.InitCompleted = true;
@@ -206,17 +204,9 @@ export class VisitReportComponent {
             report_type: this.report_type,
             sman_id: this.gs.isBlank(this.sman_id) ? this.gs.globalVariables.sman_id : this.sman_id,
             searchstring: this.searchstring,
+            branch_code: this.branch_code,
             sortby: this.sortby
         };
-
-        if (this.IsCompany) {
-            SearchData.branchid = this.branch_code;
-            SearchData.branchids = this.branch_code;
-        }
-        else {
-            SearchData.branchid = this.gs.globalVariables.branch_code;
-            SearchData.branchid = this.gs.globalVariables.branch_code;
-        }
 
         this.ErrorMessage = '';
         this.InfoMessage = '';
