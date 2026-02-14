@@ -58,6 +58,8 @@ export class MarkMarketingm {
   rec_created_date: string;
   rec_created_by: string;
 
+  rec_version: number;
+
   row_displayed: boolean = false;
 
   _globalvariables: GlobalVariables;
