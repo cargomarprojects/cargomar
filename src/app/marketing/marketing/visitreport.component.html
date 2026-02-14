@@ -56,8 +56,7 @@
                         </div>
                         <label class="col-sm-2 col-form-label col-form-label-sm">Month</label>
                         <div class="col-sm-4">
-                            <select class="form-control form-control-sm"
-                                [(ngModel)]="iMonth">
+                            <select class="form-control form-control-sm" [(ngModel)]="iMonth">
                                 <option *ngFor="let rec of MonList" [value]="rec.id">{{rec.name}}</option>
                             </select>
                         </div>
@@ -138,7 +137,7 @@
                 </ul>
             </div>
         </div>
-        <div class="page-body table-responsive fixedTableHead my-0 p-0"
+        <div *ngIf="search_iMonth=='ALL'" class="page-body table-responsive fixedTableHead my-0 p-0"
             [style.height]="type === 'INVOKE-FRM-CONTACT'?'auto':'calc(100vh - 360px)'">
             <table class="table table-hover table-sm table-bordered table-striped">
                 <thead class="page-body-thead">
@@ -236,6 +235,101 @@
                                 <a>{{rec.dec>0?rec.dec:null}}</a>
                             </div>
                         </td>
+                        <td>
+                            <div class="hlink" (click)="ShowReport(rec,'ALL')">
+                                <a>{{rec.total>0?rec.total:null}}</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="search_iMonth!='ALL'" class="page-body table-responsive fixedTableHead my-0 p-0"
+            [style.height]="type === 'INVOKE-FRM-CONTACT'?'auto':'calc(100vh - 360px)'">
+            <table class="table table-hover table-sm table-bordered table-striped">
+                <thead class="page-body-thead">
+                    <tr>
+                        <th *ngIf="search_report_type=='SALES PERSON'">BRANCH</th>
+                        <th><span *ngIf="search_report_type=='SALES PERSON'">SALESPERSON</span><span
+                                *ngIf="search_report_type=='CUSTOMER'">CUSTOMER</span></th>
+                        <th>1</th>
+                        <th>2</th>
+                        <th>3</th>
+                        <th>4</th>
+                        <th>5</th>
+                        <th>6</th>
+                        <th>7</th>
+                        <th>8</th>
+                        <th>9</th>
+                        <th>10</th>
+                        <th>11</th>
+                        <th>12</th>
+                        <th>13</th>
+                        <th>14</th>
+                        <th>15</th>
+                        <th>16</th>
+                        <th>17</th>
+                        <th>18</th>
+                        <th>19</th>
+                        <th>20</th>
+                        <th>21</th>
+                        <th>22</th>
+                        <th>23</th>
+                        <th>24</th>
+                        <th>25</th>
+                        <th>26</th>
+                        <th *ngIf="totdays>=27">27</th>
+                        <th *ngIf="totdays>=28">28</th>
+                        <th *ngIf="totdays>=29">29</th>
+                        <th *ngIf="totdays>=30">30</th>
+                        <th *ngIf="totdays>=31">31</th>
+                        <th>TOTAL</th>
+                    </tr>
+                </thead>
+                <tbody class="page-body-tbody">
+                    <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+                        (mousedown)="selectedRowIndex=i">
+                        <td *ngIf="search_report_type=='SALES PERSON'">
+                            <div style="color: chocolate;font-weight: bold;">
+                                <a>{{rec.user_branch}}</a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="hlink" (click)="ShowReport(rec,'ALL')">
+                                <a>{{rec.user_name}}</a>
+                            </div>
+                        <td>{{rec.d1>0?rec.d1:null}}</td>
+                        <td>{{rec.d2>0?rec.d2:null}}</td>
+                        <td>{{rec.d3>0?rec.d3:null}}</td>
+                        <td>{{rec.d4>0?rec.d4:null}}</td>
+                        <td>{{rec.d5>0?rec.d5:null}}</td>
+                        <td>{{rec.d6>0?rec.d6:null}}</td>
+                        <td>{{rec.d7>0?rec.d7:null}}</td>
+                        <td>{{rec.d8>0?rec.d8:null}}</td>
+                        <td>{{rec.d9>0?rec.d9:null}}</td>
+                        <td>{{rec.d10>0?rec.d10:null}}</td>
+                        <td>{{rec.d11>0?rec.d11:null}}</td>
+                        <td>{{rec.d12>0?rec.d12:null}}</td>
+                        <td>{{rec.d13>0?rec.d13:null}}</td>
+                        <td>{{rec.d14>0?rec.d14:null}}</td>
+                        <td>{{rec.d15>0?rec.d15:null}}</td>
+                        <td>{{rec.d16>0?rec.d16:null}}</td>
+                        <td>{{rec.d17>0?rec.d17:null}}</td>
+                        <td>{{rec.d18>0?rec.d18:null}}</td>
+                        <td>{{rec.d19>0?rec.d19:null}}</td>
+                        <td>{{rec.d20>0?rec.d20:null}}</td>
+                        <td>{{rec.d21>0?rec.d21:null}}</td>
+                        <td>{{rec.d22>0?rec.d22:null}}</td>
+                        <td>{{rec.d23>0?rec.d23:null}}</td>
+                        <td>{{rec.d24>0?rec.d24:null}}</td>
+                        <td>{{rec.d25>0?rec.d25:null}}</td>
+                        <td>{{rec.d26>0?rec.d26:null}}</td>
+                        <td *ngIf="totdays>=27">{{rec.d27>0?rec.d27:null}}</td>
+                        <td *ngIf="totdays>=28">{{rec.d28>0?rec.d28:null}}</td>
+                        <td *ngIf="totdays>=29">{{rec.d29>0?rec.d29:null}}</td>
+                        <td *ngIf="totdays>=30">{{rec.d30>0?rec.d30:null}}</td>
+                        <td *ngIf="totdays>=31">{{rec.d31>0?rec.d31:null}}</td>
+
                         <td>
                             <div class="hlink" (click)="ShowReport(rec,'ALL')">
                                 <a>{{rec.total>0?rec.total:null}}</a>

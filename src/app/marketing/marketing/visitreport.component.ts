@@ -2,10 +2,11 @@ import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
-import { MarkMarketingm } from '../models/markmarketingm';
+import { MarkMarketingm, MonColumns } from '../models/markmarketingm';
 import { MarkReport } from '../models/markmarketingm';
 import { MarkMarketingService } from '../services/markmarketing.service';
 import { SearchTable } from '../../shared/models/searchtable';
+import { get } from 'https';
 
 
 @Component({
@@ -41,6 +42,7 @@ export class VisitReportComponent {
     page_current = 0;
     page_rows = 0;
     page_rowcount = 0;
+    totdays: number = 0;
 
     sub: any;
     urlid: string;
@@ -70,8 +72,10 @@ export class VisitReportComponent {
     iYearCaption: number;
 
     iMonth: string = 'ALL';
+    search_iMonth: string = 'ALL';
     // Array For Displaying List
     RecordList: MarkReport[] = [];
+
     // Single Record for add/edit/view details
     Record: MarkReport = new MarkReport;
     MonList: any[] = [];
@@ -151,10 +155,15 @@ export class VisitReportComponent {
 
     LoadCombo() {
 
-        this.MonList = [{ "id": "ALL", "name": "ALL" }, { "id": "01", "name": "JANUARY" }, { "id": "02", "name": "FEBRUARY" }, { "id": "03", "name": "MARCH" }
-            , { "id": "04", "name": "APRIL" }, { "id": "05", "name": "MAY" }, { "id": "06", "name": "JUNE" }
-            , { "id": "07", "name": "JULY" }, { "id": "08", "name": "AUGUST" }, { "id": "09", "name": "SEPTEMBER" }
-            , { "id": "10", "name": "OCTOBER" }, { "id": "11", "name": "NOVEMBER" }, { "id": "12", "name": "DECEMBER" }];
+        // this.MonList = [{ "id": "ALL", "name": "ALL" }, { "id": "01", "name": "JANUARY" }, { "id": "02", "name": "FEBRUARY" }, { "id": "03", "name": "MARCH" }
+        //     , { "id": "04", "name": "APRIL" }, { "id": "05", "name": "MAY" }, { "id": "06", "name": "JUNE" }
+        //     , { "id": "07", "name": "JULY" }, { "id": "08", "name": "AUGUST" }, { "id": "09", "name": "SEPTEMBER" }
+        //     , { "id": "10", "name": "OCTOBER" }, { "id": "11", "name": "NOVEMBER" }, { "id": "12", "name": "DECEMBER" }];
+
+              this.MonList = [{ "id": "ALL", "name": "ALL" }, { "id": "01", "name": "JAN" }, { "id": "02", "name": "FEB" }, { "id": "03", "name": "MAR" }
+            , { "id": "04", "name": "APR" }, { "id": "05", "name": "MAY" }, { "id": "06", "name": "JUN" }
+            , { "id": "07", "name": "JUL" }, { "id": "08", "name": "AUG" }, { "id": "09", "name": "SEP" }
+            , { "id": "10", "name": "OCT" }, { "id": "11", "name": "NOV" }, { "id": "12", "name": "DEC" }];
 
         // this.loading = true;
         // let SearchData = {
@@ -186,6 +195,7 @@ export class VisitReportComponent {
 
     // Query List Data
     List(_type: string, _output_type: string = "SCREEN") {
+        this.search_iMonth = this.iMonth;
         this.iYearCaption = this.iYear;
         this.search_report_type = this.report_type;
         this.loading = true;
@@ -212,7 +222,8 @@ export class VisitReportComponent {
             sman_id: this.gs.isBlank(this.sman_id) ? this.gs.globalVariables.sman_id : this.sman_id,
             searchstring: this.searchstring,
             branch_code: this.branch_code,
-            sortby: this.sortby
+            sortby: this.sortby,
+            imonth: this.iMonth
         };
 
         this.ErrorMessage = '';
@@ -220,9 +231,11 @@ export class VisitReportComponent {
         this.mainService.DashBoard(SearchData)
             .subscribe(response => {
                 this.loading = false;
+                this.totdays=response.totdays;
                 if (_output_type == 'EXCEL')
                     this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
                 else {
+
                     this.RecordList = response.list;
                     this.page_count = response.page_count;
                     this.page_current = response.page_current;
@@ -319,5 +332,6 @@ export class VisitReportComponent {
     open(content: any) {
         this.modal = this.modalService.open(content);
     }
+
 
 }
