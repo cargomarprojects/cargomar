@@ -195,7 +195,8 @@ export class VisitReportComponent {
 
     // Query List Data
     List(_type: string, _output_type: string = "SCREEN") {
-        this.search_iMonth = this.iMonth;
+        if (_output_type != 'EXCEL')
+            this.search_iMonth = this.iMonth;
         this.iYearCaption = this.iYear;
         this.search_report_type = this.report_type;
         this.loading = true;
