@@ -160,7 +160,7 @@ export class VisitReportComponent {
         //     , { "id": "07", "name": "JULY" }, { "id": "08", "name": "AUGUST" }, { "id": "09", "name": "SEPTEMBER" }
         //     , { "id": "10", "name": "OCTOBER" }, { "id": "11", "name": "NOVEMBER" }, { "id": "12", "name": "DECEMBER" }];
 
-              this.MonList = [{ "id": "ALL", "name": "ALL" }, { "id": "01", "name": "JAN" }, { "id": "02", "name": "FEB" }, { "id": "03", "name": "MAR" }
+        this.MonList = [{ "id": "ALL", "name": "ALL" }, { "id": "01", "name": "JAN" }, { "id": "02", "name": "FEB" }, { "id": "03", "name": "MAR" }
             , { "id": "04", "name": "APR" }, { "id": "05", "name": "MAY" }, { "id": "06", "name": "JUN" }
             , { "id": "07", "name": "JUL" }, { "id": "08", "name": "AUG" }, { "id": "09", "name": "SEP" }
             , { "id": "10", "name": "OCT" }, { "id": "11", "name": "NOV" }, { "id": "12", "name": "DEC" }];
@@ -231,7 +231,7 @@ export class VisitReportComponent {
         this.mainService.DashBoard(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                this.totdays=response.totdays;
+                this.totdays = response.totdays;
                 if (_output_type == 'EXCEL')
                     this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
                 else {
@@ -281,16 +281,27 @@ export class VisitReportComponent {
         let cust_name: string = '';
         let from_date: string = '';
         let to_date: string = '';
-        if (_month == "PREV" || _month == "ALL") {
-            from_date = _rec.min_visit_date;
-            to_date = this.iYear + "-12-31";
-            if (_month == "PREV") {
-                let prevyr = +this.iYear - 1;
-                var temparr = _rec.min_visit_date.split('-');
-                let tempyr: number = +temparr[0];
-                if (tempyr == this.iYear)
-                    from_date = '2001-01-01'
-                to_date = prevyr + "-12-31";
+        if (this.search_iMonth == "ALL") {
+            if (_month == "PREV" || _month == "ALL") {
+                from_date = _rec.min_visit_date;
+                to_date = this.iYear + "-12-31";
+                if (_month == "PREV") {
+                    let prevyr = +this.iYear - 1;
+                    var temparr = _rec.min_visit_date.split('-');
+                    let tempyr: number = +temparr[0];
+                    if (tempyr == this.iYear)
+                        from_date = '2001-01-01'
+                    to_date = prevyr + "-12-31";
+                }
+            }
+        } else {
+
+            if (_month == "ALL") {
+                from_date = this.iYear + "-" + this.search_iMonth + "-01";
+                to_date = this.iYear + "-" + this.search_iMonth + "-" + this.totdays.toString();
+            } else {
+                from_date = this.iYear + "-" + this.search_iMonth + "-" + _month;
+                to_date = from_date;
             }
         }
 

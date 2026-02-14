@@ -217,6 +217,10 @@ export class VisitReportChildComponent {
             this.From_Date = this.parentData.from_date;
             this.To_Date = this.parentData.to_date;
         }
+        else {
+            this.From_Date = this.parentData.from_date;
+            this.To_Date = this.parentData.to_date;
+        }
 
     }
 
