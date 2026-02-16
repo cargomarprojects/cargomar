@@ -144,7 +144,7 @@
     </div>
   </div>
 
-  <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 5px);">
+  <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 385px);">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
@@ -159,6 +159,7 @@
           <th>CUST-REMARKS</th>
           <th>LEAD SOURCE</th>
           <th>INIT.CUST.CATEGORY</th>
+          <th>CUST.STATUS</th>
           <th>CONTACT PERSON</th>
           <th *ngIf="type=='VISIT'">COMMODITY</th>
           <th *ngIf="type=='VISIT'">NEXT ACTION</th>
@@ -182,6 +183,7 @@
           <td>{{rec.mark_cont_remarks}}</td>
           <td>{{rec.mark_lead_source}}</td>
           <td>{{rec.mark_cont_type_2}}</td>
+          <td>{{rec.mark_conv_type}}</td>
           <td>{{rec.mark_contact_person}}</td>
           <td *ngIf="type=='VISIT'">{{rec.mark_commodity}}</td>
           <td *ngIf="type=='VISIT'">{{rec.mark_next_action}}</td>
@@ -425,7 +427,7 @@
             <select class="form-control form-control-sm" [(ngModel)]="Record.mark_conv_type">
               <option [value]="'NA'">NA</option>
               <option [value]="'REGULAR'">REGULAR CUSTOMER</option>
-              <option [value]="'DORMANT'">DORMANT-NO BUSINESS ABOVE 6 MONTHS</option>
+              <option [value]="'INACTIVE'">INACTIVE-NO BUSINESS ABOVE 6 MONTHS</option>
               <option [value]="'REACTIVATED'">REACTIVATED</option>
               <option [value]="'NEW CUSTOMER'">NEW BUSINESS-CONVERTED</option>
               <option [value]="'PROSPECT'">PROSPECT-NO BUSIENESS YET</option>
