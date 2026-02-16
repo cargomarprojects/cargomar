@@ -141,9 +141,9 @@
             <table class="table table-hover table-sm table-bordered table-striped">
                 <thead class="page-body-thead">
                     <tr>
-                        <th *ngIf="search_report_type=='SALES PERSON'">BRANCH</th>
                         <th><span *ngIf="search_report_type=='SALES PERSON'">SALESPERSON</span><span
                                 *ngIf="search_report_type=='CUSTOMER'">CUSTOMER</span></th>
+                        <th *ngIf="search_report_type=='SALES PERSON'">BRANCH</th>
                         <th>JAN</th>
                         <th>FEB</th>
                         <th>MAR</th>
@@ -162,80 +162,79 @@
                 <tbody class="page-body-tbody">
                     <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
                         (mousedown)="selectedRowIndex=i">
-                        <td *ngIf="search_report_type=='SALES PERSON'">
-                            <div style="color: chocolate;font-weight: bold;">
-                                <a>{{rec.user_branch}}</a>
-                            </div>
-                        </td>
                         <td>
                             <div class="hlink" (click)="ShowReport(rec,'ALL')">
                                 <a>{{rec.user_name}}</a>
                             </div>
                         </td>
+                        <td *ngIf="search_report_type=='SALES PERSON'">
+                            <div style="color: chocolate;font-weight: bold;">
+                                <a>{{rec.user_branch}}</a>
+                            </div>
+                        </td>
 
-
-                        <td>
-                            <div class="hlink" (click)="ShowReport(rec,'JAN')">
+                        <td class="hlink">
+                            <div (click)="ShowReport(rec,'JAN',rec.jan)">
                                 <a>{{rec.jan>0?rec.jan:null}}</a>
                             </div>
                         </td>
-                        <td>
-                            <div class="hlink" (click)="ShowReport(rec,'FEB')">
+                        <td class="hlink" >
+                            <div (click)="ShowReport(rec,'FEB',rec.feb)">
                                 <a>{{rec.feb>0?rec.feb:null}}</a>
                             </div>
                         </td>
-                        <td>
-                            <div class="hlink" (click)="ShowReport(rec,'MAR')">
+                        <td class="hlink" >
+                            <div (click)="ShowReport(rec,'MAR',rec.mar)">
                                 <a>{{rec.mar>0?rec.mar:null}}</a>
                             </div>
                         </td>
-                        <td>
-                            <div class="hlink" (click)="ShowReport(rec,'APR')">
+                        <td class="hlink">
+                            <div (click)="ShowReport(rec,'APR',rec.apr)">
                                 <a>{{rec.apr>0?rec.apr:null}}</a>
                             </div>
                         </td>
-                        <td>
-                            <div class="hlink" (click)="ShowReport(rec,'MAY')">
+                        <td class="hlink">
+                            <div  (click)="ShowReport(rec,'MAY',rec.may)">
                                 <a>{{rec.may>0?rec.may:null}}</a>
                             </div>
                         </td>
-                        <td>
-                            <div class="hlink" (click)="ShowReport(rec,'JUN')">
+                        <td class="hlink">
+                            <div  (click)="ShowReport(rec,'JUN',rec.jun)">
                                 <a>{{rec.jun>0?rec.jun:null}}</a>
                             </div>
                         </td>
-                        <td>
-                            <div class="hlink" (click)="ShowReport(rec,'JUL')">
+                        <td class="hlink">
+                            <div (click)="ShowReport(rec,'JUL',rec.jul)">
                                 <a>{{rec.jul>0?rec.jul:null}}</a>
                             </div>
                         </td>
-                        <td>
-                            <div class="hlink" (click)="ShowReport(rec,'AUG')">
+                        <td class="hlink">
+                            <div (click)="ShowReport(rec,'AUG',rec.aug)">
                                 <a>{{rec.aug>0?rec.aug:null}}</a>
                             </div>
                         </td>
-                        <td>
-                            <div class="hlink" (click)="ShowReport(rec,'SEP')">
+                        <td class="hlink">
+                            <div (click)="ShowReport(rec,'SEP',rec.sep)">
                                 <a>{{rec.sep>0?rec.sep:null}}</a>
                             </div>
                         </td>
-                        <td>
-                            <div class="hlink" (click)="ShowReport(rec,'OCT')">
+                        <td class="hlink">
+                            <div (click)="ShowReport(rec,'OCT',rec.oct)">
                                 <a>{{rec.oct>0?rec.oct:null}}</a>
                             </div>
                         </td>
-                        <td>
-                            <div class="hlink" (click)="ShowReport(rec,'NOV')">
+                        <td class="hlink">
+                            <div (click)="ShowReport(rec,'NOV',rec.nov)">
                                 <a>{{rec.nov>0?rec.nov:null}}</a>
                             </div>
                         </td>
-                        <td>
-                            <div class="hlink" (click)="ShowReport(rec,'DEC')">
+                        <td class="hlink">
+                            <div (click)="ShowReport(rec,'DEC',rec.dec)">
                                 <a>{{rec.dec>0?rec.dec:null}}</a>
                             </div>
                         </td>
-                        <td>
-                            <div class="hlink" (click)="ShowReport(rec,'ALL')">
+                        <td class="hlink">
+                            <div (click)="ShowReport(rec,'ALL')">
                                 <a>{{rec.total>0?rec.total:null}}</a>
                             </div>
                         </td>
@@ -248,9 +247,10 @@
             <table class="table table-hover table-sm table-bordered table-striped">
                 <thead class="page-body-thead">
                     <tr>
-                        <th *ngIf="search_report_type=='SALES PERSON'">BRANCH</th>
+
                         <th><span *ngIf="search_report_type=='SALES PERSON'">SALESPERSON</span><span
                                 *ngIf="search_report_type=='CUSTOMER'">CUSTOMER</span></th>
+                        <th *ngIf="search_report_type=='SALES PERSON'">BRANCH</th>
                         <th>1</th>
                         <th>2</th>
                         <th>3</th>
@@ -288,49 +288,55 @@
                 <tbody class="page-body-tbody">
                     <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
                         (mousedown)="selectedRowIndex=i">
+                        <td>
+                            <div class="hlink" (click)="ShowReport(rec,'ALL')">
+                                <a>{{rec.user_name}}</a>
+                            </div>
+                        </td>
                         <td *ngIf="search_report_type=='SALES PERSON'">
                             <div style="color: chocolate;font-weight: bold;">
                                 <a>{{rec.user_branch}}</a>
                             </div>
                         </td>
-                        <td>
-                            <div class="hlink" (click)="ShowReport(rec,'ALL')">
-                                <a>{{rec.user_name}}</a>
-                            </div>
-                        <td  class="hlink" (click)="ShowReport(rec,'01')">{{rec.d1>0?rec.d1:null}}</td>
-                        <td  class="hlink" (click)="ShowReport(rec,'02')">{{rec.d2>0?rec.d2:null}}</td>
-                        <td  class="hlink" (click)="ShowReport(rec,'03')">{{rec.d3>0?rec.d3:null}}</td>
-                        <td  class="hlink" (click)="ShowReport(rec,'04')">{{rec.d4>0?rec.d4:null}}</td>
-                        <td  class="hlink" (click)="ShowReport(rec,'05')">{{rec.d5>0?rec.d5:null}}</td>
-                        <td  class="hlink" (click)="ShowReport(rec,'06')">{{rec.d6>0?rec.d6:null}}</td>
-                        <td  class="hlink" (click)="ShowReport(rec,'07')">{{rec.d7>0?rec.d7:null}}</td>
-                        <td  class="hlink" (click)="ShowReport(rec,'08')">{{rec.d8>0?rec.d8:null}}</td>
-                        <td  class="hlink" (click)="ShowReport(rec,'09')">{{rec.d9>0?rec.d9:null}}</td>
-                        <td  class="hlink" (click)="ShowReport(rec,'10')">{{rec.d10>0?rec.d10:null}}</td>
-                        <td  class="hlink" (click)="ShowReport(rec,'11')">{{rec.d11>0?rec.d11:null}}</td>
-                        <td  class="hlink" (click)="ShowReport(rec,'12')">{{rec.d12>0?rec.d12:null}}</td>
-                        <td  class="hlink" (click)="ShowReport(rec,'13')">{{rec.d13>0?rec.d13:null}}</td>
-                        <td  class="hlink" (click)="ShowReport(rec,'14')">{{rec.d14>0?rec.d14:null}}</td>
-                        <td  class="hlink" (click)="ShowReport(rec,'15')">{{rec.d15>0?rec.d15:null}}</td>
-                        <td  class="hlink" (click)="ShowReport(rec,'16')">{{rec.d16>0?rec.d16:null}}</td>
-                        <td  class="hlink" (click)="ShowReport(rec,'17')">{{rec.d17>0?rec.d17:null}}</td>
-                        <td  class="hlink" (click)="ShowReport(rec,'18')">{{rec.d18>0?rec.d18:null}}</td>
-                        <td  class="hlink" (click)="ShowReport(rec,'19')">{{rec.d19>0?rec.d19:null}}</td>
-                        <td  class="hlink" (click)="ShowReport(rec,'20')">{{rec.d20>0?rec.d20:null}}</td>
-                        <td  class="hlink" (click)="ShowReport(rec,'21')">{{rec.d21>0?rec.d21:null}}</td>
-                        <td  class="hlink" (click)="ShowReport(rec,'22')">{{rec.d22>0?rec.d22:null}}</td>
-                        <td  class="hlink" (click)="ShowReport(rec,'23')">{{rec.d23>0?rec.d23:null}}</td>
-                        <td  class="hlink" (click)="ShowReport(rec,'24')">{{rec.d24>0?rec.d24:null}}</td>
-                        <td  class="hlink" (click)="ShowReport(rec,'25')">{{rec.d25>0?rec.d25:null}}</td>
-                        <td  class="hlink" (click)="ShowReport(rec,'26')">{{rec.d26>0?rec.d26:null}}</td>
-                        <td *ngIf="totdays>=27"  class="hlink" (click)="ShowReport(rec,'27')">{{rec.d27>0?rec.d27:null}}</td>
-                        <td *ngIf="totdays>=28"  class="hlink" (click)="ShowReport(rec,'28')">{{rec.d28>0?rec.d28:null}}</td>
-                        <td *ngIf="totdays>=29"  class="hlink" (click)="ShowReport(rec,'29')">{{rec.d29>0?rec.d29:null}}</td>
-                        <td *ngIf="totdays>=30"  class="hlink" (click)="ShowReport(rec,'30')">{{rec.d30>0?rec.d30:null}}</td>
-                        <td *ngIf="totdays>=31"  class="hlink" (click)="ShowReport(rec,'31')">{{rec.d31>0?rec.d31:null}}</td>
+                        <td class="hlink" (click)="ShowReport(rec,'01',rec.d1)">{{rec.d1>0?rec.d1:null}}</td>
+                        <td class="hlink" (click)="ShowReport(rec,'02',rec.d2)">{{rec.d2>0?rec.d2:null}}</td>
+                        <td class="hlink" (click)="ShowReport(rec,'03',rec.d3)">{{rec.d3>0?rec.d3:null}}</td>
+                        <td class="hlink" (click)="ShowReport(rec,'04',rec.d4)">{{rec.d4>0?rec.d4:null}}</td>
+                        <td class="hlink" (click)="ShowReport(rec,'05',rec.d5)">{{rec.d5>0?rec.d5:null}}</td>
+                        <td class="hlink" (click)="ShowReport(rec,'06',rec.d6)">{{rec.d6>0?rec.d6:null}}</td>
+                        <td class="hlink" (click)="ShowReport(rec,'07',rec.d7)">{{rec.d7>0?rec.d7:null}}</td>
+                        <td class="hlink" (click)="ShowReport(rec,'08',rec.d8)">{{rec.d8>0?rec.d8:null}}</td>
+                        <td class="hlink" (click)="ShowReport(rec,'09',rec.d9)">{{rec.d9>0?rec.d9:null}}</td>
+                        <td class="hlink" (click)="ShowReport(rec,'10',rec.d10)">{{rec.d10>0?rec.d10:null}}</td>
+                        <td class="hlink" (click)="ShowReport(rec,'11',rec.d11)">{{rec.d11>0?rec.d11:null}}</td>
+                        <td class="hlink" (click)="ShowReport(rec,'12',rec.d12)">{{rec.d12>0?rec.d12:null}}</td>
+                        <td class="hlink" (click)="ShowReport(rec,'13',rec.d13)">{{rec.d13>0?rec.d13:null}}</td>
+                        <td class="hlink" (click)="ShowReport(rec,'14',rec.d14)">{{rec.d14>0?rec.d14:null}}</td>
+                        <td class="hlink" (click)="ShowReport(rec,'15',rec.d15)">{{rec.d15>0?rec.d15:null}}</td>
+                        <td class="hlink" (click)="ShowReport(rec,'16',rec.d16)">{{rec.d16>0?rec.d16:null}}</td>
+                        <td class="hlink" (click)="ShowReport(rec,'17',rec.d17)">{{rec.d17>0?rec.d17:null}}</td>
+                        <td class="hlink" (click)="ShowReport(rec,'18',rec.d18)">{{rec.d18>0?rec.d18:null}}</td>
+                        <td class="hlink" (click)="ShowReport(rec,'19',rec.d19)">{{rec.d19>0?rec.d19:null}}</td>
+                        <td class="hlink" (click)="ShowReport(rec,'20',rec.d20)">{{rec.d20>0?rec.d20:null}}</td>
+                        <td class="hlink" (click)="ShowReport(rec,'21',rec.d21)">{{rec.d21>0?rec.d21:null}}</td>
+                        <td class="hlink" (click)="ShowReport(rec,'22',rec.d22)">{{rec.d22>0?rec.d22:null}}</td>
+                        <td class="hlink" (click)="ShowReport(rec,'23',rec.d23)">{{rec.d23>0?rec.d23:null}}</td>
+                        <td class="hlink" (click)="ShowReport(rec,'24',rec.d24)">{{rec.d24>0?rec.d24:null}}</td>
+                        <td class="hlink" (click)="ShowReport(rec,'25',rec.d25)">{{rec.d25>0?rec.d25:null}}</td>
+                        <td class="hlink" (click)="ShowReport(rec,'26',rec.d26)">{{rec.d26>0?rec.d26:null}}</td>
+                        <td *ngIf="totdays>=27" class="hlink" (click)="ShowReport(rec,'27',rec.d27)">{{rec.d27>0?rec.d27:null}}
+                        </td>
+                        <td *ngIf="totdays>=28" class="hlink" (click)="ShowReport(rec,'28',rec.d28)">{{rec.d28>0?rec.d28:null}}
+                        </td>
+                        <td *ngIf="totdays>=29" class="hlink" (click)="ShowReport(rec,'29',rec.d29)">{{rec.d29>0?rec.d29:null}}
+                        </td>
+                        <td *ngIf="totdays>=30" class="hlink" (click)="ShowReport(rec,'30',rec.d30)">{{rec.d30>0?rec.d30:null}}
+                        </td>
+                        <td *ngIf="totdays>=31" class="hlink" (click)="ShowReport(rec,'31',rec.d31)">{{rec.d31>0?rec.d31:null}}
+                        </td>
 
                         <td>
-                            <div class="hlink" (click)="ShowReport(rec,'ALL')">
+                            <div class="hlink" (click)="ShowReport(rec,'ALL',rec.total)">
                                 <a>{{rec.total>0?rec.total:null}}</a>
                             </div>
                         </td>
