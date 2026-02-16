@@ -37,12 +37,15 @@ export class VisitReportComponent {
     branch_code: string = '';
     branch_name: string = '';
     sortby: string = 'DEFAULT';
+    report_format: string = 'MONTH-WISE';
+
     searchstring = '';
     page_count = 0;
     page_current = 0;
     page_rows = 0;
     page_rowcount = 0;
     totdays: number = 0;
+    week5: number = 0;
 
     sub: any;
     urlid: string;
@@ -73,6 +76,7 @@ export class VisitReportComponent {
 
     iMonth: string = 'ALL';
     search_iMonth: string = 'ALL';
+    search_format: string = 'MONTH-WISE';
     // Array For Displaying List
     RecordList: MarkReport[] = [];
 
@@ -185,6 +189,11 @@ export class VisitReportComponent {
         this.RecordCaption.d29_caption = '29';
         this.RecordCaption.d30_caption = '30';
         this.RecordCaption.d31_caption = '31';
+        this.RecordCaption.w1_caption = 'WEEK-1';
+        this.RecordCaption.w2_caption = 'WEEK-2';
+        this.RecordCaption.w3_caption = 'WEEK-3';
+        this.RecordCaption.w4_caption = 'WEEK-4';
+        this.RecordCaption.w5_caption = 'WEEK-5';
     }
 
 
@@ -231,8 +240,24 @@ export class VisitReportComponent {
 
     // Query List Data
     List(_type: string, _output_type: string = "SCREEN") {
+
+        if (this.report_format == "MONTH-WISE") {
+            if (this.iMonth != 'ALL') {
+                alert('Please select month as ALL and continue.....');
+                return;
+            }
+        }
+
+        if (this.report_format == "DAY-WISE" || this.report_format == "WEEK-WISE") {
+            if (this.iMonth == 'ALL') {
+                alert('Please select a month and continue.....');
+                return;
+            }
+        }
+
         if (_output_type != 'EXCEL') {
             this.search_iMonth = this.iMonth;
+            this.search_format = this.report_format;
             this.InitCaption();
         }
         this.iYearCaption = this.iYear;
@@ -262,7 +287,8 @@ export class VisitReportComponent {
             searchstring: this.searchstring,
             branch_code: this.branch_code,
             sortby: this.sortby,
-            imonth: this.iMonth
+            imonth: this.iMonth,
+            report_format: this.report_format
         };
 
         this.ErrorMessage = '';
@@ -271,6 +297,7 @@ export class VisitReportComponent {
             .subscribe(response => {
                 this.loading = false;
                 this.totdays = response.totdays;
+                this.week5 = response.week5;
                 if (_output_type == 'EXCEL')
                     this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
                 else {

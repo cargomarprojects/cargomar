@@ -146,6 +146,24 @@ export class MarkReport {
   d30_caption: string;
   d31_caption: string;
 
+  w1: number;
+  w2: number;
+  w3: number;
+  w4: number;
+  w5: number;
+  w1_caption: string;
+  w2_caption: string;
+  w3_caption: string;
+  w4_caption: string;
+  w5_caption: string;
+  
+  regular: number;
+  inactive: number;
+  reactivated: number;
+  newcustomer: number;
+  prospect: number;
+  other: number;
+
   prev_total: number;
   min_visit_date: string;
   DataList: MonColumns[] = [];
