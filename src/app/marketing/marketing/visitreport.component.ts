@@ -78,6 +78,7 @@ export class VisitReportComponent {
 
     // Single Record for add/edit/view details
     Record: MarkReport = new MarkReport;
+    RecordCaption: MarkReport = new MarkReport;
     MonList: any[] = [];
     IsCompany: boolean = false;
     IsAdmin: boolean = false;
@@ -151,6 +152,41 @@ export class VisitReportComponent {
 
     }
 
+    InitCaption() {
+        this.RecordCaption = new MarkReport();
+        this.RecordCaption.d1_caption = '1';
+        this.RecordCaption.d2_caption = '2';
+        this.RecordCaption.d3_caption = '3';
+        this.RecordCaption.d4_caption = '4';
+        this.RecordCaption.d5_caption = '5';
+        this.RecordCaption.d6_caption = '6';
+        this.RecordCaption.d7_caption = '7';
+        this.RecordCaption.d8_caption = '8';
+        this.RecordCaption.d9_caption = '9';
+        this.RecordCaption.d10_caption = '10';
+        this.RecordCaption.d11_caption = '11';
+        this.RecordCaption.d12_caption = '12';
+        this.RecordCaption.d13_caption = '13';
+        this.RecordCaption.d14_caption = '14';
+        this.RecordCaption.d15_caption = '15';
+        this.RecordCaption.d16_caption = '16';
+        this.RecordCaption.d17_caption = '17';
+        this.RecordCaption.d18_caption = '18';
+        this.RecordCaption.d19_caption = '19';
+        this.RecordCaption.d20_caption = '20';
+        this.RecordCaption.d21_caption = '21';
+        this.RecordCaption.d22_caption = '22';
+        this.RecordCaption.d23_caption = '23';
+        this.RecordCaption.d24_caption = '24';
+        this.RecordCaption.d25_caption = '25';
+        this.RecordCaption.d26_caption = '26';
+        this.RecordCaption.d27_caption = '27';
+        this.RecordCaption.d28_caption = '28';
+        this.RecordCaption.d29_caption = '29';
+        this.RecordCaption.d30_caption = '30';
+        this.RecordCaption.d31_caption = '31';
+    }
+
 
 
     LoadCombo() {
@@ -195,8 +231,10 @@ export class VisitReportComponent {
 
     // Query List Data
     List(_type: string, _output_type: string = "SCREEN") {
-        if (_output_type != 'EXCEL')
+        if (_output_type != 'EXCEL') {
             this.search_iMonth = this.iMonth;
+            this.InitCaption();
+        }
         this.iYearCaption = this.iYear;
         this.search_report_type = this.report_type;
         this.loading = true;
@@ -238,6 +276,7 @@ export class VisitReportComponent {
                 else {
 
                     this.RecordList = response.list;
+                    this.RecordCaption = response.recordcaption;
                     this.page_count = response.page_count;
                     this.page_current = response.page_current;
                     this.page_rowcount = response.page_rowcount;

@@ -114,6 +114,38 @@ export class MarkReport {
   d30: number;
   d31: number;
 
+  d1_caption: string;
+  d2_caption: string;
+  d3_caption: string;
+  d4_caption: string;
+  d5_caption: string;
+  d6_caption: string;
+  d7_caption: string;
+  d8_caption: string;
+  d9_caption: string;
+  d10_caption: string;
+  d11_caption: string;
+  d12_caption: string;
+  d13_caption: string;
+  d14_caption: string;
+  d15_caption: string;
+  d16_caption: string;
+  d17_caption: string;
+  d18_caption: string;
+  d19_caption: string;
+  d20_caption: string;
+  d21_caption: string;
+  d22_caption: string;
+  d23_caption: string;
+  d24_caption: string;
+  d25_caption: string;
+  d26_caption: string;
+  d27_caption: string;
+  d28_caption: string;
+  d29_caption: string;
+  d30_caption: string;
+  d31_caption: string;
+
   prev_total: number;
   min_visit_date: string;
   DataList: MonColumns[] = [];
