@@ -274,7 +274,10 @@ export class VisitReportComponent {
 
     }
 
-    ShowReport(_rec: MarkReport, _month: string) {
+    ShowReport(_rec: MarkReport, _month: string, _cellValue: number = 1) {
+
+        if (_cellValue <= 0)
+            return;
 
         let user_id: string = '';
         let user_name: string = '';
