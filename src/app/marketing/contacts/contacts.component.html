@@ -171,6 +171,7 @@
         <tr>
           <th>NAME</th>
           <th>ADDRESS</th>
+          <th>CUST.STATUS</th>
           <th>CONVERTED</th>
           <th>CONV.DT</th>
           <th>STATE</th>
@@ -201,6 +202,7 @@
           <td class="hlink" (click)="ActionHandler('EDIT',rec.cont_pkid,rec.cont_name,rec.cont_saleman_id)">
             {{rec.cont_name}}</td>
           <td>{{rec.cont_add1}}</td>
+          <td>{{rec.cont_conv_type}}</td>
           <td [style.color]="rec.cont_cust_id!=''?'green':'red'">{{rec.cont_is_converted?'Y':''}}</td>
           <td>{{rec.cont_converted_date}}</td>
           <td>{{rec.cont_state}}</td>

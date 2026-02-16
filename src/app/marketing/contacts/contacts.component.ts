@@ -14,7 +14,7 @@ import { SearchTable } from '../../shared/models/searchtable';
 })
 export class ContactsComponent {
 
-  // Local Variables 
+  // Local Variables
   title = 'Contacts MASTER';
 
   @Input() iisModalWindow: string = 'N';
@@ -110,7 +110,7 @@ export class ContactsComponent {
 
     this.InitLov();
 
-    // URL Query Parameter 
+    // URL Query Parameter
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
         this.InitCompleted = true;
