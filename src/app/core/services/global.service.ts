@@ -40,6 +40,7 @@ export class GlobalService {
   public baseUrl: string = "http://localhost:5000";
   //public baseUrl: string = "";
 
+
   public appStates: { [key: string]: any } = {};
 
   public changeBrData = {
