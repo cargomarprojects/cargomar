@@ -37,7 +37,7 @@ export class VisitReportComponent {
     branch_code: string = '';
     branch_name: string = '';
     sortby: string = 'DEFAULT';
-    report_format: string = 'MONTH-WISE';
+    report_format: string = 'WEEK-WISE';
 
     searchstring = '';
     page_count = 0;
@@ -99,6 +99,7 @@ export class VisitReportComponent {
         this.page_rows = 200;
         this.page_current = 0;
         this.InitLov();
+        this.OnChange('report_format'); 
         // URL Query Parameter 
         this.sub = this.route.queryParams.subscribe(params => {
             if (params["parameter"] != "") {

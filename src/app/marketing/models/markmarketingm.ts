@@ -156,6 +156,7 @@ export class MarkReport {
   w3_caption: string;
   w4_caption: string;
   w5_caption: string;
+  sman_category:string;
   
   regular: number;
   inactive: number;

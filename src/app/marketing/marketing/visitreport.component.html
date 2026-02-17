@@ -120,8 +120,10 @@
             <table class="table table-hover table-sm table-bordered table-striped">
                 <thead class="page-body-thead">
                     <tr>
-                        <th><span *ngIf="search_report_type=='SALES PERSON'">SALESPERSON</span><span
-                                *ngIf="search_report_type=='CUSTOMER'">CUSTOMER</span></th>
+                        <!-- <th><span *ngIf="search_report_type=='SALES PERSON'">SALESPERSON</span><span
+                                *ngIf="search_report_type=='CUSTOMER'">CUSTOMER</span></th> -->
+                        <th>NAME</th>
+                        <th *ngIf="search_report_type=='SALES PERSON'">TYPE</th>
                         <th *ngIf="search_report_type=='SALES PERSON'">BRANCH</th>
                         <th>JAN</th>
                         <th>FEB</th>
@@ -144,6 +146,11 @@
                         <td>
                             <div class="hlink" (click)="ShowReport(rec,'ALL')">
                                 <a>{{rec.user_name}}</a>
+                            </div>
+                        </td>
+                        <td *ngIf="search_report_type=='SALES PERSON'">
+                            <div style="color: chocolate;font-weight: bold;">
+                                <a>{{rec.sman_category}}</a>
                             </div>
                         </td>
                         <td *ngIf="search_report_type=='SALES PERSON'">
@@ -226,9 +233,8 @@
             <table class="table table-hover table-sm table-bordered table-striped">
                 <thead class="page-body-thead">
                     <tr>
-
-                        <th><span *ngIf="search_report_type=='SALES PERSON'">SALESPERSON</span><span
-                                *ngIf="search_report_type=='CUSTOMER'">CUSTOMER</span></th>
+                        <th>NAME</th>
+                        <th *ngIf="search_report_type=='SALES PERSON'">TYPE</th>
                         <th *ngIf="search_report_type=='SALES PERSON'">BRANCH</th>
                         <th [style.color]="RecordCaption.d1_caption?.endsWith('-SU')?sundayColor:''">
                             {{RecordCaption.d1_caption}}</th>
@@ -310,6 +316,11 @@
                         </td>
                         <td *ngIf="search_report_type=='SALES PERSON'">
                             <div style="color: chocolate;font-weight: bold;">
+                                <a>{{rec.sman_category}}</a>
+                            </div>
+                        </td>
+                        <td *ngIf="search_report_type=='SALES PERSON'">
+                            <div style="color: chocolate;font-weight: bold;">
                                 <a>{{rec.user_branch}}</a>
                             </div>
                         </td>
@@ -369,9 +380,8 @@
             <table class="table table-hover table-sm table-bordered table-striped">
                 <thead class="page-body-thead">
                     <tr>
-
-                        <th><span *ngIf="search_report_type=='SALES PERSON'">SALESPERSON</span><span
-                                *ngIf="search_report_type=='CUSTOMER'">CUSTOMER</span></th>
+                        <th>NAME</th>
+                        <th *ngIf="search_report_type=='SALES PERSON'">TYPE</th>
                         <th *ngIf="search_report_type=='SALES PERSON'">BRANCH</th>
                         <th>{{RecordCaption.w1_caption}}</th>
                         <th>{{RecordCaption.w2_caption}}</th>
@@ -393,6 +403,11 @@
                         <td>
                             <div class="hlink" (click)="ShowReport(rec,'ALL')">
                                 <a>{{rec.user_name}}</a>
+                            </div>
+                        </td>
+                        <td *ngIf="search_report_type=='SALES PERSON'">
+                            <div style="color: chocolate;font-weight: bold;">
+                                <a>{{rec.sman_category}}</a>
                             </div>
                         </td>
                         <td *ngIf="search_report_type=='SALES PERSON'">
