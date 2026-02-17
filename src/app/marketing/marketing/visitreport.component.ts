@@ -53,7 +53,7 @@ export class VisitReportComponent {
     ErrorMessage = "";
     InfoMessage = "";
     // hyperlinkStyle = "'hlink'";
-
+    sundayColor: string = "#FF8A8A";
     report_type = 'SALES PERSON';
     search_report_type = 'SALES PERSON';
     mode = '';
