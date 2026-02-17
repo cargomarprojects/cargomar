@@ -167,7 +167,10 @@ export class VisitReportChildComponent {
         }
         else if (this.parentData.month == "FEB") {
             this.From_Date = this.parentData.year + "-02-01";
-            this.To_Date = this.parentData.year + "-02-28";
+            if (this.isLeapYear(this.parentData.year))
+                this.To_Date = this.parentData.year + "-02-29";
+            else
+                this.To_Date = this.parentData.year + "-02-28";
         }
         else if (this.parentData.month == "MAR") {
             this.From_Date = this.parentData.year + "-03-01";
@@ -472,5 +475,12 @@ export class VisitReportChildComponent {
         this.bDocsUpload = false;
         this.pkid = _rec.mark_pkid;
         this.open(doc);
+    }
+
+    isLeapYear(_year: number): boolean {
+        if ((_year % 4 === 0 && _year % 100 !== 0) || (_year % 400 === 0)) {
+            return true;
+        }
+        return false;
     }
 }
