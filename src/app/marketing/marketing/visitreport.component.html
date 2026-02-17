@@ -13,9 +13,10 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label col-form-label-sm">Format</label>
                         <div class="col-sm-9">
-                            <select class="form-control form-control-sm" [(ngModel)]="report_format">
-                                <option [value]="'DAY-WISE'">DAY WISE</option>
+                            <select class="form-control form-control-sm" [(ngModel)]="report_format"
+                                (change)="OnChange('report_format')">
                                 <option [value]="'MONTH-WISE'">MONTH WISE</option>
+                                <option [value]="'DAY-WISE'">DAY WISE</option>
                                 <option [value]="'WEEK-WISE'">WEEK WISE</option>
                             </select>
                         </div>
@@ -229,37 +230,73 @@
                         <th><span *ngIf="search_report_type=='SALES PERSON'">SALESPERSON</span><span
                                 *ngIf="search_report_type=='CUSTOMER'">CUSTOMER</span></th>
                         <th *ngIf="search_report_type=='SALES PERSON'">BRANCH</th>
-                        <th [style.color]="RecordCaption.d1_caption?.endsWith('-SU')?sundayColor:''">{{RecordCaption.d1_caption}}</th>
-                        <th [style.color]="RecordCaption.d2_caption?.endsWith('-SU')?sundayColor:''">{{RecordCaption.d2_caption}}</th>
-                        <th [style.color]="RecordCaption.d3_caption?.endsWith('-SU')?sundayColor:''">{{RecordCaption.d3_caption}}</th>
-                        <th [style.color]="RecordCaption.d4_caption?.endsWith('-SU')?sundayColor:''">{{RecordCaption.d4_caption}}</th>
-                        <th [style.color]="RecordCaption.d5_caption?.endsWith('-SU')?sundayColor:''">{{RecordCaption.d5_caption}}</th>
-                        <th [style.color]="RecordCaption.d6_caption?.endsWith('-SU')?sundayColor:''">{{RecordCaption.d6_caption}}</th>
-                        <th [style.color]="RecordCaption.d7_caption?.endsWith('-SU')?sundayColor:''">{{RecordCaption.d7_caption}}</th>
-                        <th [style.color]="RecordCaption.d8_caption?.endsWith('-SU')?sundayColor:''">{{RecordCaption.d8_caption}}</th>
-                        <th [style.color]="RecordCaption.d9_caption?.endsWith('-SU')?sundayColor:''">{{RecordCaption.d9_caption}}</th>
-                        <th [style.color]="RecordCaption.d10_caption?.endsWith('-SU')?sundayColor:''">{{RecordCaption.d10_caption}}</th>
-                        <th [style.color]="RecordCaption.d11_caption?.endsWith('-SU')?sundayColor:''">{{RecordCaption.d11_caption}}</th>
-                        <th [style.color]="RecordCaption.d12_caption?.endsWith('-SU')?sundayColor:''">{{RecordCaption.d12_caption}}</th>
-                        <th [style.color]="RecordCaption.d13_caption?.endsWith('-SU')?sundayColor:''">{{RecordCaption.d13_caption}}</th>
-                        <th [style.color]="RecordCaption.d14_caption?.endsWith('-SU')?sundayColor:''">{{RecordCaption.d14_caption}}</th>
-                        <th [style.color]="RecordCaption.d15_caption?.endsWith('-SU')?sundayColor:''">{{RecordCaption.d15_caption}}</th>
-                        <th [style.color]="RecordCaption.d16_caption?.endsWith('-SU')?sundayColor:''">{{RecordCaption.d16_caption}}</th>
-                        <th [style.color]="RecordCaption.d17_caption?.endsWith('-SU')?sundayColor:''">{{RecordCaption.d17_caption}}</th>
-                        <th [style.color]="RecordCaption.d18_caption?.endsWith('-SU')?sundayColor:''">{{RecordCaption.d18_caption}}</th>
-                        <th [style.color]="RecordCaption.d19_caption?.endsWith('-SU')?sundayColor:''">{{RecordCaption.d19_caption}}</th>
-                        <th [style.color]="RecordCaption.d20_caption?.endsWith('-SU')?sundayColor:''">{{RecordCaption.d20_caption}}</th>
-                        <th [style.color]="RecordCaption.d21_caption?.endsWith('-SU')?sundayColor:''">{{RecordCaption.d21_caption}}</th>
-                        <th [style.color]="RecordCaption.d22_caption?.endsWith('-SU')?sundayColor:''">{{RecordCaption.d22_caption}}</th>
-                        <th [style.color]="RecordCaption.d23_caption?.endsWith('-SU')?sundayColor:''">{{RecordCaption.d23_caption}}</th>
-                        <th [style.color]="RecordCaption.d24_caption?.endsWith('-SU')?sundayColor:''">{{RecordCaption.d24_caption}}</th>
-                        <th [style.color]="RecordCaption.d25_caption?.endsWith('-SU')?sundayColor:''">{{RecordCaption.d25_caption}}</th>
-                        <th [style.color]="RecordCaption.d26_caption?.endsWith('-SU')?sundayColor:''">{{RecordCaption.d26_caption}}</th>
-                        <th *ngIf="totdays>=27" [style.color]="RecordCaption.d27_caption?.endsWith('-SU')?sundayColor:''">{{RecordCaption.d27_caption}}</th>
-                        <th *ngIf="totdays>=28" [style.color]="RecordCaption.d28_caption?.endsWith('-SU')?sundayColor:''">{{RecordCaption.d28_caption}}</th>
-                        <th *ngIf="totdays>=29" [style.color]="RecordCaption.d29_caption?.endsWith('-SU')?sundayColor:''">{{RecordCaption.d29_caption}}</th>
-                        <th *ngIf="totdays>=30" [style.color]="RecordCaption.d30_caption?.endsWith('-SU')?sundayColor:''">{{RecordCaption.d30_caption}}</th>
-                        <th *ngIf="totdays>=31" [style.color]="RecordCaption.d31_caption?.endsWith('-SU')?sundayColor:''">{{RecordCaption.d31_caption}}</th>
+                        <th [style.color]="RecordCaption.d1_caption?.endsWith('-SU')?sundayColor:''">
+                            {{RecordCaption.d1_caption}}</th>
+                        <th [style.color]="RecordCaption.d2_caption?.endsWith('-SU')?sundayColor:''">
+                            {{RecordCaption.d2_caption}}</th>
+                        <th [style.color]="RecordCaption.d3_caption?.endsWith('-SU')?sundayColor:''">
+                            {{RecordCaption.d3_caption}}</th>
+                        <th [style.color]="RecordCaption.d4_caption?.endsWith('-SU')?sundayColor:''">
+                            {{RecordCaption.d4_caption}}</th>
+                        <th [style.color]="RecordCaption.d5_caption?.endsWith('-SU')?sundayColor:''">
+                            {{RecordCaption.d5_caption}}</th>
+                        <th [style.color]="RecordCaption.d6_caption?.endsWith('-SU')?sundayColor:''">
+                            {{RecordCaption.d6_caption}}</th>
+                        <th [style.color]="RecordCaption.d7_caption?.endsWith('-SU')?sundayColor:''">
+                            {{RecordCaption.d7_caption}}</th>
+                        <th [style.color]="RecordCaption.d8_caption?.endsWith('-SU')?sundayColor:''">
+                            {{RecordCaption.d8_caption}}</th>
+                        <th [style.color]="RecordCaption.d9_caption?.endsWith('-SU')?sundayColor:''">
+                            {{RecordCaption.d9_caption}}</th>
+                        <th [style.color]="RecordCaption.d10_caption?.endsWith('-SU')?sundayColor:''">
+                            {{RecordCaption.d10_caption}}</th>
+                        <th [style.color]="RecordCaption.d11_caption?.endsWith('-SU')?sundayColor:''">
+                            {{RecordCaption.d11_caption}}</th>
+                        <th [style.color]="RecordCaption.d12_caption?.endsWith('-SU')?sundayColor:''">
+                            {{RecordCaption.d12_caption}}</th>
+                        <th [style.color]="RecordCaption.d13_caption?.endsWith('-SU')?sundayColor:''">
+                            {{RecordCaption.d13_caption}}</th>
+                        <th [style.color]="RecordCaption.d14_caption?.endsWith('-SU')?sundayColor:''">
+                            {{RecordCaption.d14_caption}}</th>
+                        <th [style.color]="RecordCaption.d15_caption?.endsWith('-SU')?sundayColor:''">
+                            {{RecordCaption.d15_caption}}</th>
+                        <th [style.color]="RecordCaption.d16_caption?.endsWith('-SU')?sundayColor:''">
+                            {{RecordCaption.d16_caption}}</th>
+                        <th [style.color]="RecordCaption.d17_caption?.endsWith('-SU')?sundayColor:''">
+                            {{RecordCaption.d17_caption}}</th>
+                        <th [style.color]="RecordCaption.d18_caption?.endsWith('-SU')?sundayColor:''">
+                            {{RecordCaption.d18_caption}}</th>
+                        <th [style.color]="RecordCaption.d19_caption?.endsWith('-SU')?sundayColor:''">
+                            {{RecordCaption.d19_caption}}</th>
+                        <th [style.color]="RecordCaption.d20_caption?.endsWith('-SU')?sundayColor:''">
+                            {{RecordCaption.d20_caption}}</th>
+                        <th [style.color]="RecordCaption.d21_caption?.endsWith('-SU')?sundayColor:''">
+                            {{RecordCaption.d21_caption}}</th>
+                        <th [style.color]="RecordCaption.d22_caption?.endsWith('-SU')?sundayColor:''">
+                            {{RecordCaption.d22_caption}}</th>
+                        <th [style.color]="RecordCaption.d23_caption?.endsWith('-SU')?sundayColor:''">
+                            {{RecordCaption.d23_caption}}</th>
+                        <th [style.color]="RecordCaption.d24_caption?.endsWith('-SU')?sundayColor:''">
+                            {{RecordCaption.d24_caption}}</th>
+                        <th [style.color]="RecordCaption.d25_caption?.endsWith('-SU')?sundayColor:''">
+                            {{RecordCaption.d25_caption}}</th>
+                        <th [style.color]="RecordCaption.d26_caption?.endsWith('-SU')?sundayColor:''">
+                            {{RecordCaption.d26_caption}}</th>
+                        <th *ngIf="totdays>=27"
+                            [style.color]="RecordCaption.d27_caption?.endsWith('-SU')?sundayColor:''">
+                            {{RecordCaption.d27_caption}}</th>
+                        <th *ngIf="totdays>=28"
+                            [style.color]="RecordCaption.d28_caption?.endsWith('-SU')?sundayColor:''">
+                            {{RecordCaption.d28_caption}}</th>
+                        <th *ngIf="totdays>=29"
+                            [style.color]="RecordCaption.d29_caption?.endsWith('-SU')?sundayColor:''">
+                            {{RecordCaption.d29_caption}}</th>
+                        <th *ngIf="totdays>=30"
+                            [style.color]="RecordCaption.d30_caption?.endsWith('-SU')?sundayColor:''">
+                            {{RecordCaption.d30_caption}}</th>
+                        <th *ngIf="totdays>=31"
+                            [style.color]="RecordCaption.d31_caption?.endsWith('-SU')?sundayColor:''">
+                            {{RecordCaption.d31_caption}}</th>
                         <th>TOTAL</th>
                     </tr>
                 </thead>

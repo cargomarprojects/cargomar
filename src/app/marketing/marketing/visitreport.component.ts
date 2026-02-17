@@ -340,6 +340,21 @@ export class VisitReportComponent {
 
     }
 
+    OnChange(field: string) {
+        if (field == 'report_format') {
+            if (this.report_format == "MONTH-WISE")
+                this.iMonth = "ALL";
+            else {
+                if (this.iMonth == "ALL") {
+                    if (this.gs.defaultValues.today.trim() != "") {
+                        var tempdt = this.gs.defaultValues.today.split('-');
+                        this.iMonth = tempdt[1];
+                    }
+                }
+            }
+        }
+    }
+
     ShowReport(_rec: MarkReport, _month: string, _cellValue: number = 1) {
 
         if (_cellValue <= 0)
