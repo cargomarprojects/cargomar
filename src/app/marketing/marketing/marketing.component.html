@@ -73,8 +73,8 @@
       </div>
       <div class="col-sm-4">
         <div class="form-group row">
-          <label class="col-sm-3 col-form-label col-form-label-sm">Lead.Source</label>
-          <div class="col-sm-9">
+          <label class="col-sm-2 col-form-label col-form-label-sm">Lead.Source</label>
+          <div class="col-sm-4">
             <select class="form-control form-control-sm" name="tpecovrtd" [(ngModel)]="search_leadsource">
               <option [value]="'ALL'">ALL</option>
               <option [value]="'NA'">NA</option>
@@ -82,9 +82,25 @@
               <option [value]="'HO-MARKETING'">HO-MARKETING</option>
             </select>
           </div>
+
+
+          <label class="col-sm-2 col-form-label col-form-label-sm">Cust.Status</label>
+          <div class="col-sm-4">
+            <select class="form-control form-control-sm" [(ngModel)]="search_cust_conv_type">
+              <option [value]="'NA'">NA</option>
+              <option [value]="'REGULAR'">REGULAR CUSTOMER</option>
+              <option [value]="'INACTIVE'">INACTIVE-NO BUSINESS ABOVE 6 MONTHS</option>
+              <option [value]="'REACTIVATED'">REACTIVATED</option>
+              <option [value]="'NEW CUSTOMER'">NEW BUSINESS-CONVERTED</option>
+              <option [value]="'PROSPECT'">PROSPECT-NO BUSIENESS YET</option>
+              <option [value]="'OTHERS'">OTHERS-NO SALES RELEVANCE</option>
+            </select>
+          </div>
+
+
         </div>
         <div class="form-group row">
-          <label class="col-sm-3 col-form-label col-form-label-sm">Init.Cust.Category</label>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Init.Cust.Category</label>
           <div class="col-sm-4">
             <select class="form-control form-control-sm" name="lcovrtd" [(ngModel)]="search_convrtstatus">
               <option [value]="'ALL'">ALL</option>
@@ -96,7 +112,7 @@
               <option value="IRRELEVANT CUSTOMER">IRRELEVANT CUSTOMER</option>
             </select>
           </div>
-          <label class="col-sm-1 col-form-label col-form-label-sm">Mode</label>
+          <label class="col-sm-2 col-form-label col-form-label-sm">Mode</label>
           <div class="col-sm-4">
             <select class="form-control form-control-sm" name="modertd" [(ngModel)]="mark_mode">
               <option [value]="'ALL'">ALL</option>
@@ -107,15 +123,20 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-3 col-form-label col-form-label-sm"></label>
+          <!-- <label class="col-sm-2 col-form-label col-form-label-sm"></label> -->
           <div class="col-sm-2">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
           </div>
-          <div class="col-sm-7 input-group input-group-sm">
+          <div class="col-sm-4">
             <select *ngIf="bPrint" class="form-control form-control-sm mr-1" [(ngModel)]="print_format">
               <option value="DETAIL">GENERAL</option>
               <option value="SUMMARY">SUMMARY</option>
             </select>
+
+          </div>
+
+          <div class="col-sm-6 input-group input-group-sm">
+
             <button *ngIf="bPrint" [disabled]="loading" (click)="List('EXCEL')"
               class="btn btn-primary btn-sm mr-1">Print</button>
             <div class="mt-1" *ngIf="IsAdmin||gs.globalVariables.user_code == 'ADMIN'">
