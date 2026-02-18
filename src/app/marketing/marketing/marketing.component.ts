@@ -49,6 +49,7 @@ export class MarketingComponent {
   search_salesman_name = '';
   search_salesman_id = '';
   search_leadsource = 'ALL';
+  search_cust_conv_type = "NA";
   search_convrtstatus = 'ALL';
   search_commodity = '';
   status_color1 = 'blue';
@@ -362,6 +363,7 @@ export class MarketingComponent {
       search_commodity: this.search_commodity,
       search_leadsource: this.search_leadsource,
       search_convrtstatus: this.search_convrtstatus,
+      search_cust_conv_type: this.search_cust_conv_type,
       mark_mode: this.mark_mode
     };
 
