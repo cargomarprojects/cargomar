@@ -50,6 +50,11 @@ export class VisitReportComponent {
     sub: any;
     urlid: string;
 
+    sSubject: string = '';
+    sMsg: string = '';
+    sHtml: string = '';
+    sTo_ids: string = '';
+    AttachList: any[] = [];
     ErrorMessage = "";
     InfoMessage = "";
     // hyperlinkStyle = "'hlink'";
@@ -87,7 +92,7 @@ export class VisitReportComponent {
     IsCompany: boolean = false;
     IsAdmin: boolean = false;
     bPrint: boolean = true;
-
+    bEmail: boolean = false;
     constructor(
         private modalService: NgbModal,
         private mainService: MarkMarketingService,
@@ -99,7 +104,7 @@ export class VisitReportComponent {
         this.page_rows = 200;
         this.page_current = 0;
         this.InitLov();
-        this.OnChange('report_format'); 
+        this.OnChange('report_format');
         // URL Query Parameter 
         this.sub = this.route.queryParams.subscribe(params => {
             if (params["parameter"] != "") {
@@ -132,6 +137,7 @@ export class VisitReportComponent {
         this.IsAdmin = false;
         this.IsCompany = false;
         this.bPrint = false;
+        this.bEmail = false;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
@@ -141,6 +147,8 @@ export class VisitReportComponent {
                 this.IsCompany = true;
             if (this.menu_record.rights_print)
                 this.bPrint = true;
+            if (this.menu_record.rights_email)
+                this.bEmail = true;
         }
         this.LoadCombo();
         this.List('NEW', 'SCREEN');
@@ -240,7 +248,7 @@ export class VisitReportComponent {
     }
 
     // Query List Data
-    List(_type: string, _output_type: string = "SCREEN") {
+    List(_type: string, _output_type: string = "SCREEN", mailsent: any = null) {
 
         if (this.report_format == "MONTH-WISE") {
             if (this.iMonth != 'ALL') {
@@ -299,8 +307,16 @@ export class VisitReportComponent {
                 this.loading = false;
                 this.totdays = response.totdays;
                 this.week5 = response.week5;
-                if (_output_type == 'EXCEL')
+                if (_type == 'PRINT')
                     this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+                else if (_type == 'MAIL') {
+                    this.AttachList = new Array<any>();
+                    this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filesize: response.filesize });
+                    this.sSubject = response.subject;
+                    this.sMsg = response.message;
+                    this.sTo_ids = response.toids;
+                    this.open(mailsent);
+                }
                 else {
 
                     this.RecordList = response.list;
@@ -427,7 +443,7 @@ export class VisitReportComponent {
     }
 
     open(content: any) {
-        this.modal = this.modalService.open(content);
+        this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
     }
 
 
