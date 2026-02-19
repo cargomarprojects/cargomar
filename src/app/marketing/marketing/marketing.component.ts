@@ -429,6 +429,9 @@ export class MarketingComponent {
     this.Record.mark_conv_date = "";
     this.Record.mark_conv_vol = 0;
     this.Record.mark_conv_unit = "NA";
+    this.Record.mark_cont_cust_id = "";
+    this.Record.mark_cont_cust_code = "";
+    this.Record.mark_cont_cust_name = "";
 
     this.old_customer_id = '';
 

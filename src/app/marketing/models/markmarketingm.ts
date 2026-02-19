@@ -48,6 +48,9 @@ export class MarkMarketingm {
   mark_conv_vol: number;
   mark_conv_unit: string;
 
+  mark_cont_cust_id: string;
+  mark_cont_cust_code: string;
+  mark_cont_cust_name: string;
 
   rec_company_code: string;
   rec_branch_code: string;
@@ -156,8 +159,8 @@ export class MarkReport {
   w3_caption: string;
   w4_caption: string;
   w5_caption: string;
-  sman_category:string;
-  
+  sman_category: string;
+
   regular: number;
   inactive: number;
   reactivated: number;

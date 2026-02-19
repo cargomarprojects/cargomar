@@ -607,7 +607,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-sm-6">
+            <!-- <div class="col-sm-6">
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label col-form-label-sm">Converted Dt</label>
                 <div class="col-sm-3">
@@ -631,7 +631,7 @@
                   </select>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="page-box">
@@ -712,7 +712,5 @@
 </ng-template>
 
 <div *ngIf="activeTabId === 'contactTab'&&mode=='EDIT'&&iisModalWindow=='N'">
-  <app-joblist [pkid]="Record.cont_pkid" [type]="''" [cust_id]="Record.cont_cust_id" [cust_name]="Record.cont_cust_name"
-    [cust_lock]="cust_lock" [cust_type]="Record.cont_type_name"
-    (ModifiedRecords)="ModifiedRecords($event)"></app-joblist>
+  <app-joblist  [RecordList]="ConvRecList"></app-joblist>
 </div>

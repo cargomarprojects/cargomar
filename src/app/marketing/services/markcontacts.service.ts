@@ -38,5 +38,12 @@ export class MarkContactService {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkContact/UpdateJobDetail', SearchData, this.gs.headerparam2('authorized'));
     }
 
+    UpdateCustomer(SearchData : any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkContact/UpdateCustomer', SearchData, this.gs.headerparam2('authorized'));
+    }
+
+    GetGroupName(SearchData : any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkContact/GetGroupName', SearchData, this.gs.headerparam2('authorized'));
+    }
 }
 

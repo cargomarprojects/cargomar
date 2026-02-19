@@ -5,7 +5,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { MarkContacts } from '../models/markcontacts';
 import { MarkContactService } from '../services/markcontacts.service';
 import { SearchTable } from '../../shared/models/searchtable';
-
+import { Jobm } from '../../clearing/models/job';
 
 @Component({
   selector: 'app-contacts',
@@ -76,6 +76,8 @@ export class ContactsComponent {
   showDetails: boolean = true;
   IsAdmin: boolean = false;
   bPrint: boolean = false;
+  ConvRecList: Jobm[] = [];
+
   // Array For Displaying List
   RecordList: MarkContacts[] = [];
   // Single Record for add/edit/view details
@@ -499,6 +501,7 @@ export class ContactsComponent {
       .subscribe(response => {
         this.loading = false;
         this.LoadData(response.record);
+        this.ConvRecList = response.list;
       },
         error => {
           this.loading = false;
