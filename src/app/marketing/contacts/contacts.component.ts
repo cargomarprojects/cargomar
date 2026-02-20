@@ -561,7 +561,10 @@ export class ContactsComponent {
     this.ErrorMessage = '';
     this.InfoMessage = '';
     this.Record._globalvariables = this.gs.globalVariables;
-
+    if (this.gs.isBlank(this.Record.cont_cust_id))
+      this.Record.cont_is_converted = false;
+    else
+      this.Record.cont_is_converted = true;
     this.mainService.Save(this.Record)
       .subscribe(response => {
         this.loading = false;

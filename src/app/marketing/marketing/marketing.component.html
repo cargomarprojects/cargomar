@@ -599,8 +599,7 @@
         </div>
       </ng-template>
     </ngb-tab>
-    <ngb-tab *ngIf="IsAdmin && (Record.mark_conv_type=='REACTIVATED'||Record.mark_conv_type=='NEW CUSTOMER')"
-      title="Update Conversion Info" id="ConversionInfo">
+    <ngb-tab *ngIf="IsAdmin && show_conv_info_tab" title="Update Conversion Info" id="ConversionInfo">
       <ng-template ngbTabContent>
         <div class="page-details">
           <div class="row">

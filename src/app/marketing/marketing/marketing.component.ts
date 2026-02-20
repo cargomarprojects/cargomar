@@ -97,6 +97,8 @@ export class MarketingComponent {
   // Single Record for add/edit/view details
   Record: MarkMarketingm = new MarkMarketingm;
   print_format = "DETAIL";
+  //to show convertion Info tab
+  show_conv_info_tab: boolean = false;
 
   CUSTRECORD: SearchTable = new SearchTable();
   SALESMANRECORD: SearchTable = new SearchTable();
@@ -496,6 +498,10 @@ export class MarketingComponent {
       this.lock_chk_visited = true;
     else
       this.lock_chk_visited = false;
+    if (this.Record.mark_conv_type == 'REACTIVATED' || this.Record.mark_conv_type == 'NEW CUSTOMER')
+      this.show_conv_info_tab = true;
+    else
+      this.show_conv_info_tab = false;
   }
 
   loadVisit() {
