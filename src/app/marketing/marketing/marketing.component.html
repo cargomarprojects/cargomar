@@ -88,7 +88,7 @@
           <div class="col-sm-4">
             <select class="form-control form-control-sm" [(ngModel)]="search_cust_conv_type">
               <option [value]="'NA'">NA</option>
-              <option [value]="'BLANK'">BLANK</option>
+              <option [value]="'BLANK'">BLANK DATA</option>
               <option [value]="'REGULAR'">REGULAR CUSTOMER</option>
               <option [value]="'INACTIVE'">INACTIVE-NO BUSINESS ABOVE 6 MONTHS</option>
               <option [value]="'REACTIVATED'">REACTIVATED</option>
@@ -453,7 +453,8 @@
               <option [value]="'INACTIVE'">INACTIVE-NO BUSINESS ABOVE 6 MONTHS</option>
               <option [value]="'REACTIVATED'">REACTIVATED</option>
               <option [value]="'NEW CUSTOMER'">NEW BUSINESS-CONVERTED</option>
-              <option [value]="'PROSPECT'">PROSPECT-NO BUSIENESS YET</option>
+              <option [value]="'PROSPECT'">PROSPECTIVE-NO BUSIENESS YET</option>
+              <option [value]="'NON-PROSPECT'">NON-PROSPECTIVE-UNLIKELY TO GET BUSINESS</option>
               <option [value]="'OTHERS'">OTHERS-NO SALES RELEVANCE</option>
             </select>
           </div>
