@@ -88,6 +88,7 @@
           <div class="col-sm-4">
             <select class="form-control form-control-sm" [(ngModel)]="search_cust_conv_type">
               <option [value]="'NA'">NA</option>
+              <option [value]="'BLANK'">BLANK</option>
               <option [value]="'REGULAR'">REGULAR CUSTOMER</option>
               <option [value]="'INACTIVE'">INACTIVE-NO BUSINESS ABOVE 6 MONTHS</option>
               <option [value]="'REACTIVATED'">REACTIVATED</option>
@@ -598,12 +599,13 @@
         </div>
       </ng-template>
     </ngb-tab>
-    <ngb-tab *ngIf="IsAdmin && (Record.mark_conv_type=='REACTIVATED'||Record.mark_conv_type=='NEW CUSTOMER')" title="Update Conversion Info" id="ConversionInfo">
+    <ngb-tab *ngIf="IsAdmin && (Record.mark_conv_type=='REACTIVATED'||Record.mark_conv_type=='NEW CUSTOMER')"
+      title="Update Conversion Info" id="ConversionInfo">
       <ng-template ngbTabContent>
         <div class="page-details">
           <div class="row">
             <div class="col-sm-12">
-              <app-newbiz [pkid]="Record.mark_pkid" [type]="''" [cont_id]="Record.mark_customer_id" 
+              <app-newbiz [pkid]="Record.mark_pkid" [type]="''" [cont_id]="Record.mark_customer_id"
                 [cust_id]="Record.mark_cont_cust_id" [cust_code]="Record.mark_cont_cust_code"
                 [cust_name]="Record.mark_cont_cust_name" [cust_lock]="Record.mark_cont_cust_id!=''"></app-newbiz>
             </div>
