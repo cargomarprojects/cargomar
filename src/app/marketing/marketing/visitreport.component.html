@@ -63,10 +63,18 @@
                 <div class="col-sm-4">
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label col-form-label-sm">Branch</label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-4">
                             <app-autocomplete3 [controlname]="'BRANCH'" [tabletype]="'BRANCH'" [displaycolumn]="'CODE'"
                                 [displaydata]="branch_code" (ValueChanged)="LovSelected($event)">
                             </app-autocomplete3>
+                        </div>
+                        <label class="col-sm-1 col-form-label col-form-label-sm">Include</label>
+                        <div class="col-sm-4">
+                            <select class="form-control form-control-sm" [(ngModel)]="included">
+                                <option [value]="'NA'">NA</option>
+                                <option [value]="'ALL'">ALL</option>
+                                <option [value]="'ALL-SALESPERSONS'">ALL SALESPERSONS</option>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">

@@ -50,6 +50,8 @@ export class VisitReportComponent {
     sub: any;
     urlid: string;
 
+    included: string = "NA";
+
     sSubject: string = '';
     sMsg: string = '';
     sHtml: string = '';
@@ -117,6 +119,8 @@ export class VisitReportComponent {
                     // this.hyperlinkStyle = "hlink3";
                     this.invokeByMenu = false;
                     this.report_type = 'CUSTOMER'; //if calling from contact master detail
+                    this.report_format = 'MONTH-WISE';
+                    this.OnChange('report_format');
                 }
             }
         });
@@ -297,7 +301,8 @@ export class VisitReportComponent {
             branch_code: this.branch_code,
             sortby: this.sortby,
             imonth: this.iMonth,
-            report_format: this.report_format
+            report_format: this.report_format,
+            included: this.included
         };
 
         this.ErrorMessage = '';
