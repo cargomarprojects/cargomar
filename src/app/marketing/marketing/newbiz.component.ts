@@ -153,6 +153,7 @@ export class NewBizComponent {
 
         this.loading = true;
         let SearchData = {
+            cont_pkid: this.cont_id,
             visit_pkid: this.pkid,
             job_pkid: _rec.job_pkid,
             job_docno: _rec.job_docno,
