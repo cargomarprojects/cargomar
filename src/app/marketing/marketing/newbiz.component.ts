@@ -171,8 +171,8 @@ export class NewBizComponent {
                 this.loading = false;
                 if (response.retmsg)
                     alert(response.retmsg);
-
-                this.convertedjob = _rec.job_docno + "-" + _rec.rec_category;
+                if (response.retvalue)
+                    this.convertedjob = _rec.job_docno + "-" + _rec.rec_category;
 
             },
                 error => {
