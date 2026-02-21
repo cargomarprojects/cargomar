@@ -185,8 +185,8 @@
           <th>NAME</th>
           <th>ADDRESS</th>
           <th>CUST.STATUS</th>
-          <th>CONVERTED</th>
-          <th>CONV.DT</th>
+          <!-- <th>CONVERTED</th>
+          <th>CONV.DT</th> -->
           <th>STATE</th>
           <th>COUNTRY</th>
           <!-- <th>TEL</th> -->
@@ -216,8 +216,8 @@
             {{rec.cont_name}}</td>
           <td>{{rec.cont_add1}}</td>
           <td>{{rec.cont_conv_type}}</td>
-          <td [style.color]="rec.cont_cust_id!=''?'green':'red'">{{rec.cont_is_converted?'Y':''}}</td>
-          <td>{{rec.cont_converted_date}}</td>
+          <!-- <td [style.color]="rec.cont_cust_id!=''?'green':'red'">{{rec.cont_is_converted?'Y':''}}</td>
+          <td>{{rec.cont_converted_date}}</td> -->
           <td>{{rec.cont_state}}</td>
           <td>{{rec.cont_country}}</td>
           <!-- <td>{{rec.cont_tel}}</td> -->
@@ -625,12 +625,12 @@
                     maxlength="60" disabled /> -->
                 </div>
                 <!-- <label class="col-sm-2 col-form-label col-form-label-sm"></label> -->
-                <div class="col-sm-4">
+                <!-- <div class="col-sm-4">
                   <input type="checkbox" [(ngModel)]="Record.cont_is_converted" id="_isconverted" disabled>
                   <label class="checkbox-inline" for="_isconverted">Converted &nbsp;&nbsp;&nbsp;<span
                       *ngIf="Record.cont_converted_jobno">Job#:</span>&nbsp;<span
                       class="text-danger">{{Record.cont_converted_jobno}} </span> </label>
-                </div>
+                </div> -->
               </div>
             </div>
             <div class="col-sm-6">
