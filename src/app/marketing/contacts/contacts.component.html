@@ -47,7 +47,7 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-4 col-form-label col-form-label-sm">Init.Cust.Category</label>
+          <!-- <label class="col-sm-4 col-form-label col-form-label-sm">Init.Cust.Category</label>
           <div class="col-sm-8">
             <select class="form-control form-control-sm" name="lcovrtd" [(ngModel)]="searchConvrtStatus">
               <option [value]="'ALL'">ALL</option>
@@ -57,6 +57,19 @@
               <option value="IRRELEVANT CUSTOMER">IRRELEVANT CUSTOMER</option>
               <option value="NA">NA</option>
               <option value="TARGET CUSTOMER">TARGET CUSTOMER</option>
+            </select>
+          </div> -->
+          <label class="col-sm-4 col-form-label col-form-label-sm">Cust.Status</label>
+          <div class="col-sm-8">
+            <select class="form-control form-control-sm" [(ngModel)]="searchConvrtStatus">
+              <option [value]="'NA'">NA</option>
+              <option [value]="'REGULAR'">REGULAR CUSTOMER</option>
+              <option [value]="'INACTIVE'">INACTIVE-NO BUSINESS ABOVE 6 MONTHS</option>
+              <option [value]="'REACTIVATED'">REACTIVATED</option>
+              <option [value]="'NEW CUSTOMER'">NEW BUSINESS-CONVERTED</option>
+              <option [value]="'PROSPECT'">PROSPECTIVE-NO BUSIENESS YET</option>
+              <option [value]="'NON-PROSPECT'">NON-PROSPECTIVE-UNLIKELY TO GET BUSINESS</option>
+              <option [value]="'OTHERS'">OTHERS-NO SALES RELEVANCE</option>
             </select>
           </div>
         </div>
@@ -538,7 +551,7 @@
               </div>
 
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label col-form-label-sm">Initial.Customer.Category </label>
+                <!-- <label class="col-sm-2 col-form-label col-form-label-sm">Initial.Customer.Category </label>
                 <div class="col-sm-4">
                   <select class="form-control form-control-sm" [(ngModel)]="Record.cont_type_2">
                     <option value="NA">NA</option>
@@ -547,6 +560,19 @@
                     <option value="FOLLOW-UP CUSTOMER">FOLLOW-UP CUSTOMER</option>
                     <option value="CONVERTED CUSTOMER">CONVERTED CUSTOMER</option>
                     <option value="IRRELEVANT CUSTOMER">IRRELEVANT CUSTOMER</option>
+                  </select>
+                </div> -->
+                <label class="col-sm-2 col-form-label col-form-label-sm">Customer Status </label>
+                <div class="col-sm-4">
+                  <select class="form-control form-control-sm" [(ngModel)]="Record.cont_conv_type" disabled>
+                    <option [value]="'NA'">NA</option>
+                    <option [value]="'REGULAR'">REGULAR CUSTOMER</option>
+                    <option [value]="'INACTIVE'">INACTIVE-NO BUSINESS ABOVE 6 MONTHS</option>
+                    <option [value]="'REACTIVATED'">REACTIVATED</option>
+                    <option [value]="'NEW CUSTOMER'">NEW BUSINESS-CONVERTED</option>
+                    <option [value]="'PROSPECT'">PROSPECTIVE-NO BUSIENESS YET</option>
+                    <option [value]="'NON-PROSPECT'">NON-PROSPECTIVE-UNLIKELY TO GET BUSINESS</option>
+                    <option [value]="'OTHERS'">OTHERS-NO SALES RELEVANCE</option>
                   </select>
                 </div>
                 <label class="col-sm-2 col-form-label col-form-label-sm">Category.Info</label>
@@ -607,15 +633,13 @@
                 </div>
               </div>
             </div>
-            <!-- <div class="col-sm-6">
+            <div class="col-sm-6">
               <div class="form-group row">
-                <label class="col-sm-2 col-form-label col-form-label-sm">Converted Dt</label>
+                <label class="col-sm-2 col-form-label col-form-label-sm">Total Visit</label>
                 <div class="col-sm-3">
-                  <app-date [inputdate]="Record.cont_converted_date" (ValueChanged)="Record.cont_converted_date=$event"
-                    [disabled]="gs.globalVariables.user_code != 'ADMIN'">
-                  </app-date>
+                  <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cont_visit_tot" disabled />
                 </div>
-                <label class="col-sm-1 col-form-label col-form-label-sm">Volume</label>
+                <!-- <label class="col-sm-1 col-form-label col-form-label-sm">Volume</label>
                 <div class="col-sm-3">
                   <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.cont_converted_vol"
                     (blur)="OnBlur('cont_converted_vol')" required maxlength="15"
@@ -629,9 +653,9 @@
                     <option [value]="'NA'">NA</option>
                     <option [value]="'TEU'">TEU</option>
                   </select>
-                </div>
+                </div> -->
               </div>
-            </div> -->
+            </div>
           </div>
         </div>
         <div class="page-box">
@@ -712,5 +736,5 @@
 </ng-template>
 
 <div *ngIf="activeTabId === 'contactTab'&&mode=='EDIT'&&iisModalWindow=='N'">
-  <app-joblist  [RecordList]="ConvRecList"></app-joblist>
+  <app-joblist [RecordList]="ConvRecList"></app-joblist>
 </div>

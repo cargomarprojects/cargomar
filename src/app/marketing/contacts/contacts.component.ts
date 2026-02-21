@@ -33,7 +33,7 @@ export class ContactsComponent {
   loading = false;
   currentTab = 'LIST';
   searchLeadSource = 'ALL';
-  searchConvrtStatus = 'ALL';
+  searchConvrtStatus = 'NA';
   searchSalesperson = '';
   searchSalesperson_id = '';
   searchstring = '';
@@ -448,7 +448,7 @@ export class ContactsComponent {
     this.Record.cont_is_wh = false;
     this.Record.cont_is_tp = false;
     this.Record.cont_contact = '';
-    this.Record.cont_lead_source = 'NA';
+    this.Record.cont_lead_source = 'SELF';
     this.Record.cont_converted = 'NA';
     this.Record.rec_mode = this.mode;
     this.Record.rec_locked = false;
@@ -463,6 +463,8 @@ export class ContactsComponent {
     this.Record.cont_converted_unit = 'NA';
     this.Record.cont_converted_jobid = '';
     this.Record.cont_converted_jobno = '';
+    this.Record.cont_conv_type = "NA";
+    this.Record.cont_visit_tot = 0;
 
     this.InitLov();
     if (!this.gs.isBlank(this.clientType)) {
