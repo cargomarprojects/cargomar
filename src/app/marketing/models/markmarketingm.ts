@@ -166,6 +166,7 @@ export class MarkReport {
   reactivated: number;
   newcustomer: number;
   prospect: number;
+  nonprospect: number;
   other: number;
 
   prev_total: number;
