@@ -168,7 +168,9 @@ export class MarkReport {
   prospect: number;
   nonprospect: number;
   other: number;
+  joinvisit: number;
 
+  conv_type_total: number;
   prev_total: number;
   min_visit_date: string;
   DataList: MonColumns[] = [];

@@ -394,13 +394,15 @@
                         <th>{{RecordCaption.w4_caption}}</th>
                         <th *ngIf="week5>0">{{RecordCaption.w5_caption}}</th>
                         <th>TOTAL</th>
-                        <th>NEW</th>
+                        <th>JOINT VISIT</th>
+                        <th>NEW BUSINESS</th>
                         <th>REACTIVATED</th>
                         <th>REGULAR</th>
                         <th>INACTIVE</th>
                         <th>PROSPECT</th>
                         <th>NON-PROSPECT</th>
                         <th>OTHERS</th>
+                        <th>TOTAL</th>
                     </tr>
                 </thead>
                 <tbody class="page-body-tbody">
@@ -427,6 +429,7 @@
                         <td>{{rec.w4>0?rec.w4:null}}</td>
                         <td *ngIf="week5>0">{{rec.w5>0?rec.w5:null}}</td>
                         <td class="hlink" (click)="ShowReport(rec,'ALL',rec.total)">{{rec.total>0?rec.total:null}}</td>
+                        <td>{{rec.joinvisit>0?rec.joinvisit:null}}</td>
                         <td>{{rec.newcustomer>0?rec.newcustomer:null}}</td>
                         <td>{{rec.reactivated>0?rec.reactivated:null}}</td>
                         <td>{{rec.regular>0?rec.regular:null}}</td>
@@ -434,6 +437,7 @@
                         <td>{{rec.prospect>0?rec.prospect:null}}</td>
                         <td>{{rec.nonprospect>0?rec.nonprospect:null}}</td>
                         <td>{{rec.other>0?rec.other:null}}</td>
+                        <td>{{rec.conv_type_total>0?rec.conv_type_total:null}}</td>
                     </tr>
                 </tbody>
             </table>
