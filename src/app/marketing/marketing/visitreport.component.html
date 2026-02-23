@@ -87,7 +87,7 @@
                             </select>
                         </div>
                     </div>
-                     <div class="form-group row">
+                    <div class="form-group row">
                         <label class="col-sm-3 col-form-label col-form-label-sm"></label>
                         <div class="col-sm-9">
                             <button [disabled]="loading" (click)="List('NEW','SCREEN')"
@@ -142,6 +142,15 @@
                         <th>OCT</th>
                         <th>NOV</th>
                         <th>DEC</th>
+                        <th>TOTAL</th>
+                        <th>JOINT VISIT</th>
+                        <th>NEW BUSINESS</th>
+                        <th>REACTIVATED</th>
+                        <th>REGULAR</th>
+                        <th>INACTIVE</th>
+                        <th>PROSPECT</th>
+                        <th>NON-PROSPECT</th>
+                        <th>OTHERS</th>
                         <th>TOTAL</th>
                     </tr>
                 </thead>
@@ -229,6 +238,15 @@
                                 <a>{{rec.total>0?rec.total:null}}</a>
                             </div>
                         </td>
+                        <td>{{rec.joinvisit>0?rec.joinvisit:null}}</td>
+                        <td>{{rec.newcustomer>0?rec.newcustomer:null}}</td>
+                        <td>{{rec.reactivated>0?rec.reactivated:null}}</td>
+                        <td>{{rec.regular>0?rec.regular:null}}</td>
+                        <td>{{rec.inactive>0?rec.inactive:null}}</td>
+                        <td>{{rec.prospect>0?rec.prospect:null}}</td>
+                        <td>{{rec.nonprospect>0?rec.nonprospect:null}}</td>
+                        <td>{{rec.other>0?rec.other:null}}</td>
+                        <td>{{rec.conv_type_total>0?rec.conv_type_total:null}}</td>
                     </tr>
                 </tbody>
             </table>
