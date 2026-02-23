@@ -180,6 +180,7 @@
           <th>LEAD SOURCE</th>
           <!-- <th>INIT.CUST.CATEGORY</th> -->
           <th>CUST.STATUS</th>
+          <th>CONV.DATE</th>
           <th>CONTACT PERSON</th>
           <th *ngIf="type=='VISIT'">COMMODITY</th>
           <th *ngIf="type=='VISIT'">NEXT ACTION</th>
@@ -204,6 +205,7 @@
           <td>{{rec.mark_lead_source}}</td>
           <!-- <td>{{rec.mark_cont_type_2}}</td> -->
           <td>{{rec.mark_conv_type}}</td>
+          <td>{{rec.mark_conv_date}}</td>
           <td>{{rec.mark_contact_person}}</td>
           <td *ngIf="type=='VISIT'">{{rec.mark_commodity}}</td>
           <td *ngIf="type=='VISIT'">{{rec.mark_next_action}}</td>
