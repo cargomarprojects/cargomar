@@ -16,6 +16,7 @@ import { BizDevtReportComponent } from './marketing/bizdevtreport.component';
 import { QuotationFclComponent } from './quotation/quotation-fcl.component';
 import { JobListComponent } from './contacts/joblist/joblist.component';
 import { NewBizComponent } from './marketing/newbiz.component';
+import { VisitReportChild2Component } from './marketing/visitreportchild2.component';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import { NewBizComponent } from './marketing/newbiz.component';
     QuotationAirComponent,
     QuotationFclComponent,
     JobListComponent,
-    NewBizComponent
+    NewBizComponent,
+    VisitReportChild2Component
   ],
   providers: [
     MarkMarketingService

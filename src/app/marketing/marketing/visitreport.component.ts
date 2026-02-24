@@ -76,7 +76,8 @@ export class VisitReportComponent {
         cust_name: '',
         from_date: '',
         to_date: '',
-        cust_category: ''
+        cust_category: '',
+        cust_conv_type: ''
     };
     iYear: number;
     iYearCaption: number;
@@ -435,9 +436,59 @@ export class VisitReportComponent {
             cust_name: cust_name,
             from_date: from_date,
             to_date: to_date,
-            cust_category: 'ALL'
+            cust_category: 'ALL',
+            cust_conv_type: ''
         };
         this.currentPage = "VISIT-REPORT-CHILD";
+    }
+    ShowReport2(_rec: MarkReport, _month: string, _conv_type: string) {
+
+        if (_rec.conv_type_total <= 0)
+            return;
+
+        let user_id: string = '';
+        let user_name: string = '';
+        let cust_id: string = '';
+        let cust_name: string = '';
+        let from_date: string = '';
+        let to_date: string = '';
+        if (this.search_iMonth == "ALL") {
+            if (_month == "ALL") {
+                from_date = _rec.min_visit_date;
+                to_date = this.iYear + "-12-31";
+            }
+        } else {
+            from_date = this.iYear + "-" + this.search_iMonth + "-01";
+            to_date = this.iYear + "-" + this.search_iMonth + "-" + this.totdays.toString();
+        }
+
+        if (this.search_report_type == "SALES PERSON") {
+            user_id = _rec.user_id;
+            user_name = _rec.user_name;
+            cust_id = "";
+            cust_name = "";
+        } else { //Customer
+            user_id = "";
+            user_name = "";
+            cust_id = _rec.user_id;
+            cust_name = _rec.user_name;
+        }
+
+        this.ChildRecord = {
+            type: 'Report',
+            user_id: user_id,
+            user_name: user_name,
+            year: this.iYear.toString(),
+            month: _month,
+            report_type: this.search_report_type,
+            cust_id: cust_id,
+            cust_name: cust_name,
+            from_date: from_date,
+            to_date: to_date,
+            cust_category: 'ALL',
+            cust_conv_type: _conv_type
+        };
+        this.currentPage = "VISIT-REPORT-CHILD2";
     }
     pageChanged(stype: string) {
         this.currentPage = "ROOT";

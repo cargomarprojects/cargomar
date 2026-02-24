@@ -51,7 +51,8 @@ export class MarkMarketingm {
   mark_cont_cust_id: string;
   mark_cont_cust_code: string;
   mark_cont_cust_name: string;
-
+  mark_customer_type: string;
+  
   rec_company_code: string;
   rec_branch_code: string;
   branch_name: string;

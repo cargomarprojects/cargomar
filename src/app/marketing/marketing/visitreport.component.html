@@ -447,15 +447,15 @@
                         <td>{{rec.w4>0?rec.w4:null}}</td>
                         <td *ngIf="week5>0">{{rec.w5>0?rec.w5:null}}</td>
                         <td class="hlink" (click)="ShowReport(rec,'ALL',rec.total)">{{rec.total>0?rec.total:null}}</td>
-                        <td>{{rec.joinvisit>0?rec.joinvisit:null}}</td>
-                        <td>{{rec.newcustomer>0?rec.newcustomer:null}}</td>
-                        <td>{{rec.reactivated>0?rec.reactivated:null}}</td>
-                        <td>{{rec.regular>0?rec.regular:null}}</td>
-                        <td>{{rec.inactive>0?rec.inactive:null}}</td>
-                        <td>{{rec.prospect>0?rec.prospect:null}}</td>
-                        <td>{{rec.nonprospect>0?rec.nonprospect:null}}</td>
-                        <td>{{rec.other>0?rec.other:null}}</td>
-                        <td>{{rec.conv_type_total>0?rec.conv_type_total:null}}</td>
+                        <td class="hlink" (click)="ShowReport2(rec,iMonth,'JOINT-VISIT')">{{rec.joinvisit>0?rec.joinvisit:null}}</td>
+                        <td class="hlink" (click)="ShowReport2(rec,iMonth,'NEW CUSTOMER')">{{rec.newcustomer>0?rec.newcustomer:null}}</td>
+                        <td class="hlink" (click)="ShowReport2(rec,iMonth,'REACTIVATED')">{{rec.reactivated>0?rec.reactivated:null}}</td>
+                        <td class="hlink" (click)="ShowReport2(rec,iMonth,'REGULAR')">{{rec.regular>0?rec.regular:null}}</td>
+                        <td class="hlink" (click)="ShowReport2(rec,iMonth,'INACTIVE')">{{rec.inactive>0?rec.inactive:null}}</td>
+                        <td class="hlink" (click)="ShowReport2(rec,iMonth,'PROSPECT')">{{rec.prospect>0?rec.prospect:null}}</td>
+                        <td class="hlink" (click)="ShowReport2(rec,iMonth,'NON-PROSPECT')">{{rec.nonprospect>0?rec.nonprospect:null}}</td>
+                        <td class="hlink" (click)="ShowReport2(rec,iMonth,'OTHERS')">{{rec.other>0?rec.other:null}}</td>
+                        <td class="hlink" (click)="ShowReport2(rec,iMonth,'ALL')">{{rec.conv_type_total>0?rec.conv_type_total:null}}</td>
                     </tr>
                 </tbody>
             </table>
@@ -486,6 +486,10 @@
 <div *ngIf="currentPage=='VISIT-REPORT-CHILD'">
     <app-visitreportchild [menuid]="menuid" [parentData]="ChildRecord" (PageChanged)="pageChanged($event)">
     </app-visitreportchild>
+</div>
+<div *ngIf="currentPage=='VISIT-REPORT-CHILD2'">
+    <app-visitreportchild2 [menuid]="menuid" [parentData]="ChildRecord" (PageChanged)="pageChanged($event)">
+    </app-visitreportchild2>
 </div>
 <ng-template #mailsent let-c="close" let-d="dismiss">
     <div class="modal-header">

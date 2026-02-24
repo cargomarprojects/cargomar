@@ -52,5 +52,10 @@ export class MarkMarketingService {
     BizDevelopmentReport(SearchData : any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkMarketing/BizDevelopmentReport', SearchData, this.gs.headerparam2('authorized'));
     }
+
+    LoadCustConvStatus(SearchData : any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkMarketing/LoadCustConvStatus', SearchData, this.gs.headerparam2('authorized'));
+    }
+
 }
 
