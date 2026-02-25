@@ -28,8 +28,8 @@
                     <th>UNIT</th>
                 </tr>
             </thead>
-            <tbody class="page-body-tbody" *ngFor="let rec of displayList; let i = index">
-                <tr [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
+            <tbody class="page-body-tbody">
+                <tr *ngFor="let rec of displayList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
                     <td>{{i+1}}</td>
                     <td style="white-space: nowrap;">{{rec.mark_user_name}}</td>
                     <td>{{rec.sman_category}}</td>
