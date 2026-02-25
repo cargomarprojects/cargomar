@@ -56,7 +56,10 @@ export class VisitReportChild2Component {
     RecordList: MarkMarketingm[] = [];
     // Single Record for add/edit/view details
     Record: MarkMarketingm = new MarkMarketingm;
+    filteredList: MarkMarketingm[] = [];
 
+
+    isShowAllChecked: boolean = false;
     filename: string = "";
     IsCompany: boolean = false;
     IsAdmin: boolean = false;
@@ -80,7 +83,6 @@ export class VisitReportChild2Component {
 
     // Init Will be called After executing Constructor
     ngOnInit() {
-
         this.InitComponent();
         if (this.parentData != null) {
             this.from_date = this.parentData.from_date;
@@ -204,5 +206,14 @@ export class VisitReportChild2Component {
             return true;
         }
         return false;
+    }
+
+    get displayList() {
+        if (this.isShowAllChecked) {
+            this.filteredList = this.RecordList;
+        } else {
+            this.filteredList = this.RecordList.filter(x => x.mark_summary === 'Y');
+        }
+        return this.filteredList;
     }
 }

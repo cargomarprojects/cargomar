@@ -77,7 +77,8 @@ export class VisitReportComponent {
         from_date: '',
         to_date: '',
         cust_category: '',
-        cust_conv_type: ''
+        cust_conv_type: '',
+        login_user_code: ''
     };
     iYear: number;
     iYearCaption: number;
@@ -437,13 +438,14 @@ export class VisitReportComponent {
             from_date: from_date,
             to_date: to_date,
             cust_category: 'ALL',
-            cust_conv_type: ''
+            cust_conv_type: '',
+            login_user_code: this.gs.globalVariables.user_code
         };
         this.currentPage = "VISIT-REPORT-CHILD";
     }
-    ShowReport2(_rec: MarkReport, _month: string, _conv_type: string) {
+    ShowReport2(_rec: MarkReport, _month: string, _conv_type: string, _cellValue: number) {
 
-        if (_rec.conv_type_total <= 0)
+        if (_cellValue <= 0)
             return;
 
         let user_id: string = '';
@@ -486,7 +488,8 @@ export class VisitReportComponent {
             from_date: from_date,
             to_date: to_date,
             cust_category: 'ALL',
-            cust_conv_type: _conv_type
+            cust_conv_type: _conv_type,
+            login_user_code: this.gs.globalVariables.user_code
         };
         this.currentPage = "VISIT-REPORT-CHILD2";
     }

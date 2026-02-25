@@ -447,15 +447,15 @@
                         <td>{{rec.w4>0?rec.w4:null}}</td>
                         <td *ngIf="week5>0">{{rec.w5>0?rec.w5:null}}</td>
                         <td class="hlink" (click)="ShowReport(rec,'ALL',rec.total)">{{rec.total>0?rec.total:null}}</td>
-                        <td class="hlink" (click)="ShowReport2(rec,iMonth,'JOINT-VISIT')">{{rec.joinvisit>0?rec.joinvisit:null}}</td>
-                        <td class="hlink" (click)="ShowReport2(rec,iMonth,'NEW CUSTOMER')">{{rec.newcustomer>0?rec.newcustomer:null}}</td>
-                        <td class="hlink" (click)="ShowReport2(rec,iMonth,'REACTIVATED')">{{rec.reactivated>0?rec.reactivated:null}}</td>
-                        <td class="hlink" (click)="ShowReport2(rec,iMonth,'REGULAR')">{{rec.regular>0?rec.regular:null}}</td>
-                        <td class="hlink" (click)="ShowReport2(rec,iMonth,'INACTIVE')">{{rec.inactive>0?rec.inactive:null}}</td>
-                        <td class="hlink" (click)="ShowReport2(rec,iMonth,'PROSPECT')">{{rec.prospect>0?rec.prospect:null}}</td>
-                        <td class="hlink" (click)="ShowReport2(rec,iMonth,'NON-PROSPECT')">{{rec.nonprospect>0?rec.nonprospect:null}}</td>
-                        <td class="hlink" (click)="ShowReport2(rec,iMonth,'OTHERS')">{{rec.other>0?rec.other:null}}</td>
-                        <td class="hlink" (click)="ShowReport2(rec,iMonth,'ALL')">{{rec.conv_type_total>0?rec.conv_type_total:null}}</td>
+                        <td class="hlink" (click)="ShowReport2(rec,iMonth,'JOINT-VISIT',rec.joinvisit)">{{rec.joinvisit>0?rec.joinvisit:null}}</td>
+                        <td class="hlink" (click)="ShowReport2(rec,iMonth,'NEW CUSTOMER',rec.newcustomer)">{{rec.newcustomer>0?rec.newcustomer:null}}</td>
+                        <td class="hlink" (click)="ShowReport2(rec,iMonth,'REACTIVATED',rec.reactivated)">{{rec.reactivated>0?rec.reactivated:null}}</td>
+                        <td class="hlink" (click)="ShowReport2(rec,iMonth,'REGULAR',rec.regular)">{{rec.regular>0?rec.regular:null}}</td>
+                        <td class="hlink" (click)="ShowReport2(rec,iMonth,'INACTIVE',rec.inactive)">{{rec.inactive>0?rec.inactive:null}}</td>
+                        <td class="hlink" (click)="ShowReport2(rec,iMonth,'PROSPECT',rec.prospect)">{{rec.prospect>0?rec.prospect:null}}</td>
+                        <td class="hlink" (click)="ShowReport2(rec,iMonth,'NON-PROSPECT',rec.nonprospect)">{{rec.nonprospect>0?rec.nonprospect:null}}</td>
+                        <td class="hlink" (click)="ShowReport2(rec,iMonth,'OTHERS',rec.other)">{{rec.other>0?rec.other:null}}</td>
+                        <td class="hlink" (click)="ShowReport2(rec,iMonth,'ALL',rec.conv_type_total)">{{rec.conv_type_total>0?rec.conv_type_total:null}}</td>
                     </tr>
                 </tbody>
             </table>
