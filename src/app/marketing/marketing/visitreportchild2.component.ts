@@ -56,8 +56,6 @@ export class VisitReportChild2Component {
     RecordList: MarkMarketingm[] = [];
     // Single Record for add/edit/view details
     Record: MarkMarketingm = new MarkMarketingm;
-    filteredList: MarkMarketingm[] = [];
-
 
     isShowAllChecked: boolean = false;
     filename: string = "";
@@ -210,10 +208,9 @@ export class VisitReportChild2Component {
 
     get displayList() {
         if (this.isShowAllChecked) {
-            this.filteredList = this.RecordList;
+            return this.RecordList;
         } else {
-            this.filteredList = this.RecordList.filter(x => x.mark_summary === 'Y');
+            return this.RecordList.filter(x => x.mark_summary === 'Y');
         }
-        return this.filteredList;
     }
 }

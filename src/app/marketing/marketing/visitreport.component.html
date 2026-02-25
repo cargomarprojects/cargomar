@@ -427,7 +427,7 @@
                     <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
                         (mousedown)="selectedRowIndex=i">
                         <td>
-                            <div class="hlink" (click)="ShowReport(rec,'ALL')">
+                            <div class="hlink" (click)="ShowReport2(rec,iMonth,'WEEKNO',1)">
                                 <a>{{rec.user_name}}</a>
                             </div>
                         </td>
@@ -441,11 +441,11 @@
                                 <a>{{rec.user_branch}}</a>
                             </div>
                         </td>
-                        <td>{{rec.w1>0?rec.w1:null}}</td>
-                        <td>{{rec.w2>0?rec.w2:null}}</td>
-                        <td>{{rec.w3>0?rec.w3:null}}</td>
-                        <td>{{rec.w4>0?rec.w4:null}}</td>
-                        <td *ngIf="week5>0">{{rec.w5>0?rec.w5:null}}</td>
+                        <td class="hlink" (click)="ShowReport2(rec,iMonth,RecordCaption.w1_caption,rec.w1)">{{rec.w1>0?rec.w1:null}}</td>
+                        <td class="hlink" (click)="ShowReport2(rec,iMonth,RecordCaption.w2_caption,rec.w2)">{{rec.w2>0?rec.w2:null}}</td>
+                        <td class="hlink" (click)="ShowReport2(rec,iMonth,RecordCaption.w3_caption,rec.w3)">{{rec.w3>0?rec.w3:null}}</td>
+                        <td class="hlink" (click)="ShowReport2(rec,iMonth,RecordCaption.w4_caption,rec.w4)">{{rec.w4>0?rec.w4:null}}</td>
+                        <td *ngIf="week5>0" class="hlink" (click)="ShowReport2(rec,iMonth,RecordCaption.w5_caption,rec.w5)">{{rec.w5>0?rec.w5:null}}</td>
                         <td class="hlink" (click)="ShowReport(rec,'ALL',rec.total)">{{rec.total>0?rec.total:null}}</td>
                         <td class="hlink" (click)="ShowReport2(rec,iMonth,'JOINT-VISIT',rec.joinvisit)">{{rec.joinvisit>0?rec.joinvisit:null}}</td>
                         <td class="hlink" (click)="ShowReport2(rec,iMonth,'NEW CUSTOMER',rec.newcustomer)">{{rec.newcustomer>0?rec.newcustomer:null}}</td>
