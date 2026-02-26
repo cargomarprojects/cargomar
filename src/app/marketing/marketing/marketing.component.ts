@@ -153,10 +153,15 @@ export class MarketingComponent {
     this.IsCompany = false;
     this.bPrint = false;
     this.bDocs = false;
-    if (this.type == "VISIT")
+    if (this.type == "VISIT") {
+
+      this.gs.globalData.mark_fromdate = this.gs.defaultValues.monthbegindate;
       this.gs.globalData.mark_todate = this.gs.defaultValues.today;
-    else
+    }
+    else {
+      this.gs.globalData.mark_fromdate = this.gs.defaultValues.today;
       this.gs.globalData.mark_todate = this.getFuturedate(30);
+    }
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
