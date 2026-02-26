@@ -37,7 +37,7 @@ export class RitcmComponent {
   sub: any;
   urlid: string;
 
-
+  bPrint = false;
   ErrorMessage = "";
   InfoMessage = "";
 
@@ -81,10 +81,13 @@ export class RitcmComponent {
   }
 
   InitComponent() {
-
+    this.bPrint = false;
     this.menu_record = this.gs.getMenu(this.menuid);
-    if (this.menu_record)
+    if (this.menu_record) {
       this.title = this.menu_record.menu_name;
+      if (this.menu_record.rights_print)
+        this.bPrint = true;
+    }
 
     this.LoadCombo();
 
@@ -177,6 +180,8 @@ export class RitcmComponent {
       rowtype: this.type,
       searchstring: this.searchstring.toUpperCase(),
       company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      report_folder: this.gs.globalVariables.report_folder,
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
@@ -188,10 +193,14 @@ export class RitcmComponent {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.RecordList = response.list;
-        this.page_count = response.page_count;
-        this.page_current = response.page_current;
-        this.page_rowcount = response.page_rowcount;
+        if (_type == 'EXCEL')
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else {
+          this.RecordList = response.list;
+          this.page_count = response.page_count;
+          this.page_current = response.page_current;
+          this.page_rowcount = response.page_rowcount;
+        }
       },
         error => {
           this.loading = false;
@@ -200,7 +209,9 @@ export class RitcmComponent {
         });
   }
 
-
+  Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+    this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+  }
   NewRecord() {
 
     let _rec: Ritcm = this.Record;
@@ -376,7 +387,7 @@ export class RitcmComponent {
 
   ProcessData(_type: string) {
 
-    if (!confirm("UPDATE RATES "+_type)) {
+    if (!confirm("UPDATE RATES " + _type)) {
       return
     }
 
