@@ -60,6 +60,7 @@ export class ContactsComponent {
 
   jobno: string = '';
 
+  reclocked: boolean = false;
   cust_lock: boolean = false;
   activeTabId = 'contactTab';
   ErrorMessage = "";
@@ -154,6 +155,7 @@ export class ContactsComponent {
     this.IsAdmin = false;
     this.bPrint = false;
     this.bDocs = false;
+    this.reclocked = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -373,7 +375,8 @@ export class ContactsComponent {
       report_folder: this.gs.globalVariables.report_folder,
       searchvalidation: this.searchvalidation,
       searchsortby: this.searchsortby,
-      searchdatetype: this.searchdatetype
+      searchdatetype: this.searchdatetype,
+      reclocked: this.reclocked
     };
 
     this.ErrorMessage = '';
