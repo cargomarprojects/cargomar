@@ -50,6 +50,7 @@ export class VisitReportChild2Component {
     cust_conv_type: string = "NA";
     report_type: string = "SMAN";
     user_pkid: string = "";
+    user_name: string = "";
     cust_id: string = "";
 
     // Array For Displaying List
@@ -86,6 +87,7 @@ export class VisitReportChild2Component {
             this.from_date = this.parentData.from_date;
             this.to_date = this.parentData.to_date;
             this.user_pkid = this.parentData.user_id;
+            this.user_name = this.parentData.user_name;
             this.cust_id = this.parentData.cust_id;
             this.report_type = this.parentData.report_type;
             this.cust_conv_type = this.parentData.cust_conv_type;
@@ -151,6 +153,7 @@ export class VisitReportChild2Component {
             from_date: this.from_date,
             to_date: this.to_date,
             user_pkid: this.parentData.user_id,
+            user_name: this.parentData.user_name,
             cust_id: this.parentData.cust_id,
             cust_conv_type: this.cust_conv_type
         };

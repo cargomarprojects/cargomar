@@ -446,8 +446,9 @@ export class VisitReportComponent {
     }
     ShowReport2(_rec: MarkReport, _month: string, _conv_type: string, _cellValue: number) {
 
-        if (_rec.user_name == "TOTAL")
+         if(_rec.user_name=='TOTAL'&&(_conv_type=='ALL'||_conv_type.includes('WEEK')))
             return;
+
         if (_cellValue <= 0)
             return;
 
