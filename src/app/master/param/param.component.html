@@ -28,7 +28,14 @@
             <select class="form-control form-control-sm" [(ngModel)]="searchid1">
               <option [value]="'NA'">NA</option>
               <option [value]="'ALL'">ALL</option>
+              <option [value]="'ACCOUNTS'">ACCOUNTS</option>
+              <option [value]="'ADMIN'">ADMIN</option>
               <option [value]="'CSD'">CSD</option>
+              <option [value]="'DOCS'">DOCS</option>
+              <option [value]="'HRD'">HRD</option>
+              <option [value]="'MGMT'">MGMT</option>
+              <option [value]="'OPS'">OPS</option>
+              <option [value]="'SALES SUPPORT'">SALES SUPPORT</option>
               <option [value]="'SALESPERSON'">SALESPERSON</option>
             </select>
           </div>
@@ -241,7 +248,14 @@
         <div *ngIf="type == 'SALESMAN'" class="col-10">
           <select class="form-control form-control-sm" [(ngModel)]="Record.param_id1">
             <option [value]="'NA'">NA</option>
+            <option [value]="'ACCOUNTS'">ACCOUNTS</option>
+            <option [value]="'ADMIN'">ADMIN</option>
             <option [value]="'CSD'">CSD</option>
+            <option [value]="'DOCS'">DOCS</option>
+            <option [value]="'HRD'">HRD</option>
+            <option [value]="'MGMT'">MGMT</option>
+            <option [value]="'OPS'">OPS</option>
+            <option [value]="'SALES SUPPORT'">SALES SUPPORT</option>
             <option [value]="'SALESPERSON'">SALESPERSON</option>
           </select>
         </div>

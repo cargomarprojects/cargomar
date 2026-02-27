@@ -380,7 +380,8 @@ export class VisitReportComponent {
     }
 
     ShowReport(_rec: MarkReport, _month: string, _cellValue: number = 1) {
-
+        if (_rec.user_name == "TOTAL")
+            return;
         if (_cellValue <= 0)
             return;
 
@@ -445,6 +446,8 @@ export class VisitReportComponent {
     }
     ShowReport2(_rec: MarkReport, _month: string, _conv_type: string, _cellValue: number) {
 
+        if (_rec.user_name == "TOTAL")
+            return;
         if (_cellValue <= 0)
             return;
 
