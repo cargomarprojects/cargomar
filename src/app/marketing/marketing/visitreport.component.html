@@ -120,7 +120,7 @@
                 </ul>
             </div>
         </div>
-        <div *ngIf="search_format=='MONTH-WISE'" class="page-body table-responsive fixedTableHead my-0 p-0"
+        <div *ngIf="search_format=='MONTH-WISE'" #scrollContainerMonth class="page-body table-responsive fixedTableHead my-0 p-0"
             [style.height]="type === 'INVOKE-FRM-CONTACT'?'auto':'calc(100vh - 385px)'">
             <table class="table table-hover table-sm table-bordered table-striped">
                 <thead class="page-body-thead">
@@ -156,7 +156,7 @@
                 </thead>
                 <tbody class="page-body-tbody">
                     <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
-                        (mousedown)="selectedRowIndex=i">
+                        (mousedown)="selectedRowIndex=i" #tableRowMonth [attr.data-id]="rec.user_name">
                         <td>
                             <div [class.hlink]="'hlink'" (click)="ShowReport(rec,'ALL')">
                                 <a>{{rec.user_name}}</a>
@@ -251,7 +251,7 @@
                 </tbody>
             </table>
         </div>
-        <div *ngIf="search_format=='DAY-WISE'" class="page-body table-responsive fixedTableHead my-0 p-0"
+        <div *ngIf="search_format=='DAY-WISE'" #scrollContainerDay class="page-body table-responsive fixedTableHead my-0 p-0"
             [style.height]="type === 'INVOKE-FRM-CONTACT'?'auto':'calc(100vh - 385px)'">
             <table class="table table-hover table-sm table-bordered table-striped">
                 <thead class="page-body-thead">
@@ -331,7 +331,7 @@
                 </thead>
                 <tbody class="page-body-tbody">
                     <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
-                        (mousedown)="selectedRowIndex=i">
+                        (mousedown)="selectedRowIndex=i" #tableRowDay [attr.data-id]="rec.user_name">
                         <td>
                             <div class="hlink" (click)="ShowReport(rec,'ALL')">
                                 <a>{{rec.user_name}}</a>
@@ -398,7 +398,7 @@
                 </tbody>
             </table>
         </div>
-        <div *ngIf="search_format=='WEEK-WISE'" class="page-body table-responsive fixedTableHead my-0 p-0"
+        <div *ngIf="search_format=='WEEK-WISE'"  #scrollContainerWeek class="page-body table-responsive fixedTableHead my-0 p-0"
             [style.height]="type === 'INVOKE-FRM-CONTACT'?'auto':'calc(100vh - 385px)'">
             <table class="table table-hover table-sm table-bordered table-striped">
                 <thead class="page-body-thead">
@@ -425,7 +425,7 @@
                 </thead>
                 <tbody class="page-body-tbody">
                     <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
-                        (mousedown)="selectedRowIndex=i">
+                        (mousedown)="selectedRowIndex=i" #tableRowWeek [attr.data-id]="rec.user_name">
                         <td>
                             <div class="hlink" (click)="ShowReport2(rec,iMonth,'WEEKNO',1)">
                                 <a>{{rec.user_name}}</a>

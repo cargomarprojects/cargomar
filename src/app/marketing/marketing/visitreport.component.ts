@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild, ViewChildren, QueryList, ElementRef, AfterViewInit } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
@@ -24,6 +24,17 @@ export class VisitReportComponent {
     @Input() type: string = '';
     @Input() customer_name: string = '';
     @Input() sman_id: string = '';
+
+    @ViewChild('scrollContainerMonth') scrollContainerMonth: ElementRef;
+    @ViewChildren('tableRowMonth') tableRowsMonth: QueryList<ElementRef>;
+
+    @ViewChild('scrollContainerDay') scrollContainerDay: ElementRef;
+    @ViewChildren('tableRowDay') tableRowsDay: QueryList<ElementRef>;
+
+    @ViewChild('scrollContainerWeek') scrollContainerWeek: ElementRef;
+    @ViewChildren('tableRowWeek') tableRowsWeek: QueryList<ElementRef>;
+
+
     InitCompleted: boolean = false;
     menu_record: any;
 
@@ -49,6 +60,10 @@ export class VisitReportComponent {
 
     sub: any;
     urlid: string;
+
+    selectedRowMonth: string = "";
+    selectedRowDay: string = "";
+    selectedRowWeek: string = "";
 
     included: string = "NA";
 
@@ -442,11 +457,20 @@ export class VisitReportComponent {
             cust_conv_type: '',
             login_user_code: this.gs.globalVariables.user_code
         };
+
+        // this is for scrollview
+        if (this.search_format == "MONTH-WISE")
+            this.selectedRowMonth = _rec.user_name;
+        else if (this.search_format == "DAY-WISE")
+            this.selectedRowDay = _rec.user_name;
+        if (this.search_format == "WEEK-WISE")
+            this.selectedRowWeek = _rec.user_name;
+
         this.currentPage = "VISIT-REPORT-CHILD";
     }
     ShowReport2(_rec: MarkReport, _month: string, _conv_type: string, _cellValue: number) {
 
-         if(_rec.user_name=='TOTAL'&&(_conv_type=='ALL'||_conv_type.includes('WEEK')))
+        if (_rec.user_name == 'TOTAL' && (_conv_type == 'ALL' || _conv_type.includes('WEEK')))
             return;
 
         if (_cellValue <= 0)
@@ -495,10 +519,26 @@ export class VisitReportComponent {
             cust_conv_type: _conv_type,
             login_user_code: this.gs.globalVariables.user_code
         };
+
+        // this is for scrollview
+        if (this.search_format == "MONTH-WISE")
+            this.selectedRowMonth = _rec.user_name;
+        else if (this.search_format == "DAY-WISE")
+            this.selectedRowDay = _rec.user_name;
+        else if (this.search_format == "WEEK-WISE")
+            this.selectedRowWeek = _rec.user_name;
+
         this.currentPage = "VISIT-REPORT-CHILD2";
     }
     pageChanged(stype: string) {
         this.currentPage = "ROOT";
+
+        if (this.search_format == "MONTH-WISE")
+            this.setScrollMonth();
+        else if (this.search_format == "DAY-WISE")
+            this.setScrollDay();
+        else if (this.search_format == "WEEK-WISE")
+            this.setScrollWeek();
     }
 
     Close() {
@@ -509,5 +549,50 @@ export class VisitReportComponent {
         this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
     }
 
+
+    setScrollMonth() {
+        setTimeout(() => {
+            if (this.selectedRowMonth) {
+                const rowArray = this.tableRowsMonth.toArray();
+                let rowEl = null;
+                for (let r of rowArray) {
+                    if (r.nativeElement.getAttribute('data-id') === this.selectedRowMonth) {
+                        rowEl = r; break;
+                    }
+                }
+                if (rowEl) rowEl.nativeElement.scrollIntoView({ block: 'center' });
+            }
+        }, 50);
+    }
+
+    setScrollDay() {
+        setTimeout(() => {
+            if (this.selectedRowDay) {
+                const rowArray = this.tableRowsDay.toArray();
+                let rowEl = null;
+                for (let r of rowArray) {
+                    if (r.nativeElement.getAttribute('data-id') === this.selectedRowDay) {
+                        rowEl = r; break;
+                    }
+                }
+                if (rowEl) rowEl.nativeElement.scrollIntoView({ block: 'center' });
+            }
+        }, 50);
+    }
+
+    setScrollWeek() {
+        setTimeout(() => {
+            if (this.selectedRowWeek) {
+                const rowArray = this.tableRowsWeek.toArray();
+                let rowEl = null;
+                for (let r of rowArray) {
+                    if (r.nativeElement.getAttribute('data-id') === this.selectedRowWeek) {
+                        rowEl = r; break;
+                    }
+                }
+                if (rowEl) rowEl.nativeElement.scrollIntoView({ block: 'center' });
+            }
+        }, 50);
+    }
 
 }
