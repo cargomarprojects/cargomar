@@ -627,6 +627,17 @@ a {
   cursor: pointer;
 }
 
+.hlink3 {
+  color: red;
+  cursor: pointer;
+  font-weight: bold;
+}
+.hlink4 {
+  color: red;
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: bold;
+}
 
 
 .hlink_blue {
