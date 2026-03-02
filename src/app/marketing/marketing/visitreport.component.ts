@@ -131,6 +131,11 @@ export class VisitReportComponent {
                 this.menuid = options.menuid;
                 if (this.menuid == "MARKVISITREPORT") {
                     this.type = options.type;
+                    if (!this.gs.isBlank(options.format) && !this.gs.isBlank(options.month)) {
+                        this.report_format = options.format;
+                        this.iMonth = options.month;
+                        this.OnChange('report_format');
+                    }
                     this.InitComponent();
                 } else {
                     // this.hyperlinkStyle = "hlink3";
