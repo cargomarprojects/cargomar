@@ -41,6 +41,7 @@ export class RitcmComponent {
   ErrorMessage = "";
   InfoMessage = "";
 
+  report_format: string = "DEFAULT";
   mode = '';
   pkid = '';
 
@@ -185,7 +186,8 @@ export class RitcmComponent {
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
-      page_rowcount: this.page_rowcount
+      page_rowcount: this.page_rowcount,
+      report_format:this.report_format
     };
 
     this.ErrorMessage = '';

@@ -12,16 +12,26 @@
 
   <div class="page-search">
     <div class="row">
-      <label class="col-2">Search</label>
-      <div class="col">
+      <label class="col-1">Search</label>
+      <div class="col-3">
         <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
       </div>
-      <div class="col">
-        <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
-        <button *ngIf="bPrint" [disabled]="loading" (click)="List('EXCEL')"
-          class="btn btn-primary btn-sm mr-1">Print</button>
+      <div class="col-4">
+        <div class="form-group row">
+          <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+          <div *ngIf="bPrint" class="col-8 input-group input-group-sm">
+            <label class="col-form-label col-form-label-sm mr-1">Format</label>
+            <select class="form-control form-control-sm mr-1" [(ngModel)]="report_format">
+              <option [value]="'DEFAULT'">DEFAULT</option>
+              <option [value]="'INCLUDE SUB CODE'">INCLUDE SUB CODE</option>
+              <option [value]="'RECENTLY USED'">RECENTLY USED</option>
+            </select>
+            <button *ngIf="bPrint" [disabled]="loading" (click)="List('EXCEL')"
+              class="btn btn-primary btn-sm mr-1">Print</button>
+          </div>
+        </div>
       </div>
-      <div *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="col">
+      <div *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="col-4">
         <button [disabled]="loading" (click)="ProcessData('GENERAL')" class="btn btn-primary btn-sm mr-1">Update
           General</button>
         <button [disabled]="loading" (click)="ProcessData('SCHEME WISE')" class="btn btn-primary btn-sm mr-1">Update
