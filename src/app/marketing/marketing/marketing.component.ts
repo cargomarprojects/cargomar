@@ -572,6 +572,7 @@ export class MarketingComponent {
           this.Record.branch_name = this.gs.globalVariables.branch_name;
           this.Record.mark_user_name = this.gs.globalVariables.user_code;
           this.Record.mark_oldcustomer_id = this.Record.mark_customer_id;
+          this.Record.rec_version =  response.rec_version;
         }
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
