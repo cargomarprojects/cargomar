@@ -41,6 +41,7 @@ export class RitcmComponent {
   ErrorMessage = "";
   InfoMessage = "";
 
+  usedcodeonly: boolean = false;
   report_format: string = "DEFAULT";
   mode = '';
   pkid = '';
@@ -174,6 +175,12 @@ export class RitcmComponent {
   // Query List Data
   List(_type: string) {
 
+    if (_type == 'UPDATE-PROC') {
+      if (!confirm("Do you want to update ?")) {
+        return;
+      }
+    }
+
     this.loading = true;
 
     let SearchData = {
@@ -187,7 +194,8 @@ export class RitcmComponent {
       page_current: this.page_current,
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount,
-      report_format:this.report_format
+      report_format: this.report_format,
+      usedcodeonly: this.usedcodeonly
     };
 
     this.ErrorMessage = '';
@@ -197,6 +205,9 @@ export class RitcmComponent {
         this.loading = false;
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else if (_type == 'UPDATE-PROC') {
+          alert("Updated Successfully");
+        }
         else {
           this.RecordList = response.list;
           this.page_count = response.page_count;

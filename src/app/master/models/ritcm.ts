@@ -19,6 +19,13 @@ export class Ritcm {
   ritc_verified_by: string;
   ritc_verified_date: string;
 
+  ritc_tot_used: number;
+  ritc_used_date: string;
+
+  rec_created_by: string;
+  rec_created_date: string;
+  rec_edited_by: string;
+  rec_edited_date: string;
 
   rec_locked: boolean;
   rec_mode: string;
