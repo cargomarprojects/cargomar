@@ -105,22 +105,20 @@ export class ContactsComponent {
 
   ) {
 
-
     this.page_count = 0;
     this.page_rows = 25;
     this.page_current = 0;
-
 
     this.InitLov();
 
     // URL Query Parameter
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
-        this.InitCompleted = true;
+        //this.InitCompleted = true;  //new change start end
         var options = JSON.parse(params["parameter"]);
         this.menuid = options.menuid;
         this.type = options.type;
-        this.InitComponent();
+        //this.InitComponent();  //new change start end
       }
     });
 
@@ -141,10 +139,25 @@ export class ContactsComponent {
     else {
 
       if (!this.InitCompleted) {
+        this.InitCompleted = true;
         this.InitComponent();
       }
+
+      //new change start
+      // this.mainService.init(this.menuid);
+      // if (this.mainService.state.mode == "ADD")
+      //   this.ActionHandler('ADD', '');
+      // else if (this.mainService.state.mode == "EDIT")
+      //   this.ActionHandler('EDIT', this.mainService.state.pkid)
+      //new change end
+
       this.List('NEW');
     }
+
+
+
+
+
   }
 
   InitComponent() {
