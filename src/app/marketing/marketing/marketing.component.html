@@ -1,8 +1,10 @@
 <div class="page-header">
   <div class="col-sm-12">
     <label>{{title}}</label>
-    <button *ngIf="type=='VISIT'"  [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
-    <button *ngIf="type=='VISIT'"  [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+    <button *ngIf="type=='VISIT'" [disabled]="loading" (click)="ActionHandler('LIST','')"
+      class="btn btn-primary btn-sm">List</button>
+    <button *ngIf="type=='VISIT'" [disabled]="loading" (click)="ActionHandler('ADD','')"
+      class="btn btn-primary btn-sm">New</button>
     <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
@@ -12,8 +14,8 @@
     <div class="row">
       <div class="col-sm-4">
         <div class="form-group row">
-           <label  *ngIf="type=='PLANNING'"  class="col-sm-3 col-form-label col-form-label-sm pr-0">Next Visit Date</label>
-          <div *ngIf="type=='VISIT'"  class="col-sm-3">
+          <label *ngIf="type=='PLANNING'" class="col-sm-3 col-form-label col-form-label-sm pr-0">Next Visit Date</label>
+          <div *ngIf="type=='VISIT'" class="col-sm-3">
             <select class="form-control form-control-sm" name="vstdt" [(ngModel)]="search_datetype">
               <option [value]="'VISIT-DATE'">Visit Date</option>
               <option [value]="'ENTRY-DATE'">Entry Date</option>
@@ -114,7 +116,7 @@
               <option [value]="'NA'">NA</option>
               <option [value]="'BLANK'">BLANK DATA</option>
               <option [value]="'REGULAR'">REGULAR CUSTOMER</option>
-              <option [value]="'INACTIVE'">INACTIVE-NO BUSINESS ABOVE 6 MONTHS</option>
+              <option [value]="'INACTIVE'">INACTIVE-NO BUSINESS ABOVE 12 MONTHS</option>
               <option [value]="'REACTIVATED'">REACTIVATED</option>
               <option [value]="'NEW CUSTOMER'">NEW BUSINESS-CONVERTED</option>
               <option [value]="'PROSPECT'">PROSPECTIVE-NO BUSIENESS YET</option>
@@ -212,7 +214,7 @@
           <td>{{rec.mark_commodity}}</td>
           <td>{{rec.mark_next_action}}</td>
           <td [style.color]="rec.mark_followupstatus">{{rec.mark_followupcount}}</td>
-          <td >{{rec.mark_cust_infocount?'Y':''}}</td>
+          <td>{{rec.mark_cust_infocount?'Y':''}}</td>
           <td style="text-align:center" (click)="ShowDocuments(doc,rec)"> <i class="fa fa-file fa-md pointer"
               [style.color]="rec.mark_doc_attached=='Y'?'red':'chocolate'" aria-hidden="true"></i></td>
           <td>{{rec.rec_created_date}}</td>
