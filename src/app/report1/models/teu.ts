@@ -35,6 +35,7 @@ export class Teu {
   hbl_nomination: string;
   mbl_pod_eta: string;
   job_billto_name:string;
+  hbl_notify_name:string;
   
   JAN: string;
   FEB: string;

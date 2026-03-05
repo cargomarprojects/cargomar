@@ -71,7 +71,7 @@
           </div>
         </div>
         <div class="col-sm-4">
-         
+
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Carrier</label>
             <div class="col-sm-10">
@@ -101,7 +101,7 @@
           </div>
         </div>
         <div class="col-sm-4">
-          
+
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Format</label>
             <div class="col-sm-10">
@@ -142,7 +142,8 @@
     </div>
   </div>
 
-  <div *ngIf="rec_category=='TEU-EXPORT'&& list_format=='GENERAL'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 340px);">
+  <div *ngIf="rec_category=='TEU-EXPORT'&& list_format=='GENERAL'"
+    class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 340px);">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
@@ -153,6 +154,7 @@
           <th>C.SEALNO</th>
           <th>SHIPPER</th>
           <th>CONSIGNEE</th>
+          <th>NOTIFY</th>
           <th>BILL.TO</th>
           <th>AGENT</th>
           <th>CARRIER</th>
@@ -188,6 +190,7 @@
           <td>{{rec.cntr_csealno}}</td>
           <td>{{rec.hbl_exp_name}}</td>
           <td>{{rec.hbl_imp_name}}</td>
+          <td>{{rec.hbl_notify_name}}</td>
           <td>{{rec.job_billto_name}}</td>
           <td>{{rec.hbl_agent_name}}</td>
           <td>{{rec.hbl_carrier_name}}</td>
@@ -216,7 +219,8 @@
     </table>
   </div>
 
-  <div *ngIf="list_format=='SUMMARY'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 340px);">
+  <div *ngIf="list_format=='SUMMARY'" class="page-body table-responsive fixedTableHead my-0 p-0"
+    style="height: calc(100vh - 340px);">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
@@ -258,7 +262,8 @@
     </table>
   </div>
 
-  <div *ngIf="rec_category=='TEU-IMPORT'&& list_format=='GENERAL'" class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 340px);">
+  <div *ngIf="rec_category=='TEU-IMPORT'&& list_format=='GENERAL'"
+    class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 340px);">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
@@ -334,7 +339,7 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr *ngFor="let rec of RecordList; let i = index"  [class.active]="i == selectedRowIndex"
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
           (mousedown)="selectedRowIndex=i" [style.color]="rec.row_colour">
           <td>{{rec.branch}}</td>
           <td *ngFor="let rec2 of rec.TableDataList" class="{{rec2.col_class_style}}">{{rec2.col_field_value}}</td>
