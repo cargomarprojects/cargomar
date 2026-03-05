@@ -19,7 +19,8 @@ export class Tonnage {
   hbl_pofd_name: string;
   mbl_status_name: string;
   mbl_pod_eta: string;
-  hbl_billto_name:string;
+  hbl_billto_name: string;
+  hbl_notify_name: string;
 
   hbl_pol_name: string;
   branch: string;
@@ -36,7 +37,7 @@ export class Tonnage {
   NOV: string;
   DEC: string;
 
-  TableDataList: TblColumns[] = []; 
+  TableDataList: TblColumns[] = [];
 
   _globalvariables: GlobalVariables;
 }

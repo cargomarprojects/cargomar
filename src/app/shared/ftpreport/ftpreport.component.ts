@@ -32,7 +32,11 @@ export class FtpReportComponent {
   page_current: number = 0;
   page_rowcount: number = 0;
   page_rows: number = 0;
+  xmlpending: boolean = false;
+  search_xmlpending: boolean = false;
 
+  report_format: string = "DEFAULT";
+  search_report_format: string = "DEFAULT";
   ErrorMessage = "";
   InfoMessage = "";
   RecordList: Ftplog[] = [];
@@ -63,6 +67,8 @@ export class FtpReportComponent {
   }
 
   InitComponent() {
+
+
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -80,6 +86,11 @@ export class FtpReportComponent {
   }
 
   LoadCombo() {
+    if (this.type == 'FTPLOGREPORT') {
+      this.ftptype = 'RITRA';
+      this.from_date = this.gs.getNewdate(-5);
+      this.to_date = this.gs.defaultValues.today;
+    }
   }
 
   // Save Data
@@ -91,9 +102,11 @@ export class FtpReportComponent {
   }
 
   List(_type: string) {
+    this.search_report_format = this.report_format;
+    this.search_xmlpending = this.xmlpending;
     this.SearchRecord("ftpreport", _type);
   }
-  SearchRecord(controlname: string, _type: string) {
+  SearchRecord(controlname: string, _type: string, _mblid: string = "") {
     this.InfoMessage = '';
     this.ErrorMessage = '';
     if (this.type == "FTPLOGREPORT")
@@ -112,13 +125,17 @@ export class FtpReportComponent {
       comp_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       user_pkid: this.gs.globalVariables.user_pkid,
+      user_code: this.gs.globalVariables.user_code,
       year_code: this.gs.globalVariables.year_code,
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount,
       from_date: this.from_date,
-      to_date: this.to_date
+      to_date: this.to_date,
+      report_format: this.report_format,
+      mblid: _mblid,
+      xmlpending: this.xmlpending
     };
 
     // SearchData.table = controlname;
@@ -136,6 +153,12 @@ export class FtpReportComponent {
           this.FtpTypeList = response.param;
           this.SearchRecord("ftpreport", "LOAD");
         }
+        else if (controlname == "ftpmanualsent") {
+          if (response.status == 'OK') {
+            this.RecordList.splice(this.RecordList.findIndex(rec => rec.ftp_mbl_id == _mblid), 1);
+            alert("Successfully Update")
+          }
+        }
         else {
           this.RecordList = response.ftpreport;
           this.page_count = response.page_count;
@@ -147,5 +170,21 @@ export class FtpReportComponent {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
         });
+  }
+
+
+  SentManually(rec: Ftplog) {
+    this.ErrorMessage = '';
+    if (rec.ftp_mbl_id.trim().length <= 0) {
+      this.ErrorMessage = "Invalid ID";
+      alert(this.ErrorMessage);
+      return;
+    }
+
+    if (!confirm("Remove From Pending List?")) {
+      return;
+    }
+
+    this.SearchRecord("ftpmanualsent", "UPDATE", rec.ftp_mbl_id);
   }
 }
