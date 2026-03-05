@@ -33,6 +33,7 @@ export class FtpReportComponent {
   page_rowcount: number = 0;
   page_rows: number = 0;
   xmlpending: boolean = false;
+  search_xmlpending: boolean = false;
 
   report_format: string = "DEFAULT";
   search_report_format: string = "DEFAULT";
@@ -102,6 +103,7 @@ export class FtpReportComponent {
 
   List(_type: string) {
     this.search_report_format = this.report_format;
+    this.search_xmlpending = this.xmlpending;
     this.SearchRecord("ftpreport", _type);
   }
   SearchRecord(controlname: string, _type: string, _mblid: string = "") {
@@ -179,7 +181,7 @@ export class FtpReportComponent {
       return;
     }
 
-    if (!confirm("Manual Sent FTP?")) {
+    if (!confirm("Remove From Pending List?")) {
       return;
     }
 
