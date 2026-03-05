@@ -120,10 +120,10 @@
                     <th>MBLBK#</th>
                     <th>HOUSE NOS</th>
                     <th>ETD</th>
-                    <th>ENDING DAYS</th>
-                    <th *ngIf="!search_xmlpending">FTP FIRST DATE</th>
-                    <th *ngIf="!search_xmlpending">FTP LAST DATE</th>
-                    <th *ngIf="!search_xmlpending">MULTIPLE UPLOAD</th>
+                    <th>FTP FIRST DATE</th>
+                    <th>FTP LAST DATE</th>
+                    <th>PENDING DAYS</th>
+                    <th>MULTIPLE UPLOAD</th>
                     <th *ngIf="gs.globalVariables.user_code == 'ADMIN'">UPDATE</th>
                 </tr>
             </thead>
@@ -133,10 +133,10 @@
                     <td>{{rec.ftp_mblbk_no}}</td>
                     <td>{{rec.ftp_house_no}}</td>
                     <td>{{rec.ftp_mbl_etd}}</td>
-                    <td>{{rec.ftp_days_after_etd}}</td>
-                    <td *ngIf="!search_xmlpending">{{rec.ftp_min_ftp_date}}</td>
-                    <td *ngIf="!search_xmlpending">{{rec.ftp_max_ftp_date}}</td>
-                    <td *ngIf="!search_xmlpending">{{rec.ftp_multiple_upload}}</td>
+                    <td>{{rec.ftp_min_ftp_date}}</td>
+                    <td>{{rec.ftp_max_ftp_date}}</td>
+                    <td [class.text-danger]="gs.isBlank(rec.ftp_min_ftp_date)" >{{rec.ftp_days_after_etd}}</td>
+                    <td>{{rec.ftp_multiple_upload}}</td>
                     <td *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="hlink" (click)="SentManually(rec)">REMOVE
                         FROM PENDING LIST</td>
                 </tr>
