@@ -57,6 +57,7 @@ export class TonnageComponent {
   loading = false;
   bCompany = false;
   all: boolean = false;
+  isAirExport: boolean = false;
 
   currentTab = 'LIST';
   searchstring = '';
@@ -152,10 +153,14 @@ export class TonnageComponent {
   }
 
   Init() {
-    if (this.type == "AIR IMPORT")
+    if (this.type == "AIR IMPORT") {
+      this.isAirExport = false;
       this.type_date = "ETA";
-    else
+    }
+    else {
+      this.isAirExport = true;
       this.type_date = "MAWB DATE";
+    }
     this.report_format = "GENERAL";
     this.branch_code = this.gs.globalVariables.branch_code;
     this.branch_name = this.gs.globalVariables.branch_name;
