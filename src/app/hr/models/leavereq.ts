@@ -28,9 +28,12 @@ export class LeaveReq {
     lr_is_travelling: boolean;
     lr_travelling_days: number;
     lr_travelling_half_days: number;
-    lr_emp_branch_name:string;
+    lr_emp_branch_name: string;
     lr_spl_days: number;
     lr_spl_half_days: number;
+
+    lr_cancelled: boolean;
+    lr_type: string;
 
     lr_edit_code: string;
     rec_mode: string;

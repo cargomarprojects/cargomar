@@ -326,6 +326,7 @@ export class LeaveReqComponent {
     this.Record.lr_travelling_half_days = 0;
     this.Record.rec_category = this.gs.globalVariables.emp_status;
     this.lock_record = false;
+    this.Record.lr_type = 'LEAVE';
     this.InitLov();
     this.Record.rec_mode = this.mode;
     this.lev_pl_tkn = 0;
@@ -367,22 +368,39 @@ export class LeaveReqComponent {
     this.lock_record = true;
     if (this.Record.lr_edit_code.indexOf("{S}") >= 0)
       this.lock_record = false;
+    if (!this.lock_record)
+      this.lock_record = this.Record.lr_cancelled;
     this.GetLeaveStatus();
   }
 
   // Save Data
-  Save() {
+  Save(_isLevCancel: boolean) {
 
-    if (!this.allvalid())
-      return;
+    this.Record.lr_is_travelling = false;
+    if (this.Record.lr_type == "ON DUTY" || this.Record.lr_type == "TRAVELLING")
+      this.Record.lr_is_travelling = true;
+
+    if (_isLevCancel) {
+      if (!confirm("Do you want cancell request?")) {
+        return;
+      }
+    } else {
+
+      if (!this.allvalid())
+        return;
+    }
     this.loading = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
+    this.Record.lr_cancelled = _isLevCancel;
     this.Record._globalvariables = this.gs.globalVariables;
     this.mainService.Save(this.Record)
       .subscribe(response => {
         this.loading = false;
-        this.InfoMessage = "Save Complete";
+        if (_isLevCancel)
+          this.InfoMessage = "Leave Cancelled";
+        else
+          this.InfoMessage = "Save Complete";
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
         this.RefreshList();
@@ -424,12 +442,12 @@ export class LeaveReqComponent {
     if (this.Record.lr_is_travelling) {
       if (_num <= 0) {
         bret = false;
-        sError += "\n\r | Value required for travelling days ";
+        sError += "\n\r | Please enter travelling/On Duty days when Travelling or On Duty is selected.";
       }
     }
     if (_num > 0 && !this.Record.lr_is_travelling) {
       bret = false;
-      sError += "\n\r | Please select Travelling to enter travelling days";
+      sError += "\n\r | Please select Travelling or On Duty if travelling days are entered.";
     }
 
     _num2 = this.Record.lr_pl_days + this.Record.lr_pl_half_days;
@@ -439,7 +457,7 @@ export class LeaveReqComponent {
     _num2 += this.Record.lr_spl_days + this.Record.lr_spl_half_days;
     if (_num2 <= 0 && !this.Record.lr_is_travelling) {
       bret = false;
-      sError += "\n\r | Value required for atleast one leave category";
+      sError += "\n\r | Please enter a value for at least one leave category.";
     }
 
     if (_num > 0 && _num2 > 0) {
@@ -493,7 +511,7 @@ export class LeaveReqComponent {
   OnChange(field: string) {
     if (field == 'lev_year' || field == 'lev_month')
       this.bChanged = true;
-    else if (field == 'lr_is_travelling') {
+    else if (field == 'lr_cancelled') {
 
     }
   }

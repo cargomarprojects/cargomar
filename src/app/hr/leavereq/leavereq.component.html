@@ -89,7 +89,7 @@
       </thead>
       <tbody class="page-body-tbody">
         <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
-          (mousedown)="selectedRowIndex=i" >
+          (mousedown)="selectedRowIndex=i">
           <td (click)="ActionHandler('EDIT',rec.lr_pkid)" class="hlink">{{rec.lr_emp_code}}</td>
           <td>{{rec.lr_emp_name}}</td>
           <td *ngIf="bCompany">{{rec.lr_emp_branch_name}}</td>
@@ -174,11 +174,18 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-3 col-form-label col-form-label-sm"></label>
-          <div class="col-sm-9">
-            <input type="checkbox" (change)="OnChange('lr_is_travelling')" [(ngModel)]="Record.lr_is_travelling"
-              id="travelling"><label class="col-form-label col-form-label-sm ml-1" for="travelling">Travelling/On Duty</label>
+          <label class="col-sm-3 col-form-label col-form-label-sm">Type</label>
+          <div class="col-sm-4">
+            <select class="form-control form-control-sm" [(ngModel)]="Record.lr_type" (change)="OnChange('lr_type')">
+              <option [value]="'LEAVE'">LEAVE</option>
+              <option [value]="'ON DUTY'">ON DUTY</option>
+              <option [value]="'TRAVELLING'">TRAVELLING</option>
+            </select>
           </div>
+          <!-- <div class="col-sm-4">
+            <input type="checkbox" (change)="OnChange('lr_cancelled')" [(ngModel)]="Record.lr_cancelled"
+              id="_cancelled"><label class="col-form-label col-form-label-sm ml-1" for="_cancelled">Cancelled</label>
+          </div> -->
         </div>
         <div class="form-group row">
           <label class="col-sm-3 col-form-label col-form-label-sm"></label>
@@ -236,9 +243,9 @@
         <div class="form-group row">
           <label class="col-sm-3 col-form-label col-form-label-sm">Travelling/Duty</label>
           <div class="col-sm-9 input-group input-group-sm">
-            <input type="number" [disabled]="!Record.lr_is_travelling" class="form-control form-control-sm mr-1"
+            <input type="number" [disabled]="Record.lr_type==='LEAVE'" class="form-control form-control-sm mr-1"
               [(ngModel)]="Record.lr_travelling_days" (blur)="OnBlur('lr_travelling_days')" required maxlength="5" />
-            <input type="number" [disabled]="!Record.lr_is_travelling" class="form-control form-control-sm"
+            <input type="number" [disabled]="Record.lr_type==='LEAVE'" class="form-control form-control-sm"
               [(ngModel)]="Record.lr_travelling_half_days" (blur)="OnBlur('lr_travelling_half_days')" required
               maxlength="5" />
           </div>
@@ -250,6 +257,13 @@
               (blur)="OnBlur('lr_remarks')" required maxlength="100" />
           </div>
         </div>
+        <!-- <div class="form-group row">
+          <label class="col-sm-3 col-form-label col-form-label-sm"></label>
+          <div class="col-sm-9 input-group input-group-sm">
+            <input type="checkbox" (change)="OnChange('lr_cancelled')" [(ngModel)]="Record.lr_cancelled"
+              id="_cancelled"><label class="col-form-label col-form-label-sm ml-1" for="_cancelled">Cancel Leave</label>
+          </div>
+        </div> -->
       </div>
       <div class="col-sm-4">
         <div class="form-group row">
@@ -309,9 +323,11 @@
       <div class="col-sm-12">
         <div class="form-group row">
           <div class="offset-1 col-sm-10">
-            <button [disabled]="loading || lock_record" (click)="Save()" class="btn btn-success btn-sm">Save</button>
+            <button [disabled]="loading || lock_record" (click)="Save(false)" class="btn btn-success btn-sm">Save</button>
             <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="MailLeaveRequest(mailreq)"
               class="btn btn-success btn-sm">Mail</button>
+            <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="Save(true)"
+              class="btn btn-success btn-sm">Cancel Leave</button>
             <button [disabled]="loading" (click)="ActionHandler('LIST','')"
               class="btn btn-success btn-sm">Return</button>
             <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
@@ -327,8 +343,8 @@
   </div>
   <div *ngIf="mode=='EDIT'" class="page-box">
     <h6 style="color: green" class="my-1">Leave Approval</h6>
-    <app-approveddet [menuid]="menuid" [type]="type" [parentid]="pkid" [approvalstatus]="approvalstatus" [category]="'LEV-APPROVED'"
-      (ModifiedRecords)="ModifiedRecords($event)">
+    <app-approveddet [menuid]="menuid" [type]="type" [parentid]="pkid" [approvalstatus]="approvalstatus"
+      [category]="'LEV-APPROVED'" (ModifiedRecords)="ModifiedRecords($event)">
     </app-approveddet>
   </div>
 </div>
@@ -348,7 +364,8 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="'EMPLOYEE-LEAVE-REQUEST'" [emaildisplayname]="sDisplayName" [defaultto_ids]="sToids" [sHtml]="sHtml" [defaultmessage]="sMsg"
-      [defaultsubject]="sSubject" [updateto_ids]=false [AttachList]="AttachList"></app-mail>
+    <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="'EMPLOYEE-LEAVE-REQUEST'" [emaildisplayname]="sDisplayName"
+      [defaultto_ids]="sToids" [sHtml]="sHtml" [defaultmessage]="sMsg" [defaultsubject]="sSubject" [updateto_ids]=false
+      [AttachList]="AttachList"></app-mail>
   </div>
 </ng-template>
