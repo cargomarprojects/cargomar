@@ -96,6 +96,7 @@ export class Customerm {
     cust_acq_date: string;
     cust_ho_docs: number;
     cust_crdate_locked: boolean;
+    cust_flag: string;
 
     _globalvariables: GlobalVariables;
 

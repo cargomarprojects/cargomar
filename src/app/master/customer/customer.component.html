@@ -417,8 +417,9 @@
                 <label class="col-4 col-form-label col-form-label-sm">Credit-Date</label>
 
                 <div class="col-8">
-                  <app-date [disabled]="!Record.cust_is_editable||(Record.cust_crdate_locked&&gs.globalVariables.user_code != 'ADMIN')" [inputdate]="Record.cust_crdate"
-                    (ValueChanged)="Record.cust_crdate=$event"></app-date>
+                  <app-date
+                    [disabled]="!Record.cust_is_editable||(Record.cust_crdate_locked&&gs.globalVariables.user_code != 'ADMIN')"
+                    [inputdate]="Record.cust_crdate" (ValueChanged)="Record.cust_crdate=$event"></app-date>
                 </div>
               </div>
               <div class="form-group row">
@@ -637,7 +638,7 @@
               (click)="UnlockCustomer('UNLOCKED')" class="btn btn-success btn-sm mr-1">Unlock</button>
             <button *ngIf="mode == 'EDIT' && bCanLock && !Record.rec_locked" [disabled]="loading"
               (click)="UnlockCustomer('LOCKED')" class="btn btn-success btn-sm mr-1">Lock</button>
-            <app-memo  *ngIf="mode == 'EDIT'" [parentid]="Record.cust_pkid" [type]="'CUSTOMER-MEMO'"></app-memo>
+            <app-memo *ngIf="mode == 'EDIT'" [parentid]="Record.cust_pkid" [type]="'CUSTOMER-MEMO'"></app-memo>
             <button [disabled]="loading" *ngIf="mode == 'EDIT'" class="btn btn-primary btn-sm mr-1"
               (click)="CheckCrLimit()">Check
               CR-Limit</button>
@@ -746,6 +747,15 @@
                 [disabled]="!Record.cust_is_editable||mode == 'ADD'" [(ngModel)]="Record.cust_sb_name"
                 (blur)="OnBlur('cust_sb_name')" required maxlength="34" />
 
+            </div>
+          </div>
+          <div *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="form-group row">
+            <label class="col-2 col-form-label  col-form-label-sm">Customer Flag</label>
+            <div class="col-4">
+              <select class="form-control form-control-sm" [(ngModel)]="Record.cust_flag">
+                <option [value]="'NA'">NA</option>
+                <option [value]="'TO-ORDER'">TO-ORDER</option>
+              </select>
             </div>
           </div>
           <!-- <div class="form-group row">
