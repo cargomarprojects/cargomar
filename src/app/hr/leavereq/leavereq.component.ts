@@ -327,6 +327,7 @@ export class LeaveReqComponent {
     this.Record.rec_category = this.gs.globalVariables.emp_status;
     this.lock_record = false;
     this.Record.lr_type = 'LEAVE';
+    this.Record.lr_cancelled = false;
     this.InitLov();
     this.Record.rec_mode = this.mode;
     this.lev_pl_tkn = 0;

@@ -336,7 +336,7 @@
               class="btn btn-success btn-sm">Return</button>
             <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
               <font color="RED">
-                {{lock_record == true ? 'Details Closed, Cannot Edit' : ''}}
+                {{lock_record == true ? Record.lr_cancelled?'Leave Cancelled, Cannot Edit':'Details Closed, Cannot Edit' : ''}}
               </font>
             </label>
             <i *ngIf="loading" class="fa fa-spinner"></i>
