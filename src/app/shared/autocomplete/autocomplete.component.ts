@@ -34,6 +34,7 @@ export class AutoCompleteComponent {
   @Input() inputdata: SearchTable;
   @Output() ValueChanged = new EventEmitter<SearchTable>();
   @Input() disabled: boolean = false;
+  @Input() flag: string = 'NA';
 
   @ViewChild('inputbox') private inputbox: ElementRef;
 
@@ -137,7 +138,8 @@ export class AutoCompleteComponent {
       comp_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       showlocked: this.inputdata.showlocked,
-      branchchecked: this.inputdata.branchchecked
+      branchchecked: this.inputdata.branchchecked,
+      flag: this.flag
     };
 
     this.lovService.List(SearchData)

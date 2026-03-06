@@ -96,7 +96,7 @@ export class AutoComplete3Component {
 
   @Output() ValueChanged = new EventEmitter<SearchTable>();
   @Input() disabled: boolean = false;
-
+  @Input() flag: string = 'NA';
   //@ViewChild('inputbox', { static: true }) private inputbox: ElementRef;
   @ViewChild('inputbox') private inputbox: ElementRef;
 
@@ -187,7 +187,8 @@ export class AutoComplete3Component {
       searchstring: this._displaydata,
       where: this._where,
       comp_code: this.gs.globalVariables.comp_code,
-      branch_code: this._branchcode
+      branch_code: this._branchcode,
+      flag: this.flag
     };
 
     this.loginservice.List(SearchData)

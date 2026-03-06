@@ -34,6 +34,7 @@ export class AutoComplete2Component {
   @Output() ValueChanged = new EventEmitter<SearchTable>();
 
   @Input() disabled: boolean = false;
+  @Input() flag: string = 'NA';
   //child_inputdata: any = { controlname: '', type: '', displaycolumn: '', parentid: '', id: '', code: '', name: '', rate: 0, col1: '', col2: '', col3: '', col4: '' };
 
   @ViewChild('inputbox') private inputbox: ElementRef;
@@ -152,7 +153,8 @@ export class AutoComplete2Component {
       parentid: '',
       searchstring: this.displaydata,
       comp_code: this.gs.globalVariables.comp_code,
-      branch_code: this.gs.globalVariables.branch_code
+      branch_code: this.gs.globalVariables.branch_code,
+      flag: this.flag
     };
 
     if (this.inputdata.hasOwnProperty('parentid'))
