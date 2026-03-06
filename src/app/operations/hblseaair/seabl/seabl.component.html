@@ -104,7 +104,7 @@
       <div class="form-group row">
         <label class="col-4 col-form-label col-form-label-sm">Consignee</label>
         <div class="col-8">
-          <app-autocomplete #CngeLov [inputdata]="CNGERECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          <app-autocomplete #CngeLov [inputdata]="CNGERECORD" (ValueChanged)="LovSelected($event)" [flag]="'ALL'"></app-autocomplete>
         </div>
       </div>
 

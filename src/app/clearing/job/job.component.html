@@ -385,7 +385,7 @@
                   <div class="form-group row">
                     <label class="col-4 col-form-label col-form-label-sm">To Order</label>
                     <div class="col-8">
-                      <app-autocomplete #TorderLov [inputdata]="TOORDRECORD" (ValueChanged)="LovSelected($event)">
+                      <app-autocomplete #TorderLov [inputdata]="TOORDRECORD" (ValueChanged)="LovSelected($event)" [flag]="'TO-ORDER'">
                       </app-autocomplete>
                     </div>
 
