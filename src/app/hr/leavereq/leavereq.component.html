@@ -86,6 +86,7 @@
           <th>APPROVED</th>
           <th>SANCTIONED</th>
           <th>REJECTED</th>
+          <th>CANCELLED</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
@@ -116,6 +117,7 @@
           <td>{{rec.lr_approved_by}}</td>
           <td>{{rec.lr_sanctioned_by}}</td>
           <td>{{rec.lr_rejected_by}}</td>
+          <td>{{rec.lr_cancelled?'Y':'N'}}</td>
         </tr>
       </tbody>
     </table>
@@ -336,7 +338,8 @@
               class="btn btn-success btn-sm">Return</button>
             <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
               <font color="RED">
-                {{lock_record == true ? Record.lr_cancelled?'Leave Cancelled, Cannot Edit':'Details Closed, Cannot Edit' : ''}}
+                {{lock_record == true ? Record.lr_cancelled?'Leave Cancelled, Cannot Edit':'Details Closed, Cannot Edit'
+                : ''}}
               </font>
             </label>
             <i *ngIf="loading" class="fa fa-spinner"></i>
