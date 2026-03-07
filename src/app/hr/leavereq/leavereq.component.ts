@@ -652,8 +652,8 @@ export class LeaveReqComponent {
     this.mainService.MailLeaveRequest(SearchData)
       .subscribe(response => {
         this.loading = false;
-        if (response.Msg)
-          alert(response.Msg)
+        if (response.mailmsg)
+          alert(response.mailmsg)
         else {
           this.sDisplayName = response.emaildispname;
           this.sToids = response.toids;
