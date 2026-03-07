@@ -355,7 +355,18 @@ export class BillingComponent {
   }
 
 
-  NewInvoice(_type: string, _subtype: string) {
+  async NewInvoice(_type: string, _subtype: string) {
+
+
+
+    if (this.cc_category == "SI SEA IMPORT" || this.cc_category == "SI AIR IMPORT") {
+      const exists = await this.isMasterExists();
+      if (!exists) {
+        alert("Master is not Linked/Created");
+        return;
+      }
+    }
+
     this.type = _type;
     this.subtype = _subtype;
     if (this.subtype == 'AR') {
@@ -1656,7 +1667,66 @@ export class BillingComponent {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
         });
+
+
   }
+
+  async isMasterExists(): Promise<boolean> {
+
+    this.loading = true;
+
+    let SearchData = {
+      hblid: this.parentid
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+
+    try {
+
+      const response = await this.mainService
+        .IsMasterExists(SearchData)
+        .toPromise();
+
+      this.loading = false;
+
+      return response.flag;
+
+    }
+    catch (error) {
+
+      this.loading = false;
+
+      this.ErrorMessage = this.gs.getError(error);
+      alert(this.ErrorMessage);
+
+      return false;
+    }
+  }
+
+
+  async _isMasterExists() {
+    this.loading = true;
+
+    let SearchData = {
+      hblid: this.parentid
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.IsMasterExists(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
+
+
 
 }
 

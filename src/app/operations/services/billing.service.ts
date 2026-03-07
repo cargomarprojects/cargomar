@@ -23,6 +23,11 @@ export class BillingService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/Billing/GetPendingList', SearchData, this.gs.headerparam2('authorized'));
   }
 
+  IsMasterExists(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/Billing/IsMasterExists', SearchData, this.gs.headerparam2('authorized'));
+  }
+
+
 
   GetRecord(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/Billing/GetRecord', SearchData, this.gs.headerparam2('authorized'));
@@ -44,7 +49,7 @@ export class BillingService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/Ledger/PrintVoucher', SearchData, this.gs.headerparam2('authorized'));
   }
 
-  IsRefnoDuplication(SearchData : any) {
+  IsRefnoDuplication(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Accounts/ArAp/IsRefnoDuplication', SearchData, this.gs.headerparam2('authorized'));
   }
 }
