@@ -13,6 +13,7 @@ import { EmpService } from '../services/emp.service';
 
 import { Param } from '../../master/models/param';
 import { DateComponent } from '../../shared/date/date.component';
+import { SearchTable } from '../../shared/models/searchtable';
 
 @Component({
   selector: 'app-emp',
@@ -400,6 +401,9 @@ export class EmpComponent {
     this.Record.emp_pf_exempted = false;
     this.Record.emp_image_src = '';
     this.Record.emp_image_name = '';
+    this.Record.emp_hod_id = '';
+    this.Record.emp_hod_code = '';
+    this.Record.emp_hod_name = '';
     this.lock_record = false;
     this.Initdefault();
 
@@ -977,6 +981,15 @@ export class EmpComponent {
     event.preventDefault();
   }
 
+  LovSelected(_Record: SearchTable) {
+
+    if (_Record.controlname == "HOD") {
+      this.Record.emp_hod_id = _Record.id;
+      this.Record.emp_hod_code = _Record.code;
+      this.Record.emp_hod_name = _Record.name;
+    }
+
+  }
 }
 
 
