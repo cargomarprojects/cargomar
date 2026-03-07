@@ -396,6 +396,14 @@
           </select>
         </div>
       </div>
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label col-form-label-sm">HOD</label>
+        <div class="col-sm-9">
+          <app-autocomplete3 [controlname]="'HOD'" [tabletype]="'USER'" [where]="''" [displaycolumn]="'NAME'"
+            [displaydata]="Record.emp_hod_name" (ValueChanged)="LovSelected($event)">
+          </app-autocomplete3>
+        </div>
+      </div>
     </div>
 
   </div>
@@ -975,10 +983,10 @@
       <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
         class="btn btn-success btn-sm mr-1">Documents</button>
 
-      <app-fileupload-direct *ngIf="mode=='EDIT' && bPhoto" class="mr-1" [pkid]="pkid" [type]="'EMPLOYEE-PHOTO'" [islock]="false"
-        [desc]="Record.emp_no" [uploadfilesize]="'10240'" [accepttype]="'.jpeg,.jpg,.png'"
+      <app-fileupload-direct *ngIf="mode=='EDIT' && bPhoto" class="mr-1" [pkid]="pkid" [type]="'EMPLOYEE-PHOTO'"
+        [islock]="false" [desc]="Record.emp_no" [uploadfilesize]="'10240'" [accepttype]="'.jpeg,.jpg,.png'"
         (callbackevent)="callbackeventupload($event)"></app-fileupload-direct>
-      
+
       <button [disabled]="loading" (click)="ActionHandler('LIST','')"
         class="btn btn-success btn-sm mr-1">Return</button>
       <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
