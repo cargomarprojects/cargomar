@@ -70,6 +70,7 @@ export class LeaveReqComponent {
   bAdmin: boolean = false;
   bCompany: boolean = false;
   bEmail: boolean = false;
+
   porttype = 'PORT';
   mail_date: string;
 
@@ -102,6 +103,9 @@ export class LeaveReqComponent {
         var options = JSON.parse(params["parameter"]);
         this.menuid = options.menuid;
         this.type = options.type;
+        if (!gs.isBlank(options.id)) {
+          this.pkid = options.id;
+        }
         this.InitComponent();
       }
     });
@@ -139,6 +143,7 @@ export class LeaveReqComponent {
         this.bEmail = true;
     }
 
+
     if (this.gs.isBlank(this.approvalstatus) && this.gs.globalVariables.user_code == 'ADMIN')
       this.approvalstatus = 'APPROVED,SANCTIONED,REJECTED'
     this.InitLov();
@@ -172,8 +177,11 @@ export class LeaveReqComponent {
     //    this.loading = false;
     //    this.ErrorMessage = this.gs.getError(error);
     //  });
-
-    this.List("NEW");
+    if (this.gs.globalVariables.user_code == 'SUPPORT') {
+      this.ActionHandler('EDIT', this.pkid)
+    } else {
+      this.List("NEW");
+    }
   }
 
 
@@ -576,7 +584,8 @@ export class LeaveReqComponent {
 
 
   Close() {
-    this.gs.ClosePage('home');
+    let _close: boolean = this.gs.globalVariables.user_code != 'SUPPORT';
+    this.gs.ClosePage('home',_close);
   }
 
   GetBrAddress(straddress: string) {
@@ -646,7 +655,9 @@ export class LeaveReqComponent {
       user_code: this.gs.globalVariables.user_code,
       user_name: this.gs.globalVariables.user_short_name,
       user_pkid: this.gs.globalVariables.user_pkid,
-      report_folder: this.gs.globalVariables.report_folder
+      report_folder: this.gs.globalVariables.report_folder,
+      year_id: this.gs.globalVariables.year_pkid,
+      hostname: window.location.protocol + "//" + window.location.host
     };
     this.ErrorMessage = '';
     this.InfoMessage = '';

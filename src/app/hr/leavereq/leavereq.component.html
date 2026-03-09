@@ -1,14 +1,14 @@
 <div class="page-header">
   <div class="col">
     <label>{{title}}</label>
-    <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
-    <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
+    <button *ngIf="this.gs.globalVariables.user_code != 'SUPPORT'" [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
+    <button  *ngIf="this.gs.globalVariables.user_code != 'SUPPORT'" [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
     <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
 </div>
 
-<div *ngIf="currentTab=='LIST'" class="page-list">
+<div *ngIf="currentTab=='LIST' && this.gs.globalVariables.user_code != 'SUPPORT'" class="page-list">
   <div class="page-search">
     <div class="row">
       <div class="col-sm-12">
@@ -323,7 +323,7 @@
 
     </div>
   </div>
-  <div class="page-box">
+  <div  *ngIf="this.gs.globalVariables.user_code != 'SUPPORT'"  class="page-box">
     <div class="row">
       <div class="col-sm-12">
         <div class="form-group row">
