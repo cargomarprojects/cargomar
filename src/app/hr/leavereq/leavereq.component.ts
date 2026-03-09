@@ -634,9 +634,9 @@ export class LeaveReqComponent {
 
   MailLeaveRequest(_mailreq: any) {
 
-    // if (!confirm("Do you want to Sent Request Mail")) {
-    //   return;
-    // }
+    if (!confirm("Do you want to Sent Leave Request Mail?")) {
+      return;
+    }
     this.loading = true;
     let SearchData = {
       pkid: this.Record.lr_pkid,
@@ -644,8 +644,9 @@ export class LeaveReqComponent {
       branch_code: this.gs.globalVariables.branch_code,
       branch_name: this.gs.globalVariables.branch_name,
       user_code: this.gs.globalVariables.user_code,
-      user_name: this.gs.globalVariables.user_name,
-      user_pkid: this.gs.globalVariables.user_pkid
+      user_name: this.gs.globalVariables.user_short_name,
+      user_pkid: this.gs.globalVariables.user_pkid,
+      report_folder: this.gs.globalVariables.report_folder
     };
     this.ErrorMessage = '';
     this.InfoMessage = '';
@@ -655,13 +656,13 @@ export class LeaveReqComponent {
         if (response.mailmsg)
           alert(response.mailmsg)
         else {
-          this.sDisplayName = response.emaildispname;
-          this.sToids = response.toids;
-          this.sSubject = response.subject;
-          this.sHtml = response.message;
-          this.open(_mailreq);
-          // this.InfoMessage = response.mailmsg;
-          // alert(this.InfoMessage);
+          // this.sDisplayName = response.emaildispname;
+          // this.sToids = response.toids;
+          // this.sSubject = response.subject;
+          // this.sHtml = response.message;
+          // this.open(_mailreq);
+          this.InfoMessage = response.mailmsg;
+          alert(this.InfoMessage);
         }
       },
         error => {
