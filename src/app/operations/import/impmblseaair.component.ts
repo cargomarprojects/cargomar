@@ -873,66 +873,66 @@ export class ImpMblSeaAirComponent {
     let bret: boolean = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    if (this.gs.isBlank(this.Record.mbl_no)) {
-      bret = false;
-      if (this.type == "SEA IMPORT")
-        sError = " | MBL Number Cannot Be Blank";
-      else
-        sError = " | MAWB Number Cannot Be Blank";
-    }
-    if (this.gs.isBlank(this.Record.mbl_cf_date)) {
-      bret = false;
-      sError += "\n\r | Date Cannot Be Blank";
-    }
-    if (this.gs.isBlank(this.Record.mbl_date)) {
-      bret = false;
-      if (this.type == "SEA IMPORT")
-        sError += "\n\r | MBL Date Cannot Be Blank";
-      else
-        sError += "\n\r | MAWB Date Cannot Be Blank";
-    }
+    // if (this.gs.isBlank(this.Record.mbl_no)) {
+    //   bret = false;
+    //   if (this.type == "SEA IMPORT")
+    //     sError = " | MBL Number Cannot Be Blank";
+    //   else
+    //     sError = " | MAWB Number Cannot Be Blank";
+    // }
+    // if (this.gs.isBlank(this.Record.mbl_cf_date)) {
+    //   bret = false;
+    //   sError += "\n\r | Date Cannot Be Blank";
+    // }
+    // if (this.gs.isBlank(this.Record.mbl_date)) {
+    //   bret = false;
+    //   if (this.type == "SEA IMPORT")
+    //     sError += "\n\r | MBL Date Cannot Be Blank";
+    //   else
+    //     sError += "\n\r | MAWB Date Cannot Be Blank";
+    // }
 
-    if (this.gs.isBlank(this.Record.mbl_agent_id)) {
-      bret = false;
-      sError += "\n\r | Agent Cannot Be Blank";
-    }
-    if (this.type == "SEA IMPORT" && this.gs.isBlank(this.Record.mbl_vessel_id)) {
-      bret = false;
-      sError += "\n\r | Vessel Cannot Be Blank";
-    }
+    // if (this.gs.isBlank(this.Record.mbl_agent_id)) {
+    //   bret = false;
+    //   sError += "\n\r | Agent Cannot Be Blank";
+    // }
+    // if (this.type == "SEA IMPORT" && this.gs.isBlank(this.Record.mbl_vessel_id)) {
+    //   bret = false;
+    //   sError += "\n\r | Vessel Cannot Be Blank";
+    // }
 
-    if (this.Record.mbl_pol_id.trim().length <= 0) {
-      bret = false;
-      sError += "\n\r | POL Cannot Be Blank";
-    }
+    // if (this.Record.mbl_pol_id.trim().length <= 0) {
+    //   bret = false;
+    //   sError += "\n\r | POL Cannot Be Blank";
+    // }
 
-    if (this.gs.isBlank(this.Record.mbl_carrier_id)) {
-      bret = false;
-      sError += "\n\r | Carrier Cannot Be Blank";
-    }
+    // if (this.gs.isBlank(this.Record.mbl_carrier_id)) {
+    //   bret = false;
+    //   sError += "\n\r | Carrier Cannot Be Blank";
+    // }
 
-    if (this.Record.mbl_pod_id.trim().length <= 0) {
-      bret = false;
-      sError += "\n\r | POD Cannot Be Blank";
-    }
-    if (this.Record.mbl_pofd_id.trim().length <= 0) {
-      bret = false;
-      sError += "\n\r | POFD Cannot Be Blank";
-    }
+    // if (this.Record.mbl_pod_id.trim().length <= 0) {
+    //   bret = false;
+    //   sError += "\n\r | POD Cannot Be Blank";
+    // }
+    // if (this.Record.mbl_pofd_id.trim().length <= 0) {
+    //   bret = false;
+    //   sError += "\n\r | POFD Cannot Be Blank";
+    // }
 
-    if (this.Record.mbl_igmno.trim().length > 0 && this.Record.mbl_igmdate.trim().length <= 0) {
-      bret = false;
-      sError += "\n\r | IGM Date Cannot Be Blank";
-    }
-    if (this.Record.mbl_igmno.trim().length <= 0 && this.Record.mbl_igmdate.trim().length > 0) {
-      bret = false;
-      sError += "\n\r | IGM Number Cannot Be Blank";
-    }
+    // if (this.Record.mbl_igmno.trim().length > 0 && this.Record.mbl_igmdate.trim().length <= 0) {
+    //   bret = false;
+    //   sError += "\n\r | IGM Date Cannot Be Blank";
+    // }
+    // if (this.Record.mbl_igmno.trim().length <= 0 && this.Record.mbl_igmdate.trim().length > 0) {
+    //   bret = false;
+    //   sError += "\n\r | IGM Number Cannot Be Blank";
+    // }
 
-    if (this.Record.mbl_folder_sent_date.trim().length > 0 && this.Record.mbl_folder_no.trim().length <= 0) {
-      bret = false;
-      sError += "\n\r | Folder No Cannot Be Blank";
-    }
+    // if (this.Record.mbl_folder_sent_date.trim().length > 0 && this.Record.mbl_folder_no.trim().length <= 0) {
+    //   bret = false;
+    //   sError += "\n\r | Folder No Cannot Be Blank";
+    // }
 
     if (this.Record.mbl_agent_id.trim() != this.sAgent_ID && this.Record.HblList.length > 0) {
       bret = false;
