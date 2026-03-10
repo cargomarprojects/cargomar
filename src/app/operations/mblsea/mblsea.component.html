@@ -46,6 +46,7 @@
                 <option [value]="'TRANSIT-SHIPMENT-TRACKING'">TRANSIT SHIPMENT TRACKING</option>
                 <option [value]="'VESSEL'">VESSEL NAME</option>
                 <option [value]="'VOYAGE'">VOYAGE NO</option>
+                <option [value]="'SHIP-TYPE'">SHIPMENT TYPE</option>
               </select>
             </div>
             <div class="col-sm-4">
@@ -99,6 +100,7 @@
             <th>POL</th>
             <th>POD</th>
             <th>POFD</th>
+            <th>SHIPMT.TYPE</th>
             <th>20</th>
             <th>40</th>
             <th>CBM</th>
@@ -127,6 +129,7 @@
             <td>{{rec.book_pol_name}}</td>
             <td>{{rec.book_pod_name}}</td>
             <td>{{rec.book_pofd_name}}</td>
+            <td>{{rec.book_shipment_type}}</td>
             <td>{{rec.book_m20}}</td>
             <td>{{rec.book_m40}}</td>
             <td>{{rec.book_mcbm}}</td>
@@ -1102,4 +1105,4 @@
     </div>
   </div>
 </div>
-<app-warningalert #WarnMsg ></app-warningalert>
+<app-warningalert #WarnMsg></app-warningalert>
