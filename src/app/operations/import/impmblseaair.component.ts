@@ -61,6 +61,7 @@ export class ImpMblSeaAirComponent {
   ErrorMessage = "";
   InfoMessage = "";
 
+  search_all_house: boolean = false;
   hbl_menuid: string = "";
   hbl_title: string = "";
   house_id: string = ""
@@ -1042,7 +1043,8 @@ export class ImpMblSeaAirComponent {
       mblid: _Record.mbl_pkid,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
-      year_code: this.gs.globalVariables.year_code
+      year_code: this.gs.globalVariables.year_code,
+      search_all_house: this.search_all_house
     };
 
     this.ErrorMessage = '';

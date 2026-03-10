@@ -705,6 +705,8 @@
         </div>
         <div *ngIf="mode=='EDIT'" class="page-box">
           <div>
+            <input type="checkbox" [(ngModel)]="search_all_house" id="_chkallhouse">
+            <label class="col-form-label col-form-label-sm" for="_chkallhouse">Search All</label>
             <button (click)="HblList(Record)" class="btn btn-link mr-1">Find House</button>
             <button (click)="AddHouse(hblcontent)" class="btn btn-link" [disabled]="!canAddHouse">Add New House</button>
           </div>
@@ -718,24 +720,27 @@
                     <th><span *ngIf="type=='SEA IMPORT'">HBL#</span><span *ngIf="type=='AIR IMPORT'">HAWB#</span></th>
                     <th><span *ngIf="type=='SEA IMPORT'">HBL.DATE</span><span
                         *ngIf="type=='AIR IMPORT'">HAWB.DATE</span></th>
-                    <th>EXPORTER</th>
-                    <th>IMPORTER</th>
                     <th>AGENT</th>
                     <th>CARRIER</th>
+                    <th>EXPORTER</th>
+                    <th>IMPORTER</th>
+
                     <th>TERMS</th>
                   </tr>
                 </thead>
                 <tbody class="page-body-tbody">
                   <tr *ngFor="let rec of Record.HblList">
                     <td *ngIf="canEditHouse" (click)="EditHouse(rec.hbl_pkid,rec.hbl_mbl_id,hblcontent)" class="hlink">
-                      <i class="fa fa-pencil fa-md pointer " aria-hidden="true"></i></td>
+                      <i class="fa fa-pencil fa-md pointer " aria-hidden="true"></i>
+                    </td>
                     <td><input type="checkbox" [(ngModel)]="rec.hbl_selected" class="mr-1">{{rec.hbl_no}}</td>
                     <td>{{rec.hbl_bl_no}}</td>
                     <td>{{rec.hbl_date}}</td>
+                     <td>{{rec.hbl_agent_name}}</td>
+                    <td>{{rec.hbl_carrier_name}}</td>
                     <td>{{rec.hbl_exp_name}}</td>
                     <td>{{rec.hbl_imp_name}}</td>
-                    <td>{{rec.hbl_agent_name}}</td>
-                    <td>{{rec.hbl_carrier_name}}</td>
+                   
                     <td>{{rec.hbl_terms}}</td>
                   </tr>
                 </tbody>
