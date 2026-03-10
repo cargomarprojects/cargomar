@@ -676,7 +676,7 @@
         <div class="page-box">
           <div>
             <button (click)="HblList(Record)" class="btn btn-link mr-1">Find House</button>
-            <!-- <button (click)="HblList(Record)" class="btn btn-link">Add New House</button> -->
+            <button (click)="AddHouse(hblcontent)" class="btn btn-link">Add New House</button>
           </div>
           <div>
             <div class="page-body table-responsive">
@@ -796,16 +796,11 @@
 <app-warningalert #WarnMsg></app-warningalert>
 <ng-template #hblcontent let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title">{{hbl_title}} </h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
+    <h4 class="modal-title">{{hbl_title}}</h4>
+    <button type="button" class="btn btn-primary btn-sm" (click)="d('Cross click')">Close</button>
   </div>
   <div class="modal-body">
-    <app-imphblseaair [iisModalWindow]="'Y'" [menuid]="hbl_menuid" [master_id]="Record.mbl_pkid"
-      [house_id]="house_id"></app-imphblseaair>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-primary btn-sm" (click)="d('Cross click')">Close</button>
+    <app-imphblseaair [isModalWindow]="'Y'" [menuid]="hbl_menuid" [master_id]="Record.mbl_pkid" [master_bkno]="Record.mbl_bookslno"
+     [master_no]="Record.mbl_no"] [house_id]="house_id" (callbackevent)="hblcallbackevent($event)"></app-imphblseaair>
   </div>
 </ng-template>

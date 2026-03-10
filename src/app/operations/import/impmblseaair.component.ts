@@ -1285,4 +1285,11 @@ export class ImpMblSeaAirComponent {
     this.house_id = _id;
     this.open(_content);
   }
+
+  hblcallbackevent(params: any) {
+    if (params.saction == "SAVE") {
+      this.HblList(this.Record)
+    }
+
+  }
 }

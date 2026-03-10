@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 
 import { ActivatedRoute } from '@angular/router';
 
@@ -22,9 +22,12 @@ export class ImpHblSeaAirComponent {
   @ViewChild('WarnMsg') private _WarnMsg: WarningAlertComponent;
   @Input() menuid: string = '';
   @Input() type: string = '';
-  @Input() iisModalWindow: string = 'N';
+  @Input() isModalWindow: string = 'N';
   @Input() master_id: string = '';
+  @Input() master_bkno: string = '';
+  @Input() master_no: string = '';
   @Input() house_id: string = '';
+  @Output() callbackevent = new EventEmitter<any>();
 
   InitCompleted: boolean = false;
   menu_record: any;
@@ -130,7 +133,7 @@ export class ImpHblSeaAirComponent {
   // Init Will be called After executing Constructor
   ngOnInit() {
 
-    if (this.iisModalWindow == "Y") {  //modal change
+    if (this.isModalWindow == "Y") {  //modal change
       this.InitComponent();
       this.showclosebutton = false;
       this.page_rows = 5;
@@ -160,14 +163,14 @@ export class ImpHblSeaAirComponent {
     if (this.type.toString() == "SEA IMPORT") {
       this.porttype = "SEA PORT";
       this.lblhblname = "HBL#";
-      this.lblhbldate = "HBL Date";
+      this.lblhbldate = "HBL.Date";
       this.carriertype = "SEA CARRIER";
       this.CrLimitType = "SI SEA IMPORT";
     }
     else {
       this.porttype = "AIR PORT";
       this.lblhblname = "HAWB#";
-      this.lblhbldate = "HAWB Date";
+      this.lblhbldate = "HAWB.Date";
       this.carriertype = "AIR CARRIER";
       this.CrLimitType = "SI AIR IMPORT";
     }
@@ -206,7 +209,8 @@ export class ImpHblSeaAirComponent {
     //        this.ErrorMessage = this.gs.getError(error);
     //    });
 
-    this.List("NEW");
+    if (this.isModalWindow == "N")
+      this.List("NEW");
 
   }
 
@@ -595,9 +599,9 @@ export class ImpHblSeaAirComponent {
     this.Record.hbl_location_code = '';
     this.Record.hbl_location_name = '';
     this.Record.hbl_remarks = '';
-    this.Record.hbl_mbl_id = '';
-    this.Record.hbl_mbl_no = '';
-    this.Record.hbl_mbl_bookslno = '';
+    this.Record.hbl_mbl_id = this.master_id;
+    this.Record.hbl_mbl_no = this.master_no;
+    this.Record.hbl_mbl_bookslno = this.master_bkno;
     this.Record.hbl_mbl_bookno = '';
 
     this.Record.hbl_pol_id = '';
@@ -770,9 +774,9 @@ export class ImpHblSeaAirComponent {
       this.Record.hbl_pkid = this.pkid;
       this.Record.hbl_no = null;
       this.Record.hbl_cf_date = this.gs.defaultValues.today;
-      this.Record.hbl_mbl_id = '';
-      this.Record.hbl_mbl_no = '';
-      this.Record.hbl_mbl_bookslno = '';
+      this.Record.hbl_mbl_id = this.master_id;
+      this.Record.hbl_mbl_no = this.master_no;
+      this.Record.hbl_mbl_bookslno = this.master_bkno;
       this.Record.hbl_mbl_bookno = '';
       this.Record.hbl_bl_no = '';
       this.Record.hbl_date = this.gs.defaultValues.today;
@@ -854,7 +858,12 @@ export class ImpHblSeaAirComponent {
         this.old_billto_id = this.Record.hbl_billto_id;
 
         this.masterexist = this.IsMasterExist();
-        this.RefreshList();
+        if (this.isModalWindow == 'Y') {
+          if (this.callbackevent != null)
+            this.callbackevent.emit({ saction: 'SAVE', mblid: this.Record.hbl_mbl_id });
+        } else {
+          this.RefreshList();
+        }
         alert(this.InfoMessage);
       },
         error => {
@@ -869,9 +878,13 @@ export class ImpHblSeaAirComponent {
     let bret: boolean = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
+    if (this.isModalWindow == "Y" && this.gs.isBlank(this.master_id)) {
+      bret = false;
+      sError += "\n\r | Invalid Master ID";
+    }
     if (this.gs.isBlank(this.Record.hbl_cf_date)) {
       bret = false;
-      sError = " | Date Cannot Be Blank";
+      sError += " | Date Cannot Be Blank";
     }
     if (!this.gs.isBlank(this.Record.hbl_bl_no) && this.gs.isBlank(this.Record.hbl_date)) {
       bret = false;
@@ -885,6 +898,8 @@ export class ImpHblSeaAirComponent {
       bret = false;
       sError += "\n\r | Importer Cannot Be Blank";
     }
+
+
 
     if (bret === false) {
       this.ErrorMessage = sError;
@@ -1063,9 +1078,9 @@ export class ImpHblSeaAirComponent {
 
   SearchRecord(controlname: string) {
     this.ErrorMessage = '';
-    this.Record.hbl_mbl_id = '';
-    this.Record.hbl_mbl_no = '';
-    this.Record.hbl_mbl_bookno = '';
+    this.Record.hbl_mbl_id = this.master_id;
+    this.Record.hbl_mbl_no = this.master_no;
+    this.Record.hbl_mbl_bookno = this.master_bkno;
     if (controlname == 'hbl_mbl_bookslno' && this.Record.hbl_mbl_bookslno.trim().length <= 0)
       return;
 
@@ -1133,7 +1148,7 @@ export class ImpHblSeaAirComponent {
           }
         }
         else {
-          this.Record.hbl_mbl_id = '';
+          this.Record.hbl_mbl_id = this.master_id;
           this.ErrorMessage = '';
           if (response.linerbkm.length > 0) {
             this.Record.hbl_mbl_id = response.linerbkm[0].book_pkid;

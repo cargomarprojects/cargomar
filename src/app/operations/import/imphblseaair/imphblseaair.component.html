@@ -1,10 +1,10 @@
 <div *ngIf="currentPage=='ROOTPAGE'">
-  <div class="page-header">
+  <div *ngIf="isModalWindow=='N'" class="page-header">
     <div class="col">
       <label>{{title}}{{mode=='EDIT'?-Record.hbl_no:''}}</label>
       <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
       <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
-      <button class="btn btn-primary btn-sm" *ngIf="showclosebutton" (click)="Close()">Close</button>
+      <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
       <i *ngIf="loading" class="fa fa-spinner"></i>
     </div>
   </div>
@@ -156,7 +156,7 @@
           <div class="page-box">
             <div class="row">
               <div class="col-sm-4">
-                <div *ngIf="mode=='ADD'" class="form-group row">
+                <div *ngIf="mode=='ADD'&&isModalWindow=='N'" class="form-group row">
                   <label class="col-sm-2 col-form-label col-form-label-sm">SI#</label>
                   <div class="col-sm-3">
                     <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm"
@@ -180,8 +180,9 @@
                     <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm"
                       [(ngModel)]="Record.hbl_no" [disabled]="true" required maxlength="15" />
                   </div>
-                  <label class="col-sm-3 col-form-label col-form-label-sm">Date</label>
-                  <div class="col-sm-3">
+                  <label
+                    [class]="isModalWindow=='N'?'col-sm-3 col-form-label col-form-label-sm':'col-sm-2 col-form-label col-form-label-sm'">Date</label>
+                  <div [class]="isModalWindow=='N'?'col-sm-3':'col-sm-4'">
                     <app-date [inputdate]="Record.hbl_cf_date" (ValueChanged)="Record.hbl_cf_date=$event"></app-date>
                   </div>
                 </div>
@@ -191,8 +192,9 @@
                     <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_bl_no"
                       (blur)="OnBlur('hbl_bl_no')" required maxlength="25" />
                   </div>
-                  <label class="col-sm-3 col-form-label col-form-label-sm">{{lblhbldate}}</label>
-                  <div class="col-sm-3">
+                  <label
+                    [class]="isModalWindow=='N'?'col-sm-3 col-form-label col-form-label-sm':'col-sm-2 col-form-label col-form-label-sm'">{{lblhbldate}}</label>
+                  <div [class]="isModalWindow=='N'?'col-sm-3':'col-sm-4'">
                     <app-date [inputdate]="Record.hbl_date" (ValueChanged)="Record.hbl_date=$event"></app-date>
                   </div>
                 </div>
@@ -230,7 +232,7 @@
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label col-form-label-sm">Agent</label>
                   <div class="col-sm-4">
-                    <app-autocomplete #LinerLov [disabled]="Record.hbl_mbl_id != ''" [inputdata]="AGENTRECORD"
+                    <app-autocomplete #LinerLov [disabled]="Record.hbl_mbl_id != ''&&mode=='EDIT'" [inputdata]="AGENTRECORD"
                       (ValueChanged)="LovSelected($event)"></app-autocomplete>
                   </div>
                   <div class="col-sm-6" style="padding-left:0">
@@ -267,8 +269,8 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label col-form-label-sm">Importer</label>
                   <div class="col-sm-9">
-                    <app-autocomplete #ImporterLov [disabled]="Record.hbl_mbl_id != ''" [inputdata]="IMPRECORD"
-                      (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                    <app-autocomplete #ImporterLov [disabled]="Record.hbl_mbl_id != ''&&mode=='EDIT'"
+                      [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
                   </div>
                 </div>
 
@@ -297,7 +299,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label col-form-label-sm">Carrier</label>
                   <div class="col-sm-4">
-                    <app-autocomplete #LinerLov [disabled]="Record.hbl_mbl_id != ''" [inputdata]="LINERRECORD"
+                    <app-autocomplete #LinerLov [disabled]="Record.hbl_mbl_id != ''&&mode=='EDIT'" [inputdata]="LINERRECORD"
                       (ValueChanged)="LovSelected($event)"></app-autocomplete>
                   </div>
                   <div class="col-sm-5" style="padding-left:0">
@@ -312,7 +314,7 @@
 
 
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label col-form-label-sm">Bill To</label>
+                  <label class="col-sm-2 col-form-label col-form-label-sm">Bill.To</label>
                   <div class="col-sm-4">
                     <app-autocomplete #ExporterLov [inputdata]="BILLTORECORD" (ValueChanged)="LovSelected($event)">
                     </app-autocomplete>
@@ -327,8 +329,8 @@
 
 
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label  col-form-label-sm">{{!Record.lock_record?'BE No':'*BE
-                    No'}}</label>
+                  <label
+                    class="col-sm-2 col-form-label  col-form-label-sm">{{!Record.lock_record?'BE.No':'*BE.No'}}</label>
                   <div class="col-sm-4">
                     <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_beno"
                       (blur)="OnBlur('hbl_beno')" required maxlength="60" />
@@ -508,21 +510,21 @@
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-3 col-form-label col-form-label-sm">Freight Amt</label>
+                  <label class="col-sm-3 col-form-label col-form-label-sm">Frt.Amt</label>
                   <div class="col-sm-4">
                     <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_frt_amt"
                       (blur)="OnBlur('hbl_frt_amt')" required maxlength="14" />
                   </div>
                   <label style="padding-left:0;padding-right:0"
-                    class="col-sm-2 col-form-label col-form-label-sm">Currency</label>
-                  <div class="col-sm-3">
+                    class="col-sm-1 col-form-label col-form-label-sm">Curr.</label>
+                  <div class="col-sm-4">
                     <app-autocomplete #FcurrLov [inputdata]="FCURRECORD" (ValueChanged)="LovSelected($event)">
                     </app-autocomplete>
                   </div>
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-3 col-form-label col-form-label-sm">Frt. Ex Rate</label>
+                  <label class="col-sm-3 col-form-label col-form-label-sm">Frt.ExRate</label>
                   <div class="col-sm-4">
                     <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_frt_ex_rate"
                       (blur)="OnBlur('hbl_frt_ex_rate')" required maxlength="15" />
@@ -530,21 +532,21 @@
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-3 col-form-label col-form-label-sm">Insurance.Amt</label>
+                  <label class="col-sm-3 col-form-label col-form-label-sm">Ins.Amt</label>
                   <div class="col-sm-4">
                     <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_insu_amt"
                       (blur)="OnBlur('hbl_insu_amt')" required maxlength="15" />
                   </div>
                   <label style="padding-left:0;padding-right:0"
-                    class="col-sm-2 col-form-label col-form-label-sm">Currency</label>
-                  <div class="col-sm-3">
+                    class="col-sm-1 col-form-label col-form-label-sm">Curr.</label>
+                  <div class="col-sm-4">
                     <app-autocomplete #IcurrLov [inputdata]="ICURRECORD" (ValueChanged)="LovSelected($event)">
                     </app-autocomplete>
                   </div>
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-sm-3 col-form-label col-form-label-sm">Ins. Ex Rate</label>
+                  <label class="col-sm-3 col-form-label col-form-label-sm">Ins.ExRate</label>
                   <div class="col-sm-4">
                     <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_insu_ex_rate"
                       (blur)="OnBlur('hbl_insu_ex_rate')" required maxlength="15" />
@@ -558,7 +560,7 @@
                   <label class="col-sm-12 col-form-label col-form-label-sm"></label>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-3 col-form-label col-form-label-sm">Invoice Nos</label>
+                  <label class="col-sm-3 col-form-label col-form-label-sm">Inv.Nos</label>
                   <div class="col-sm-9">
                     <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_invoice_nos"
                       (blur)="OnBlur('hbl_invoice_nos')" required maxlength="100" />
@@ -609,7 +611,7 @@
               <div class="col-sm-4">
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label col-form-label-sm"><span
-                      *ngIf="type=='SEA IMPORT'">MBL#</span><span *ngIf="type=='AIR IMPORT'">MAWB#</span></label>
+                      *ngIf="type=='SEA IMPORT'">MBLBK#</span><span *ngIf="type=='AIR IMPORT'">MAWBK#</span></label>
                   <div class="col-10">
                     <input type="text" disabled class="form-control form-control-sm"
                       [(ngModel)]="Record.hbl_mbl_bookslno" (blur)="OnBlur('hbl_mbl_bookslno')" required
@@ -654,7 +656,7 @@
               <button [disabled]="loading" class="btn btn-success btn-sm" (click)="CheckCrLimit()">Check
                 CR-Limit</button>
 
-              <button [disabled]="loading" (click)="ActionHandler('LIST','')"
+              <button *ngIf="isModalWindow=='N'" [disabled]="loading" (click)="ActionHandler('LIST','')"
                 class="btn btn-success btn-sm">Return</button>
               <button *ngIf="mode == 'EDIT' && masterexist" [disabled]="loading"
                 (click)="GenerateArrivalNotice(Record.hbl_pkid,'EXCEL','ARRIVAL')" class="btn btn-success btn-sm">Cargo
