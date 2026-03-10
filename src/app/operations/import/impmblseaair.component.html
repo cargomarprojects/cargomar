@@ -423,7 +423,8 @@
                 <label class="col-2 col-form-label col-form-label-sm" style="padding-left:0;padding-right:0">
                   {{lockChar}}Sent.On
                   <!-- <input [disabled]=" foldersent" type="checkbox" (click)="FolderSent()" [(ngModel)]="chk_foldersent"> -->
-                  <input type="checkbox" [disabled]="foldersent"  [(ngModel)]="chk_foldersent" (change)="FolderSent($event)" >
+                  <input type="checkbox" [disabled]="foldersent" [(ngModel)]="chk_foldersent"
+                    (change)="FolderSent($event)">
                 </label>
                 <div class="col-4">
                   <app-date [disabled]="gs.globalVariables.user_code != 'ADMIN'"
@@ -503,130 +504,6 @@
               </div>
             </div>
           </div>
-          <!-- <hr />
-          <div class="row">
-            <div class="col-sm-4">
-              <label class="col-sm-3 col-form-label col-form-label-sm"></label>
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label col-form-label-sm">POL</label>
-                <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)">
-                  </app-autocomplete>
-                </div>
-                <div class="col-sm-5" style="padding-left:0">
-                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.mbl_pol_name" />
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label col-form-label-sm">POL.ETD</label>
-                <div class="col-sm-4">
-                  <app-date [inputdate]="Record.mbl_etd" (ValueChanged)="Record.mbl_etd=$event"></app-date>
-                </div>
-                <div class="col-sm-5" style="padding-left:0">
-                  <div class="form-check form-check-inline">
-                    <label class="form-check-label">
-                      <input class="form-check-input" type="checkbox" [(ngModel)]="Record.mbl_etd_confirm">ETD Confirm
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label col-form-label-sm">POD</label>
-                <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)">
-                  </app-autocomplete>
-                </div>
-                <div class="col-sm-5" style="padding-left:0">
-                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.mbl_pod_name" />
-                </div>
-              </div>
-
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label col-form-label-sm">POD.ETA</label>
-                <div class="col-sm-4">
-                  <app-date [inputdate]="Record.mbl_eta" (ValueChanged)="Record.mbl_eta=$event"></app-date>
-                </div>
-                <div class="col-sm-5" style="padding-left:0">
-                  <div class="form-check form-check-inline">
-                    <label class="form-check-label">
-                      <input class="form-check-input" type="checkbox" [(ngModel)]="Record.mbl_eta_confirm">ETA Confirm
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-            <div class="col-sm-4">
-              <label class="col-sm-3 col-form-label col-form-label-sm"></label>
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label col-form-label-sm">POFD</label>
-                <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="POFDRECORD" (ValueChanged)="LovSelected($event)">
-                  </app-autocomplete>
-                </div>
-                <div class="col-sm-5" style="padding-left:0">
-                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.mbl_pofd_name" />
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label col-form-label-sm">POFD.ETA</label>
-                <div class="col-sm-4">
-                  <app-date [inputdate]="Record.mbl_pofd_eta" (ValueChanged)="Record.mbl_pofd_eta=$event"></app-date>
-                </div>
-                <div class="col-sm-5" style="padding-left:0">
-                  <div class="form-check form-check-inline">
-                    <label class="form-check-label">
-                      <input class="form-check-input" type="checkbox" [(ngModel)]="Record.mbl_pofd_eta_confirm">ETA
-                      Confirm
-                    </label>
-                  </div>
-                </div>
-              </div>
-
-              <div *ngIf="type=='SEA IMPORT'" class="form-group row">
-                <label class="col-sm-3 col-form-label col-form-label-sm">Vessel</label>
-                <div class="col-sm-4">
-                  <app-autocomplete #LinerLov [inputdata]="VESSELRECORD" (ValueChanged)="LovSelected($event)">
-                  </app-autocomplete>
-                </div>
-                <div class="col-sm-5" style="padding-left:0">
-                  <input type="text" disabled class="form-control form-control-sm"
-                    [(ngModel)]="Record.mbl_vessel_name" />
-                </div>
-              </div>
-              <div class="form-group row">
-                <label class="col-sm-3 col-form-label col-form-label-sm">{{lblvesselno}}</label>
-                <div class="col-sm-4">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mbl_vessel_no"
-                    (blur)="OnBlur('mbl_vessel_no')" required maxlength="15" />
-                </div>
-              </div>
-              <div *ngIf="type=='SEA IMPORT'" class="form-group row">
-                <label class="col-sm-3 col-form-label col-form-label-sm">Vessel.ETA</label>
-                <div class="col-sm-4">
-                  <app-date [inputdate]="Record.mbl_vessel_eta" (ValueChanged)="Record.mbl_vessel_eta=$event">
-                  </app-date>
-                </div>
-              </div>
-
-
-            </div>
-            <div class="col-sm-4">
-              <label class="col-sm-3 col-form-label col-form-label-sm"></label>
-
-
-              <div class="form-group row">
-                <label class="col-sm-2 col-form-label  col-form-label-sm">Track.Remarks</label>
-                <div class="col-sm-10">
-                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mbl_track_comments"
-                    (blur)="OnBlur('mbl_track_comments')" required maxlength="150" />
-                </div>
-              </div>
-            </div>
-
-          </div> -->
         </div>
         <div class="page-box">
           <div class="row">
@@ -798,7 +675,8 @@
         </div>
         <div class="page-box">
           <div>
-            <button (click)="HblList(Record)" class="btn btn-link">Find House</button>
+            <button (click)="HblList(Record)" class="btn btn-link mr-1">Find House</button>
+            <!-- <button (click)="HblList(Record)" class="btn btn-link">Add New House</button> -->
           </div>
           <div>
             <div class="page-body table-responsive">
@@ -819,7 +697,7 @@
                 <tbody class="page-body-tbody" *ngFor="let rec of Record.HblList">
                   <tr>
                     <td><input type="checkbox" [(ngModel)]="rec.hbl_selected">{{rec.hbl_no}}</td>
-                    <td>{{rec.hbl_bl_no}}</td>
+                    <td (click)="EditHouse(rec.hbl_pkid,hblcontent)" class="hlink">{{rec.hbl_bl_no}}</td>
                     <td>{{rec.hbl_date}}</td>
                     <td>{{rec.hbl_exp_name}}</td>
                     <td>{{rec.hbl_imp_name}}</td>
@@ -916,3 +794,18 @@
   </div>
 </ng-template>
 <app-warningalert #WarnMsg></app-warningalert>
+<ng-template #hblcontent let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">{{hbl_title}} </h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-imphblseaair [iisModalWindow]="'Y'" [menuid]="hbl_menuid" [master_id]="Record.mbl_pkid"
+      [house_id]="house_id"></app-imphblseaair>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary btn-sm" (click)="d('Cross click')">Close</button>
+  </div>
+</ng-template>
