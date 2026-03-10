@@ -58,7 +58,9 @@ export class ImpMblSeaAirComponent {
   ErrorMessage = "";
   InfoMessage = "";
 
-
+  hbl_menuid: string = "";
+  hbl_title: string = "";
+  house_id: string = ""
   folder_id: string;
   chk_foldersent: boolean = false;
   foldersent: boolean = false;
@@ -140,12 +142,16 @@ export class ImpMblSeaAirComponent {
     }
 
     if (this.type == "SEA IMPORT") {
+      this.hbl_menuid = "SISEAIMPORT";
+      this.hbl_title = "SI Sea Import";
       this.lblmblno = "MBL#";
       this.lblmbldate = 'MBL.Date';
       this.lblvesselno = "Voyage";
       this.porttype = "SEA PORT";
       this.carriertype = "SEA CARRIER";
     } else {
+      this.hbl_menuid = "SIAIRIMPORT";
+      this.hbl_title = "SI Air Import";
       this.lblmblno = "MAWB#";
       this.lblmbldate = 'MAWB.Date';
       this.lblvesselno = "Flight No.";
@@ -549,7 +555,7 @@ export class ImpMblSeaAirComponent {
 
     if (this.mode == "ADD" && this.gs.globalVariables.year_closed == "Y")
       this._WarnMsg.show("Financial Year (" + this.gs.globalVariables.year_name + ") closed. No Changes allowed.");
-    
+
     return this.disableSave;
   }
 
@@ -1268,5 +1274,15 @@ export class ImpMblSeaAirComponent {
           this.ErrorMessage = this.gs.getError(error);
           alert(this.ErrorMessage);
         });
+  }
+
+  AddHouse(_content: any) {
+    this.house_id = '';
+    this.open(_content);
+  }
+
+  EditHouse(_id: string, _content: any) {
+    this.house_id = _id;
+    this.open(_content);
   }
 }

@@ -22,9 +22,13 @@ export class ImpHblSeaAirComponent {
   @ViewChild('WarnMsg') private _WarnMsg: WarningAlertComponent;
   @Input() menuid: string = '';
   @Input() type: string = '';
+  @Input() iisModalWindow: string = 'N';
+  @Input() master_id: string = '';
+  @Input() house_id: string = '';
+
   InitCompleted: boolean = false;
   menu_record: any;
-
+  showclosebutton: boolean = true;
   selectedRowIndex = 0;
 
   bDocs = false;
@@ -114,19 +118,32 @@ export class ImpHblSeaAirComponent {
     // URL Query Parameter 
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
-        this.InitCompleted = true;
+        // this.InitCompleted = true; //modal change
         var options = JSON.parse(params["parameter"]);
         this.menuid = options.menuid;
         this.type = options.type;
-        this.InitComponent();
+        // this.InitComponent(); //modal change
       }
     });
   }
 
   // Init Will be called After executing Constructor
   ngOnInit() {
-    if (!this.InitCompleted) {
+
+    if (this.iisModalWindow == "Y") {  //modal change
       this.InitComponent();
+      this.showclosebutton = false;
+      this.page_rows = 5;
+      if (this.gs.isBlank(this.house_id))
+        this.ActionHandler('ADD', '');
+      else
+        this.ActionHandler('EDIT', this.house_id)
+    }
+    else {
+      if (!this.InitCompleted) {
+        this.InitCompleted = true; //modal change
+        this.InitComponent();
+      }
     }
   }
 
