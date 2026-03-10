@@ -456,8 +456,38 @@
                     (blur)="OnBlur('mbl_chwt')" required maxlength="15" />
                 </div>
               </div>
+              <div class=" form-group row">
+                <label class="col-2 col-form-label col-form-label-sm">Origin.Country</label>
+                <div class="col-4">
+                  <app-autocomplete #CntryOrgAddLov [inputdata]="COUNTRYORGRECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
+                </div>
+                <div class="col-6" style="padding-left:0">
+                  <input type="text" disabled class="form-control form-control-sm"
+                    [(ngModel)]="Record.mbl_origin_country_name" />
+                </div>
+              </div>
               <div class="form-group row">
-                <div *ngIf="type == 'SEA IMPORT'" class="col-4">
+                <label class="col-sm-2 col-form-label col-form-label-sm">Commodity</label>
+                <div class="col-sm-4">
+                  <app-autocomplete #LinerLov [inputdata]="COMMODITYRECORD" (ValueChanged)="LovSelected($event)">
+                  </app-autocomplete>
+                </div>
+                <div class="col-sm-6" style="padding-left:0">
+                  <input type="text" disabled class="form-control form-control-sm"
+                    [(ngModel)]="Record.mbl_commodity_name" />
+                </div>
+              </div>
+              <div class="form-group row">
+                <label class="col-sm-2 col-form-label  col-form-label-sm">Remarks</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mbl_description"
+                    (blur)="OnBlur('mbl_description')" required maxlength="60" />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div *ngIf="type == 'SEA IMPORT'" class="offset-2 col-8">
                   <button [disabled]="(loading || Record.mbl_folder_no != ''|| mode=='ADD')"
                     (click)="GenerateFolderNo(Record.mbl_pkid)" class="btn btn-success btn-sm">Generate Folder No And
                     Save</button>
@@ -466,8 +496,8 @@
               </div>
             </div>
           </div>
-          <hr style="padding-bottom: 2px;" />
-          <div class="row">
+          <!-- <hr style="padding-bottom: 2px;" /> -->
+          <!-- <div class="row">
             <div class="col-sm-4">
               <div class=" form-group row">
                 <label class="col-3 col-form-label col-form-label-sm">Origin.Country</label>
@@ -503,7 +533,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="page-box">
           <div class="row">
@@ -673,17 +703,17 @@
             </div>
           </div>
         </div>
-        <div class="page-box">
+        <div *ngIf="mode=='EDIT'" class="page-box">
           <div>
             <button (click)="HblList(Record)" class="btn btn-link mr-1">Find House</button>
-            <button (click)="AddHouse(hblcontent)" class="btn btn-link">Add New House</button>
+            <button (click)="AddHouse(hblcontent)" class="btn btn-link" [disabled]="!canAddHouse">Add New House</button>
           </div>
           <div>
             <div class="page-body table-responsive">
               <table class="table  table-hover table-sm">
                 <thead class="page-body-thead">
                   <tr>
-                    <th>EDIT</th>
+                    <th *ngIf="canEditHouse">EDIT</th>
                     <th>SI#</th>
                     <th><span *ngIf="type=='SEA IMPORT'">HBL#</span><span *ngIf="type=='AIR IMPORT'">HAWB#</span></th>
                     <th><span *ngIf="type=='SEA IMPORT'">HBL.DATE</span><span
@@ -697,7 +727,8 @@
                 </thead>
                 <tbody class="page-body-tbody" *ngFor="let rec of Record.HblList">
                   <tr>
-                    <td (click)="EditHouse(rec.hbl_pkid,hblcontent)" class="hlink"><i class="fa fa-pencil fa-md pointer " aria-hidden="true"></i></td>
+                    <td *ngIf="canEditHouse" (click)="EditHouse(rec.hbl_pkid,rec.hbl_mbl_id,hblcontent)" class="hlink">
+                      <i class="fa fa-pencil fa-md pointer " aria-hidden="true"></i></td>
                     <td><input type="checkbox" [(ngModel)]="rec.hbl_selected" class="mr-1">{{rec.hbl_no}}</td>
                     <td>{{rec.hbl_bl_no}}</td>
                     <td>{{rec.hbl_date}}</td>

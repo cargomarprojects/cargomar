@@ -25,9 +25,12 @@ export class ImpMblSeaAirComponent {
   @Input() type: string = '';
   InitCompleted: boolean = false;
   menu_record: any;
+  hbl_menu_record: any;
 
   selectedRowIndex = 0;
 
+  canAddHouse = false;
+  canEditHouse = false;
   bPrint = false;
   bAdmin = false;
   bDocs = false;
@@ -157,6 +160,16 @@ export class ImpMblSeaAirComponent {
       this.lblvesselno = "Flight No.";
       this.porttype = "AIR PORT";
       this.carriertype = "AIR CARRIER";
+    }
+
+    this.canAddHouse = false;
+    this.canEditHouse = false;
+    this.hbl_menu_record = this.gs.getMenu(this.hbl_menuid);
+    if (this.hbl_menu_record) {
+      if (this.hbl_menu_record.rights_add)
+        this.canAddHouse = true;
+      if (this.hbl_menu_record.rights_edit)
+        this.canEditHouse = true;
     }
 
     this.InitLov();
@@ -844,8 +857,9 @@ export class ImpMblSeaAirComponent {
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
         this.foldersent = response.foldersent;
-        this.RefreshList();
         alert(this.InfoMessage);
+        this.RefreshList();
+        this.HblList(this.Record);
       },
         error => {
           this.loading = false;
@@ -1281,7 +1295,11 @@ export class ImpMblSeaAirComponent {
     this.open(_content);
   }
 
-  EditHouse(_id: string, _content: any) {
+  EditHouse(_id: string, _mblid: string, _content: any) {
+    if (this.Record.mbl_pkid != _mblid) {
+      alert('Master not linked')
+      return;
+    }
     this.house_id = _id;
     this.open(_content);
   }
