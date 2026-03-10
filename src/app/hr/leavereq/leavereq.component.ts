@@ -13,7 +13,7 @@ import { AutoCompleteComponent } from '../../shared/autocomplete/autocomplete.co
   providers: [LeaveReqService]
 })
 export class LeaveReqComponent {
-  // Local Variables 
+  // Local Variables
   title = 'Leave Request';
 
   // @ViewChild('EmpLov') private EmpLovCtrl: AutoCompleteComponent;
@@ -91,12 +91,12 @@ export class LeaveReqComponent {
     private modalService: NgbModal,
     private mainService: LeaveReqService,
     private route: ActivatedRoute,
-    private gs: GlobalService
+    public gs: GlobalService
   ) {
     this.page_count = 0;
     this.page_rows = 30;
     this.page_current = 0;
-    // URL Query Parameter 
+    // URL Query Parameter
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
         this.InitCompleted = true;
@@ -585,7 +585,7 @@ export class LeaveReqComponent {
 
   Close() {
     let _close: boolean = this.gs.globalVariables.user_code != 'SUPPORT';
-    this.gs.ClosePage('home',_close);
+    this.gs.ClosePage('home', _close);
   }
 
   GetBrAddress(straddress: string) {
