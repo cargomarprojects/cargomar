@@ -632,6 +632,7 @@ a {
   cursor: pointer;
   font-weight: bold;
 }
+
 .hlink4 {
   color: red;
   text-decoration: underline;
@@ -759,6 +760,17 @@ a {
   align-items: center;
   justify-content: center;
 }
+
+.modal-header {
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
+}
+
+
+
+
+
+
 
 /* Extra small devices (portrait phones, less than 576px) */
 @media (max-width: 575px) {

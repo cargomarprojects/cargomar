@@ -592,17 +592,13 @@
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title">Contact Master</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
+    <button type="button" class="btn btn-primary btn-sm" (click)="d('Cross click')">Close</button>
   </div>
   <div class="modal-body">
     <app-contacts [iisModalWindow]="'Y'" [menuid]="'MARKCONTACTS'" [clientid]="clientid"></app-contacts>
   </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-primary btn-sm" (click)="d('Cross click')">Close</button>
-  </div>
 </ng-template>
+
 <ng-template #doc let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title">Documents</h4>
