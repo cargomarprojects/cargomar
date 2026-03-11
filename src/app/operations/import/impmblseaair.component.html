@@ -711,7 +711,8 @@
             <button (click)="AddHouse(hblcontent)" class="btn btn-link" [disabled]="!canAddHouse">Add New House</button>
           </div>
           <div>
-            <div class="table-responsive">
+            <div class="table-responsive fixedTableHead" [style.height]="Record.HblList.length>8?'250px':'auto'"
+              [style.overflow-y]="Record.HblList.length>8?'scroll':'auto'">
               <table class="table  table-hover table-sm table-bordered table-striped">
                 <thead class="page-body-thead">
                   <tr>
@@ -736,7 +737,7 @@
                     </td>
                     <td>{{rec.hbl_bl_no}}</td>
                     <td>{{rec.hbl_date}}</td>
-                     <td>{{rec.hbl_agent_name}}</td>
+                    <td>{{rec.hbl_agent_name}}</td>
                     <td>{{rec.hbl_carrier_name}}</td>
                     <td>{{rec.hbl_exp_name}}</td>
                     <td>{{rec.hbl_imp_name}}</td>

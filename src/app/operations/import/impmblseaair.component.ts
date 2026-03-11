@@ -531,6 +531,7 @@ export class ImpMblSeaAirComponent {
 
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string) {
+    this.search_all_house = false;
     this.ErrorMessage = '';
     this.InfoMessage = '';
     if (action == 'LIST') {
@@ -575,7 +576,6 @@ export class ImpMblSeaAirComponent {
 
   // Query List Data
   List(_type: string) {
-
     this.loading = true;
     let SearchData = {
       type: _type,
