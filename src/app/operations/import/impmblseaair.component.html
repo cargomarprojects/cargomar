@@ -715,8 +715,8 @@
               <table class="table  table-hover table-sm table-bordered table-striped">
                 <thead class="page-body-thead">
                   <tr>
-                    <th *ngIf="canEditHouse" style="width:1%;">EDIT</th>
                     <th>SI#</th>
+                    <th *ngIf="canEditHouse" style="width:1%;">EDIT</th>
                     <th><span *ngIf="type=='SEA IMPORT'">HBL#</span><span *ngIf="type=='AIR IMPORT'">HAWB#</span></th>
                     <th><span *ngIf="type=='SEA IMPORT'">HBL.DATE</span><span
                         *ngIf="type=='AIR IMPORT'">HAWB.DATE</span></th>
@@ -730,17 +730,16 @@
                 </thead>
                 <tbody class="page-body-tbody">
                   <tr *ngFor="let rec of Record.HblList">
+                    <td><input type="checkbox" [(ngModel)]="rec.hbl_selected" class="mr-1">{{rec.hbl_no}}</td>
                     <td *ngIf="canEditHouse" (click)="EditHouse(rec.hbl_pkid,rec.hbl_mbl_id,hblcontent)" class="hlink">
                       <i class="fa fa-pencil fa-md pointer " aria-hidden="true"></i>
                     </td>
-                    <td><input type="checkbox" [(ngModel)]="rec.hbl_selected" class="mr-1">{{rec.hbl_no}}</td>
                     <td>{{rec.hbl_bl_no}}</td>
                     <td>{{rec.hbl_date}}</td>
                      <td>{{rec.hbl_agent_name}}</td>
                     <td>{{rec.hbl_carrier_name}}</td>
                     <td>{{rec.hbl_exp_name}}</td>
                     <td>{{rec.hbl_imp_name}}</td>
-                   
                     <td>{{rec.hbl_terms}}</td>
                   </tr>
                 </tbody>
