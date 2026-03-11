@@ -711,11 +711,11 @@
             <button (click)="AddHouse(hblcontent)" class="btn btn-link" [disabled]="!canAddHouse">Add New House</button>
           </div>
           <div>
-            <div class="page-body table-responsive">
+            <div class="table-responsive">
               <table class="table  table-hover table-sm table-bordered table-striped">
                 <thead class="page-body-thead">
                   <tr>
-                    <th *ngIf="canEditHouse">EDIT</th>
+                    <th *ngIf="canEditHouse" style="width:1%;">EDIT</th>
                     <th>SI#</th>
                     <th><span *ngIf="type=='SEA IMPORT'">HBL#</span><span *ngIf="type=='AIR IMPORT'">HAWB#</span></th>
                     <th><span *ngIf="type=='SEA IMPORT'">HBL.DATE</span><span

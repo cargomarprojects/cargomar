@@ -665,6 +665,146 @@ export class ImpHblSeaAirComponent {
     this.Record.hbl_grwt_unit_code = this.GRUNITRECORD.code;
     this.Record.lock_record = false;
     this.Record.rec_mode = this.mode;
+    if (this.mode == 'ADD' && this.isModalWindow == "Y")
+      this.GetMasterData(this.master_id);
+  }
+
+  GetMasterData(Id: string) {
+    this.loading = true;
+    let SearchData = {
+      pkid: Id,
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.GetMasterData(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        let _Rec: Hblm;
+        _Rec = response.record;
+
+        this.Record.hbl_carrier_id = _Rec.hbl_carrier_id;
+        this.Record.hbl_carrier_code = _Rec.hbl_carrier_code;
+        this.Record.hbl_carrier_name = _Rec.hbl_carrier_name;
+        this.Record.hbl_agent_id = _Rec.hbl_agent_id;
+        this.Record.hbl_agent_code = _Rec.hbl_agent_code;
+        this.Record.hbl_agent_name = _Rec.hbl_agent_name;
+
+        this.Record.hbl_exp_id = _Rec.hbl_exp_id;
+        this.Record.hbl_exp_code = _Rec.hbl_exp_code;
+        this.Record.hbl_exp_name = _Rec.hbl_exp_name;
+        this.Record.hbl_exp_br_id = _Rec.hbl_exp_br_id;
+        this.Record.hbl_exp_br_no = _Rec.hbl_exp_br_no;
+        this.Record.hbl_exp_br_addr = _Rec.hbl_exp_br_addr;
+
+        this.Record.hbl_imp_id = _Rec.hbl_imp_id;
+        this.Record.hbl_imp_code = _Rec.hbl_imp_code;
+        this.Record.hbl_imp_name = _Rec.hbl_imp_name;
+        this.Record.hbl_imp_br_id = _Rec.hbl_imp_br_id;
+        this.Record.hbl_imp_br_no = _Rec.hbl_imp_br_no;
+        this.Record.hbl_imp_br_addr = _Rec.hbl_imp_br_addr;
+
+        this.Record.hbl_terms = _Rec.hbl_terms;
+        this.Record.hbl_location_id = _Rec.hbl_location_id;
+        this.Record.hbl_location_code = _Rec.hbl_location_code;
+        this.Record.hbl_location_name = _Rec.hbl_location_name;
+
+        this.Record.hbl_mbl_no = _Rec.hbl_mbl_no;
+        this.Record.hbl_book_slno = _Rec.hbl_book_slno
+        this.Record.hbl_mbl_bookno = _Rec.hbl_mbl_bookno;
+
+        this.Record.hbl_pol_id = _Rec.hbl_pol_id;
+        this.Record.hbl_pol_code = _Rec.hbl_pol_code;
+        this.Record.hbl_pol_name = _Rec.hbl_pol_name;
+        this.Record.hbl_origin_country_id = _Rec.hbl_origin_country_id;
+        this.Record.hbl_origin_country_code = _Rec.hbl_origin_country_code;
+        this.Record.hbl_origin_country_name = _Rec.hbl_origin_country_name;
+
+        this.LINERRECORD = new SearchTable();
+        this.LINERRECORD.controlname = "LINER";
+        this.LINERRECORD.displaycolumn = "CODE";
+        this.LINERRECORD.type = this.carriertype;
+        this.LINERRECORD.id = this.Record.hbl_carrier_id;
+        this.LINERRECORD.code = this.Record.hbl_carrier_code;
+        this.LINERRECORD.name = this.Record.hbl_carrier_name;
+
+        this.AGENTRECORD = new SearchTable();
+        this.AGENTRECORD.controlname = "AGENT";
+        this.AGENTRECORD.displaycolumn = "CODE";
+        this.AGENTRECORD.type = "CUSTOMER";
+        this.AGENTRECORD.where = " CUST_IS_AGENT = 'Y' ";
+        this.AGENTRECORD.id = this.Record.hbl_agent_id;
+        this.AGENTRECORD.code = this.Record.hbl_agent_code;
+        this.AGENTRECORD.name = this.Record.hbl_agent_name;
+
+        this.EXPRECORD = new SearchTable();
+        this.EXPRECORD.controlname = "SHIPPER";
+        this.EXPRECORD.displaycolumn = "CODE";
+        this.EXPRECORD.type = "CUSTOMER";
+        this.EXPRECORD.where = " CUST_IS_CONSIGNEE = 'Y' ";
+        this.EXPRECORD.id = this.Record.hbl_exp_id;
+        this.EXPRECORD.code = this.Record.hbl_exp_code;
+        this.EXPRECORD.name = this.Record.hbl_exp_name;
+
+        this.EXPADDRECORD = new SearchTable();
+        this.EXPADDRECORD.controlname = "SHIPPERADDRESS";
+        this.EXPADDRECORD.displaycolumn = "CODE";
+        this.EXPADDRECORD.type = "CUSTOMERADDRESS";
+        this.EXPADDRECORD.id = this.Record.hbl_exp_br_id;
+        this.EXPADDRECORD.code = this.Record.hbl_exp_br_no;
+        this.EXPADDRECORD.name = "";
+        this.EXPADDRECORD.parentid = this.Record.hbl_exp_id;
+
+
+        this.IMPRECORD = new SearchTable();
+        this.IMPRECORD.controlname = "CONSIGNEE";
+        this.IMPRECORD.displaycolumn = "CODE";
+        this.IMPRECORD.type = "CUSTOMER";
+        this.IMPRECORD.where = " CUST_IS_SHIPPER = 'Y' ";
+        this.IMPRECORD.id = this.Record.hbl_imp_id;
+        this.IMPRECORD.code = this.Record.hbl_imp_code;
+        this.IMPRECORD.name = this.Record.hbl_imp_name;
+        this.IMPRECORD.parentid = "";
+
+        this.IMPADDRECORD = new SearchTable();
+        this.IMPADDRECORD.controlname = "CONSIGNEEADDRESS";
+        this.IMPADDRECORD.displaycolumn = "CODE";
+        this.IMPADDRECORD.type = "CUSTOMERADDRESS";
+        this.IMPADDRECORD.id = this.Record.hbl_imp_br_id;
+        this.IMPADDRECORD.code = this.Record.hbl_imp_br_no;
+        this.IMPADDRECORD.name = "";
+        this.IMPADDRECORD.parentid = this.Record.hbl_imp_id;
+
+        this.LOCATIONRECORD = new SearchTable();
+        this.LOCATIONRECORD.controlname = "LOCATION";
+        this.LOCATIONRECORD.displaycolumn = "NAME";
+        this.LOCATIONRECORD.type = "CITY";
+        this.LOCATIONRECORD.id = this.Record.hbl_location_id;
+        this.LOCATIONRECORD.code = this.Record.hbl_location_code;
+        this.LOCATIONRECORD.name = this.Record.hbl_location_name;
+
+        this.POLRECORD = new SearchTable();
+        this.POLRECORD.controlname = "POL";
+        this.POLRECORD.displaycolumn = "CODE";
+        this.POLRECORD.type = this.porttype;
+        this.POLRECORD.id = this.Record.hbl_pol_id;
+        this.POLRECORD.code = this.Record.hbl_pol_code;
+        this.POLRECORD.name = this.Record.hbl_pol_name;
+
+        this.COUNTRYORGRECORD = new SearchTable();
+        this.COUNTRYORGRECORD.controlname = "COUNTRYORIGIN";
+        this.COUNTRYORGRECORD.displaycolumn = "CODE";
+        this.COUNTRYORGRECORD.type = "COUNTRY";
+        this.COUNTRYORGRECORD.id = this.Record.hbl_origin_country_id;
+        this.COUNTRYORGRECORD.code = this.Record.hbl_origin_country_code;
+        this.COUNTRYORGRECORD.name = this.Record.hbl_origin_country_name;
+
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   // Load a single Record for VIEW/EDIT
