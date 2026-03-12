@@ -332,13 +332,9 @@
                     </app-autocomplete>
                   </div>
                 </div>
-
-              </div>
-              <div class="col-sm-3">
-
                 <div class="form-group row">
-                  <label *ngIf="type=='SEA IMPORT'" class="col-sm-5 col-form-label  col-form-label-sm">Nature</label>
-                  <div *ngIf="type=='SEA IMPORT'" class="col-sm-7">
+                  <label *ngIf="type=='SEA IMPORT'" class="col-sm-4 col-form-label  col-form-label-sm">Nature</label>
+                  <div *ngIf="type=='SEA IMPORT'" class="col-sm-8">
                     <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_nature">
                       <option [value]="'FCL/FCL'">FCL/FCL</option>
                       <option [value]="'FCL/LCL'">FCL/LCL</option>
@@ -349,8 +345,8 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-sm-5 col-form-label  col-form-label-sm">Terms</label>
-                  <div class="col-sm-7">
+                  <label class="col-sm-4 col-form-label  col-form-label-sm">Terms</label>
+                  <div class="col-sm-8">
                     <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_terms">
                       <option [value]="'EX-WORK'">EX-WORK</option>
                       <option [value]="'FREIGHT COLLECT'">COLLECT</option>
@@ -358,6 +354,8 @@
                     </select>
                   </div>
                 </div>
+              </div>
+              <div class="col-sm-3">
                 <div class="form-group row">
                   <label
                     class="col-sm-5 col-form-label  col-form-label-sm">{{!Record.lock_record?'BE.No':'*BE.No'}}</label>
