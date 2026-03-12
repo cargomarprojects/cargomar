@@ -21,7 +21,7 @@ export class GenerateDocComponent {
 
   @Input() public pkid: string;
   @Input() public type: string;
-  
+
   title = 'Generate Docs';
   folder_id: string;
   ErrorMessage: string = '';
@@ -71,18 +71,18 @@ export class GenerateDocComponent {
         this.loading = false;
         this.RecordList = response.list;
       },
-      error => {
-        this.loading = false;
-        alert(this.gs.getError(error));
-      });
+        error => {
+          this.loading = false;
+          alert(this.gs.getError(error));
+        });
   }
-  
+
   GenerateDocs(id: string, _type: string) {
     if (_type == "CHECK LIST") {
       this.PrintCheckList(id, this.type, "EXCEL")
     }
     else
-      this.PrintInvoice(id, "DETAIL", "PDF");
+      this.PrintInvoice(id, "DETAIL", "PDF", _type);
   }
 
   PrintCheckList(id: string, category: string, _type: string) {
@@ -112,13 +112,13 @@ export class GenerateDocComponent {
         this.loading = false;
         this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
-   
-  PrintInvoice(id: string,reportformat: string, _type: string = 'PDF') {
+
+  PrintInvoice(id: string, reportformat: string, _type: string = 'PDF', _caption: string = "INVOICE") {
 
     this.loading = true;
     this.folder_id = this.gs.getGuid();
@@ -141,7 +141,7 @@ export class GenerateDocComponent {
     SearchData.company_code = this.gs.globalVariables.comp_code;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
     SearchData.folderid = this.folder_id;
-    SearchData.report_caption = "INVOICE";
+    SearchData.report_caption = _caption;
 
     this.ErrorMessage = '';
     this.mainService.GenerateInvoice(SearchData)
@@ -149,15 +149,15 @@ export class GenerateDocComponent {
         this.loading = false;
         this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
-  
+
 
 }
