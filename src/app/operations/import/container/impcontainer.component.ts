@@ -340,6 +340,15 @@ export class ImpContainerComponent {
 
   FillContainer() {
 
+    let msg: string = "";
+    if (this.cntrparenttype == 'MBL')
+      msg = "Copies all containers to House.";
+    else
+      msg = "Copies all containers to Master.";
+
+    if (!confirm(msg)) {
+      return;
+    }
     this.loading = true;
     let SearchData = {
       usercode: this.gs.globalVariables.user_code,
