@@ -1022,22 +1022,22 @@ export class ImpHblSeaAirComponent {
       bret = false;
       sError += "\n\r | Invalid Master ID";
     }
-    if (this.gs.isBlank(this.Record.hbl_cf_date)) {
-      bret = false;
-      sError += " | Date Cannot Be Blank";
-    }
-    if (!this.gs.isBlank(this.Record.hbl_bl_no) && this.gs.isBlank(this.Record.hbl_date)) {
-      bret = false;
-      sError += "\n\r | Hbl Date Cannot Be Blank";
-    }
-    if (this.Record.hbl_exp_id.trim().length <= 0) {
-      bret = false;
-      sError += "\n\r | Exporter Cannot Be Blank";
-    }
-    if (this.Record.hbl_imp_id.trim().length <= 0) {
-      bret = false;
-      sError += "\n\r | Importer Cannot Be Blank";
-    }
+    // if (this.gs.isBlank(this.Record.hbl_cf_date)) {
+    //   bret = false;
+    //   sError += " | Date Cannot Be Blank";
+    // }
+    // if (!this.gs.isBlank(this.Record.hbl_bl_no) && this.gs.isBlank(this.Record.hbl_date)) {
+    //   bret = false;
+    //   sError += "\n\r | Hbl Date Cannot Be Blank";
+    // }
+    // if (this.Record.hbl_exp_id.trim().length <= 0) {
+    //   bret = false;
+    //   sError += "\n\r | Exporter Cannot Be Blank";
+    // }
+    // if (this.Record.hbl_imp_id.trim().length <= 0) {
+    //   bret = false;
+    //   sError += "\n\r | Importer Cannot Be Blank";
+    // }
 
 
 
