@@ -419,6 +419,13 @@
                       [(ngModel)]="Record.hbl_nomination" />
                   </div>
                 </div>
+                <div class="form-group row">
+                  <label class="col-sm-5 col-form-label  col-form-label-sm"></label>
+                  <div class="col-sm-7">
+                    <button *ngIf="mode == 'EDIT'" [hidden]="!Record.lock_record" [disabled]="loading"
+                      (click)="SearchRecord('updatehouse')" class="btn btn-success btn-sm">*Update</button>
+                  </div>
+                </div>
               </div>
             </div>
             <hr />
@@ -587,8 +594,6 @@
                     <label class="col-form-label  col-form-label-sm">
                       <font color="red">{{Record.hbl_mbl_bookno}} </font>
                     </label>
-                    <button *ngIf="mode == 'EDIT'" [hidden]="!Record.lock_record" [disabled]="loading"
-                      (click)="SearchRecord('updatehouse')" class="btn btn-success btn-sm">*Update</button>
                   </div>
                 </div>
               </div>
@@ -597,7 +602,7 @@
                   <label *ngIf="Record.hbl_mbl_no" class="col-sm-2 col-form-label  col-form-label-sm"><span
                       *ngIf="type=='SEA IMPORT'">MBL#</span><span *ngIf="type=='AIR IMPORT'">MAWB#</span></label>
                   <label class="col-sm-10 col-form-label  col-form-label-sm">
-                    <font color="red">{{Record.hbl_mbl_no}} </font>
+                    <font color="red">&nbsp;{{Record.hbl_mbl_no}} </font>
                   </label>
                 </div>
               </div>
