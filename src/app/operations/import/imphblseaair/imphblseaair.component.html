@@ -242,10 +242,20 @@
                       [disabled]="true" maxlength="1000"></textarea>
                   </div>
                 </div>
-
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label col-form-label-sm">Bill.To</label>
+                  <div class="col-sm-4">
+                    <app-autocomplete #ExporterLov [inputdata]="BILLTORECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
+                  </div>
+                  <div class="col-sm-6">
+                    <input type="text" disabled class="form-control form-control-sm"
+                      [(ngModel)]="Record.hbl_billto_name" />
+                  </div>
+                </div>
               </div>
               <div class="col-sm-4">
-                <div class="form-group row">
+                <!-- <div class="form-group row">
                   <label class="col-sm-4 col-form-label col-form-label-sm">Bill.To</label>
                   <div class="col-sm-8">
                     <app-autocomplete #ExporterLov [inputdata]="BILLTORECORD" (ValueChanged)="LovSelected($event)">
@@ -258,7 +268,7 @@
                     <input type="text" disabled class="form-control form-control-sm"
                       [(ngModel)]="Record.hbl_billto_name" />
                   </div>
-                </div>
+                </div> -->
                 <div class="form-group row">
                   <label class="col-sm-4 col-form-label col-form-label-sm">Agent</label>
                   <div class="col-sm-8">
@@ -315,15 +325,17 @@
                       [(ngModel)]="Record.hbl_pol_name" />
                   </div>
                 </div>
-              </div>
-              <div class="col-sm-3">
                 <div class="form-group row">
-                  <label class="col-sm-5 col-form-label  col-form-label-sm">Location</label>
-                  <div class="col-sm-7">
+                  <label class="col-sm-4 col-form-label  col-form-label-sm">Location</label>
+                  <div class="col-sm-8">
                     <app-autocomplete #LocLov [inputdata]="LOCATIONRECORD" (ValueChanged)="LovSelected($event)">
                     </app-autocomplete>
                   </div>
                 </div>
+
+              </div>
+              <div class="col-sm-3">
+
                 <div class="form-group row">
                   <label *ngIf="type=='SEA IMPORT'" class="col-sm-5 col-form-label  col-form-label-sm">Nature</label>
                   <div *ngIf="type=='SEA IMPORT'" class="col-sm-7">
@@ -393,6 +405,20 @@
                   <div class="col-sm-7">
                     <app-date [inputdate]="Record.hbl_deliv_date" (ValueChanged)="Record.hbl_deliv_date=$event">
                     </app-date>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-5 col-form-label  col-form-label-sm">Salesperson</label>
+                  <div class="col-sm-7">
+                    <input type="text" disabled class="form-control form-control-sm"
+                      [(ngModel)]="Record.hbl_salesman_name" />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-5 col-form-label  col-form-label-sm">Nomination</label>
+                  <div class="col-sm-7">
+                    <input type="text" disabled class="form-control form-control-sm"
+                      [(ngModel)]="Record.hbl_nomination" />
                   </div>
                 </div>
               </div>
@@ -563,8 +589,8 @@
                     <label class="col-form-label  col-form-label-sm">
                       <font color="red">{{Record.hbl_mbl_bookno}} </font>
                     </label>
-                     <button *ngIf="mode == 'EDIT'" [hidden]="!Record.lock_record" [disabled]="loading"
-                    (click)="SearchRecord('updatehouse')" class="btn btn-success btn-sm">*Update</button>
+                    <button *ngIf="mode == 'EDIT'" [hidden]="!Record.lock_record" [disabled]="loading"
+                      (click)="SearchRecord('updatehouse')" class="btn btn-success btn-sm">*Update</button>
                   </div>
                 </div>
               </div>
