@@ -44,6 +44,9 @@ import { GstReconRepComponent } from './gstreconrep/gstreconrep.component';
 import { AiDocComponent } from './aidoc/aidoc.component';
 import { ShipTrackMasterComponent } from './shiptrackmaster/shiptrackmaster.component';
 import { JobUnlockTrackComponent } from './jobunlocktrack/jobunlocktrack.component';
+import { SalesProfitListComponent } from './salesprofit/salesprofitlist.component';
+
+
 
 const routes: Routes = [
   { path: 'teu', component: TeuComponent },
@@ -86,7 +89,8 @@ const routes: Routes = [
   { path: 'gstreconrep', component: GstReconRepComponent },
   { path: 'aidoc', component: AiDocComponent },
   { path: 'shiptrackmaster', component: ShipTrackMasterComponent },
-  { path: 'jobunlocktrack', component: JobUnlockTrackComponent }
+  { path: 'jobunlocktrack', component: JobUnlockTrackComponent },
+  { path: 'salesprofit', component: SalesProfitListComponent }
 ];
 
 @NgModule({

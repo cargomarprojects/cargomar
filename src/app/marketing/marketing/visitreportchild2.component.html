@@ -1,85 +1,111 @@
-<div class="page-header">
-    <div class="col">
-        <label>{{title}}</label>
-        <button class="btn btn-primary btn-sm mr-5" (click)="Close()">Return</button>
-        <label class="col-form-label col-form-label-sm mr-1">Showing {{displayList.length}}/{{RecordList.length}}</label>
-        <input type="checkbox" [(ngModel)]="isShowAllChecked" id="_chksummary" style="cursor: pointer;">
-        <label class="col-form-label col-form-label-sm" style="cursor: pointer;" for="_chksummary">Show All</label>
-        <i *ngIf="loading" class="fa fa-spinner"></i>
-    </div>
+<div class="page-header mb-1">
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm mr-5" (click)="Close()">Return</button>
+
+  </div>
 </div>
 <div class="page-list">
-    <div *ngIf="cust_conv_type!='WEEKNO'" class="page-body table-responsive fixedTableHead my-0 p-0"
-        style="height: calc(100vh - 200px);">
-        <table class="table table-hover table-sm table-bordered table-striped">
-            <thead class="page-body-thead">
-                <tr>
-                    <th>SL#</th>
-                    <th>WEEK#</th>
-                    <th>NAME</th>
-                    <th>TYPE</th>
-                    <th style="white-space: nowrap;">JOINT VISIT</th>
-                    <th>BRANCH</th>
-                    <th>CUSTOMER</th>
-                    <th>CUST.TYPE</th>
-                    <th>STATUS</th>
-                    <th style="white-space: nowrap;">COMMENTS</th>
-                    <th style="white-space: nowrap;">NEXT ACTION</th>
-                    <th>CONV.DATE</th>
-                    <th>CONV.VOL</th>
-                    <th>UNIT</th>
-                </tr>
-            </thead>
-            <tbody class="page-body-tbody">
-                <tr *ngFor="let rec of displayList; let i = index" [class.active]="i == selectedRowIndex"
-                    (mousedown)="selectedRowIndex=i">
-                    <td>{{i+1}}</td>
-                    <td style="white-space: nowrap;">{{rec.mark_weekno}}</td>
-                    <td style="white-space: nowrap;">{{rec.mark_user_name}}</td>
-                    <td>{{rec.sman_category}}</td>
-                    <td style="white-space: nowrap;">{{rec.mark_jointsalesman_name}}</td>
-                    <td>{{rec.branch_name}}</td>
-                    <td style="white-space: nowrap;" [style.color]="rec.mark_summary=='N'?'red':''">
-                        {{rec.mark_customer_name}}</td>
-                    <td>{{rec.mark_customer_type}}</td>
-                    <td>{{rec.mark_conv_type}}</td>
-                    <td>{{rec.mark_result}}</td>
-                    <td>{{rec.mark_next_action}}</td>
-                    <td>{{rec.mark_conv_date}}</td>
-                    <td>{{rec.mark_conv_vol}}</td>
-                    <td>{{rec.mark_conv_unit}}</td>
-                </tr>
-            </tbody>
-        </table>
+
+  <div class="page-search mb-1">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group row">
+
+          <label class="col-sm-1 col-form-label col-form-label-sm"></label>
+
+          <!-- <div class="col-11">
+            <input type="checkbox" [(ngModel)]="isShowAllChecked" id="_chksummary" style="cursor: pointer;">
+            Showing {{displayList.length}}/{{RecordList.length}}
+          </div> -->
+
+          <div class="col-sm-11 d-flex align-items-center">
+            <input type="checkbox" [(ngModel)]="isShowAllChecked" id="_chksummary"
+              style="cursor: pointer; margin-right: 6px;" />
+            <label for="_chksummary" class="mb-0" style="cursor: pointer;">
+              Showing {{ displayList.length }}/{{ RecordList.length }}
+            </label>
+          </div>
+
+
+        </div>
+      </div>
     </div>
-    <div *ngIf="cust_conv_type=='WEEKNO'" class="page-body table-responsive fixedTableHead my-0 p-0"
-        style="height: calc(100vh - 200px);">
-        <table class="table table-hover table-sm table-bordered table-striped">
-            <thead class="page-body-thead">
-                <tr>
-                    <th>SL#</th>
-                    <th>WEEK#</th>
-                    <th>NAME</th>
-                    <th>TYPE</th>
-                    <th style="white-space: nowrap;">JOINT VISIT</th>
-                    <th>CUSTOMER</th>
-                    <th>CUST.TYPE</th>
-                    <th>STATUS</th>
-                </tr>
-            </thead>
-            <tbody class="page-body-tbody">
-                <tr *ngFor="let rec of displayList; let i = index" [class.active]="i == selectedRowIndex"
-                    (mousedown)="selectedRowIndex=i">
-                    <td>{{i+1}}</td>
-                    <td>{{rec.mark_weekno}}</td>
-                    <td style="white-space: nowrap;">{{rec.mark_user_name}}</td>
-                    <td>{{rec.sman_category}}</td>
-                    <td style="white-space: nowrap;">{{rec.mark_jointsalesman_name}}</td>
-                    <td style="white-space: nowrap;" [style.color]="rec.mark_summary=='N'?'red':''">{{rec.mark_customer_name}}</td>
-                    <td>{{rec.mark_customer_type}}</td>
-                    <td>{{rec.mark_conv_type}}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+  </div>
+
+  <div *ngIf="cust_conv_type!='WEEKNO'" class="page-body table-responsive fixedTableHead my-0 p-0"
+    style="height: calc(100vh - 250px);">
+    <table class="table table-hover table-sm table-bordered table-striped">
+      <thead class="page-body-thead">
+        <tr>
+          <th>SL#</th>
+          <th>WEEK#</th>
+          <th>NAME</th>
+          <th>TYPE</th>
+          <th style="white-space: nowrap;">JOINT VISIT</th>
+          <th>BRANCH</th>
+          <th>CUSTOMER</th>
+          <th>CUST.TYPE</th>
+          <th>STATUS</th>
+          <th style="white-space: nowrap;">COMMENTS</th>
+          <th style="white-space: nowrap;">NEXT ACTION</th>
+          <th>CONV.DATE</th>
+          <th>CONV.VOL</th>
+          <th>UNIT</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of displayList; let i = index" [class.active]="i == selectedRowIndex"
+          (mousedown)="selectedRowIndex=i">
+          <td>{{i+1}}</td>
+          <td style="white-space: nowrap;">{{rec.mark_weekno}}</td>
+          <td style="white-space: nowrap;">{{rec.mark_user_name}}</td>
+          <td>{{rec.sman_category}}</td>
+          <td style="white-space: nowrap;">{{rec.mark_jointsalesman_name}}</td>
+          <td>{{rec.branch_name}}</td>
+          <td style="white-space: nowrap;" [style.color]="rec.mark_summary=='N'?'red':''">
+            {{rec.mark_customer_name}}</td>
+          <td>{{rec.mark_customer_type}}</td>
+          <td>{{rec.mark_conv_type}}</td>
+          <td>{{rec.mark_result}}</td>
+          <td>{{rec.mark_next_action}}</td>
+          <td>{{rec.mark_conv_date}}</td>
+          <td>{{rec.mark_conv_vol}}</td>
+          <td>{{rec.mark_conv_unit}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="cust_conv_type=='WEEKNO'" class="page-body table-responsive fixedTableHead my-0 p-0"
+    style="height: calc(100vh - 250px);">
+    <table class="table table-hover table-sm table-bordered table-striped">
+      <thead class="page-body-thead">
+        <tr>
+          <th>SL#</th>
+          <th>WEEK#</th>
+          <th>NAME</th>
+          <th>TYPE</th>
+          <th style="white-space: nowrap;">JOINT VISIT</th>
+          <th>CUSTOMER</th>
+          <th>CUST.TYPE</th>
+          <th>STATUS</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of displayList; let i = index" [class.active]="i == selectedRowIndex"
+          (mousedown)="selectedRowIndex=i">
+          <td>{{i+1}}</td>
+          <td>{{rec.mark_weekno}}</td>
+          <td style="white-space: nowrap;">{{rec.mark_user_name}}</td>
+          <td>{{rec.sman_category}}</td>
+          <td style="white-space: nowrap;">{{rec.mark_jointsalesman_name}}</td>
+          <td style="white-space: nowrap;" [style.color]="rec.mark_summary=='N'?'red':''">{{rec.mark_customer_name}}
+          </td>
+          <td>{{rec.mark_customer_type}}</td>
+          <td>{{rec.mark_conv_type}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
 </div>

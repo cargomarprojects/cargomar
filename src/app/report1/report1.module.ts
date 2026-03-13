@@ -47,11 +47,11 @@ import { TdsCertReportComponent } from './tdscertreport/tdscertreport.component'
 import { MappingComponent } from './mapping/mapping.component';
 import { FtpLogComponent } from './ftplog/ftplog.component';
 import { TdspaidReportComponent } from './tdspaidreport/tdspaidreport.component';
-import { TdspaidDetComponent} from './tdspaidreport/tdspaiddet.component';
-import { TdsosComponent} from './tdsos/tdsos.component';
-import { TdsosPartyComponent} from './tdsos/tdsosparty.component';
-import { TdsosDetComponent} from './tdsos/tdsosdet.component';
-import { AuditLogComponent} from './auditlog/auditlog.component';
+import { TdspaidDetComponent } from './tdspaidreport/tdspaiddet.component';
+import { TdsosComponent } from './tdsos/tdsos.component';
+import { TdsosPartyComponent } from './tdsos/tdsosparty.component';
+import { TdsosDetComponent } from './tdsos/tdsosdet.component';
+import { AuditLogComponent } from './auditlog/auditlog.component';
 import { MonRepUpdtComponent } from './monrep/monrepupdt.component';
 import { ArrivalNoticeComponent } from './arrivalnotice/arrivalnotice.component';
 import { ShipTrackComponent } from './shiptrackrep/shiptrackrep.component';
@@ -63,14 +63,14 @@ import { CostBillingComponent } from './costbilling/costbilling.component';
 import { SalesFollowupComponent } from './salesfollowup/salesfollowup.component';
 import { SalesFollowupEditComponent } from './salesfollowup/salesfollowupedit.component';
 import { SalesFollowupInvComponent } from './salesfollowup/salesfollowupinv.component';
-import { TdspaidCertDetComponent} from './tdspaidreport/tdspaidcertdet.component';
+import { TdspaidCertDetComponent } from './tdspaidreport/tdspaidcertdet.component';
 import { AddReportsComponent } from './addreports/addreports.component';
 import { ShipDataComponent } from './shipdata/shipdata.component';
 import { ShipDataParentComponent } from './shipdata/shipdataparent.component';
 import { ShipReportComponent } from './shipdata/shipreport.component';
 import { UsrRightsComponent } from './usrrights/usrrights.component';
 import { ShipmentReportComponent } from './shipmentrpt/shipmentrpt.component';
-import { UnlockJobrptComponent} from './unlockjobrpt/unlockjobrpt.component';
+import { UnlockJobrptComponent } from './unlockjobrpt/unlockjobrpt.component';
 import { GstDetComponent } from './gst/gstdet.component';
 import { CostGstRptComponent } from './costgstrpt/costgstrpt.component';
 import { GenReportComponent } from './genreport/genreport.component';
@@ -88,7 +88,8 @@ import { AiDocComponent } from './aidoc/aidoc.component';
 import { AiDocDetComponent } from './aidoc/aidoc-det.component';
 import { ShipTrackMasterComponent } from './shiptrackmaster/shiptrackmaster.component';
 import { ShipTrackMasterDetComponent } from './shiptrackmaster/shiptrackmasterdet.component';
-import { JobUnlockTrackComponent} from './jobunlocktrack/jobunlocktrack.component';
+import { JobUnlockTrackComponent } from './jobunlocktrack/jobunlocktrack.component';
+import { SalesProfitListComponent } from './salesprofit/salesprofitlist.component';
 
 @NgModule({
   imports: [
@@ -161,7 +162,8 @@ import { JobUnlockTrackComponent} from './jobunlocktrack/jobunlocktrack.componen
     AiDocDetComponent,
     ShipTrackMasterComponent,
     ShipTrackMasterDetComponent,
-    JobUnlockTrackComponent
+    JobUnlockTrackComponent,
+    SalesProfitListComponent
   ],
   providers: [GstReconRepService
   ],
