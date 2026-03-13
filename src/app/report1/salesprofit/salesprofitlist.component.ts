@@ -3,6 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { SalesProfitService } from '../services/salesprofit.service';
+import { SalesProfitm } from '../models/salesprofit';
 
 @Component({
   selector: 'app-salesprofitlist',
@@ -65,6 +66,10 @@ export class SalesProfitListComponent {
     this.sub.unsubscribe();
   }
 
+  ShowReport(rec: SalesProfitm) {
+
+  }
+
 
   ActionHandler(action: string, id: string) {
     this.ErrorMessage = '';
@@ -89,5 +94,6 @@ export class SalesProfitListComponent {
   open(content: any) {
     this.modal = this.modalService.open(content);
   }
+
 
 }

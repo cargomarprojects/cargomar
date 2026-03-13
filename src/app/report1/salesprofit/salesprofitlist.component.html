@@ -55,6 +55,7 @@
         <tr>
           <th>FIN-YEAR</th>
           <th>QTR</th>
+          <th>SHOW-REPORT</th>
           <th>START-DATE</th>
           <th>END-DATE</th>
           <th>REMARKS</th>
@@ -67,6 +68,11 @@
           (mousedown)="ms.state.selectedRowIndex=i">
           <td>{{rec.sa_year_name}}</td>
           <td>{{rec.sa_qtr}}</td>
+          <td>
+            <div [class]="'hlink'" (click)="ShowReport(rec)">
+              <a>CLICK-HERE</a>
+            </div>
+          </td>
           <td>{{rec.sa_start_date}}</td>
           <td>{{rec.sa_end_date}}</td>
           <td>{{rec.sa_remarks}}</td>
