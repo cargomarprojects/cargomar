@@ -395,6 +395,17 @@ canvas {
   border: 1px solid rgba(0, 0, 0, .125)
 }
 
+.page-line-top {
+  border-top: 1px solid rgba(0, 0, 0, .125);
+  width: 100%;
+}
+
+.page-line-bottom {
+  border-bottom: 1px solid rgba(0, 0, 0, .125);
+  width: 100%;
+}
+
+
 .abs-center-x {
   position: absolute;
   left: 50%;

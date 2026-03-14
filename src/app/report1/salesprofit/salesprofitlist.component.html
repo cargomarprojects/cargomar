@@ -1,11 +1,13 @@
 <div class="page-header">
   <div class="col">
     <label>{{title}}</label>
-    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <button class="btn btn-primary btn-sm" (click)="Close('CLOSE')">Close</button>
+    <button class="btn btn-primary btn-sm" (click)="this.Close('RET')">Return</button>
   </div>
 </div>
 
-<div *ngIf="ms.state.currentTab=='LIST'" class="page-list">
+<div *ngIf="ms.state.currentTab=='LIST'" class="page-body">
+
   <div class="page-search">
     <div class="row">
 
@@ -29,6 +31,10 @@
       </div>
 
     </div>
+  </div>
+
+  <div class="page-line-top mt-1">
+
   </div>
 
   <div class="page-pager">
@@ -69,7 +75,7 @@
           <td>{{rec.sa_year_name}}</td>
           <td>{{rec.sa_qtr}}</td>
           <td>
-            <div [class]="'hlink'" (click)="ShowReport(rec)">
+            <div [class]="'hlink'" (click)="ShowReport(rec.sa_pkid)">
               <a>CLICK-HERE</a>
             </div>
           </td>
@@ -82,6 +88,7 @@
       </tbody>
     </table>
   </div>
+
   <div class="page-pager">
     <div *ngIf="ms.state.page_count">
       <ul class="pagination pagination-sm   mb-1">
@@ -99,6 +106,10 @@
       </ul>
     </div>
   </div>
+</div>
+
+<div *ngIf="ms.state.currentTab=='REPORT'" class="page-body">
+
 </div>
 
 <br />

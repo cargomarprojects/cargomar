@@ -66,8 +66,9 @@ export class SalesProfitListComponent {
     this.sub.unsubscribe();
   }
 
-  ShowReport(rec: SalesProfitm) {
-
+  ShowReport(id: string) {
+    this.ms.state.currentTab = "REPORT";
+    alert(id);
   }
 
 
@@ -87,8 +88,14 @@ export class SalesProfitListComponent {
     // this.RecordList = null;
   }
 
-  Close() {
-    this.gs.ClosePage('home');
+  Close(action: string = '') {
+    if (action == 'CLOSE' || this.ms.state.currentTab == "LIST") {
+      this.gs.ClosePage('home');
+      return;
+    }
+    if (this.ms.state.currentTab == 'REPORT')
+      this.ms.state.currentTab = "LIST";
+
   }
 
   open(content: any) {
