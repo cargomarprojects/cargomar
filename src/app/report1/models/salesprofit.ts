@@ -1,4 +1,3 @@
-
 import { GlobalVariables } from '../../core/models/globalvariables';
 import { Yearm } from '../../core/models/yearm';
 
@@ -38,6 +37,15 @@ export class SalesCtc {
 }
 
 
+export class SalesProfit {
+  branch: string;
+  name: string;
+  revenue: number;
+  ctc: number;
+  achieved: number;
+  incentive: number;
+  os: number;
+}
 
 export interface iSalesProfitmModel {
   // filter Values
@@ -45,7 +53,12 @@ export interface iSalesProfitmModel {
   currentTab: string;
   mode: string;
   year_code: string;
+
   RecordList: SalesProfitm[];
+
+  selectedProfitRowIndex: number;
+
+
   YearList: Yearm[];
 
   ErrorMessage: string;
@@ -54,21 +67,50 @@ export interface iSalesProfitmModel {
   page_current: number;
   page_rows: number;
   page_rowcount: number;
+
+
+  SalesProfitList: SalesProfit[];
+  pkid: string;
+  dremarks: string;
+  dstart_date: string;
+  dend_date: string;
+
+  dpage_count: number;
+  dpage_current: number;
+  dpage_rows: number;
+  dpage_rowcount: number;
+
+
 };
 
 export const initialState: iSalesProfitmModel = {
   selectedRowIndex: 0,
+  selectedProfitRowIndex: 0,
   mode: '',
   year_code: '',
   currentTab: 'LIST',
   RecordList: [],
   YearList: [],
+
+
+
   ErrorMessage: '',
 
   page_count: 0,
   page_current: 0,
   page_rows: 15,
-  page_rowcount: 0
+  page_rowcount: 0,
+
+  SalesProfitList: [],
+  pkid: '',
+  dremarks: '',
+  dstart_date: '',
+  dend_date: '',
+  dpage_count: 0,
+  dpage_current: 0,
+  dpage_rows: 15,
+  dpage_rowcount: 0
+
 }
 
 

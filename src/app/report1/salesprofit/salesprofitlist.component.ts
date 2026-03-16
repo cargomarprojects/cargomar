@@ -3,7 +3,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { SalesProfitService } from '../services/salesprofit.service';
-import { SalesProfitm } from '../models/salesprofit';
+
 
 @Component({
   selector: 'app-salesprofitlist',
@@ -21,6 +21,9 @@ export class SalesProfitListComponent {
   urlid: string;
   modal: any;
 
+
+  report_id = "";
+
   ErrorMessage = "";
   bExcel = false;
   bAdmin = false;
@@ -37,6 +40,8 @@ export class SalesProfitListComponent {
         var options = JSON.parse(params["parameter"]);
         this.menuid = options.menuid;
         this.type = options.type;
+        this.report_id = options.id;
+
       }
     });
   }
@@ -47,6 +52,8 @@ export class SalesProfitListComponent {
       this.InitCompleted = true;
     }
     this.ms.init(this.menuid);
+    if (this.type == "REPORT")
+      this.ShowReport(this.report_id);
   }
 
   InitComponent() {
@@ -68,8 +75,10 @@ export class SalesProfitListComponent {
 
   ShowReport(id: string) {
     this.ms.state.currentTab = "REPORT";
-    alert(id);
+    this.ms.state.pkid = id;
+    this.ms.SalesProfitReport('NEW', id);
   }
+
 
 
   ActionHandler(action: string, id: string) {

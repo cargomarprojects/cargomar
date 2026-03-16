@@ -60,11 +60,10 @@
       <thead class="page-body-thead">
         <tr>
           <th>FIN-YEAR</th>
-          <th>QTR</th>
+          <th>CAPTION</th>
           <th>SHOW-REPORT</th>
           <th>START-DATE</th>
           <th>END-DATE</th>
-          <th>REMARKS</th>
           <th>CREATED.BY</th>
           <th>CREATED.DT</th>
         </tr>
@@ -73,7 +72,7 @@
         <tr *ngFor="let rec of ms.state.RecordList; let i = index" [class.active]="i == ms.state.selectedRowIndex"
           (mousedown)="ms.state.selectedRowIndex=i">
           <td>{{rec.sa_year_name}}</td>
-          <td>{{rec.sa_qtr}}</td>
+          <td>{{rec.sa_remarks}}</td>
           <td>
             <div [class]="'hlink'" (click)="ShowReport(rec.sa_pkid)">
               <a>CLICK-HERE</a>
@@ -81,7 +80,6 @@
           </td>
           <td>{{rec.sa_start_date}}</td>
           <td>{{rec.sa_end_date}}</td>
-          <td>{{rec.sa_remarks}}</td>
           <td>{{rec.rec_created_by}}</td>
           <td>{{rec.rec_created_date}}</td>
         </tr>
@@ -109,6 +107,74 @@
 </div>
 
 <div *ngIf="ms.state.currentTab=='REPORT'" class="page-body">
+
+  <div class="page-search">
+
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label col-form-label-sm">Caption</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="ms.state.dremarks" disabled />
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group row">
+          <div class="col-sm-10">
+            <button (click)="ms.List('NEW')" class="btn btn-primary btn-sm">Process Report</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label col-form-label-sm">Period</label>
+          <div class="col-sm-3">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="ms.state.dstart_date" disabled />
+          </div>
+          <label class="col-sm-2 col-form-label col-form-label-sm">To</label>
+          <div class="col-sm-3">
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="ms.state.dend_date" disabled />
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="page-line-top mt-1 mb-1">
+
+  </div>
+
+  <div class="page-body table-responsive">
+    <table class="table table-hover table-sm table-bordered table-striped">
+      <thead class="page-body-thead">
+        <tr>
+          <th>BRANCH</th>
+          <th>NAME</th>
+          <th>REVENUE</th>
+          <th>CTC</th>
+          <th>ACHIEVED</th>
+          <th>INCENTIVE</th>
+          <th>OS</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of ms.state.SalesProfitList; let i = index"
+          [class.active]="i == ms.state.selectedProfitRowIndex" (mousedown)="ms.state.selectedProfitRowIndex=i">
+          <td>{{rec.branch}}</td>
+          <td>{{rec.name}}</td>
+          <td>{{rec.revenue}}</td>
+          <td>{{rec.ctc}}</td>
+          <td>{{rec.achieved}}</td>
+          <td>{{rec.incentive}}</td>
+          <td>{{rec.os}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
 </div>
 

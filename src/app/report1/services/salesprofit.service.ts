@@ -32,8 +32,8 @@ export class SalesProfitService {
       this.state.year_code = this.gs.globalVariables.year_code;
       this.gs.appStates[this.screen_id] = this.state;
       this.LoadCombo();
-      if (this.state.currentTab == 'LIST')
-        this.List('NEW');
+      // if (this.state.currentTab == 'LIST')
+      //   this.List('NEW');
     }
   }
 
@@ -54,6 +54,7 @@ export class SalesProfitService {
       this.state.selectedRowIndex = 0;
 
     this.SalesProfitList(SearchData).subscribe(response => {
+      console.log(response.list);
       this.state.RecordList = response.list;
       this.state.page_count = response.page_count;
       this.state.page_current = response.page_current;
@@ -63,6 +64,43 @@ export class SalesProfitService {
       this.state.ErrorMessage = this.gs.getError(error);
     });
   }
+
+  // // Query List Data
+  SalesProfitReport(_type: string, id: string) {
+    let SearchData = {
+      type: _type,
+      pkid: id,
+      report_folder: this.gs.globalVariables.report_folder,
+      company_code: this.gs.globalVariables.user_company_code,
+      page_count: this.state.dpage_count,
+      page_current: this.state.dpage_current,
+      page_rows: this.state.dpage_rows,
+      page_rowcount: this.state.dpage_rowcount,
+    };
+
+    if (_type == "NEW")
+      this.state.selectedProfitRowIndex = 0;
+
+    this._SalesProfitReport(SearchData).subscribe(response => {
+
+      this.state.dremarks = response.record.sa_remarks;
+      this.state.dstart_date = response.record.sa_start_date;
+      this.state.dend_date = response.record.sa_end_date;
+
+      this.state.SalesProfitList = response.list;
+      this.state.dpage_count = response.page_count;
+      this.state.dpage_current = response.page_current;
+      this.state.dpage_rowcount = response.page_rowcount;
+    }, error => {
+      this.state.SalesProfitList = null;
+      this.state.dremarks = '';
+      this.state.dstart_date = '';
+      this.state.dend_date = '';
+      this.state.ErrorMessage = this.gs.getError(error);
+    });
+  }
+
+
 
   private LoadCombo() {
     let SearchData = {
@@ -77,8 +115,12 @@ export class SalesProfitService {
       });
   }
 
-  SalesProfitList(SearchData: any) {
+  private SalesProfitList(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/SalesProfitList', SearchData, this.gs.headerparam2('authorized'));
+  }
+
+  private _SalesProfitReport(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/SalesProfitReport', SearchData, this.gs.headerparam2('authorized'));
   }
 
 }
