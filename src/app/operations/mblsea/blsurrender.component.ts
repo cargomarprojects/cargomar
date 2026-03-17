@@ -57,7 +57,7 @@ export class BlSurrenderComponent {
     // Init Will be called After executing Constructor
     ngOnInit() {
         this.sWhere = "hbl_mbl_id='" + this.parentid + "'";
-        this.sWhere += " and hbl_pkid not in (";
+        this.sWhere += " and {hbl_pkid} not in (";
         this.sWhere += " select bls_type_id from bl_surrender a ";
         this.sWhere += " where bls_mbl_id='" + this.parentid + "' and nvl(bls_type,'')='HBL'";
         this.sWhere += " ) ";
