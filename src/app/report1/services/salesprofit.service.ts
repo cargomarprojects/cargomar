@@ -62,6 +62,7 @@ export class SalesProfitService {
     }, error => {
       this.state.RecordList = null;
       this.state.ErrorMessage = this.gs.getError(error);
+      alert(this.state.ErrorMessage);
     });
   }
 
@@ -97,9 +98,23 @@ export class SalesProfitService {
       this.state.dstart_date = '';
       this.state.dend_date = '';
       this.state.ErrorMessage = this.gs.getError(error);
+      alert(this.state.ErrorMessage);
     });
   }
 
+
+  processProfit(id: string) {
+    let SearchData = {
+      pkid: id,
+    };
+    this._ProcessProfit(SearchData)
+      .subscribe(response => {
+      }, error => {
+        this.state.ErrorMessage = this.gs.getError(error);
+        alert(this.state.ErrorMessage);
+      });
+
+  }
 
 
   private LoadCombo() {
@@ -122,6 +137,11 @@ export class SalesProfitService {
   private _SalesProfitReport(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/SalesProfitReport', SearchData, this.gs.headerparam2('authorized'));
   }
+
+  private _ProcessProfit(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/ProcessSalesProfit', SearchData, this.gs.headerparam2('authorized'));
+  }
+
 
 }
 
