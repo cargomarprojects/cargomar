@@ -86,7 +86,14 @@
           </div>
         </div>
         <div class="form-group row">
-          <label class="col-sm-3 col-form-label col-form-label-sm">Search</label>
+          <label class="col-sm-3 col-form-label col-form-label-sm">Code</label>
+          <div class="col-sm-9">
+            <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring"
+              (blur)="OnBlur('searchstring')" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label col-form-label-sm">Name</label>
           <div class="col-sm-9">
             <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring"
               (blur)="OnBlur('searchstring')" />
@@ -95,7 +102,7 @@
       </div>
       <div class="col-sm-6">
         <div class="form-group row mt-1">
-          <div class="col-sm-2 pr-0">
+          <div class="col-sm-3 pr-0">
             <input type="checkbox" [(ngModel)]="Is_Shipper" />
             <span>Shipper</span>
           </div>
@@ -103,22 +110,46 @@
             <input type="checkbox" [(ngModel)]="Is_Foreigner" />
             <span>Foreign.Shipper</span>
           </div>
-          <div class="col-sm-2 pr-0">
+          <div class="col-sm-3 pr-0">
             <input type="checkbox" [(ngModel)]="Is_Consignee" />
             <span>Consignee</span>
           </div>
-          <div class="col-sm-2 pr-0">
+          <div class="col-sm-3 pr-0">
             <input type="checkbox" [(ngModel)]="Is_Agent" />
             <span>Agent</span>
           </div>
+
+        </div>
+        <div class="form-group row mt-1">
           <div class="col-sm-3 pr-0">
             <input type="checkbox" [(ngModel)]="Is_Cha_Forwarder" />
             <span>Cha/Forwarder</span>
           </div>
+          <div class="col-sm-3 pr-0">
+            <input type="checkbox" [(ngModel)]="Is_Creditor" />
+            <span>Creditor</span>
+          </div>
+          <div class="col-sm-3 pr-0">
+            <input type="checkbox" [(ngModel)]="Is_Others" />
+            <span>Others</span>
+          </div>
+
+          <div class="col-sm-3 pr-0">
+            <input type="checkbox" [(ngModel)]="Is_Incomplete" />
+            <span>Incomplete</span>
+          </div>
+
         </div>
         <div class="form-group row mt-1">
-
-          <div class="col-sm-2 pr-0">
+          <div class="col-sm-3 pr-0">
+            <input type="checkbox" [(ngModel)]="Is_Locked" />
+            <span>Locked</span>
+          </div>
+          <div *ngIf="bAdmin2" class="col-sm-3 pr-0">
+            <input type="checkbox" [(ngModel)]="Last_Bill_date" />
+            <span>Last Billed Date</span>
+          </div>
+          <!-- <div class="col-sm-2 pr-0">
             <input type="checkbox" [(ngModel)]="Is_Creditor" />
             <span>Creditor</span>
           </div>
@@ -138,7 +169,7 @@
           <div *ngIf="bAdmin2" class="col-sm-3 pr-0">
             <input type="checkbox" [(ngModel)]="Last_Bill_date" />
             <span>Last Billed Date</span>
-          </div>
+          </div> -->
 
         </div>
       </div>
@@ -752,7 +783,8 @@
           <div class="form-group row">
             <label class="col-2 col-form-label  col-form-label-sm">Customer Flag</label>
             <div class="col-4">
-              <select class="form-control form-control-sm" [(ngModel)]="Record.cust_flag" [disabled]="gs.globalVariables.user_code != 'ADMIN'">
+              <select class="form-control form-control-sm" [(ngModel)]="Record.cust_flag"
+                [disabled]="gs.globalVariables.user_code != 'ADMIN'">
                 <option [value]="'NA'">NA</option>
                 <option [value]="'TO-ORDER'">TO-ORDER</option>
               </select>
