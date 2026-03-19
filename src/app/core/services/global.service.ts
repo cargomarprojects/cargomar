@@ -12,7 +12,7 @@ import { Modulem } from '../models/modulem';
 import { Settings } from '../models/settings';
 import { AppDetails } from '../models/appdetails';
 
-import { nanoid } from 'nanoid';
+
 
 
 //npm install shortid
