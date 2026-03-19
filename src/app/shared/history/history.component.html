@@ -18,7 +18,8 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex">
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+          (click)="selectedRowIndex=i">
           <td>{{rec.audit_date}}</td>
           <td>{{rec.audit_action}}</td>
           <td>{{rec.audit_user_code}}</td>

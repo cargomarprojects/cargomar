@@ -33,6 +33,8 @@ export class HistoryComponent {
 
   bShow = false;
 
+  selectedRowIndex = 0;
+
   constructor(
     private route: ActivatedRoute,
     private gs: GlobalService
