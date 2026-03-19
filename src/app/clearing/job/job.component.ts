@@ -17,7 +17,7 @@ import { WarningAlertComponent } from '../../shared/warningalert/warningalert.co
   providers: [JobService]
 })
 export class JobComponent {
-  // Local Variables 
+  // Local Variables
   title = 'JOB MASTER';
 
   @ViewChild('WarnMsg') private _WarnMsg: WarningAlertComponent;
@@ -139,7 +139,7 @@ export class JobComponent {
     this.page_count = 0;
     this.page_rows = 15;
     this.page_current = 0;
-    // URL Query Parameter 
+    // URL Query Parameter
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
         this.InitCompleted = true;
@@ -1355,7 +1355,7 @@ export class JobComponent {
           this.InfoMessage = "New Record " + this.Record.job_docno + " Generated Successfully";
         } else
           this.InfoMessage = "Save Complete";
- 
+
         this.Record.job_unlockid = '';
         this.old_shipper_id = this.Record.job_exp_id;
         this.old_billto_id = this.Record.job_billto_id;

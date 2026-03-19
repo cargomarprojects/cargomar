@@ -49,12 +49,12 @@ export class HeaderComponent {
     }
 
     if (bFlag)
-      this.router.navigate([rec.menu_route1], { queryParams: { appid: this.gs.appid, deviceid: this.gs.deviceId, id: this.id, parameter: rec.menu_route2 }, replaceUrl: _replaceurl });
+      this.router.navigate([rec.menu_route1], { queryParams: { appid: this.gs.appid, id: this.id, parameter: rec.menu_route2, deviceid: this.gs.deviceId }, replaceUrl: _replaceurl });
     else {
       if (_replaceurl)
-        this.router.navigate([rec.menu_route1], { queryParams: { appid: this.gs.appid, deviceid: this.gs.deviceId, parameter: rec.menu_route2 }, replaceUrl: true });
+        this.router.navigate([rec.menu_route1], { queryParams: { appid: this.gs.appid, parameter: rec.menu_route2, deviceid: this.gs.deviceId }, replaceUrl: true });
       else
-        this.router.navigate([rec.menu_route1], { queryParams: { appid: this.gs.appid, deviceid: this.gs.deviceId, parameter: rec.menu_route2 } });
+        this.router.navigate([rec.menu_route1], { queryParams: { appid: this.gs.appid, parameter: rec.menu_route2, deviceid: this.gs.deviceId } });
     }
   }
 
