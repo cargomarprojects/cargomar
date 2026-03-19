@@ -84,7 +84,6 @@ export class GlobalService {
   public getDeviceId(): string {
     let _deviceId = localStorage.getItem('cargoserve-deviceId');
     if (!_deviceId) {
-      //_deviceId = UUID.UUID();
       _deviceId = this.getShortID();
       localStorage.setItem('cargoserve-deviceId', _deviceId);
     }
