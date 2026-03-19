@@ -53,6 +53,9 @@ export class CustomerComponent {
   loading = false;
   currentTab = 'LIST';
 
+  search_branch_code: string = "";
+  search_cust_code: string = "";
+  search_cust_name: string = "";
   searchstring = '';
   page_count = 0;
   page_current = 0;
@@ -222,6 +225,10 @@ export class CustomerComponent {
 
   LovSelected(_Record: any) {
 
+    if (_Record.controlname == "SEARCH-BRANCH") {
+      this.search_branch_code = _Record.code;
+    }
+
     if (_Record.controlname == "SALESMAN") {
       this.Record.cust_sman_id = _Record.id;
       this.Record.cust_sman_name = _Record.name;
@@ -359,7 +366,10 @@ export class CustomerComponent {
       rec_category: this.rec_category,
       fromdate: this.fromdate,
       todate: this.todate,
-      search_datetype: this.search_datetype
+      search_datetype: this.search_datetype,
+      search_branch_code: this.search_branch_code,
+      search_cust_code: this.search_cust_code,
+      search_cust_name: this.search_cust_name
     };
 
     this.ErrorMessage = '';
@@ -781,6 +791,14 @@ export class CustomerComponent {
     }
     if (field == 'searchstring') {
       this.searchstring = this.searchstring.toUpperCase().trim();
+    }
+
+     if (field == 'search_cust_code') {
+      this.search_cust_code = this.search_cust_code.toUpperCase().trim();
+    }
+
+     if (field == 'search_cust_name') {
+      this.search_cust_name = this.search_cust_name.toUpperCase().trim();
     }
 
 
