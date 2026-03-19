@@ -1,30 +1,36 @@
 <div class="page-list">
-  <div [style.height]="listHtmlHt" style="overflow-y: scroll;">
-    <div class="page-body table-responsive">
-      <table class="table  table-hover table-sm">
-        <thead class="page-body-thead">
-          <tr>
-            <th width="12%">DATE</th>
-            <th width="5%">ACTION</th>
-            <th width="10%">USER</th>
-            <!--<th>TYPE</th>-->
-            <th width="5%">REFNO</th>
-            <th width="68%">REMARKS</th>
-          </tr>
-        </thead>
-        <tbody class="page-body-tbody">
-          <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex">
-            <td>{{rec.audit_date}}</td>
-            <td>{{rec.audit_action}}</td>
-            <td>{{rec.audit_user_code}}</td>
-            <!--<td>{{rec.audit_type}}</td>-->
-            <td>{{rec.audit_refno}}</td>
-            <td>{{rec.audit_remarks}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+
+  <div class="m-1" style="display: flex; justify-content: flex-end;text-decoration: underline;">
+    <a class="hlink_blue" (click)="showHide()"> show/hide </a>
   </div>
+
+  <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 500px);">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>DATE</th>
+          <th>ACTION</th>
+          <th>USER</th>
+          <th>REFNO</th>
+          <th>REMARKS</th>
+          <th *ngIf="bShow">COMPUTER</th>
+          <th *ngIf="bShow">APPID</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex">
+          <td>{{rec.audit_date}}</td>
+          <td>{{rec.audit_action}}</td>
+          <td>{{rec.audit_user_code}}</td>
+          <td class="wrap-text">{{rec.audit_refno}}</td>
+          <td class="wrap-text">{{rec.audit_remarks}}</td>
+          <td *ngIf="bShow">{{rec.audit_computer}}</td>
+          <td *ngIf="bShow">{{rec.audit_appid}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
 </div>
 <br>
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>

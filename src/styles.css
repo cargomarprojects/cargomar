@@ -81,6 +81,10 @@ old_body {
   overflow-x: hidden;
 }
 
+.wrap-text {
+  white-space: normal !important;
+  word-break: break-word;
+}
 
 
 container {

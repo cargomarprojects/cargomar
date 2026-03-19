@@ -11,9 +11,9 @@ import { Auditlog } from '../../shared/models/auditlog';
 })
 export class HistoryComponent {
   /*
-  Ajith 04/06/2019 ,Busy page shown 
+  Ajith 04/06/2019 ,Busy page shown
   */
-  // Local Variables 
+  // Local Variables
   title = 'History Details';
 
   @Input() public pkid: string;
@@ -30,11 +30,18 @@ export class HistoryComponent {
   ErrorMessage = "";
   InfoMessage = "";
   RecordList: Auditlog[] = [];
+
+  bShow = false;
+
   constructor(
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {
-    // URL Query Parameter 
+    // URL Query Parameter
+  }
+
+  showHide() {
+    this.bShow = !this.bShow;
   }
 
   // Init Will be called After executing Constructor
