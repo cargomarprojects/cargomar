@@ -12,6 +12,7 @@ import { Modulem } from '../models/modulem';
 import { Settings } from '../models/settings';
 import { AppDetails } from '../models/appdetails';
 
+import { nanoid } from 'nanoid';
 
 
 //npm install shortid
@@ -76,7 +77,7 @@ export class GlobalService {
   }
 
   public getShortID() {
-    const _id = UUID.UUID();
+    let _id = UUID.UUID();
     return _id;
   }
 
