@@ -29,28 +29,29 @@ export class ReloadComponent {
   }
 
   async ngOnInit() {
-  
+
     var iRet = 0;
 
     let url = this.gs.reload_url;
     this.gs.reload_url = '';
-    if ( this.gs.isBlank(url)) {
-      this.router.navigate(['login'], { replaceUrl: true });
-    } 
-
-    iRet = await this.gs.GetAppDetails(this.gs.appid);
-    
-    if ( iRet != 0) {
+    if (this.gs.isBlank(url)) {
       this.router.navigate(['login'], { replaceUrl: true });
     }
-    
-    iRet = await this.gs.Login(this.gs.globalVariables.user_code, this.gs.globalVariables.user_password, this.gs.globalVariables.user_company_code);
-        
+
+    iRet = await this.gs.GetAppDetails(this.gs.appid);
+
     if (iRet != 0) {
       this.router.navigate(['login'], { replaceUrl: true });
       return;
     }
-    
+
+    iRet = await this.gs.Login(this.gs.globalVariables.user_code, this.gs.globalVariables.user_password, this.gs.globalVariables.user_company_code);
+
+    if (iRet != 0) {
+      this.router.navigate(['login'], { replaceUrl: true });
+      return;
+    }
+
     if (this.gs.baseLocalServerUrl != "") {
       iRet = await this.gs.checkLocalServer();
       if (iRet != 0)
@@ -65,13 +66,13 @@ export class ReloadComponent {
     }
 
     // new app id is created and assigned to this login
-    var _old_appid = 'appid='+this.gs.appid;
+    var _old_appid = 'appid=' + this.gs.appid;
     this.gs.CreateAppId();
-    var _new_appid = 'appid='+this.gs.appid;
-    url = url.replace(_old_appid, _new_appid );
+    var _new_appid = 'appid=' + this.gs.appid;
+    url = url.replace(_old_appid, _new_appid);
 
-    const Record  = this.gs.CreateAppDetailsRecord();
-    iRet =  await this.gs.saveAppDetails(Record);
+    const Record = this.gs.CreateAppDetailsRecord();
+    iRet = await this.gs.saveAppDetails(Record);
 
     this.router.navigateByUrl(url, { replaceUrl: true });
 

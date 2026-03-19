@@ -14,6 +14,7 @@ import { AppDetails } from '../models/appdetails';
 
 
 
+//npm install shortid
 
 @Injectable()
 export class GlobalService {
@@ -27,6 +28,8 @@ export class GlobalService {
   public defaultValues: DefaultValues;
 
   public Hide_Menu = false;
+
+  public deviceId = "";
 
   public appid = "";
   public reload_url = "";
@@ -72,8 +75,30 @@ export class GlobalService {
     return uuid.toUpperCase();
   }
 
+  public getShortID() {
+    const _id = UUID.UUID();
+    return _id;
+  }
+
+
+  public getDeviceId(): string {
+    let _deviceId = localStorage.getItem('cargoserve-deviceId');
+    if (!_deviceId) {
+      //_deviceId = UUID.UUID();
+      _deviceId = this.getShortID();
+      localStorage.setItem('cargoserve-deviceId', _deviceId);
+    }
+    this.deviceId = _deviceId;
+    return _deviceId;
+  }
+
+
   public CreateAppId() {
+
     this.appid = UUID.UUID();
+    this.globalVariables.deviceid = this.getDeviceId();
+    this.globalVariables.appid = this.appid;
+
     this.resetState();
   }
 
@@ -975,7 +1000,11 @@ export class GlobalService {
       this.globalVariables.branch_pkid = response.record.user_branch_id;
       this.globalVariables.year_pkid = response.record.user_year_id;
       this.Hide_Menu = response.record.user_hide_menu;
-      iRet = 0;
+
+      if (response.record.user_logged_out)
+        iRet = 1;
+      else
+        iRet = 0;
     }, error => {
       alert(this.getError(error));
     });
