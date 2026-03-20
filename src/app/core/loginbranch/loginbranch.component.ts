@@ -83,7 +83,7 @@ export class LoginBranchComponent {
           this.gs.changeBrData.user_year_id = '';
         }
 
-        if (this.gs.globalVariables.user_code == "SP") //For sivaprasad, he will select the fin year 
+        if (this.gs.globalVariables.user_code == "SP") //For sivaprasad, he will select the fin year
           this.yearid = '';
 
         // if trading partner login no branch selection allowed
@@ -101,7 +101,6 @@ export class LoginBranchComponent {
     var iRet = 0;
     this.loading = true;
     iRet = await this.gs.LoadMenu(this.branchid, this.yearid);
-    console.log('Load Branch Competed ', iRet);
     if (iRet == 0) {
       this.gs.CreateAppId();
       const Record = this.gs.CreateAppDetailsRecord();

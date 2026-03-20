@@ -15,6 +15,7 @@
           <th>REMARKS</th>
           <th *ngIf="bShow">COMPUTER</th>
           <th *ngIf="bShow">APPID</th>
+          <th *ngIf="bShow">DEVICE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
@@ -27,6 +28,7 @@
           <td class="wrap-text">{{rec.audit_remarks}}</td>
           <td *ngIf="bShow">{{rec.audit_computer}}</td>
           <td *ngIf="bShow">{{rec.audit_appid}}</td>
+          <td *ngIf="bShow">{{rec.audit_deviceid}}</td>
         </tr>
       </tbody>
     </table>

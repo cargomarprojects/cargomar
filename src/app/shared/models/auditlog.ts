@@ -13,6 +13,7 @@ export class Auditlog {
   audit_refno: string;
   audit_computer: string;
   audit_appid: string;
+  audit_deviceid: string;
   audit_old_amt: number;
   audit_new_amt: number;
   audit_old_remarks: string;
