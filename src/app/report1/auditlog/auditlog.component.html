@@ -1,171 +1,180 @@
 <div class="page-header">
-    <div class="col">
-        <label>{{title}}</label>
-        <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
-        <i *ngIf="loading" class="fa fa-spinner"></i>
-    </div>
+  <div class="col">
+    <label>{{title}}</label>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
 </div>
 <div *ngIf="currentTab=='LIST'" class="page-list">
-    <div class="page-search">
-        <div class="row">
-            <div class="col-sm-2">
-                <div class="form-group row">
-                    <label class="col-2 col-form-label col-form-label-sm">Date</label>
-                    <div class="col-10">
-                        <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-2 col-form-label col-form-label-sm">To</label>
-                    <div class="col-10">
-                        <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-2">
-                <div class="form-group row">
-                    <label class="col-2 col-form-label col-form-label-sm">Branch</label>
-                    <div class="col-10">
-                        <input type="text" class="col form-control form-control-sm" name="Search5"
-                            [(ngModel)]="searchbranch" (blur)="OnBlur('searchbranch')" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-2 col-form-label col-form-label-sm">Module</label>
-                    <div class="col-10">
-                        <input type="text" class="col form-control form-control-sm" name="Search4"
-                            [(ngModel)]="searchmodule" (blur)="OnBlur('searchmodule')" />
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-2">
-                <div class="form-group row">
-                    <label class="col-2 col-form-label col-form-label-sm">User</label>
-                    <div class="col-10">
-                        <input type="text" class="col form-control form-control-sm" name="Search2"
-                            [(ngModel)]="searchuser" (blur)="OnBlur('searchuser')" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-2 col-form-label col-form-label-sm">Type</label>
-                    <!-- <div class="col-10">
-                        <input type="text" class="col form-control form-control-sm" name="Search3"
-                            [(ngModel)]="searchtype" (blur)="OnBlur('searchtype')" />
-                    </div> -->
-                    <div class="col-10">
-                        <input type="text" class="col form-control form-control-sm" name="stype"
-                            [(ngModel)]="searchtype" (blur)="OnBlur('searchtype')" list="searchtype"
-                            placeholder="Type or Select" />
-                        <datalist id="searchtype">
-                            <option *ngFor="let rec of TypeList" [value]="rec.name"></option>
-                        </datalist>
-                    </div>
+  <div class="page-search">
+    <div class="row">
 
-                </div>
+      <div class="col-sm-3">
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Date</label>
+          <div class="col-10">
+            <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">To</label>
+          <div class="col-10">
+            <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Branch</label>
+          <div class="col-10">
+            <input type="text" class="col form-control form-control-sm" name="Search5" [(ngModel)]="searchbranch"
+              (blur)="OnBlur('searchbranch')" />
+          </div>
+        </div>
 
-            </div>
-            <div class="col-sm-2">
-                <div class="form-group row">
-                    <label class="col-2 col-form-label col-form-label-sm">Action</label>
-                    <div class="col-10">
-                        <input type="text" class="col form-control form-control-sm" name="Search6"
-                            [(ngModel)]="searchaction" (blur)="OnBlur('searchaction')" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-2 col-form-label col-form-label-sm">Remarks</label>
-                    <div class="col-10">
-                        <input type="text" class="col form-control form-control-sm" name="Search7"
-                            [(ngModel)]="searchremarks" (blur)="OnBlur('searchremarks')" />
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-2">
-                <div class="form-group row">
-                    <div class="offset-2 col-5">
-                        <button [disabled]="loading" (click)="List('NEW')"
-                            class="btn btn-primary btn-sm btn-block">Search</button>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="offset-2 col-5">
-                        <button [disabled]="loading" (click)="List('EXCEL')"
-                            class="btn btn-primary btn-sm btn-block">Excel</button>
-                    </div>
-                    <div class="col-5">
-                        <button *ngIf="gs.globalVariables.user_code == 'ADMIN'" [disabled]="loading"
-                            (click)="SearchRecord('AUDITLOG')" class="btn btn-primary btn-sm btn-block">Update</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="page-pager">
-        <div *ngIf="page_count">
-            <ul class="pagination pagination-sm">
-                <li class="page-item"><a class="page-link">Page
-                        {{page_current}}/{{page_count}}(Records-{{page_rowcount}})</a></li>
-                <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
-                            class="fa fa-backward"></span></a></li>
-                <li class="page-item"><a class="page-link" (click)="List('PREV')"><span
-                            class="fa fa-arrow-left"></span></a></li>
-                <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span
-                            class="fa fa-arrow-right"></span></a></li>
-                <li class="page-item"><a class="page-link" (click)="List('LAST')"><span
-                            class="fa fa-forward"></span></a></li>
-            </ul>
-        </div>
-    </div>
+      </div>
+      <div class="col-sm-3">
 
-    <div class="page-body table-responsive">
-        <table class="table  table-hover table-sm">
-            <thead class="page-body-thead">
-                <tr>
-                    <th>DATE</th>
-                    <th>BRANCH</th>
-                    <th>MODULE</th>
-                    <th>USER</th>
-                    <th>TYPE</th>
-                    <th>REFNO</th>
-                    <th>ACTION</th>
-                    <th>REMARKS</th>
-                    <!-- <th></th> -->
-                </tr>
-            </thead>
-            <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-                <tr>
-                    <td>{{rec.audit_date}}</td>
-                    <td>{{rec.audit_branch_code}}</td>
-                    <td>{{rec.audit_module}}</td>
-                    <td>{{rec.audit_user_code}}</td>
-                    <td>{{rec.audit_type}}</td>
-                    <td>{{rec.audit_refno}}</td>
-                    <td>{{rec.audit_action}}</td>
-                    <td (click)="openWebSite(rec.audit_type,rec.audit_remarks)"
-                        [style.cursor]="(rec.audit_type=='USER-LOGIN'||rec.audit_type=='BRANCH-LOGIN')?'pointer':''">
-                        {{rec.audit_remarks}}</td>
-                    <!-- <td ><i *ngIf="rec.audit_type=='USER-LOGIN'" class="fa fa-check  fa-lg pointer" aria-hidden="true" (click)="openWebSite(rec.audit_remarks)"></i></td> -->
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="page-pager">
-        <div *ngIf="page_count">
-            <ul class="pagination pagination-sm">
-                <li class="page-item"><a class="page-link">Page
-                        {{page_current}}/{{page_count}}(Records-{{page_rowcount}})</a></li>
-                <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
-                            class="fa fa-backward"></span></a></li>
-                <li class="page-item"><a class="page-link" (click)="List('PREV')"><span
-                            class="fa fa-arrow-left"></span></a></li>
-                <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span
-                            class="fa fa-arrow-right"></span></a></li>
-                <li class="page-item"><a class="page-link" (click)="List('LAST')"><span
-                            class="fa fa-forward"></span></a></li>
-                <!-- <li class="page-item"><a class="page-link" (click)="List('EXCEL')"><span class="fa fa-file-excel-o"></span></a></li> -->
-            </ul>
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Module</label>
+          <div class="col-10">
+            <input type="text" class="col form-control form-control-sm" name="Search4" [(ngModel)]="searchmodule"
+              (blur)="OnBlur('searchmodule')" />
+          </div>
         </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">User</label>
+          <div class="col-10">
+            <input type="text" class="col form-control form-control-sm" name="Search2" [(ngModel)]="searchuser"
+              (blur)="OnBlur('searchuser')" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Type</label>
+          <div class="col-10">
+            <input type="text" class="col form-control form-control-sm" name="stype" [(ngModel)]="searchtype"
+              (blur)="OnBlur('searchtype')" list="searchtype" placeholder="Type or Select" />
+            <datalist id="searchtype">
+              <option *ngFor="let rec of TypeList" [value]="rec.name"></option>
+            </datalist>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-3">
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Action</label>
+          <div class="col-10">
+            <input type="text" class="col form-control form-control-sm" name="Search6" [(ngModel)]="searchaction"
+              (blur)="OnBlur('searchaction')" />
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-2 col-form-label col-form-label-sm">Remarks</label>
+          <div class="col-10">
+            <input type="text" class="col form-control form-control-sm" name="Search7" [(ngModel)]="searchremarks"
+              (blur)="OnBlur('searchremarks')" />
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-sm-3">
+        <div class="form-group row">
+          <div class="col-10">
+            <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm btn-block">Search</button>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="col-10">
+            <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm btn-block">Excel</button>
+          </div>
+
+        </div>
+
+        <div class="form-group row">
+          <div class="col-10">
+            <button *ngIf="gs.globalVariables.user_code == 'ADMIN'" [disabled]="loading"
+              (click)="SearchRecord('AUDITLOG')" class="btn btn-primary btn-sm btn-block">Update</button>
+          </div>
+        </div>
+
+
+      </div>
+
     </div>
+  </div>
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page
+            {{page_current}}/{{page_count}}(Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 390px);">
+    <table class="table  table-hover table-sm">
+      <thead class="page-body-thead">
+        <tr>
+          <th>DATE</th>
+          <th>BRANCH</th>
+          <th>MODULE</th>
+          <th>USER</th>
+          <th>TYPE</th>
+          <th>REFNO</th>
+          <th>ACTION</th>
+          <th>REMARKS</th>
+          <th>COMPUTER</th>
+          <th>APPID</th>
+          <th>DEVICE</th>
+          <!-- <th></th> -->
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody" style="cursor:pointer">
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+          (mousedown)="selectedRowIndex=i">
+          <td>{{rec.audit_date}}</td>
+          <td>{{rec.audit_branch_code}}</td>
+          <td>{{rec.audit_module}}</td>
+          <td>{{rec.audit_user_code}}</td>
+          <td>{{rec.audit_type}}</td>
+          <td>{{rec.audit_refno}}</td>
+          <td>{{rec.audit_action}}</td>
+          <td (click)="openWebSite(rec.audit_type,rec.audit_remarks)"
+            [style.cursor]="(rec.audit_type=='USER-LOGIN'||rec.audit_type=='BRANCH-LOGIN')?'pointer':''">
+            {{rec.audit_remarks}}
+          </td>
+          <td>{{rec.audit_computer}}</td>
+          <td>{{rec.audit_appid}}</td>
+          <td>{{rec.audit_deviceid}}</td>
+          <!-- <td ><i *ngIf="rec.audit_type=='USER-LOGIN'" class="fa fa-check  fa-lg pointer" aria-hidden="true" (click)="openWebSite(rec.audit_remarks)"></i></td> -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page
+            {{page_current}}/{{page_count}}(Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+        <!-- <li class="page-item"><a class="page-link" (click)="List('EXCEL')"><span class="fa fa-file-excel-o"></span></a></li> -->
+      </ul>
+    </div>
+  </div>
 </div>
 
 <br />
@@ -173,8 +182,8 @@
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 
 <div *ngIf="ErrorMessage" class="alert alert-info">
-    {{ErrorMessage}}
+  {{ErrorMessage}}
 </div>
 <div *ngIf="InfoMessage" class="alert alert-success">
-    {{InfoMessage}}
+  {{InfoMessage}}
 </div>
