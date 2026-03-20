@@ -68,7 +68,7 @@ export class PostingComponent {
   constructor(
     private mainService: PostingService,
     private route: ActivatedRoute,
-    private gs: GlobalService
+    public gs: GlobalService
   ) {
 
     this.page_count = 0;
