@@ -15,5 +15,8 @@ export class Auditlog {
     audit_old_remarks: string;
     audit_remarks: string;
 
+    audit_deviceid: string;
+    audit_userip: string;
+    rec_created_date: string;
     _globalvariables: GlobalVariables;
 }

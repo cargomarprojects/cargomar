@@ -90,6 +90,7 @@ import { ShipTrackMasterComponent } from './shiptrackmaster/shiptrackmaster.comp
 import { ShipTrackMasterDetComponent } from './shiptrackmaster/shiptrackmasterdet.component';
 import { JobUnlockTrackComponent } from './jobunlocktrack/jobunlocktrack.component';
 import { SalesProfitListComponent } from './salesprofit/salesprofitlist.component';
+import { AuditDeviceComponent } from './auditlog/auditdevice.component';
 
 @NgModule({
   imports: [
@@ -163,7 +164,8 @@ import { SalesProfitListComponent } from './salesprofit/salesprofitlist.componen
     ShipTrackMasterComponent,
     ShipTrackMasterDetComponent,
     JobUnlockTrackComponent,
-    SalesProfitListComponent
+    SalesProfitListComponent,
+    AuditDeviceComponent
   ],
   providers: [GstReconRepService
   ],

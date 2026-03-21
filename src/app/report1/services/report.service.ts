@@ -199,5 +199,9 @@ export class RepService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/JobUnlocktrackRpt', SearchData, this.gs.headerparam2('authorized'));
   }
 
+  AuditDevice(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/AuditDevice', SearchData, this.gs.headerparam2('authorized'));
+  }
+
 }
 

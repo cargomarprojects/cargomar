@@ -29,7 +29,7 @@ export class NewBizComponent {
     urlid: string;
     cust_gr_name: string = "";
     convertedjob: string = "";
-
+    selectedRowIndex = 0;
 
     page_count = 0;
     page_current = 0;

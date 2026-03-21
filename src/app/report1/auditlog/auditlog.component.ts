@@ -16,6 +16,7 @@ export class AuditLogComponent {
 
   @Input() public type: string = '';
   @Input() menuid: string = '';
+  @ViewChild('_tabset') tabsetCtrl: any;
 
   menu_record: any;
   InitCompleted: boolean = false;
@@ -33,6 +34,7 @@ export class AuditLogComponent {
   searchbranch: string = '';
   searchaction: string = '';
   searchremarks: string = '';
+  searchdevice: string = '';
   from_date: string = '';
   to_date: string = '';
   page_count: number = 0;
@@ -41,6 +43,7 @@ export class AuditLogComponent {
   page_rows: number = 0;
   TypeList: any[] = [];
 
+  device_id: string = "";
   ErrorMessage = "";
   InfoMessage = "";
   RecordList: Auditlog[] = [];
@@ -197,7 +200,7 @@ export class AuditLogComponent {
     { "name": "PN-CI" }, { "name": "PN-JV" }, { "name": "RB" }
     ];
   }
-  
+
   // Save Data
   OnBlur(field: string) {
     if (field == 'searchuser') {
@@ -258,7 +261,8 @@ export class AuditLogComponent {
       searchmodule: this.searchmodule,
       searchbranch: this.searchbranch,
       searchaction: this.searchaction,
-      searchremarks: this.searchremarks
+      searchremarks: this.searchremarks,
+      searchdevice: this.searchdevice
     };
 
     this.ErrorMessage = '';
@@ -336,4 +340,11 @@ export class AuditLogComponent {
         });
   }
 
+  showDeviceTab(_rec: Auditlog) {
+    if (this.gs.isBlank(_rec.audit_deviceid))
+      return;
+    this.device_id = _rec.audit_deviceid;
+    if (!this.gs.isBlank(this.tabsetCtrl))
+      this.tabsetCtrl.select('devicedet');
+  }
 }
