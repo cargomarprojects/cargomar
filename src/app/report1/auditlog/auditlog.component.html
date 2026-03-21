@@ -5,6 +5,7 @@
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
 </div>
+<hr style="padding-bottom: 2px;">
 <ngb-tabset #_tabset>
   <ngb-tab title="Log Details" id="logdet">
     <ng-template ngbTabContent>
@@ -136,7 +137,7 @@
           </div>
         </div>
 
-        <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 390px);">
+        <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 455px);">
           <table class="table  table-hover table-sm">
             <thead class="page-body-thead">
               <tr>
@@ -196,7 +197,7 @@
           </div>
         </div>
       </div>
-      <br />
+       
       <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
       <div *ngIf="ErrorMessage" class="alert alert-info">
         {{ErrorMessage}}
@@ -206,7 +207,7 @@
       </div>
     </ng-template>
   </ngb-tab>
-  <ngb-tab title="Device Details" id="devicedet">
+  <ngb-tab title="Login Details" id="devicedet">
     <ng-template ngbTabContent>
       <app-auditdevice [device_id]="device_id"></app-auditdevice>
     </ng-template>

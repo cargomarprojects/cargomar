@@ -22,6 +22,10 @@ export class AuditDeviceComponent {
     sub: any;
     selectedRowIndex = 0;
     search_ip: string = "";
+    search_user: string = "";
+    from_date: string = "";
+    to_date: string = "";
+
     page_count = 0;
     page_current = 0;
     page_rows = 0;
@@ -34,17 +38,28 @@ export class AuditDeviceComponent {
         private gs: GlobalService
     ) {
         this.page_count = 0;
-        this.page_rows = 10;
+        this.page_rows = 50;
         this.page_current = 0;
         // URL Query Parameter 
     }
 
     // Init Will be called After executing Constructor
     ngOnInit() {
-        this.LoadCombo();
+        this.InitComponent();
+        if (!this.gs.isBlank(this.device_id))
+            this.List('NEW');
     }
 
     InitComponent() {
+        //if(call from another window dates are blank)
+        if (this.gs.isBlank(this.device_id)) {
+            this.to_date = this.gs.defaultValues.today;
+            this.from_date = this.gs.defaultValues.today;
+        } else {
+            this.to_date = '';
+            this.from_date = '';
+        }
+        this.LoadCombo();
         this.InitLov();
     }
 
@@ -66,7 +81,18 @@ export class AuditDeviceComponent {
 
     // Save Data
     OnBlur(field: string) {
-
+        switch (field) {
+            case 'search_user':
+                {
+                    this.search_user = this.search_user.trim().toUpperCase();
+                    break;
+                }
+            case 'search_ip':
+                {
+                    this.search_ip = this.search_ip.trim().toUpperCase();
+                    break;
+                }
+        }
     }
     Close() {
 
@@ -74,16 +100,14 @@ export class AuditDeviceComponent {
 
     List(_type: string) {
 
-        if (this.gs.isBlank(this.device_id)) {
-            alert('Invalid Device ID');
-            return;
-        }
-
         this.loading = true;
         let SearchData = {
             type: _type,
+            from_date: this.from_date,
+            to_date: this.to_date,
             device_id: this.device_id,
             search_ip: this.search_ip,
+            search_user: this.search_user,
             company_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
             user_code: this.gs.globalVariables.user_code,
@@ -93,7 +117,7 @@ export class AuditDeviceComponent {
             page_rowcount: this.page_rowcount
         };
 
-        this.mainService.AuditDevice(SearchData)
+        this.mainService.AuditDeviceList(SearchData)
             .subscribe(response => {
                 this.loading = false;
                 this.RecordList = response.list;
