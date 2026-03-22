@@ -38,7 +38,7 @@ export class GlobalService {
   public Topbar_Email = "";
   public Topbar_Mob = "";
 
-  public software_version_string: string = '1.755';
+  public software_version_string: string = '1.756';
 
   public baseLocalServerUrl: string = "http://localhost:8080";
   public baseUrl: string = "http://localhost:5000";
