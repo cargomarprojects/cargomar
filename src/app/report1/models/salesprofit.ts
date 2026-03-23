@@ -56,9 +56,6 @@ export interface iSalesProfitmModel {
 
   RecordList: SalesProfitm[];
 
-  selectedProfitRowIndex: number;
-
-
   YearList: Yearm[];
 
   ErrorMessage: string;
@@ -70,6 +67,7 @@ export interface iSalesProfitmModel {
 
 
   SalesProfitList: SalesProfit[];
+  selectedProfitRowIndex: number;
   pkid: string;
   dremarks: string;
   dstart_date: string;
