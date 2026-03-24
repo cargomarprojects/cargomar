@@ -51,7 +51,7 @@ export class SalesProfitListComponent {
       this.InitComponent();
       this.InitCompleted = true;
     }
-    this.ms.init(this.menuid);
+    this.ms.init(this.menuid, this.type);
     if (this.type == "REPORT")
       this.ShowReport(this.report_id);
   }

@@ -17,12 +17,12 @@ export class SalesProfitService {
   private screen_id = '';
   public state: iSalesProfitmModel = { ...initialState };
 
-  public init(_screen_id: string) {
+  public init(_screen_id: string, _type: string = '') {
     this.screen_id = _screen_id;
-    this.loadState();
+    this.loadState(_type);
   }
 
-  private loadState() {
+  private loadState(_type: string = '') {
     if (this.gs.appStates[this.screen_id]) {
       this.state = this.gs.appStates[this.screen_id];
     }
@@ -32,8 +32,8 @@ export class SalesProfitService {
       this.state.year_code = this.gs.globalVariables.year_code;
       this.gs.appStates[this.screen_id] = this.state;
       this.LoadCombo();
-      // if (this.state.currentTab == 'LIST')
-      //   this.List('NEW');
+      if (this.state.currentTab == 'LIST' && _type == '')
+        this.List('NEW');
     }
   }
 
