@@ -49,6 +49,7 @@ export class SalesProfit {
 
 export interface iSalesProfitmModel {
   // filter Values
+  showRightPanel: boolean;
   selectedRowIndex: number;
   currentTab: string;
   mode: string;
@@ -78,10 +79,10 @@ export interface iSalesProfitmModel {
   dpage_rows: number;
   dpage_rowcount: number;
 
-
 };
 
 export const initialState: iSalesProfitmModel = {
+  showRightPanel: false,
   selectedRowIndex: 0,
   selectedProfitRowIndex: 0,
   mode: '',
@@ -89,8 +90,6 @@ export const initialState: iSalesProfitmModel = {
   currentTab: 'LIST',
   RecordList: [],
   YearList: [],
-
-
 
   ErrorMessage: '',
 
