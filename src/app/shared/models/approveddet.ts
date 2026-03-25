@@ -7,8 +7,9 @@ export class ApprovedDet {
     ad_status: string;
     ad_remarks: string;
     ad_order: number;
+    ad_approval_type: string;
     rec_mode: string;
-    rec_category:string;
+    rec_category: string;
     rec_created_by: string;
     rec_created_date: string;
     rec_created_name: string;

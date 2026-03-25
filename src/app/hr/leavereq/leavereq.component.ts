@@ -143,9 +143,10 @@ export class LeaveReqComponent {
         this.bEmail = true;
     }
 
-
     if (this.gs.isBlank(this.approvalstatus) && this.gs.globalVariables.user_code == 'ADMIN')
-      this.approvalstatus = 'APPROVED,SANCTIONED,REJECTED'
+      this.approvalstatus = 'APPROVED,SANCTIONED,REJECTED';
+    else if (this.gs.isBlank(this.approvalstatus) && this.type=='EMAIL-APPROVAL')
+      this.approvalstatus = 'APPROVED,REJECTED';
     this.InitLov();
     this.LoadCombo();
   }
@@ -177,7 +178,7 @@ export class LeaveReqComponent {
     //    this.loading = false;
     //    this.ErrorMessage = this.gs.getError(error);
     //  });
-    if (this.gs.globalVariables.user_code == 'SUPPORT') {
+    if (this.type == 'EMAIL-APPROVAL') {
       this.ActionHandler('EDIT', this.pkid)
     } else {
       this.List("NEW");
@@ -584,7 +585,7 @@ export class LeaveReqComponent {
 
 
   Close() {
-    let _close: boolean = this.gs.globalVariables.user_code != 'SUPPORT';
+    let _close: boolean = this.type == 'EMAIL-APPROVAL';
     this.gs.ClosePage('home', _close);
   }
 

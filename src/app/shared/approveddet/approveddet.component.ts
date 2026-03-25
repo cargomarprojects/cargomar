@@ -173,6 +173,7 @@ export class ApprovedDetComponent {
         this.Record.ad_parent_id = this.parentid;
         this.Record.ad_status = '';
         this.Record.ad_remarks = '';
+        this.Record.ad_approval_type = '';
         this.Record.rec_created_by = this.gs.globalVariables.user_code;
         this.Record.rec_created_date = this.gs.defaultValues.today;
         this.Record.rec_mode = this.mode;
@@ -192,13 +193,14 @@ export class ApprovedDetComponent {
         this.InfoMessage = '';
         this.Record.ad_parent_id = this.parentid;
         this.Record.rec_category = this.category;
+        this.Record.ad_approval_type = this.type;
         this.Record._globalvariables = this.gs.globalVariables;
         this.mainService.Save(this.Record)
             .subscribe(response => {
                 this.loading = false;
                 this.InfoMessage = "Save Complete";
                 this.Record.rec_mode = this.mode;
-                this.RefreshList();
+                this.RefreshList(response.created_by);
                 this.ActionHandler('ADD', null);
                 this.showDelete();
                 if (this.ModifiedRecords != null)
@@ -228,14 +230,14 @@ export class ApprovedDetComponent {
         return bret;
     }
 
-    RefreshList() {
+    RefreshList(_created_by:string) {
 
         if (this.RecordList == null)
             return;
         var REC = this.RecordList.find(rec => rec.ad_pkid == this.Record.ad_pkid);
         if (REC == null) {
             this.Record.rec_created_date = this.gs.ConvertDate2DisplayFormat(this.Record.rec_created_date);
-            this.Record.rec_created_name = this.gs.globalVariables.user_name;
+            this.Record.rec_created_name = _created_by;
             this.RecordList.push(this.Record);
         }
     }
