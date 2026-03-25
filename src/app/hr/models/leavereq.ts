@@ -32,6 +32,7 @@ export class LeaveReq {
     lr_spl_days: number;
     lr_spl_half_days: number;
 
+    
     lr_cancelled: boolean;
     lr_type: string;
 

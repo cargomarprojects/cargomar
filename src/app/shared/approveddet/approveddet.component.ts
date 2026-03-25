@@ -194,6 +194,7 @@ export class ApprovedDetComponent {
         this.Record.ad_parent_id = this.parentid;
         this.Record.rec_category = this.category;
         this.Record.ad_approval_type = this.type;
+        this.Record.report_folder = this.gs.globalVariables.report_folder;
         this.Record._globalvariables = this.gs.globalVariables;
         this.mainService.Save(this.Record)
             .subscribe(response => {
