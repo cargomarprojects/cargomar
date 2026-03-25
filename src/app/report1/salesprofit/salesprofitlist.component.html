@@ -55,7 +55,7 @@
     </div>
   </div>
 
-  <div class="page-body table-responsive">
+  <div class="page-body table-responsive pointer">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
@@ -66,6 +66,7 @@
           <th>END-DATE</th>
           <th>CREATED.BY</th>
           <th>CREATED.DT</th>
+          <th>EDIT</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
@@ -82,6 +83,11 @@
           <td>{{rec.sa_end_date}}</td>
           <td>{{rec.rec_created_by}}</td>
           <td>{{rec.rec_created_date}}</td>
+          <td>
+            <div [class]="'hlink'" (click)="editSettings('EDIT')">
+              <a>EDIT</a>
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -123,7 +129,8 @@
         <div class="form-group row">
           <div class="col-sm-10">
             <button (click)="ShowReport(ms.state.pkid)" class="btn btn-primary btn-sm">Refresh</button>
-            <button (click)="ms.processProfit(ms.state.pkid)" class="btn btn-primary btn-sm">Process Report</button>
+            <button (click)="printProfiteport(ms.state.pkid)" class="btn btn-primary btn-sm">Print</button>
+            <button (click)="ms.processProfit(ms.state.pkid)" class="btn btn-primary btn-sm">Re-Update</button>
           </div>
         </div>
       </div>
@@ -149,37 +156,65 @@
 
   </div>
 
-  <div class="page-body table-responsive  fixedTableHead my-0 p-0" [style.height]="'calc(100vh - 300px)'">
-    <table class="table table-hover table-sm table-bordered table-striped">
+  <div class="page-body table-responsive  fixedTableHead my-0 p-0 pointer" [style.height]="'calc(100vh - 300px)'">
+    <table class="table table-hover table-sm table-bordered table-striped" style="width: auto; table-layout: auto;">
       <thead class="page-body-thead">
         <tr>
           <th>SL#</th>
-          <!-- <th>BRANCH</th> -->
+          <th>BRANCH</th>
           <th>NAME</th>
-          <th>REVENUE</th>
-          <th>CTC</th>
+          <th class="text-right">REVENUE</th>
+          <th class="text-right">CTC</th>
+          <th class="text-right">OS-AMT</th>
           <th>ACHIEVED</th>
-          <th>INCENTIVE</th>
-          <th>OS</th>
+          <!-- <th class="text-right">INCENTIVE</th> -->
         </tr>
       </thead>
       <tbody class="page-body-tbody">
         <tr *ngFor="let rec of ms.state.SalesProfitList; let i = index"
           [class.active]="i == ms.state.selectedProfitRowIndex" (mousedown)="ms.state.selectedProfitRowIndex=i">
           <td>{{i+1}}</td>
-          <!-- <td>{{rec.branch}}</td> -->
+          <td>{{rec.branch}}</td>
           <td>{{rec.name}}</td>
-          <td>{{rec.revenue}}</td>
-          <td>{{rec.ctc}}</td>
-          <td>{{rec.achieved}}</td>
-          <td>{{rec.incentive}}</td>
-          <td>{{rec.os}}</td>
+          <td class="text-right">{{rec.revenue | number}}</td>
+          <td class="text-right">{{rec.ctc | number}}</td>
+          <td class="text-right">{{rec.os | number}}</td>
+          <td class="text-center">{{rec.achieved}}</td>
+          <!-- <td class="text-right">{{rec.incentive | number}}</td> -->
         </tr>
       </tbody>
     </table>
   </div>
 
 </div>
+
+
+<div *ngIf="ms.state.showRightPanel" class="overlay-wrapper" (click)="ms.state.showRightPanel=false">
+
+  <div class="right-overlay-panel open" (click)="$event.stopPropagation()">
+    <div class="right-overlay-header">
+      <span>Settings</span>
+      <button type="button" class="close" (click)="ms.state.showRightPanel=false">
+        <span>&times;</span>
+      </button>
+    </div>
+
+    <div class="right-overlay-body">
+
+      <div>
+        <div><b>Selected Row</b></div>
+        <div *ngIf="ms.state.RecordList?.length && ms.state.selectedRowIndex >= 0">
+          {{ ms.state.RecordList[ms.state.selectedRowIndex]?.sa_remarks }}
+          - {{ ms.state.RecordList[ms.state.selectedRowIndex]?.sa_start_date }}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
 
 <br />
 

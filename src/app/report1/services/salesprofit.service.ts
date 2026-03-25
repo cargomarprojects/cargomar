@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { GlobalService } from '../../core/services/global.service';
 import { iSalesProfitmModel, initialState } from '../models/salesprofit';
+import { NullAstVisitor } from '@angular/compiler';
 
 @Injectable()
 export class SalesProfitService {
@@ -84,14 +85,19 @@ export class SalesProfitService {
 
     this._SalesProfitReport(SearchData).subscribe(response => {
 
-      this.state.dremarks = response.record.sa_remarks;
-      this.state.dstart_date = response.record.sa_start_date;
-      this.state.dend_date = response.record.sa_end_date;
+      if (response.type == "EXCEL") {
+        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+      }
+      else {
+        this.state.dremarks = response.record.sa_remarks;
+        this.state.dstart_date = response.record.sa_start_date;
+        this.state.dend_date = response.record.sa_end_date;
 
-      this.state.SalesProfitList = response.list;
-      this.state.dpage_count = response.page_count;
-      this.state.dpage_current = response.page_current;
-      this.state.dpage_rowcount = response.page_rowcount;
+        this.state.SalesProfitList = response.list;
+        this.state.dpage_count = response.page_count;
+        this.state.dpage_current = response.page_current;
+        this.state.dpage_rowcount = response.page_rowcount;
+      }
     }, error => {
       this.state.SalesProfitList = null;
       this.state.dremarks = '';
@@ -102,6 +108,9 @@ export class SalesProfitService {
     });
   }
 
+  Downloadfile(filename: string, filetype: string, filedisplayname: string) {
+    this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+  }
 
   processProfit(id: string) {
     let SearchData = {
@@ -109,6 +118,9 @@ export class SalesProfitService {
     };
     this._ProcessProfit(SearchData)
       .subscribe(response => {
+
+        this.SalesProfitReport('NEW', id);
+
       }, error => {
         this.state.ErrorMessage = this.gs.getError(error);
         alert(this.state.ErrorMessage);

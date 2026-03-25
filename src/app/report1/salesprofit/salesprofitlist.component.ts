@@ -8,6 +8,7 @@ import { SalesProfitService } from '../services/salesprofit.service';
 @Component({
   selector: 'app-salesprofitlist',
   templateUrl: './salesprofitlist.component.html',
+  styleUrls: ['./salesprofitlist.component.css'],
   providers: [SalesProfitService]
 })
 
@@ -79,6 +80,10 @@ export class SalesProfitListComponent {
     this.ms.SalesProfitReport('NEW', id);
   }
 
+  printProfiteport(id: string) {
+    this.ms.SalesProfitReport('EXCEL', id);
+  }
+
 
 
   ActionHandler(action: string, id: string) {
@@ -88,6 +93,12 @@ export class SalesProfitListComponent {
       this.ms.state.currentTab = 'LIST';
     }
   }
+
+
+  editSettings(_action: string = '') {
+    this.ms.state.showRightPanel = true;
+  }
+
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
