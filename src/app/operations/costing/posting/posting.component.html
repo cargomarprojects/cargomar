@@ -29,7 +29,7 @@
       <div class="form-group row">
         <label class="col-2 col-form-label col-form-label-sm">Branch</label>
         <div class="col-4">
-          <app-autocomplete #CsdLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+          <app-autocomplete #CsdLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)" [disabled]="gs.globalVariables.user_code != 'ADMIN'"></app-autocomplete>
         </div>
         <label class="col-6 col-form-label col-form-label-sm">{{Record.jv_br_name}}</label>
       </div>

@@ -201,9 +201,12 @@ export class ApprovedDetComponent {
                 this.loading = false;
                 this.InfoMessage = "Save Complete";
                 this.Record.rec_mode = this.mode;
-                this.RefreshList(response.created_by);
+                if (this.Record.ad_approval_type == "EMAIL-APPROVAL")
+                    this.Record.rec_created_by = response.created_by;
+                this.RefreshList(response.created_name);
                 this.ActionHandler('ADD', null);
                 this.showDelete();
+
                 if (this.ModifiedRecords != null)
                     this.ModifiedRecords.emit({ stype: 'SAVE', sid: this.parentid, approved_by: response.approved_by, sanctioned_by: response.sanctioned_by, rejected_by: response.rejected_by });
             },
@@ -231,14 +234,14 @@ export class ApprovedDetComponent {
         return bret;
     }
 
-    RefreshList(_created_by:string) {
+    RefreshList(_created_name: string) {
 
         if (this.RecordList == null)
             return;
         var REC = this.RecordList.find(rec => rec.ad_pkid == this.Record.ad_pkid);
         if (REC == null) {
             this.Record.rec_created_date = this.gs.ConvertDate2DisplayFormat(this.Record.rec_created_date);
-            this.Record.rec_created_name = _created_by;
+            this.Record.rec_created_name = _created_name;
             this.RecordList.push(this.Record);
         }
     }
@@ -267,9 +270,6 @@ export class ApprovedDetComponent {
                 }
         }
     }
-
-
-
 
     OnChange2(field: string) {
 
@@ -310,6 +310,5 @@ export class ApprovedDetComponent {
                 });
 
     }
-
 
 }
