@@ -935,28 +935,29 @@ export class ImpMblSeaAirComponent {
     //   sError += "\n\r | Folder No Cannot Be Blank";
     // }
 
-    if (this.Record.mbl_agent_id != "" || this.sAgent_ID != "") {
-      if (this.Record.mbl_agent_id.trim() != this.sAgent_ID && this.Record.HblList.length > 0) {
-        bret = false;
-        if (this.type == "SEA IMPORT")
-          sError += "\n\r | HBL List not proper, please Click the find button";
-        else
-          sError += "\n\r | HAWB List not proper, please Click the find button";
-      }
-    }
-    if (this.Record.mbl_carrier_id != "" || this.sCarrier_ID != "") {
-      if (this.Record.mbl_carrier_id.trim() != this.sCarrier_ID && this.Record.HblList.length > 0) {
-        bret = false;
-        if (this.type == "SEA IMPORT")
-          sError += "\n\r | HBL List not proper, please Click the find button";
-        else
-          sError += "\n\r | HAWB List not proper, please Click the find button";
-      }
-    }
-    if (bret === false) {
-      this.ErrorMessage = sError;
-      alert(this.ErrorMessage);
-    }
+    // if (this.Record.mbl_agent_id != "" || this.sAgent_ID != "") {
+    //   if (this.Record.mbl_agent_id.trim() != this.sAgent_ID && this.Record.HblList.length > 0) {
+    //     bret = false;
+    //     if (this.type == "SEA IMPORT")
+    //       sError += "\n\r | HBL List not proper, please Click the find button";
+    //     else
+    //       sError += "\n\r | HAWB List not proper, please Click the find button";
+    //   }
+    // }
+    // if (this.Record.mbl_carrier_id != "" || this.sCarrier_ID != "") {
+    //   if (this.Record.mbl_carrier_id.trim() != this.sCarrier_ID && this.Record.HblList.length > 0) {
+    //     bret = false;
+    //     if (this.type == "SEA IMPORT")
+    //       sError += "\n\r | HBL List not proper, please Click the find button";
+    //     else
+    //       sError += "\n\r | HAWB List not proper, please Click the find button";
+    //   }
+    // }
+
+    // if (bret === false) {
+    //   this.ErrorMessage = sError;
+    //   alert(this.ErrorMessage);
+    // }
     return bret;
   }
 
