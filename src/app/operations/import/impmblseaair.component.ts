@@ -103,7 +103,7 @@ export class ImpMblSeaAirComponent {
     private modalService: NgbModal,
     private mainService: ImpMblService,
     private route: ActivatedRoute,
-    private gs: GlobalService
+    public gs: GlobalService
   ) {
     this.page_count = 0;
     this.page_rows = 10;
@@ -1316,4 +1316,5 @@ export class ImpMblSeaAirComponent {
     }
 
   }
+   
 }

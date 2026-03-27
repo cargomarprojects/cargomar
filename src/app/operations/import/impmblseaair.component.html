@@ -833,7 +833,7 @@
 </ng-template>
 <app-warningalert #WarnMsg></app-warningalert>
 <ng-template #hblcontent let-c="close" let-d="dismiss">
-  <div class="modal-header">
+  <div class="modal-header" style="cursor: move;" (mousedown)="gs.startDrag($event)">
     <h4 class="modal-title">{{hbl_title}}</h4>
     <button type="button" class="btn btn-primary btn-sm" (click)="d('Cross click')">Close</button>
   </div>
