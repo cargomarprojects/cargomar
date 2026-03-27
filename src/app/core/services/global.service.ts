@@ -1191,4 +1191,34 @@ export class GlobalService {
     }
   }
 
+  dragging = false;
+  startX = 0;
+  startY = 0;
+  public startDrag(event: MouseEvent) {
+    const dialog = (event.target as HTMLElement).closest('.modal-dialog') as HTMLElement;
+    if (!dialog) return;
+
+    if (this.dragging) return;
+
+    this.dragging = true;
+    // this.startX = event.clientX - dialog.offsetLeft;
+    // this.startY = event.clientY - dialog.offsetTop;
+
+    this.startX = event.clientX;
+    this.startY = event.clientY;
+
+    const mouseMoveHandler = (e: MouseEvent) => {
+      if (!this.dragging) return;
+      dialog.style.left = e.clientX - this.startX + 'px';
+      dialog.style.top = e.clientY - this.startY + 'px';
+    };
+    const mouseUpHandler = () => {
+      this.dragging = false;
+      document.removeEventListener('mousemove', mouseMoveHandler);
+      document.removeEventListener('mouseup', mouseUpHandler);
+    };
+
+    document.addEventListener('mousemove', mouseMoveHandler);
+    document.addEventListener('mouseup', mouseUpHandler);
+  }
 }

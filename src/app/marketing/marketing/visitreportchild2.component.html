@@ -22,12 +22,12 @@
           <div class="col-sm-11 d-flex align-items-center">
             <input type="checkbox" [(ngModel)]="isShowAllChecked" id="_chksummary"
               style="cursor: pointer; margin-right: 6px;" />
-            <label for="_chksummary" class="mb-0" style="cursor: pointer;">
+            <label for="_chksummary" class="mb-0 mr-2" style="cursor: pointer;">
               Showing {{ displayList.length }}/{{ RecordList.length }}
             </label>
+            <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
+              class="btn btn-primary btn-sm mr-1">Print</button>
           </div>
-
-
         </div>
       </div>
     </div>
