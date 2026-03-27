@@ -40,6 +40,7 @@ export class SalesCtc {
 export class SalesProfit {
   branch: string;
   name: string;
+  sman_type: string;
   revenue: number;
   ctc: number;
   achieved: number;
