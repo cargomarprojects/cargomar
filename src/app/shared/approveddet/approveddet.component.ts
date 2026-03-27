@@ -22,6 +22,7 @@ export class ApprovedDetComponent {
     @Input() parentid: string = '';
     @Input() approvalstatus: string = '';
     @Input() category: string = 'LEV-APPROVED';
+    @Input() refno: string = '';
     @Output() ModifiedRecords = new EventEmitter<any>();
 
     selectedRowIndex: number = -1;
@@ -196,6 +197,7 @@ export class ApprovedDetComponent {
         this.Record.ad_approval_type = this.type;
         this.Record.report_folder = this.gs.globalVariables.report_folder;
         this.Record._globalvariables = this.gs.globalVariables;
+        this.Record.refno = this.refno;
         this.mainService.Save(this.Record)
             .subscribe(response => {
                 this.loading = false;
