@@ -1,6 +1,6 @@
 <div *ngIf="currentPage=='ROOTPAGE'">
   <div class="page-header">
-    <div class="col">
+    <div class="col-sm">
       <label>{{title}}{{mode=='EDIT'?-Record.hbl_no:''}}</label>
       <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
       <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
@@ -164,50 +164,36 @@
           <div class="page-box">
 
             <div class="row">
-              <div class="col-sm-4">
-
+              <div class="col-sm-5">
                 <div class="form-group row">
-                  <label class="col-2 col-form-label col-form-label-sm">SI#</label>
-                  <div class="col-4">
+                  <label class="col-sm-2 col-form-label col-form-label-sm">SI#</label>
+                  <div *ngIf="!(mode=='ADD')" class="col-4">
                     <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm"
                       [(ngModel)]="Record.hbl_no" [disabled]="true" required maxlength="15" />
                   </div>
-                  <div *ngIf="mode=='ADD'" style="padding-right:0" class="col-4">
+                  <div *ngIf="(mode=='ADD')" class="col-sm-4 input-group input-group-sm">
                     <input type="text" class="form-control form-control-sm" [(ngModel)]="hbl_no" required
                       maxlength="15" />
-                  </div>
-                  <div *ngIf="mode=='ADD'" class="col-2">
                     <button [disabled]="loading" (click)="SearchRecord('hbl_no')"
                       class="btn btn-primary btn-sm">Fill</button>
                   </div>
-                </div>
-                <div class="form-group row">
                   <label class="col-sm-2 col-form-label col-form-label-sm">Date</label>
                   <div class="col-sm-4">
                     <app-date [inputdate]="Record.hbl_cf_date" (ValueChanged)="Record.hbl_cf_date=$event"></app-date>
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-2 col-form-label col-form-label-sm">Shipper</label>
-                  <div class="col-6">
+                  <label class="col-sm-2 col-form-label col-form-label-sm">Shipper</label>
+                  <div class="col-sm-4">
                     <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)">
                     </app-autocomplete>
                   </div>
-                  <label class="col-1 col-form-label col-form-label-sm">Br#</label>
-                  <div class="col-3">
+                  <label class="col-sm-2 col-form-label col-form-label-sm">Br#</label>
+                  <div class="col-sm-4">
                     <app-autocomplete #ExporterAddLov [inputdata]="EXPADDRECORD" (ValueChanged)="LovSelected($event)">
                     </app-autocomplete>
                   </div>
                 </div>
-
-                <!-- <div class="form-group row">
-                  <label class="col-2 col-form-label col-form-label-sm">Branch#</label>
-                  <div class="col-2">
-                    <app-autocomplete #ExporterAddLov [inputdata]="EXPADDRECORD" (ValueChanged)="LovSelected($event)">
-                    </app-autocomplete>
-                  </div>
-                </div> -->
-
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label col-form-label-sm"></label>
                   <div class="col-sm-10">
@@ -215,73 +201,21 @@
                       [(ngModel)]="Record.hbl_exp_name" />
                   </div>
                 </div>
-
                 <div class="form-group row">
-                  <label class="col-2 col-form-label col-form-label-sm"></label>
-                  <div class="col-10">
+                  <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+                  <div class="col-sm-10">
                     <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.hbl_exp_br_addr"
                       [disabled]="true" maxlength="1000"></textarea>
                   </div>
                 </div>
-
                 <div class="form-group row">
-                  <label class="col-2 col-form-label col-form-label-sm">Agent</label>
-                  <div class="col-6">
-                    <app-autocomplete #AgentLov [disabled]="Record.hbl_mbl_id != ''" [inputdata]="AGENTRECORD"
-                      (ValueChanged)="LovSelected($event)"></app-autocomplete>
-                  </div>
-                  <label class="col-1 col-form-label col-form-label-sm">Br#</label>
-                  <div class="col-3">
-                    <app-autocomplete #AgentAddLov [inputdata]="AGENTADDRECORD" (ValueChanged)="LovSelected($event)">
-                    </app-autocomplete>
-                  </div>
-                </div>
-
-                <!-- <div class="form-group row">
-                  <label class="col-2 col-form-label col-form-label-sm">Branch#</label>
-                  <div class="col-10">
-                    <app-autocomplete #AgentAddLov [inputdata]="AGENTADDRECORD" (ValueChanged)="LovSelected($event)">
-                    </app-autocomplete>
-                  </div>
-                </div> -->
-
-                <div class="form-group row">
-                  <label class="col-sm-2 col-form-label col-form-label-sm"></label>
-                  <div class="col-sm-10">
-                    <input type="text" disabled class="form-control form-control-sm"
-                      [(ngModel)]="Record.hbl_agent_name" />
-                  </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-2 col-form-label col-form-label-sm"></label>
-                  <div class="col-10">
-                    <textarea rows="4" class="form-control form-control-sm" [(ngModel)]="Record.hbl_agent_br_addr"
-                      [disabled]="true" maxlength="1000"></textarea>
-                  </div>
-                </div>
-
-
-              </div>
-              <div class="col-sm-4">
-                <div class="form-group row">
-                  <label class="col-2 col-form-label col-form-label-sm">Carrier</label>
-                  <div class="col-10">
-                    <app-autocomplete #CarrLov [disabled]="Record.hbl_mbl_id != ''" [inputdata]="SEACARRIERRECORD"
-                      (ValueChanged)="LovSelected($event)"></app-autocomplete>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label class="col-2 col-form-label col-form-label-sm">Consignee</label>
-                  <div class="col-10">
+                  <label class="col-sm-2 col-form-label col-form-label-sm">Consignee</label>
+                  <div class="col-sm-4">
                     <app-autocomplete #ImporterLov [disabled]="Record.hbl_mbl_id != ''" [inputdata]="IMPRECORD"
                       (ValueChanged)="LovSelected($event)"></app-autocomplete>
                   </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-2 col-form-label col-form-label-sm">Branch#</label>
-                  <div class="col-10">
+                  <label class="col-sm-2 col-form-label col-form-label-sm">Br#</label>
+                  <div class="col-sm-4">
                     <app-autocomplete #ImporterAddLov [inputdata]="IMPADDRECORD" (ValueChanged)="LovSelected($event)">
                     </app-autocomplete>
                   </div>
@@ -294,16 +228,73 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-2 col-form-label col-form-label-sm"></label>
-                  <div class="col-10">
+                  <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+                  <div class="col-sm-10">
                     <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.hbl_imp_br_addr"
                       [disabled]="true" maxlength="1000"></textarea>
                   </div>
                 </div>
-
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label col-form-label-sm">Bill.To</label>
+                  <div class="col-sm-4">
+                    <app-autocomplete #ExporterLov [inputdata]="BILLTORECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
+                  </div>
+                  <div class="col-sm-6">
+                    <input type="text" disabled class="form-control form-control-sm"
+                      [(ngModel)]="Record.hbl_billto_name" />
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-5">
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label col-form-label-sm">Agent</label>
+                  <div class="col-sm-4">
+                    <app-autocomplete #AgentLov [disabled]="Record.hbl_mbl_id != ''" [inputdata]="AGENTRECORD"
+                      (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  </div>
+                  <label class="col-sm-2 col-form-label col-form-label-sm">Br#</label>
+                  <div class="col-sm-4">
+                    <app-autocomplete #AgentAddLov [inputdata]="AGENTADDRECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+                  <div class="col-sm-10">
+                    <input type="text" disabled class="form-control form-control-sm"
+                      [(ngModel)]="Record.hbl_agent_name" />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+                  <div class="col-sm-10">
+                    <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.hbl_agent_br_addr"
+                      [disabled]="true" maxlength="1000"></textarea>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label col-form-label-sm">Carrier</label>
+                  <div class="col-sm-10">
+                    <app-autocomplete #CarrLov [disabled]="Record.hbl_mbl_id != ''" [inputdata]="SEACARRIERRECORD"
+                      (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                  </div>
+                </div>
                 <div *ngIf="type=='SEA EXPORT'" class="form-group row">
-                  <label class="col-2 col-form-label  col-form-label-sm">Nature</label>
-                  <div class="col-10">
+                  <label class="col-sm-2 col-form-label col-form-label-sm">Co.Loader</label>
+                  <div class="col-sm-4">
+                    <app-autocomplete #LinerLov [inputdata]="COLOADERRECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
+                  </div>
+                  <div class="col-sm-6">
+                    <input type="text" disabled class="form-control form-control-sm"
+                      [(ngModel)]="Record.hbl_coloader_name" (blur)="OnBlur('hbl_coloader_name')" required
+                      maxlength="60" />
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label *ngIf="type=='SEA EXPORT'" class="col-sm-2 col-form-label  col-form-label-sm">Nature</label>
+                  <div *ngIf="type=='SEA EXPORT'" class="col-sm-4">
                     <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_nature">
                       <option [value]="'FCL/FCL'">FCL/FCL</option>
                       <option [value]="'FCL/LCL'">FCL/LCL</option>
@@ -312,11 +303,8 @@
                       <option [value]="'LCL/LCL'">LCL/LCL</option>
                     </select>
                   </div>
-                </div>
-
-                <div class="form-group row">
-                  <label class="col-2 col-form-label  col-form-label-sm">Terms</label>
-                  <div class="col-10">
+                  <label class="col-sm-2 col-form-label  col-form-label-sm">Terms</label>
+                  <div class="col-sm-4">
                     <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_terms">
                       <option [value]="'EX-WORK'">EX-WORK</option>
                       <option [value]="'FREIGHT COLLECT'">FREIGHT COLLECT</option>
@@ -325,83 +313,72 @@
                   </div>
                 </div>
 
-                <div *ngIf="type=='SEA EXPORT'" class="form-group row">
-                  <label class="col-2 col-form-label  col-form-label-sm">Location</label>
-                  <div class="col-10">
+                <div class="form-group row">
+                  <label *ngIf="type=='SEA EXPORT'" class="col-sm-2 col-form-label  col-form-label-sm">Location</label>
+                  <div *ngIf="type=='SEA EXPORT'" class="col-sm-4">
                     <app-autocomplete #LocLov [inputdata]="LOCATIONRECORD" (ValueChanged)="LovSelected($event)">
                     </app-autocomplete>
                   </div>
-                </div>
-                <div *ngIf="type=='SEA EXPORT'" class="form-group row">
-                  <label class="col-sm-2 col-form-label col-form-label-sm">Co.Loader</label>
-                  <div class="col-sm-5">
-                    <app-autocomplete #LinerLov [inputdata]="COLOADERRECORD" (ValueChanged)="LovSelected($event)">
-                    </app-autocomplete>
-                  </div>
-                  <div class="col-sm-5" style="padding-left:0">
-                    <input type="text" disabled class="form-control form-control-sm"
-                      [(ngModel)]="Record.hbl_coloader_name" (blur)="OnBlur('hbl_coloader_name')" required
-                      maxlength="60" />
+                  <label class="col-sm-2 col-form-label col-form-label-sm">
+                    <span *ngIf="type=='SEA EXPORT'">HBL.Relesd</span><span
+                      *ngIf="type=='AIR EXPORT'">HAWB.Relesd</span>
+                  </label>
+                  <div class="col-sm-4">
+                    <app-date [inputdate]="Record.hbl_released_date" (ValueChanged)="Record.hbl_released_date=$event">
+                    </app-date>
                   </div>
                 </div>
-
-
                 <div class="form-group row">
-                  <label class="col-2 col-form-label col-form-label-sm">Bill To</label>
-                  <div class="col-5">
-                    <app-autocomplete #ExporterLov [inputdata]="BILLTORECORD" (ValueChanged)="LovSelected($event)">
-                    </app-autocomplete>
-                  </div>
-                  <div class="col-5" style="padding-left:0">
-                    <input type="text" disabled class="form-control form-control-sm"
-                      [(ngModel)]="Record.hbl_billto_name" />
+                  <label class="col-sm-2 col-form-label col-form-label-sm">Itm.Desc</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_commodity"
+                      (blur)="OnBlur('hbl_commodity')" required maxlength="100" />
                   </div>
                 </div>
-
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label col-form-label-sm">Remarks</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_remarks"
+                      (blur)="OnBlur('hbl_remarks')" required maxlength="250" />
+                  </div>
+                </div>
 
               </div>
 
-              <div class="col-sm-4">
-
+              <div class="col-sm-2">
                 <div class="form-group row">
-                  <label class="col-3 col-form-label  col-form-label-sm">DDP</label>
-                  <div class="col-9">
-                    <div class="form-group row">
-                      <div class="col-4">
-                        <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_ddp">
-                          <option [value]="'NA'">NA</option>
-                          <option [value]="'NO'">NO</option>
-                          <option [value]="'YES'">YES</option>
-                        </select>
-                      </div>
-                      <label class="col-4 col-form-label  col-form-label-sm">DDU</label>
-                      <div class="col-4">
-                        <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_ddu">
-                          <option [value]="'NA'">NA</option>
-                          <option [value]="'NO'">NO</option>
-                          <option [value]="'YES'">YES</option>
-                        </select>
-                      </div>
-                    </div>
+                  <label class="col-sm-4 col-form-label  col-form-label-sm">DDP</label>
+                  <div class="col-sm-8">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_ddp">
+                      <option [value]="'NA'">NA</option>
+                      <option [value]="'NO'">NO</option>
+                      <option [value]="'YES'">YES</option>
+                    </select>
                   </div>
                 </div>
-
-
                 <div class="form-group row">
-                  <label class="col-3 col-form-label  col-form-label-sm">Ex-Works</label>
-                  <div class="col-9">
-
+                  <label class="col-sm-4 col-form-label  col-form-label-sm">DDU</label>
+                  <div class="col-sm-8">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_ddu">
+                      <option [value]="'NA'">NA</option>
+                      <option [value]="'NO'">NO</option>
+                      <option [value]="'YES'">YES</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-4 col-form-label  col-form-label-sm">Ex.Works</label>
+                  <div class="col-sm-8">
                     <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_ex_works">
                       <option [value]="'NA'">NA</option>
                       <option [value]="'NO'">NO</option>
                       <option [value]="'YES'">YES</option>
                     </select>
-
                   </div>
                 </div>
                 <div *ngIf="type=='AIR EXPORT'" class="form-group row">
-                  <label class="col-3 col-form-label  col-form-label-sm">Direct</label>
-                  <div class="col-9">
+                  <label class="col-sm-4 col-form-label  col-form-label-sm">Direct</label>
+                  <div class="col-sm-8">
                     <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_direct_bl">
                       <option [value]="'NA'">NA</option>
                       <option [value]="'NO'">NO</option>
@@ -411,55 +388,20 @@
                 </div>
 
                 <div *ngIf="type=='SEA EXPORT'" class="form-group row">
-                  <label class="col-3 col-form-label  col-form-label-sm">Co Loading</label>
-                  <div class="col-9">
-
-                    <div class="form-group row">
-                      <div class="col-4">
-                        <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_coloading">
-                          <option [value]="'NA'">NA</option>
-                          <option [value]="'NO'">NO</option>
-                          <option [value]="'YES'">YES</option>
-                        </select>
-                      </div>
-                      <label class="col-4 col-form-label  col-form-label-sm">Switch BL</label>
-                      <div class="col-4">
-                        <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_switch_bl">
-                          <option [value]="'NA'">NA</option>
-                          <option [value]="'NO'">NO</option>
-                          <option [value]="'YES'">YES</option>
-                        </select>
-                      </div>
-                    </div>
-
-                  </div>
-                </div>
-
-
-                <div class="form-group row">
-                  <label class="col-3 col-form-label  col-form-label-sm">ACD</label>
-                  <div class="col-9">
-                    <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_acd_status">
+                  <label class="col-sm-4 col-form-label  col-form-label-sm">Co.Loading</label>
+                  <div class="col-sm-8">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_coloading">
                       <option [value]="'NA'">NA</option>
-                      <option [value]="'PREPAID'">PREPAID</option>
-                      <option [value]="'COLLECT'">COLLECT</option>
+                      <option [value]="'NO'">NO</option>
+                      <option [value]="'YES'">YES</option>
                     </select>
                   </div>
                 </div>
-                <div class="form-group row">
-                  <label class="col-3 col-form-label  col-form-label-sm">DDC</label>
-                  <div class="col-9">
-                    <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_ddc_status">
-                      <option [value]="'NA'">NA</option>
-                      <option [value]="'PREPAID'">PREPAID</option>
-                      <option [value]="'COLLECT'">COLLECT</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <label class="col-3 col-form-label  col-form-label-sm">Sample</label>
-                  <div class="col-9">
-                    <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_sample">
+
+                <div *ngIf="type=='SEA EXPORT'" class="form-group row">
+                  <label class="col-sm-4 col-form-label  col-form-label-sm">Switch.BL</label>
+                  <div class="col-sm-8">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_switch_bl">
                       <option [value]="'NA'">NA</option>
                       <option [value]="'NO'">NO</option>
                       <option [value]="'YES'">YES</option>
@@ -468,46 +410,48 @@
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-3 col-form-label col-form-label-sm">Itm Desc</label>
-                  <div class="col-9">
-                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_commodity"
-                      (blur)="OnBlur('hbl_commodity')" required maxlength="100" />
+                  <label class="col-sm-4 col-form-label  col-form-label-sm">ACD</label>
+                  <div class="col-sm-8">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_acd_status">
+                      <option [value]="'NA'">NA</option>
+                      <option [value]="'PREPAID'">PREPAID</option>
+                      <option [value]="'COLLECT'">COLLECT</option>
+                    </select>
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-3 col-form-label col-form-label-sm">
-                    <span *ngIf="type=='SEA EXPORT'">HBL Relesd</span><span *ngIf="type=='AIR EXPORT'">HBL
-                      Relesd</span>
-                  </label>
-                  <div class="col-9">
-                    <app-date [inputdate]="Record.hbl_released_date" (ValueChanged)="Record.hbl_released_date=$event">
-                    </app-date>
+                  <label class="col-sm-4 col-form-label  col-form-label-sm">DDC</label>
+                  <div class="col-sm-8">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_ddc_status">
+                      <option [value]="'NA'">NA</option>
+                      <option [value]="'PREPAID'">PREPAID</option>
+                      <option [value]="'COLLECT'">COLLECT</option>
+                    </select>
                   </div>
                 </div>
-
                 <div class="form-group row">
-                  <label class="col-3 col-form-label col-form-label-sm">Remarks</label>
-                  <div class="col-9">
-                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.hbl_remarks"
-                      (blur)="OnBlur('hbl_remarks')" required maxlength="250" />
+                  <label class="col-sm-4 col-form-label  col-form-label-sm">Sample</label>
+                  <div class="col-sm-8">
+                    <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_sample">
+                      <option [value]="'NA'">NA</option>
+                      <option [value]="'NO'">NO</option>
+                      <option [value]="'YES'">YES</option>
+                    </select>
                   </div>
                 </div>
-
-
                 <div *ngIf="bAdmin">
-
                   <div class="form-group row">
-                    <label class="col-3 col-form-label col-form-label-sm">Salesman</label>
-                    <div class="col-9">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Salesman</label>
+                    <div class="col-sm-8">
                       <app-autocomplete #SmanLov [disabled]="true" [inputdata]="SALESMANRECORD"
                         (ValueChanged)="LovSelected($event)">
                       </app-autocomplete>
                     </div>
                   </div>
                   <div class="form-group row">
-                    <label class="col-3 col-form-label col-form-label-sm">Nomination</label>
-                    <div class="col-9">
-                      <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_nomination">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Nomination</label>
+                    <div class="col-sm-8">
+                      <select class="form-control form-control-sm" disabled [(ngModel)]="Record.hbl_nomination">
                         <option [value]="'NA'">NA</option>
                         <option [value]="'NOMINATION'">NOMINATION</option>
                         <option [value]="'MUTUAL'">MUTUAL</option>
@@ -518,34 +462,41 @@
 
                 </div>
 
-
               </div>
             </div>
-            <div class="page-box">
-              <div class="row">
-                <div class="col-sm-4">
-                  <div class="form-group row">
-                    <label class="col-2 col-form-label col-form-label-sm"><span
-                        *ngIf="type=='SEA EXPORT'">MBL#</span><span *ngIf="type=='AIR EXPORT'">MAWB#</span></label>
-                    <div class="col-10">
-                      <input type="text" disabled class="form-control form-control-sm"
-                        [(ngModel)]="Record.hbl_mbl_bookslno" (blur)="OnBlur('hbl_mbl_bookslno')" required
-                        maxlength="100" />
-                    </div>
+          </div>
+          <div class="page-box">
+            <div class="row">
+              <div class="col-sm-5">
+                <div class="form-group row">
+                  <label class="col-sm-2 col-form-label col-form-label-sm"><span
+                      *ngIf="type=='SEA EXPORT'">MBLBK#</span><span *ngIf="type=='AIR EXPORT'">MAWBK#</span></label>
+                  <div class="col-sm-10">
+                    <input type="text" disabled class="form-control form-control-sm"
+                      [(ngModel)]="Record.hbl_mbl_bookslno" (blur)="OnBlur('hbl_mbl_bookslno')" required
+                      maxlength="100" />
                   </div>
                 </div>
-                <div class="col-sm-4">
-                  <div class="form-group row">
-                    <label *ngIf="Record.hbl_mbl_bookno"
-                      class="col-2 col-form-label  col-form-label-sm">Booking.No</label>
-                    <div class="col-10">
-                      <label class="col-form-label  col-form-label-sm">
-                        <font color="red">{{Record.hbl_mbl_bookno}} </font>
-                      </label>
-                    </div>
+              </div>
+              <div class="col-sm-5">
+                <div class="form-group row">
+                  <label *ngIf="Record.hbl_mbl_bookno"
+                    class="col-sm-2 col-form-label  col-form-label-sm">Booking.No</label>
+                  <div class="col-sm-4">
+                    <label class="col-form-label  col-form-label-sm">
+                      <font color="red">{{Record.hbl_mbl_bookno}} </font>
+                    </label>
+                  </div>
+                  <label *ngIf="Record.hbl_mbl_no" class="col-sm-2 col-form-label  col-form-label-sm"><span
+                      *ngIf="type=='SEA EXPORT'">MBL#</span><span *ngIf="type=='AIR EXPORT'">MAWB#</span></label>
+                  <div class="col-sm-4">
+                    <label class="col-form-label  col-form-label-sm">
+                      <font color="red">{{Record.hbl_mbl_no}} </font>
+                    </label>
                   </div>
                 </div>
-                <div class="col-sm-4">
+              </div>
+              <!-- <div class="col-sm-4">
                   <div class="form-group row">
                     <label *ngIf="Record.hbl_mbl_no" class="col-3 col-form-label  col-form-label-sm"><span
                         *ngIf="type=='SEA EXPORT'">MBL#</span><span *ngIf="type=='AIR EXPORT'">MAWB#</span></label>
@@ -555,58 +506,58 @@
                       </label>
                     </div>
                   </div>
-                </div>
-              </div>
+                </div> -->
             </div>
-
-
-            <div class="page-box">
-              <div>
-                <button (click)="JobList(Record)" class="btn btn-link">Find Job</button>
-              </div>
-              <div *ngIf="JobTab=='LIST'">
-                <div class="page-body table-responsive">
-                  <table class="table  table-hover table-sm">
-                    <thead class="page-body-thead">
-                      <tr>
-                        <th>JOB#</th>
-                        <th>DATE</th>
-                        <th>SHIPPER</th>
-                        <th>CONSIGNEE</th>
-                        <th>TYPE</th>
-                        <th>NOMINATION</th>
-                        <th>POL</th>
-                        <th>POD</th>
-                        <th>SALES MAN</th>
-                        <th>PKGS</th>
-                        <th>GR.WT</th>
-                        <th *ngIf="type=='SEA EXPORT'">CBM</th>
-                        <th *ngIf="type=='AIR EXPORT'">CH.WT</th>
-                      </tr>
-                    </thead>
-                    <tbody class="page-body-tbody" *ngFor="let rec of Record.JobList">
-                      <tr>
-                        <td><input type="checkbox" [(ngModel)]="rec.job_selected">{{rec.job_docno}}</td>
-                        <td>{{rec.job_date}}</td>
-                        <td>{{rec.job_exp_name}}</td>
-                        <td>{{rec.job_imp_name}}</td>
-                        <td>{{rec.job_type}}</td>
-                        <td>{{rec.job_nomination}}</td>
-                        <td>{{rec.job_pol_name}}</td>
-                        <td>{{rec.job_pod_name}}</td>
-                        <td>{{rec.job_salesman_name}}</td>
-                        <td>{{rec.job_pkg}}</td>
-                        <td>{{rec.job_grwt}}</td>
-                        <td *ngIf="type=='SEA EXPORT'">{{rec.job_cbm}}</td>
-                        <td *ngIf="type=='AIR EXPORT'">{{rec.job_chwt}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-
           </div>
+
+
+          <div class="page-box">
+            <div>
+              <button (click)="JobList(Record)" class="btn btn-link">Find Job</button>
+            </div>
+            <div *ngIf="JobTab=='LIST'">
+              <div class="page-body table-responsive">
+                <table class="table  table-hover table-sm">
+                  <thead class="page-body-thead">
+                    <tr>
+                      <th>JOB#</th>
+                      <th>DATE</th>
+                      <th>SHIPPER</th>
+                      <th>CONSIGNEE</th>
+                      <th>TYPE</th>
+                      <th>NOMINATION</th>
+                      <th>POL</th>
+                      <th>POD</th>
+                      <th>SALES MAN</th>
+                      <th>PKGS</th>
+                      <th>GR.WT</th>
+                      <th *ngIf="type=='SEA EXPORT'">CBM</th>
+                      <th *ngIf="type=='AIR EXPORT'">CH.WT</th>
+                    </tr>
+                  </thead>
+                  <tbody class="page-body-tbody" *ngFor="let rec of Record.JobList">
+                    <tr>
+                      <td><input type="checkbox" [(ngModel)]="rec.job_selected">{{rec.job_docno}}</td>
+                      <td>{{rec.job_date}}</td>
+                      <td>{{rec.job_exp_name}}</td>
+                      <td>{{rec.job_imp_name}}</td>
+                      <td>{{rec.job_type}}</td>
+                      <td>{{rec.job_nomination}}</td>
+                      <td>{{rec.job_pol_name}}</td>
+                      <td>{{rec.job_pod_name}}</td>
+                      <td>{{rec.job_salesman_name}}</td>
+                      <td>{{rec.job_pkg}}</td>
+                      <td>{{rec.job_grwt}}</td>
+                      <td *ngIf="type=='SEA EXPORT'">{{rec.job_cbm}}</td>
+                      <td *ngIf="type=='AIR EXPORT'">{{rec.job_chwt}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+
 
 
           <div class="page-box">
@@ -628,7 +579,9 @@
               <button *ngIf="mode == 'EDIT' &&  type=='SEA EXPORT' && jobexist && Record.hbl_bl_type != 'OLD'"
                 [disabled]="loading||(Record.hbl_bl_no != '' && Record.hbl_fcr_no == '' && Record.hbl_blno_generated!='B' &&  type=='SEA EXPORT')"
                 (click)="ShowBL('FCR')" class="btn btn-success btn-sm mr-1">FCR</button>
-              <div  *ngIf="mode == 'EDIT' &&  type=='SEA EXPORT' && jobexist && Record.hbl_bl_no != '' && Record.original_bl_printed" class="style=width: 25%; mr-1">
+              <div
+                *ngIf="mode == 'EDIT' &&  type=='SEA EXPORT' && jobexist && Record.hbl_bl_no != '' && Record.original_bl_printed"
+                class="style=width: 25%; mr-1">
                 <select class="form-control form-control-sm" [(ngModel)]="Record.hbl_sbl_desc">
                   <option *ngFor="let rec of SblList" [value]="rec.param_code">{{rec.param_name}}</option>
                 </select>
@@ -753,4 +706,4 @@
   [parentid]="unlockparentid" [customername]="unlockcustomername" [consigneeid]="Record.hbl_imp_id"
   (hidealert)="showalert=$event">
 </app-crlimit>
-<app-warningalert #WarnMsg ></app-warningalert>
+<app-warningalert #WarnMsg></app-warningalert>
