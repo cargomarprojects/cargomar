@@ -1,12 +1,9 @@
-import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
-
 import { GlobalService } from '../../core/services/global.service';
-
 import { Hblm } from '../models/hbl';
 import { HblService } from '../services/hbl.service';
-
 import { SearchTable } from '../../shared/models/searchtable';
 import { Param } from '../../master/models/param';
 import { WarningAlertComponent } from '../../shared/warningalert/warningalert.component';
@@ -23,6 +20,15 @@ export class HblSeaAirComponent {
 
     @Input() menuid: string = '';
     @Input() type: string = '';
+
+    @Input() isModalWindow: string = 'N';
+    @Input() master_id: string = '';
+    @Input() master_bkslno: string = '';
+    @Input() master_bkno: string = '';
+    @Input() master_no: string = '';
+    @Input() house_id: string = '';
+    @Output() callbackevent = new EventEmitter<any>();
+
     InitCompleted: boolean = false;
     menu_record: any;
     modal: any;
@@ -123,19 +129,31 @@ export class HblSeaAirComponent {
         // URL Query Parameter 
         this.sub = this.route.queryParams.subscribe(params => {
             if (params["parameter"] != "") {
-                this.InitCompleted = true;
+                //this.InitCompleted = true;
                 var options = JSON.parse(params["parameter"]);
                 this.menuid = options.menuid;
                 this.type = options.type;
-                this.InitComponent();
+                //this.InitComponent();
             }
         });
     }
 
     // Init Will be called After executing Constructor
     ngOnInit() {
-        if (!this.InitCompleted) {
+
+        if (this.isModalWindow == "Y") {  //modal change
             this.InitComponent();
+            this.page_rows = 5;
+            if (this.gs.isBlank(this.house_id))
+                this.ActionHandler('ADD', '');
+            else
+                this.ActionHandler('EDIT', this.house_id)
+        }
+        else {
+            if (!this.InitCompleted) {
+                this.InitCompleted = true; //modal change
+                this.InitComponent();
+            }
         }
     }
 
@@ -235,7 +253,8 @@ export class HblSeaAirComponent {
         //        this.ErrorMessage = this.gs.getError(error);
         //    });
 
-        this.List("NEW");
+        if (this.isModalWindow == "N")
+            this.List("NEW");
 
     }
 
@@ -605,10 +624,10 @@ export class HblSeaAirComponent {
         this.Record.hbl_location_name = '';
         this.Record.hbl_remarks = '';
         this.Record.hbl_direct_bl = 'NA';
-        this.Record.hbl_mbl_id = '';
-        this.Record.hbl_mbl_no = '';
-        this.Record.hbl_mbl_bookslno = '';
-        this.Record.hbl_mbl_bookno = '';
+        this.Record.hbl_mbl_id = this.master_id;
+        this.Record.hbl_mbl_no = this.master_no;
+        this.Record.hbl_mbl_bookslno = this.master_bkslno;
+        this.Record.hbl_mbl_bookno = this.master_bkno;
         this.Record.hbl_bl_no = '';
         this.Record.hbl_date = '';
         this.Record.hbl_commodity = '';
@@ -626,7 +645,147 @@ export class HblSeaAirComponent {
         this.Record.hbl_sbl_desc = 'NEW';
         this.InitLov();
         this.Record.rec_mode = this.mode;
+        // if (this.mode == 'ADD' && this.isModalWindow == "Y")
+        //     this.GetMasterData(this.master_id);
     }
+
+    // GetMasterData(Id: string) {
+    //     this.loading = true;
+    //     let SearchData = {
+    //       pkid: Id,
+    //     };
+
+    //     this.ErrorMessage = '';
+    //     this.InfoMessage = '';
+    //     this.mainService.GetMasterData(SearchData)
+    //       .subscribe(response => {
+    //         this.loading = false;
+    //         let _Rec: Hblm;
+    //         _Rec = response.record;
+
+    //         this.Record.hbl_carrier_id = _Rec.hbl_carrier_id;
+    //         this.Record.hbl_carrier_code = _Rec.hbl_carrier_code;
+    //         this.Record.hbl_carrier_name = _Rec.hbl_carrier_name;
+    //         this.Record.hbl_agent_id = _Rec.hbl_agent_id;
+    //         this.Record.hbl_agent_code = _Rec.hbl_agent_code;
+    //         this.Record.hbl_agent_name = _Rec.hbl_agent_name;
+
+    //         this.Record.hbl_exp_id = _Rec.hbl_exp_id;
+    //         this.Record.hbl_exp_code = _Rec.hbl_exp_code;
+    //         this.Record.hbl_exp_name = _Rec.hbl_exp_name;
+    //         this.Record.hbl_exp_br_id = _Rec.hbl_exp_br_id;
+    //         this.Record.hbl_exp_br_no = _Rec.hbl_exp_br_no;
+    //         this.Record.hbl_exp_br_addr = _Rec.hbl_exp_br_addr;
+
+    //         this.Record.hbl_imp_id = _Rec.hbl_imp_id;
+    //         this.Record.hbl_imp_code = _Rec.hbl_imp_code;
+    //         this.Record.hbl_imp_name = _Rec.hbl_imp_name;
+    //         this.Record.hbl_imp_br_id = _Rec.hbl_imp_br_id;
+    //         this.Record.hbl_imp_br_no = _Rec.hbl_imp_br_no;
+    //         this.Record.hbl_imp_br_addr = _Rec.hbl_imp_br_addr;
+
+    //         this.Record.hbl_terms = _Rec.hbl_terms;
+    //         this.Record.hbl_location_id = _Rec.hbl_location_id;
+    //         this.Record.hbl_location_code = _Rec.hbl_location_code;
+    //         this.Record.hbl_location_name = _Rec.hbl_location_name;
+
+    //         this.Record.hbl_mbl_no = _Rec.hbl_mbl_no;
+    //         this.Record.hbl_book_slno = _Rec.hbl_book_slno
+    //         this.Record.hbl_mbl_bookno = _Rec.hbl_mbl_bookno;
+
+    //         this.Record.hbl_pol_id = _Rec.hbl_pol_id;
+    //         this.Record.hbl_pol_code = _Rec.hbl_pol_code;
+    //         this.Record.hbl_pol_name = _Rec.hbl_pol_name;
+    //         this.Record.hbl_origin_country_id = _Rec.hbl_origin_country_id;
+    //         this.Record.hbl_origin_country_code = _Rec.hbl_origin_country_code;
+    //         this.Record.hbl_origin_country_name = _Rec.hbl_origin_country_name;
+
+    //         this.LINERRECORD = new SearchTable();
+    //         this.LINERRECORD.controlname = "LINER";
+    //         this.LINERRECORD.displaycolumn = "CODE";
+    //         this.LINERRECORD.type = this.carriertype;
+    //         this.LINERRECORD.id = this.Record.hbl_carrier_id;
+    //         this.LINERRECORD.code = this.Record.hbl_carrier_code;
+    //         this.LINERRECORD.name = this.Record.hbl_carrier_name;
+
+    //         this.AGENTRECORD = new SearchTable();
+    //         this.AGENTRECORD.controlname = "AGENT";
+    //         this.AGENTRECORD.displaycolumn = "CODE";
+    //         this.AGENTRECORD.type = "CUSTOMER";
+    //         this.AGENTRECORD.where = " CUST_IS_AGENT = 'Y' ";
+    //         this.AGENTRECORD.id = this.Record.hbl_agent_id;
+    //         this.AGENTRECORD.code = this.Record.hbl_agent_code;
+    //         this.AGENTRECORD.name = this.Record.hbl_agent_name;
+
+    //         this.EXPRECORD = new SearchTable();
+    //         this.EXPRECORD.controlname = "SHIPPER";
+    //         this.EXPRECORD.displaycolumn = "CODE";
+    //         this.EXPRECORD.type = "CUSTOMER";
+    //         this.EXPRECORD.where = " CUST_IS_CONSIGNEE = 'Y' ";
+    //         this.EXPRECORD.id = this.Record.hbl_exp_id;
+    //         this.EXPRECORD.code = this.Record.hbl_exp_code;
+    //         this.EXPRECORD.name = this.Record.hbl_exp_name;
+
+    //         this.EXPADDRECORD = new SearchTable();
+    //         this.EXPADDRECORD.controlname = "SHIPPERADDRESS";
+    //         this.EXPADDRECORD.displaycolumn = "CODE";
+    //         this.EXPADDRECORD.type = "CUSTOMERADDRESS";
+    //         this.EXPADDRECORD.id = this.Record.hbl_exp_br_id;
+    //         this.EXPADDRECORD.code = this.Record.hbl_exp_br_no;
+    //         this.EXPADDRECORD.name = "";
+    //         this.EXPADDRECORD.parentid = this.Record.hbl_exp_id;
+
+
+    //         this.IMPRECORD = new SearchTable();
+    //         this.IMPRECORD.controlname = "CONSIGNEE";
+    //         this.IMPRECORD.displaycolumn = "CODE";
+    //         this.IMPRECORD.type = "CUSTOMER";
+    //         this.IMPRECORD.where = " CUST_IS_SHIPPER = 'Y' ";
+    //         this.IMPRECORD.id = this.Record.hbl_imp_id;
+    //         this.IMPRECORD.code = this.Record.hbl_imp_code;
+    //         this.IMPRECORD.name = this.Record.hbl_imp_name;
+    //         this.IMPRECORD.parentid = "";
+
+    //         this.IMPADDRECORD = new SearchTable();
+    //         this.IMPADDRECORD.controlname = "CONSIGNEEADDRESS";
+    //         this.IMPADDRECORD.displaycolumn = "CODE";
+    //         this.IMPADDRECORD.type = "CUSTOMERADDRESS";
+    //         this.IMPADDRECORD.id = this.Record.hbl_imp_br_id;
+    //         this.IMPADDRECORD.code = this.Record.hbl_imp_br_no;
+    //         this.IMPADDRECORD.name = "";
+    //         this.IMPADDRECORD.parentid = this.Record.hbl_imp_id;
+
+    //         this.LOCATIONRECORD = new SearchTable();
+    //         this.LOCATIONRECORD.controlname = "LOCATION";
+    //         this.LOCATIONRECORD.displaycolumn = "NAME";
+    //         this.LOCATIONRECORD.type = "CITY";
+    //         this.LOCATIONRECORD.id = this.Record.hbl_location_id;
+    //         this.LOCATIONRECORD.code = this.Record.hbl_location_code;
+    //         this.LOCATIONRECORD.name = this.Record.hbl_location_name;
+
+    //         this.POLRECORD = new SearchTable();
+    //         this.POLRECORD.controlname = "POL";
+    //         this.POLRECORD.displaycolumn = "CODE";
+    //         this.POLRECORD.type = this.porttype;
+    //         this.POLRECORD.id = this.Record.hbl_pol_id;
+    //         this.POLRECORD.code = this.Record.hbl_pol_code;
+    //         this.POLRECORD.name = this.Record.hbl_pol_name;
+
+    //         this.COUNTRYORGRECORD = new SearchTable();
+    //         this.COUNTRYORGRECORD.controlname = "COUNTRYORIGIN";
+    //         this.COUNTRYORGRECORD.displaycolumn = "CODE";
+    //         this.COUNTRYORGRECORD.type = "COUNTRY";
+    //         this.COUNTRYORGRECORD.id = this.Record.hbl_origin_country_id;
+    //         this.COUNTRYORGRECORD.code = this.Record.hbl_origin_country_code;
+    //         this.COUNTRYORGRECORD.name = this.Record.hbl_origin_country_name;
+
+    //       },
+    //         error => {
+    //           this.loading = false;
+    //           this.ErrorMessage = this.gs.getError(error);
+    //           alert(this.ErrorMessage);
+    //         });
+    //   }
 
     // Load a single Record for VIEW/EDIT
     GetRecord(Id: string) {
@@ -725,10 +884,10 @@ export class HblSeaAirComponent {
             this.Record.hbl_pkid = this.pkid;
             this.Record.hbl_no = null;
             this.Record.hbl_cf_date = this.gs.defaultValues.today;
-            this.Record.hbl_mbl_id = '';
-            this.Record.hbl_mbl_no = '';
-            this.Record.hbl_mbl_bookslno = '';
-            this.Record.hbl_mbl_bookno = '';
+            this.Record.hbl_mbl_id = this.master_id;
+            this.Record.hbl_mbl_no = this.master_no;
+            this.Record.hbl_mbl_bookslno = this.master_bkslno;
+            this.Record.hbl_mbl_bookno = this.master_bkno;
             this.Record.hbl_bl_no = '';
             this.Record.hbl_date = '';
             this.Record.hbl_salesman_id = '';
@@ -795,8 +954,12 @@ export class HblSeaAirComponent {
 
                 this.masterexist = this.IsMasterExist();
                 this.jobexist = this.IsJobExist();
-
-                this.RefreshList();
+                if (this.isModalWindow == 'Y') {
+                    // if (this.callbackevent != null)
+                    //     this.callbackevent.emit({ saction: 'SAVE', mblid: this.Record.hbl_mbl_id });
+                } else {
+                    this.RefreshList();
+                }
                 alert(this.InfoMessage);
             },
                 error => {
@@ -811,6 +974,10 @@ export class HblSeaAirComponent {
         let bret: boolean = true;
         this.ErrorMessage = '';
         this.InfoMessage = '';
+        if (this.isModalWindow == "Y" && this.gs.isBlank(this.master_id)) {
+            bret = false;
+            sError += "\n\r | Invalid Master ID";
+        }
         // if (this.gs.isBlank(this.Record.hbl_cf_date)) {
         //     bret = false;
         //     sError += "\n\r | Date Cannot Be Blank";
@@ -957,9 +1124,9 @@ export class HblSeaAirComponent {
         this.ErrorMessage = '';
 
         if (controlname == "hbl_mbl_bookslno") {
-            this.Record.hbl_mbl_id = '';
-            this.Record.hbl_mbl_no = '';
-            this.Record.hbl_mbl_bookno = '';
+            this.Record.hbl_mbl_id = this.master_id;
+            this.Record.hbl_mbl_no = this.master_no;
+            this.Record.hbl_mbl_bookno = this.master_bkno;
             if (this.Record.hbl_mbl_bookslno.trim().length <= 0)
                 return;
         } else if (controlname == 'hbl_no') {
@@ -1007,7 +1174,7 @@ export class HblSeaAirComponent {
                 this.loading = false;
                 this.ErrorMessage = '';
                 if (controlname == 'hbl_mbl_bookslno') {
-                    this.Record.hbl_mbl_id = '';
+                    this.Record.hbl_mbl_id = this.master_id;
                     if (response.linerbkm.length > 0) {
                         this.Record.hbl_mbl_id = response.linerbkm[0].book_pkid;
                         this.Record.hbl_mbl_bookno = response.linerbkm[0].book_no;

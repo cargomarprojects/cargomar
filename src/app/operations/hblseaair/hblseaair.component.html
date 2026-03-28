@@ -1,5 +1,5 @@
 <div *ngIf="currentPage=='ROOTPAGE'">
-  <div class="page-header">
+  <div *ngIf="isModalWindow=='N'" class="page-header">
     <div class="col-sm">
       <label>{{title}}{{mode=='EDIT'?-Record.hbl_no:''}}</label>
       <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
@@ -167,11 +167,11 @@
               <div class="col-sm-5">
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label col-form-label-sm">SI#</label>
-                  <div *ngIf="!(mode=='ADD')" class="col-4">
+                  <div *ngIf="!(mode=='ADD'&&isModalWindow=='N')" class="col-4">
                     <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm"
                       [(ngModel)]="Record.hbl_no" [disabled]="true" required maxlength="15" />
                   </div>
-                  <div *ngIf="(mode=='ADD')" class="col-sm-4 input-group input-group-sm">
+                  <div *ngIf="(mode=='ADD'&&isModalWindow=='N')" class="col-sm-4 input-group input-group-sm">
                     <input type="text" class="form-control form-control-sm" [(ngModel)]="hbl_no" required
                       maxlength="15" />
                     <button [disabled]="loading" (click)="SearchRecord('hbl_no')"
@@ -553,7 +553,7 @@
             <div class="col input-group input-group-sm">
               <button [hidden]="disableSave" [disabled]="loading || Record.lock_record" (click)="Save()"
                 class="btn btn-success btn-sm mr-1">Save</button>
-              <button [disabled]="loading" (click)="ActionHandler('LIST','')"
+              <button *ngIf="isModalWindow=='N'" [disabled]="loading" (click)="ActionHandler('LIST','')"
                 class="btn btn-success btn-sm mr-1">Return</button>
 
               <button [disabled]="loading" class="btn btn-success btn-sm mr-1" (click)="CheckCrLimit()">Check

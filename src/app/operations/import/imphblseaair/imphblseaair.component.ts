@@ -31,7 +31,6 @@ export class ImpHblSeaAirComponent {
 
   InitCompleted: boolean = false;
   menu_record: any;
-  showclosebutton: boolean = true;
   selectedRowIndex = 0;
 
   bDocs = false;
@@ -135,7 +134,6 @@ export class ImpHblSeaAirComponent {
 
     if (this.isModalWindow == "Y") {  //modal change
       this.InitComponent();
-      this.showclosebutton = false;
       this.page_rows = 5;
       if (this.gs.isBlank(this.house_id))
         this.ActionHandler('ADD', '');
