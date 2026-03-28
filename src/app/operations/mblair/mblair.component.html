@@ -293,7 +293,8 @@
                   </div>
                   <label class="col-2 col-form-label col-form-label-sm" style="padding-left:0;padding-right:0">
                     {{lockChar}}Sent.On
-                    <input type="checkbox" [disabled]="foldersent"  [(ngModel)]="chk_foldersent" (change)="FolderSent($event)" >
+                    <input type="checkbox" [disabled]="foldersent" [(ngModel)]="chk_foldersent"
+                      (change)="FolderSent($event)">
                   </label>
                   <div class="col-4">
                     <app-date [disabled]="gs.globalVariables.user_code != 'ADMIN'"
@@ -382,136 +383,136 @@
                 </div>
               </div>
             </div>
+          </div>
+          <div class="page-box">
+            <div class="row">
+              <div class="col-sm-8">
+                <div class="form-group row mx-0">
 
-            <div class="page-box">
-              <div class="row">
-                <div class="col-sm-8">
-                  <div class="form-group row mx-0">
-
-                    <label style="background-color:lightgray;"
-                      class="col-sm-1  col-form-label col-form-label-sm pl-0">DESC</label>
-                    <label style="background-color:lightgray;"
-                      class="col-sm-4  col-form-label col-form-label-sm pl-0">PORT</label>
-                    <label style="background-color:lightgray;"
-                      class="col-sm-5  col-form-label col-form-label-sm">AIRLINE</label>
-                    <label style="background-color:lightgray;"
-                      class="col-sm-2 col-form-label col-form-label-sm pl-4">FLIGHT#</label>
+                  <label style="background-color:lightgray;"
+                    class="col-sm-1  col-form-label col-form-label-sm pl-0">DESC</label>
+                  <label style="background-color:lightgray;"
+                    class="col-sm-4  col-form-label col-form-label-sm pl-0">PORT</label>
+                  <label style="background-color:lightgray;"
+                    class="col-sm-5  col-form-label col-form-label-sm">AIRLINE</label>
+                  <label style="background-color:lightgray;"
+                    class="col-sm-2 col-form-label col-form-label-sm pl-4">FLIGHT#</label>
+                </div>
+                <div class="form-group row">
+                  <label class="col-sm-1 col-form-label col-form-label-sm">POL</label>
+                  <div class="col-sm-2 pr-2">
+                    <app-autocomplete #PolLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
                   </div>
-                  <div class="form-group row">
-                    <label class="col-sm-1 col-form-label col-form-label-sm">POL</label>
-                    <div class="col-sm-2 pr-2">
-                      <app-autocomplete #PolLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)">
-                      </app-autocomplete>
-                    </div>
-                    <div class="col-sm-2 pl-0">
-                      <input type="text" disabled class="form-control form-control-sm"
-                        [(ngModel)]="Record.mbl_pol_name" />
-                    </div>
-                    <div class="col-sm-2 pr-2">
-                      <app-autocomplete #CarrierLov [inputdata]="CARRIERRECORD" (ValueChanged)="LovSelected($event)">
-                      </app-autocomplete>
-                    </div>
-                    <div class="col-sm-3 pl-0">
-                      <input type="text" disabled class="form-control form-control-sm"
-                        [(ngModel)]="Record.mbl_carrier_name" />
-                    </div>
-                    <div class="col-sm-2 ">
-                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mbl_flight_no"
-                        (blur)="OnBlur('mbl_flight_no')" required maxlength="25" />
+                  <div class="col-sm-2 pl-0">
+                    <input type="text" disabled class="form-control form-control-sm"
+                      [(ngModel)]="Record.mbl_pol_name" />
+                  </div>
+                  <div class="col-sm-2 pr-2">
+                    <app-autocomplete #CarrierLov [inputdata]="CARRIERRECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
+                  </div>
+                  <div class="col-sm-3 pl-0">
+                    <input type="text" disabled class="form-control form-control-sm"
+                      [(ngModel)]="Record.mbl_carrier_name" />
+                  </div>
+                  <div class="col-sm-2 ">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mbl_flight_no"
+                      (blur)="OnBlur('mbl_flight_no')" required maxlength="25" />
+                  </div>
+                </div>
+
+
+              </div>
+
+              <div class="col-sm-4">
+                <div class="form-group row mx-0">
+                  <label style="background-color:lightgray;"
+                    class="col-sm-3 col-form-label col-form-label-sm pl-0">ETD-[POL]</label>
+                  <label style="background-color:lightgray;"
+                    class="col-sm-2 col-form-label col-form-label-sm pl-0">CONFM</label>
+                  <label style="background-color:lightgray;"
+                    class="col-sm-3 col-form-label col-form-label-sm">ETA-[POD]</label>
+                  <label style="background-color:lightgray;"
+                    class="col-sm-4 col-form-label col-form-label-sm">CONFM</label>
+                </div>
+
+                <div class="form-group row">
+                  <div class="col-sm-3">
+                    <app-date [inputdate]="Record.mbl_etd" (ValueChanged)="Record.mbl_etd=$event"></app-date>
+                  </div>
+                  <div class="col-sm-2">
+                    <div class="form-check form-check-inline">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="Record.mbl_etd_confirm">
+                      </label>
                     </div>
                   </div>
+                  <div class="col-sm-3">
+                    <app-date [inputdate]="Record.mbl_pol_eta" (ValueChanged)="Record.mbl_pol_eta=$event">
+                    </app-date>
+                  </div>
+                  <div class="col-sm-2">
+                    <div class="form-check form-check-inline">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="Record.mbl_pol_eta_confirm">
+                      </label>
+                    </div>
+                  </div>
+                  <div class="col-sm-2">
 
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            <hr>
+            <div *ngFor="let rec of Record.TransitList">
+              <app-transit [mRecord]="rec" [type]="type" (ModifiedRecords)="ModifiedRecords($event)">
+              </app-transit>
+              <hr>
+            </div>
+
+
+            <hr>
+            <div class="row">
+              <div class="col-sm-8">
+                <div class="form-group row">
+                  <label class="col-sm-1 col-form-label col-form-label-sm">POD</label>
+                  <div class="col-sm-2 pr-2">
+                    <app-autocomplete #PodLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
+                  </div>
+                  <div class="col-sm-2 pl-0">
+                    <input type="text" disabled class="form-control form-control-sm"
+                      [(ngModel)]="Record.mbl_pod_name" />
+                  </div>
+
+                  <label class="col-sm-1 col-form-label col-form-label-sm">ETA</label>
+                  <div class="col-sm-2 pr-2">
+                    <app-date [inputdate]="Record.mbl_eta" (ValueChanged)="Record.mbl_eta=$event"></app-date>
+                  </div>
+                  <div class="col-sm-2 pl-0">
+                    <div class="form-check form-check-inline">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="Record.mbl_eta_confirm">Confm
+                      </label>
+                    </div>
+                  </div>
 
                 </div>
 
-                <div class="col-sm-4">
-                  <div class="form-group row mx-0">
-                    <label style="background-color:lightgray;"
-                      class="col-sm-3 col-form-label col-form-label-sm pl-0">ETD-[POL]</label>
-                    <label style="background-color:lightgray;"
-                      class="col-sm-2 col-form-label col-form-label-sm pl-0">CONFM</label>
-                    <label style="background-color:lightgray;"
-                      class="col-sm-3 col-form-label col-form-label-sm">ETA-[POD]</label>
-                    <label style="background-color:lightgray;"
-                      class="col-sm-4 col-form-label col-form-label-sm">CONFM</label>
+                <div class="form-group row">
+                  <label class="col-sm-1 col-form-label col-form-label-sm">POFD</label>
+                  <div class="col-sm-2 pr-2">
+                    <app-autocomplete #PofdLov [inputdata]="POFDRECORD" (ValueChanged)="LovSelected($event)">
+                    </app-autocomplete>
                   </div>
-
-                  <div class="form-group row">
-                    <div class="col-sm-3">
-                      <app-date [inputdate]="Record.mbl_etd" (ValueChanged)="Record.mbl_etd=$event"></app-date>
-                    </div>
-                    <div class="col-sm-2">
-                      <div class="form-check form-check-inline">
-                        <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" [(ngModel)]="Record.mbl_etd_confirm">
-                        </label>
-                      </div>
-                    </div>
-                    <div class="col-sm-3">
-                      <app-date [inputdate]="Record.mbl_pol_eta" (ValueChanged)="Record.mbl_pol_eta=$event">
-                      </app-date>
-                    </div>
-                    <div class="col-sm-2">
-                      <div class="form-check form-check-inline">
-                        <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" [(ngModel)]="Record.mbl_pol_eta_confirm">
-                        </label>
-                      </div>
-                    </div>
-                    <div class="col-sm-2">
-
-                    </div>
-
+                  <div class="col-sm-2 pl-0">
+                    <input type="text" disabled class="form-control form-control-sm"
+                      [(ngModel)]="Record.mbl_pofd_name" />
                   </div>
-                </div>
-              </div>
-              <hr>
-              <div *ngFor="let rec of Record.TransitList">
-                <app-transit [mRecord]="rec" [type]="type" (ModifiedRecords)="ModifiedRecords($event)">
-                </app-transit>
-                <hr>
-              </div>
-
-
-              <hr>
-              <div class="row">
-                <div class="col-sm-8">
-                  <div class="form-group row">
-                    <label class="col-sm-1 col-form-label col-form-label-sm">POD</label>
-                    <div class="col-sm-2 pr-2">
-                      <app-autocomplete #PodLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)">
-                      </app-autocomplete>
-                    </div>
-                    <div class="col-sm-2 pl-0">
-                      <input type="text" disabled class="form-control form-control-sm"
-                        [(ngModel)]="Record.mbl_pod_name" />
-                    </div>
-
-                    <label class="col-sm-1 col-form-label col-form-label-sm">ETA</label>
-                    <div class="col-sm-2 pr-2">
-                      <app-date [inputdate]="Record.mbl_eta" (ValueChanged)="Record.mbl_eta=$event"></app-date>
-                    </div>
-                    <div class="col-sm-2 pl-0">
-                      <div class="form-check form-check-inline">
-                        <label class="form-check-label">
-                          <input class="form-check-input" type="checkbox" [(ngModel)]="Record.mbl_eta_confirm">Confm
-                        </label>
-                      </div>
-                    </div>
-
-                  </div>
-
-                  <div class="form-group row">
-                    <label class="col-sm-1 col-form-label col-form-label-sm">POFD</label>
-                    <div class="col-sm-2 pr-2">
-                      <app-autocomplete #PofdLov [inputdata]="POFDRECORD" (ValueChanged)="LovSelected($event)">
-                      </app-autocomplete>
-                    </div>
-                    <div class="col-sm-2 pl-0">
-                      <input type="text" disabled class="form-control form-control-sm"
-                        [(ngModel)]="Record.mbl_pofd_name" />
-                    </div>
-                    <!-- <label class="col-sm-1 col-form-label col-form-label-sm">DeliveryDate</label>
+                  <!-- <label class="col-sm-1 col-form-label col-form-label-sm">DeliveryDate</label>
                     <div class="col-sm-2 pr-2">
                       <app-date [inputdate]="Record.mbl_deliv_date" (ValueChanged)="Record.mbl_deliv_date=$event">
                       </app-date>
@@ -524,21 +525,21 @@
                         </label>
                       </div>
                     </div> -->
-                    <label class="col-sm-1 col-form-label col-form-label-sm">Track.Remarks</label>
-                    <div class="col-sm-3  pr-0">
-                      <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mbl_track_comments"
-                        (blur)="OnBlur('mbl_track_comments')" required maxlength="150" />
-                    </div>
-                    <div class="col-sm-3 input-group input-group-sm">
-                      <button *ngIf="mode == 'EDIT'" [hidden]="!Record.lock_record" [disabled]="loading"
-                        (click)="UpdateTracking()" class="btn btn-success btn-sm mr-1">Update</button>
-                      <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowModal(tracking)"
-                        class="btn btn-success btn-sm">Tracking</button>
-                    </div>
+                  <label class="col-sm-1 col-form-label col-form-label-sm">Track.Remarks</label>
+                  <div class="col-sm-3  pr-0">
+                    <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mbl_track_comments"
+                      (blur)="OnBlur('mbl_track_comments')" required maxlength="150" />
+                  </div>
+                  <div class="col-sm-3 input-group input-group-sm">
+                    <button *ngIf="mode == 'EDIT'" [hidden]="!Record.lock_record" [disabled]="loading"
+                      (click)="UpdateTracking()" class="btn btn-success btn-sm mr-1">Update</button>
+                    <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowModal(tracking)"
+                      class="btn btn-success btn-sm">Tracking</button>
                   </div>
                 </div>
+              </div>
 
-                <!-- <div class="col-sm-4">
+              <!-- <div class="col-sm-4">
                   <div class="form-group row">
                     <label class="col-sm-3 col-form-label col-form-label-sm">DeliveryDate</label>
                     <div class="col-sm-4">
@@ -547,11 +548,11 @@
                     </div>
                   </div>
                 </div> -->
-              </div>
             </div>
+          </div>
 
 
-            <!-- <hr />
+          <!-- <hr />
             <div class="row">
               <div class="col-sm-4">
                 <label class="col-sm-2 col-form-label col-form-label-sm"></label>
@@ -661,73 +662,73 @@
               </div>
             </div> -->
 
-            <div class="page-box">
-              <div>
-                <button (click)="HblList(Record)" class="btn btn-link">Find House</button>
-              </div>
-              <div>
-                <div class="page-body table-responsive">
-                  <table class="table  table-hover table-sm">
-                    <thead class="page-body-thead">
-                      <tr>
-                        <th>SI#</th>
-                        <th>HAWB#</th>
-                        <th>HAWB.DATE</th>
-                        <th>SHIPPER</th>
-                        <th>CONSIGNEE</th>
-                        <th>AGENT</th>
-                        <th>CARRIER</th>
-                        <th>TERMS</th>
-                      </tr>
-                    </thead>
-                    <tbody class="page-body-tbody" *ngFor="let rec of Record.HblList">
-                      <tr>
-                        <td><input type="checkbox" [(ngModel)]="rec.hbl_selected">{{rec.hbl_no}}</td>
-                        <td>{{rec.hbl_bl_no}}</td>
-                        <td>{{rec.hbl_date}}</td>
-                        <td>{{rec.hbl_exp_name}}</td>
-                        <td>{{rec.hbl_imp_name}}</td>
-                        <td>{{rec.hbl_agent_name}}</td>
-                        <td>{{rec.hbl_carrier_name}}</td>
-                        <td>{{rec.hbl_terms}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+          <div *ngIf="mode=='EDIT'" class="page-box">
+            <div>
+              <button (click)="HblList(Record)" class="btn btn-link">Find House</button>
+            </div>
+            <div>
+              <div class="page-body table-responsive">
+                <table class="table  table-hover table-sm">
+                  <thead class="page-body-thead">
+                    <tr>
+                      <th>SI#</th>
+                      <th>HAWB#</th>
+                      <th>HAWB.DATE</th>
+                      <th>SHIPPER</th>
+                      <th>CONSIGNEE</th>
+                      <th>AGENT</th>
+                      <th>CARRIER</th>
+                      <th>TERMS</th>
+                    </tr>
+                  </thead>
+                  <tbody class="page-body-tbody" *ngFor="let rec of Record.HblList">
+                    <tr>
+                      <td><input type="checkbox" [(ngModel)]="rec.hbl_selected">{{rec.hbl_no}}</td>
+                      <td>{{rec.hbl_bl_no}}</td>
+                      <td>{{rec.hbl_date}}</td>
+                      <td>{{rec.hbl_exp_name}}</td>
+                      <td>{{rec.hbl_imp_name}}</td>
+                      <td>{{rec.hbl_agent_name}}</td>
+                      <td>{{rec.hbl_carrier_name}}</td>
+                      <td>{{rec.hbl_terms}}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
-            <div class="page-box">
-              <div class="col">
-                <button [hidden]="disableSave" [disabled]="loading || Record.lock_record" (click)="Save()"
-                  class="btn btn-success btn-sm">Save</button>
-                <button [disabled]="loading" (click)="ActionHandler('LIST','')"
-                  class="btn btn-success btn-sm">Return</button>
-                <button *ngIf="mode=='EDIT' && bCheckList" [disabled]="loading"
-                  (click)="PrintCheckList('','AIR EXPORT','EXCEL')" class="btn btn-success btn-sm">Check List</button>
-                <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowBL()"
-                  class="btn btn-success btn-sm">MAWB</button>
-                <label *ngIf="mode == 'EDIT'" class="col-form-label col-form-label-sm">
-                  <input class="form-check-input ml-2" type="checkbox" [(ngModel)]="is_express_mode"><span
-                    class="ml-4">Express Mode</span>
-                </label>
-                <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="PrintBarcode('CUSTOM-SIZE')"
-                  class="btn btn-success btn-sm">Barcode</button>
-                <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="PrintBarcode('A4')"
-                  class="btn btn-success btn-sm">Barcode(A4)</button>
-                <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)"
-                  class="btn btn-success btn-sm">History</button>
-                <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
-                  <font color="RED">
-                    <strong>
-                      {{Record.lock_record == true ? 'LOCKED' : 'UNLOCKED'}}
-                    </strong>
-                  </font>
-                </label>
-                <i *ngIf="loading" class="fa fa-spinner"></i>
-              </div>
-            </div>
-
           </div>
+          <div class="page-box">
+            <div class="col">
+              <button [hidden]="disableSave" [disabled]="loading || Record.lock_record" (click)="Save()"
+                class="btn btn-success btn-sm">Save</button>
+              <button [disabled]="loading" (click)="ActionHandler('LIST','')"
+                class="btn btn-success btn-sm">Return</button>
+              <button *ngIf="mode=='EDIT' && bCheckList" [disabled]="loading"
+                (click)="PrintCheckList('','AIR EXPORT','EXCEL')" class="btn btn-success btn-sm">Check List</button>
+              <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowBL()"
+                class="btn btn-success btn-sm">MAWB</button>
+              <label *ngIf="mode == 'EDIT'" class="col-form-label col-form-label-sm">
+                <input class="form-check-input ml-2" type="checkbox" [(ngModel)]="is_express_mode"><span
+                  class="ml-4">Express Mode</span>
+              </label>
+              <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="PrintBarcode('CUSTOM-SIZE')"
+                class="btn btn-success btn-sm">Barcode</button>
+              <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="PrintBarcode('A4')"
+                class="btn btn-success btn-sm">Barcode(A4)</button>
+              <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)"
+                class="btn btn-success btn-sm">History</button>
+              <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
+                <font color="RED">
+                  <strong>
+                    {{Record.lock_record == true ? 'LOCKED' : 'UNLOCKED'}}
+                  </strong>
+                </font>
+              </label>
+              <i *ngIf="loading" class="fa fa-spinner"></i>
+            </div>
+          </div>
+
+
           <br />
           <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
           <div *ngIf="InfoMessage" class="alert alert-success">
@@ -818,4 +819,4 @@
     </div>
   </div>
 </div>
-<app-warningalert #WarnMsg ></app-warningalert>
+<app-warningalert #WarnMsg></app-warningalert>

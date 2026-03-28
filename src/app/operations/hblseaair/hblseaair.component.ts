@@ -811,26 +811,26 @@ export class HblSeaAirComponent {
         let bret: boolean = true;
         this.ErrorMessage = '';
         this.InfoMessage = '';
-        if (this.gs.isBlank(this.Record.hbl_cf_date)) {
-            bret = false;
-            sError += "\n\r | Date Cannot Be Blank";
-        }
-        if (this.gs.isBlank(this.Record.hbl_exp_id)) {
-            bret = false;
-            sError += "\n\r | Exporter Cannot Be Blank";
-        }
-        if (this.gs.isBlank(this.Record.hbl_imp_id)) {
-            bret = false;
-            sError += "\n\r | Importer Cannot Be Blank";
-        }
-        if (this.gs.isBlank(this.Record.hbl_agent_id)) {
-            bret = false;
-            sError += "\n\r | Agent Cannot Be Blank";
-        }
-        if (this.gs.isBlank(this.Record.hbl_carrier_id)) {
-            bret = false;
-            sError += "\n\r | Carrier Cannot Be Blank";
-        }
+        // if (this.gs.isBlank(this.Record.hbl_cf_date)) {
+        //     bret = false;
+        //     sError += "\n\r | Date Cannot Be Blank";
+        // }
+        // if (this.gs.isBlank(this.Record.hbl_exp_id)) {
+        //     bret = false;
+        //     sError += "\n\r | Exporter Cannot Be Blank";
+        // }
+        // if (this.gs.isBlank(this.Record.hbl_imp_id)) {
+        //     bret = false;
+        //     sError += "\n\r | Importer Cannot Be Blank";
+        // }
+        // if (this.gs.isBlank(this.Record.hbl_agent_id)) {
+        //     bret = false;
+        //     sError += "\n\r | Agent Cannot Be Blank";
+        // }
+        // if (this.gs.isBlank(this.Record.hbl_carrier_id)) {
+        //     bret = false;
+        //     sError += "\n\r | Carrier Cannot Be Blank";
+        // }
 
         if (this.Record.hbl_exp_id.trim() != this.sExp_ID && this.Record.JobList.length > 0) {
             bret = false;

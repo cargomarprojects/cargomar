@@ -856,7 +856,7 @@
               </ngb-tab>
             </ngb-tabset>
           </div>
-          <div class="page-box">
+          <div *ngIf="mode=='EDIT'" class="page-box">
             <div>
               <button (click)="HblList(Record)" class="btn btn-link">Find House</button>
             </div>

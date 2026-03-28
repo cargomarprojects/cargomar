@@ -496,22 +496,11 @@
                   </div>
                 </div>
               </div>
-              <!-- <div class="col-sm-4">
-                  <div class="form-group row">
-                    <label *ngIf="Record.hbl_mbl_no" class="col-3 col-form-label  col-form-label-sm"><span
-                        *ngIf="type=='SEA EXPORT'">MBL#</span><span *ngIf="type=='AIR EXPORT'">MAWB#</span></label>
-                    <div class="col-sm-9">
-                      <label class="col-form-label  col-form-label-sm">
-                        <font color="red">{{Record.hbl_mbl_no}} </font>
-                      </label>
-                    </div>
-                  </div>
-                </div> -->
             </div>
           </div>
 
 
-          <div class="page-box">
+          <div  *ngIf="mode=='EDIT'"  class="page-box">
             <div>
               <button (click)="JobList(Record)" class="btn btn-link">Find Job</button>
             </div>
