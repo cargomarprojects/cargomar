@@ -145,7 +145,7 @@ export class LeaveReqComponent {
 
     if (this.gs.isBlank(this.approvalstatus) && this.gs.globalVariables.user_code == 'ADMIN')
       this.approvalstatus = 'APPROVED,SANCTIONED,REJECTED';
-    else if (this.gs.isBlank(this.approvalstatus) && this.type=='EMAIL-APPROVAL')
+    else if (this.gs.isBlank(this.approvalstatus) && this.type == 'EMAIL-APPROVAL')
       this.approvalstatus = 'APPROVED,REJECTED';
     this.InitLov();
     this.LoadCombo();
@@ -204,6 +204,13 @@ export class LeaveReqComponent {
       this.Record.rec_category = _Record.col1;
       this.GetLeaveStatus();
     }
+    if (_Record.controlname == "REQUEST-TO") {
+      this.Record.lr_request_to_id = _Record.id;
+      this.Record.lr_request_to_code = _Record.code;
+      this.Record.lr_request_to_name = _Record.name;
+    }
+
+
   }
 
   //function for handling LIST/NEW/EDIT Buttons
@@ -623,6 +630,9 @@ export class LeaveReqComponent {
         this.lev_cl_bal = response.lev_cl_bal;
         this.lev_sl_tkn = response.lev_sl_tkn;
         this.lev_sl_bal = response.lev_sl_bal;
+        this.Record.lr_request_to_id = response.emp_hod_id;
+        this.Record.lr_request_to_code = response.emp_hod_code;
+        this.Record.lr_request_to_name = response.emp_hod_name;
       },
         error => {
           this.loading = false;

@@ -164,14 +164,14 @@
             <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.lr_emp_name" />
           </div>
         </div>
-        <!-- <div class="form-group row">
+        <div class="form-group row">
           <label class="col-sm-3 col-form-label col-form-label-sm">Request To</label>
           <div class="col-sm-9">
-            <app-autocomplete3 [controlname]="'HOD'" [tabletype]="'USER'" [where]="''" [displaycolumn]="'NAME'"
-              [displaydata]="Record.emp_hod_name" (ValueChanged)="LovSelected($event)">
+            <app-autocomplete3 [controlname]="'REQUEST-TO'" [tabletype]="'USER'" [where]="''" [displaycolumn]="'NAME'"
+              [displaydata]="Record.lr_request_to_name" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
           </div>
-        </div> -->
+        </div>
         <div class="form-group row">
           <label class="col-sm-3 col-form-label col-form-label-sm">From Date</label>
           <div class="col-sm-4">

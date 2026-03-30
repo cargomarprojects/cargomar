@@ -31,8 +31,10 @@ export class LeaveReq {
     lr_emp_branch_name: string;
     lr_spl_days: number;
     lr_spl_half_days: number;
+    lr_request_to_id: string;
+    lr_request_to_code: string;
+    lr_request_to_name: string;
 
-    
     lr_cancelled: boolean;
     lr_type: string;
 
