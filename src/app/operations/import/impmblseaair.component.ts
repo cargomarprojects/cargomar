@@ -860,7 +860,7 @@ export class ImpMblSeaAirComponent {
         this.foldersent = response.foldersent;
         alert(this.InfoMessage);
         this.RefreshList();
-        this.HblList(this.Record);
+        // this.HblList(this.Record);
       },
         error => {
           this.loading = false;
