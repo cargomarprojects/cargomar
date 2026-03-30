@@ -24,10 +24,13 @@ export class MblAirComponent {
   @Input() type: string = '';
   InitCompleted: boolean = false;
   menu_record: any;
+  hbl_menu_record: any;
 
   selectedRowIndex = 0;
 
   currentPage = 'ROOTPAGE';
+  canAddHouse = false;
+  canEditHouse = false;
   bAdmin = false;
   bDocs = false;
   bPrint = false;
@@ -35,6 +38,10 @@ export class MblAirComponent {
   bAirCostTab = false;
   bPrepaidTab = false;
 
+  search_all_house: boolean = false;
+  hbl_menuid: string = "";
+  hbl_title: string = "";
+  house_id: string = ""
   modal: any;
   folder_id: string;
   chk_foldersent: boolean = false;
@@ -151,6 +158,18 @@ export class MblAirComponent {
         if (this.menu_record.rights_approval.toString().indexOf('{CL}') >= 0 || this.gs.globalVariables.user_code == "ADMIN")
           this.bCheckList = true;
       }
+    }
+
+    this.hbl_menuid = "SIAIREXPORT";
+    this.hbl_title = "SI Air Export";
+    this.canAddHouse = false;
+    this.canEditHouse = false;
+    this.hbl_menu_record = this.gs.getMenu(this.hbl_menuid);
+    if (this.hbl_menu_record) {
+      if (this.hbl_menu_record.rights_add)
+        this.canAddHouse = true;
+      if (this.hbl_menu_record.rights_edit)
+        this.canEditHouse = true;
     }
     this.InitLov();
     this.LoadCombo();
@@ -704,6 +723,7 @@ export class MblAirComponent {
         this.foldersent = response.foldersent;
         this.RefreshList();
         alert(this.InfoMessage);
+        //  this.HblList(this.Record);
       },
         error => {
           this.loading = false;
@@ -874,7 +894,8 @@ export class MblAirComponent {
       mblid: _Record.mbl_pkid,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
-      year_code: this.gs.globalVariables.year_code
+      year_code: this.gs.globalVariables.year_code,
+      search_all_house: this.search_all_house
     };
 
     this.ErrorMessage = '';
@@ -1109,5 +1130,26 @@ export class MblAirComponent {
   ShowHistory(history: any) {
     this.ErrorMessage = '';
     this.open(history);
+  }
+
+  AddHouse(_content: any) {
+    this.house_id = '';
+    this.open(_content);
+  }
+
+  EditHouse(_id: string, _mblid: string, _content: any) {
+    if (this.Record.mbl_pkid != _mblid) {
+      alert('Master not linked')
+      return;
+    }
+    this.house_id = _id;
+    this.open(_content);
+  }
+
+  hblcallbackevent(params: any) {
+    if (params.saction == "SAVE") {
+      this.HblList(this.Record)
+    }
+
   }
 }

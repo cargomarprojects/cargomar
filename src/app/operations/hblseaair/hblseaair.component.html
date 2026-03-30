@@ -211,7 +211,7 @@
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label col-form-label-sm">Consignee</label>
                   <div class="col-sm-4">
-                    <app-autocomplete #ImporterLov [disabled]="Record.hbl_mbl_id != ''" [inputdata]="IMPRECORD"
+                    <app-autocomplete #ImporterLov [disabled]="Record.hbl_mbl_id != ''&&mode=='EDIT'" [inputdata]="IMPRECORD"
                       (ValueChanged)="LovSelected($event)"></app-autocomplete>
                   </div>
                   <label class="col-sm-2 col-form-label col-form-label-sm">Br#</label>
@@ -250,7 +250,7 @@
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label col-form-label-sm">Agent</label>
                   <div class="col-sm-4">
-                    <app-autocomplete #AgentLov [disabled]="Record.hbl_mbl_id != ''" [inputdata]="AGENTRECORD"
+                    <app-autocomplete #AgentLov [disabled]="Record.hbl_mbl_id != ''&&mode=='EDIT'" [inputdata]="AGENTRECORD"
                       (ValueChanged)="LovSelected($event)"></app-autocomplete>
                   </div>
                   <label class="col-sm-2 col-form-label col-form-label-sm">Br#</label>
@@ -276,7 +276,7 @@
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label col-form-label-sm">Carrier</label>
                   <div class="col-sm-10">
-                    <app-autocomplete #CarrLov [disabled]="Record.hbl_mbl_id != ''" [inputdata]="SEACARRIERRECORD"
+                    <app-autocomplete #CarrLov [disabled]="Record.hbl_mbl_id != ''&&mode=='EDIT'" [inputdata]="SEACARRIERRECORD"
                       (ValueChanged)="LovSelected($event)"></app-autocomplete>
                   </div>
                 </div>

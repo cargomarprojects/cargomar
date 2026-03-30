@@ -664,14 +664,20 @@
 
           <div *ngIf="mode=='EDIT'" class="page-box">
             <div>
+              <input type="checkbox" [(ngModel)]="search_all_house" id="_chkallhouse">
+              <label class="col-form-label col-form-label-sm" for="_chkallhouse">Search All</label>
               <button (click)="HblList(Record)" class="btn btn-link">Find House</button>
+              <button (click)="AddHouse(hblcontentae)" class="btn btn-link" [disabled]="!canAddHouse">Add New
+                House</button>
             </div>
             <div>
-              <div class="page-body table-responsive">
-                <table class="table  table-hover table-sm">
+              <div class="table-responsive fixedTableHead" [style.height]="Record.HblList.length>8?'250px':'auto'"
+                [style.overflow-y]="Record.HblList.length>8?'scroll':'auto'">
+                <table class="table  table-hover table-sm table-bordered table-striped">
                   <thead class="page-body-thead">
                     <tr>
                       <th>SI#</th>
+                      <th *ngIf="canEditHouse" style="width:1%;">EDIT</th>
                       <th>HAWB#</th>
                       <th>HAWB.DATE</th>
                       <th>SHIPPER</th>
@@ -684,6 +690,10 @@
                   <tbody class="page-body-tbody" *ngFor="let rec of Record.HblList">
                     <tr>
                       <td><input type="checkbox" [(ngModel)]="rec.hbl_selected">{{rec.hbl_no}}</td>
+                      <td *ngIf="canEditHouse" (click)="EditHouse(rec.hbl_pkid,rec.hbl_mbl_id,hblcontentae)"
+                        class="hlink">
+                        <i class="fa fa-pencil fa-md pointer " aria-hidden="true"></i>
+                      </td>
                       <td>{{rec.hbl_bl_no}}</td>
                       <td>{{rec.hbl_date}}</td>
                       <td>{{rec.hbl_exp_name}}</td>
@@ -820,3 +830,14 @@
   </div>
 </div>
 <app-warningalert #WarnMsg></app-warningalert>
+<ng-template #hblcontentae let-c="close" let-d="dismiss">
+  <div class="modal-header" style="cursor: move;" (mousedown)="gs.startDrag($event)">
+    <h4 class="modal-title">{{hbl_title}}</h4>
+    <button type="button" class="btn btn-primary btn-sm" (click)="d('Cross click')">Close</button>
+  </div>
+  <div class="modal-body">
+    <app-hblseaair [isModalWindow]="'Y'" [menuid]="hbl_menuid" [master_id]="Record.mbl_pkid"
+      [master_bkno]="Record.mbl_bookslno" [master_no]="Record.mbl_no" ] [house_id]="house_id"
+      (callbackevent)="hblcallbackevent($event)"></app-hblseaair>
+  </div>
+</ng-template>
