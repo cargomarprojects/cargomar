@@ -860,7 +860,6 @@ export class ImpMblSeaAirComponent {
         this.foldersent = response.foldersent;
         alert(this.InfoMessage);
         this.RefreshList();
-        // this.HblList(this.Record);
       },
         error => {
           this.loading = false;
@@ -1017,7 +1016,7 @@ export class ImpMblSeaAirComponent {
     }
   }
 
-  HblList(_Record: Mblm) {
+  HblList(_Record: Mblm, _showLinked: boolean = false) {
 
     this.ErrorMessage = '';
     this.InfoMessage = '';
@@ -1048,7 +1047,8 @@ export class ImpMblSeaAirComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
-      search_all_house: this.search_all_house
+      search_all_house: this.search_all_house,
+      showlinked: _showLinked
     };
 
     this.ErrorMessage = '';
@@ -1312,9 +1312,9 @@ export class ImpMblSeaAirComponent {
 
   hblcallbackevent(params: any) {
     if (params.saction == "SAVE") {
-      this.HblList(this.Record)
+      this.HblList(this.Record, true)
     }
 
   }
-   
+
 }

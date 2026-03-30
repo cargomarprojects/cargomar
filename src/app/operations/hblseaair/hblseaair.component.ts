@@ -946,8 +946,8 @@ export class HblSeaAirComponent {
                 this.masterexist = this.IsMasterExist();
                 this.jobexist = this.IsJobExist();
                 if (this.isModalWindow == 'Y') {
-                    // if (this.callbackevent != null)
-                    //     this.callbackevent.emit({ saction: 'SAVE', mblid: this.Record.hbl_mbl_id });
+                    if (this.callbackevent != null)
+                        this.callbackevent.emit({ saction: 'SAVE', mblid: this.Record.hbl_mbl_id });
                 } else {
                     this.RefreshList();
                 }

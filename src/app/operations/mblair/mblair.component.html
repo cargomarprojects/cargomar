@@ -836,7 +836,7 @@
     <button type="button" class="btn btn-primary btn-sm" (click)="d('Cross click')">Close</button>
   </div>
   <div class="modal-body">
-    <app-hblseaair [isModalWindow]="'Y'" [menuid]="hbl_menuid" [master_id]="Record.mbl_pkid"
+    <app-hblseaair [isModalWindow]="'Y'" [menuid]="hbl_menuid"  [type]="type" [master_id]="Record.mbl_pkid"
       [master_bkno]="Record.mbl_bookslno" [master_no]="Record.mbl_no" ] [house_id]="house_id"
       (callbackevent)="hblcallbackevent($event)"></app-hblseaair>
   </div>

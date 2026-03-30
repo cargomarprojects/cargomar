@@ -723,7 +723,6 @@ export class MblAirComponent {
         this.foldersent = response.foldersent;
         this.RefreshList();
         alert(this.InfoMessage);
-        //  this.HblList(this.Record);
       },
         error => {
           this.loading = false;
@@ -864,7 +863,7 @@ export class MblAirComponent {
   }
 
 
-  HblList(_Record: Mblm) {
+  HblList(_Record: Mblm, _showLinked: boolean = false) {
 
     this.ErrorMessage = '';
     this.InfoMessage = '';
@@ -895,7 +894,8 @@ export class MblAirComponent {
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
-      search_all_house: this.search_all_house
+      search_all_house: this.search_all_house,
+      showlinked: _showLinked
     };
 
     this.ErrorMessage = '';
@@ -1148,7 +1148,7 @@ export class MblAirComponent {
 
   hblcallbackevent(params: any) {
     if (params.saction == "SAVE") {
-      this.HblList(this.Record)
+      this.HblList(this.Record, true)
     }
 
   }
