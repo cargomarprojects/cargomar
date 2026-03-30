@@ -697,7 +697,13 @@ export class HblSeaAirComponent {
                 this.Record.hbl_mbl_bookno = _Rec.hbl_mbl_bookno;
                 this.Record.hbl_commodity = _Rec.hbl_commodity;
                 this.Record.hbl_direct_bl = _Rec.hbl_direct_bl;
-                 
+
+                this.Record.hbl_nature = _Rec.hbl_nature;
+                this.Record.hbl_coloader_id = _Rec.hbl_coloader_id;
+                this.Record.hbl_coloader_code = _Rec.hbl_coloader_code;
+                this.Record.hbl_coloader_name = _Rec.hbl_coloader_name;
+
+
                 this.AGENTRECORD = new SearchTable();
                 this.AGENTRECORD.controlname = "AGENT";
                 this.AGENTRECORD.displaycolumn = "CODE";
@@ -769,6 +775,14 @@ export class HblSeaAirComponent {
                 this.LOCATIONRECORD.id = this.Record.hbl_location_id;
                 this.LOCATIONRECORD.code = this.Record.hbl_location_code;
                 this.LOCATIONRECORD.name = this.Record.hbl_location_name;
+
+                this.COLOADERRECORD = new SearchTable();
+                this.COLOADERRECORD.controlname = "COLOADER";
+                this.COLOADERRECORD.displaycolumn = "CODE";
+                this.COLOADERRECORD.type = "CUSTOMER";
+                this.COLOADERRECORD.id = this.Record.hbl_coloader_id;
+                this.COLOADERRECORD.code = this.Record.hbl_coloader_code;
+                this.COLOADERRECORD.name = this.Record.hbl_coloader_name;
 
             },
                 error => {

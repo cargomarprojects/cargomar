@@ -39,6 +39,7 @@ export class MblSeaComponent {
   @Input() type: string = '';
   InitCompleted: boolean = false;
   menu_record: any;
+  hbl_menu_record: any;
 
   selectedRowIndex = 0;
 
@@ -49,6 +50,8 @@ export class MblSeaComponent {
 
   bChanged: boolean;
 
+  canAddHouse = false;
+  canEditHouse = false;
   bAdmin = false;
   bDocs = false;
   bPrint = false;
@@ -63,6 +66,11 @@ export class MblSeaComponent {
   chk_foldersent: boolean = false;
   foldersent: boolean = false;
   folder_chk: boolean = false;
+
+  search_all_house: boolean = false;
+  hbl_menuid: string = "";
+  hbl_title: string = "";
+  house_id: string = ""
   modal: any;
   searchby = '';
   searchstring = '';
@@ -187,6 +195,18 @@ export class MblSeaComponent {
         this.bSurrenderMailHO = this.gs.globalVariables.user_code == "ADMIN";
         this.bSurrenderMailAgent = this.gs.globalVariables.user_code == "ADMIN";
       }
+    }
+
+    this.hbl_menuid = "SISEAEXPORT";
+    this.hbl_title = "SI Sea Export";
+    this.canAddHouse = false;
+    this.canEditHouse = false;
+    this.hbl_menu_record = this.gs.getMenu(this.hbl_menuid);
+    if (this.hbl_menu_record) {
+      if (this.hbl_menu_record.rights_add)
+        this.canAddHouse = true;
+      if (this.hbl_menu_record.rights_edit)
+        this.canEditHouse = true;
     }
     this.InitLov();
     this.LoadCombo();
@@ -1382,7 +1402,7 @@ export class MblSeaComponent {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
 
-  HblList(_Record: LinerBkm) {
+  HblList(_Record: LinerBkm, _showLinked: boolean = false) {
     this.ErrorMessage = '';
     this.InfoMessage = '';
     if (this.Record.book_agent_id.trim().length <= 0) {
@@ -1412,7 +1432,9 @@ export class MblSeaComponent {
       mblid: _Record.book_pkid,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
-      year_code: this.gs.globalVariables.year_code
+      year_code: this.gs.globalVariables.year_code,
+      search_all_house: this.search_all_house,
+      showlinked: _showLinked
     };
 
     this.ErrorMessage = '';
@@ -2215,5 +2237,26 @@ export class MblSeaComponent {
           this.ErrorMessage = this.gs.getError(error);
           alert(this.ErrorMessage);
         });
+  }
+
+  AddHouse(_content: any) {
+    this.house_id = '';
+    this.open(_content);
+  }
+
+  EditHouse(_id: string, _mblid: string, _content: any) {
+    if (this.Record.book_pkid != _mblid) {
+      alert('Master not linked')
+      return;
+    }
+    this.house_id = _id;
+    this.open(_content);
+  }
+
+  hblcallbackevent(params: any) {
+    if (params.saction == "SAVE") {
+      this.HblList(this.Record, true);
+    }
+
   }
 }

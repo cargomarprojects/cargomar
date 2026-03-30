@@ -1148,7 +1148,7 @@ export class MblAirComponent {
 
   hblcallbackevent(params: any) {
     if (params.saction == "SAVE") {
-      this.HblList(this.Record, true)
+      this.HblList(this.Record, true);
     }
 
   }

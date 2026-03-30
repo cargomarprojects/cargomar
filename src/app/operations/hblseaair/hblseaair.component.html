@@ -505,8 +505,9 @@
               <button (click)="JobList(Record)" class="btn btn-link">Find Job</button>
             </div>
             <div *ngIf="JobTab=='LIST'">
-              <div class="page-body table-responsive">
-                <table class="table  table-hover table-sm">
+              <div class="table-responsive  fixedTableHead" [style.height]="Record.JobList.length>8?'250px':'auto'"
+              [style.overflow-y]="Record.JobList.length>8?'scroll':'auto'">
+                <table class="table  table-hover table-sm table-bordered table-striped">
                   <thead class="page-body-thead">
                     <tr>
                       <th>JOB#</th>
