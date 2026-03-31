@@ -227,7 +227,7 @@ export class LeaveReqComponent {
       this.mode = 'ADD';
       this.ResetControls();
       this.NewRecord();
-      this.GetLeaveStatus();
+      this.GetLeaveStatus("LOV");
     }
     else if (action === 'EDIT') {
       this.currentTab = 'DETAILS';
@@ -340,6 +340,9 @@ export class LeaveReqComponent {
     this.Record.lr_is_travelling = false;
     this.Record.lr_travelling_days = 0;
     this.Record.lr_travelling_half_days = 0;
+    this.Record.lr_request_to_id = "";
+    this.Record.lr_request_to_code = "";
+    this.Record.lr_request_to_name = "";
     this.Record.rec_category = this.gs.globalVariables.emp_status;
     this.lock_record = false;
     this.Record.lr_type = 'LEAVE';
@@ -631,7 +634,7 @@ export class LeaveReqComponent {
         this.lev_cl_bal = response.lev_cl_bal;
         this.lev_sl_tkn = response.lev_sl_tkn;
         this.lev_sl_bal = response.lev_sl_bal;
-        if (response.emp_hod_id) {
+        if (_type == "LOV") {
           this.Record.lr_request_to_id = response.emp_hod_id;
           this.Record.lr_request_to_code = response.emp_hod_code;
           this.Record.lr_request_to_name = response.emp_hod_name;
