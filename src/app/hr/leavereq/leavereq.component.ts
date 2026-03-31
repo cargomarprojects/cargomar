@@ -202,7 +202,7 @@ export class LeaveReqComponent {
       this.Record.lr_emp_code = _Record.code;
       this.Record.lr_emp_name = _Record.name;
       this.Record.rec_category = _Record.col1;
-      this.GetLeaveStatus();
+      this.GetLeaveStatus("LOV");
     }
     if (_Record.controlname == "REQUEST-TO") {
       this.Record.lr_request_to_id = _Record.id;
@@ -610,13 +610,14 @@ export class LeaveReqComponent {
     return AddressSplit;
   }
 
-  GetLeaveStatus() {
+  GetLeaveStatus(_type: string = "") {
     this.loading = true;
     let SearchData = {
       levempid: this.Record.lr_emp_id,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
-      year_code: this.gs.globalVariables.year_code
+      year_code: this.gs.globalVariables.year_code,
+      type: _type
     };
 
     this.ErrorMessage = '';
@@ -630,9 +631,11 @@ export class LeaveReqComponent {
         this.lev_cl_bal = response.lev_cl_bal;
         this.lev_sl_tkn = response.lev_sl_tkn;
         this.lev_sl_bal = response.lev_sl_bal;
-        this.Record.lr_request_to_id = response.emp_hod_id;
-        this.Record.lr_request_to_code = response.emp_hod_code;
-        this.Record.lr_request_to_name = response.emp_hod_name;
+        if (response.emp_hod_id) {
+          this.Record.lr_request_to_id = response.emp_hod_id;
+          this.Record.lr_request_to_code = response.emp_hod_code;
+          this.Record.lr_request_to_name = response.emp_hod_name;
+        }
       },
         error => {
           this.loading = false;
