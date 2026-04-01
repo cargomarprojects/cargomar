@@ -324,7 +324,8 @@ export class VisitReportComponent {
             sortby: this.sortby,
             imonth: this.iMonth,
             report_format: this.report_format,
-            included: this.included
+            included: this.included,
+            hostname: window.location.protocol + "//" + window.location.host
         };
 
         this.ErrorMessage = '';
