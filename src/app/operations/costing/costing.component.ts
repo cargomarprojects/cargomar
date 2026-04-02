@@ -119,7 +119,7 @@ export class CostingComponent {
       this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_admin)
         this.bAdmin = true;
-      this.bPrint = this.menu_record.rights_print
+      this.bPrint = this.menu_record.rights_print;
     }
     this.InitColumns();
     this.InitLov();
