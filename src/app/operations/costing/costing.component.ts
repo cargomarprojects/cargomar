@@ -45,6 +45,7 @@ export class CostingComponent {
   lock_record: boolean = false;
   lock_date: boolean = false;
   bAdmin = false;
+  bPrint = false;
 
   sSubject: string = '';
   ftpUpdtSql: string = '';
@@ -110,6 +111,7 @@ export class CostingComponent {
 
   InitComponent() {
     this.AttachList = new Array<any>();
+    this.bPrint = false;
     this.bAdmin = false;
     this.currentTab = 'LIST';
     this.menu_record = this.gs.getMenu(this.menuid);
@@ -117,6 +119,7 @@ export class CostingComponent {
       this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_admin)
         this.bAdmin = true;
+      this.bPrint = this.menu_record.rights_print
     }
     this.InitColumns();
     this.InitLov();
@@ -260,7 +263,8 @@ export class CostingComponent {
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
-      page_rowcount: this.page_rowcount
+      page_rowcount: this.page_rowcount,
+      report_folder:this.gs.globalVariables.report_folder
     };
 
     this.InfoMessage = '';
@@ -268,10 +272,14 @@ export class CostingComponent {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.RecordList = response.list;
-        this.page_count = response.page_count;
-        this.page_current = response.page_current;
-        this.page_rowcount = response.page_rowcount;
+        if (_type == 'EXCEL')
+          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+        else {
+          this.RecordList = response.list;
+          this.page_count = response.page_count;
+          this.page_current = response.page_current;
+          this.page_rowcount = response.page_rowcount;
+        }
       },
         error => {
           this.loading = false;
