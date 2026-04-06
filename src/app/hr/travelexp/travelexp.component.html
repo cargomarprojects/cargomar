@@ -88,7 +88,7 @@
                     <th>LODGING.AMT</th>
                     <!-- <th>BOARDING.DAYS</th> -->
                     <th>BOARDING.AMT</th>
-                     <th>OWN.ARRNG.</th>
+                    <th>OWN.ARRNG.</th>
                     <th>CONV.AMT</th>
                     <th>MISC.AMT</th>
                     <th>TOTAL</th>
@@ -115,7 +115,7 @@
                     <td>{{rec.te_travel_to}}</td>
                     <td>{{rec.te_city_type}}</td>
                     <td>{{rec.te_purpose}}</td>
-                      <td>{{rec.te_travel_fare_amt}}</td>
+                    <td>{{rec.te_travel_fare_amt}}</td>
                     <!-- <td>{{rec.te_lodging_days}}</td> -->
                     <td>{{rec.te_lodging_amt}}</td>
                     <!-- <td>{{rec.te_boarding_days}}</td> -->
@@ -272,8 +272,22 @@
                             <div class="col-sm-9">
                                 <!-- <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.te_remarks" required
                             (blur)="OnBlur('te_remarks')" maxlength="250" /> -->
-                                <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.te_remarks"
+                                <textarea rows="2" class="form-control form-control-sm" [(ngModel)]="Record.te_remarks"
                                     (blur)="OnBlur('te_remarks')" maxlength="250"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label col-form-label-sm pr-0">Adv. Amt</label>
+                            <div class="col-sm-3">
+                                <input type="number" class="form-control form-control-sm"
+                                    [(ngModel)]="Record.te_adv_amt" required (blur)="OnBlur('te_adv_amt')"
+                                    maxlength="12" />
+                            </div>
+                            <label class="col-sm-3 col-form-label col-form-label-sm pr-0">CR. Card Amt</label>
+                            <div class="col-sm-3">
+                                <input type="number" class="form-control form-control-sm"
+                                    [(ngModel)]="Record.te_cr_card_amt" required (blur)="OnBlur('te_cr_card_amt')"
+                                    maxlength="12" />
                             </div>
                         </div>
                     </div>
@@ -293,9 +307,9 @@
                             <label class="col-sm-3 col-form-label col-form-label-sm">Amount</label>
                             <div class="col-sm-3">
                                 <input type="number" class="form-control form-control-sm"
-                                    [(ngModel)]="Record.te_travel_fare_amt" required (blur)="OnBlur('te_travel_fare_amt')"
-                                    (change)="OnChange('te_travel_fare_amt')" (focus)="OnFocus('te_travel_fare_amt')"
-                                    maxlength="12" />
+                                    [(ngModel)]="Record.te_travel_fare_amt" required
+                                    (blur)="OnBlur('te_travel_fare_amt')" (change)="OnChange('te_travel_fare_amt')"
+                                    (focus)="OnFocus('te_travel_fare_amt')" maxlength="12" />
                             </div>
                         </div>
                         <hr>
@@ -447,7 +461,8 @@
                             <div class="col-sm-3">
                                 <input type="number" [disabled]="!bApproved" class="form-control form-control-sm"
                                     [(ngModel)]="Record.te_travel_fare_amt_aprvd" required
-                                    (blur)="OnBlur('te_travel_fare_amt_aprvd')" (change)="OnChange('te_travel_fare_amt_aprvd')"
+                                    (blur)="OnBlur('te_travel_fare_amt_aprvd')"
+                                    (change)="OnChange('te_travel_fare_amt_aprvd')"
                                     (focus)="OnFocus('te_travel_fare_amt_aprvd')" maxlength="12" />
                             </div>
                         </div>
@@ -547,6 +562,8 @@
                     <div class="offset-3 col-sm-9">
                         <button [hidden]="disableSave" [disabled]="loading||bLocked" (click)="Save('SAVE')"
                             class="btn btn-primary btn-sm">Save</button>
+                        <button [disabled]="loading" *ngIf="ms.state.mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
+                            class="btn btn-primary btn-sm">Documents</button>
                         <button *ngIf="ms.state.mode=='EDIT'" (click)="PrintReceipt('PDF','')"
                             class="btn btn-primary btn-sm">Print</button>
                         <button *ngIf="ms.state.mode=='EDIT'&&bEmail" (click)="PrintReceipt('MAIL',emailsent)"
@@ -644,6 +661,20 @@
         <app-mail [pkid]="ms.state.pkid" [type]="'TRAVEL EXPENSE'" [sHtml]="ms.state.sMsg" [defaultmessage]=""
             [defaultcc_ids]="ms.state.cc_ids" [defaultsubject]="ms.state.sSubject" [updateto_ids]=false
             [disableUpdateIds]=true [AttachList]="ms.state.AttachList"></app-mail>
+    </div>
+</ng-template>
+<ng-template #doc let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Documents</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-upload [pkid]="ms.state.pkid" [type]="'TRAVEL-EXPENSE'"></app-upload>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
     </div>
 </ng-template>
 <div *ngIf="ms.state.ErrorMessage" class="alert alert-info">

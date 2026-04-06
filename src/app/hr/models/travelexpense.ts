@@ -36,6 +36,8 @@ export class TravelExpense {
     te_date_from: string;
     te_date_to: string;
 
+    te_cr_card_amt: number;
+    te_adv_amt: number;
     te_lodging_amt_aprvd: number;
     te_boarding_amt_aprvd: number;
     te_misc_amt_aprvd: number;

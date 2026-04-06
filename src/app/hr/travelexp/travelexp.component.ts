@@ -291,6 +291,9 @@ export class TravelExpenseComponent {
         this.Record.te_travel_fare_by = 'NA';
         this.Record.te_travel_fare_amt_aprvd = 0;
 
+        this.Record.te_adv_amt = 0;
+        this.Record.te_cr_card_amt = 0;
+
         this.Record.rec_locked = false;
         this.Record.lock_record = false;
         this.Record.rec_mode = this.ms.state.mode;
@@ -557,8 +560,12 @@ export class TravelExpenseComponent {
             if (this.bValueChanged)
                 this.FindTotalAprvd();
         }
-
-
+        if (controlname == 'te_adv_amt') {
+            this.Record.te_adv_amt = this.gs.roundNumber(this.Record.te_adv_amt, 0);
+        }
+        if (controlname == 'te_cr_card_amt') {
+            this.Record.te_cr_card_amt = this.gs.roundNumber(this.Record.te_cr_card_amt, 0);
+        }
     }
 
     OnChange(field: string) {
@@ -741,7 +748,8 @@ export class TravelExpenseComponent {
             folderid: '',
             company_code: '',
             branch_code: '',
-            emp_name: ''
+            emp_name: '',
+            root_folder: ''
         }
 
         SearchData.type = _type;
@@ -751,6 +759,7 @@ export class TravelExpenseComponent {
         SearchData.branch_code = this.gs.globalVariables.branch_code;
         SearchData.folderid = this.gs.getGuid();
         SearchData.emp_name = this.Record.te_emp_name;
+        SearchData.root_folder = this.gs.defaultValues.root_folder;
 
         this.loading = true;
         this.ms.state.ErrorMessage = '';
@@ -759,7 +768,10 @@ export class TravelExpenseComponent {
                 this.loading = false;
                 if (_type == 'MAIL') {
                     this.ms.state.AttachList = new Array<any>();
-                    this.ms.state.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filesize: response.filesize });
+                    // this.ms.state.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filesize: response.filesize });
+                    for (let rec of response.filelist) {
+                        this.ms.state.AttachList.push({ filename: rec.filename, filetype: rec.filetype, filedisplayname: rec.filedisplayname, filesize: rec.filesize });
+                    }
                     this.ms.state.sSubject = response.subject;
                     this.ms.state.sMsg = response.msg;
                     this.ms.state.cc_ids = response.cc_id;
@@ -784,5 +796,8 @@ export class TravelExpenseComponent {
         if (params.stype == "SAVE")
             this.Record.lock_record = true;
     }
-
+    ShowDocuments(doc: any) {
+        this.ms.state.ErrorMessage = '';
+        this.open(doc);
+    }
 }
