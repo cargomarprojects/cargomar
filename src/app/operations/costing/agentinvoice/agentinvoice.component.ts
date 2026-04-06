@@ -21,7 +21,7 @@ export class AgentInvoiceComponent {
 
   selectedRowIndex: number = 0;
 
-  canprint = false;
+
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
@@ -35,7 +35,7 @@ export class AgentInvoiceComponent {
   lock_record: boolean = false;
   lock_date: boolean = false;
   bAdmin = false;
-
+  bPrint = false;
 
   sub: any;
   urlid: string;
@@ -87,16 +87,15 @@ export class AgentInvoiceComponent {
   }
 
   InitComponent() {
-    this.canprint = false;
     this.bAdmin = false;
+    this.bPrint = false;
     this.currentTab = 'LIST';
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
       if (this.menu_record.rights_admin)
         this.bAdmin = true;
-      if (this.menu_record.rights_print)
-        this.canprint = true;
+      this.bPrint = this.menu_record.rights_print;
     }
     this.InitColumns();
     this.InitLov();
@@ -484,7 +483,7 @@ export class AgentInvoiceComponent {
       sError += "| Invalid Amount";
     }
 
-    if ( this.gs.isBlank(this.Record.cost_type)) {
+    if (this.gs.isBlank(this.Record.cost_type)) {
       bret = false;
       sError += "| Cost Type Cannot Be Blank";
     }
