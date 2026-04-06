@@ -29,24 +29,20 @@
       <div class="col-sm-12">
         <!-- <div style="height: 400px; overflow-y: scroll;"> -->
         <div>
-          <div class="row">
-            <div class="col-sm-12">
-              <div class="form-group row">
-                <label class="col-1 col-form-label col-form-label-sm">Mail To</label>
-                <div class="col-3">
-                  <app-autocomplete #CustLov [inputdata]="CUSTRECORD" (ValueChanged)="LovSelected($event)">
-                  </app-autocomplete>
-                </div>
-                <label style="padding-left:0;padding-right:0"
-                  class="col-1 col-form-label col-form-label-sm">Branch#</label>
-                <div style="padding-left:0;" class="col-1">
-                  <app-autocomplete #CustAddrLov [inputdata]="CUSTADDRECORD" (ValueChanged)="LovSelected($event)">
-                  </app-autocomplete>
-                </div>
-                <div class="col-6" style="padding-left:0">
-                  <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="customer_name" />
-                </div>
-              </div>
+
+          <div *ngIf="showMailTo" class="form-group row">
+            <label class="col-sm-1 col-form-label col-form-label-sm">Mail To</label>
+            <div class="col-sm-3">
+              <app-autocomplete #CustLov [inputdata]="CUSTRECORD" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete>
+            </div>
+            <label style="padding-left:0;padding-right:0" class="col-sm-1 col-form-label col-form-label-sm">Branch#</label>
+            <div style="padding-left:0;" class="col-1">
+              <app-autocomplete #CustAddrLov [inputdata]="CUSTADDRECORD" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete>
+            </div>
+            <div class="col-sm-6" style="padding-left:0">
+              <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="customer_name" />
             </div>
           </div>
           <div class="form-group row">
@@ -139,7 +135,8 @@
           <div class="form-group row">
             <div class="offset-sm-2 col-sm-10">
               <button [disabled]="loading" (click)="SendMail()" class="btn btn-primary btn-sm">Send Mail</button>
-              <button [disabled]="loading||disableUpdateIds" (click)="SaveIDs()" class="btn btn-primary btn-sm">Update IDs</button>
+              <button [disabled]="loading||disableUpdateIds" (click)="SaveIDs()" class="btn btn-primary btn-sm">Update
+                IDs</button>
               <i *ngIf="loading" class="fa fa-spinner"></i>
             </div>
           </div>

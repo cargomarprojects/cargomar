@@ -43,6 +43,7 @@ export class MailComponent {
   @Input() public companywise: boolean = false;
   @Input() public disableUpdateIds: boolean = false;
   @Input() public defaultcc_ids: string = '';
+  @Input() public showMailTo: boolean = true;
 
   InitCompleted: boolean = false;
   ftpcompleted: boolean = false;

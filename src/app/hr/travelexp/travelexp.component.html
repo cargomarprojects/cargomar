@@ -660,7 +660,7 @@
     <div class="modal-body">
         <app-mail [pkid]="ms.state.pkid" [type]="'TRAVEL EXPENSE'" [sHtml]="ms.state.sMsg" [defaultmessage]=""
             [defaultcc_ids]="ms.state.cc_ids" [defaultsubject]="ms.state.sSubject" [updateto_ids]=false
-            [disableUpdateIds]=true [AttachList]="ms.state.AttachList"></app-mail>
+            [disableUpdateIds]=true [AttachList]="ms.state.AttachList" [showMailTo]="false"></app-mail>
     </div>
 </ng-template>
 <ng-template #doc let-c="close" let-d="dismiss">
