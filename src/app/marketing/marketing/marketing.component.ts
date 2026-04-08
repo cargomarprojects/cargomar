@@ -107,6 +107,7 @@ export class MarketingComponent {
   CanAddContacts: boolean = false;
   bPrint: boolean = false;
   IsHeader: boolean = true;
+  bUpdateJob: boolean = false;
 
   constructor(
     private modalService: NgbModal,
@@ -153,6 +154,7 @@ export class MarketingComponent {
     this.IsCompany = false;
     this.bPrint = false;
     this.bDocs = false;
+    this.bUpdateJob = false;
     if (this.type == "VISIT") {
 
       this.gs.globalData.mark_fromdate = this.gs.defaultValues.monthbegindate;
@@ -173,7 +175,11 @@ export class MarketingComponent {
         this.bPrint = true;
       if (this.menu_record.rights_docs)
         this.bDocs = true;
+      if (this.menu_record.rights_approval.toString().includes("{UPDATE-JOB}"))
+        this.bUpdateJob = true;
     }
+    if (this.gs.globalVariables.user_code == "ADMIN")
+      this.bUpdateJob = true;
     this.menu_contact_record = this.gs.getMenu("MARKCONTACTS");
     if (this.menu_contact_record) {
       if (this.menu_contact_record.rights_add)
@@ -572,7 +578,7 @@ export class MarketingComponent {
           this.Record.branch_name = this.gs.globalVariables.branch_name;
           this.Record.mark_user_name = this.gs.globalVariables.user_code;
           this.Record.mark_oldcustomer_id = this.Record.mark_customer_id;
-          this.Record.rec_version =  response.rec_version;
+          this.Record.rec_version = response.rec_version;
         }
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;

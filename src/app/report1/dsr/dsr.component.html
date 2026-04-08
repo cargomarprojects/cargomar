@@ -14,34 +14,38 @@
         <div class="col-sm-4">
           <div class="form-group row">
             <!-- <label class="col-4 col-form-label col-form-label-sm">From Date</label> -->
-            <div class="col-sm-4">
+            <div class="col-sm-3">
               <select class="form-control form-control-sm" [(ngModel)]="filter_date_type">
                 <option [value]="'JOB'">JOB DATE</option>
                 <option [value]="'CREATED'">CREATED DATE</option>
               </select>
             </div>
-            <div class="col-sm-8">
+            <div class="col-sm-4">
               <app-date #_from_date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
             </div>
-          </div>
-          <div class="form-group row">
-            <label class="col-sm-4 col-form-label col-form-label-sm">To Date</label>
-            <div class="col-sm-8">
+            <label class="col-sm-1 col-form-label col-form-label-sm">To</label>
+            <div class="col-sm-4">
               <app-date #_to_date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
             </div>
           </div>
+          <!-- <div class="form-group row">
+            <label class="col-sm-4 col-form-label col-form-label-sm">To</label>
+            <div class="col-sm-8">
+              <app-date #_to_date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+            </div>
+          </div> -->
 
 
           <div class="form-group row">
             <label *ngIf="rec_category=='SEA EXPORT' || rec_category=='AIR EXPORT'"
-              class="col-sm-4 col-form-label col-form-label-sm">Shipper</label>
+              class="col-sm-3 col-form-label col-form-label-sm">Shipper</label>
             <label *ngIf="rec_category=='SEA IMPORT'|| rec_category=='AIR IMPORT'"
-              class="col-sm-4 col-form-label col-form-label-sm">Exporter</label>
-            <div *ngIf="rec_category=='SEA EXPORT' || rec_category=='AIR EXPORT'" class="col-sm-8">
+              class="col-sm-3 col-form-label col-form-label-sm">Exporter</label>
+            <div *ngIf="rec_category=='SEA EXPORT' || rec_category=='AIR EXPORT'" class="col-sm-9">
               <app-autocomplete #ExporterLov [inputdata]="EXPRECORD"
                 (ValueChanged)="LovSelected($event)"></app-autocomplete>
             </div>
-            <div *ngIf="rec_category=='SEA IMPORT'|| rec_category=='AIR IMPORT'" class="col-sm-8">
+            <div *ngIf="rec_category=='SEA IMPORT'|| rec_category=='AIR IMPORT'" class="col-sm-9">
               <app-autocomplete #ImporterLov [inputdata]="IMPRECORD"
                 (ValueChanged)="LovSelected($event)"></app-autocomplete>
             </div>
@@ -50,32 +54,27 @@
 
           <div class="form-group row">
             <label *ngIf="rec_category=='SEA EXPORT' || rec_category=='AIR EXPORT'"
-              class="col-sm-4 col-form-label col-form-label-sm">Consignee</label>
+              class="col-sm-3 col-form-label col-form-label-sm">Consignee</label>
             <label *ngIf="rec_category=='SEA IMPORT'|| rec_category=='AIR IMPORT'"
-              class="col-sm-4 col-form-label col-form-label-sm">Importer</label>
-            <div *ngIf="rec_category=='SEA EXPORT' || rec_category=='AIR EXPORT'" class="col-sm-8">
+              class="col-sm-3 col-form-label col-form-label-sm">Importer</label>
+            <div *ngIf="rec_category=='SEA EXPORT' || rec_category=='AIR EXPORT'" class="col-sm-9">
               <app-autocomplete #ImporterLov [inputdata]="IMPRECORD"
                 (ValueChanged)="LovSelected($event)"></app-autocomplete>
             </div>
-            <div *ngIf="rec_category=='SEA IMPORT'|| rec_category=='AIR IMPORT'" class="col-sm-8">
+            <div *ngIf="rec_category=='SEA IMPORT'|| rec_category=='AIR IMPORT'" class="col-sm-9">
               <app-autocomplete #ExporterLov [inputdata]="EXPRECORD"
+                (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label col-form-label-sm">Agent</label>
+            <div class="col-sm-9">
+              <app-autocomplete #AgentAddLov [inputdata]="AGENTRECORD"
                 (ValueChanged)="LovSelected($event)"></app-autocomplete>
             </div>
           </div>
         </div>
         <div class="col-sm-4">
-
-
-
-
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label col-form-label-sm">Agent</label>
-            <div class="col-sm-8">
-              <app-autocomplete #AgentAddLov [inputdata]="AGENTRECORD"
-                (ValueChanged)="LovSelected($event)"></app-autocomplete>
-            </div>
-          </div>
-
 
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Carrier</label>
@@ -101,7 +100,14 @@
                 (ValueChanged)="LovSelected($event)"></app-autocomplete>
             </div>
           </div>
-
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">Salesperson</label>
+            <div class="col-sm-8">
+              <app-autocomplete3 [controlname]="'SMAN'" [tabletype]="'SALESMAN'" [displaycolumn]="'NAME'"
+              [displaydata]="sman_name" (ValueChanged)="LovSelected($event)" [disabled]="bSman">
+            </app-autocomplete3>
+            </div>
+          </div>
         </div>
         <div class="col-4">
 
@@ -142,11 +148,11 @@
           </div>
 
           <div class="form-group row">
-            <label *ngIf="bCompany" class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
-            <div *ngIf="bCompany" class="col-sm-4">
+            <label *ngIf="bCompany||bSman" class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
+            <div *ngIf="bCompany||bSman" class="col-sm-4">
               <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
             </div>
-            <label  *ngIf="!bookingrpt"  class="col-sm-2 col-form-label col-form-label-sm">Format</label>
+            <label *ngIf="!bookingrpt" class="col-sm-2 col-form-label col-form-label-sm">Format</label>
             <div class="col-sm-4">
               <!-- <select [disabled]="bookingrpt" class="form-control form-control-sm" [(ngModel)]="format_type"
                 (change)="OnChange('format')">
@@ -155,13 +161,13 @@
                 <option [value]="'PENDING'">PENDING</option>
                 <option *ngIf="rec_category=='SEA EXPORT'" [value]="'SHIPPER'">SHIPPER</option>
               </select> -->
-              <app-customreport *ngIf="!bookingrpt"  [menuid]="menuid" [fieldList]="CustomReportList" [type]="'DSR-'+type"
-                (callbackevent)="customreportcallbackevent($event)"></app-customreport>
+              <app-customreport *ngIf="!bookingrpt" [menuid]="menuid" [fieldList]="CustomReportList"
+                [type]="'DSR-'+type" (callbackevent)="customreportcallbackevent($event)"></app-customreport>
             </div>
           </div>
 
           <div class="form-group row">
-            <div *ngIf="bCompany" class="col-sm-2">
+            <div *ngIf="bCompany||bSman" class="col-sm-2">
               <input type="checkbox" [(ngModel)]="all" (change)="OnChange('all')">
               <span> All</span>
             </div>
@@ -646,7 +652,7 @@
           <td>{{rec.impj_cleared_on}}</td>
           <td>{{rec.hbl_remarks}}</td>
           <td>{{rec.liner_name}}</td>
-           <td>{{rec.hbl_book_cntr}}</td>
+          <td>{{rec.hbl_book_cntr}}</td>
           <td>{{rec.impj_doc_recvd_date}}</td>
           <td>{{rec.impj_doc_send_date}}</td>
           <td>{{rec.hbl_ar_invnos}}</td>

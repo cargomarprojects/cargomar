@@ -65,6 +65,11 @@ export class DsrComponent {
   pod_name: string;
   porttype: string;
 
+  sman_id: string;
+  sman_code: string;
+  sman_name: string;
+  bSman = false;
+
   search_bookingrpt: boolean = false;
   bookingrpt: boolean = false;
   bExcel = false;
@@ -110,7 +115,10 @@ export class DsrComponent {
     all: false,
     format_type: '',
     bookingrpt: false,
-    filter_date_type: ''
+    filter_date_type: '',
+    sman_id: '',
+    sman_code: '',
+    sman_name: ''
   };
 
   sSubject: string = '';
@@ -166,6 +174,7 @@ export class DsrComponent {
     this.bCompany = false;
     this.bAdmin = false;
     this.bEmail = false;
+    this.bSman = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -177,6 +186,8 @@ export class DsrComponent {
         this.bExcel = true;
       if (this.menu_record.rights_email)
         this.bEmail = true;
+      if (this.menu_record.rights_approval.toString().includes("{SMAN}"))
+        this.bSman = true;
     }
     if (this.type.toString() == "SEA EXPORT" || this.type.toString() == "SEA IMPORT") {
       this.porttype = "SEA PORT";
@@ -220,6 +231,9 @@ export class DsrComponent {
     this.pod_id = '';
     this.pod_code = '';
     this.pod_name = '';
+    this.sman_id = this.gs.globalVariables.sman_id;
+    this.sman_code = '';
+    this.sman_name = this.gs.globalVariables.sman_name;
     this.format_type = 'GENERAL';
   }
 
@@ -332,6 +346,12 @@ export class DsrComponent {
       this.pod_id = _Record.id;
       this.pod_code = _Record.code;
       this.pod_name = _Record.name;
+    }
+
+    if (_Record.controlname == "SMAN") {
+      this.sman_id = _Record.id;
+      this.sman_code = _Record.code;
+      this.sman_name = _Record.name;
     }
 
   }
@@ -584,6 +604,7 @@ export class DsrComponent {
     this.SearchData.format_type = this.format_type;
     this.SearchData.bookingrpt = this.bookingrpt;
     this.SearchData.filter_date_type = this.filter_date_type;
+    this.SearchData.sman_id = this.sman_id;
     this.ErrorMessage = '';
     this.mainService.DsrList(this.SearchData)
       .subscribe(response => {
