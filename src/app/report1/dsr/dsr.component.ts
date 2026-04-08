@@ -237,7 +237,7 @@ export class DsrComponent {
     this.format_type = 'GENERAL';
   }
 
-  // Destroy Will be called when this component is closed
+  // Destroy Will be called when this component is closed 
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
@@ -554,6 +554,14 @@ export class DsrComponent {
     //  return;
     //}
 
+    if (this.bSman) {
+      if (this.gs.isBlank(this.sman_id)) {
+        this.ErrorMessage = "Salesperson Cannot Be Blank";
+        alert(this.ErrorMessage);
+        return;
+      }
+    }
+
     if (this.format_type == "STATUS") {
       if (this.from_date.trim().length <= 0)
         this.from_date = this.gs.globalVariables.year_start_date;
@@ -626,6 +634,7 @@ export class DsrComponent {
           this.loading = false;
           this.RecordList = null;
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
