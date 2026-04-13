@@ -97,6 +97,7 @@ import { CiGeImportComponent } from './ledger/cigeImport.component';
 import { TdsExemptionComponent } from './tdsexempt/tdsexempt.component';
 import { OsRemarkComponent } from './os/osrem2.component';
 import { TdsCertnoComponent } from './ledger/tdscertno.component';
+import { TdsRateComponent } from './tdsrate/tdsrate.component';
 
 @NgModule({
   imports: [
@@ -158,7 +159,8 @@ import { TdsCertnoComponent } from './ledger/tdscertno.component';
     CiGeImportComponent,
     TdsExemptionComponent,
     OsRemarkComponent,
-    TdsCertnoComponent
+    TdsCertnoComponent,
+    TdsRateComponent
   ],
   providers: [
   ],

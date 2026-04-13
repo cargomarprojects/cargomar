@@ -1,0 +1,63 @@
+<div>
+    <button [disabled]="loading" class="btn btn-primary btn-sm" (click)="showmodal(ratemodal)">Tds Rate</button>
+</div>
+<ng-template #ratemodal let-c="close" let-d="dismiss">
+    <div class="modal-body">
+        <div class="page-box">
+            <div class="row justify-content-center p-1">
+                <label class="col-sm col-form-label col-form-label-sm">
+                    <font color="green">
+                        <strong>
+                            TDS RATE FOR YEAR &nbsp;{{gs.globalVariables.year_name}}
+                        </strong>
+                    </font>
+                </label>
+            </div>
+        </div>
+        <div class="page-box">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="table-responsive">
+                        <table class="table  table-hover table-sm table-bordered table-striped">
+                            <thead class="page-body-thead">
+                                <tr>
+                                    <th width="12%">CODE</th>
+                                    <th width="40%">NAME</th>
+                                    <th width="12%">INDIV/HUF</th>
+                                    <th width="12%">OTHER</th>
+                                    <th width="12%">PAN INOPERATIVE</th>
+                                    <th width="12%">TECHNICAL SERVICE</th>
+                                </tr>
+                            </thead>
+                            <tbody class="page-body-tbody">
+                                <tr *ngFor="let rec of Record.rateList">
+                                    <td style="padding:0px 0px 0px 0px"> {{rec.tr_code}}</td>
+                                    <td style="padding:0px 0px 0px 0px"> {{rec.tr_name}}</td>
+                                    <td style="padding:0px 0px 0px 0px"><input type="number" name="huf"
+                                            class="form-control form-control-sm" [(ngModel)]="rec.tr_huf_rate"
+                                            (blur)="OnBlur('tr_huf_rate',rec)" required maxlength="5" /></td>
+                                    <td style="padding:0px 0px 0px 0px"><input type="number" name="oth"
+                                            class="form-control form-control-sm" [(ngModel)]="rec.tr_other_rate"
+                                            (blur)="OnBlur('tr_other_rate',rec)" required maxlength="5" /></td>
+                                    <td style="padding:0px 0px 0px 0px"><input type="number" name="pan"
+                                            class="form-control form-control-sm" [(ngModel)]="rec.tr_pan_inoper_rate"
+                                            (blur)="OnBlur('tr_pan_inoper_rate',rec)" required maxlength="5" /></td>
+                                    <td style="padding:0px 0px 0px 0px"><input type="number" name="tech"
+                                            class="form-control form-control-sm" [(ngModel)]="rec.tr_tech_service_rate"
+                                            (blur)="OnBlur('tr_tech_service_rate',rec)" required maxlength="5" /></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-box">
+            <div class="row justify-content-center p-1">
+                <button class="btn btn-primary btn-sm mr-1" (click)="CloseModal('OK')">Save</button>
+                <button class="btn btn-primary btn-sm mr-1" (click)="CloseModal('CLOSE')">Close</button>
+            </div>
+        </div>
+    </div>
+</ng-template>
