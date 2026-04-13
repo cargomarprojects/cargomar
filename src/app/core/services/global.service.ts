@@ -1143,6 +1143,7 @@ export class GlobalService {
       || jv_acc_code == '192B'
       || jv_acc_code == '195'
       || jv_acc_code == '194T'
+      || jv_acc_code == '194'
     )
       return true;
     else
