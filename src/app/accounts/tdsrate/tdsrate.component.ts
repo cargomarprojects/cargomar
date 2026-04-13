@@ -17,6 +17,7 @@ export class TdsRateComponent {
     // Local Variables 
     @Input() menuid: string = '';
     @Input() type: string = '';
+    @Input() bsave: boolean = false;
     InitCompleted: boolean = false;
     menu_record: any;
     modal: any;

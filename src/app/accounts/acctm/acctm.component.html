@@ -215,8 +215,9 @@
         <div class="offset-3 col-9 input-group input-group-sm">
           <button [hidden]="disableSave" [disabled]="loading" (click)="Save()"
             class="btn btn-primary btn-sm mr-1">Save</button>
-          <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm mr-1">Return</button>
-           <app-tdsrate ></app-tdsrate>
+          <button [disabled]="loading" (click)="ActionHandler('LIST','')"
+            class="btn btn-primary btn-sm mr-1">Return</button>
+          <app-tdsrate *ngIf="mode=='EDIT'" [bsave]="!disableSave"></app-tdsrate>
           <i *ngIf="loading" class="fa fa-spinner"></i>
         </div>
       </div>

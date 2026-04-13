@@ -55,7 +55,7 @@
 
         <div class="page-box">
             <div class="row justify-content-center p-1">
-                <button class="btn btn-primary btn-sm mr-1" (click)="CloseModal('OK')">Save</button>
+                <button *ngIf="bsave" class="btn btn-primary btn-sm mr-1" (click)="CloseModal('OK')">Save</button>
                 <button class="btn btn-primary btn-sm mr-1" (click)="CloseModal('CLOSE')">Close</button>
             </div>
         </div>

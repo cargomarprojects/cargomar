@@ -1,8 +1,7 @@
-﻿
-<div class="page-header">
+﻿<div class="page-header">
   <div class="col">
     <label>{{title}}</label>
-    <button class="btn btn-primary btn-sm" (click)="Close()" >Close</button>
+    <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
 </div>
@@ -24,17 +23,16 @@
   <br>
 
   <div class="row">
-      <div class="col-sm-6">
-        <div class="form-group row">
-          <label class="col-6 col-form-label col-form-label-sm">Transfer Balance</label>
-          <div class="col-6">
-            <button [disabled]="loading" (click)="TransferBalance()" class="btn btn-primary btn-sm">Transfer Balance</button>
-          </div>
+    <div class="col-sm-6">
+      <div class="form-group row">
+        <label class="col-6 col-form-label col-form-label-sm">Transfer Balance</label>
+        <div class="col-6">
+          <button [disabled]="loading" (click)="TransferBalance()" class="btn btn-primary btn-sm">Transfer
+            Balance</button>
         </div>
       </div>
     </div>
-
-
+  </div>
 
 </div>
 <br />
