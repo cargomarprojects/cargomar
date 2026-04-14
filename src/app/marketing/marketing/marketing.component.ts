@@ -34,7 +34,10 @@ export class MarketingComponent {
   bDocsUpload: boolean = false;
 
   currentTab = 'LIST';
-
+  sSubject: string;
+  sMsg: string;
+  cc_ids: string;
+  AttachList: any[];
 
   old_customer_id = '';
 
@@ -106,6 +109,7 @@ export class MarketingComponent {
   IsAdmin: boolean = false;
   CanAddContacts: boolean = false;
   bPrint: boolean = false;
+  bEmail: boolean = false;
   IsHeader: boolean = true;
   bUpdateJob: boolean = false;
 
@@ -153,6 +157,7 @@ export class MarketingComponent {
     this.IsAdmin = false;
     this.IsCompany = false;
     this.bPrint = false;
+    this.bEmail = false;
     this.bDocs = false;
     this.bUpdateJob = false;
     if (this.type == "VISIT") {
@@ -173,6 +178,8 @@ export class MarketingComponent {
         this.IsCompany = true;
       if (this.menu_record.rights_print)
         this.bPrint = true;
+      if (this.menu_record.rights_email)
+        this.bEmail = true;
       if (this.menu_record.rights_docs)
         this.bDocs = true;
       if (this.menu_record.rights_approval.toString().includes("{UPDATE-JOB}"))
@@ -445,6 +452,8 @@ export class MarketingComponent {
     this.Record.mark_cont_cust_id = "";
     this.Record.mark_cont_cust_code = "";
     this.Record.mark_cont_cust_name = "";
+    this.Record.mark_appointment_date = "";
+    this.Record.mark_contact_source = "NA";
 
     this.old_customer_id = '';
 
@@ -755,6 +764,55 @@ export class MarketingComponent {
     var nDate = new Date();
     nDate.setDate(nDate.getDate() + _days);
     return nDate.toISOString().slice(0, 10);
+  }
+
+
+  EmailVisitDetails(emailsent: any) {
+    this.ErrorMessage = ''
+    if (this.pkid.length <= 0) {
+      this.ErrorMessage = "\n\r | Invalid ID";
+    }
+    if (this.ErrorMessage.length > 0) {
+      alert(this.ErrorMessage);
+      return;
+    }
+
+    let SearchData = {
+      pkid: '',
+      report_folder: '',
+      company_code: '',
+      branch_code: '',
+      user_code: '',
+      user_name: '',
+      user_pkid: '',
+      root_folder: ''
+    }
+
+    SearchData.pkid = this.pkid;
+    SearchData.report_folder = this.gs.globalVariables.report_folder;
+    SearchData.company_code = this.gs.globalVariables.comp_code;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.user_code = this.gs.globalVariables.user_code;
+    SearchData.user_name = this.gs.globalVariables.user_name;
+    SearchData.user_pkid = this.gs.globalVariables.user_pkid;
+    SearchData.root_folder = this.gs.defaultValues.root_folder;
+
+    this.loading = true;
+    this.ErrorMessage = '';
+    this.mainService.EmailVisitDetails(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.AttachList = new Array<any>();
+        this.sSubject = response.subject;
+        this.sMsg = response.msg;
+        this.cc_ids = response.cc_id;
+        this.open(emailsent);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
 }

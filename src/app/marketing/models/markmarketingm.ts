@@ -55,7 +55,9 @@ export class MarkMarketingm {
   mark_summary:string;
   mark_weekno:string;
   mark_conv_jobno:string;
-  
+  mark_contact_source:string;
+  mark_appointment_date:string;
+
   rec_company_code: string;
   rec_branch_code: string;
   branch_name: string;

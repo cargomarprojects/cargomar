@@ -330,6 +330,25 @@
             <label class="col-form-label col-form-label-sm" for="emailmarketing">EMAIL MARKETING</label>
           </div>
         </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Contact Source</label>
+          <div class="col-sm-8">
+            <select class="form-control form-control-sm" [(ngModel)]="Record.mark_contact_source">
+              <option [value]="'NA'">NA</option>
+              <option [value]="'LIVE DATA'">LIVE DATA</option>
+              <option [value]="'NOMINATED BIZ'">NOMINATED BIZ</option>
+              <option [value]="'SELF-GENERATED DATA'">SELF-GENERATED DATA</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Appointment Date</label>
+          <div class="col-sm-8">
+            <app-date #_mark_appointment_date [inputdate]="Record.mark_appointment_date"
+              (ValueChanged)="Record.mark_appointment_date=$event">
+            </app-date>
+          </div>
+        </div>
 
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">Client</label>
@@ -570,6 +589,8 @@
             <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
               [style.color]="Record.mark_doc_attached=='Y'?'darkred':'white'"
               class="btn btn-success btn-sm">Documents</button>
+            <button *ngIf="mode=='EDIT'&&bEmail" (click)="EmailVisitDetails(emailsent)"
+              class="btn btn-success btn-sm">Mail</button>
             <button [disabled]="loading" (click)="ActionHandler('LIST','')"
               class="btn btn-success btn-sm">Return</button>
             <label class="col-form-label col-form-label-sm" *ngIf="Record.rec_created_by"> Created By:
@@ -601,7 +622,18 @@
     <app-contacts [iisModalWindow]="'Y'" [menuid]="'MARKCONTACTS'" [clientid]="clientid"></app-contacts>
   </div>
 </ng-template>
-
+<ng-template #emailsent let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Message Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-mail [pkid]="pkid" [type]="'VISIT DETAILS'" [sHtml]="sMsg" [defaultmessage]="" [defaultcc_ids]="cc_ids"
+      [defaultsubject]="sSubject" [updateto_ids]=false [disableUpdateIds]=false [AttachList]="AttachList"></app-mail>
+  </div>
+</ng-template>
 <ng-template #doc let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title">Documents</h4>
