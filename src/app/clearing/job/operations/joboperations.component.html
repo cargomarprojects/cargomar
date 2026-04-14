@@ -10,7 +10,8 @@
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">Job/Sb Number</label>
           <div class="col-sm-4">
-            <input type="text" class="col form-control form-control-sm" (blur)="onLostFocus('search')" (change)="OnChange('search')" (focus)="OnFocus('search')" [(ngModel)]="searchstring" />
+            <input type="text" class="col form-control form-control-sm" (blur)="onLostFocus('search')"
+              (change)="OnChange('search')" (focus)="OnFocus('search')" [(ngModel)]="searchstring" />
           </div>
           <div class="col-sm-2">
             <!--<button [disabled]="loading" (click)="SearchRecord('opr_job_id')" class="btn btn-primary btn-sm">Search</button>-->
@@ -53,7 +54,8 @@
       <div class="form-group row">
         <label class="col-sm-6 col-form-label col-form-label-sm">SB#</label>
         <div class="col-sm-6">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.opr_sbill_no" (blur)="OnBlur('opr_sbill_no')" required maxlength="100" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.opr_sbill_no"
+            (blur)="OnBlur('opr_sbill_no')" required maxlength="100" />
         </div>
       </div>
 
@@ -89,19 +91,27 @@
         </div>
       </div>-->
 
-
+      <div class="form-group row">
+        <label class="col-sm-6 col-form-label col-form-label-sm">Cargo Ready Date</label>
+        <div class="col-sm-6">
+          <app-date [inputdate]="Record.opr_cargo_ready_date"
+            (ValueChanged)="Record.opr_cargo_ready_date=$event"></app-date>
+        </div>
+      </div>
 
       <div class="form-group row">
         <label class="col-6 col-form-label col-form-label-sm">Cargo Recieved On</label>
         <div class="col-6">
-          <app-date [inputdate]="Record.opr_cargo_received_on" (ValueChanged)="Record.opr_cargo_received_on=$event"></app-date>
+          <app-date [inputdate]="Record.opr_cargo_received_on"
+            (ValueChanged)="Record.opr_cargo_received_on=$event"></app-date>
         </div>
       </div>
 
       <div class="form-group row">
         <label class="col-sm-6 col-form-label col-form-label-sm">Cargo Recieved At/From</label>
         <div class="col-sm-6">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.opr_cargo_received_at" (blur)="OnBlur('opr_cargo_received_at')" required maxlength="50" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.opr_cargo_received_at"
+            (blur)="OnBlur('opr_cargo_received_at')" required maxlength="50" />
         </div>
       </div>
 
@@ -125,7 +135,8 @@
       <div class="form-group row">
         <label class="col-sm-6 col-form-label col-form-label-sm">Stuffed At</label>
         <div class="col-sm-6">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.opr_stuffed_at" (blur)="OnBlur('opr_stuffed_at')" required maxlength="50" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.opr_stuffed_at"
+            (blur)="OnBlur('opr_stuffed_at')" required maxlength="50" />
         </div>
       </div>
 
@@ -142,18 +153,68 @@
           <app-date [inputdate]="Record.opr_stacked_on" (ValueChanged)="Record.opr_stacked_on=$event"></app-date>
         </div>
       </div>
-      <div class="form-group row">
-        <label class="col-sm-6 col-form-label col-form-label-sm">Vehicle No</label>
-        <div class="col-sm-6">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.opr_vehicle_no" (blur)="OnBlur('opr_vehicle_no')" required maxlength="30" />
-        </div>
-      </div>
 
     </div>
 
     <div class="col-sm-4">
 
+      <div class="form-group row">
+        <label class="col-sm-6 col-form-label col-form-label-sm">Pickup Location</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.opr_pickup_location"
+            (blur)="OnBlur('opr_pickup_location')" required maxlength="60" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-6 col-form-label col-form-label-sm">Scheduled Pickup Date</label>
+        <div class="col-sm-6">
+          <app-date [inputdate]="Record.opr_scheduled_pickup_date"
+            (ValueChanged)="Record.opr_scheduled_pickup_date=$event"></app-date>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-6 col-form-label col-form-label-sm">Actual Pickup Date</label>
+        <div class="col-sm-6">
+          <app-date [inputdate]="Record.opr_actual_pickup_date"
+            (ValueChanged)="Record.opr_actual_pickup_date=$event"></app-date>
+        </div>
+      </div>
 
+      <div class="form-group row">
+        <label class="col-sm-6 col-form-label col-form-label-sm">Vehicle Released Date</label>
+        <div class="col-sm-6">
+          <app-date [inputdate]="Record.opr_vehicle_released_date"
+            (ValueChanged)="Record.opr_vehicle_released_date=$event"></app-date>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-6 col-form-label col-form-label-sm">Detention Days</label>
+        <div class="col-sm-6">
+          <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.opr_detention_days"
+            (blur)="OnBlur('opr_detention_days')" required maxlength="3" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-6 col-form-label col-form-label-sm">Vehicle Type</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.opr_vehicle_type"
+            (blur)="OnBlur('opr_vehicle_type')" required maxlength="60" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-6 col-form-label col-form-label-sm">Vehicle No</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.opr_vehicle_no"
+            (blur)="OnBlur('opr_vehicle_no')" required maxlength="30" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-6 col-form-label col-form-label-sm">Transporter Name</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.opr_transporter_name"
+            (blur)="OnBlur('opr_transporter_name')" required maxlength="60" />
+        </div>
+      </div>
 
       <!--<div class="form-group row">
         <label class="col-sm-6 col-form-label col-form-label-sm">Stuffing Sent to Agent On</label>
@@ -178,7 +239,7 @@
         </div>
       </div>-->
 
-      
+
 
       <!--<div class="form-group row">
         <label class="col-sm-6 col-form-label col-form-label-sm">Cargo Arrived At CFS</label>
@@ -233,63 +294,7 @@
         </div>
       </div>-->
 
-      <div class="form-group row">
-        <label class="col-sm-6 col-form-label col-form-label-sm">DrawBack Scroll No</label>
-        <div class="col-sm-6">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.opr_drawback_slno" (blur)="OnBlur('opr_drawback_slno')" required maxlength="30" />
-        </div>
-      </div>
 
-      <div class="form-group row">
-        <label class="col-sm-6 col-form-label col-form-label-sm">DrawBack Date</label>
-        <div class="col-sm-6">
-          <app-date [inputdate]="Record.opr_drawback_date" (ValueChanged)="Record.opr_drawback_date=$event"></app-date>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label class="col-sm-6 col-form-label col-form-label-sm">DrawBack Amount</label>
-        <div class="col-sm-6">
-          <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.opr_drawback_amt" (blur)="OnBlur('opr_drawback_amt')" required maxlength="14" />
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label class="col-sm-6 col-form-label col-form-label-sm">EGM No (Rotation No)</label>
-        <div class="col-sm-6">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.opr_egmno" (blur)="OnBlur('opr_egmno')" required maxlength="30" />
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label class="col-sm-6 col-form-label col-form-label-sm">EGM Date (Rotation Date)</label>
-        <div class="col-sm-6">
-          <app-date [inputdate]="Record.opr_egmdt" (ValueChanged)="Record.opr_egmdt=$event"></app-date>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label class="col-sm-6 col-form-label col-form-label-sm">EGM Status</label>
-        <div class="col-sm-6">
-          <select class="form-control form-control-sm" [(ngModel)]="Record.opr_egm_status">
-            <option [value]="'CLEAR'">CLEAR</option>
-            <option [value]="'DBK-SUB'">DBK-SUB</option>
-            <option [value]="'EGM'">EGM</option>
-            <option [value]="'EGM-ERROR'">EGM-ERROR</option>
-            <option [value]="'HIST'">HIST</option>
-            <option [value]="'QUERY'">QUERY</option>
-            <option [value]="'SCROLL-IN'">SCROLL-IN</option>
-            <option [value]="'STUFF'">STUFF</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label class="col-sm-6 col-form-label col-form-label-sm"></label>
-        <div class="col-sm-6">
-          <input type="checkbox" [(ngModel)]="Record.opr_rotation">Include Rotation Number and Date in EDI
-        </div>
-      </div>
 
     </div>
 
@@ -339,15 +344,77 @@
         </div>
       </div>-->
 
-
-
       <div class="form-group row">
-        <label class="col-sm-2 col-form-label col-form-label-sm">Remarks</label>
-        <div class="col-sm-10">
-          <textarea rows="2" class="form-control form-control-sm" [(ngModel)]="Record.opr_remarks" (blur)="OnBlur('opr_remarks')" maxlength="100"></textarea>
+        <label class="col-sm-6 col-form-label col-form-label-sm">DrawBack Scroll No</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.opr_drawback_slno"
+            (blur)="OnBlur('opr_drawback_slno')" required maxlength="30" />
         </div>
       </div>
-     
+
+      <div class="form-group row">
+        <label class="col-sm-6 col-form-label col-form-label-sm">DrawBack Date</label>
+        <div class="col-sm-6">
+          <app-date [inputdate]="Record.opr_drawback_date" (ValueChanged)="Record.opr_drawback_date=$event"></app-date>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-6 col-form-label col-form-label-sm">DrawBack Amount</label>
+        <div class="col-sm-6">
+          <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.opr_drawback_amt"
+            (blur)="OnBlur('opr_drawback_amt')" required maxlength="14" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-6 col-form-label col-form-label-sm">EGM No (Rotation No)</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.opr_egmno"
+            (blur)="OnBlur('opr_egmno')" required maxlength="30" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-6 col-form-label col-form-label-sm">EGM Date (Rotation Date)</label>
+        <div class="col-sm-6">
+          <app-date [inputdate]="Record.opr_egmdt" (ValueChanged)="Record.opr_egmdt=$event"></app-date>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-6 col-form-label col-form-label-sm">EGM Status</label>
+        <div class="col-sm-6">
+          <select class="form-control form-control-sm" [(ngModel)]="Record.opr_egm_status">
+            <option [value]="'CLEAR'">CLEAR</option>
+            <option [value]="'DBK-SUB'">DBK-SUB</option>
+            <option [value]="'EGM'">EGM</option>
+            <option [value]="'EGM-ERROR'">EGM-ERROR</option>
+            <option [value]="'HIST'">HIST</option>
+            <option [value]="'QUERY'">QUERY</option>
+            <option [value]="'SCROLL-IN'">SCROLL-IN</option>
+            <option [value]="'STUFF'">STUFF</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-6 col-form-label col-form-label-sm"></label>
+        <div class="col-sm-6">
+          <input type="checkbox"  id="IncludeRotation"  [(ngModel)]="Record.opr_rotation">
+          <label class="col-form-label col-form-label-sm" for="IncludeRotation">Include Rotation Number and Date in
+            EDI</label>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-6 col-form-label col-form-label-sm">Remarks</label>
+        <div class="col-sm-6">
+          <textarea rows="2" class="form-control form-control-sm" [(ngModel)]="Record.opr_remarks"
+            (blur)="OnBlur('opr_remarks')" maxlength="100"></textarea>
+        </div>
+      </div>
+
 
     </div>
 
@@ -370,4 +437,3 @@
 <div *ngIf="ErrorMessage" class="alert alert-danger">
   {{ErrorMessage}}
 </div>
-

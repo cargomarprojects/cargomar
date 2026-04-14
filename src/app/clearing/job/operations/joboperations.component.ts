@@ -216,6 +216,16 @@ export class JobOperationsComponent {
     this.Record.opr_egmdt = '';
     this.Record.opr_stacked_on = '';
     this.Record.opr_rotation = false;
+    this.Record.opr_cargo_ready_date = '';
+    this.Record.opr_pickup_location = '';
+    this.Record.opr_scheduled_pickup_date = '';
+    this.Record.opr_actual_pickup_date = '';
+    this.Record.opr_vehicle_released_date = '';
+    this.Record.opr_detention_days = 0;
+    this.Record.opr_vehicle_type = '';
+    this.Record.opr_transporter_name = '';
+
+
     this.InitLov();
 
     //this.PKGUNITRECORD.id = this.Record.pack_pkg_unit_id;
@@ -415,6 +425,27 @@ export class JobOperationsComponent {
       case 'opr_egmno':
         {
           this.Record.opr_egmno = this.Record.opr_egmno.toUpperCase();
+          break;
+        }
+
+      case 'opr_detention_days':
+        {
+          this.Record.opr_detention_days = this.gs.roundNumber(this.Record.opr_detention_days, 0);
+          break;
+        }
+      case 'opr_pickup_location':
+        {
+          this.Record.opr_pickup_location = this.Record.opr_pickup_location.toUpperCase();
+          break;
+        }
+      case 'opr_vehicle_type':
+        {
+          this.Record.opr_vehicle_type = this.Record.opr_vehicle_type.toUpperCase();
+          break;
+        }
+      case 'opr_transporter_name':
+        {
+          this.Record.opr_transporter_name = this.Record.opr_transporter_name.toUpperCase();
           break;
         }
     }

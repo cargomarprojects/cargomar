@@ -43,7 +43,16 @@ export class JobOperationsm {
     opr_egmdt: string;
     opr_stacked_on: string;
     opr_rotation: boolean;
-    
+
+    opr_cargo_ready_date: string;
+    opr_pickup_location: string;
+    opr_scheduled_pickup_date: string;
+    opr_actual_pickup_date: string;
+    opr_vehicle_released_date: string;
+    opr_detention_days: number;
+    opr_vehicle_type: string;
+    opr_transporter_name: string;
+
     rec_mode: string;
     rec_category: string;
     _globalvariables: GlobalVariables;
