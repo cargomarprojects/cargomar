@@ -191,8 +191,8 @@ export class RepService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/GenerateGspOtp', SearchData, this.gs.headerparam2('authorized'));
   }
 
-  Loadtplist(SearchData: any) {
-    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/Loadtplist', SearchData, this.gs.headerparam2('authorized'));
+  LoadDefault(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
   }
 
   JobUnlocktrackRpt(SearchData: any) {
@@ -201,6 +201,10 @@ export class RepService {
 
   AuditDeviceList(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/AuditDeviceList', SearchData, this.gs.headerparam2('authorized'));
+  }
+
+  Loadtplist(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/Loadtplist', SearchData, this.gs.headerparam2('authorized'));
   }
 
 }
