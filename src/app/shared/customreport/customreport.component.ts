@@ -39,7 +39,7 @@ export class CustomReportComponent implements OnInit {
     modal: any;
     mode = '';
     pkid = '';
-     
+
     bDelete: boolean = false;
     disableSave = true;
     selectdeselect: boolean = true;
@@ -384,4 +384,14 @@ export class CustomReportComponent implements OnInit {
         return this.RecordList.filter(r => r.rec_created_by !== 'ADMIN');
     }
 
+    public setFormat(_format: string) {
+        let _bok: boolean = false;
+        for (let rec2 of this.RecordList.filter(rec2 => rec2.rh_report_format == _format)) {
+            _bok = true;
+        }
+        if (_bok)
+            this.selectedformat = _format;
+        else
+            this.selectedformat = "GENERAL";
+    }
 }

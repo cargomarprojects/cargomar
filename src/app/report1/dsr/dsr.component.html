@@ -28,13 +28,16 @@
               <app-date #_to_date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
             </div>
           </div>
-          <!-- <div class="form-group row">
-            <label class="col-sm-4 col-form-label col-form-label-sm">To</label>
-            <div class="col-sm-8">
-              <app-date #_to_date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label col-form-label-sm">Customer</label>
+            <div class="col-sm-9">
+              <select class="form-control form-control-sm" [(ngModel)]="tp_code"  (change)="OnChange('tp_code')">
+                <option *ngFor="let rec of TpList" [value]="rec.user_tp_code">
+                  {{rec.user_tp_name}}
+                </option>
+              </select>
             </div>
-          </div> -->
-
+          </div>
 
           <div class="form-group row">
             <label *ngIf="rec_category=='SEA EXPORT' || rec_category=='AIR EXPORT'"
@@ -78,7 +81,7 @@
 
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Carrier</label>
-            <div class="col-sm-8">
+            <div class="col-sm-10">
               <app-autocomplete #CarrierAddLov [inputdata]="CARRIERRECORD"
                 (ValueChanged)="LovSelected($event)"></app-autocomplete>
             </div>
@@ -86,7 +89,7 @@
 
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Pol</label>
-            <div class="col-sm-8">
+            <div class="col-sm-10">
               <app-autocomplete #LoadPortAddLov [inputdata]="POLRECORD"
                 (ValueChanged)="LovSelected($event)"></app-autocomplete>
             </div>
@@ -95,22 +98,19 @@
 
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Pod</label>
-            <div class="col-sm-8">
+            <div class="col-sm-10">
               <app-autocomplete #DischrgPortAddLov [inputdata]="PODRECORD"
                 (ValueChanged)="LovSelected($event)"></app-autocomplete>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Salesperson</label>
-            <div class="col-sm-8">
+            <div class="col-sm-10">
               <app-autocomplete3 [controlname]="'SMAN'" [tabletype]="'SALESMAN'" [displaycolumn]="'NAME'"
-              [displaydata]="sman_name" (ValueChanged)="LovSelected($event)" [disabled]="bSman">
-            </app-autocomplete3>
+                [displaydata]="sman_name" (ValueChanged)="LovSelected($event)" [disabled]="bSman">
+              </app-autocomplete3>
             </div>
           </div>
-        </div>
-        <div class="col-4">
-
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
             <div class="col-sm-10">
@@ -123,12 +123,12 @@
               </select>
             </div>
           </div>
+        </div>
+        <div class="col-4">
 
           <div class="form-group row">
-
             <label class="col-sm-2 col-form-label col-form-label-sm">Sort.By</label>
             <div class="col-sm-10">
-
               <div *ngIf="rec_category=='SEA EXPORT' || rec_category=='AIR EXPORT' ">
                 <select [disabled]="bookingrpt" class="form-control form-control-sm" [(ngModel)]="type_date">
                   <option [value]="'DATE'">JOB-DATE</option>
@@ -143,26 +143,20 @@
                   <option [value]="'MBL-NO'">MBL-NO</option>
                 </select>
               </div>
-
             </div>
           </div>
 
-          <div class="form-group row">
-            <label *ngIf="bCompany||bSman" class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
-            <div *ngIf="bCompany||bSman" class="col-sm-4">
+          <div *ngIf="bCompany||bSman" class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
+            <div class="col-sm-10">
               <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
             </div>
-            <label *ngIf="!bookingrpt" class="col-sm-2 col-form-label col-form-label-sm">Format</label>
-            <div class="col-sm-4">
-              <!-- <select [disabled]="bookingrpt" class="form-control form-control-sm" [(ngModel)]="format_type"
-                (change)="OnChange('format')">
-                <option [value]="'GENERAL'">GENERAL</option>
-                <option [value]="'STATUS'">STATUS</option>
-                <option [value]="'PENDING'">PENDING</option>
-                <option *ngIf="rec_category=='SEA EXPORT'" [value]="'SHIPPER'">SHIPPER</option>
-              </select> -->
-              <app-customreport *ngIf="!bookingrpt" [menuid]="menuid" [fieldList]="CustomReportList"
-                [type]="'DSR-'+type" (callbackevent)="customreportcallbackevent($event)"></app-customreport>
+          </div>
+          <div *ngIf="!bookingrpt" class="form-group row">
+            <label class="col-sm-2 col-form-label col-form-label-sm">Format</label>
+            <div class="col-sm-10">
+              <app-customreport #CustRpt [menuid]="menuid" [fieldList]="CustomReportList" [type]="'DSR-'+type"
+                (callbackevent)="customreportcallbackevent($event)"></app-customreport>
             </div>
           </div>
 
@@ -196,7 +190,7 @@
   </div>
 
   <div *ngIf="rec_category=='SEA EXPORT'" class="page-body table-responsive fixedTableHead my-0 p-0"
-    style="height: calc(100vh - 340px);">
+    style="height: calc(100vh - 360px);">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr *ngIf="format_type!='STATUS'&&format_type!='SHIPPER'">
@@ -403,7 +397,7 @@
   </div>
 
   <div *ngIf="rec_category=='AIR EXPORT'&& !search_bookingrpt"
-    class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 340px);">
+    class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 360px);">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
@@ -502,7 +496,7 @@
     </table>
   </div>
   <div *ngIf="(rec_category=='AIR EXPORT'||rec_category=='AIR IMPORT')&& search_bookingrpt"
-    class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 340px);">
+    class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 360px);">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
@@ -568,7 +562,7 @@
   </div>
 
   <div *ngIf="rec_category=='SEA IMPORT'" class="page-body table-responsive fixedTableHead my-0 p-0"
-    style="height: calc(100vh - 340px);">
+    style="height: calc(100vh - 360px);">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
@@ -667,7 +661,7 @@
   </div>
 
   <div *ngIf="rec_category=='AIR IMPORT'&& !search_bookingrpt"
-    class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 340px);">
+    class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 360px);">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>

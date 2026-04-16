@@ -8,6 +8,8 @@ import { Dsr } from '../models/dsr';
 import { RepService } from '../services/report.service';
 import { DateComponent } from '../../shared/date/date.component';
 import { CustomReportD } from '../../shared/models/customreporth';
+import { User } from '../../admin/models/user';
+import { CustomReportComponent } from '../../shared/customreport/customreport.component';
 //EDIT-AJITH-21-10-2021
 //EDIT-AJITH-22-10-2021
 
@@ -22,6 +24,7 @@ export class DsrComponent {
 
   @ViewChild('_from_date') private from_date_ctrl: DateComponent;
   @ViewChild('_to_date') private to_date_ctrl: DateComponent;
+  @ViewChild('CustRpt') private _CustRpt: CustomReportComponent;
 
   @Input() menuid: string = '';
   @Input() type: string = '';
@@ -64,7 +67,7 @@ export class DsrComponent {
   pod_code: string;
   pod_name: string;
   porttype: string;
-
+  tp_code: string;
   sman_id: string;
   sman_code: string;
   sman_name: string;
@@ -118,7 +121,8 @@ export class DsrComponent {
     filter_date_type: '',
     sman_id: '',
     sman_code: '',
-    sman_name: ''
+    sman_name: '',
+    tp_code: this.gs.globalVariables.tp_code
   };
 
   sSubject: string = '';
@@ -131,6 +135,7 @@ export class DsrComponent {
   RecordList: Dsr[] = [];
   // Single Record for add/edit/view details
   Record: Dsr = new Dsr;
+  TpList: User[] = [];
 
   BRRECORD: SearchTable = new SearchTable();
   EXPRECORD: SearchTable = new SearchTable();
@@ -170,6 +175,8 @@ export class DsrComponent {
   }
 
   InitComponent() {
+    if (this.gs.globalVariables.istp)
+      this.tp_code = this.gs.globalVariables.tp_code;
     this.bExcel = false;
     this.bCompany = false;
     this.bAdmin = false;
@@ -201,6 +208,7 @@ export class DsrComponent {
     this.Init();
     this.initLov();
     this.LoadCombo();
+    this.Loadtplist();
   }
 
   Init() {
@@ -513,7 +521,37 @@ export class DsrComponent {
 
   }
 
+  Loadtplist() {
 
+    let SearchData = {
+      type: 'TPLIST',
+      comp_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      tp_code: this.gs.globalVariables.tp_code,
+      tp_name: this.gs.globalVariables.tp_name,
+      istp: this.gs.globalVariables.istp
+    };
+
+    SearchData.comp_code = this.gs.globalVariables.comp_code;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
+    this.ErrorMessage = '';
+    this.loading = true;
+    this.mainService.Loadtplist(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.TpList = response.tplist;
+        if (!this.gs.isBlank(this.TpList)) {
+          if (this.TpList.length > 0)
+            this.tp_code = this.TpList[0].user_tp_code;
+        }
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+
+  }
 
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string) {
@@ -613,6 +651,7 @@ export class DsrComponent {
     this.SearchData.bookingrpt = this.bookingrpt;
     this.SearchData.filter_date_type = this.filter_date_type;
     this.SearchData.sman_id = this.sman_id;
+    this.SearchData.tp_code = this.tp_code;
     this.ErrorMessage = '';
     this.mainService.DsrList(this.SearchData)
       .subscribe(response => {
@@ -641,11 +680,32 @@ export class DsrComponent {
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
-  OnChange(field: string) {
-    this.RecordList = null;
 
+  OnChange(field: string) {
+    let _format: string = "GENERAL";
+    if (field == "all" || field == "bookingrpt")
+      this.RecordList = null;
+    if (field == "tp_code") {
+      if (this.tp_code == "NA")
+        _format = "GENERAL";
+      else
+        _format = this.getTpname(this.tp_code);
+      if (!this.gs.isBlank(this._CustRpt)) {
+        this._CustRpt.setFormat(_format);
+      }
+    }
   }
 
+  getTpname(_tpcode: string) {
+    let _str = "GENERAL";
+    if (this.TpList != null) {
+      var REC = this.TpList.find(rec => rec.user_tp_code == _tpcode);
+      if (REC != null) {
+        _str = REC.user_tp_name;
+      }
+    }
+    return _str;
+  }
   showRemarks(rec: Dsr) {
     if (rec.job_pkid == null)
       return;
