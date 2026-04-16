@@ -76,6 +76,7 @@
                                 <tr>
                                     <th>SLNO</th>
                                     <th>SELECTED</th>
+                                    <th>COLUMN</th>
                                     <th>CAPTIONS</th>
                                 </tr>
                             </thead>
@@ -85,12 +86,13 @@
                                     <td style="padding:0px 0px 0px 0px;cursor: pointer;"
                                         (click)="changeChkChecked(rec)"><input type="checkbox"
                                             [(ngModel)]="rec.rd_selected" /></td>
-                                    <!-- <td style="padding:0px 0px 0px 0px">
-                                        <input type="text" name="captn"
-                                            class="form-control form-control-sm" [(ngModel)]="rec.rd_caption"
-                                            (blur)="OnBlur('rd_caption',rec)" required maxlength="60" />
-                                         </td> -->
-                                    <td style="padding:0px 0px 0px 0px">{{rec.rd_caption}}</td>
+                                    <td style="padding:0px 0px 0px 0px">{{rec.rd_code}}</td>
+                                    <td style="padding:0px 0px 0px 0px">
+                                        <input type="text" name="captn" class="form-control form-control-sm"
+                                            [(ngModel)]="rec.rd_caption" (blur)="OnBlur('rd_caption',rec)" required
+                                            maxlength="60" />
+                                    </td>
+
                                 </tr>
                             </tbody>
                         </table>
