@@ -79,10 +79,14 @@
                             </thead>
                             <tbody class="page-body-tbody">
                                 <tr *ngFor="let rec of Record.recordDet">
-                                    <td>{{rec.rd_ctr}}</td>
-                                    <td style="cursor: pointer;" (click)="changeChkChecked(rec)"><input type="checkbox"
+                                    <td style="padding:0px 0px 0px 0px">{{rec.rd_ctr}}</td>
+                                    <td style="padding:0px 0px 0px 0px;cursor: pointer;" (click)="changeChkChecked(rec)"><input type="checkbox"
                                             [(ngModel)]="rec.rd_selected" /></td>
-                                    <td>{{rec.rd_caption}}</td>
+                                    <td style="padding:0px 0px 0px 0px">
+                                        <input type="text" name="captn"
+                                            class="form-control form-control-sm" [(ngModel)]="rec.rd_caption"
+                                            (blur)="OnBlur('rd_caption',rec)" required maxlength="60" />
+                                         </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -117,7 +121,7 @@
                                         class="text-danger">{{mode=='ADD'?'New':'Edit'}}</span>&nbsp;Format </label>
                                 <div class="col-6 input-group input-group-sm">
                                     <input class="form-control form-control-sm mr-1" type="text"
-                                        [(ngModel)]="Record.rh_report_format" (blur)="OnBlur('rh_report_format')"
+                                        [(ngModel)]="Record.rh_report_format" (blur)="OnBlur('rh_report_format',null)"
                                         maxlength="60" />
                                     <!-- <label class="col-form-label col-form-label-sm text-danger">{{mode}}  </label> -->
                                 </div>

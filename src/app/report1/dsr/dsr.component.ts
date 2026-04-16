@@ -425,7 +425,30 @@ export class DsrComponent {
         { "rd_ctr": 55, "rd_code": "REMARKS", "rd_caption": "REMARKS", "rd_field": "job_remarks" },
         { "rd_ctr": 56, "rd_code": "EP-RECEIVED-ON", "rd_caption": "E/P-RECEIVED-ON", "rd_field": "opr_ep_rec_date" },
         { "rd_ctr": 57, "rd_code": "VESSEL2", "rd_caption": "VESSEL2", "rd_field": "mbl_vessel2" },
-        { "rd_ctr": 58, "rd_code": "SCHEME", "rd_caption": "SCHEME", "rd_field": "job_billtype_id" }
+        { "rd_ctr": 58, "rd_code": "SCHEME", "rd_caption": "SCHEME", "rd_field": "job_billtype_id" },
+        { "rd_ctr": 59, "rd_code": "PONOS", "rd_caption": "PO NOS", "rd_field": "job_po_nos" },
+        { "rd_ctr": 60, "rd_code": "CARGO-READY-DATE", "rd_caption": "CARGO READY DATE", "rd_field": "opr_cargo_ready_date" },
+        { "rd_ctr": 61, "rd_code": "CARGO-RECEIVED-AT", "rd_caption": "CARGO RECEIVED AT", "rd_field": "opr_cargo_received_at" },
+        { "rd_ctr": 62, "rd_code": "CLEARED-DATE", "rd_caption": "CLEARED ON", "rd_field": "opr_cleared_date" },
+        { "rd_ctr": 63, "rd_code": "STACKED-ON", "rd_caption": "STACKED ON", "rd_field": "opr_stacked_on" },
+        { "rd_ctr": 64, "rd_code": "PICKUP-LOCATION", "rd_caption": "PICKUP LOCATION", "rd_field": "opr_pickup_location" },
+        { "rd_ctr": 65, "rd_code": "SCHEDULED-PICKUP-DATE", "rd_caption": "SCHEDULED PICKUP DATE", "rd_field": "opr_scheduled_pickup_date" },
+        { "rd_ctr": 66, "rd_code": "ACTUAL-PICKUP-DATE", "rd_caption": "ACTUAL PICKUP DATE", "rd_field": "opr_actual_pickup_date" },
+        { "rd_ctr": 67, "rd_code": "VEHICLE-RELEASED-DATE", "rd_caption": "VEHICLE RELEASED DATE", "rd_field": "opr_vehicle_released_date" },
+        { "rd_ctr": 68, "rd_code": "DETENTION-DAYS", "rd_caption": "DETENTION DAYS", "rd_field": "opr_detention_days" },
+        { "rd_ctr": 69, "rd_code": "VEHICLE-TYPE", "rd_caption": "VEHICLE TYPE", "rd_field": "opr_vehicle_type" },
+        { "rd_ctr": 70, "rd_code": "VEHICLE-NO", "rd_caption": "VEHICLE NO", "rd_field": "opr_vehicle_no" },
+        { "rd_ctr": 71, "rd_code": "TRANSPORTER-NAME", "rd_caption": "TRANSPORTER NAME", "rd_field": "opr_transporter_name" },
+        { "rd_ctr": 72, "rd_code": "EP-SENT-DATE", "rd_caption": "EP SENT DATE", "rd_field": "opr_ep_sent_date" },
+        { "rd_ctr": 73, "rd_code": "DRAWBACK-SLNO", "rd_caption": "DRAWBACK SLNO", "rd_field": "opr_drawback_slno" },
+        { "rd_ctr": 74, "rd_code": "DRAWBACK-DATE", "rd_caption": "DRAWBACK DATE", "rd_field": "opr_drawback_date" },
+        { "rd_ctr": 75, "rd_code": "DRAWBACK-AMOUNT", "rd_caption": "DRAWBACK AMOUNT", "rd_field": "opr_drawback_amt" },
+        { "rd_ctr": 76, "rd_code": "EGM-NO", "rd_caption": "EGM NO", "rd_field": "opr_egmno" },
+        { "rd_ctr": 77, "rd_code": "EGM-DATE", "rd_caption": "EGM DATE", "rd_field": "opr_egmdt" },
+        { "rd_ctr": 78, "rd_code": "EGM-STATUS", "rd_caption": "EGM STATUS", "rd_field": "opr_egm_status" },
+        { "rd_ctr": 79, "rd_code": "POL-ATD", "rd_caption": "POL ATD", "rd_field": "pol_atd" },
+        { "rd_ctr": 80, "rd_code": "POD-ATA", "rd_caption": "POD ATA", "rd_field": "pod_ata" },
+        { "rd_ctr": 81, "rd_code": "POFD-ATA", "rd_caption": "POFD ATA", "rd_field": "pofd_ata" }
       ];
     } else if (this.type == "AIR EXPORT") {
       this.CustomReportList = [
@@ -471,7 +494,30 @@ export class DsrComponent {
         { "rd_ctr": 40, "rd_code": "OUR-INVOICENO", "rd_caption": "OUR INVOICE#", "rd_field": "hbl_ar_invnos" },
         { "rd_ctr": 41, "rd_code": "INV-AMOUNT", "rd_caption": "INV-AMOUNT", "rd_field": "hbl_ar_invamt" },
         { "rd_ctr": 42, "rd_code": "GST-AMOUNT", "rd_caption": "GST-AMOUNT", "rd_field": "hbl_ar_gstamt" },
-        { "rd_ctr": 43, "rd_code": "CREATED-DATE", "rd_caption": "CREATED DATE", "rd_field": "rec_created_date" }
+        { "rd_ctr": 43, "rd_code": "CREATED-DATE", "rd_caption": "CREATED DATE", "rd_field": "rec_created_date" },
+        { "rd_ctr": 44, "rd_code": "PONOS", "rd_caption": "PO NOS", "rd_field": "job_po_nos" },
+        { "rd_ctr": 45, "rd_code": "CARGO-READY-DATE", "rd_caption": "CARGO READY DATE", "rd_field": "opr_cargo_ready_date" },
+        { "rd_ctr": 46, "rd_code": "CARGO-RECEIVED-AT", "rd_caption": "CARGO RECEIVED AT", "rd_field": "opr_cargo_received_at" },
+        { "rd_ctr": 47, "rd_code": "CLEARED-DATE", "rd_caption": "CLEARED ON", "rd_field": "opr_cleared_date" },
+        { "rd_ctr": 48, "rd_code": "STACKED-ON", "rd_caption": "STACKED ON", "rd_field": "opr_stacked_on" },
+        { "rd_ctr": 49, "rd_code": "PICKUP-LOCATION", "rd_caption": "PICKUP LOCATION", "rd_field": "opr_pickup_location" },
+        { "rd_ctr": 50, "rd_code": "SCHEDULED-PICKUP-DATE", "rd_caption": "SCHEDULED PICKUP DATE", "rd_field": "opr_scheduled_pickup_date" },
+        { "rd_ctr": 51, "rd_code": "ACTUAL-PICKUP-DATE", "rd_caption": "ACTUAL PICKUP DATE", "rd_field": "opr_actual_pickup_date" },
+        { "rd_ctr": 52, "rd_code": "VEHICLE-RELEASED-DATE", "rd_caption": "VEHICLE RELEASED DATE", "rd_field": "opr_vehicle_released_date" },
+        { "rd_ctr": 53, "rd_code": "DETENTION-DAYS", "rd_caption": "DETENTION DAYS", "rd_field": "opr_detention_days" },
+        { "rd_ctr": 54, "rd_code": "VEHICLE-TYPE", "rd_caption": "VEHICLE TYPE", "rd_field": "opr_vehicle_type" },
+        { "rd_ctr": 55, "rd_code": "VEHICLE-NO", "rd_caption": "VEHICLE NO", "rd_field": "opr_vehicle_no" },
+        { "rd_ctr": 56, "rd_code": "TRANSPORTER-NAME", "rd_caption": "TRANSPORTER NAME", "rd_field": "opr_transporter_name" },
+        { "rd_ctr": 57, "rd_code": "EP-SENT-DATE", "rd_caption": "EP SENT DATE", "rd_field": "opr_ep_sent_date" },
+        { "rd_ctr": 58, "rd_code": "DRAWBACK-SLNO", "rd_caption": "DRAWBACK SLNO", "rd_field": "opr_drawback_slno" },
+        { "rd_ctr": 59, "rd_code": "DRAWBACK-DATE", "rd_caption": "DRAWBACK DATE", "rd_field": "opr_drawback_date" },
+        { "rd_ctr": 60, "rd_code": "DRAWBACK-AMOUNT", "rd_caption": "DRAWBACK AMOUNT", "rd_field": "opr_drawback_amt" },
+        { "rd_ctr": 61, "rd_code": "EGM-NO", "rd_caption": "EGM NO", "rd_field": "opr_egmno" },
+        { "rd_ctr": 62, "rd_code": "EGM-DATE", "rd_caption": "EGM DATE", "rd_field": "opr_egmdt" },
+        { "rd_ctr": 63, "rd_code": "EGM-STATUS", "rd_caption": "EGM STATUS", "rd_field": "opr_egm_status" },
+        { "rd_ctr": 64, "rd_code": "POL-ATD", "rd_caption": "POL ATD", "rd_field": "pol_atd" },
+        { "rd_ctr": 65, "rd_code": "POD-ATA", "rd_caption": "POD ATA", "rd_field": "pod_ata" },
+        { "rd_ctr": 66, "rd_code": "POFD-ATA", "rd_caption": "POFD ATA", "rd_field": "pofd_ata" }
       ];
     } else if (this.type == "SEA IMPORT" || this.type == "AIR IMPORT") {
 

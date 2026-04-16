@@ -322,12 +322,15 @@ export class CustomReportComponent implements OnInit {
         this.modal.close();
     }
 
-    OnBlur(field: string) {
+    OnBlur(field: string,_rec:CustomReportD) {
 
         if (field == 'rh_report_format') {
             this.Record.rh_report_format = this.Record.rh_report_format.toUpperCase();
         }
 
+        if (field == 'rd_caption') {
+            _rec.rd_caption = _rec.rd_caption .toUpperCase();
+        }
     }
 
     OnChange(field: string) {
