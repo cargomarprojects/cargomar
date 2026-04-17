@@ -60,5 +60,9 @@ export class MarkMarketingService {
     EmailVisitDetails(SearchData : any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkMarketing/EmailVisitDetails', SearchData, this.gs.headerparam2('authorized'));
     }
+
+    GetCustDet(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkMarketing/GetCustDet', SearchData, this.gs.headerparam2('authorized'));
+    }
 }
 

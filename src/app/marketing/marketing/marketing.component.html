@@ -330,25 +330,7 @@
             <label class="col-form-label col-form-label-sm" for="emailmarketing">EMAIL MARKETING</label>
           </div>
         </div>
-        <div class="form-group row">
-          <label class="col-sm-4 col-form-label col-form-label-sm">Lead Source</label>
-          <div class="col-sm-8">
-            <select class="form-control form-control-sm" [(ngModel)]="Record.mark_contact_source">
-              <option [value]="'NA'">NA</option>
-              <option [value]="'LIVE DATA'">LIVE DATA ( DATA GIVEN BY THE OPS TEAM FROM CFS / AIRPORT )</option>
-              <option [value]="'NOMINATED BIZ'">NOMINATED BIZ ( LOST NOMINATED CUSTOMERS / PRESENT NOMINATION )</option>
-              <option [value]="'SELF-GENERATED DATA'">SELF-GENERATED DATA ( EXHIBITION DATA / COLD CALLING )</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-sm-4 col-form-label col-form-label-sm">Appointment Date</label>
-          <div class="col-sm-8">
-            <app-date #_mark_appointment_date [inputdate]="Record.mark_appointment_date"
-              (ValueChanged)="Record.mark_appointment_date=$event">
-            </app-date>
-          </div>
-        </div>
+
 
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">Client</label>
@@ -357,7 +339,6 @@
             </app-autocomplete>
           </div>
         </div>
-
 
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm"></label>
@@ -371,6 +352,25 @@
           <label class="col-sm-4 col-form-label col-form-label-sm">{{Record.rec_category}}</label>
         </div>
 
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Lead Source</label>
+          <div class="col-sm-8">
+            <select class="form-control form-control-sm" [(ngModel)]="Record.mark_contact_source">
+              <option [value]="'NA'">NA</option>
+              <option [value]="'LIVE DATA'">LIVE DATA ( DATA FROM CFS/CUSTOMS/AIRPORT )</option>
+              <option [value]="'NOMINATED BIZ'">NOMINATED BIZ ( PRESENT/LOST NOMINATION CUSTOMERS )</option>
+              <option [value]="'SELF-GENERATED DATA'">SELF-GENERATED DATA ( EXHIBITION DATA / COLD CALLING )</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Appointment Date</label>
+          <div class="col-sm-8">
+            <app-date #_mark_appointment_date [inputdate]="Record.mark_appointment_date"
+              (ValueChanged)="Record.mark_appointment_date=$event">
+            </app-date>
+          </div>
+        </div>
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">Joint Visit With</label>
           <div class="col-sm-8">

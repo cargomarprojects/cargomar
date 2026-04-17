@@ -269,6 +269,7 @@ export class MarketingComponent {
           this.Record.mark_conv_type = "NA";
         if (_Record.col11 == "NEW CUSTOMER")
           this.Record.mark_conv_type = "REGULAR";
+        this.GetCustDet(this.Record.mark_customer_id)
       }
 
       this.ActionsRecordContact.parent_id = this.Record.mark_customer_id;
@@ -293,6 +294,29 @@ export class MarketingComponent {
   }
 
 
+  GetCustDet(Id: string) {
+
+    this.loading = true;
+    let SearchData = {
+      pkid: Id,
+      user_pkid: this.gs.globalVariables.user_pkid
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.GetCustDet(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.Record.mark_contact_source = response.source;
+        if (this.gs.isBlank(this.Record.mark_contact_source))
+          this.Record.mark_contact_source = "NA";
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
 
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string) {
