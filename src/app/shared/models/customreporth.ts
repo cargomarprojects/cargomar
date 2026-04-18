@@ -18,6 +18,8 @@ export class CustomReportD {
     rd_code: string;
     rd_caption: string;
     rd_field: string;
+    rd_sort_order:number;
+    rd_col_width:number;
     rd_selected: boolean;
     rd_ctr: number;
 }

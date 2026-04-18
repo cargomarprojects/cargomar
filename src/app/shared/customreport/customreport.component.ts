@@ -59,7 +59,7 @@ export class CustomReportComponent implements OnInit {
         private modalService: NgbModal,
         private http2: HttpClient,
         private mainservice: CustomReportService,
-        private gs: GlobalService) {
+        public gs: GlobalService) {
 
     }
 
@@ -241,7 +241,7 @@ export class CustomReportComponent implements OnInit {
                 }); // clone ,override rd_selected ONLY in clone
             }
         }
-        this.Record.recordDet.sort((a, b) => a.rd_ctr - b.rd_ctr);
+        this.Record.recordDet.sort((a, b) => a.rd_sort_order - b.rd_sort_order);
         this.RecordDetfullData = [...this.Record.recordDet];
         this.InitLov();
     }
@@ -289,6 +289,12 @@ export class CustomReportComponent implements OnInit {
             sError += " | No rows selected";
         }
 
+        if (this.RecordDetfullData.length > 0) {
+            if (this.Record.recordDet.length != this.RecordDetfullData.length) {
+                bret = false;
+                sError += " | Pls remove filter and save";
+            }
+        }
         if (bret === false) {
             this.errorMessage = sError;
             alert(this.errorMessage);
@@ -343,6 +349,12 @@ export class CustomReportComponent implements OnInit {
 
         if (field == 'rd_caption') {
             _rec.rd_caption = _rec.rd_caption.toUpperCase();
+        }
+        if (field == 'rd_col_width') {
+            _rec.rd_col_width = this.gs.roundNumber(_rec.rd_col_width, 0);
+        }
+        if (field == 'rd_sort_order') {
+            _rec.rd_sort_order = this.gs.roundNumber(_rec.rd_sort_order, 0);
         }
     }
 
