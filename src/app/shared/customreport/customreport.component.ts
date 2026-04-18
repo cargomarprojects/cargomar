@@ -424,7 +424,7 @@ export class CustomReportComponent implements OnInit {
             this.selectedformat = "GENERAL";
     }
     SearchReport() {
-        const value = this.searchString.trim().toLowerCase();
+        const value = this.searchString.trim().toUpperCase();
 
         if (!value) {
             this.Record.recordDet = [...this.RecordDetfullData];
@@ -432,8 +432,8 @@ export class CustomReportComponent implements OnInit {
         }
 
         this.Record.recordDet = this.RecordDetfullData.filter(item =>
-            item.rd_code.toLowerCase().includes(value) ||
-            item.rd_caption.toLowerCase().includes(value)
+            item.rd_code.includes(value) ||
+            item.rd_caption.includes(value)
         );
 
     }
