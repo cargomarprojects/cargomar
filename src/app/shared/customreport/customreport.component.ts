@@ -40,6 +40,7 @@ export class CustomReportComponent implements OnInit {
     mode = '';
     pkid = '';
 
+    searchString: string = "";
     bDelete: boolean = false;
     disableSave = true;
     selectdeselect: boolean = true;
@@ -51,6 +52,8 @@ export class CustomReportComponent implements OnInit {
 
     RecordDet: CustomReportD[] = [];
     RecDet: CustomReportD = new CustomReportD;
+
+    RecordDetfullData: CustomReportD[] = [];
 
     constructor(
         private modalService: NgbModal,
@@ -196,6 +199,7 @@ export class CustomReportComponent implements OnInit {
             _rec.rd_pkid = this.gs.getGuid();
             _rec.rd_selected = true;
         }
+        this.RecordDetfullData = [...this.Record.recordDet];
         this.InitLov();
     }
 
@@ -238,6 +242,7 @@ export class CustomReportComponent implements OnInit {
             }
         }
         this.Record.recordDet.sort((a, b) => a.rd_ctr - b.rd_ctr);
+        this.RecordDetfullData = [...this.Record.recordDet];
         this.InitLov();
     }
 
@@ -330,6 +335,12 @@ export class CustomReportComponent implements OnInit {
             this.Record.rh_report_format = this.Record.rh_report_format.toUpperCase();
         }
 
+        if (field == 'searchString') {
+            this.searchString = this.searchString.toUpperCase();
+            if (this.gs.isBlank(this.searchString) && this.Record.recordDet.length != this.RecordDetfullData.length)
+                this.Record.recordDet = [...this.RecordDetfullData];
+        }
+
         if (field == 'rd_caption') {
             _rec.rd_caption = _rec.rd_caption.toUpperCase();
         }
@@ -380,6 +391,7 @@ export class CustomReportComponent implements OnInit {
         for (let rec of this.Record.recordDet) {
             rec.rd_selected = this.selectdeselect;
         }
+        this.RecordDetfullData = [...this.Record.recordDet];
     }
 
     get filteredRecordList() {
@@ -398,5 +410,19 @@ export class CustomReportComponent implements OnInit {
             this.selectedformat = _format;
         else
             this.selectedformat = "GENERAL";
+    }
+    SearchReport() {
+        const value = this.searchString.trim().toLowerCase();
+
+        if (!value) {
+            this.Record.recordDet = [...this.RecordDetfullData];
+            return;
+        }
+
+        this.Record.recordDet = this.RecordDetfullData.filter(item =>
+            item.rd_code.toLowerCase().includes(value) ||
+            item.rd_caption.toLowerCase().includes(value)
+        );
+
     }
 }
