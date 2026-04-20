@@ -120,6 +120,7 @@ export class ShipTrackComponent {
     this.loading = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
+    this.Record.parent_id = this.pkid;
     this.Record.rec_category = _category;
     this.Record.pre_position_date = _pre_position_date;
     this.Record.parent_type = this.type;
