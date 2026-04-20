@@ -78,7 +78,7 @@
                                     <th>SELECTED</th>
                                     <th>COLUMN</th>
                                     <th>CAPTIONS</th>
-                                    <th *ngIf="gs.globalVariables.user_code == 'ADMIN'" style="width: 5%;">WIDTH</th>
+                                    <th style="width: 5%;">WIDTH</th>
                                     <th style="width: 10%;">SORT</th>
                                 </tr>
                             </thead>
@@ -94,7 +94,7 @@
                                             [(ngModel)]="rec.rd_caption" (blur)="OnBlur('rd_caption',rec)" required
                                             maxlength="60" />
                                     </td>
-                                    <td *ngIf="gs.globalVariables.user_code == 'ADMIN'" style="padding:0px 0px 0px 0px">
+                                    <td style="padding:0px 0px 0px 0px">
                                         <input type="number" name="widthcol" class="form-control form-control-sm"
                                             [(ngModel)]="rec.rd_col_width" (blur)="OnBlur('rd_col_width',rec)" required
                                             maxlength="3" />
