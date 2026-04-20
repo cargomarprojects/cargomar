@@ -241,7 +241,7 @@ export class CustomReportComponent implements OnInit {
                 }); // clone ,override rd_selected ONLY in clone
             }
         }
-        this.Record.recordDet.sort((a, b) => a.rd_sort_order - b.rd_sort_order);
+        //this.Record.recordDet.sort((a, b) => a.rd_sort_order - b.rd_sort_order);
         this.RecordDetfullData = [...this.Record.recordDet];
         this.InitLov();
     }
@@ -250,6 +250,12 @@ export class CustomReportComponent implements OnInit {
     Save() {
         if (!this.allvalid())
             return;
+
+        if (this.RecordDetfullData.length > 0) {
+            if (this.Record.recordDet.length != this.RecordDetfullData.length) {
+                this.Record.recordDet = [...this.RecordDetfullData];
+            }
+        }
         this.loading = true;
         this.errorMessage = '';
         this.Record._globalvariables = this.gs.globalVariables;
@@ -261,6 +267,7 @@ export class CustomReportComponent implements OnInit {
                 this.errorMessage = "Save Complete";
                 // alert(this.errorMessage);
                 this.RefreshList();
+                this.GetRecord(this.Record.rh_pkid);
             },
                 error => {
                     this.loading = false;
@@ -289,12 +296,6 @@ export class CustomReportComponent implements OnInit {
             sError += " | No rows selected";
         }
 
-        if (this.RecordDetfullData.length > 0) {
-            if (this.Record.recordDet.length != this.RecordDetfullData.length) {
-                bret = false;
-                sError += " | Pls remove filter and save";
-            }
-        }
         if (bret === false) {
             this.errorMessage = sError;
             alert(this.errorMessage);
@@ -359,7 +360,10 @@ export class CustomReportComponent implements OnInit {
     }
 
     OnChange(field: string) {
-        this.callBackFormat();
+        if (field == "selectedformat")
+            this.callBackFormat();
+        if (field == "searchString")
+            this.SearchReport();
     }
 
     callBackFormat() {
