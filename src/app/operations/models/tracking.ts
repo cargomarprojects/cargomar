@@ -31,10 +31,47 @@ export class Trackingm {
   mbl_shipper_name: string;
   mbl_consignee_name: string;
   trk_vsl_count: number;
-  row_colour:string;
+  row_colour: string;
   trk_si_cutoff: string;
   trk_cy_cutoff: string;
 
   _globalvariables: GlobalVariables;
 }
 
+export class Trackingh {
+  trk_pkid: string;
+  trk_ts1_port_id: string;
+  trk_ts1_port_name: string;
+  trk_ts1_vessel_id: string;
+  trk_ts1_vessel_name: string;
+  trk_ts1_voyage: string;
+  trk_ts1_etd: string;
+  trk_ts1_eta: string;
+  trk_ts2_port_id: string;
+  trk_ts2_port_name: string;
+  trk_ts2_vessel_id: string;
+  trk_ts2_vessel_name: string;
+  trk_ts2_voyage: string;
+  trk_ts2_etd: string;
+  trk_ts2_eta: string;
+  trk_ts3_port_id: string;
+  trk_ts3_port_name: string;
+  trk_ts3_vessel_id: string;
+  trk_ts3_vessel_name: string;
+  trk_ts3_voyage: string;
+  trk_ts3_etd: string;
+  trk_ts3_eta: string;
+  trk_pol_etd1: string;
+  trk_pol_etd2: string;
+  trk_pol_etd3: string;
+  trk_pod_eta1: string;
+  trk_pod_eta2: string;
+  trk_pod_eta3: string;
+  trk_pofd_eta1: string;
+  trk_pofd_eta2: string;
+  trk_pofd_eta3: string;
+  trk_vessel_voyage1: string;
+  trk_vessel_voyage2: string;
+  trk_vessel_voyage3: string;
+   _globalvariables: GlobalVariables;
+}

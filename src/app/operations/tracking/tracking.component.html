@@ -1,12 +1,13 @@
-
 <div class="page-list">
   <div class="page-body table-responsive">
     <table class="table  table-hover table-sm">
       <thead class="page-body-thead">
         <tr>
           <th>SL#</th>
-          <th><span *ngIf="type=='SEA EXPORT'||type=='SEA IMPORT'">VESSEL</span><span *ngIf="type=='AIR EXPORT'||type=='AIR IMPORT'">AIRLINE</span></th>
-          <th><span *ngIf="type=='SEA EXPORT'||type=='SEA IMPORT'">VOYAGE</span><span *ngIf="type=='AIR EXPORT'||type=='AIR IMPORT'">FLIGHT#</span></th>
+          <th><span *ngIf="type=='SEA EXPORT'||type=='SEA IMPORT'">VESSEL</span><span
+              *ngIf="type=='AIR EXPORT'||type=='AIR IMPORT'">AIRLINE</span></th>
+          <th><span *ngIf="type=='SEA EXPORT'||type=='SEA IMPORT'">VOYAGE</span><span
+              *ngIf="type=='AIR EXPORT'||type=='AIR IMPORT'">FLIGHT#</span></th>
           <th>POL.CODE</th>
           <th>POL.NAME</th>
           <th>ETD</th>
@@ -19,7 +20,8 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (click)="ActionHandler('EDIT', rec.trk_pkid,i)">
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+          (click)="ActionHandler('EDIT', rec.trk_pkid,i)">
           <td>{{i+1}}</td>
           <td>{{rec.trk_vsl_name}}</td>
           <td>{{rec.trk_voyage}}</td>
@@ -124,6 +126,114 @@
     <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-default btn-sm">NEW</button>
   </div>
 </div> -->
+<br>
+<div *ngIf="type=='SEA EXPORT'">
+  <!-- <h5 class="my-1">Show Edit History<i (click)="showeditHistory()" style="color: chocolate;"
+      class="fa fa-eye fa-lg pointer" aria-hidden="true"></i></h5> -->
+  <button (click)="showeditHistory()" class="btn btn-link pointer">Show Edit History</button>
+  <hr class="my-2 mx-0 p-0">
+</div>
+
+<div *ngIf="type=='SEA EXPORT' && showtrkhistory" class="page-box">
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label col-form-label-sm">VSL/VOY1</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="trkhRecord.trk_vessel_voyage1"
+            (blur)="OnBlur('trk_vessel_voyage1')" />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label col-form-label-sm">VSL/VOY2</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="trkhRecord.trk_vessel_voyage2"
+            (blur)="OnBlur('trk_vessel_voyage2')" />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-3 col-form-label col-form-label-sm">VSL/VOY3</label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="trkhRecord.trk_vessel_voyage3"
+            (blur)="OnBlur('trk_vessel_voyage3')" />
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label col-form-label-sm">POL.ETD1</label>
+        <div class="col-sm-8">
+          <app-date [inputdate]="trkhRecord.trk_pol_etd1" (ValueChanged)="trkhRecord.trk_pol_etd1=$event"></app-date>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label col-form-label-sm">POL.ETD2</label>
+        <div class="col-sm-8">
+          <app-date [inputdate]="trkhRecord.trk_pol_etd2" (ValueChanged)="trkhRecord.trk_pol_etd2=$event"></app-date>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label col-form-label-sm">POL.ETD3</label>
+        <div class="col-sm-8">
+          <app-date [inputdate]="trkhRecord.trk_pol_etd3" (ValueChanged)="trkhRecord.trk_pol_etd3=$event"></app-date>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label col-form-label-sm">POD.ETA1</label>
+        <div class="col-sm-8">
+          <app-date [inputdate]="trkhRecord.trk_pod_eta1" (ValueChanged)="trkhRecord.trk_pod_eta1=$event"></app-date>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label col-form-label-sm">POD.ETA2</label>
+        <div class="col-sm-8">
+          <app-date [inputdate]="trkhRecord.trk_pod_eta2" (ValueChanged)="trkhRecord.trk_pod_eta2=$event"></app-date>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label col-form-label-sm">POD.ETA3</label>
+        <div class="col-sm-8">
+          <app-date [inputdate]="trkhRecord.trk_pod_eta3" (ValueChanged)="trkhRecord.trk_pod_eta3=$event"></app-date>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label col-form-label-sm">POFD.ETA1</label>
+        <div class="col-sm-8">
+          <app-date [inputdate]="trkhRecord.trk_pofd_eta1" (ValueChanged)="trkhRecord.trk_pofd_eta1=$event"></app-date>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label col-form-label-sm">POFD.ETA2</label>
+        <div class="col-sm-8">
+          <app-date [inputdate]="trkhRecord.trk_pofd_eta2" (ValueChanged)="trkhRecord.trk_pofd_eta2=$event"></app-date>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label col-form-label-sm">POFD.ETA3</label>
+        <div class="col-sm-8">
+          <app-date [inputdate]="trkhRecord.trk_pofd_eta3" (ValueChanged)="trkhRecord.trk_pofd_eta3=$event"></app-date>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="type=='SEA EXPORT'&&showtrkhistory" class="page-box">
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="form-group row">
+        <div class="offset-3 col-sm-9">
+          <button [disabled]="loading" (click)="Savetrackh()" class="btn btn-default btn-sm">SAVE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <br />
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 <div *ngIf="InfoMessage" class="alert alert-success">
@@ -132,4 +242,3 @@
 <div *ngIf="ErrorMessage" class="alert alert-danger">
   {{ErrorMessage}}
 </div>
-

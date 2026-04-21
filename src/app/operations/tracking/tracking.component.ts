@@ -1,7 +1,7 @@
 import { Component, Input, Output, OnInit, OnDestroy, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
-import { Trackingm } from '../models/tracking';
+import { Trackingm, Trackingh } from '../models/tracking';
 import { TrackingService } from '../services/tracking.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { AutoCompleteComponent } from '../../shared/autocomplete/autocomplete.component';
@@ -40,12 +40,14 @@ export class TrackingComponent {
   porttype = 'SEA PORT';
   bChanged: boolean;
 
+  showtrkhistory: boolean = false;
   ErrorMessage = "";
   InfoMessage = "";
   mode = 'ADD';
   pkid = '';
   ctr: number;
 
+  trkhRecord: Trackingh = new Trackingh;
   // Array For Displaying List
   RecordList: Trackingm[] = [];
   // Single Record for add/edit/view details
@@ -187,6 +189,7 @@ export class TrackingComponent {
       .subscribe(response => {
         this.loading = false;
         this.RecordList = response.list;
+        this.trkhRecord = response.record;
       },
         error => {
           this.loading = false;
@@ -419,6 +422,43 @@ export class TrackingComponent {
           this.Record.trk_voyage = this.Record.trk_voyage.toUpperCase().trim();
           break;
         }
+      case 'trk_vessel_voyage1':
+        {
+          this.trkhRecord.trk_vessel_voyage1 = this.trkhRecord.trk_vessel_voyage1.toUpperCase().trim();
+          break;
+        }
+      case 'trk_vessel_voyage2':
+        {
+          this.trkhRecord.trk_vessel_voyage2 = this.trkhRecord.trk_vessel_voyage2.toUpperCase().trim();
+          break;
+        }
+      case 'trk_vessel_voyage3':
+        {
+          this.trkhRecord.trk_vessel_voyage3 = this.trkhRecord.trk_vessel_voyage3.toUpperCase().trim();
+          break;
+        }
     }
+  }
+
+
+  Savetrackh() {
+    this.loading = true;
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.trkhRecord.trk_pkid = this.parentid;
+    this.trkhRecord._globalvariables = this.gs.globalVariables;
+    this.mainService.Savetrackh(this.trkhRecord)
+      .subscribe(response => {
+        this.loading = false;
+        alert('Save Complete');
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
+  showeditHistory() {
+    this.showtrkhistory = !this.showtrkhistory;
   }
 }
