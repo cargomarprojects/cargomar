@@ -473,7 +473,14 @@ export class DsrComponent {
         { "rd_ctr": 103, "rd_code": "POFD-ETA1", "rd_caption": "POFD ETA1", "rd_field": "trk_pofd_eta1", "rd_sort_order": 510, "rd_col_width": 15, "rd_data_type": "D" },
         { "rd_ctr": 104, "rd_code": "POFD-ETA2", "rd_caption": "POFD ETA2", "rd_field": "trk_pofd_eta2", "rd_sort_order": 515, "rd_col_width": 15, "rd_data_type": "D" },
         { "rd_ctr": 105, "rd_code": "POFD-ETA3", "rd_caption": "POFD ETA3", "rd_field": "trk_pofd_eta3", "rd_sort_order": 520, "rd_col_width": 15, "rd_data_type": "D" },
-        { "rd_ctr": 106, "rd_code": "BRANCH", "rd_caption": "BRANCH", "rd_field": "branch", "rd_sort_order": 525, "rd_col_width": 15, "rd_data_type": "S" }
+        { "rd_ctr": 106, "rd_code": "BRANCH", "rd_caption": "BRANCH", "rd_field": "branch", "rd_sort_order": 525, "rd_col_width": 15, "rd_data_type": "S" },
+        { "rd_ctr": 107, "rd_code": "SI-CUT-OFF", "rd_caption": "SI CUT OFF", "rd_field": "mbl_si_cutoff", "rd_sort_order": 530, "rd_col_width": 15, "rd_data_type": "D" },
+        { "rd_ctr": 108, "rd_code": "CY-CUT-OFF", "rd_caption": "CY CUT OFF", "rd_field": "mbl_cy_cutoff", "rd_sort_order": 535, "rd_col_width": 15, "rd_data_type": "D" },
+        { "rd_ctr": 109, "rd_code": "GATE-IN-DATE", "rd_caption": "GATE IN DATE", "rd_field": "mgate_in_date", "rd_sort_order": 540, "rd_col_width": 15, "rd_data_type": "D" },
+        { "rd_ctr": 110, "rd_code": "TRK-VESSEL-VOYAGE1", "rd_caption": "TRK VESSEL VOYAGE1", "rd_field": "trk_vessel_voyage1", "rd_sort_order": 545, "rd_col_width": 15, "rd_data_type": "S" },
+        { "rd_ctr": 111, "rd_code": "TRK-VESSEL-VOYAGE2", "rd_caption": "TRK VESSEL VOYAGE2", "rd_field": "trk_vessel_voyage2", "rd_sort_order": 550, "rd_col_width": 15, "rd_data_type": "S" },
+        { "rd_ctr": 112, "rd_code": "TRK-VESSEL-VOYAGE3", "rd_caption": "TRK VESSEL VOYAGE3", "rd_field": "trk_vessel_voyage3", "rd_sort_order": 555, "rd_col_width": 15, "rd_data_type": "S" },
+        { "rd_ctr": 113, "rd_code": "TS-OR-DIRECT", "rd_caption": "TS OR DIRECT", "rd_field": "ts_or_direct", "rd_sort_order": 560, "rd_col_width": 15, "rd_data_type": "S" }
       ];
     } else if (this.type == "AIR EXPORT") {
       this.CustomReportList = [
