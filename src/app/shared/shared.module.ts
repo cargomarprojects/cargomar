@@ -71,6 +71,7 @@ import { MemoComponent } from './memo/memo.component';
 import { CustMemoService } from './services/custmemo.service';
 import { CustomReportComponent } from './customreport/customreport.component';
 import { CustomReportService } from './services/customreport.service';
+import { ShipmentStageComponent } from './shipment-stage/shipment-stage.component';
 
 //EDIT-AJITH-29-09-2021
 //EDIT-AJITH-01-10-2021
@@ -122,7 +123,8 @@ import { CustomReportService } from './services/customreport.service';
     FileUploadDirectComponent,
     MemoComponent,
     WarningAlert2Component,
-    CustomReportComponent
+    CustomReportComponent,
+    ShipmentStageComponent
   ],
   exports: [
     CommonModule,
@@ -168,7 +170,8 @@ import { CustomReportService } from './services/customreport.service';
     FileUploadDirectComponent,
     MemoComponent,
     WarningAlert2Component,
-    CustomReportComponent
+    CustomReportComponent,
+    ShipmentStageComponent
   ],
   providers: [
     AlertService,

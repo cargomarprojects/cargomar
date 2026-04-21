@@ -1,0 +1,46 @@
+<div>
+  <button [disabled]="loading" class="btn btn-success btn-sm mr-1" (click)="GetList(memomodal)">Shipment-Stage</button>
+</div>
+<ng-template #memomodal let-c="close" let-d="dismiss">
+  <div class="modal-body">
+    <div class="page-box">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="page-body table-responsive">
+            <table class="table  table-hover table-sm mb-1">
+              <thead class="page-body-thead">
+                <tr>
+                  <th>Order</th>
+                  <th>Shipment Stage</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody class="page-body-tbody">
+                <tr *ngFor="let rec of RecordList; let i = index">
+
+                  <td>
+                    {{rec.stage_order}}
+                  </td>
+
+                  <td>
+                    {{rec.stage_name}}
+                  </td>
+                  <td>
+                    {{rec.stage_date}}
+                  </td>
+
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="page-box">
+      <div class="row justify-content-center p-1">
+        <button class="btn btn-primary btn-sm mr-1" (click)="CloseModal('OK')">Save</button>
+        <button class="btn btn-primary btn-sm mr-1" (click)="CloseModal('CLOSE')">Cancel</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
