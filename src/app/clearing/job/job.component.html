@@ -148,7 +148,7 @@
             <td>{{rec.job_imp_name}}</td>
             <td>{{rec.job_toorder_name}}</td>
             <td>{{rec.job_invoice_nos}}</td>
-             <td>{{rec.job_po_nos}}</td>
+            <td>{{rec.job_po_nos}}</td>
             <td>{{rec.job_pol_name}}</td>
             <td>{{rec.job_pod_name}}</td>
             <td>{{rec.job_agent_name}}</td>
@@ -387,7 +387,8 @@
                   <div class="form-group row">
                     <label class="col-4 col-form-label col-form-label-sm">To Order</label>
                     <div class="col-8">
-                      <app-autocomplete #TorderLov [inputdata]="TOORDRECORD" (ValueChanged)="LovSelected($event)" [flag]="'TO-ORDER'">
+                      <app-autocomplete #TorderLov [inputdata]="TOORDRECORD" (ValueChanged)="LovSelected($event)"
+                        [flag]="'TO-ORDER'">
                       </app-autocomplete>
                     </div>
 
@@ -673,9 +674,6 @@
                           </div>
                         </div>
 
-                      </div>
-
-                      <div class="col-sm-4">
 
                         <div class=" form-group row">
                           <label class="col-4 col-form-label col-form-label-sm">Cha License</label>
@@ -684,6 +682,14 @@
                               (ValueChanged)="LovSelected($event)"></app-autocomplete>
                           </div>
                         </div>
+
+
+
+                      </div>
+
+                      <div class="col-sm-4">
+
+
 
                         <div *ngIf="type=='SEA EXPORT'" class="form-group row">
                           <label class="col-4 col-form-label  col-form-label-sm">Nature</label>
@@ -743,6 +749,7 @@
                               (blur)="OnBlur('job_vsl_voy_no')" required maxlength="20" />
                           </div>
                         </div>
+
                         <div *ngIf="mode=='EDIT'" class="form-group row">
                           <label class="col-4 col-form-label  col-form-label-sm"><span
                               *ngIf="type=='SEA EXPORT'">MBL#</span><span
@@ -752,6 +759,22 @@
                               [(ngModel)]="Record.job_mbl_no" (blur)="OnBlur('job_mbl_no')" required maxlength="200" />
                           </div>
                         </div>
+
+
+
+                        <div class="form-group row" *ngIf="mode=='EDIT'">
+                          <label class="col-4 col-form-label  col-form-label-sm hlink_blue"
+                            (click)="showShipmentStage(shipmentStage)">
+                            Shipment Stage
+                          </label>
+                          <div class="col-8">
+                            <input type="text" disabled class="form-control form-control-sm"
+                              [(ngModel)]="Record.job_stage" disabled />
+                          </div>
+                        </div>
+
+
+
                       </div>
                     </div>
 
@@ -1310,6 +1333,20 @@
   </div>
   <div class="modal-body">
     <app-history [pkid]="pkid" [type]="'JOB'"></app-history>
+  </div>
+</ng-template>
+
+
+<ng-template #shipmentStage let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Shipment Stage</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-shipment-stage [pkid]="Record.job_pkid" type="JOB-{{type}}" [stage]="Record.job_stage"
+      (callbackevent)="onShipmentStageChange($event)"></app-shipment-stage>
   </div>
 </ng-template>
 

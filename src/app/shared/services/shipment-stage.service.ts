@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { GlobalService } from '../../core/services/global.service';
-import { SearchTable } from '../models/searchtable';
 
-import { ShipmentStage, VmShipmentStage } from '../models/shipment-stage';
+import { VmShipmentStage } from '../models/shipment-stage';
 
 @Injectable()
 export class ShipmentStageService {
@@ -13,15 +12,14 @@ export class ShipmentStageService {
   ) { }
 
 
-  List(SearchData: any) {
-    return this.http2.post<any>(this.gs.baseUrl + '/api/Master/CustMemo/List', SearchData, this.gs.headerparam2('authorized'));
+  GetRecord(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ShipmentTracking/GetRecord', SearchData, this.gs.headerparam2('authorized'));
   }
 
   Save(Record: VmShipmentStage) {
-    return this.http2.post<any>(this.gs.baseUrl + '/api/Master/CustMemo/Save', Record, this.gs.headerparam2('authorized'));
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ShipmentTracking/Save', Record, this.gs.headerparam2('authorized'));
   }
 
-  DeleteRecord(SearchData: any) {
-    return this.http2.post<any>(this.gs.baseUrl + '/api/Master/CustMemo/DeleteRecord', SearchData, this.gs.headerparam2('authorized'));
-  }
 }
+
+

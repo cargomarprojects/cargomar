@@ -961,6 +961,8 @@ export class JobComponent {
     this.Record.job_chwt = 0;
     this.Record.job_marks = '';
 
+    this.Record.job_stage = 'JOB CREATED';
+
     this.Record.job_rbiwno = '';
     this.Record.job_rbiw_date = '';
     this.Record.job_bank = '';
@@ -2104,6 +2106,19 @@ export class JobComponent {
     this.ErrorMessage = '';
     this.open(history);
   }
+
+  showShipmentStage(shipmentStage: any) {
+    if (this.mode == "EDIT") {
+      this.ErrorMessage = '';
+      this.open(shipmentStage);
+    }
+  }
+
+  onShipmentStageChange(event: any) {
+    this.Record.job_stage = event.stage;
+  }
+
+
 
   GenerateClrNo() {
 

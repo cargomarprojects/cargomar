@@ -14,9 +14,9 @@ export class ShipmentStageComponent implements OnInit {
   public errorMessage: string = '';
   public tab: string = 'main';
 
-  private _parentid: string = '';
-  @Input() set parentid(value: string) {
-    this._parentid = value;
+  private _pkid: string = '';
+  @Input() set pkid(value: string) {
+    this._pkid = value;
   }
 
   private _type: string = '';
@@ -24,8 +24,19 @@ export class ShipmentStageComponent implements OnInit {
     this._type = value;
   }
 
+  private _stage: string = '';
+  @Input() set stage(value: string) {
+    this._stage = value;
+  }
+
+  _stage_date: string = "";
+
+
   @Output() callbackevent = new EventEmitter<any>();
+
   RecordList: ShipmentStage[] = [];
+
+  selectedRowIndex = 0;
 
   modal: any;
   loading = false;
@@ -38,50 +49,73 @@ export class ShipmentStageComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.GetList();
   }
 
-  CloseModal(_type: string) {
-    if (_type == "OK") {
+  CloseModal(_action: string) {
+
+    if (_action == "OK") {
       this.SaveRecord();
-    } else
-      this.modal.close();
+    }
   }
 
 
-  GetList(memmodal: any = null) {
+  GetList() {
 
     let SearchData = {
-      parentid: '',
+      pkid: '',
       type: ''
     }
 
-    SearchData.parentid = this._parentid;
+    SearchData.pkid = this._pkid;
     SearchData.type = this._type;
 
-    this.mainservice.List(SearchData).subscribe(response => {
-      this.RecordList = response.list;
-      this.open(memmodal);
+    this.mainservice.GetRecord(SearchData).subscribe(response => {
+      this.RecordList = response.record.ShipmentStageList;
+      this.getStage();
 
     }, error => {
       alert(this.gs.getError(error));
     });
 
+  }
+
+
+
+  selectRow(rec: ShipmentStage) {
+    this._stage = rec.stage_name;
+    this._stage_date = rec.stage_date;
+    console.log(rec);
   }
 
   SaveRecord() {
 
-    if (this.gs.isBlank(this._parentid)) {
+    if (this.gs.isBlank(this._pkid)) {
       alert('Invalid ID');
       return;
     }
 
+    if (this.gs.isBlank(this._stage)) {
+      alert('Invalid Shipment Stage');
+      return;
+    }
+
+    if (this.gs.isBlank(this._stage_date)) {
+      alert('Invalid Date');
+      return;
+    }
+
     let SearchData: VmShipmentStage = new VmShipmentStage;
-    SearchData.List = this.RecordList;
+    SearchData.pkid = this._pkid;
+    SearchData.job_date = this._stage_date;
+    SearchData.job_stage = this._stage;
+    SearchData.job_type = this._type;
+
+    SearchData.ShipmentStageList = this.RecordList;
     SearchData._globalvariables = this.gs.globalVariables;
 
     this.mainservice.Save(SearchData).subscribe(response => {
-      //this.modal.close();
+      this.updateStage()
 
     }, error => {
       alert(this.gs.getError(error));
@@ -89,8 +123,21 @@ export class ShipmentStageComponent implements OnInit {
 
   }
 
-  open(content: any) {
-    this.modal = this.modalService.open(content, { size: "sm", backdrop: 'static', keyboard: true, windowClass: 'modal-custom' });
+  getStage() {
+    this.RecordList.forEach(rec => {
+      if (rec.stage_name == this._stage)
+        this._stage_date = rec.stage_date;
+    })
+  }
+
+  updateStage() {
+    this.RecordList.forEach(rec => {
+      if (rec.stage_name == this._stage) {
+        rec.stage_date = this._stage_date;
+        rec.stage_date_old = this._stage_date;
+      }
+    })
+    this.callbackevent.emit({ stage: this._stage })
   }
 
 }

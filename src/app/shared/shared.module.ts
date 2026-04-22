@@ -72,6 +72,7 @@ import { CustMemoService } from './services/custmemo.service';
 import { CustomReportComponent } from './customreport/customreport.component';
 import { CustomReportService } from './services/customreport.service';
 import { ShipmentStageComponent } from './shipment-stage/shipment-stage.component';
+import { ShipmentStageService } from './services/shipment-stage.service';
 
 //EDIT-AJITH-29-09-2021
 //EDIT-AJITH-01-10-2021
@@ -182,7 +183,8 @@ import { ShipmentStageComponent } from './shipment-stage/shipment-stage.componen
     ApprovedDetService,
     EdilinkService,
     CustMemoService,
-    CustomReportService
+    CustomReportService,
+    ShipmentStageService
   ]
 })
 export class SharedModule { }

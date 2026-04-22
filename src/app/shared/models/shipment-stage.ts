@@ -8,6 +8,10 @@ export class ShipmentStage {
 }
 
 export class VmShipmentStage {
-  List: ShipmentStage[] = [];
+  pkid: string;
+  job_date: string;
+  job_type: string;
+  job_stage: string;
+  ShipmentStageList: ShipmentStage[] = [];
   _globalvariables: GlobalVariables;
 }

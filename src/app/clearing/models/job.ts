@@ -173,6 +173,8 @@ export class Jobm {
   job_date_display: string;
   job_po_nos: string;
 
+  job_stage: string;
+
 
   rec_mode: string;
   rec_category: string;
