@@ -597,7 +597,7 @@
             <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
               [style.color]="Record.mark_doc_attached=='Y'?'darkred':'white'"
               class="btn btn-success btn-sm">Documents</button>
-            <button *ngIf="mode=='EDIT'&&bEmail" (click)="EmailVisitDetails(emailsent)"
+            <button *ngIf="mode=='EDIT'" (click)="EmailVisitDetails(emailsent)"
               class="btn btn-success btn-sm">Appointment Mail</button>
             <button [disabled]="loading" (click)="ActionHandler('LIST','')"
               class="btn btn-success btn-sm">Return</button>
@@ -639,7 +639,7 @@
   </div>
   <div class="modal-body">
     <app-mail [pkid]="pkid" [type]="'VISIT DETAILS'" [sHtml]="sMsg" [defaultmessage]="" [defaultcc_ids]="cc_ids"
-      [defaultsubject]="sSubject" [updateto_ids]=false [disableUpdateIds]=false [AttachList]="AttachList"></app-mail>
+      [defaultsubject]="sSubject" [updateto_ids]=false [disableUpdateIds]=true [AttachList]="AttachList" ></app-mail>
   </div>
 </ng-template>
 <ng-template #doc let-c="close" let-d="dismiss">
