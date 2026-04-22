@@ -39,7 +39,7 @@ export class AddressmComponent {
     pkid = '';
     modal: any;
     public shipperAddrLen: number = 34;
-    public consigneeAddrLen: number = 20;
+    public consigneeAddrLen: number = 35;
 
 
     // Array For Displaying List
@@ -60,10 +60,10 @@ export class AddressmComponent {
     shipperAddr2Len: number = 34;
     shipperAddr3Len: number = 0;
     shipperAddr4Len: number = 0;
-    consigneeAddr1Len: number = 20;
-    consigneeAddr2Len: number = 20;
-    consigneeAddr3Len: number = 28;
-    consigneeAddr4Len: number = 20;
+    consigneeAddr1Len: number = 35;
+    consigneeAddr2Len: number = 35;
+    consigneeAddr3Len: number = 35;
+    consigneeAddr4Len: number = 35;
 
     GstList: any[] = [];
 
