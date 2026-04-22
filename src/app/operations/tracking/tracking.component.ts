@@ -29,6 +29,7 @@ export class TrackingComponent {
   @Input() menuid: string = '';
   @Input() type: string = '';
   @Input() parentid: string = '';
+  @Input() bsavetrkhistory: boolean = false;
 
   selectedRowIndex: number = -1;
 

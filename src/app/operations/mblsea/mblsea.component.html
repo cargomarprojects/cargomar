@@ -1100,7 +1100,7 @@
     </div>
     <div class="modal-body">
       <!-- <app-history [pkid]="pkid" [type]="'MBL-SE'"></app-history> -->
-      <app-tracking [parentid]="pkid" [type]="type"></app-tracking>
+      <app-tracking [parentid]="pkid" [type]="type" [bsavetrkhistory]="bsavetrkhistory"></app-tracking>
     </div>
   </ng-template>
   <app-crlimit [visible]="showalert" [msg]="ErrorMessage" [RecordList]="CrList" [type]="Mail_type"

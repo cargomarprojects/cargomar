@@ -66,7 +66,7 @@ export class MblSeaComponent {
   chk_foldersent: boolean = false;
   foldersent: boolean = false;
   folder_chk: boolean = false;
-
+  bsavetrkhistory: boolean = false;
   search_all_house: boolean = false;
   hbl_menuid: string = "";
   hbl_title: string = "";
@@ -176,6 +176,7 @@ export class MblSeaComponent {
     this.bPrint = false;
     this.bSurrenderMailHO = false;
     this.bSurrenderMailAgent = false;
+    this.bsavetrkhistory = false;
     this.AttachList = new Array<any>();
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
@@ -191,9 +192,12 @@ export class MblSeaComponent {
           this.bSurrenderMailHO = true;
         if (this.menu_record.rights_approval.toString().indexOf('{MAIL-SURR-AGENT}') >= 0 || this.gs.globalVariables.user_code == "ADMIN")
           this.bSurrenderMailAgent = true;
+        if (this.menu_record.rights_approval.toString().indexOf('{S-TRK-HISTORY}') >= 0 || this.gs.globalVariables.user_code == "ADMIN")
+          this.bsavetrkhistory = true;
       } else {
         this.bSurrenderMailHO = this.gs.globalVariables.user_code == "ADMIN";
         this.bSurrenderMailAgent = this.gs.globalVariables.user_code == "ADMIN";
+        this.bsavetrkhistory = this.gs.globalVariables.user_code == "ADMIN";
       }
     }
 
