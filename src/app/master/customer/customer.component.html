@@ -319,7 +319,7 @@
                   <input type="text" [disabled]="!Record.cust_is_editable" class="form-control form-control-sm"
                     [(ngModel)]="Record.cust_name" required maxlength="60" />
                   <input type="text" disabled class="form-control form-control-sm w-auto" style="max-width: 40px;"
-                    [style.color]="Record.cust_name.length > (Record.cust_is_shipper?50:34) ?'red':'green'"
+                    [style.color]="Record.cust_name.length > (Record.cust_is_shipper?50:35) ?'red':'green'"
                     [(ngModel)]="Record.cust_name.length" required maxlength="5" />
                 </div>
               </div>

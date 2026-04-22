@@ -17,8 +17,9 @@
           <label *ngIf="type=='PLANNING'" class="col-sm-3 col-form-label col-form-label-sm pr-0">Next Visit Date</label>
           <div *ngIf="type=='VISIT'" class="col-sm-3">
             <select class="form-control form-control-sm" name="vstdt" [(ngModel)]="search_datetype">
-              <option [value]="'VISIT-DATE'">Visit Date</option>
+              <option [value]="'APPOINTMENT-DATE'">Appointments</option>
               <option [value]="'ENTRY-DATE'">Entry Date</option>
+              <option [value]="'VISIT-DATE'">Visit Date</option>
             </select>
           </div>
           <div class="col-sm-4">
@@ -66,12 +67,27 @@
             </app-autocomplete3>
           </div>
         </div>
-        <div class="form-group row">
+        <!-- <div class="form-group row">
           <label class="col-sm-3 col-form-label col-form-label-sm">Commodity</label>
           <div class="col-sm-9">
             <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="search_commodity"
               (blur)="OnBlur('search_commodity')" />
           </div>
+        </div> -->
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label col-form-label-sm">Mode</label>
+          <div class="col-sm-9">
+            <select class="form-control form-control-sm" name="modertd" [(ngModel)]="mark_mode">
+              <option [value]="'ALL'">ALL</option>
+              <option value="PERSONAL VISIT">PERSONAL VISIT</option>
+              <option value="TELE MARKETING">TELE MARKETING</option>
+              <option value="EMAIL MARKETING">EMAIL MARKETING</option>
+            </select>
+          </div>
+          <!-- <div class="col-sm-4">
+            <input type="checkbox" [(ngModel)]="IsAppointment" id="_chkappointment">
+            <label class="col-form-label col-form-label-sm" for="_chkappointment">Appointments</label>
+          </div> -->
         </div>
       </div>
       <div class="col-sm-4">
@@ -85,16 +101,6 @@
               <option [value]="'HO-MARKETING'">HO-MARKETING</option>
             </select>
           </div>
-          <label class="col-sm-2 col-form-label col-form-label-sm">Mode</label>
-          <div class="col-sm-4">
-            <select class="form-control form-control-sm" name="modertd" [(ngModel)]="mark_mode">
-              <option [value]="'ALL'">ALL</option>
-              <option value="PERSONAL VISIT">PERSONAL VISIT</option>
-              <option value="TELE MARKETING">TELE MARKETING</option>
-              <option value="EMAIL MARKETING">EMAIL MARKETING</option>
-            </select>
-          </div>
-
         </div>
         <div class="form-group row">
           <!-- <label class="col-sm-2 col-form-label col-form-label-sm">Init.Cust.Category</label>
@@ -180,6 +186,7 @@
           <th>JOINT VISIT WITH</th>
           <th>NEXT VISIT DATE</th>
           <th>MODE</th>
+          <th>APPOINTMENT DATE</th>
           <th>CUSTOMER</th>
           <th>CUST-REMARKS</th>
           <th>LEAD SOURCE</th>
@@ -206,6 +213,7 @@
           <td>{{rec.mark_jointsalesman_name}}</td>
           <td>{{rec.mark_next_visit_date}}</td>
           <td>{{rec.mark_mode}}</td>
+          <td>{{rec.mark_appointment_date}}</td>
           <td>{{rec.mark_customer_name}}</td>
           <td>{{rec.mark_cont_remarks}}</td>
           <td>{{rec.mark_lead_source}}</td>
@@ -589,8 +597,8 @@
             <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
               [style.color]="Record.mark_doc_attached=='Y'?'darkred':'white'"
               class="btn btn-success btn-sm">Documents</button>
-            <button *ngIf="mode=='EDIT'&&bEmail" (click)="EmailVisitDetails(emailsent)"
-              class="btn btn-success btn-sm">Mail</button>
+            <button *ngIf="mode=='EDIT'" (click)="EmailVisitDetails(emailsent)"
+              class="btn btn-success btn-sm">Appointment Mail</button>
             <button [disabled]="loading" (click)="ActionHandler('LIST','')"
               class="btn btn-success btn-sm">Return</button>
             <label class="col-form-label col-form-label-sm" *ngIf="Record.rec_created_by"> Created By:
@@ -631,7 +639,7 @@
   </div>
   <div class="modal-body">
     <app-mail [pkid]="pkid" [type]="'VISIT DETAILS'" [sHtml]="sMsg" [defaultmessage]="" [defaultcc_ids]="cc_ids"
-      [defaultsubject]="sSubject" [updateto_ids]=false [disableUpdateIds]=false [AttachList]="AttachList"></app-mail>
+      [defaultsubject]="sSubject" [updateto_ids]=false [disableUpdateIds]=true [AttachList]="AttachList" ></app-mail>
   </div>
 </ng-template>
 <ng-template #doc let-c="close" let-d="dismiss">

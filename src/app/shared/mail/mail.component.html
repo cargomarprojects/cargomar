@@ -1,10 +1,10 @@
-<div class="page-header">
+<div class="page-box">
   <div style="padding:1px" class="row">
-    <div style="padding-right:1px" class="col-sm-6">
+    <div [class]="ftptype_id==''?'col-sm-12':'col-sm-6'">
       <button [disabled]="loading" (click)="ShowPage('MAILPAGE')" [ngClass]="{'active':rootpage=='MAILPAGE'}"
         class="btn btn-outline-success btn-block">MAIL</button>
     </div>
-    <div style="padding-left:1px" class="col-sm-6">
+    <div *ngIf="ftptype_id!=''" style="padding-left:1px" class="col-sm-6">
       <button [disabled]="loading||ftptype_id==''" (click)="ShowPage('FTPPAGE')"
         [ngClass]="{'active':rootpage=='FTPPAGE'}" class="btn btn-outline-success btn-block">FTP</button>
       <i *ngIf="loading" class="fa fa-spinner"></i>
@@ -17,7 +17,7 @@
   </div>
 </div>
 <div *ngIf="rootpage=='MAILPAGE'">
-  <div class="page-box">
+  <div *ngIf="ftptype_id!=''" class="page-box">
     <div style="padding: 0" align="center">
       <label style="padding: 0">
         SELECTED OPTION - <strong>MAIL</strong>
@@ -36,7 +36,8 @@
               <app-autocomplete #CustLov [inputdata]="CUSTRECORD" (ValueChanged)="LovSelected($event)">
               </app-autocomplete>
             </div>
-            <label style="padding-left:0;padding-right:0" class="col-sm-1 col-form-label col-form-label-sm">Branch#</label>
+            <label style="padding-left:0;padding-right:0"
+              class="col-sm-1 col-form-label col-form-label-sm">Branch#</label>
             <div style="padding-left:0;" class="col-1">
               <app-autocomplete #CustAddrLov [inputdata]="CUSTADDRECORD" (ValueChanged)="LovSelected($event)">
               </app-autocomplete>
@@ -161,7 +162,7 @@
   <br />
 </div>
 <div *ngIf="rootpage=='FTPPAGE'">
-  <div class="page-box">
+  <div *ngIf="ftptype_id!=''" class="page-box">
     <div style="padding: 0" align="center">
       <label style="padding: 0">
         SELECTED OPTION - <strong>FTP</strong>

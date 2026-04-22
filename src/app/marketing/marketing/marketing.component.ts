@@ -112,6 +112,7 @@ export class MarketingComponent {
   bEmail: boolean = false;
   IsHeader: boolean = true;
   bUpdateJob: boolean = false;
+  // IsAppointment: boolean = false;
 
   constructor(
     private modalService: NgbModal,
@@ -809,7 +810,9 @@ export class MarketingComponent {
       user_code: '',
       user_name: '',
       user_pkid: '',
-      root_folder: ''
+      root_folder: '',
+      salesperson: '',
+      appointment_date: ''
     }
 
     SearchData.pkid = this.pkid;
@@ -820,6 +823,8 @@ export class MarketingComponent {
     SearchData.user_name = this.gs.globalVariables.user_name;
     SearchData.user_pkid = this.gs.globalVariables.user_pkid;
     SearchData.root_folder = this.gs.defaultValues.root_folder;
+    SearchData.salesperson = this.Record.mark_user_name;
+    SearchData.appointment_date = this.Record.mark_appointment_date;
 
     this.loading = true;
     this.ErrorMessage = '';
