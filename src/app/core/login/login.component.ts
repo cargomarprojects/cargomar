@@ -18,12 +18,12 @@ export class LoginComponent {
   ErrorExternalLogin: string = '';
 
 
-  //username: string = '';
-  //password: string = '';
+  username: string = '';
+  password: string = '';
 
   //test - 2
-  username: string = 'ADMIN';
-  password: string = 'cpl2001*';
+  //username: string = 'ADMIN';
+  //password: string = 'cpl2001*';
 
   server_software_version_string: string = '';
   showloginbutton: boolean = true;

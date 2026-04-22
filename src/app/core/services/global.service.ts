@@ -41,8 +41,8 @@ export class GlobalService {
   public software_version_string: string = '1.766';
 
   public baseLocalServerUrl: string = "http://localhost:8080";
-  public baseUrl: string = "http://localhost:5000";
-  //public baseUrl: string = "";
+  //public baseUrl: string = "http://localhost:5000";
+  public baseUrl: string = "";
 
 
   public appStates: { [key: string]: any } = {};

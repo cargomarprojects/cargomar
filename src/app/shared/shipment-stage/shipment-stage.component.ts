@@ -14,17 +14,17 @@ export class ShipmentStageComponent implements OnInit {
   public errorMessage: string = '';
   public tab: string = 'main';
 
-  private _pkid: string = '';
+  public _pkid: string = '';
   @Input() set pkid(value: string) {
     this._pkid = value;
   }
 
-  private _type: string = '';
+  public _type: string = '';
   @Input() set type(value: string) {
     this._type = value;
   }
 
-  private _stage: string = '';
+  public _stage: string = '';
   @Input() set stage(value: string) {
     this._stage = value;
   }
