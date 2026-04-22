@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 
 import { GlobalService } from '../../core/services/global.service';
@@ -26,11 +26,12 @@ export class CostAllocationComponent {
   menu_record: any;
 
   selectedRowIndex: number = -1;
+  bDocs: boolean = false;
 
   showrem = true;
 
   ht = 300;
-
+  modal: any;
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
@@ -68,6 +69,7 @@ export class CostAllocationComponent {
   PendingList: Stmtd[] = [];
 
   constructor(
+     private modalService: NgbModal,
     private mainService: StmtService,
     private route: ActivatedRoute,
     private gs: GlobalService
@@ -96,11 +98,14 @@ export class CostAllocationComponent {
   }
 
   InitComponent() {
-
+    this.bDocs = false;
     this.currentTab = 'LIST';
     this.menu_record = this.gs.getMenu(this.menuid);
-    if (this.menu_record)
+    if (this.menu_record) {
       this.title = this.menu_record.menu_name;
+      if (this.menu_record.rights_docs)
+        this.bDocs = true;
+    }
     this.InitColumns();
     this.InitLov();
     this.List("NEW");
@@ -641,5 +646,11 @@ export class CostAllocationComponent {
       return this.ht + 'px';
   }
 
-
+  ShowDocuments(doc: any) {
+    this.ErrorMessage = '';
+    this.open(doc);
+  }
+  open(content: any) {
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
+  }
 }
