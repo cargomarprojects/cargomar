@@ -1338,11 +1338,9 @@
 
 
 <ng-template #shipmentStage let-c="close" let-d="dismiss">
-  <div class="modal-header">
+  <div class="modal-header" style="cursor: move;" (mousedown)="gs.startDrag($event)">
     <h4 class="modal-title">Shipment Stage</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
+    <button type="button" class="btn btn-primary btn-sm" (click)="d('Cross click')">Close</button>
   </div>
   <div class="modal-body">
     <app-shipment-stage [pkid]="Record.job_pkid" type="JOB-{{type}}" [stage]="Record.job_stage"
