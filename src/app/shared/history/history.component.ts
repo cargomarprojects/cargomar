@@ -16,15 +16,17 @@ export class HistoryComponent {
   // Local Variables
   title = 'History Details';
 
-  @Input() public pkid: string;
+  @Input() public pkid: string = "";
   @Input() public type: string = '';
+
+  @Input() public usetype: string = 'N';
 
   InitCompleted: boolean = false;
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
   sub: any;
-  urlid: string;
+  urlid: string = "";
 
   listHtmlHt: string = '';
   ErrorMessage = "";
@@ -35,9 +37,11 @@ export class HistoryComponent {
 
   selectedRowIndex = 0;
 
+  searchString: string = "";
+
   constructor(
     private route: ActivatedRoute,
-    private gs: GlobalService
+    public gs: GlobalService
   ) {
     // URL Query Parameter
   }
@@ -102,6 +106,7 @@ export class HistoryComponent {
       table: controlname,
       pkid: '',
       rowtype: this.type,
+      usetype: this.usetype,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       user_pkid: this.gs.globalVariables.user_pkid
@@ -110,6 +115,7 @@ export class HistoryComponent {
     SearchData.table = controlname;
     SearchData.pkid = this.pkid;
     SearchData.rowtype = this.type;
+    SearchData.usetype = this.usetype;
     SearchData.company_code = this.gs.globalVariables.comp_code;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
     SearchData.user_pkid = this.gs.globalVariables.user_pkid;
@@ -125,4 +131,14 @@ export class HistoryComponent {
           this.ErrorMessage = this.gs.getError(error);
         });
   }
+
+  SearchReport() {
+    const value = this.searchString.trim().toUpperCase();
+    this.RecordList = this.RecordList.filter(item =>
+      item.audit_refno.includes(value) || item.audit_refno.includes(value)
+    );
+
+  }
+
+
 }

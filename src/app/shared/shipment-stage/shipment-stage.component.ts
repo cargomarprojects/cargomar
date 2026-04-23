@@ -140,4 +140,14 @@ export class ShipmentStageComponent implements OnInit {
     this.callbackevent.emit({ stage: this._stage })
   }
 
+  ShowHistory(history: any) {
+    this.open(history);
+  }
+
+
+  open(content: any) {
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
+  }
+
+
 }

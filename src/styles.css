@@ -781,6 +781,10 @@ a {
   padding-bottom: 6px !important;
 }
 
+.modal-body {
+  padding: 5px !important;
+}
+
 
 
 

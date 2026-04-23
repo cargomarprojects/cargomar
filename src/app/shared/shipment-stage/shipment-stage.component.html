@@ -55,6 +55,8 @@
           </div>
           <div class="col-2">
             <button class="btn btn-primary btn-sm mr-1" (click)="CloseModal('OK')">Update Stage</button>
+            <button (click)="ShowHistory(history)" class="btn btn-success btn-sm mr-1">History</button>
+
           </div>
         </div>
 
@@ -64,3 +66,17 @@
 
 
 </div>
+
+
+
+<ng-template #history let-c="close" let-d="dismiss">
+  <div class="modal-header" style="cursor: move;" (mousedown)="gs.startDrag($event)">
+    <h4 class="modal-title">History</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-history [pkid]="_pkid" [type]="'JOB-OPERATIONS'" [usetype]="'Y'"></app-history>
+  </div>
+</ng-template>
