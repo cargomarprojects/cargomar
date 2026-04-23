@@ -2,14 +2,14 @@
   <div class="page-box">
     <div class="row">
       <div class="col-sm-12">
-        <div class="page-body table-responsive pointer">
+        <div class="page-body table-responsive fixedTableHead m-0 p-0" style="height: calc(100vh - 200px);">
           <table class="table table-hover table-sm table-bordered table-striped">
             <thead class="page-body-thead">
               <tr>
                 <th>ORDER</th>
                 <th>SHIPMENT STAGE</th>
-                <th>SELECT</th>
                 <th>DATE</th>
+                <th class="text-center align-middle">UPDATE</th>
               </tr>
             </thead>
             <tbody class="page-body-tbody">
@@ -19,15 +19,15 @@
                 <td>
                   {{rec.stage_order}}
                 </td>
-
                 <td>
                   {{rec.stage_name}}
                 </td>
-                <td class="hlink_blue" (click)="selectRow(rec)">
-                  SEELECT
-                </td>
                 <td>
-                  {{rec.stage_date | date:'dd-MM-yyyy' }}
+                  <app-date [disabled]="rec.stage_editable === 'N'" [inputdate]="rec.stage_date"
+                    (ValueChanged)="rec.stage_date=$event"></app-date>
+                </td>
+                <td class="text-center align-middle hlink_blue">
+                  <button class="btn btn-primary btn-sm" (click)="SaveRecord(rec)">Update</button>
                 </td>
 
               </tr>
@@ -42,24 +42,11 @@
   <div class="page-box">
     <div class="row justify-content-center p-1">
       <div class="col-sm-12">
-        <div class="form-group row">
-          <label class="col-2 col-form-label  col-form-label-sm">Stage</label>
-          <div class="col-4">
-            <select class="form-control form-control-sm" [(ngModel)]="_stage">
-              <option *ngFor="let rec of RecordList" [value]="rec.stage_name">{{rec.stage_name}}</option>
-            </select>
-          </div>
-          <label class="col-2 col-form-label  col-form-label-sm">Date</label>
-          <div class="col-2">
-            <app-date [inputdate]="_stage_date" (ValueChanged)="_stage_date=$event"></app-date>
-          </div>
-          <div class="col-2">
-            <button class="btn btn-primary btn-sm mr-1" (click)="CloseModal('OK')">Update Stage</button>
+        <div class="form-group row ">
+          <div class="col text-center">
             <button (click)="ShowHistory(history)" class="btn btn-success btn-sm mr-1">History</button>
-
           </div>
         </div>
-
       </div>
     </div>
   </div>

@@ -7,7 +7,8 @@ import { ShipmentStageService } from '../services/shipment-stage.service';
 
 @Component({
   selector: 'app-shipment-stage',
-  templateUrl: './shipment-stage.component.html'
+  templateUrl: './shipment-stage.component.html',
+  styleUrls: ['./shipment-stage.component.css']
 })
 export class ShipmentStageComponent implements OnInit {
 
@@ -28,8 +29,6 @@ export class ShipmentStageComponent implements OnInit {
   @Input() set stage(value: string) {
     this._stage = value;
   }
-
-  _stage_date: string = "";
 
 
   @Output() callbackevent = new EventEmitter<any>();
@@ -52,12 +51,6 @@ export class ShipmentStageComponent implements OnInit {
     this.GetList();
   }
 
-  CloseModal(_action: string) {
-
-    if (_action == "OK") {
-      this.SaveRecord();
-    }
-  }
 
 
   GetList() {
@@ -72,72 +65,66 @@ export class ShipmentStageComponent implements OnInit {
 
     this.mainservice.GetRecord(SearchData).subscribe(response => {
       this.RecordList = response.record.ShipmentStageList;
-      this.getStage();
-
     }, error => {
       alert(this.gs.getError(error));
     });
 
   }
 
+  SaveRecord(rec: ShipmentStage) {
 
-
-  selectRow(rec: ShipmentStage) {
-    this._stage = rec.stage_name;
-    this._stage_date = rec.stage_date;
-    console.log(rec);
-  }
-
-  SaveRecord() {
 
     if (this.gs.isBlank(this._pkid)) {
       alert('Invalid ID');
       return;
     }
 
-    if (this.gs.isBlank(this._stage)) {
+    if (this.gs.isBlank(rec.stage_name)) {
       alert('Invalid Shipment Stage');
       return;
     }
 
-    if (this.gs.isBlank(this._stage_date)) {
+    if (this.gs.isBlank(rec.stage_date)) {
       alert('Invalid Date');
+      return;
+    }
+
+    if (rec.stage_date_old == rec.stage_date) {
+      alert('No Changes to save');
       return;
     }
 
     let SearchData: VmShipmentStage = new VmShipmentStage;
     SearchData.pkid = this._pkid;
-    SearchData.job_date = this._stage_date;
-    SearchData.job_stage = this._stage;
+    SearchData.job_date = rec.stage_date;
+    SearchData.job_stage = rec.stage_name;
     SearchData.job_type = this._type;
+    SearchData.job_stage_order = rec.stage_order;
+    SearchData.job_stage_col_name = rec.stage_col_name;
 
     SearchData.ShipmentStageList = this.RecordList;
     SearchData._globalvariables = this.gs.globalVariables;
 
     this.mainservice.Save(SearchData).subscribe(response => {
-      this.updateStage()
-
+      this.updateStage();
+      alert("Save Complete");
     }, error => {
       alert(this.gs.getError(error));
     });
 
   }
 
-  getStage() {
-    this.RecordList.forEach(rec => {
-      if (rec.stage_name == this._stage)
-        this._stage_date = rec.stage_date;
-    })
-  }
 
   updateStage() {
+    let _latest_stage = "";
     this.RecordList.forEach(rec => {
       if (rec.stage_name == this._stage) {
-        rec.stage_date = this._stage_date;
-        rec.stage_date_old = this._stage_date;
+        rec.stage_date_old = rec.stage_date;
       }
+      if (rec.stage_date != "")
+        _latest_stage = rec.stage_name;
     })
-    this.callbackevent.emit({ stage: this._stage })
+    this.callbackevent.emit({ stage: _latest_stage })
   }
 
   ShowHistory(history: any) {

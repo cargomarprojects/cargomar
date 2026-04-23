@@ -31,7 +31,9 @@ export class JobComponent {
 
   selectedRowIndex = 0;
 
-  CrList: any[];
+  CrList: any[] = [];
+
+  ShipmentStageList: any[] = [];
 
   modal: any;
 
@@ -75,7 +77,7 @@ export class JobComponent {
 
 
   sub: any;
-  urlid: string;
+  urlid: string = "";
 
   ErrorMessage = "";
   InfoMessage = "";
@@ -83,6 +85,8 @@ export class JobComponent {
 
   mode = '';
   pkid = '';
+
+  stage = "NA";
 
   Mail_type: string = '';
   sTo_ids: string = '';
@@ -204,25 +208,20 @@ export class JobComponent {
 
     // this.JobTypeList = [{ "name": "ALL" }, { "name": "BOTH" }, { "name": "CLEARING" }, { "name": "FORWARDING" }];
     //this.loading = true;
-    //let SearchData = {
-    //    type: 'type'
-    //};
+    let SearchData = {
+      type: "JOB " + this.type
+    };
 
     //this.ErrorMessage = '';
     //this.InfoMessage = '';
-    //this.mainService.LoadDefault(SearchData)
-    //    .subscribe(response => {
-    //        this.loading = false;
-    //        this.CityList = response.citylist;
-    //        this.StateList = response.statelist;
-    //        this.CountryList = response.countrylist;
-    //        this.List("NEW");
-    //    },
-    //    error => {
-    //        this.loading = false;
-    //        this.ErrorMessage = this.gs.getError(error);
-    //    });
-
+    this.mainService.LoadShipmentStage(SearchData).subscribe(response => {
+      this.loading = false;
+      console.log(response);
+      this.ShipmentStageList = response.list;
+    }, error => {
+      this.loading = false;
+      this.ErrorMessage = this.gs.getError(error);
+    });
     this.List("NEW");
   }
 
@@ -809,6 +808,7 @@ export class JobComponent {
     let SearchData = {
       type: _type,
       rowtype: this.type,
+      stage: this.stage,
       searchby: this.searchby,
       searchstring: this.searchstring.toUpperCase(),
       jobtype: this.jobtype.toUpperCase(),

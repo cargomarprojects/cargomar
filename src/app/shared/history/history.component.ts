@@ -33,6 +33,8 @@ export class HistoryComponent {
   InfoMessage = "";
   RecordList: Auditlog[] = [];
 
+  RecordList_All: Auditlog[] = [];
+
   bShow = false;
 
   selectedRowIndex = 0;
@@ -125,6 +127,7 @@ export class HistoryComponent {
         this.loading = false;
         this.InfoMessage = '';
         this.RecordList = response.list;
+        this.RecordList_All = [...this.RecordList];
       },
         error => {
           this.loading = false;
@@ -134,8 +137,14 @@ export class HistoryComponent {
 
   SearchReport() {
     const value = this.searchString.trim().toUpperCase();
-    this.RecordList = this.RecordList.filter(item =>
-      item.audit_refno.includes(value) || item.audit_refno.includes(value)
+    if (!value) {
+      this.RecordList = [...this.RecordList_All];
+      return;
+    }
+    this.RecordList = this.RecordList_All.filter(item =>
+      (item.audit_user_code || '').includes(value) ||
+      (item.audit_refno || '').includes(value) ||
+      (item.audit_remarks || '').includes(value)
     );
 
   }

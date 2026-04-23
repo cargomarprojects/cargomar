@@ -14,20 +14,26 @@
     <div class="page-search">
 
       <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-3">
           <div class="form-group row">
-            <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">From Date</label>
-            <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
+            <label style="padding-right:0px" class="col-sm-4 col-form-label col-form-label-sm">From Date</label>
+            <div style="padding-right:0px;padding-left:0px" class="col-sm-8">
               <app-date [inputdate]="gs.globalData.job_fromdate" (ValueChanged)="gs.globalData.job_fromdate=$event">
               </app-date>
             </div>
-            <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">To Date</label>
-            <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
+          </div>
+          <div class="form-group row">
+            <label style="padding-right:0px" class="col-sm-4 col-form-label col-form-label-sm">To Date</label>
+            <div style="padding-right:0px;padding-left:0px" class="col-sm-8">
               <app-date [inputdate]="gs.globalData.job_todate" (ValueChanged)="gs.globalData.job_todate=$event">
               </app-date>
             </div>
-            <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Type</label>
-            <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group row">
+            <label style="padding-right:0px" class="col-sm-4 col-form-label col-form-label-sm">Type</label>
+            <div style="padding-right:0px;padding-left:0px" class="col-sm-8">
               <select class="form-control form-control-sm" name="jtype" [(ngModel)]="jobtype">
                 <option [value]="'ALL'">ALL</option>
                 <option [value]="'BOTH'">BOTH</option>
@@ -35,8 +41,19 @@
                 <option [value]="'FORWARDING'">FORWARDING</option>
               </select>
             </div>
-            <!-- <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label> -->
-            <div class="col-sm-2" style="padding-right:0px">
+          </div>
+          <div class="form-group row">
+            <label style="padding-right:0px" class="col-sm-4 col-form-label col-form-label-sm">Stage</label>
+            <div style="padding-right:0px;padding-left:0px" class="col-sm-8">
+              <select class="form-control form-control-sm" [(ngModel)]="stage">
+                <option *ngFor="let str of ShipmentStageList" [value]="str">{{str}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group row">
+            <div class="col-sm-12" style="padding-right:0px">
               <select class="form-control form-control-sm" [(ngModel)]="searchby">
                 <option [value]="'ALL'">ALL</option>
                 <option [value]="'JOBNO'">JOB#</option>
@@ -52,31 +69,26 @@
                 <option *ngIf="type=='SEA EXPORT'" [value]="'CONTAINER'">CONTAINER</option>
               </select>
             </div>
-            <div class="col-sm-2">
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-12" style="padding-right:0px">
               <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('Search')" name="Search"
                 [(ngModel)]="searchstring" />
             </div>
-            <div class="col-sm-2">
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group row">
+            <div class="col-sm-12">
               <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-1">Search</button>
               <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
                 class="btn btn-primary btn-sm mr-1">Print</button>
               <button [disabled]="loading" (click)="CheckSB(checksb)" class="btn btn-primary btn-sm">Check SB</button>
             </div>
           </div>
-          <!--<div class="form-group row">
-            <label class="col-sm-2 col-form-label col-form-label-sm">Search</label>
-            <div class="col-sm-10">
-              <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('Search')" name="Search" [(ngModel)]="searchstring" />
-            </div>
-          </div>
-          <div class="form-group row">
-            <div class="offset-sm-2 col-sm-10">
-              <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
-              <button [disabled]="loading" (click)="CheckSB(checksb)" class="btn btn-primary btn-sm">Check SB</button>
-            </div>
-          </div>-->
         </div>
       </div>
+
     </div>
 
     <div class="page-pager">
@@ -102,6 +114,7 @@
             <th>JOB#</th>
             <th>DATE</th>
             <th *ngIf="jobtype!='FORWARDING'">REF#</th>
+            <th>STAGE</th>
             <th>SHIPPER</th>
             <th>CONSIGNEE</th>
             <th>TO.ORDER</th>
@@ -144,6 +157,7 @@
             <td class="hlink" (click)="ActionHandler('EDIT',rec.job_pkid)">{{rec.job_docno}}</td>
             <td>{{rec.job_date}}</td>
             <td *ngIf="jobtype!='FORWARDING'">{{rec.job_prefix}}</td>
+            <td>{{rec.job_stage}}</td>
             <td>{{rec.job_exp_name}}</td>
             <td>{{rec.job_imp_name}}</td>
             <td>{{rec.job_toorder_name}}</td>
@@ -211,11 +225,11 @@
                 <div *ngIf="mode=='ADD'" class="col-sm-4">
                   <div class="form-group row">
                     <label class="col-4 col-form-label col-form-label-sm">Job#</label>
-                    <div style="padding-right:0" class="col-4">
-                      <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm"
+                    <div style="padding-right:0" class="col-3">
+                      <input type="text" class="form-control form-control-sm" style="color:red; font-weight:bold"
                         [(ngModel)]="Record.job_docno" [disabled]="true" required maxlength="15" />
                     </div>
-                    <div style="padding-right:0" class="col-2">
+                    <div style="padding-right:0;" class="col-3">
                       <input type="text" class="form-control form-control-sm" [(ngModel)]="job_no" required
                         maxlength="15" />
                     </div>
@@ -227,18 +241,25 @@
                 </div>
 
                 <div *ngIf="mode=='EDIT'" class="col-sm-4">
+
                   <div class="form-group row">
                     <label class="col-4 col-form-label col-form-label-sm">Job#</label>
-                    <div class="col-4">
+                    <div class="col-2">
                       <input type="text" style="color:red; font-weight:bold" class="form-control form-control-sm"
                         [(ngModel)]="Record.job_docno" [disabled]="true" required maxlength="15" />
                     </div>
-                    <div *ngIf="Record.job_prefix" class="col-4 input-group input-group-sm">
+
+                    <div *ngIf="Record.job_prefix" class="col-3">
                       <input type="text" disabled class="form-control form-control-sm" [(ngModel)]="Record.job_prefix"
                         required maxlength="65" />
-                      <button *ngIf="gs.globalVariables.user_code == 'ADMIN'" [disabled]="loading"
-                        (click)="GenerateClrNo()" class="btn btn-primary btn-sm">ReGenerate</button>
                     </div>
+
+                    <div *ngIf="Record.job_prefix" class="col-3">
+                      <button *ngIf="gs.globalVariables.user_code == 'ADMIN'" [disabled]="loading"
+                        (click)="GenerateClrNo()" class="btn btn-primary btn-sm">Re-Generate</button>
+                    </div>
+
+
                   </div>
                 </div>
 
@@ -903,11 +924,11 @@
 
 
                         <!--<div class="form-group row">
-                          <label class="col-4 col-form-label col-form-label-sm">Marks & Nos </label>
-                          <div class="col-8">
-                            <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.job_marks" (blur)="OnBlur('job_marks')" required maxlength="250"></textarea>
-                          </div>
-                        </div>-->
+                            <label class="col-4 col-form-label col-form-label-sm">Marks & Nos </label>
+                            <div class="col-8">
+                              <textarea rows="3" class="form-control form-control-sm" [(ngModel)]="Record.job_marks" (blur)="OnBlur('job_marks')" required maxlength="250"></textarea>
+                            </div>
+                          </div>-->
 
                       </div>
 
@@ -1202,10 +1223,10 @@
       </ngb-tab>
 
       <!--<ngb-tab title="BL Draft" *ngIf="mode == 'EDIT'">
-        <ng-template ngbTabContent>
-          <app-jobseabl [parentid]="pkid" [invokefrom]="'JOB'" [type]="type" (PageChanged)="pageChanged($event)"></app-jobseabl>
-        </ng-template>
-      </ngb-tab>-->
+          <ng-template ngbTabContent>
+            <app-jobseabl [parentid]="pkid" [invokefrom]="'JOB'" [type]="type" (PageChanged)="pageChanged($event)"></app-jobseabl>
+          </ng-template>
+        </ngb-tab>-->
 
       <ngb-tab title="Edi" *ngIf="mode=='EDIT'">
 
@@ -1343,7 +1364,7 @@
     <button type="button" class="btn btn-primary btn-sm" (click)="d('Cross click')">Close</button>
   </div>
   <div class="modal-body">
-    <app-shipment-stage [pkid]="Record.job_pkid" type="JOB-{{type}}" [stage]="Record.job_stage"
+    <app-shipment-stage [pkid]="Record.job_pkid" type="JOB {{type}}" [stage]="Record.job_stage"
       (callbackevent)="onShipmentStageChange($event)"></app-shipment-stage>
   </div>
 </ng-template>

@@ -25,11 +25,11 @@ export class JobService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/Job/Save', Record, this.gs.headerparam2('authorized'));
   }
 
-  
+
   DuplicateJob(Record: Jobm) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/Job/DuplicateJob', Record, this.gs.headerparam2('authorized'));
   }
-  
+
 
   GenerateEdi(SearchData: any) {
 
@@ -45,6 +45,11 @@ export class JobService {
   LoadDefault(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/Job/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
   }
+
+  LoadShipmentStage(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ShipmentTracking/List', SearchData, this.gs.headerparam2('authorized'));
+  }
+
 
   GetCustomerDetails(SearchData: any) {
 
