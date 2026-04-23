@@ -27,7 +27,8 @@
                     (ValueChanged)="rec.stage_date=$event"></app-date>
                 </td>
                 <td class="text-center align-middle hlink_blue">
-                  <button class="btn btn-primary btn-sm" (click)="SaveRecord(rec)">Update</button>
+                  <button class="btn btn-success btn-sm" (click)="SaveRecord(rec)"
+                    *ngIf="i == selectedRowIndex">Update</button>
                 </td>
 
               </tr>
