@@ -136,7 +136,7 @@ export class DsrComponent {
   // Single Record for add/edit/view details
   Record: Dsr = new Dsr;
   TpList: User[] = [];
-
+  feildList: CustomReportD[] = [];
   BRRECORD: SearchTable = new SearchTable();
   EXPRECORD: SearchTable = new SearchTable();
   IMPRECORD: SearchTable = new SearchTable();
@@ -771,6 +771,9 @@ export class DsrComponent {
           this.open(mailsent);
         } else {
           this.RecordList = response.list;
+          this.feildList = response.feildlist;
+          if (!this.gs.isBlank(this.feildList))
+            this.setColFormat();
         }
       },
         error => {
@@ -779,6 +782,20 @@ export class DsrComponent {
           this.ErrorMessage = this.gs.getError(error);
           alert(this.ErrorMessage);
         });
+  }
+
+  setColFormat() {
+    this.feildList.forEach(col => {
+      // number format
+       col.rd_isright = false;
+      if (col.rd_data_type && col.rd_data_type.indexOf('N-') !== -1) {
+        col.rd_isright = true;
+        const d = col.rd_data_type.split('-')[1];
+        col.rd_format = '1.' + d + '-' + d;
+      } else {
+        col.rd_format = '';
+      }
+    });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {

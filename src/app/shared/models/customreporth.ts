@@ -23,4 +23,6 @@ export class CustomReportD {
     rd_col_width:number;
     rd_selected: boolean;
     rd_ctr: number;
+    rd_isright:boolean;
+    rd_format:string;
 }

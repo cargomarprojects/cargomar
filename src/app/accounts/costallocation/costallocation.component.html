@@ -43,6 +43,7 @@
         <tr>
           <th>STMT#</th>
           <th>DATE</th>
+          <th>DOCS</th>
           <th>CODE</th>
           <th>AGENT</th>
           <th>CURR</th>
@@ -65,6 +66,7 @@
           [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
           <td>{{rec.stm_no}}</td>
           <td>{{rec.stm_date}}</td>
+          <td>{{rec.stm_docs}}</td>
           <td>{{rec.stm_acc_code}}</td>
           <td>{{rec.stm_acc_name}}</td>
           <td>{{rec.stm_curr_code}}</td>
