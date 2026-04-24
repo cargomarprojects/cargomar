@@ -89,19 +89,14 @@ export class ShipmentStageComponent implements OnInit {
       return;
     }
 
-    if (rec.stage_date_old == rec.stage_date) {
-      alert('No Changes to save');
-      return;
-    }
-
     let SearchData: VmShipmentStage = new VmShipmentStage;
     SearchData.pkid = this._pkid;
     SearchData.job_date = rec.stage_date;
+    SearchData.job_date_old = rec.stage_date_old;
     SearchData.job_stage = rec.stage_name;
     SearchData.job_type = this._type;
     SearchData.job_stage_order = rec.stage_order;
     SearchData.job_stage_col_name = rec.stage_col_name;
-
     SearchData.ShipmentStageList = this.RecordList;
     SearchData._globalvariables = this.gs.globalVariables;
 
@@ -118,9 +113,6 @@ export class ShipmentStageComponent implements OnInit {
   updateStage() {
     let _latest_stage = "";
     this.RecordList.forEach(rec => {
-      if (rec.stage_name == this._stage) {
-        rec.stage_date_old = rec.stage_date;
-      }
       if (rec.stage_date != "")
         _latest_stage = rec.stage_name;
     })

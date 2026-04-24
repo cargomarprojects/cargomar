@@ -12,6 +12,7 @@ export class ShipmentStage {
 export class VmShipmentStage {
   pkid: string;
   job_date: string;
+  job_date_old: string;
   job_type: string;
   job_stage: string;
   job_stage_order: number;
