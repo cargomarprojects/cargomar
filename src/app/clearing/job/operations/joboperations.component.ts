@@ -23,6 +23,7 @@ export class JobOperationsComponent {
   @Input() type: string = '';
   @Input() parentid: string = '';
   @Input() Invokefrom: string = '';
+  @Input() isModalWindow: string = 'N';
   InitCompleted: boolean = false;
   menu_record: any;
 
@@ -83,8 +84,17 @@ export class JobOperationsComponent {
 
   // Init Will be called After executing Constructor
   ngOnInit() {
-    if (this.parentid != '')
-      this.ActionHandler("EDIT", this.parentid);
+    if (this.isModalWindow == "Y") {  //modal change
+      this.InitComponent();
+      if (this.gs.isBlank(this.parentid))
+        this.ActionHandler('ADD', '');
+      else
+        this.ActionHandler('EDIT', this.parentid)
+    }
+    else {
+      if (this.parentid != '')
+        this.ActionHandler("EDIT", this.parentid);
+    }
   }
 
   // Destroy Will be called when this component is closed
