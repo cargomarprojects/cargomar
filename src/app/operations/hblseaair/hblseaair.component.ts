@@ -1305,7 +1305,7 @@ export class HblSeaAirComponent {
         this.currentPage = 'ROOTPAGE';
     }
     open(content: any) {
-        this.modal = this.modalService.open(content);
+        this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
     }
     ShowRate(buysellrate: any) {
         this.ErrorMessage = '';
