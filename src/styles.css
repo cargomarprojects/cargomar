@@ -787,6 +787,10 @@ a {
 
 
 
+.form-control-sm {
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+}
 
 
 
