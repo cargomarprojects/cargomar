@@ -63,6 +63,7 @@ export class ShipmentStageComponent implements OnInit {
     SearchData.pkid = this._pkid;
     SearchData.type = this._type;
 
+
     this.mainservice.GetRecord(SearchData).subscribe(response => {
       this.RecordList = response.record.ShipmentStageList;
     }, error => {
@@ -71,37 +72,18 @@ export class ShipmentStageComponent implements OnInit {
 
   }
 
-  SaveRecord(rec: ShipmentStage) {
-
-
-    if (this.gs.isBlank(this._pkid)) {
-      alert('Invalid ID');
-      return;
-    }
-
-    if (this.gs.isBlank(rec.stage_name)) {
-      alert('Invalid Shipment Stage');
-      return;
-    }
-
-    if (this.gs.isBlank(rec.stage_date)) {
-      alert('Invalid Date');
-      return;
-    }
+  Save() {
 
     let SearchData: VmShipmentStage = new VmShipmentStage;
     SearchData.pkid = this._pkid;
-    SearchData.job_date = rec.stage_date;
-    SearchData.job_date_old = rec.stage_date_old;
-    SearchData.job_stage = rec.stage_name;
-    SearchData.job_type = this._type;
-    SearchData.job_stage_order = rec.stage_order;
-    SearchData.job_stage_col_name = rec.stage_col_name;
+    SearchData.type = this._type;
+
     SearchData.ShipmentStageList = this.RecordList;
     SearchData._globalvariables = this.gs.globalVariables;
 
     this.mainservice.Save(SearchData).subscribe(response => {
-      this.updateStage();
+      this.RecordList = response.record.ShipmentStageList;
+      this.callbackevent.emit({ stage: response.record.stage_name })
       alert("Save Complete");
     }, error => {
       alert(this.gs.getError(error));
@@ -109,20 +91,9 @@ export class ShipmentStageComponent implements OnInit {
 
   }
 
-
-  updateStage() {
-    let _latest_stage = "";
-    this.RecordList.forEach(rec => {
-      if (rec.stage_date != "")
-        _latest_stage = rec.stage_name;
-    })
-    this.callbackevent.emit({ stage: _latest_stage })
-  }
-
   ShowHistory(history: any) {
     this.open(history);
   }
-
 
   open(content: any) {
     this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });

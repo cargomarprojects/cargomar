@@ -8,6 +8,7 @@ import { SearchTable } from '../../shared/models/searchtable';
 import { WarningMsg } from '../../shared/models/warningmsg';
 import { WarningAlert2Component } from '../../shared/warningalert/warningalert2.component';
 import { WarningAlertComponent } from '../../shared/warningalert/warningalert.component';
+import { s } from '@angular/core/src/render3';
 
 //EDIT-AJITH-20-11-2021
 
@@ -1906,8 +1907,11 @@ export class JobComponent {
     this.open(checksb);
   }
 
-  open(content: any) {
-    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
+  open(content: any, _size: string = '') {
+    if (_size == 'sm')
+      this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true, size: 'sm' });
+    else
+      this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
   }
 
   SignDoc(stext: string) {
@@ -2110,7 +2114,7 @@ export class JobComponent {
   showShipmentStage(shipmentStage: any) {
     if (this.mode == "EDIT") {
       this.ErrorMessage = '';
-      this.open(shipmentStage);
+      this.open(shipmentStage, 'sm');
     }
   }
 
