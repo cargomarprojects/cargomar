@@ -1907,11 +1907,8 @@ export class JobComponent {
     this.open(checksb);
   }
 
-  open(content: any, _size: string = '') {
-    if (_size == 'sm')
-      this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true, size: 'sm' });
-    else
-      this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
+  open(content: any) {
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
   }
 
   SignDoc(stext: string) {
@@ -2114,7 +2111,7 @@ export class JobComponent {
   showShipmentStage(shipmentStage: any) {
     if (this.mode == "EDIT") {
       this.ErrorMessage = '';
-      this.open(shipmentStage, 'sm');
+      this.open(shipmentStage);
     }
   }
 
