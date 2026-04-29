@@ -73,6 +73,7 @@ export class FcComponent {
     page_rows: 0,
     page_rowcount: 0,
     hide_ho_entries: '',
+    acc_type: 'BANK'
   };
 
 
@@ -181,7 +182,7 @@ export class FcComponent {
   LovSelected(_Record: SearchTable) {
 
     if (_Record.controlname == "ACCTM") {
-
+      
     }
   }
 
@@ -214,6 +215,7 @@ export class FcComponent {
       this.SearchData.curr_code = this.curr_code;
       this.SearchData.acc_id = this.ACCRECORD.id;
       this.SearchData.acc_name = this.ACCRECORD.name;
+      this.SearchData.acc_type = this.ACCRECORD.col6;
     }
     this.SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
     this.SearchData.type = _type;
