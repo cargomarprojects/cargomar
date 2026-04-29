@@ -22,8 +22,9 @@ export class HblTracking {
     mform13_filing_date: string;
     hisf_date: string;
     hams_date: string;
-    ams_is_1y:boolean;
-
+    ams_is_1y: boolean;
+    hbl_stage: string;
+    
     rec_mode: string;
     rec_category: string;
     _globalvariables: GlobalVariables;

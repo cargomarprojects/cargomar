@@ -130,7 +130,7 @@ export class ShipTrackComponent {
       .subscribe(response => {
         this.loading = false;
         this.InfoMessage = "Save Complete";
-
+        this.Record.hbl_stage = response.shipmentstage;
         if (this.ModifiedRecords != null && this.type == "MBL-SE")
           this.ModifiedRecords.emit({ saction: 'ADD', type: 'SHIP-TRACK-MBL-RLEASE-UPDT', mblreleasedate: this.Record.mbl_released_date });
 
