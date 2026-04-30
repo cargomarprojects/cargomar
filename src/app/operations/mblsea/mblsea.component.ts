@@ -103,6 +103,9 @@ export class MblSeaComponent {
   sCarrier_ID = "";
   lockChar = "";
 
+  shipmentstage = "NA";
+  ShipmentStageList: any[] = [];
+
   mode = '';
   pkid = '';
 
@@ -236,6 +239,7 @@ export class MblSeaComponent {
     this.mainService.LoadDefault(SearchData)
       .subscribe(response => {
         this.loading = false;
+        this.ShipmentStageList = response.stagelist;
         this.StatusList = response.statuslist;
         this.ContainerList = response.containerlist;
         if (this.ContainerList != null) {
@@ -587,7 +591,8 @@ export class MblSeaComponent {
       page_rowcount: this.page_rowcount,
       from_date: this.gs.globalData.mbl_fromdate,
       to_date: this.gs.globalData.mbl_todate,
-      report_folder: this.gs.globalVariables.report_folder
+      report_folder: this.gs.globalVariables.report_folder,
+      shipmentstage: this.shipmentstage
     };
 
     this.ErrorMessage = '';

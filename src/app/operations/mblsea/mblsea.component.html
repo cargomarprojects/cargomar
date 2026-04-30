@@ -13,22 +13,33 @@
   <div *ngIf="currentTab=='LIST'" class="page-list">
 
     <div class="page-search">
-
       <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-4">
           <div class="form-group row">
-            <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">From Date</label>
-            <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
+            <label class="col-sm-3 col-form-label col-form-label-sm">From.Date</label>
+            <div class="col-sm-4">
               <app-date [inputdate]="gs.globalData.mbl_fromdate" (ValueChanged)="gs.globalData.mbl_fromdate=$event">
               </app-date>
             </div>
-            <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">To Date</label>
-            <div style="padding-right:0px;padding-left:0px" class="col-sm-1">
+            <label class="col-sm-1 col-form-label col-form-label-sm">To</label>
+            <div class="col-sm-4">
               <app-date [inputdate]="gs.globalData.mbl_todate" (ValueChanged)="gs.globalData.mbl_todate=$event">
               </app-date>
             </div>
-            <!-- <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">Search</label> -->
-            <div class="col-sm-2" style="padding-right:0px">
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label col-form-label-sm">Shipment.Stage</label>
+            <div class="col-sm-9">
+              <select class="form-control form-control-sm" [(ngModel)]="shipmentstage">
+                <option *ngFor="let str of ShipmentStageList" [value]="str">{{str}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group row">
+            <div class="col-sm-12">
               <select class="form-control form-control-sm" [(ngModel)]="searchby">
                 <option [value]="'ALL'">ALL</option>
                 <option [value]="'MBLBK'">MBLBK#</option>
@@ -49,11 +60,19 @@
                 <option [value]="'SHIP-TYPE'">SHIPMENT TYPE</option>
               </select>
             </div>
-            <div class="col-sm-4">
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-12">
               <input type="text" [disabled]="searchby=='FOLDERSENT'" class="col form-control form-control-sm"
                 name="Search" [(ngModel)]="searchstring" (blur)="OnBlur('searchstring')" />
             </div>
-            <div class="col-sm-2">
+          </div>
+        </div>
+
+        <div class="col-sm-4">
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label col-form-label-sm"></label>
+            <div class="col-sm-9">
               <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
               <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
                 class="btn btn-primary btn-sm">Print</button>
@@ -83,7 +102,7 @@
       </div>
     </div>
 
-    <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 310px);">
+    <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 340px);">
       <table class="table table-hover table-sm table-bordered table-striped">
         <thead class="page-body-thead">
           <tr>
@@ -93,6 +112,7 @@
             <th>DATE</th>
             <th>FOLDER</th>
             <th>SENT.ON</th>
+            <th>STAGE</th>
             <th>SHIPPER</th>
             <th>CONSIGNEE</th>
             <th>AGENT</th>
@@ -122,6 +142,7 @@
             <td>{{rec.book_booked_on}}</td>
             <td>{{rec.book_folder_no}}</td>
             <td>{{rec.book_folder_sent_date}}</td>
+            <td>{{rec.book_stage}}</td>
             <td>{{rec.book_shipper_name}}</td>
             <td>{{rec.book_consignee_name}}</td>
             <td>{{rec.book_agent_name}}</td>
