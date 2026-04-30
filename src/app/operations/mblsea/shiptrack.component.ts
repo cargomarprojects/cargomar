@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HblTracking } from '../models/hbltracking';
 import { MailList } from '../../master/models/maillist';
 import { ShipTrackingService } from '../services/shiptrack.service';
@@ -29,10 +30,11 @@ export class ShipTrackComponent {
   currentTab = 'LIST';
   sub: any;
   urlid: string;
-
+  modal: any;
   ErrorMessage = "";
   InfoMessage = "";
   constructor(
+    private modalService: NgbModal,
     private route: ActivatedRoute,
     private mainService: ShipTrackingService,
     private gs: GlobalService
@@ -220,4 +222,11 @@ export class ShipTrackComponent {
         });
   }
 
+  ShowHistory(history: any) {
+    this.open(history);
+  }
+
+  open(content: any) {
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
+  }
 }
