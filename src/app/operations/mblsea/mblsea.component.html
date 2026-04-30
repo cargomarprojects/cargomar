@@ -107,12 +107,12 @@
         <thead class="page-body-thead">
           <tr>
             <th>MBLBK#</th>
+            <th>STAGE</th>
             <th>BOOK#</th>
             <th>MBL#</th>
             <th>DATE</th>
             <th>FOLDER</th>
             <th>SENT.ON</th>
-            <th>STAGE</th>
             <th>SHIPPER</th>
             <th>CONSIGNEE</th>
             <th>AGENT</th>
@@ -137,12 +137,12 @@
           <tr *ngFor="let rec of RecordList;  let i = index" [class.active]="i == selectedRowIndex"
             (mousedown)="selectedRowIndex=i">
             <td class="hlink" (click)="ActionHandler('EDIT',rec.book_pkid)">{{rec.book_slno}}</td>
+            <td>{{rec.book_stage}}</td>
             <td>{{rec.book_no}}</td>
             <td>{{rec.book_mblno}}</td>
             <td>{{rec.book_booked_on}}</td>
             <td>{{rec.book_folder_no}}</td>
             <td>{{rec.book_folder_sent_date}}</td>
-            <td>{{rec.book_stage}}</td>
             <td>{{rec.book_shipper_name}}</td>
             <td>{{rec.book_consignee_name}}</td>
             <td>{{rec.book_agent_name}}</td>
