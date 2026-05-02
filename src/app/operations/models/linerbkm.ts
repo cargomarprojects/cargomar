@@ -153,6 +153,8 @@ export class LinerBkm {
   book_track_comments: string;
   book_unlockid: string;
   book_stage: string;
+  book_stage_updated_on: string;
+
   rec_category: string;
   rec_mode: string;
   rec_created_by: string;

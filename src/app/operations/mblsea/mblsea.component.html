@@ -108,6 +108,7 @@
           <tr>
             <th>MBLBK#</th>
             <th>STAGE</th>
+            <th>UPDATED.ON</th>
             <th>BOOK#</th>
             <th>MBL#</th>
             <th>DATE</th>
@@ -138,6 +139,7 @@
             (mousedown)="selectedRowIndex=i">
             <td class="hlink" (click)="ActionHandler('EDIT',rec.book_pkid)">{{rec.book_slno}}</td>
             <td>{{rec.book_stage}}</td>
+            <td>{{rec.book_stage_updated_on}}</td>
             <td>{{rec.book_no}}</td>
             <td>{{rec.book_mblno}}</td>
             <td>{{rec.book_booked_on}}</td>
