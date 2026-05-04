@@ -143,6 +143,11 @@ tr.selected {
 
 }
 
+.makebold {
+ font-weight: bold;
+ color: chocolate;
+}
+
 
 .abspos {
   position: absolute;

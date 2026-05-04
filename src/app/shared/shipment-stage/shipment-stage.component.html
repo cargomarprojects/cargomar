@@ -12,20 +12,18 @@
               </tr>
             </thead>
             <tbody class="page-body-tbody">
-              <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+              <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" [class.makebold]="i == selectedRowIndex" 
                 (mousedown)="selectedRowIndex=i">
-
-                <td>
+                 <td style="padding:1px 1px 1px 1px">
                   {{rec.stage_order}}
                 </td>
-                <td>
+                <td style="padding:1px 1px 1px 1px" >
                   {{rec.stage_name}}
                 </td>
-                <td>
+                <td style="padding:1px 50px 1px 1px">
                   <app-date [disabled]="rec.stage_editable === 'N'" [inputdate]="rec.stage_date"
                     (ValueChanged)="rec.stage_date=$event"></app-date>
                 </td>
-
               </tr>
             </tbody>
           </table>
