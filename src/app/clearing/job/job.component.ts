@@ -88,7 +88,7 @@ export class JobComponent {
   pkid = '';
 
   stage = "NA";
-
+  shipmentstage_completed: boolean = false;
   Mail_type: string = '';
   sTo_ids: string = '';
   sSubject: string = '';
@@ -805,6 +805,9 @@ export class JobComponent {
   // Query List Data
   List(_type: string) {
 
+    if (this.stage == "NA" || this.stage == "PENDING")
+      this.shipmentstage_completed = false;
+
     this.loading = true;
     let SearchData = {
       type: _type,
@@ -824,6 +827,7 @@ export class JobComponent {
       from_date: this.gs.globalData.job_fromdate,
       to_date: this.gs.globalData.job_todate,
       report_folder: this.gs.globalVariables.report_folder,
+      shipmentstage_completed: this.shipmentstage_completed
     };
 
     this.ErrorMessage = '';

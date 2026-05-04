@@ -43,7 +43,11 @@
             </div>
           </div>
           <div class="form-group row">
-            <label style="padding-right:0px" class="col-sm-4 col-form-label col-form-label-sm">Shipment Stage</label>
+            <!-- <label style="padding-right:0px" class="col-sm-4 col-form-label col-form-label-sm">Shpt.Stage</label> -->
+            <div class="col-sm-4" style="padding-right:0px" >
+              <input type="checkbox" [(ngModel)]="shipmentstage_completed" id="_chkshipstage">
+              <label  class="col-form-label col-form-label-sm" for="_chkshipstage">Shpt.Stage</label>
+            </div>
             <div style="padding-right:0px;padding-left:0px" class="col-sm-8">
               <select class="form-control form-control-sm" [(ngModel)]="stage">
                 <option *ngFor="let str of ShipmentStageList" [value]="str">{{str}}</option>
@@ -114,7 +118,8 @@
             <th>JOB#</th>
             <th>DATE</th>
             <th *ngIf="jobtype!='FORWARDING'">REF#</th>
-            <th>STAGE</th>
+            <th>SHPT.STAGE</th>
+            <th>UPD.ON</th>
             <th>SHIPPER</th>
             <th>CONSIGNEE</th>
             <th>TO.ORDER</th>
@@ -158,6 +163,7 @@
             <td>{{rec.job_date}}</td>
             <td *ngIf="jobtype!='FORWARDING'">{{rec.job_prefix}}</td>
             <td>{{rec.job_stage}}</td>
+            <td>{{rec.job_stage_updated_on}}</td>
             <td>{{rec.job_exp_name}}</td>
             <td>{{rec.job_imp_name}}</td>
             <td>{{rec.job_toorder_name}}</td>

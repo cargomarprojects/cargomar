@@ -174,7 +174,7 @@ export class Jobm {
   job_po_nos: string;
 
   job_stage: string;
-
+  job_stage_updated_on: string;
 
   rec_mode: string;
   rec_category: string;
