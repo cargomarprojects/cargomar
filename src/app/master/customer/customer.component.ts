@@ -47,6 +47,7 @@ export class CustomerComponent {
   bPrint = false;
   bAdmin2 = false;//for list part
   bDelete = false;
+  bAutoApproved = false;
 
   modal: any;
   disableSave = true;
@@ -152,6 +153,7 @@ export class CustomerComponent {
     this.bDelete = false;
     this.bAdmin2 = false;
     this.bHoDocs = false;
+    this.bAutoApproved = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -159,9 +161,10 @@ export class CustomerComponent {
         this.bAdmin2 = true;
       if (this.menu_record.rights_delete)
         this.bDelete = true;
-
       if (this.menu_record.rights_approval.toString().includes("HODOCS"))
         this.bHoDocs = true;
+      if (this.menu_record.rights_approval.toString().includes("{AUTOAPRVD}"))
+        this.bAutoApproved = true;
     }
 
     if (this.gs.globalVariables.user_code == "ADMIN") {
@@ -793,11 +796,11 @@ export class CustomerComponent {
       this.searchstring = this.searchstring.toUpperCase().trim();
     }
 
-     if (field == 'search_cust_code') {
+    if (field == 'search_cust_code') {
       this.search_cust_code = this.search_cust_code.toUpperCase().trim();
     }
 
-     if (field == 'search_cust_name') {
+    if (field == 'search_cust_name') {
       this.search_cust_name = this.search_cust_name.toUpperCase().trim();
     }
 
@@ -889,6 +892,11 @@ export class CustomerComponent {
     this.ErrorMessage = '';
     this.InfoMessage = '';
 
+    if (!confirm("Do you want to " + (locktype == 'UNLOCKED' ? 'UNLOCK' : 'LOCK'))) {
+      return;
+    }
+
+
     this.loading = true;
     let SearchData = {
       type: locktype,
@@ -960,7 +968,8 @@ export class CustomerComponent {
       user_code: this.gs.globalVariables.user_code,
       user_name: this.gs.globalVariables.user_name,
       user_short_name: this.gs.globalVariables.user_short_name,
-      user_pkid: this.gs.globalVariables.user_pkid
+      user_pkid: this.gs.globalVariables.user_pkid,
+      bautoapproved: this.bAutoApproved
     };
 
     this.ErrorMessage = '';
