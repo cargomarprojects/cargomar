@@ -911,6 +911,7 @@ export class CustomerComponent {
       user_short_name: '',
       cust_code: '',
       cust_name: '',
+      report_folder: this.gs.globalVariables.report_folder,
       remarks: ''
     };
 
@@ -927,6 +928,7 @@ export class CustomerComponent {
     SearchData.user_short_name = this.gs.globalVariables.user_short_name;
     SearchData.cust_code = this.Record.cust_code;
     SearchData.cust_name = this.Record.cust_name;
+    SearchData.report_folder = this.gs.globalVariables.report_folder;
 
     this.mainService.UnlockCustomer(SearchData)
       .subscribe(response => {
@@ -969,6 +971,7 @@ export class CustomerComponent {
       user_name: this.gs.globalVariables.user_name,
       user_short_name: this.gs.globalVariables.user_short_name,
       user_pkid: this.gs.globalVariables.user_pkid,
+      report_folder: this.gs.globalVariables.report_folder,
       bautoapproved: this.bAutoApproved
     };
 
@@ -1002,6 +1005,7 @@ export class CustomerComponent {
       user_name: this.gs.globalVariables.user_name,
       user_short_name: this.gs.globalVariables.user_short_name,
       user_pkid: this.gs.globalVariables.user_pkid,
+      report_folder: this.gs.globalVariables.report_folder,
       Is_Shipper: this.Is_Shipper,
       Is_Foreigner: this.Is_Foreigner,
       Is_Consignee: this.Is_Consignee,
