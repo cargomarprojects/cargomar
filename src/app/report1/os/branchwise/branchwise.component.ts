@@ -1,12 +1,9 @@
 
-import { Component, Input, Output, OnInit, OnDestroy, ViewChild, EventEmitter,ElementRef } from '@angular/core';
-
+import { Component, Input, Output, OnInit, OnDestroy, ViewChild, EventEmitter, ElementRef } from '@angular/core';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
-
 import { GlobalService } from '../../../core/services/global.service';
-
 import { OsRep } from '../../models/osrep';
-
 import { RepService } from '../../services/report.service';
 
 
@@ -37,7 +34,7 @@ export class OsBranchWiseComponent {
   currentTab = '';
 
   searchstring = '';
-
+  modal: any;
   sub: any;
   urlid: string;
 
@@ -55,7 +52,11 @@ export class OsBranchWiseComponent {
 
 
   ErrorMessage = "";
-
+  mailtype: string = 'FINYEARWISE';
+  sSubject: string = '';
+  sMsg: string = '';
+  sHtml: string = '';
+  AttachList: any[] = [];
 
   pkid = '';
 
@@ -84,9 +85,10 @@ export class OsBranchWiseComponent {
   Record: OsRep = new OsRep;
 
   constructor(
+    private modalService: NgbModal,
     private mainService: RepService,
     private route: ActivatedRoute,
-    private gs: GlobalService
+    public gs: GlobalService
   ) {
 
 
@@ -112,7 +114,7 @@ export class OsBranchWiseComponent {
 
   // Destroy Will be called when this component is closed
   ngOnDestroy() {
-    
+
   }
 
 
@@ -163,10 +165,10 @@ export class OsBranchWiseComponent {
         else
           this.RecordList = response.list;
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
   }
 
 
@@ -199,5 +201,41 @@ export class OsBranchWiseComponent {
     this.currentTab = 'CHILD';
   }
 
+  Mail(mailsent: any) {
+
+    this.loading = true;
+    let eSearchData = {
+      user_pkid: this.gs.globalVariables.user_pkid,
+      user_code: this.gs.globalVariables.user_code,
+      company_code: this.gs.globalVariables.comp_code,
+      email_type: "OS-FINYEAR",
+      report_folder: this.gs.globalVariables.report_folder,
+      os_history_sent_on: 'MONDAY',
+      branch: this.ParentData.branch,
+      branch_code: this.ParentData.branch_code
+    };
+
+    this.ErrorMessage = '';
+    this.gs.SendEmail(eSearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.AttachList = new Array<any>();
+        this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname });
+        if (!this.gs.isBlank(response.filename2)) {
+          this.AttachList.push({ filename: response.filename2, filetype: response.filetype2, filedisplayname: response.filedisplayname2 });
+        }
+        this.sSubject = response.subject;
+        this.sHtml = response.message;
+        this.open(mailsent);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+        });
+  }
+
+  open(content: any) {
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
+  }
 
 }

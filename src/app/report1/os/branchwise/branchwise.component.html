@@ -5,6 +5,7 @@
     <div class="col">
       <label>{{title}}</label>
       <button class="btn btn-primary btn-sm" (click)="List('EXCEL')">Excel</button>
+      <button *ngIf="gs.globalVariables.user_code == 'ADMIN' || gs.globalVariables.user_code == 'NAIK'" class="btn btn-primary btn-sm" (click)="Mail(mailsent)">Mail/FinYearWise</button>
       <button class="btn btn-primary btn-sm" (click)="Close()">Return</button>
       <i *ngIf="loading" class="fa fa-spinner"></i>
     </div>
@@ -64,7 +65,18 @@
 <div *ngIf="currentTab=='CHILD'">
   <app-ossmanwise [ParentData]="ChildData" (Return2Parent)="currentTab=$event"></app-ossmanwise>
 </div>
-
+<ng-template #mailsent let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Message Details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="mailtype" [sHtml]="sHtml" [defaultmessage]="sMsg"
+      [defaultsubject]="sSubject" [updateto_ids]=true [AttachList]="AttachList"></app-mail>
+  </div>
+</ng-template>
 
 
 
