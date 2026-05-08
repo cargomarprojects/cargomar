@@ -277,7 +277,7 @@ export class DeductmEditComponent {
 
         if (this.Record.ded_paid_amt == 0) {
             bret = false;
-            sError += "\n\r | Invalid  Amount ";
+            sError += "\n\r | Invalid  Total Amount ";
         }
 
         if (this.Record.ded_tot_months <= 0) {
@@ -287,12 +287,12 @@ export class DeductmEditComponent {
 
         if (this.Record.ded_mon_amt == 0) {
             bret = false;
-            sError += "\n\r | Invalid Monthly Amount ";
+            sError += "\n\r | Invalid EMI ";
         }
 
         if (this.Record.ded_mon_amt > this.Record.ded_paid_amt) {
             bret = false;
-            sError += "\n\r | Invalid  Amount ";
+            sError += "\n\r | EMI exceeds Total Amount ";
         }
 
         if (bret === false) {
