@@ -29,6 +29,10 @@ export class Deductm {
     rec_mode: string;
     rec_branch_code: string;
     ded_deduct_amt: number;
+    ded_principal_amt: number;
+    ded_interest_rate: number;
+    ded_interest_amt: number;
+
     _globalvariables: GlobalVariables;
     dedList: Deductd[] = [];
 }

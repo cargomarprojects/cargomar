@@ -40,6 +40,7 @@ export class DeductmEditComponent {
     lock_record: boolean = false;
 
 
+    bValueChanged: boolean = false;
     ErrorMessage = "";
     InfoMessage = "";
     iTotal: number = 0;
@@ -159,7 +160,7 @@ export class DeductmEditComponent {
         this.Record.ded_start_date = this.gs.defaultValues.today;
         this.Record.ded_paid_amt = 0;
         this.Record.ded_mon_amt = 0;
-        this.Record.ded_tot_months = 0;
+        this.Record.ded_tot_months = 1;
         this.Record.ded_closed = 'N';
         this.Record.ded_edit_code = "{S}";
         this.Record.ded_remarks = '';
@@ -167,6 +168,9 @@ export class DeductmEditComponent {
         this.Record.ded_alloc_exist = false;
         this.Record.ded_vrno = '';
         this.Record.ded_pay_date = '';
+        this.Record.ded_principal_amt = 0;
+        this.Record.ded_interest_rate = 0;
+        this.Record.ded_interest_amt = 0;
         this.InitLov();
         this.Record.rec_mode = this.mode;
 
@@ -276,6 +280,11 @@ export class DeductmEditComponent {
             sError += "\n\r | Invalid  Amount ";
         }
 
+        if (this.Record.ded_tot_months <= 0) {
+            bret = false;
+            sError += "\n\r | Tenure cannot be zero";
+        }
+
         if (this.Record.ded_mon_amt == 0) {
             bret = false;
             sError += "\n\r | Invalid Monthly Amount ";
@@ -302,14 +311,16 @@ export class DeductmEditComponent {
     OnBlur(field: string) {
         if (field == 'ded_paid_amt') {
             this.Record.ded_paid_amt = this.gs.roundNumber(this.Record.ded_paid_amt, 0);
-            this.FindInstallments();
+            // this.FindInstallments();
         }
         if (field == 'ded_mon_amt') {
             this.Record.ded_mon_amt = this.gs.roundNumber(this.Record.ded_mon_amt, 0);
-            this.FindInstallments();
+            // this.FindInstallments();
         }
         if (field == 'ded_tot_months') {
             this.Record.ded_tot_months = this.gs.roundNumber(this.Record.ded_tot_months, 0);
+            if (this.bValueChanged)
+                this.calculateEMI(this.Record.ded_principal_amt, this.Record.ded_interest_rate, this.Record.ded_tot_months);
         }
         if (field == 'ded_remarks') {
             this.Record.ded_remarks = this.Record.ded_remarks.toUpperCase();
@@ -317,10 +328,77 @@ export class DeductmEditComponent {
         if (field == 'ded_vrno') {
             this.Record.ded_vrno = this.Record.ded_vrno.toUpperCase();
         }
+        if (field == 'ded_principal_amt') {
+            this.Record.ded_principal_amt = this.gs.roundNumber(this.Record.ded_principal_amt, 0);
+            if (this.bValueChanged)
+                this.calculateEMI(this.Record.ded_principal_amt, this.Record.ded_interest_rate, this.Record.ded_tot_months);
+        }
+        if (field == 'ded_interest_rate') {
+            this.Record.ded_interest_rate = this.gs.roundNumber(this.Record.ded_interest_rate, 2);
+            if (this.bValueChanged)
+                this.calculateEMI(this.Record.ded_principal_amt, this.Record.ded_interest_rate, this.Record.ded_tot_months);
+        }
+        if (field == 'ded_interest_amt') {
+            this.Record.ded_interest_amt = this.gs.roundNumber(this.Record.ded_interest_amt, 0);
+        }
+    }
+    OnChange(field: string) {
+
+        if (field == 'ded_principal_amt')
+            this.bValueChanged = true;
+        if (field == 'ded_interest_rate')
+            this.bValueChanged = true;
+        if (field == 'ded_tot_months')
+            this.bValueChanged = true;
+
+    }
+
+    OnFocus(field: string) {
+
+        if (field == 'ded_principal_amt')
+            this.bValueChanged = false;
+        if (field == 'ded_interest_rate')
+            this.bValueChanged = false;
+        if (field == 'ded_tot_months')
+            this.bValueChanged = false;
     }
 
 
+    calculateEMI(principal: number, annualRate: number, months: number) {
 
+        var emi = 0;
+        var totalAmount = 0;
+        var totalInterest = 0;
+        if (months == 0)
+            months = 1;
+
+        // If interest is 0%
+        if (annualRate == 0) {
+
+            emi = Math.ceil(principal / months);
+            totalAmount = principal;
+            totalInterest = 0;
+
+        } else {
+
+            var monthlyRate = annualRate / 12 / 100;
+            var factor = Math.pow(1 + monthlyRate, months);
+            var denominator = factor - 1;
+            if (denominator === 0) {
+                emi = principal / months;
+            } else {
+                emi = (principal * monthlyRate * factor) / denominator;
+            }
+
+            totalAmount = emi * months;
+            totalInterest = totalAmount - principal;
+        }
+
+        this.Record.ded_mon_amt = Math.ceil(emi);
+        this.Record.ded_paid_amt = this.gs.roundNumber(+totalAmount.toFixed(2), 0);
+        this.Record.ded_interest_amt = this.gs.roundNumber(+totalInterest.toFixed(2), 0);
+        
+    }
     FindNetAmt() {
 
         // let TotDeductn: number = 0;

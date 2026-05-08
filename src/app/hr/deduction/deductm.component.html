@@ -27,7 +27,7 @@
             <div class="col-3">
                 <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
                 <button [disabled]="loading" *ngIf="bPrint" (click)="List('EXCEL')"
-                class="btn btn-primary btn-sm">Print</button>
+                    class="btn btn-primary btn-sm">Print</button>
             </div>
         </div>
     </div>
@@ -58,9 +58,12 @@
                     <th>NAME</th>
                     <th>DATE</th>
                     <th>TYPE</th>
-                    <th>AMOUNT</th>
-                    <th>MONTHLY.AMT</th>
-                    <th>INSTALLMENT.NOS</th>
+                    <th>PAID.AMT</th>
+                    <th>RATE</th>
+                    <th>TENURE</th>
+                    <th>INTEREST</th>
+                    <th>TOT.AMT</th>
+                    <th>EMI</th>
                     <th>COLLECTED.AMT</th>
                     <th>BALANCE.AMT</th>
                     <th *ngIf="hidemondeductList">MONTHLY.DEDUCTED.AMT</th>
@@ -81,9 +84,12 @@
                     <td>{{rec.ded_emp_name}}</td>
                     <td>{{rec.ded_start_date}}</td>
                     <td>{{rec.ded_type}}</td>
+                    <td>{{rec.ded_principal_amt}}</td>
+                    <td>{{rec.ded_interest_rate}}</td>
+                    <td>{{rec.ded_tot_months}}</td>
+                    <td>{{rec.ded_interest_amt}}</td>
                     <td>{{rec.ded_paid_amt}}</td>
                     <td>{{rec.ded_mon_amt}}</td>
-                    <td>{{rec.ded_tot_months}}</td>
                     <td>{{rec.ded_collected_amt}}</td>
                     <td>{{rec.ded_bal_amt}}</td>
                     <td *ngIf="hidemondeductList">{{rec.monthly_deducted_amt}}</td>
@@ -93,8 +99,10 @@
                     <td>{{rec.ded_closed}}</td>
                     <td>{{rec.rec_created_by}}</td>
                     <td>{{rec.rec_created_date}}</td>
-                    <td *ngIf="gs.globalVariables.user_code == 'ADMIN'"><i class="fa fa-trash  fa-lg pointer" aria-hidden="true"
-                        (click)="Removededuction(rec.ded_pkid,rec.ded_emp_name,rec.ded_type,rec.ded_start_date)"></i></td>
+                    <td *ngIf="gs.globalVariables.user_code == 'ADMIN'"><i class="fa fa-trash  fa-lg pointer"
+                            aria-hidden="true"
+                            (click)="Removededuction(rec.ded_pkid,rec.ded_emp_name,rec.ded_type,rec.ded_start_date)"></i>
+                    </td>
                 </tr>
             </tbody>
         </table>
