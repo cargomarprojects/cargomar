@@ -684,14 +684,23 @@ export class FileUploadComponent {
 
 
     for (let rec of this.RecordList) {
-      if (rec.doc_selected) {
-        bOk = true;
-        break;
+      if (_type == "BL-SURRENDER-MAIL-HO") {
+        if (rec.doc_selected && rec.doc_catg_name == 'HBL SURRENDER DOCS') {
+          bOk = true;
+          break;
+        }
+
+      } else {
+        if (rec.doc_selected) {
+          bOk = true;
+          break;
+        }
       }
+
     }
 
     if (!bOk && _type == "BL-SURRENDER-MAIL-HO") {
-      alert('No attachements selected');
+      alert('Mail Surrender docs not selected.');
       return;
     } else if (_type.indexOf('BL-SURRENDER-MAIL-') >= 0 && _type != "BL-SURRENDER-MAIL-HO") {
       if (this.gs.isBlank(_docids)) {
