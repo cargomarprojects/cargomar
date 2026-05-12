@@ -104,6 +104,7 @@ export class MblSeaComponent {
   lockChar = "";
 
   shipmentstage_completed: boolean = false;
+  shptstagetype: string = "SHPT.STAGE";
   shipmentstage = "NA";
   ShipmentStageList: any[] = [];
 
@@ -575,7 +576,8 @@ export class MblSeaComponent {
   List(_type: string) {
 
     if (this.shipmentstage == "NA" || this.shipmentstage == "PENDING")
-      this.shipmentstage_completed = false;
+      this.shptstagetype = "SHPT.STAGE";
+    // this.shipmentstage_completed = false;
 
     if (this.searchby == "FOLDERSENT")
       this.searchstring = "";
@@ -597,7 +599,8 @@ export class MblSeaComponent {
       to_date: this.gs.globalData.mbl_todate,
       report_folder: this.gs.globalVariables.report_folder,
       shipmentstage: this.shipmentstage,
-      shipmentstage_completed: this.shipmentstage_completed
+      shipmentstage_completed: this.shipmentstage_completed,
+      shptstagetype: this.shptstagetype
     };
 
     this.ErrorMessage = '';
