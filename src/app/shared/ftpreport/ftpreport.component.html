@@ -1,165 +1,172 @@
 <div class="page-header">
-    <div class="col">
-        <label>{{title}}</label>
-        <button *ngIf="type=='FTPLOGREPORT'" class="btn btn-primary btn-sm" (click)="Close()">Close</button>
-        <i *ngIf="loading" class="fa fa-spinner"></i>
-    </div>
+  <div class="col">
+    <label>{{title}}</label>
+    <button *ngIf="type=='FTPLOGREPORT'" class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+    <i *ngIf="loading" class="fa fa-spinner"></i>
+  </div>
 </div>
 <div *ngIf="currentTab=='LIST'" class="page-list">
-    <div *ngIf="type =='FTPLOGREPORT'" class="page-search">
-        <div class="row">
-            <div class="col-sm-4">
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">From Date</label>
-                    <div class="col-sm-8">
-                        <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">To Date</label>
-                    <div class="col-sm-8">
-                        <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
-                    </div>
-                </div>
-            </div>
+  <div *ngIf="type =='FTPLOGREPORT'" class="page-search">
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">From Date</label>
+          <div class="col-sm-8">
+            <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">To Date</label>
+          <div class="col-sm-8">
+            <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+          </div>
+        </div>
+      </div>
 
-            <div class="col-sm-4">
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">FTP To</label>
-                    <div class="col-sm-8">
-                        <select class="form-control form-control-sm" [(ngModel)]="ftptype">
-                            <option *ngFor="let rec of FtpTypeList" [value]="rec.param_code">{{rec.param_name}}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Format</label>
-                    <div class="col-sm-8 input-group input-group-sm">
-                        <select class="form-control form-control-sm mr-1" [(ngModel)]="report_format">
-                            <option [value]="'DEFAULT'">DEFAULT</option>
-                            <option [value]="'XML'">XML</option>
-                        </select>
-                        <input *ngIf="report_format =='XML'" type="checkbox" [(ngModel)]="xmlpending" id="_chkpending"
-                            class="mr-1" />
-                        <label *ngIf="report_format =='XML'" class="col-form-label col-form-label-sm"
-                            for="_chkpending">Pending</label>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm">Search</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="col form-control form-control-sm" name="Search"
-                            [(ngModel)]="searchstring" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-4 col-form-label col-form-label-sm"></label>
-                    <div class="col-sm-8">
-                        <button [disabled]="loading" (click)="List('NEW')"
-                            class="btn btn-primary btn-sm">Search</button>
-                    </div>
-                </div>
-            </div>
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">FTP To</label>
+          <div class="col-sm-8">
+            <select class="form-control form-control-sm" [(ngModel)]="ftptype">
+              <option *ngFor="let rec of FtpTypeList" [value]="rec.param_code">{{rec.param_name}}</option>
+            </select>
+          </div>
         </div>
-    </div>
-    <div class="page-pager">
-        <div *ngIf="page_count">
-            <ul class="pagination pagination-sm">
-                <li class="page-item"><a class="page-link">Page
-                        {{page_current}}/{{page_count}}(Records-{{page_rowcount}})</a></li>
-                <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
-                            class="fa fa-backward"></span></a></li>
-                <li class="page-item"><a class="page-link" (click)="List('PREV')"><span
-                            class="fa fa-arrow-left"></span></a></li>
-                <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span
-                            class="fa fa-arrow-right"></span></a></li>
-                <li class="page-item"><a class="page-link" (click)="List('LAST')"><span
-                            class="fa fa-forward"></span></a></li>
-                <!-- <li class="page-item"><a class="page-link" (click)="List('EXCEL')"><span class="fa fa-file-excel-o"></span></a></li> -->
-            </ul>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Format</label>
+          <div class="col-sm-8 input-group input-group-sm">
+            <select class="form-control form-control-sm mr-1" [(ngModel)]="report_format">
+              <option [value]="'DEFAULT'">DEFAULT</option>
+              <option [value]="'XML'">XML</option>
+            </select>
+            <input *ngIf="report_format =='XML'" type="checkbox" [(ngModel)]="xmlpending" id="_chkpending"
+              class="mr-1" />
+            <label *ngIf="report_format =='XML'" class="col-form-label col-form-label-sm"
+              for="_chkpending">Pending</label>
+          </div>
         </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Search</label>
+          <div class="col-sm-8">
+            <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm"></label>
+          <div class="col-sm-8">
+            <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page
+            {{page_current}}/{{page_count}}(Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+        <!-- <li class="page-item"><a class="page-link" (click)="List('EXCEL')"><span class="fa fa-file-excel-o"></span></a></li> -->
+      </ul>
+    </div>
+  </div>
 
-    <div *ngIf="search_report_format =='DEFAULT'" class="page-body table-responsive">
-        <table class="table  table-hover table-sm">
-            <thead class="page-body-thead">
-                <tr>
-                    <th *ngIf="type =='FTPLOGREPORT'" width="5%">BRANCH</th>
-                    <th width="5%">ID</th>
-                    <th width="12%">DATE</th>
-                    <th width="10%">ACTION</th>
-                    <th width="5%">MODULE</th>
-                    <th width="5%">FROM</th>
-                    <th width="5%">TO</th>
-                    <th width="48%">SUBJECT</th>
-                    <th width="5%">USER</th>
-                </tr>
-            </thead>
-            <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-                <tr>
-                    <td *ngIf="type =='FTPLOGREPORT'">{{rec.ftp_branch_code}}</td>
-                    <td>{{rec.ftp_process_id}}</td>
-                    <td>{{rec.ftp_date}}</td>
-                    <td>{{rec.ftp_action}}</td>
-                    <td>{{rec.ftp_module}}</td>
-                    <td>{{rec.ftp_from}}</td>
-                    <td>{{rec.ftp_to}}</td>
-                    <td>{{rec.ftp_subject}}</td>
-                    <td>{{rec.ftp_user_code}}</td>
-                </tr>
-            </tbody>
-        </table>
+  <div *ngIf="search_report_format =='DEFAULT'" class="page-body table-responsive fixedTableHead my-0 p-0"
+    style="height: calc(100vh - 390px);">
+    <table class="table  table-hover table-sm table-bordered table-striped">
+      <thead class="page-body-thead">
+        <tr>
+          <th *ngIf="type =='FTPLOGREPORT'" width="5%">BRANCH</th>
+          <th width="5%">ID</th>
+          <th width="12%">DATE</th>
+          <th width="10%">ACTION</th>
+          <th width="5%">MODULE</th>
+          <th width="5%">FROM</th>
+          <th width="5%">TO</th>
+          <th width="48%">SUBJECT</th>
+          <th width="5%">USER</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+          (mousedown)="selectedRowIndex=i">
+          <td *ngIf="type =='FTPLOGREPORT'">{{rec.ftp_branch_code}}</td>
+          <td>{{rec.ftp_process_id}}</td>
+          <td>{{rec.ftp_date}}</td>
+          <td>{{rec.ftp_action}}</td>
+          <td>{{rec.ftp_module}}</td>
+          <td>{{rec.ftp_from}}</td>
+          <td>{{rec.ftp_to}}</td>
+          <td>{{rec.ftp_subject}}</td>
+          <td>{{rec.ftp_user_code}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="search_report_format =='XML'" class="page-body table-responsive fixedTableHead my-0 p-0"
+    style="height: calc(100vh - 390px);">
+
+
+    <table class="table  table-hover table-sm table-bordered table-striped">
+      <thead class="page-body-thead">
+        <tr>
+          <th>BRANCH</th>
+          <th>BK#</th>
+          <th>MBLNO</th>
+          <th>HOUSE NOS</th>
+          <th>ETD</th>
+          <th>PREALERT-SENT DT</th>
+          <th>PRALERT-PENDING</th>
+          <th>FTP UPLOAD DT(FIRST)</th>
+          <th>FTP UPLOAD DT(LAST)</th>
+          <th>FTP-PENDING</th>
+
+          <th>MULTIPLE UPLOAD</th>
+          <th *ngIf="gs.globalVariables.user_code == 'ADMIN'">UPDATE</th>
+        </tr>
+      </thead>
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+          (mousedown)="selectedRowIndex=i">
+          <td>{{rec.ftp_branch_code}}</td>
+          <td>{{rec.ftp_mblbk_no}}</td>
+          <td>{{rec.ftp_mbl_no}}</td>
+          <td>{{rec.ftp_house_no}}</td>
+          <td>{{rec.ftp_mbl_etd}}</td>
+          <td>{{rec.ftp_prealert_date}}</td>
+          <td [class.text-danger]="rec.ftp_prealert_pending >4">{{rec.ftp_prealert_pending}}</td>
+          <td>{{rec.ftp_min_ftp_date}}</td>
+          <td>{{rec.ftp_max_ftp_date}}</td>
+          <td [class.text-danger]="rec.ftp_days_after_etd > 4">{{rec.ftp_days_after_etd}}</td>
+          <td>{{rec.ftp_multiple_upload}}</td>
+          <td *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="hlink" (click)="SentManually(rec)">REMOVE
+            FROM PENDING LIST</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="page-pager">
+    <div *ngIf="page_count">
+      <ul class="pagination pagination-sm">
+        <li class="page-item"><a class="page-link">Page
+            {{page_current}}/{{page_count}}(Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
+        <!-- <li class="page-item"><a class="page-link" (click)="List('EXCEL')"><span class="fa fa-file-excel-o"></span></a></li> -->
+      </ul>
     </div>
-    <div *ngIf="search_report_format =='XML'" class="table-responsive">
-        <table class="table  table-hover table-sm">
-            <thead class="page-body-thead">
-                <tr>
-                    <th>BRANCH</th>
-                    <th>MBLBK#</th>
-                    <th>HOUSE NOS</th>
-                    <th>ETD</th>
-                    <th>FTP FIRST DATE</th>
-                    <th>FTP LAST DATE</th>
-                    <th>PENDING DAYS</th>
-                    <th>MULTIPLE UPLOAD</th>
-                    <th *ngIf="gs.globalVariables.user_code == 'ADMIN'">UPDATE</th>
-                </tr>
-            </thead>
-            <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-                <tr>
-                    <td>{{rec.ftp_branch_code}}</td>
-                    <td>{{rec.ftp_mblbk_no}}</td>
-                    <td>{{rec.ftp_house_no}}</td>
-                    <td>{{rec.ftp_mbl_etd}}</td>
-                    <td>{{rec.ftp_min_ftp_date}}</td>
-                    <td>{{rec.ftp_max_ftp_date}}</td>
-                    <td [class.text-danger]="gs.isBlank(rec.ftp_min_ftp_date)" >{{rec.ftp_days_after_etd}}</td>
-                    <td>{{rec.ftp_multiple_upload}}</td>
-                    <td *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="hlink" (click)="SentManually(rec)">REMOVE
-                        FROM PENDING LIST</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="page-pager">
-        <div *ngIf="page_count">
-            <ul class="pagination pagination-sm">
-                <li class="page-item"><a class="page-link">Page
-                        {{page_current}}/{{page_count}}(Records-{{page_rowcount}})</a></li>
-                <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
-                            class="fa fa-backward"></span></a></li>
-                <li class="page-item"><a class="page-link" (click)="List('PREV')"><span
-                            class="fa fa-arrow-left"></span></a></li>
-                <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span
-                            class="fa fa-arrow-right"></span></a></li>
-                <li class="page-item"><a class="page-link" (click)="List('LAST')"><span
-                            class="fa fa-forward"></span></a></li>
-                <!-- <li class="page-item"><a class="page-link" (click)="List('EXCEL')"><span class="fa fa-file-excel-o"></span></a></li> -->
-            </ul>
-        </div>
-    </div>
+  </div>
 </div>
 
 <br />
@@ -167,5 +174,5 @@
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 
 <div *ngIf="ErrorMessage" class="alert alert-info">
-    {{ErrorMessage}}
+  {{ErrorMessage}}
 </div>

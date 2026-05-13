@@ -9,7 +9,7 @@ import { Ftplog } from '../../shared/models/ftplog';
   templateUrl: './ftpreport.component.html',
 })
 export class FtpReportComponent {
-  // Local Variables 
+  // Local Variables
   title = 'FTP Details';
 
   @Input() public pkid: string;
@@ -23,6 +23,8 @@ export class FtpReportComponent {
   currentTab = 'LIST';
   sub: any;
   urlid: string;
+
+  selectedRowIndex = 0;
 
   searchstring: string = '';
   ftptype: string = '';
@@ -48,7 +50,7 @@ export class FtpReportComponent {
     this.page_count = 0;
     this.page_rows = 10;
     this.page_current = 0;
-    // URL Query Parameter 
+    // URL Query Parameter
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
         this.InitCompleted = true;
