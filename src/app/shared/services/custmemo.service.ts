@@ -23,4 +23,12 @@ export class CustMemoService {
   DeleteRecord(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Master/CustMemo/DeleteRecord', SearchData, this.gs.headerparam2('authorized'));
   }
+
+   GetSingleRecord(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Master/CustMemo/GetSingleRecord', SearchData, this.gs.headerparam2('authorized'));
+  }
+
+  SaveSingleRecord(Record: CustMemo) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Master/CustMemo/SaveSingleRecord', Record, this.gs.headerparam2('authorized'));
+  }
 }

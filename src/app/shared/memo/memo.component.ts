@@ -14,7 +14,7 @@ export class MemoComponent implements OnInit {
     public errorMessage: string = '';
     public tab: string = 'main';
 
-    private _parentid: string;
+    private _parentid: string = '';
     @Input() set parentid(value: string) {
         this._parentid = value;
     }
@@ -24,9 +24,22 @@ export class MemoComponent implements OnInit {
         this._type = value;
     }
 
+    public _screentype: string = 'ALL-EDIT';
+    @Input() set screentype(value: string) {
+        this._screentype = value;
+    }
+
+    public _btncaption: string = 'Memo';
+    @Input() set btncaption(value: string) {
+        this._btncaption = value;
+    }
+
     @Output() callbackevent = new EventEmitter<any>();
     MemoList: CustMemo[] = [];
+    Record: CustMemo = new CustMemo;
 
+    mode = 'ADD';
+    pkid = '';
     modal: any;
     loading = false;
     constructor(
@@ -53,16 +66,20 @@ export class MemoComponent implements OnInit {
         }
         let SearchData = {
             parentid: '',
-            type: ''
+            type: '',
+            screentype: ''
         }
 
         SearchData.parentid = this._parentid;
         SearchData.type = this._type;
+        SearchData.screentype = this._screentype;
 
         this.mainservice.List(SearchData).subscribe(response => {
             this.MemoList = response.list;
-            if (this.MemoList.length == 0)
+            if (this.MemoList.length == 0 && this._screentype == 'ALL-EDIT')
                 this.NewRecord();
+            else
+                this.newSingleRecord();
             this.open(memmodal);
 
         }, error => {
@@ -71,7 +88,7 @@ export class MemoComponent implements OnInit {
 
     }
     open(content: any) {
-        this.modal = this.modalService.open(content,  { size: "sm", backdrop: 'static', keyboard: true, windowClass: 'modal-custom' } );
+        this.modal = this.modalService.open(content, { size: "sm", backdrop: 'static', keyboard: true, windowClass: 'modal-custom' });
     }
 
 
@@ -134,4 +151,85 @@ export class MemoComponent implements OnInit {
         this.MemoList.push(_Rec);
     }
 
+    editSingleRecord(Id: string) {
+
+        this.loading = true;
+        let SearchData = {
+            pkid: Id,
+        };
+
+        this.mode = 'EDIT';
+        this.mainservice.GetSingleRecord(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                this.LoadData(response.record);
+            },
+                error => {
+                    this.loading = false;
+                    alert(this.gs.getError(error));
+                });
+    }
+
+    LoadData(_Record: CustMemo) {
+        this.pkid = _Record.cm_pkid;
+        this.Record.cm_pkid = this.pkid;
+        this.Record.cm_memo = _Record.cm_memo;
+    }
+
+    newSingleRecord() {
+        this.mode = 'ADD';
+        this.pkid = this.gs.getGuid();
+        this.Record = new CustMemo();
+        this.Record.cm_pkid = this.pkid;
+        this.Record.cm_parent_id = this._parentid;
+        this.Record.rec_created_by = this.gs.globalVariables.user_code;
+        this.Record.rec_created_date = this.gs.defaultValues.today;
+        this.Record.cm_memo = "";
+    }
+
+    Save() {
+        if (!this.allvalid()) {
+            return;
+        }
+        this.loading = true;
+        this.Record._globalvariables = this.gs.globalVariables;
+        this.Record.cm_pkid = this.pkid;
+        this.Record.cm_parent_id = this._parentid;
+        this.Record.cm_type = "PRE-ALERT-STATUS";
+        this.Record.cm_memo = this.Record.cm_memo.toUpperCase();
+
+
+        this.mainservice.SaveSingleRecord(this.Record)
+            .subscribe(response => {
+                this.loading = false;
+                if (response.mode == "EDIT") {
+                    for (let rec of this.MemoList.filter(rec => rec.cm_pkid == this.pkid)) {
+                        rec.rec_created_date = this.Record.rec_created_date;
+                        rec.cm_memo = this.Record.cm_memo;
+                    }
+                    this.newSingleRecord();
+                } else {
+                    this.MemoList.push(this.Record);
+                    this.newSingleRecord();
+                }
+            },
+                error => {
+                    this.loading = false;
+                    alert(this.gs.getError(error));
+                });
+    }
+
+    allvalid() {
+        let sError: string = "";
+        let bret: boolean = true;
+        let str: string = "";
+        if (this.gs.isBlank(this.Record.cm_memo)) {
+            bret = false;
+            sError += "| Comments Cannot Be Blank ";
+        }
+
+        if (bret === false)
+            alert(sError);
+        return bret;
+    }
 }
