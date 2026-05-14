@@ -941,31 +941,32 @@
             </div>
           </div>
           <div class="page-box">
-            <div class="col">
+            <div class="col-sm-12 input-group input-group-sm">
               <button [hidden]="disableSave" [disabled]="loading || Record.lock_record" (click)="Save()"
-                class="btn btn-success btn-sm">Save</button>
+                class="btn btn-success btn-sm mr-1">Save</button>
               <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="MailFtp(ftpsent,'N')"
-                class="btn btn-success btn-sm">Mail/FTP</button>
+                class="btn btn-success btn-sm mr-1">Mail/FTP</button>
               <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="BookingFtp(ftpsent)"
-                class="btn btn-success btn-sm">Booking/FTP</button>
+                class="btn btn-success btn-sm mr-1">Booking/FTP</button>
               <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="MailFtp(ftpsent,'Y')"
-                class="btn btn-success btn-sm">ISF/FTP</button>
+                class="btn btn-success btn-sm mr-1">ISF/FTP</button>
               <!-- <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="CheckCrLimit()"
-                class="btn btn-success btn-sm">Check CR-Limit</button> -->
+                class="btn btn-success btn-sm mr-1">Check CR-Limit</button> -->
               <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="ShowFtpHistory(ftphistory)"
-                class="btn btn-success btn-sm">FTPHistory</button>
+                class="btn btn-success btn-sm mr-1">FTPHistory</button>
               <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)"
-                class="btn btn-success btn-sm">History</button>
+                class="btn btn-success btn-sm mr-1">History</button>
 
               <button [disabled]="loading" (click)="ActionHandler('LIST','')"
-                class="btn btn-success btn-sm">Return</button>
+                class="btn btn-success btn-sm mr-1">Return</button>
               <button *ngIf="mode=='EDIT' && bAdmin" [disabled]="loading"
-                (click)="PrintCheckList('','SEA EXPORT','EXCEL')" class="btn btn-success btn-sm">Check
+                (click)="PrintCheckList('','SEA EXPORT','EXCEL')" class="btn btn-success btn-sm mr-1">Check
                 List</button>
               <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowBL()"
-                class="btn btn-success btn-sm">Master BL</button>
+                class="btn btn-success btn-sm mr-1">Master BL</button>
               <button *ngIf="mode == 'EDIT'&&gs.globalVariables.user_code == 'ADMIN'" [disabled]="loading"
-                (click)="GetEnsFiling()" class="btn btn-success btn-sm">EnsFiling</button>
+                (click)="GetEnsFiling()" class="btn btn-success btn-sm mr-1">EnsFiling</button>
+               <app-memo *ngIf="mode == 'EDIT'" [parentid]="Record.book_pkid" [type]="'PRE-ALERT-MEMO'"></app-memo>
               <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
                 <font color="RED">
                   <strong>
@@ -1088,7 +1089,8 @@
 
   <ng-template #ftpsent let-c="close" let-d="dismiss">
     <div class="modal-header">
-      <h4 class="modal-title">{{title}}</h4>
+      <!-- <h4 class="modal-title">{{title}}</h4> -->
+      <h4 class="modal-title">Pre-Alert Message</h4>
       <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -1098,7 +1100,7 @@
         [type]="'MBL-SE-'+Record.book_agent_code" [defaultto_ids]="''" [sHtml]="''" [defaultmessage]="mMsg"
         [defaultsubject]="sSubject" [updateto_ids]=true [FtpAttachList]="FtpAttachList" [AttachList]="AttachList"
         [PoFtpAttachList]="PoFtpAttachList" [agentname]="Record.book_agent_name" [agentcode]="Record.book_agent_code"
-        [rootpage]="default_mailftp_rootpage" [PoFtpError]="PoFtpError" [default_ftptype]="default_ftptype"
+        [rootpage]="default_mailftp_rootpage" [PoFtpError]="PoFtpError" [default_ftptype]="default_ftptype" [mailingtype]="mailingtype"
         (ModifiedRecords)="ModifiedRecords($event)"></app-mail>
     </div>
   </ng-template>
