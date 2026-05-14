@@ -130,32 +130,30 @@
   </div>
 
   <div class="page-box">
-    <div class="col-sm-12">
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="form-group row">
-            <div class="offset-sm-2 col-sm-10">
-              <button [disabled]="loading" (click)="SendMail()" class="btn btn-primary btn-sm">Send Mail</button>
-              <button [disabled]="loading||disableUpdateIds" (click)="SaveIDs()" class="btn btn-primary btn-sm">Update
-                IDs</button>
-              <i *ngIf="loading" class="fa fa-spinner"></i>
-            </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div *ngIf="mailingtype=='PRE-ALERT'" class="form-group row">
+          <label class="col-sm-1 col-form-label col-form-label-sm">Type</label>
+          <div class="col-sm-3">
+            <select class="form-control form-control-sm" name="fprealert" [(ngModel)]="ftp_prealert_type">
+              <option [value]="'N'">NA</option>
+              <option [value]="'D'">PRE-ALERT DRAFT</option>
+              <option [value]="'O'">PRE-ALERT ORIGINAL</option>
+            </select>
+          </div>
+          <div class="col-sm-8">
+            <button [disabled]="loading" (click)="SendMail()" class="btn btn-primary btn-sm">Send Mail</button>
+            <button [disabled]="loading||disableUpdateIds" (click)="SaveIDs()" class="btn btn-primary btn-sm">Update
+              IDs</button>
           </div>
         </div>
-        <!-- <div class="col-sm-6">
-          <div *ngIf="canftp" class="form-group row">
-            <label class="col-1 col-form-label col-form-label-sm">FTP</label>
-            <div class="col-7">
-              <select class="form-control form-control-sm" [(ngModel)]="ftptype_id">
-                <option *ngFor="let rec of FtpTypeList" [value]="rec.param_pkid">{{rec.param_name}}</option>
-              </select>
-            </div>
-            <div class="col-sm-2">
-              <button [disabled]="loading||ftpcompleted" (click)="SendFtp()" class="btn btn-primary btn-sm">Upload To
-                FTP</button>
-            </div>
+        <div *ngIf="mailingtype!='PRE-ALERT'" class="form-group row">
+          <div class="offset-sm-1 col-sm-10">
+            <button [disabled]="loading" (click)="SendMail()" class="btn btn-primary btn-sm">Send Mail</button>
+            <button [disabled]="loading||disableUpdateIds" (click)="SaveIDs()" class="btn btn-primary btn-sm">Update
+              IDs</button>
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
   </div>

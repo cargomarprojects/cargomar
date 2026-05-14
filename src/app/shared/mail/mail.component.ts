@@ -44,6 +44,7 @@ export class MailComponent {
   @Input() public disableUpdateIds: boolean = false;
   @Input() public defaultcc_ids: string = '';
   @Input() public showMailTo: boolean = true;
+  @Input() public mailingtype: string = '';
 
   InitCompleted: boolean = false;
   ftpcompleted: boolean = false;
@@ -76,12 +77,15 @@ export class MailComponent {
   message: string = '';
   ftpsubject: string = '';
 
+
   ftptype: string = 'BL-FTP';
   ftptypecaption: string = 'BL-FTP';
   ftptype_id: string = '';
   FtpTypeList: any[] = [];
   FtpTypeListMaster: any[] = [];
   FtpAttachListMaster = new Array<any>();
+
+  ftp_prealert_type: string = 'N';
 
   poftptype_id: string = '';
   PoFtpTypeList: any[] = [];
@@ -211,6 +215,8 @@ export class MailComponent {
     let bret: boolean = true;
     this.ErrorMessage = '';
     this.InfoMessage = '';
+    const validPrealertTypes = ['D', 'O'];
+
     if (this.to_ids.trim().length <= 0) {
       sError = "To IDs Cannot Be Blank";
       bret = false;
@@ -223,6 +229,11 @@ export class MailComponent {
 
     if (this.message.trim().length <= 0) {
       sError += " | Message Cannot Be Blank";
+      bret = false;
+    }
+
+    if (this.mailingtype === "PRE-ALERT" && !validPrealertTypes.includes(this.ftp_prealert_type)) {
+      sError += " | Pre-alert type not selected";
       bret = false;
     }
 
@@ -352,7 +363,9 @@ export class MailComponent {
       root_folder: this.gs.defaultValues.root_folder,
       sub_folder: this.gs.defaultValues.sub_folder,
       filedocid: '',
-      user_short_name: this.gs.globalVariables.user_short_name
+      user_short_name: this.gs.globalVariables.user_short_name,
+      mailingtype: this.mailingtype,
+      ftp_prealert_type: this.ftp_prealert_type
     };
 
     SearchData.table = controlname;
@@ -389,6 +402,8 @@ export class MailComponent {
     SearchData.sub_folder = this.gs.defaultValues.sub_folder;
     SearchData.filedocid = filedocid;
     SearchData.user_short_name = this.gs.globalVariables.user_short_name;
+    SearchData.mailingtype = this.mailingtype;
+    SearchData.ftp_prealert_type = this.ftp_prealert_type;
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
@@ -566,7 +581,8 @@ export class MailComponent {
       user_name: this.gs.globalVariables.user_name,
       user_code: this.gs.globalVariables.user_code,
       subject: '',
-      updatesql: ''
+      updatesql: '',
+      ftp_prealert_type: this.ftp_prealert_type
     };
 
     SearchData.table = 'ftp';
@@ -583,6 +599,10 @@ export class MailComponent {
     SearchData.user_code = this.gs.globalVariables.user_code;
     SearchData.subject = this.subject;
     SearchData.updatesql = this.updatesql;
+    if (this.mailingtype == "PRE-ALERT")
+      SearchData.ftp_prealert_type = this.ftp_prealert_type;
+    else
+      SearchData.ftp_prealert_type = "N";
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
         this.loading = false;

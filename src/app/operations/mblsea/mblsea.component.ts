@@ -110,7 +110,7 @@ export class MblSeaComponent {
 
   mode = '';
   pkid = '';
-
+  mailingtype: string = '';
   PoFtpAttachList: any[] = [];
   FtpAttachList: any[] = [];
   AttachList: any[] = [];
@@ -1784,6 +1784,7 @@ export class MblSeaComponent {
   }
 
   BookingFtp(ftpsent: any) {
+    this.mailingtype = "";
     this.default_ftptype = 'BOOKING-FTP';
     this.default_mailftp_rootpage = 'FTPPAGE';
     this.ErrorMessage = '';
@@ -1842,9 +1843,12 @@ export class MblSeaComponent {
   MailFtp(ftpsent: any, _includeISF: string = "N") {
     this.default_ftptype = 'BL-FTP';
     this.default_mailftp_rootpage = 'MAILPAGE';
+    this.mailingtype = "";
     if (this.Record.book_cntr.trim().length > 11) {
       // var cntrarry = this.Record.book_cntr.split('/');
       // this.PrealertList(cntrarry[0].toString(), ftpsent);
+      if (_includeISF == "N")
+        this.mailingtype = "PRE-ALERT";
       this.PrealertList(this.Record.book_cntr.toString(), ftpsent, _includeISF);
     } else {
       this.GenerateXml(ftpsent);
