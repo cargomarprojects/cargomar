@@ -26,8 +26,10 @@ export class Ftplog {
   ftp_mbl_id: string;
   ftp_min_ftp_date: string;
   ftp_max_ftp_date: string;
+  ftp_prealert_draft_date: string;
   ftp_prealert_date: string;
   ftp_multiple_upload: string;
+  ftp_count: string;
 
   rec_mode: string;
   _globalvariables: GlobalVariables;

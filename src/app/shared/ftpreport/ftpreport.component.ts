@@ -187,7 +187,8 @@ export class FtpReportComponent {
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
+          let str = this.gs.getError(error);
+          alert(str)
         });
   }
 
