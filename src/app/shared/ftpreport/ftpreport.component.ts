@@ -24,6 +24,11 @@ export class FtpReportComponent {
   sub: any;
   urlid: string;
 
+
+
+  branch_name: string = '';
+  branch_code: string = '';
+
   selectedRowIndex = 0;
 
   searchstring: string = '';
@@ -80,8 +85,14 @@ export class FtpReportComponent {
 
   InitLov() {
   }
+
+
   LovSelected(_Record: SearchTable) {
+    this.branch_code = _Record.code;
+    this.branch_name = _Record.name;
   }
+
+
   // Destroy Will be called when this component is closed
   ngOnDestroy() {
     this.sub.unsubscribe();
@@ -123,9 +134,10 @@ export class FtpReportComponent {
       type: _type,
       rowtype: this.type,
       ftpto: this.ftptype,
+      report_folder: this.gs.globalVariables.report_folder,
       searchstring: this.searchstring.toUpperCase(),
       comp_code: this.gs.globalVariables.comp_code,
-      branch_code: this.gs.globalVariables.branch_code,
+      branch_code: this.branch_code,
       user_pkid: this.gs.globalVariables.user_pkid,
       user_code: this.gs.globalVariables.user_code,
       year_code: this.gs.globalVariables.year_code,
@@ -154,23 +166,29 @@ export class FtpReportComponent {
         if (controlname == "param") {
           this.FtpTypeList = response.param;
           this.SearchRecord("ftpreport", "LOAD");
+          return;
         }
-        else if (controlname == "ftpmanualsent") {
+        if (controlname == "ftpmanualsent") {
           if (response.status == 'OK') {
             this.RecordList.splice(this.RecordList.findIndex(rec => rec.ftp_mbl_id == _mblid), 1);
             alert("Successfully Update")
           }
+          return;
         }
-        else {
-          this.RecordList = response.ftpreport;
-          this.page_count = response.page_count;
-          this.page_current = response.page_current;
-          this.page_rowcount = response.page_rowcount;
+        if (response.report_format == "XML" && response.type == "EXCEL") {
+          this.gs.DownloadFile(this.gs.globalVariables.report_folder, response.filename, response.filetype, response.filedisplayname);
         }
+
+        this.RecordList = response.ftpreport;
+        this.page_count = response.page_count;
+        this.page_current = response.page_current;
+        this.page_rowcount = response.page_rowcount;
+
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
+          let str = this.gs.getError(error);
+          alert(str)
         });
   }
 
@@ -189,4 +207,8 @@ export class FtpReportComponent {
 
     this.SearchRecord("ftpmanualsent", "UPDATE", rec.ftp_mbl_id);
   }
+
+
+
+
 }

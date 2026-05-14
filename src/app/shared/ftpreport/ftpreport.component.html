@@ -21,6 +21,14 @@
             <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
           </div>
         </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Branch</label>
+          <div class="col-sm-8">
+            <app-autocomplete3 [controlname]="'BR'" [tabletype]="'BRANCH'" [displaycolumn]="'CODE'"
+              [displaydata]="branch_code" (ValueChanged)="LovSelected($event)">
+            </app-autocomplete3>
+          </div>
+        </div>
       </div>
 
       <div class="col-sm-4">
@@ -57,6 +65,8 @@
           <label class="col-sm-4 col-form-label col-form-label-sm"></label>
           <div class="col-sm-8">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+            <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm"
+              *ngIf="report_format =='XML'">Excel</button>
           </div>
         </div>
       </div>
@@ -79,18 +89,18 @@
   </div>
 
   <div *ngIf="search_report_format =='DEFAULT'" class="page-body table-responsive fixedTableHead my-0 p-0"
-    style="height: calc(100vh - 390px);">
+    style="height: calc(100vh - 420px);">
     <table class="table  table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
           <th *ngIf="type =='FTPLOGREPORT'" width="5%">BRANCH</th>
           <th width="5%">ID</th>
-          <th width="12%">DATE</th>
-          <th width="10%">ACTION</th>
-          <th width="5%">MODULE</th>
+          <th width="10%">DATE</th>
+          <th width="8%">ACTION</th>
+          <th width="12%">MODULE</th>
           <th width="5%">FROM</th>
           <th width="5%">TO</th>
-          <th width="48%">SUBJECT</th>
+          <th width="40%">SUBJECT</th>
           <th width="5%">USER</th>
         </tr>
       </thead>
@@ -111,7 +121,7 @@
     </table>
   </div>
   <div *ngIf="search_report_format =='XML'" class="page-body table-responsive fixedTableHead my-0 p-0"
-    style="height: calc(100vh - 390px);">
+    style="height: calc(100vh - 420px);">
 
 
     <table class="table  table-hover table-sm table-bordered table-striped">
@@ -120,15 +130,15 @@
           <th>BRANCH</th>
           <th>BK#</th>
           <th>MBLNO</th>
-          <th>HOUSE NOS</th>
+          <th width="100px">HOUSE NOS</th>
           <th>ETD</th>
+          <th>PREALERT-SENT DT(DRAFT)</th>
           <th>PREALERT-SENT DT</th>
           <th>PRALERT-PENDING</th>
           <th>FTP UPLOAD DT(FIRST)</th>
           <th>FTP UPLOAD DT(LAST)</th>
           <th>FTP-PENDING</th>
-
-          <th>MULTIPLE UPLOAD</th>
+          <th>UPLOAD-COUNT</th>
           <th *ngIf="gs.globalVariables.user_code == 'ADMIN'">UPDATE</th>
         </tr>
       </thead>
@@ -140,12 +150,13 @@
           <td>{{rec.ftp_mbl_no}}</td>
           <td>{{rec.ftp_house_no}}</td>
           <td>{{rec.ftp_mbl_etd}}</td>
+          <td>{{rec.ftp_prealert_drat_date}}</td>
           <td>{{rec.ftp_prealert_date}}</td>
           <td [class.text-danger]="rec.ftp_prealert_pending >4">{{rec.ftp_prealert_pending}}</td>
           <td>{{rec.ftp_min_ftp_date}}</td>
           <td>{{rec.ftp_max_ftp_date}}</td>
           <td [class.text-danger]="rec.ftp_days_after_etd > 4">{{rec.ftp_days_after_etd}}</td>
-          <td>{{rec.ftp_multiple_upload}}</td>
+          <td>{{rec.ftp_count}}</td>
           <td *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="hlink" (click)="SentManually(rec)">REMOVE
             FROM PENDING LIST</td>
         </tr>
