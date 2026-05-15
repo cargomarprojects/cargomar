@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { Ftplog } from '../../shared/models/ftplog';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-ftpreport',
@@ -24,7 +25,7 @@ export class FtpReportComponent {
   sub: any;
   urlid: string;
 
-
+  modal: any;
 
   branch_name: string = '';
   branch_code: string = '';
@@ -42,6 +43,11 @@ export class FtpReportComponent {
   xmlpending: boolean = false;
   search_xmlpending: boolean = false;
 
+  sSubject: string = '';
+  sMsg: string = '';
+  sHtml: string = '';
+  AttachList: any[] = [];
+
   report_format: string = "DEFAULT";
   search_report_format: string = "DEFAULT";
   ErrorMessage = "";
@@ -49,6 +55,7 @@ export class FtpReportComponent {
   RecordList: Ftplog[] = [];
   FtpTypeList: any[] = [];
   constructor(
+    private modalService: NgbModal,
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {
@@ -114,12 +121,12 @@ export class FtpReportComponent {
     this.gs.ClosePage('home');
   }
 
-  List(_type: string) {
+  List(_type: string, mailsent: any = null) {
     this.search_report_format = this.report_format;
     this.search_xmlpending = this.xmlpending;
-    this.SearchRecord("ftpreport", _type);
+    this.SearchRecord("ftpreport", _type, "", mailsent);
   }
-  SearchRecord(controlname: string, _type: string, _mblid: string = "") {
+  SearchRecord(controlname: string, _type: string, _mblid: string = "", mailsent: any = null) {
     this.InfoMessage = '';
     this.ErrorMessage = '';
     if (this.type == "FTPLOGREPORT")
@@ -149,7 +156,9 @@ export class FtpReportComponent {
       to_date: this.to_date,
       report_format: this.report_format,
       mblid: _mblid,
-      xmlpending: this.xmlpending
+      xmlpending: this.xmlpending,
+      branch_name:this.branch_name,
+      auto_mail:"N"
     };
 
     // SearchData.table = controlname;
@@ -177,6 +186,14 @@ export class FtpReportComponent {
         }
         if (response.report_format == "XML" && response.type == "EXCEL") {
           this.gs.DownloadFile(this.gs.globalVariables.report_folder, response.filename, response.filetype, response.filedisplayname);
+        }
+
+        if (response.report_format == "XML" && response.type == "MAIL") {
+          this.AttachList = new Array<any>();
+          this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname,filesize: response.filesize });
+          this.sSubject = response.subject;
+          this.sMsg = response.message;
+          this.open(mailsent);
         }
 
         this.RecordList = response.ftpreport;
@@ -208,7 +225,9 @@ export class FtpReportComponent {
     this.SearchRecord("ftpmanualsent", "UPDATE", rec.ftp_mbl_id);
   }
 
-
+  open(content: any) {
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
+  }
 
 
 }
