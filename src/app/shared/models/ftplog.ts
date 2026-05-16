@@ -29,8 +29,9 @@ export class Ftplog {
   ftp_prealert_draft_date: string;
   ftp_prealert_date: string;
   ftp_multiple_upload: string;
+  ftp_shipment_type: string;
+  ftp_memo: string;
   ftp_count: string;
-
   rec_mode: string;
   _globalvariables: GlobalVariables;
 }

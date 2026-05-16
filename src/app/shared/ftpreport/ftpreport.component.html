@@ -67,8 +67,8 @@
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
             <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm"
               *ngIf="report_format =='XML'">Excel</button>
-              <button [disabled]="loading" (click)="List('MAIL',mailsent)" class="btn btn-primary btn-sm"
-              *ngIf="report_format =='XML'">Mail</button> 
+            <button [disabled]="loading" (click)="List('MAIL',mailsent)" class="btn btn-primary btn-sm"
+              *ngIf="report_format =='XML'">Mail</button>
           </div>
         </div>
       </div>
@@ -133,6 +133,7 @@
           <th>BK#</th>
           <th>MBLNO</th>
           <th width="100px">HOUSE NOS</th>
+          <th>SHIPMENT-TYPE</th>
           <th>ETD</th>
           <th>PREALERT-SENT DT(DRAFT)</th>
           <th>PREALERT-SENT DT</th>
@@ -140,8 +141,10 @@
           <th>FTP UPLOAD DT(FIRST)</th>
           <th>FTP UPLOAD DT(LAST)</th>
           <th>FTP-PENDING</th>
-          <th>UPLOAD-COUNT</th>
-          <th *ngIf="gs.globalVariables.user_code == 'ADMIN'">UPDATE</th>
+          <th>STATUS/th>
+          <th width="100px">COMMENTS</th>
+          <!-- <th>UPLOAD-COUNT</th> -->
+          <th *ngIf="gs.globalVariables.user_code == 'ADMIN'">PENDING LIST</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
@@ -151,6 +154,7 @@
           <td>{{rec.ftp_mblbk_no}}</td>
           <td>{{rec.ftp_mbl_no}}</td>
           <td>{{rec.ftp_house_no}}</td>
+          <td>{{rec.ftp_shipment_type}}</td>
           <td>{{rec.ftp_mbl_etd}}</td>
           <td>{{rec.ftp_prealert_drat_date}}</td>
           <td>{{rec.ftp_prealert_date}}</td>
@@ -158,9 +162,10 @@
           <td>{{rec.ftp_min_ftp_date}}</td>
           <td>{{rec.ftp_max_ftp_date}}</td>
           <td [class.text-danger]="rec.ftp_days_after_etd > 4">{{rec.ftp_days_after_etd}}</td>
-          <td>{{rec.ftp_count}}</td>
-          <td *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="hlink" (click)="SentManually(rec)">REMOVE
-            FROM PENDING LIST</td>
+          <td>{{rec.ftp_status}}</td>
+          <td>{{rec.ftp_memo}}</td>
+          <!-- <td>{{rec.ftp_count}}</td> -->
+          <td *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="hlink" (click)="SentManually(rec)">REMOVE</td>
         </tr>
       </tbody>
     </table>
@@ -198,6 +203,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="'PRE-ALERT-PENDINGLIST'" [sHtml]="sHtml" [defaultmessage]="sMsg" [defaultsubject]="sSubject" [updateto_ids]=true  [AttachList] ="AttachList" ></app-mail>
+    <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="'PRE-ALERT-PENDINGLIST'" [sHtml]="sHtml"
+      [defaultmessage]="sMsg" [defaultsubject]="sSubject" [updateto_ids]=true [AttachList]="AttachList"></app-mail>
   </div>
 </ng-template>
