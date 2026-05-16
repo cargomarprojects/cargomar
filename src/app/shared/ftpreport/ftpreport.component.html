@@ -144,7 +144,7 @@
           <th>STATUS</th>
           <th width="100px">COMMENTS</th>
           <!-- <th>UPLOAD-COUNT</th> -->
-          <th *ngIf="gs.globalVariables.user_code == 'ADMIN'">PENDING LIST</th>
+          <!-- <th *ngIf="gs.globalVariables.user_code == 'ADMIN'">PENDING LIST</th> -->
         </tr>
       </thead>
       <tbody class="page-body-tbody">
@@ -165,7 +165,7 @@
           <td>{{rec.ftp_status}}</td>
           <td>{{rec.ftp_memo}}</td>
           <!-- <td>{{rec.ftp_count}}</td> -->
-          <td *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="hlink" (click)="SentManually(rec)">REMOVE</td>
+          <!-- <td *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="hlink" (click)="SentManually(rec)">REMOVE</td> -->
         </tr>
       </tbody>
     </table>
