@@ -33,8 +33,20 @@ export class MemoComponent implements OnInit {
     @Input() set btncaption(value: string) {
         this._btncaption = value;
     }
+    public _title: string = 'Memo';
+    @Input() set title(value: string) {
+        this._title = value;
+    }
+
+    public _btnlabel: boolean = false;
+    @Input() set btnlabel(value: boolean) {
+        this._btnlabel = value;
+    }
 
     @Output() callbackevent = new EventEmitter<any>();
+
+    @ViewChild('memomodal') memoModal: any;
+
     MemoList: CustMemo[] = [];
     Record: CustMemo = new CustMemo;
 
@@ -52,6 +64,10 @@ export class MemoComponent implements OnInit {
 
     ngOnInit() {
 
+    }
+
+    public showModal() {
+        this.GetMemo(this.memoModal);
     }
 
     GetMemo(memmodal: any = null) {
@@ -203,7 +219,10 @@ export class MemoComponent implements OnInit {
             .subscribe(response => {
                 this.loading = false;
                 this.SaveRemarks(this.Record.cm_memo);
-                
+
+                if (this.callbackevent)
+                    this.callbackevent.emit({ action: 'SAVE-PREALERT', remark: this.Record.cm_memo, id: this._parentid });
+
                 if (response.mode == "EDIT") {
                     for (let rec of this.MemoList.filter(rec => rec.cm_pkid == this.pkid)) {
                         rec.rec_created_date = this.Record.rec_created_date;
@@ -214,7 +233,7 @@ export class MemoComponent implements OnInit {
                     this.MemoList.push(this.Record);
                     this.newSingleRecord();
                 }
-                
+
             },
                 error => {
                     this.loading = false;

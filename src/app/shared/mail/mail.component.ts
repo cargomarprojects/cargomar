@@ -365,7 +365,8 @@ export class MailComponent {
       filedocid: '',
       user_short_name: this.gs.globalVariables.user_short_name,
       mailingtype: this.mailingtype,
-      ftp_prealert_type: this.ftp_prealert_type
+      ftp_prealert_type: this.ftp_prealert_type,
+      agentcode: this.agentcode
     };
 
     SearchData.table = controlname;

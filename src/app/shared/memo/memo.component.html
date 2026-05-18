@@ -1,6 +1,9 @@
 <div>
-    <button [disabled]="loading" class="btn btn-success btn-sm mr-1"
+    <button *ngIf="!_btnlabel" [disabled]="loading" class="btn btn-success btn-sm mr-1"
         (click)="GetMemo(memomodal)">{{_btncaption}}</button>
+        <!--  (click)="GetMemo(memomodal)" changed to public fn showmodal() -->
+    <label *ngIf="_btnlabel" class="col col-form-label  col-form-label-sm"
+        style="font-size: 12px;cursor: pointer;text-decoration: underline;">{{_btncaption}}</label>
 </div>
 <ng-template #memomodal let-c="close" let-d="dismiss">
     <div *ngIf="_screentype=='ALL-EDIT'">
@@ -46,7 +49,7 @@
     </div>
     <div *ngIf="_screentype=='SINGLE-EDIT'">
         <div class="modal-header" style="cursor: move;" (mousedown)="gs.startDrag($event)">
-            <h4 class="modal-title">{{_btncaption}}</h4>
+            <h4 class="modal-title">{{_title}}</h4>
             <button type="button" class="btn btn-primary btn-sm" (click)="d('Cross click')">Close</button>
         </div>
         <div class="modal-body">

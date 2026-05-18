@@ -48,8 +48,8 @@ export class FtpReportComponent {
   sHtml: string = '';
   AttachList: any[] = [];
 
-  report_format: string = "DEFAULT";
-  search_report_format: string = "DEFAULT";
+  report_format: string = "XML";
+  search_report_format: string = "XML";
   ErrorMessage = "";
   InfoMessage = "";
   RecordList: Ftplog[] = [];

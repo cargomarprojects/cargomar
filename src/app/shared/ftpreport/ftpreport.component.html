@@ -35,7 +35,7 @@
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">FTP To</label>
           <div class="col-sm-8">
-            <select class="form-control form-control-sm" [(ngModel)]="ftptype">
+            <select class="form-control form-control-sm" [(ngModel)]="ftptype" [disabled]="gs.globalVariables.user_code != 'ADMIN'">
               <option *ngFor="let rec of FtpTypeList" [value]="rec.param_code">{{rec.param_name}}</option>
             </select>
           </div>
@@ -43,7 +43,7 @@
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">Format</label>
           <div class="col-sm-8 input-group input-group-sm">
-            <select class="form-control form-control-sm mr-1" [(ngModel)]="report_format">
+            <select class="form-control form-control-sm mr-1" [(ngModel)]="report_format" [disabled]="gs.globalVariables.user_code != 'ADMIN'">
               <option [value]="'DEFAULT'">DEFAULT</option>
               <option [value]="'XML'">XML</option>
             </select>

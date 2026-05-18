@@ -18,6 +18,7 @@ import { Hblm } from '../models/hbl';
 import { isNull } from 'util';
 import { FileUploadComponent } from '../../shared/fileupload/fileupload.component';
 import { WarningAlertComponent } from '../../shared/warningalert/warningalert.component';
+import { MemoComponent } from '../../shared/memo/memo.component';
 //EDIT-AJITH-01-12-2021
 //EDIT-AJITH-20-12-2021
 //EDIT-AJITH-05-01-2022
@@ -34,6 +35,7 @@ export class MblSeaComponent {
   title = 'BOOKING MASTER';
   @ViewChild('blsurrendermail') _ctrlblsurrendermail: FileUploadComponent;
   @ViewChild('WarnMsg') private _WarnMsg: WarningAlertComponent;
+  @ViewChild('prealertmemo') private _prealertmemo: MemoComponent;
 
   @Input() menuid: string = '';
   @Input() type: string = '';
@@ -1779,6 +1781,17 @@ export class MblSeaComponent {
     if (params.saction == "BL-SURRENDER-MAIL") {
       this.BLSurrenderMail(params.type, params.blspkid);
     }
+
+    if (params.action == "SAVE-PREALERT") {
+      var REC = this.RecordList.find(rec => rec.book_pkid == params.id);
+      if (REC != null) {
+        // REC.book_prealert_date = params.remark;
+        REC.book_prealert_date =
+          params.remark && params.remark.length > 20
+            ? params.remark.substring(0, 20)
+            : params.remark;
+      }
+    }
   }
 
   open(content: any) {
@@ -2281,5 +2294,9 @@ export class MblSeaComponent {
       this.HblList(this.Record, true);
     }
 
+  }
+  
+  ShowPrealertmemo() {
+    this._prealertmemo.showModal();
   }
 }
