@@ -202,6 +202,8 @@ export class MemoComponent implements OnInit {
         this.mainservice.SaveSingleRecord(this.Record)
             .subscribe(response => {
                 this.loading = false;
+                this.SaveRemarks(this.Record.cm_memo);
+                
                 if (response.mode == "EDIT") {
                     for (let rec of this.MemoList.filter(rec => rec.cm_pkid == this.pkid)) {
                         rec.rec_created_date = this.Record.rec_created_date;
@@ -212,6 +214,7 @@ export class MemoComponent implements OnInit {
                     this.MemoList.push(this.Record);
                     this.newSingleRecord();
                 }
+                
             },
                 error => {
                     this.loading = false;
@@ -231,5 +234,28 @@ export class MemoComponent implements OnInit {
         if (bret === false)
             alert(sError);
         return bret;
+    }
+
+    SaveRemarks(_remarks: string) {
+
+        if (this._parentid == undefined || this._parentid == '') {
+            alert('Invalid ID');
+            return;
+        }
+        let SearchData = {
+            gr_pkid: '',
+            gr_type: '',
+            gr_subtype: '',
+            gr_remarks: ''
+        }
+        SearchData.gr_pkid = this._parentid;
+        SearchData.gr_type = "MBL-SE";
+        SearchData.gr_subtype = "PREALERT-SENT-STATUS";
+        SearchData.gr_remarks = _remarks;
+        this.mainservice.SaveRemarks(SearchData).subscribe(response => {
+        }, error => {
+            alert(this.gs.getError(error));
+        });
+
     }
 }

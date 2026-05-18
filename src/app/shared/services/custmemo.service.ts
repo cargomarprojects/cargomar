@@ -31,4 +31,8 @@ export class CustMemoService {
   SaveSingleRecord(Record: CustMemo) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Master/CustMemo/SaveSingleRecord', Record, this.gs.headerparam2('authorized'));
   }
+  
+  SaveRemarks(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/PreAlert/SaveRemarks', SearchData, this.gs.headerparam2('authorized'));
+  }
 }
