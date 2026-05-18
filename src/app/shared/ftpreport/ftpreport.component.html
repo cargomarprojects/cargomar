@@ -35,7 +35,8 @@
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">FTP To</label>
           <div class="col-sm-8">
-            <select class="form-control form-control-sm" [(ngModel)]="ftptype" [disabled]="gs.globalVariables.user_code != 'ADMIN'">
+            <select class="form-control form-control-sm" [(ngModel)]="ftptype"
+              [disabled]="gs.globalVariables.user_code != 'ADMIN'">
               <option *ngFor="let rec of FtpTypeList" [value]="rec.param_code">{{rec.param_name}}</option>
             </select>
           </div>
@@ -43,7 +44,8 @@
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">Format</label>
           <div class="col-sm-8 input-group input-group-sm">
-            <select class="form-control form-control-sm mr-1" [(ngModel)]="report_format" [disabled]="gs.globalVariables.user_code != 'ADMIN'">
+            <select class="form-control form-control-sm mr-1" [(ngModel)]="report_format"
+              [disabled]="gs.globalVariables.user_code != 'ADMIN'">
               <option [value]="'DEFAULT'">DEFAULT</option>
               <option [value]="'XML'">XML</option>
             </select>
@@ -163,7 +165,12 @@
           <td>{{rec.ftp_max_ftp_date}}</td>
           <td [class.text-danger]="rec.ftp_days_after_etd > 4">{{rec.ftp_days_after_etd}}</td>
           <td>{{rec.ftp_status}}</td>
-          <td>{{rec.ftp_memo}}</td>
+          <!-- <td>{{rec.ftp_memo}}</td> -->
+           <td (click)="ShowPrealertmemo(rec)" class="hlink">
+            <app-memo #prealertmemo [parentid]="rec.ftp_mbl_id" [type]="'PRE-ALERT-STATUS'" [btnlabel]="true"
+              [screentype]="'SINGLE-EDIT'" [title]="'Pre-Alert Status'" [btncaption]="rec.ftp_memo"
+              (callbackevent)="ModifiedRecords($event)"></app-memo>
+          </td>
           <!-- <td>{{rec.ftp_count}}</td> -->
           <!-- <td *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="hlink" (click)="SentManually(rec)">REMOVE</td> -->
         </tr>

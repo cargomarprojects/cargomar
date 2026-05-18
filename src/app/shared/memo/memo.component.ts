@@ -66,7 +66,10 @@ export class MemoComponent implements OnInit {
 
     }
 
-    public showModal() {
+    public showModal(_id: string, _Type: string, _ScreenType: string) {
+        this._parentid = _id;
+        this._type = _Type;
+        this._screentype = _ScreenType;
         this.GetMemo(this.memoModal);
     }
 

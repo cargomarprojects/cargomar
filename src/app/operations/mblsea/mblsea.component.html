@@ -161,7 +161,7 @@
             <td>{{rec.book_consignee_name}}</td>
             <td>{{rec.book_agent_name}}</td>
             <td>{{rec.book_etd}}</td>
-            <td (click)="ShowPrealertmemo()" class="hlink">
+            <td (click)="ShowPrealertmemo(rec)" class="hlink">
               <app-memo #prealertmemo [parentid]="rec.book_pkid" [type]="'PRE-ALERT-STATUS'" [btnlabel]="true"
                 [screentype]="'SINGLE-EDIT'"  [title]="'Pre-Alert Status'" [btncaption]="rec.book_prealert_date" (callbackevent)="ModifiedRecords($event)"></app-memo>
             </td>

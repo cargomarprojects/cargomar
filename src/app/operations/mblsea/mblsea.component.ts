@@ -2295,8 +2295,8 @@ export class MblSeaComponent {
     }
 
   }
-  
-  ShowPrealertmemo() {
-    this._prealertmemo.showModal();
+
+  ShowPrealertmemo(_rec: LinerBkm) {
+    this._prealertmemo.showModal(_rec.book_pkid, "PRE-ALERT-STATUS", "SINGLE-EDIT");
   }
 }

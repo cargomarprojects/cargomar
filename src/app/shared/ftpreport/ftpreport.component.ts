@@ -4,6 +4,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { Ftplog } from '../../shared/models/ftplog';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { MemoComponent } from '../../shared/memo/memo.component';
 
 @Component({
   selector: 'app-ftpreport',
@@ -12,7 +13,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 export class FtpReportComponent {
   // Local Variables
   title = 'FTP Details';
-
+  @ViewChild('prealertmemo') private _prealertmemo: MemoComponent;
   @Input() public pkid: string;
   @Input() public type: string = '';
   @Input() menuid: string = '';
@@ -157,8 +158,8 @@ export class FtpReportComponent {
       report_format: this.report_format,
       mblid: _mblid,
       xmlpending: this.xmlpending,
-      branch_name:this.branch_name,
-      auto_mail:"N"
+      branch_name: this.branch_name,
+      auto_mail: "N"
     };
 
     // SearchData.table = controlname;
@@ -190,7 +191,7 @@ export class FtpReportComponent {
 
         if (response.report_format == "XML" && response.type == "MAIL") {
           this.AttachList = new Array<any>();
-          this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname,filesize: response.filesize });
+          this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filesize: response.filesize });
           this.sSubject = response.subject;
           this.sMsg = response.message;
           this.open(mailsent);
@@ -229,5 +230,17 @@ export class FtpReportComponent {
     this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
   }
 
+  ShowPrealertmemo(_rec: Ftplog) {
+    this._prealertmemo.showModal(_rec.ftp_mbl_id, "PRE-ALERT-STATUS", "SINGLE-EDIT");
+  }
+
+  ModifiedRecords(params: any) {
+    if (params.action == "SAVE-PREALERT") {
+      var REC = this.RecordList.find(rec => rec.ftp_mbl_id == params.id);
+      if (REC != null) {
+        REC.ftp_memo = params.remark;
+      }
+    }
+  }
 
 }
