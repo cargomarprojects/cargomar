@@ -120,13 +120,15 @@
             <th>SHPT.STAGE</th>
             <th>UPD.ON</th>
             <th>BOOK#</th>
+            <th>BOOK.DT</th>
             <th>MBL#</th>
-            <th>DATE</th>
+            <th>ETD</th>
             <th>FOLDER</th>
             <th>SENT.ON</th>
             <th>SHIPPER</th>
             <th>CONSIGNEE</th>
             <th>AGENT</th>
+            <th>PREALERT.DT</th>
             <th>CARRIER</th>
             <th>POL</th>
             <th>POD</th>
@@ -151,13 +153,15 @@
             <td>{{rec.book_stage}}</td>
             <td>{{rec.book_stage_updated_on}}</td>
             <td>{{rec.book_no}}</td>
-            <td>{{rec.book_mblno}}</td>
             <td>{{rec.book_booked_on}}</td>
+            <td>{{rec.book_mblno}}</td>
+            <td>{{rec.book_etd}}</td>
             <td>{{rec.book_folder_no}}</td>
             <td>{{rec.book_folder_sent_date}}</td>
             <td>{{rec.book_shipper_name}}</td>
             <td>{{rec.book_consignee_name}}</td>
             <td>{{rec.book_agent_name}}</td>
+            <td>{{rec.book_prealert_date}}</td>
             <td>{{rec.book_liner_name}}</td>
             <td>{{rec.book_pol_name}}</td>
             <td>{{rec.book_pod_name}}</td>
@@ -482,7 +486,7 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label col-form-label-sm">{{lockChar}}PreAlert.SentOn</label>
                   <div class="col-sm-4">
-                    <app-date [inputdate]="Record.book_prealert_date" (ValueChanged)="Record.book_prealert_date=$event">
+                    <app-date [inputdate]="Record.book_prealert_date" [disabled]="Record.book_prealert_disabled&&gs.globalVariables.user_code != 'ADMIN'" (ValueChanged)="Record.book_prealert_date=$event">
                     </app-date>
                   </div>
                   <div class="col-sm-4">
@@ -946,7 +950,8 @@
                 class="btn btn-success btn-sm mr-1">Save</button>
               <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="MailFtp(ftpsent,'N')"
                 class="btn btn-success btn-sm mr-1">Mail/FTP</button>
-                <app-memo *ngIf="mode == 'EDIT'" [parentid]="Record.book_pkid" [type]="'PRE-ALERT-STATUS'" [screentype]="'SINGLE-EDIT'" [btncaption]="'Pre-Alert Status'"></app-memo>
+              <app-memo *ngIf="mode == 'EDIT'" [parentid]="Record.book_pkid" [type]="'PRE-ALERT-STATUS'"
+                [screentype]="'SINGLE-EDIT'" [btncaption]="'Pre-Alert Status'"></app-memo>
               <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="BookingFtp(ftpsent)"
                 class="btn btn-success btn-sm mr-1">Booking/FTP</button>
               <button *ngIf="mode=='EDIT'" [disabled]="loading" (click)="MailFtp(ftpsent,'Y')"
@@ -1100,8 +1105,8 @@
         [type]="'MBL-SE-'+Record.book_agent_code" [defaultto_ids]="''" [sHtml]="''" [defaultmessage]="mMsg"
         [defaultsubject]="sSubject" [updateto_ids]=true [FtpAttachList]="FtpAttachList" [AttachList]="AttachList"
         [PoFtpAttachList]="PoFtpAttachList" [agentname]="Record.book_agent_name" [agentcode]="Record.book_agent_code"
-        [rootpage]="default_mailftp_rootpage" [PoFtpError]="PoFtpError" [default_ftptype]="default_ftptype" [mailingtype]="mailingtype"
-        (ModifiedRecords)="ModifiedRecords($event)"></app-mail>
+        [rootpage]="default_mailftp_rootpage" [PoFtpError]="PoFtpError" [default_ftptype]="default_ftptype"
+        [mailingtype]="mailingtype" (ModifiedRecords)="ModifiedRecords($event)"></app-mail>
     </div>
   </ng-template>
   <ng-template #ftphistory let-c="close" let-d="dismiss">

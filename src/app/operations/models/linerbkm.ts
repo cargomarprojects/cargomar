@@ -154,7 +154,8 @@ export class LinerBkm {
   book_unlockid: string;
   book_stage: string;
   book_stage_updated_on: string;
-
+  book_prealert_disabled: boolean;
+  
   rec_category: string;
   rec_mode: string;
   rec_created_by: string;
