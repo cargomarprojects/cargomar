@@ -7,6 +7,7 @@ import { SearchTable } from '../../shared/models/searchtable';
 import { PreAlert } from '../models/prealert';
 import { PreAlertRepService } from '../services/prealertrep.service';
 import { DateComponent } from '../../shared/date/date.component';
+import { MemoComponent } from '../../shared/memo/memo.component';
 
 @Component({
     selector: 'app-prealertrep',
@@ -18,6 +19,7 @@ export class PreAlertRepComponent {
     title = 'PreAlert / PreAdvice'
 
     @ViewChild('todate') private todate: DateComponent;
+    @ViewChild('prealertmemo') private _prealertmemo: MemoComponent;
     @Input() menuid: string = '';
     @Input() type: string = '';
     InitCompleted: boolean = false;
@@ -446,7 +448,15 @@ export class PreAlertRepComponent {
         }
     }
     ModifiedRecords(params: any) {
-
+        if (params.action == "SAVE-PREALERT") {
+            var REC = this.RecordList.find(rec => rec.mbl_pkid == params.id);
+            if (REC != null) {
+                REC.mbl_remarks =
+                    params.remark && params.remark.length > 20
+                        ? params.remark.substring(0, 20)
+                        : params.remark;
+            }
+        }
     }
 
     callbackeventremarks(params: any) {
@@ -459,5 +469,9 @@ export class PreAlertRepComponent {
                 }
             }
         }
+    }
+
+    ShowPrealertmemo(_rec: PreAlert) {
+        this._prealertmemo.showModal(_rec.mbl_pkid, "PRE-ALERT-STATUS", "SINGLE-EDIT");
     }
 }

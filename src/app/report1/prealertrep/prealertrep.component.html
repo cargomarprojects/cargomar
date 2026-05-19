@@ -182,11 +182,12 @@
           <td>{{rec.mbl_etd}}</td>
           <td>{{rec.mbl_eta}}</td>
           <td class="hlink" (click)="showUpdt(rec)">{{rec.mbl_prealert_date==''?'NIL':rec.mbl_prealert_date}}</td>
-          <td>
+          <td (click)="ShowPrealertmemo(rec)" class="hlink">{{rec.mbl_remarks}}</td>
+          <!-- <td>
             <app-genremarks [pkid]="rec.mbl_pkid" [mremarks]="rec.mbl_remarks" [type]="'MBL-SE'"
               [subtype]="'PREALERT-SENT-STATUS'" [refno]="rec.mbl_ref" [btntype]="'LINKBUTTTON'"
               (callbackevent)="callbackeventremarks($event)"></app-genremarks>
-          </td>
+          </td> -->
         </tr>
         <tr *ngIf="bEdit && rec.row_displayed">
           <td colspan="17">
@@ -222,15 +223,6 @@
 <div *ngIf="ErrorMessage" class="alert alert-danger">
   {{ErrorMessage}}
 </div>
-
-<!-- <ng-template #mailsent let-c="close" let-d="dismiss">
-    <div class="modal-header">
-      <h4 class="modal-title">Message Details</h4>
-      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="'BOOKING TEU'" [sHtml]="sHtml" [defaultmessage]="sMsg" [defaultsubject]="sSubject" [updateto_ids]=true  [AttachList] ="AttachList" ></app-mail>
-    </div>
-  </ng-template> -->
+<app-memo #prealertmemo [type]="'PRE-ALERT-STATUS'" [btnshow]="false" [screentype]="'SINGLE-EDIT'"
+  [title]="'Pre-Alert Status'" (callbackevent)="ModifiedRecords($event)"></app-memo>
+ 
