@@ -110,7 +110,13 @@ export class FtpReportComponent {
     if (this.type == 'FTPLOGREPORT') {
       this.ftptype = 'RITRA';
       this.from_date = this.gs.getNewdate(-5);
-      this.to_date = this.gs.defaultValues.today;
+      // this.to_date = this.gs.defaultValues.today;
+      this.to_date = "";
+    }
+
+    if (this.type == 'MBL-SE') {
+      this.report_format = "DEFAULT";
+      this.search_report_format = "DEFAULT";
     }
   }
 
@@ -238,7 +244,10 @@ export class FtpReportComponent {
     if (params.action == "SAVE-PREALERT") {
       var REC = this.RecordList.find(rec => rec.ftp_mbl_id == params.id);
       if (REC != null) {
-        REC.ftp_memo = params.remark;
+        REC.ftp_memo =
+          params.remark && params.remark.length > 20
+            ? params.remark.substring(0, 20)
+            : params.remark;
       }
     }
   }

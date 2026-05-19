@@ -165,12 +165,7 @@
           <td>{{rec.ftp_max_ftp_date}}</td>
           <td [class.text-danger]="rec.ftp_days_after_etd > 4">{{rec.ftp_days_after_etd}}</td>
           <td>{{rec.ftp_status}}</td>
-          <!-- <td>{{rec.ftp_memo}}</td> -->
-           <td (click)="ShowPrealertmemo(rec)" class="hlink">
-            <app-memo #prealertmemo [parentid]="rec.ftp_mbl_id" [type]="'PRE-ALERT-STATUS'" [btnlabel]="true"
-              [screentype]="'SINGLE-EDIT'" [title]="'Pre-Alert Status'" [btncaption]="rec.ftp_memo"
-              (callbackevent)="ModifiedRecords($event)"></app-memo>
-          </td>
+          <td (click)="ShowPrealertmemo(rec)" class="hlink">{{rec.ftp_memo}}</td>
           <!-- <td>{{rec.ftp_count}}</td> -->
           <!-- <td *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="hlink" (click)="SentManually(rec)">REMOVE</td> -->
         </tr>
@@ -214,3 +209,5 @@
       [defaultmessage]="sMsg" [defaultsubject]="sSubject" [updateto_ids]=true [AttachList]="AttachList"></app-mail>
   </div>
 </ng-template>
+<app-memo #prealertmemo [type]="'PRE-ALERT-STATUS'" [btnshow]="false" [screentype]="'SINGLE-EDIT'"
+  [title]="'Pre-Alert Status'" (callbackevent)="ModifiedRecords($event)"></app-memo>

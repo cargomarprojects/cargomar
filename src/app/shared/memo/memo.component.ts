@@ -38,9 +38,9 @@ export class MemoComponent implements OnInit {
         this._title = value;
     }
 
-    public _btnlabel: boolean = false;
-    @Input() set btnlabel(value: boolean) {
-        this._btnlabel = value;
+    public _btnshow: boolean = true;
+    @Input() set btnshow(value: boolean) {
+        this._btnshow = value;
     }
 
     @Output() callbackevent = new EventEmitter<any>();

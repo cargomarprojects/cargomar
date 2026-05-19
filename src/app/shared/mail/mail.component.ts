@@ -583,7 +583,9 @@ export class MailComponent {
       user_code: this.gs.globalVariables.user_code,
       subject: '',
       updatesql: '',
-      ftp_prealert_type: this.ftp_prealert_type
+      ftp_prealert_type: this.ftp_prealert_type,
+      ftp_type: _ftp_type,
+      ftptypecaption: this.ftptypecaption
     };
 
     SearchData.table = 'ftp';
