@@ -5,6 +5,8 @@ import { HttpClient } from '@angular/common/http';
 
 import { LinerBkm } from '../models/linerbkm';
 import { GlobalService } from '../../core/services/global.service';
+import { TrackingResult } from '../models/TrackingResult';
+
 
 @Injectable()
 export class LinerBkmService {
@@ -78,6 +80,13 @@ export class LinerBkmService {
   GetCreditLimit(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Operations/LinerBooking/GetCreditLimit', SearchData, this.gs.headerparam2('authorized'));
   }
+
+  GetWebTracking(SearchData: any) {
+    return this.http2.post<TrackingResult>(this.gs.baseUrl + '/api/Report1/ShipmentTracking/GetTrackingUrl', SearchData, this.gs.headerparam2('authorized'));
+  }
+
+
+
 
 }
 

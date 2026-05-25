@@ -19,6 +19,8 @@ import { isNull } from 'util';
 import { FileUploadComponent } from '../../shared/fileupload/fileupload.component';
 import { WarningAlertComponent } from '../../shared/warningalert/warningalert.component';
 import { MemoComponent } from '../../shared/memo/memo.component';
+import { TrackingResult } from '../models/TrackingResult';
+
 //EDIT-AJITH-01-12-2021
 //EDIT-AJITH-20-12-2021
 //EDIT-AJITH-05-01-2022
@@ -2299,4 +2301,18 @@ export class MblSeaComponent {
   ShowPrealertmemo(_rec: LinerBkm) {
     this._prealertmemo.showModal(_rec.book_pkid, "PRE-ALERT-STATUS", "SINGLE-EDIT");
   }
+
+  WebTracking() {
+    let search_data = { blno: this.Record.book_mblno }
+    this.mainService.GetWebTracking(search_data).subscribe({
+      next: (result: TrackingResult) => {
+        console.log(result.Url);
+        window.open(result.Url, '_blank', 'noopener,noreferrer');
+      },
+      error: (err: any) => {
+        alert('API call failed:' + err);
+      }
+    });
+  }
 }
+

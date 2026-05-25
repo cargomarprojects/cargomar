@@ -774,7 +774,10 @@
                       (click)="UpdateTracking()" class="btn btn-success btn-sm mr-1">Update Tracking</button>
                     <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(tracking)"
                       class="btn btn-success btn-sm">Container Tracking</button>
+                    <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="WebTracking()"
+                      class="btn btn-success btn-sm">Web Tracking</button>
                   </div>
+
                 </div>
               </div>
 
@@ -1171,4 +1174,4 @@
 </ng-template>
 
 <app-memo #prealertmemo [type]="'PRE-ALERT-STATUS'" [btnshow]="false" [screentype]="'SINGLE-EDIT'"
-  [title]="'Pre-Alert Status'"  (callbackevent)="ModifiedRecords($event)"></app-memo>
+  [title]="'Pre-Alert Status'" (callbackevent)="ModifiedRecords($event)"></app-memo>
