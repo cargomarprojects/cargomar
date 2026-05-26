@@ -196,11 +196,13 @@
           <th>JOB#</th>
           <th>CONTACT PERSON</th>
           <th>COMMODITY</th>
-          <th>NEXT ACTION</th>
+          <th style="min-width: 250px;">COMMENTS</th>
+          <th style="min-width: 250px;">NEXT ACTION</th>
           <th>FOLLOW.UP</th>
           <th>CUST.INFO</th>
           <th>DOCS</th>
           <th>CREATED DATE</th>
+          <th *ngIf="gs.globalVariables.user_code == 'ADMIN'">DELETE</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
@@ -223,12 +225,17 @@
           <td style="white-space: nowrap;">{{rec.mark_conv_jobno}}</td>
           <td>{{rec.mark_contact_person}}</td>
           <td>{{rec.mark_commodity}}</td>
+          <td>{{rec.mark_result}}</td>
           <td>{{rec.mark_next_action}}</td>
           <td [style.color]="rec.mark_followupstatus">{{rec.mark_followupcount}}</td>
           <td>{{rec.mark_cust_infocount?'Y':''}}</td>
           <td style="text-align:center" (click)="ShowDocuments(doc,rec)"> <i class="fa fa-file fa-md pointer"
               [style.color]="rec.mark_doc_attached=='Y'?'red':'chocolate'" aria-hidden="true"></i></td>
           <td>{{rec.rec_created_date}}</td>
+          <td *ngIf="gs.globalVariables.user_code == 'ADMIN'">
+            <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.mark_pkid,name:'SL# '+rec.mark_id}"
+              (result)="RemoveList($event)"></App-Dialog>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -639,7 +646,7 @@
   </div>
   <div class="modal-body">
     <app-mail [pkid]="pkid" [type]="'VISIT DETAILS'" [sHtml]="sMsg" [defaultmessage]="" [defaultcc_ids]="cc_ids"
-      [defaultsubject]="sSubject" [updateto_ids]=false [disableUpdateIds]=true [AttachList]="AttachList" ></app-mail>
+      [defaultsubject]="sSubject" [updateto_ids]=false [disableUpdateIds]=true [AttachList]="AttachList"></app-mail>
   </div>
 </ng-template>
 <ng-template #doc let-c="close" let-d="dismiss">

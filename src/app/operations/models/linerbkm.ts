@@ -156,6 +156,8 @@ export class LinerBkm {
   book_stage_updated_on: string;
   book_prealert_disabled: boolean;
   
+  book_cross_trade:boolean;
+
   rec_category: string;
   rec_mode: string;
   rec_created_by: string;

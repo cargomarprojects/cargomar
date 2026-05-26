@@ -695,6 +695,27 @@ export class MarketingComponent {
     }
   }
 
+  RemoveList(event: any) {
+    if (event.selected) {
+      
+      this.loading = true;
+      let SearchData = {
+        pkid: event.id
+      };
+
+      this.ErrorMessage = '';
+      this.InfoMessage = '';
+      this.mainService.DeleteRecord(SearchData)
+        .subscribe(response => {
+          this.loading = false;
+          this.RecordList.splice(this.RecordList.findIndex(rec => rec.mark_pkid == event.id), 1);
+        },
+          error => {
+            this.loading = false;
+            alert(this.gs.getError(error));
+          });
+    }
+  }
 
   OnBlur(field: string) {
 

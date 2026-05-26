@@ -749,6 +749,7 @@ export class MblSeaComponent {
     this.Record.book_track_comments = '';
     this.Record.book_unlockid = '';
     this.Record.book_prealert_disabled = false;
+    this.Record.book_cross_trade = false;
     this.Record.BkmCntrList = new Array<BkmCntrtype>();
     this.Record.BkmPayList = new Array<BkmPayment>();
     this.Record.BkmCargoList = new Array<BkmCargo>();
@@ -933,6 +934,7 @@ export class MblSeaComponent {
       this.Record.book_released_date = '';
       this.Record.book_prealert_date = '';
       this.Record.book_prealert_disabled = false;
+      this.Record.book_cross_trade = false;
       this.VESSELRECORD.id = '';
       this.VESSELRECORD.code = '';
       this.VESSELRECORD.name = '';
