@@ -191,10 +191,12 @@ export class ParamComponent {
       this.id1 = "3DigitCode";
       this.id2 = "Type";
       this.id3 = "SCAC";
+
     }
     if (this.type == 'SEA CARRIER') {
       this.id1 = "Tracking-Url";
       this.id3 = "SCAC";
+      this.id4 = "Remove Prefix";
     }
 
     if (this.type == 'VESSEL') {
@@ -648,6 +650,8 @@ export class ParamComponent {
 
       if (this.type != "SEA CARRIER")
         this.Record.param_id1 = this.Record.param_id1.toUpperCase().trim();
+
+
 
 
       this.Record.param_id2 = this.Record.param_id2.toUpperCase().trim();
