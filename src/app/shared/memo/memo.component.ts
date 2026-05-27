@@ -268,12 +268,14 @@ export class MemoComponent implements OnInit {
             gr_pkid: '',
             gr_type: '',
             gr_subtype: '',
-            gr_remarks: ''
+            gr_remarks: '',
+            gr_created_by:''
         }
         SearchData.gr_pkid = this._parentid;
         SearchData.gr_type = "MBL-SE";
         SearchData.gr_subtype = "PREALERT-SENT-STATUS";
         SearchData.gr_remarks = _remarks;
+        SearchData.gr_created_by = this.gs.globalVariables.user_code;
         this.mainservice.SaveRemarks(SearchData).subscribe(response => {
         }, error => {
             alert(this.gs.getError(error));
