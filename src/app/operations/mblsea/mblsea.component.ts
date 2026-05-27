@@ -2304,7 +2304,7 @@ export class MblSeaComponent {
   }
 
   WebTracking() {
-    let search_data = { blno: this.Record.book_mblno }
+    let search_data = { carrier_id: this.Record.book_liner_id, blno: this.Record.book_mblno }
 
     this.mainService.GetWebTracking(search_data).subscribe({
       next: (result: TrackingResult) => {
