@@ -15,7 +15,7 @@ import { SearchTable } from '../../shared/models/searchtable';
 export class ParamComponent {
   /*Ajith 19/06/2019 LOcked TAN Enabled
    */
-  // Local Variables 
+  // Local Variables
   title = 'Param MASTER';
 
   @Input() menuid: string = '';
@@ -91,7 +91,7 @@ export class ParamComponent {
     this.page_current = 0;
 
 
-    // URL Query Parameter 
+    // URL Query Parameter
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
         this.InitCompleted = true;
@@ -191,9 +191,12 @@ export class ParamComponent {
       this.id1 = "3DigitCode";
       this.id2 = "Type";
       this.id3 = "SCAC";
+
     }
     if (this.type == 'SEA CARRIER') {
+      this.id1 = "Tracking-Url";
       this.id3 = "SCAC";
+      this.id4 = "Remove Prefix";
     }
 
     if (this.type == 'VESSEL') {
@@ -644,7 +647,13 @@ export class ParamComponent {
         this.Record.param_code = this.Record.param_code.toUpperCase().replace(' ', '');
       if (this.type != 'GOOGLE CUSTOMS SCRIPT' && this.type != 'MENU HEADING')
         this.Record.param_name = this.Record.param_name.toUpperCase().trim();
-      this.Record.param_id1 = this.Record.param_id1.toUpperCase().trim();
+
+      if (this.type != "SEA CARRIER")
+        this.Record.param_id1 = this.Record.param_id1.toUpperCase().trim();
+
+
+
+
       this.Record.param_id2 = this.Record.param_id2.toUpperCase().trim();
       this.Record.param_id3 = this.Record.param_id3.toUpperCase().trim();
       this.Record.param_email = this.Record.param_email.trim();
