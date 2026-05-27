@@ -155,6 +155,7 @@ export class LinerBkm {
   book_stage: string;
   book_stage_updated_on: string;
   book_prealert_disabled: boolean;
+  book_agent_disabled: boolean;
   
   book_cross_trade:boolean;
 
