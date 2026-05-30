@@ -378,8 +378,7 @@ export class MailComponent {
     SearchData.subject = this.subject;
     if (controlname == 'smtpmail' && this.type.indexOf('BL-SURRENDER-MAIL-') >= 0)
       SearchData.message = this.getFormattedMsg();//will set font name, size ...
-    else
-      SearchData.message = this.sHtml.concat(this.message);
+    SearchData.message = this.sHtml.concat(this.message);
     SearchData.filename = filename;
     SearchData.filedisplayname = filedisplayname;
     SearchData.rowtype = this.type;

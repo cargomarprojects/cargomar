@@ -2247,7 +2247,7 @@ export class MblSeaComponent {
           alert(response.error)
         else {
           if (!this.gs.isBlank(this._ctrlblsurrendermail)) {
-            this._ctrlblsurrendermail.showmail(response.subject, response.message, _type, _blspkid, response.docids);
+            this._ctrlblsurrendermail.showmail(response.subject, response.message, _type, _blspkid, response.docids,response.shtml);
           }
         }
       },

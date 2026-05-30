@@ -50,6 +50,7 @@ export class FileUploadComponent {
   myFiles: string[] = [];
   sMsg: string = '';
 
+  sHtmlHeight: string = '';
   companywise: boolean = false;
   mailType: string = '';
   sSubject: string = '';
@@ -672,15 +673,19 @@ export class FileUploadComponent {
     this.bDragged = false;
   }
 
-  public showmail(_sub: string, _msg: string, _type: string, _parentid: string = '', _docids: string = '') {
+  public showmail(_sub: string, _msg: string, _type: string, _parentid: string = '', _docids: string = '', _shtml: string = '') {
     let bOk = false;
     this.sSubject = _sub;
+    this.sHtml = _shtml;
     this.sMessage = _msg;
     this.mailType = _type;
     this.parentid = _parentid;
+    this.sHtmlHeight = '';
     this.companywise = false;
-    if (_type.indexOf('BL-SURRENDER-MAIL-') >= 0)
+    if (_type.indexOf('BL-SURRENDER-MAIL-') >= 0) {
+      this.sHtmlHeight = '250px';
       this.companywise = true;
+    }
 
 
     for (let rec of this.RecordList) {
