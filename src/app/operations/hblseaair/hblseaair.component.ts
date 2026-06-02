@@ -95,6 +95,10 @@ export class HblSeaAirComponent {
     pkid = '';
     invoke_se_type = 'HBL';
 
+    shptstagetype: string = "SHPT.STAGE";
+    shipmentstage = "NA";
+    ShipmentStageList: any[] = [];
+
     // Array For Displaying List
     RecordList: Hblm[] = [];
     // Single Record for add/edit/view details
@@ -233,28 +237,28 @@ export class HblSeaAirComponent {
 
         //this.JobTypeList = [{ "name": "BOTH" }, { "name": "CLEARING" }, { "name": "FORWARDING" }];
 
-        //this.loading = true;
-        //let SearchData = {
-        //    type: 'type'
-        //};
+        this.loading = true;
+        let SearchData = {
+            type: this.type,
+            comp_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code
+        };
 
-        //this.ErrorMessage = '';
-        //this.InfoMessage = '';
-        //this.mainService.LoadDefault(SearchData)
-        //    .subscribe(response => {
-        //        this.loading = false;
-        //        this.CityList = response.citylist;
-        //        this.StateList = response.statelist;
-        //        this.CountryList = response.countrylist;
-        //        this.List("NEW");
-        //    },
-        //    error => {
-        //        this.loading = false;
-        //        this.ErrorMessage = this.gs.getError(error);
-        //    });
+        this.ErrorMessage = '';
+        this.InfoMessage = '';
+        this.mainService.LoadDefault(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                this.ShipmentStageList = response.stagelist;
+                if (this.isModalWindow == "N")
+                    this.List("NEW");
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
 
-        if (this.isModalWindow == "N")
-            this.List("NEW");
+
 
     }
 
@@ -515,6 +519,10 @@ export class HblSeaAirComponent {
 
     // Query List Data
     List(_type: string) {
+
+        if (this.shipmentstage == "NA" || this.shipmentstage == "PENDING")
+            this.shptstagetype = "SHPT.STAGE";
+
         this.loading = true;
         let SearchData = {
             type: _type,
@@ -533,6 +541,8 @@ export class HblSeaAirComponent {
             showbuysell: this.bbuysellrate ? "Y" : "N",
             hide_ho_entries: this.gs.globalVariables.hide_ho_entries,
             report_folder: this.gs.globalVariables.report_folder,
+            shipmentstage: this.shipmentstage,
+            shptstagetype: this.shptstagetype
         };
 
         this.ErrorMessage = '';

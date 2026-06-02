@@ -164,7 +164,8 @@ export class Hblm {
   rec_created_date: string;
   original_bl_printed: boolean;
   hbl_sbl_desc: string;
-
+  hbl_stage: string;
+  hbl_stage_updated_on: string;
   _globalvariables: GlobalVariables;
 
   JobList: Jobm[] = [];

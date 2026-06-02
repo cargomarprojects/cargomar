@@ -11,7 +11,7 @@
 
   <div *ngIf="currentTab=='LIST'" class="page-list">
     <div class="page-search">
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-sm-12">
           <div class="form-group row">
             <label style="padding-right:0px" class="col-sm-1 col-form-label col-form-label-sm">From Date</label>
@@ -24,7 +24,6 @@
               <app-date [inputdate]="gs.globalData.hbl_todate" (ValueChanged)="gs.globalData.hbl_todate=$event">
               </app-date>
             </div>
-            <!-- <label style="padding-right:0px" class="col-sm-2 col-form-label col-form-label-sm">Search</label> -->
             <div class="col-sm-2" style="padding-right:0px">
               <select class="form-control form-control-sm" [(ngModel)]="searchby">
                 <option [value]="'ALL'">ALL</option>
@@ -52,6 +51,73 @@
             </div>
           </div>
         </div>
+      </div> -->
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label col-form-label-sm">From.Date</label>
+            <div class="col-sm-4">
+              <app-date [inputdate]="gs.globalData.hbl_fromdate" (ValueChanged)="gs.globalData.hbl_fromdate=$event">
+              </app-date>
+            </div>
+            <label class="col-sm-1 col-form-label col-form-label-sm">To</label>
+            <div class="col-sm-4">
+              <app-date [inputdate]="gs.globalData.hbl_todate" (ValueChanged)="gs.globalData.hbl_todate=$event">
+              </app-date>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-3">
+              <select class="form-control form-control-sm" name="nshptstage" [(ngModel)]="shptstagetype">
+                <option [value]="'SHPT.STAGE'">Shpt.Stage - Current</option>
+                <option [value]="'SHPT.STAGE-BLANK'">Shpt.Stage - Blank</option>
+                <option [value]="'SHPT.STAGE-FILLED'">Shpt.Stage - Filled</option>
+              </select>
+            </div>
+            <div class="col-sm-9">
+              <select class="form-control form-control-sm" [(ngModel)]="shipmentstage">
+                <option *ngFor="let str of ShipmentStageList" [value]="str">{{str}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group row">
+            <div class="col-sm-12">
+              <select class="form-control form-control-sm" [(ngModel)]="searchby">
+                <option [value]="'ALL'">ALL</option>
+                <option [value]="'SINO'">SI#</option>
+                <option [value]="'MBLNO'"><span *ngIf="type=='SEA EXPORT'">MBL#</span><span
+                    *ngIf="type=='AIR EXPORT'">MAWB#</span></option>
+                <option [value]="'HBLNO'"><span *ngIf="type=='SEA EXPORT'">HBL#</span><span
+                    *ngIf="type=='AIR EXPORT'">HAWB#</span></option>
+                <option *ngIf="type=='SEA EXPORT'" [value]="'FCRNO'">FCR#</option>
+                <option [value]="'AGENT'">AGENT</option>
+                <option [value]="'SHIPPER'">SHIPPER</option>
+                <option [value]="'CONSIGNEE'">CONSIGNEE</option>
+                <option [value]="'CARRIER'">CARRIER</option>
+                <option *ngIf="type=='SEA EXPORT'" [value]="'CONTAINER'">CONTAINER</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-12">
+              <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring"
+                (blur)="OnBlur('searchstring')" />
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group row">
+            <label class="col-sm-3 col-form-label col-form-label-sm"></label>
+            <div class="col-sm-9">
+              <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+              <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
+                class="btn btn-primary btn-sm">Print</button>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -71,12 +137,14 @@
       </div>
     </div>
 
-    <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 310px);">
+    <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 340px);">
       <table class="table table-hover table-sm table-bordered table-striped">
         <thead class="page-body-thead">
           <tr>
             <th>SI#</th>
             <th>DATE</th>
+            <th>SHPT.STAGE</th>
+            <th>UPD.ON</th>
             <th><span *ngIf="type=='SEA EXPORT'">MBL#</span><span *ngIf="type=='AIR EXPORT'">MAWB#</span></th>
             <th><span *ngIf="type=='SEA EXPORT'">HBL#</span><span *ngIf="type=='AIR EXPORT'">HAWB#</span></th>
             <th><span *ngIf="type=='SEA EXPORT'">HBL DATE</span><span *ngIf="type=='AIR EXPORT'">HAWB DATE</span></th>
@@ -108,6 +176,8 @@
             (mousedown)="selectedRowIndex=i">
             <td class="hlink" (click)="ActionHandler('EDIT',rec.hbl_pkid)">{{rec.hbl_no}}</td>
             <td>{{rec.hbl_cf_date}}</td>
+            <td>{{rec.hbl_stage}}</td>
+            <td>{{rec.hbl_stage_updated_on}}</td>
             <td>{{rec.hbl_mbl_no}}</td>
             <td>{{rec.hbl_bl_no}}</td>
             <td>{{rec.hbl_date}}</td>
@@ -211,8 +281,8 @@
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label col-form-label-sm">Consignee</label>
                   <div class="col-sm-4">
-                    <app-autocomplete #ImporterLov [disabled]="Record.hbl_mbl_id != ''&&mode=='EDIT'" [inputdata]="IMPRECORD"
-                      (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                    <app-autocomplete #ImporterLov [disabled]="Record.hbl_mbl_id != ''&&mode=='EDIT'"
+                      [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
                   </div>
                   <label class="col-sm-2 col-form-label col-form-label-sm">Br#</label>
                   <div class="col-sm-4">
@@ -250,8 +320,8 @@
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label col-form-label-sm">Agent</label>
                   <div class="col-sm-4">
-                    <app-autocomplete #AgentLov [disabled]="Record.hbl_mbl_id != ''&&mode=='EDIT'" [inputdata]="AGENTRECORD"
-                      (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                    <app-autocomplete #AgentLov [disabled]="Record.hbl_mbl_id != ''&&mode=='EDIT'"
+                      [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
                   </div>
                   <label class="col-sm-2 col-form-label col-form-label-sm">Br#</label>
                   <div class="col-sm-4">
@@ -276,8 +346,8 @@
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label col-form-label-sm">Carrier</label>
                   <div class="col-sm-10">
-                    <app-autocomplete #CarrLov [disabled]="Record.hbl_mbl_id != ''&&mode=='EDIT'" [inputdata]="SEACARRIERRECORD"
-                      (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                    <app-autocomplete #CarrLov [disabled]="Record.hbl_mbl_id != ''&&mode=='EDIT'"
+                      [inputdata]="SEACARRIERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
                   </div>
                 </div>
                 <div *ngIf="type=='SEA EXPORT'" class="form-group row">
@@ -500,13 +570,13 @@
           </div>
 
 
-          <div  *ngIf="mode=='EDIT'"  class="page-box">
+          <div *ngIf="mode=='EDIT'" class="page-box">
             <div>
               <button (click)="JobList(Record)" class="btn btn-link">Find Job</button>
             </div>
             <div *ngIf="JobTab=='LIST'">
               <div class="table-responsive  fixedTableHead" [style.height]="Record.JobList.length>8?'250px':'auto'"
-              [style.overflow-y]="Record.JobList.length>8?'scroll':'auto'">
+                [style.overflow-y]="Record.JobList.length>8?'scroll':'auto'">
                 <table class="table  table-hover table-sm table-bordered table-striped">
                   <thead class="page-body-thead">
                     <tr>
