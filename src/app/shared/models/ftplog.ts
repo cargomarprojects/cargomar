@@ -30,6 +30,9 @@ export class Ftplog {
   ftp_prealert_date: string;
   ftp_multiple_upload: string;
   ftp_shipment_type: string;
+  ftp_carrier_name: string;
+  ftp_carrier_web: string;
+  
   ftp_memo: string;
   ftp_count: string;
   rec_mode: string;
