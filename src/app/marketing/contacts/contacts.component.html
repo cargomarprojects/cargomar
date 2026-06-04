@@ -124,7 +124,7 @@
             <!-- <input type="text" class="col form-control form-control-sm" name="Searchsperson"
               [(ngModel)]="searchSalesperson" (blur)="OnBlur('searchSalesperson')" /> -->
             <app-autocomplete3 [controlname]="'SMAN'" [tabletype]="'SALESMAN'" [displaycolumn]="'NAME'"
-              [displaydata]="searchSalesperson" (ValueChanged)="LovSelected($event)">
+              [displaydata]="searchSalesperson" [locked]="'A'" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
           </div>
         </div>

@@ -35,6 +35,7 @@ export class AutoComplete2Component {
 
   @Input() disabled: boolean = false;
   @Input() flag: string = 'NA';
+  @Input() locked: string = 'N';
   //child_inputdata: any = { controlname: '', type: '', displaycolumn: '', parentid: '', id: '', code: '', name: '', rate: 0, col1: '', col2: '', col3: '', col4: '' };
 
   @ViewChild('inputbox') private inputbox: ElementRef;
@@ -154,7 +155,8 @@ export class AutoComplete2Component {
       searchstring: this.displaydata,
       comp_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
-      flag: this.flag
+      flag: this.flag,
+      locked: this.locked
     };
 
     if (this.inputdata.hasOwnProperty('parentid'))
