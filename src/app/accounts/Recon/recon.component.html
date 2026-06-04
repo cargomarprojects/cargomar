@@ -61,11 +61,11 @@
           </div>
         </div>
         <div class="form-group row">
-            <div class="col-12">
-              <input type="checkbox" [(ngModel)]="basedonreconcileddate" />
-              <span>Reconciled-Date</span>
-            </div>
+          <div class="col-12">
+            <input type="checkbox" [(ngModel)]="basedonreconcileddate" />
+            <span>Reconciled-Date</span>
           </div>
+        </div>
 
       </div>
 
@@ -73,14 +73,15 @@
 
 
         <div class="form-group row">
-            <div class="col-12">
-              <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
-            </div>
+          <div class="col-12">
+            <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
           </div>
+        </div>
 
         <div class="form-group row mt-1">
           <div class="col-12">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
+            <button [disabled]="loading" (click)="List('OD')" class="btn btn-primary btn-sm">OD Report</button>
           </div>
         </div>
 
@@ -91,17 +92,19 @@
 
         <div class="form-group row">
           <div class="col-12">
-            <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Report As On {{to_date}}</button>
+            <button [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Report As On
+              {{to_date}}</button>
           </div>
-        
+
         </div>
 
 
         <div class="form-group row">
-            <div class="col-12">
-              <button [disabled]="loading" (click)="List('EXCEL2')" class="btn btn-primary btn-sm">New Report As On {{to_date}}</button>
-            </div>
+          <div class="col-12">
+            <button [disabled]="loading" (click)="List('EXCEL2')" class="btn btn-primary btn-sm">New Report As On
+              {{to_date}}</button>
           </div>
+        </div>
 
 
       </div>
@@ -147,13 +150,13 @@
       </thead>
 
       <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
-        <tr (click)="showhiderow(rec)"  [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
+        <tr (click)="showhiderow(rec)" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
           <td align='left'>{{ rec.recon_jv_vrno }}</td>
           <td align='left'>{{ rec.recon_jv_type }}</td>
           <td align='left'>{{ rec.recon_jv_year }}</td>
           <td align='left'>{{ rec.recon_jv_date }}</td>
           <td align='right'>{{ rec.debit | number : '1.2-2' }}</td>
-          <td align='right'>{{ rec.credit | number : '1.2-2'  }}</td>
+          <td align='right'>{{ rec.credit | number : '1.2-2' }}</td>
           <td align='left'>{{ rec.recon_chqno }}</td>
           <td align='left'>{{ rec.recon_display_date}}</td>
           <td align='left'>{{ rec.jvh_not_over_chq }}</td>
