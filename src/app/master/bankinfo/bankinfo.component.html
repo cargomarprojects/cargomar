@@ -8,10 +8,10 @@
 </div>
 
 <div class="page-details">
- 
+
   <div class="row">
     <div class="col-sm-12">
-     <div class="form-group row">
+      <div class="form-group row">
         <label class="col-2 col-form-label col-form-label-sm">Type</label>
         <div class="col-4">
           <select class="form-control form-control-sm" [(ngModel)]="tabletype" (change)="OnChange('tabletype')">
@@ -29,47 +29,60 @@
       <div class="form-group row">
         <label class="col-2 col-form-label col-form-label-sm">Beneficiary Name</label>
         <div class="col-4">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="bank_company" (blur)="OnBlur('bank_company')" required maxlength="100" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="bank_company"
+            (blur)="OnBlur('bank_company')" required maxlength="100" />
         </div>
       </div>
 
       <div class="form-group row">
         <label class="col-2 col-form-label col-form-label-sm">Bank A/c #</label>
         <div class="col-4">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="bank_ac" (blur)="OnBlur('bank_ac')" required maxlength="100" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="bank_ac" (blur)="OnBlur('bank_ac')"
+            required maxlength="100" />
         </div>
       </div>
 
       <div class="form-group row">
         <label class="col-2 col-form-label col-form-label-sm">Bank Name</label>
         <div class="col-4">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="bank_name" (blur)="OnBlur('bank_name')" required maxlength="100" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="bank_name" (blur)="OnBlur('bank_name')"
+            required maxlength="100" />
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-2 col-form-label col-form-label-sm"><span *ngIf="tabletype.includes('FC-')">SWIFT Code</span><span *ngIf="!tabletype.includes('FC-')">IFSC Code</span></label>
+        <label class="col-2 col-form-label col-form-label-sm">IFSC Code</label>
         <div class="col-4">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="bank_ifsc_code" (blur)="OnBlur('bank_ifsc_code')" required maxlength="100" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="bank_ifsc_code"
+            (blur)="OnBlur('bank_ifsc_code')" required maxlength="100" />
         </div>
       </div>
-
+      <div *ngIf="tabletype.includes('FC-')" class="form-group row">
+        <label class="col-2 col-form-label col-form-label-sm">SWIFT Code </label>
+        <div class="col-4">
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="bank_swift_code"
+            (blur)="OnBlur('bank_swift_code')" required maxlength="100" />
+        </div>
+      </div>
       <div class="form-group row">
         <label class="col-2 col-form-label col-form-label-sm">Address</label>
         <div class="col-4">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="bank_addresslin1" (blur)="OnBlur('bank_addresslin1')" required maxlength="100" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="bank_addresslin1"
+            (blur)="OnBlur('bank_addresslin1')" required maxlength="100" />
         </div>
       </div>
       <div class="form-group row">
         <label class="col-2 col-form-label col-form-label-sm"></label>
         <div class="col-4">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="bank_addresslin2" (blur)="OnBlur('bank_addresslin2')" required maxlength="100" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="bank_addresslin2"
+            (blur)="OnBlur('bank_addresslin2')" required maxlength="100" />
         </div>
       </div>
       <div *ngIf="tabletype.includes('FC-')" class="form-group row">
         <label class="col-2 col-form-label col-form-label-sm">Correspondent Bank</label>
         <div class="col-4">
-          <input type="text" class="form-control form-control-sm" [(ngModel)]="bank_addresslin3" (blur)="OnBlur('bank_addresslin3')" required maxlength="100" />
+          <input type="text" class="form-control form-control-sm" [(ngModel)]="bank_addresslin3"
+            (blur)="OnBlur('bank_addresslin3')" required maxlength="100" />
         </div>
       </div>
     </div>
@@ -90,4 +103,3 @@
 <div *ngIf="ErrorMessage" class="alert alert-danger">
   {{ErrorMessage}}
 </div>
-

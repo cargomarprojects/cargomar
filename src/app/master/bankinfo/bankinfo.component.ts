@@ -42,6 +42,7 @@ export class BankInfoComponent {
   bank_ac: string;
   bank_name: string;
   bank_ifsc_code: string;
+  bank_swift_code: string;
   bank_addresslin1: string;
   bank_addresslin2: string;
   bank_addresslin3: string;
@@ -52,7 +53,7 @@ export class BankInfoComponent {
   Record: Settings_VM = new Settings_VM;
 
   SaveList: Settings[] = [];
-  
+
   constructor(
     private mainService: BankInfoService,
     private route: ActivatedRoute,
@@ -89,6 +90,7 @@ export class BankInfoComponent {
     this.bank_ac = '';
     this.bank_name = '';
     this.bank_ifsc_code = '';
+    this.bank_swift_code = '';
     this.bank_addresslin1 = '';
     this.bank_addresslin2 = '';
     this.bank_addresslin3 = '';
@@ -131,11 +133,11 @@ export class BankInfoComponent {
         this.loading = false;
         this.InfoMessage = "Save Complete";
       },
-      error => {
-        this.ErrorMessage = this.gs.getError(error);
-        this.loading = false;
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.ErrorMessage = this.gs.getError(error);
+          this.loading = false;
+          alert(this.ErrorMessage);
+        });
   }
 
   SaveData() {
@@ -148,13 +150,14 @@ export class BankInfoComponent {
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'BANK_ACNO', '', '', this.bank_ac.toString().toUpperCase(), this.tabletype.toString()));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'BANK_NAME', '', '', this.bank_name.toString().toUpperCase(), this.tabletype.toString()));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'BANK_IFSC_CODE', '', '', this.bank_ifsc_code.toString().toUpperCase(), this.tabletype.toString()));
+    this.SaveList.push(this.addRec(_parentid, 'TEXT', 'BANK_SWIFT_CODE', '', '', this.bank_swift_code.toString().toUpperCase(), this.tabletype.toString()));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'BANK_ADD1', '', '', this.bank_addresslin1.toString().toUpperCase(), this.tabletype.toString()));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'BANK_ADD2', '', '', this.bank_addresslin2.toString().toUpperCase(), this.tabletype.toString()));
     this.SaveList.push(this.addRec(_parentid, 'TEXT', 'BANK_ADD3', '', '', this.bank_addresslin3.toString().toUpperCase(), this.tabletype.toString()));
   }
 
   List(_type: string) {
-    
+
     this.InfoMessage = '';
     this.loading = true;
     let SearchData = {
@@ -178,11 +181,11 @@ export class BankInfoComponent {
         this.RecordList = response.list;
         this.Loaddata();
       },
-      error => {
-        this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
-      });
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
   }
 
   Loaddata() {
@@ -197,11 +200,13 @@ export class BankInfoComponent {
         this.bank_name = rec.name;
       if (rec.caption == "BANK_IFSC_CODE")
         this.bank_ifsc_code = rec.name;
+      if (rec.caption == "BANK_SWIFT_CODE")
+        this.bank_swift_code = rec.name;
       if (rec.caption == "BANK_ADD1")
         this.bank_addresslin1 = rec.name;
       if (rec.caption == "BANK_ADD2")
         this.bank_addresslin2 = rec.name;
-        if (rec.caption == "BANK_ADD3")
+      if (rec.caption == "BANK_ADD3")
         this.bank_addresslin3 = rec.name;
     })
   }
@@ -228,6 +233,11 @@ export class BankInfoComponent {
           this.bank_ifsc_code = this.bank_ifsc_code.toUpperCase();
           break;
         }
+      case 'bank_swift_code':
+        {
+          this.bank_swift_code = this.bank_swift_code.toUpperCase();
+          break;
+        }
       case 'bank_addresslin1':
         {
           this.bank_addresslin1 = this.bank_addresslin1.toUpperCase();
@@ -238,9 +248,9 @@ export class BankInfoComponent {
           this.bank_addresslin2 = this.bank_addresslin2.toUpperCase();
           break;
         }
-        case 'bank_addresslin3':
+      case 'bank_addresslin3':
         {
-          this.bank_addresslin3 = this.bank_addresslin3.toUpperCase(); 
+          this.bank_addresslin3 = this.bank_addresslin3.toUpperCase();
           break;
         }
     }
