@@ -63,6 +63,7 @@ export class ReconComponent {
     subtype: '',
     pkid: '',
     acc_id: '',
+    acc_code: '',
     acc_name: '',
     report_folder: '',
     company_code: '',
@@ -225,7 +226,7 @@ export class ReconComponent {
 
     this.loading = true;
 
-    if (_type == "NEW" || _type == "EXCEL") {
+    if (_type == "NEW" || _type == "EXCEL" || _type == "OD") {
       this.pkid = this.gs.getGuid();
       this.SearchData.pkid = this.pkid;
       this.SearchData.report_folder = this.gs.globalVariables.report_folder;
@@ -236,6 +237,7 @@ export class ReconComponent {
       this.SearchData.from_date = this.from_date;
       this.SearchData.to_date = this.to_date;
       this.SearchData.acc_id = this.ACCRECORD.id;
+      this.SearchData.acc_code = this.ACCRECORD.code;
       this.SearchData.acc_name = this.ACCRECORD.name;
     }
     this.SearchData.hide_ho_entries = this.gs.globalVariables.hide_ho_entries;
