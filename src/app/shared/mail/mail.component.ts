@@ -416,7 +416,7 @@ export class MailComponent {
 
           // Auto ftp Sent
           if (this.InfoMessage.trim().toUpperCase() == "MAIL SENT SUCCESSFULLY" && this.canftp && this.ftpfolderblexist) {
-            this.SendFtp(this.InfoMessage, 'BL-FTP');
+            this.SendFtp(this.InfoMessage, 'BL-FTP', this.ftp_prealert_type);
           } else
             alert(this.InfoMessage);
         }
@@ -501,7 +501,7 @@ export class MailComponent {
   }
   */
 
-  SendFtp(_smsg: string = "", _ftp_type: string = "BL-FTP") {
+  SendFtp(_smsg: string = "", _ftp_type: string = "BL-FTP", _prealert_type: string = "N") {
     this.ftpcompleted = false;
     this.InfoMessage = _smsg;
     this.ErrorMessage = '';
@@ -582,7 +582,7 @@ export class MailComponent {
       user_code: this.gs.globalVariables.user_code,
       subject: '',
       updatesql: '',
-      ftp_prealert_type: this.ftp_prealert_type,
+      ftp_prealert_type: _prealert_type,
       ftp_type: _ftp_type,
       ftptypecaption: this.ftptypecaption
     };
@@ -601,10 +601,7 @@ export class MailComponent {
     SearchData.user_code = this.gs.globalVariables.user_code;
     SearchData.subject = this.subject;
     SearchData.updatesql = this.updatesql;
-    if (this.mailingtype == "PRE-ALERT")
-      SearchData.ftp_prealert_type = this.ftp_prealert_type;
-    else
-      SearchData.ftp_prealert_type = "N";
+    SearchData.ftp_prealert_type = _prealert_type;
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
         this.loading = false;

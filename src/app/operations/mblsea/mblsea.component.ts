@@ -1864,6 +1864,11 @@ export class MblSeaComponent {
     this.default_ftptype = 'BL-FTP';
     this.default_mailftp_rootpage = 'MAILPAGE';
     this.mailingtype = "";
+    if (this.gs.isBlank(this.Record.book_cntr)) {
+      alert('Container not Linked');
+      return;
+    }
+
     if (this.Record.book_cntr.trim().length > 11) {
       // var cntrarry = this.Record.book_cntr.split('/');
       // this.PrealertList(cntrarry[0].toString(), ftpsent);
@@ -2247,7 +2252,7 @@ export class MblSeaComponent {
           alert(response.error)
         else {
           if (!this.gs.isBlank(this._ctrlblsurrendermail)) {
-            this._ctrlblsurrendermail.showmail(response.subject, response.message, _type, _blspkid, response.docids,response.shtml);
+            this._ctrlblsurrendermail.showmail(response.subject, response.message, _type, _blspkid, response.docids, response.shtml);
           }
         }
       },

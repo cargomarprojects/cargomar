@@ -137,7 +137,7 @@
           <div class="col-sm-3">
             <select class="form-control form-control-sm" name="fprealert" [(ngModel)]="ftp_prealert_type">
               <option [value]="'N'">NA</option>
-               <option [value]="'O'">FINAL PREALERT</option>
+              <option [value]="'O'">FINAL PREALERT</option>
               <option [value]="'D'">DRAFT PREALERT</option>
             </select>
           </div>
@@ -256,7 +256,7 @@
             <div *ngIf="canftp" class="offset-sm-2 col-sm-10">
               <button *ngIf="ftptype=='PO-FTP'" [disabled]="loading" (click)="CheckList()"
                 class="btn btn-primary btn-sm">Check List</button>
-              <button [disabled]="loading||ftpcompleted" (click)="SendFtp('',ftptype)"
+              <button [disabled]="loading||ftpcompleted" (click)="SendFtp('',ftptype,'N')"
                 class="btn btn-primary btn-sm">Upload To&nbsp;
                 {{ftptype=='BL-FTP' && ftptypecaption == 'COSTING-FTP'?'COSTING-FTP':ftptype}}</button>
               <i *ngIf="loading" class="fa fa-spinner"></i>
