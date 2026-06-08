@@ -78,6 +78,7 @@
         <tr>
           <th>CODE</th>
           <th>NAME</th>
+          <th>FIN-YEAR</th>
           <th>DAYS WORKED</th>
           <th>WAGES</th>
           <th>BONUS</th>
@@ -90,9 +91,10 @@
       </thead>
       <tbody class="page-body-tbody">
         <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
-          (mousedown)="selectedRowIndex=i" >
+          (mousedown)="selectedRowIndex=i">
           <td class="hlink" (click)="ActionHandler('EDIT',rec.bon_pkid)">{{rec.bon_emp_code}}</td>
           <td>{{rec.bon_emp_name}}</td>
+          <td>{{rec.bon_fin_year_name}}</td>
           <td>{{rec.bon_days_worked}}</td>
           <td>{{rec.bon_gross_wages}}</td>
           <td>{{rec.bon_gross_bonus}}</td>
@@ -101,7 +103,7 @@
           <td>{{rec.bon_actual_paid}}</td>
           <td>{{rec.bon_paid_date}}</td>
           <td *ngIf="bDelete"><i class="fa fa-trash  fa-lg pointer" aria-hidden="true"
-            (click)="RemoveBonus(rec.bon_pkid,rec.bon_emp_name)"></i></td>
+              (click)="RemoveBonus(rec.bon_pkid,rec.bon_emp_name)"></i></td>
         </tr>
       </tbody>
     </table>
