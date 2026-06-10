@@ -13,31 +13,35 @@
 
       <div class="col-sm-4">
         <div class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm">Search</label>
-          <div class="col-sm-4">
+          <label class="col-sm-1 col-form-label col-form-label-sm">Search</label>
+          <div class="col-sm-5">
             <input type="text" class="col form-control form-control-sm" (blur)="OnBlur('Search')" name="Search"
               [(ngModel)]="searchstring" />
           </div>
-          <div class="col-sm-2">
+          <div class="col-sm-6">
             <button [disabled]="loading" (click)="Generate('LIST',bongenerate)"
-              class="btn btn-primary btn-sm">Generate</button>
+              class="btn btn-primary btn-sm mr-1">Generate</button>
+            <button *ngIf="bAdmin" [disabled]="loading" (click)="PostJV()" class="btn btn-primary btn-sm  mr-1"> Post
+              JV
+              {{jvdesc}} </button>
           </div>
-          <div class="col-sm-4">
-            <input type="checkbox" [(ngModel)]="bRelived"> Relieved
-          </div>
-
         </div>
       </div>
       <div class="col-sm-4">
         <div *ngIf="bAdmin" class="form-group row">
-          <label class="col-sm-2 col-form-label col-form-label-sm mr-1">Branch</label>
+          <label class="col-sm-1 col-form-label col-form-label-sm">Branch</label>
           <div class="col-sm-5">
             <app-autocompletemulti #BrLov [controlname]="'BRANCH'" [tabletype]="'BRANCH'" [subtype]="''" [where]="''"
               [displaycolumn]="'NAME'" [displaydata]="displaydata" (ValueChanged)="LovSelected($event)">
             </app-autocompletemulti>
           </div>
-          <div class="col-sm-4">
-            <input type="checkbox" [(ngModel)]="allbranch"> All
+          <div class="col-sm-3">
+            <input type="checkbox" [(ngModel)]="bRelived" id="_chkbRelived">
+            <label class="col-form-label col-form-label-sm" for="_chkbRelived">Relieved</label>
+          </div>
+          <div class="col-sm-3">
+            <input type="checkbox" [(ngModel)]="allbranch" id="_chkallbranch">
+            <label class="col-form-label col-form-label-sm" for="_chkallbranch">All</label>
           </div>
         </div>
       </div>

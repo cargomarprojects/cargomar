@@ -49,6 +49,10 @@ export class BonusComponent {
   sub: any;
   urlid: string;
 
+  jvdesc = '';
+  jvno = 0;
+  jvno_ho = 0;
+
   porttype = 'PORT';
   ErrorMessage = "";
   InfoMessage = "";
@@ -71,6 +75,9 @@ export class BonusComponent {
     this.page_count = 0;
     this.page_rows = 30;
     this.page_current = 0;
+    this.jvno = 0;
+    this.jvno_ho = 0;
+    this.jvdesc = '';
     // URL Query Parameter 
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
@@ -168,7 +175,7 @@ export class BonusComponent {
   List(_type: string) {
     this.ErrorMessage = '';
     this.InfoMessage = '';
-    
+
     if (!this.gs.isBlank(this.BrLovMulti))
       this.BrLovMulti.Close();
 
@@ -192,6 +199,8 @@ export class BonusComponent {
       company_name: this.gs.globalVariables.comp_name,
       branch_code: this.branch_code,
       year_code: this.gs.globalVariables.year_code,
+      year_start_date: this.gs.globalVariables.year_start_date,
+      year_end_date: this.gs.globalVariables.year_end_date,
       report_folder: this.gs.globalVariables.report_folder,
       folderid: this.gs.getGuid(),
       page_count: this.page_count,
@@ -199,7 +208,8 @@ export class BonusComponent {
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount,
       brelived: this.bRelived,
-      allbranch: this.allbranch
+      allbranch: this.allbranch,
+      login_branch_code: this.gs.globalVariables.branch_code
     };
 
 
@@ -220,6 +230,15 @@ export class BonusComponent {
           this.page_rowcount = response.page_rowcount;
           this.chkallselected = false;
           this.selectdeselect = false;
+
+          this.jvno = response.jvno;
+          this.jvno_ho = response.jvno_ho;
+
+          this.jvdesc = "";
+          if (response.jvno > 0)
+            this.jvdesc = response.jvno.toString();
+          if (response.jvno_ho > 0)
+            this.jvdesc += "-" + response.jvno_ho.toString();
         }
       },
         error => {
@@ -535,4 +554,55 @@ export class BonusComponent {
           alert(this.ErrorMessage);
         });
   }
+
+  PostJV() {
+    let Msg: string = "";
+    Msg = "Generate JV";
+
+    if (this.jvno > 0)
+      Msg = "Re-Generate JV";
+
+
+    if (!confirm(Msg)) {
+      return;
+    }
+
+    this.loading = true;
+
+    let SearchData = {
+      pkid: this.pkid,
+      user_pkid: this.gs.globalVariables.user_pkid,
+      user_code: this.gs.globalVariables.user_code,
+      user_name: this.gs.globalVariables.user_name,
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      year_code: this.gs.globalVariables.year_code,
+      year_prefix: this.gs.globalVariables.year_prefix,
+      year_start_date: this.gs.globalVariables.year_start_date,
+      year_end_date: this.gs.globalVariables.year_end_date,
+      report_folder: this.gs.globalVariables.report_folder
+    };
+
+    this.ErrorMessage = '';
+    this.mainService.PostBonusJV(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.jvno = response.jvno;
+        this.jvno_ho = response.jvno_ho;
+        this.jvdesc = "";
+        if (response.jvno > 0)
+          this.jvdesc = response.jvno.toString();
+        if (response.jvno_ho > 0)
+          this.jvdesc += "-" + response.jvno_ho;
+
+        alert('JV Generated : ' + response.msg);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
+
+
 }

@@ -33,6 +33,10 @@ export class BonusService {
   DeleteRecord(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Bonus/DeleteRecord', SearchData, this.gs.headerparam2('authorized'));
   }
+  PostBonusJV(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Costing/Posting/SaveBonusJV', SearchData, this.gs.headerparam2('authorized'));
+  }
+  
 
 }
 
