@@ -21,9 +21,11 @@
           <div class="col-sm-6">
             <button [disabled]="loading" (click)="Generate('LIST',bongenerate)"
               class="btn btn-primary btn-sm mr-1">Generate</button>
-            <button *ngIf="bAdmin" [disabled]="loading" (click)="PostJV()" class="btn btn-primary btn-sm  mr-1"> Post
+            <!-- <button *ngIf="bAdmin" [disabled]="loading" (click)="PostJV()" class="btn btn-primary btn-sm  mr-1"> Post
               JV
-              {{jvdesc}} </button>
+              {{jvdesc}} </button> -->
+            <button *ngIf="gs.globalVariables.user_code == 'ADMIN'" [disabled]="loading" (click)="PostJV()"
+              class="btn btn-primary btn-sm  mr-1"> Post JV {{jvdesc}} </button>
           </div>
         </div>
       </div>

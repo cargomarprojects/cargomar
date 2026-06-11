@@ -70,7 +70,7 @@ export class BonusComponent {
     private modalService: NgbModal,
     private mainService: BonusService,
     private route: ActivatedRoute,
-    private gs: GlobalService
+    public gs: GlobalService
   ) {
     this.page_count = 0;
     this.page_rows = 30;
