@@ -960,26 +960,6 @@ export class MblSeaComponent {
     if (!this.allvalid())
       return;
 
-    // if (!confirm("Save without selecting Cross Trade shipment.")) {
-    //   return;
-    // }
-
-    // if (this.Record.book_agent_code == 'RITRACARGO-NL' && !this.Record.book_pod_code.startsWith('NL')) {
-    //   if (!this.Record.book_cross_trade) {
-    //     this._WarnMsg.showConfirm("Save without selecting Cross Trade shipment.").then((confirmed) => {
-    //       if (confirmed) {
-    //         this.Save2();
-    //       }
-    //     });
-    //     return;
-    //   }
-    // }
-
-
-    this.Save2();
-  }
-
-  Save2() {
     this.FindCntrTotal();
     this.FindVolTotal();
     this.loading = true;
