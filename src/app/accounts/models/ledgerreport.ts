@@ -21,7 +21,7 @@ export class LedgerReport {
   jv_org_invdt: string;
   jv_ref_date: string;
 
-  jv_paid_date:string;
+  jv_paid_date: string;
   jv_vrno: string;
   jv_type: string;
   jv_year: string;
@@ -84,6 +84,7 @@ export class LedgerReport {
   bs_sub_head: string;
   bs_sub_note: string;
 
+  draft_invoice: string;
 
   cb_desc: string;
   cb_dr: number;

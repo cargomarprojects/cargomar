@@ -11,7 +11,7 @@
   <div class="page-list">
     <div class="page-search">
       <div class="row">
-        <div class="col-3">
+        <div class="col-sm-3">
           <div class="form-group row">
             <label class="col-4 col-form-label col-form-label-sm">As On</label>
             <div class="col-8">
@@ -25,56 +25,56 @@
             </div>
           </div>
         </div>
-        <div class="col-3">
+        <div class="col-sm-3">
           <div *ngIf="bCompany" class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
-            <div class="col-8">
+            <div class="col-sm-8">
               <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-8 col-form-label col-form-label-sm">{{ACCRECORD.name}}</label>
+            <label class="col-sm-8 col-form-label col-form-label-sm">{{ACCRECORD.name}}</label>
           </div>
         </div>
 
-        <div class="col-2">
+        <div class="col-sm-2">
 
           <div class="form-group row">
-            <div *ngIf="bCompany" class="col-sm-12">
-              <input type="checkbox" [(ngModel)]="all" (change)="OnChange('all')">
-              <span> All Branch</span>
+            <div *ngIf="bCompany" class="col-sm-12 input-group input-group-sm">
+              <input type="checkbox" [(ngModel)]="all" (change)="OnChange('all')" id="_chkall">
+              <label class="col-form-label col-form-label-sm ml-1" for="_chkall">All Branch</label>
             </div>
           </div>
           <div class="form-group row">
-            <div class="col-sm-12">
-              <input type="checkbox" [(ngModel)]="isoverdue">
-              <span>Over Due</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-2">
-          <div class="form-group row">
-            <div class="col-sm-12">
-              <input type="checkbox" [(ngModel)]="legal">
-              <span>Legal Only</span>
-            </div>
-          </div>
-          <div class="form-group row">
-            <div class="col-sm-12">
-              <input type="checkbox" [(ngModel)]="hidetotal">
-              <span>Hide Total</span>
+            <div class="col-sm-12 input-group input-group-sm">
+              <input type="checkbox" [(ngModel)]="isoverdue" id="_chkOverDue">
+              <label class="col-form-label col-form-label-sm ml-1" for="_chkOverDue">Over Due</label>
             </div>
           </div>
         </div>
 
-        <div class="col-2">
+        <div class="col-sm-2">
+          <div class="form-group row">
+            <div class="col-sm-12 input-group input-group-sm">
+              <input type="checkbox" [(ngModel)]="legal" id="_chkLegalOnly">
+              <label class="col-form-label col-form-label-sm ml-1" for="_chkLegalOnly">Legal Only</label>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-12 input-group input-group-sm">
+              <input type="checkbox" [(ngModel)]="hidetotal" id="_chkHideTotal">
+              <label class="col-form-label col-form-label-sm ml-1" for="_chkHideTotal">Hide Total</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-2">
 
 
           <div class="form-group row">
-            <div class="col-sm-12">
-              <input type="checkbox" [(ngModel)]="do_not_use_credit_date">
-              <span>Use No Credit Date</span>
+            <div class="col-sm-12 input-group input-group-sm">
+              <input type="checkbox" [(ngModel)]="do_not_use_credit_date" id="_chkCreditDate">
+               <label class="col-form-label col-form-label-sm ml-1" for="_chkCreditDate">Use No Credit Date</label> 
             </div>
           </div>
 
@@ -108,6 +108,7 @@
           <th class="text-right">ADVANCE</th>
           <th class="text-right">CR-LIMIT</th>
           <th class="text-right">CR-DAYS</th>
+          <th class="text-center">DRAFT-INVOICE</th>
           <th class="text-right">OS-DAYS</th>
           <th class="text-right">OVERDUE</th>
           <th>DUE-DATE</th>
@@ -140,6 +141,7 @@
           <td align='right'>{{ rec.advance | number : '1.2-2' }}</td>
           <td align='right'>{{ rec.crlimit }}</td>
           <td align='right'>{{ rec.crdays }}</td>
+          <td align='center'>{{ rec.draft_invoice }}</td>
           <td align='right'>{{ rec.osdays }}</td>
           <td align='right'>{{ rec.overduedays }}</td>
           <td>{{rec.due_date}}</td>
@@ -158,7 +160,7 @@
 
         </tr>
         <tr *ngIf="rec.displayed">
-          <td colspan="100%" >
+          <td colspan="100%">
             <!-- <app-osrem [isadmin]="bAdmin" [adminText]="adminText" [record]="rec"></app-osrem> -->
             <app-osrem2 [menuid]="menuid" [parentid]="rec.pkid"
               (ModifiedRecords)="ModifiedRecords($event,rec)"></app-osrem2>
