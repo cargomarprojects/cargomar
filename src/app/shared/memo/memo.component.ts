@@ -19,6 +19,11 @@ export class MemoComponent implements OnInit {
         this._parentid = value;
     }
 
+    private _headerid: string = '';
+    @Input() set headerid(value: string) {
+        this._headerid = value;
+    }
+
     private _type: string = '';
     @Input() set type(value: string) {
         this._type = value;
@@ -51,7 +56,7 @@ export class MemoComponent implements OnInit {
     @Input() set textlength(value: number) {
         this._textlength = value;
     }
-     public _colcaption: string = 'MEMO';
+    public _colcaption: string = 'MEMO';
     @Input() set colcaption(value: string) {
         this._colcaption = value;
     }
@@ -79,10 +84,11 @@ export class MemoComponent implements OnInit {
 
     }
 
-    public showModal(_id: string, _Type: string, _ScreenType: string) {
+    public showModal(_id: string, _Type: string, _ScreenType: string, _HeaderId: string = '') {
         this._parentid = _id;
         this._type = _Type;
         this._screentype = _ScreenType;
+        this._headerid = _HeaderId
         this.GetMemo(this.memoModal);
     }
 
@@ -99,12 +105,14 @@ export class MemoComponent implements OnInit {
         let SearchData = {
             parentid: '',
             type: '',
-            screentype: ''
+            screentype: '',
+            headerid: ''
         }
 
         SearchData.parentid = this._parentid;
         SearchData.type = this._type;
         SearchData.screentype = this._screentype;
+        SearchData.headerid = this._headerid;
 
         this.mainservice.List(SearchData).subscribe(response => {
             this.MemoList = response.list;
@@ -119,6 +127,7 @@ export class MemoComponent implements OnInit {
         });
 
     }
+
     open(content: any) {
         this.modal = this.modalService.open(content, { size: "sm", backdrop: 'static', keyboard: true, windowClass: 'modal-custom' });
     }
@@ -133,6 +142,7 @@ export class MemoComponent implements OnInit {
 
         let SearchData: VmMemo = new VmMemo;
         SearchData.pkid = this._parentid;
+        SearchData.headerid = this._headerid;
         SearchData.type = this._type;
         SearchData.memo_List = this.MemoList;
         SearchData._globalvariables = this.gs.globalVariables;
@@ -178,6 +188,7 @@ export class MemoComponent implements OnInit {
         let _Rec: CustMemo = new CustMemo;
         _Rec.cm_pkid = this.gs.getGuid();
         _Rec.cm_parent_id = this._parentid;
+        _Rec.cm_header_id = this._headerid;
         _Rec.cm_type = this._type;
         _Rec.cm_memo = '';
         this.MemoList.push(_Rec);
@@ -214,6 +225,7 @@ export class MemoComponent implements OnInit {
         this.Record = new CustMemo();
         this.Record.cm_pkid = this.pkid;
         this.Record.cm_parent_id = this._parentid;
+        this.Record.cm_header_id = this._headerid;
         this.Record.rec_created_by = this.gs.globalVariables.user_code;
         this.Record.rec_created_date = this.gs.defaultValues.today;
         this.Record.cm_memo = "";
@@ -227,6 +239,7 @@ export class MemoComponent implements OnInit {
         this.Record._globalvariables = this.gs.globalVariables;
         this.Record.cm_pkid = this.pkid;
         this.Record.cm_parent_id = this._parentid;
+        this.Record.cm_header_id = this._headerid;
         this.Record.cm_type = "PRE-ALERT-STATUS";
         this.Record.cm_memo = this.Record.cm_memo.toUpperCase();
 

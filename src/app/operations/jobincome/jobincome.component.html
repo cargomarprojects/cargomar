@@ -1,15 +1,11 @@
 <div class="page-list">
 
-  <div class="page-search">
-
+  <div class="p-2">
     <div class="row">
-
-      <div class="col-sm-12">
-
+      <div class="col-sm-2">
         <div class="form-group row">
-
-          <label class="col-sm-1 col-form-label col-form-label-sm">Type</label>
-          <div class="col-sm-2">
+          <label class="col-sm-4 col-form-label col-form-label-sm">Type</label>
+          <div class="col-sm-8">
             <select class="form-control form-control-sm" [(ngModel)]="income_type">
               <option [value]="'ALL'">ALL</option>
               <option [value]="'CLEARING INCOME'">CLEARING INCOME</option>
@@ -18,35 +14,60 @@
               <option [value]="'EX-WORK'">EX-WORK</option>
             </select>
           </div>
-          <div class="col-sm-1">
-            <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Find</button>
-          </div>
-          <div class="col-sm-1">
-            <label class="col-sm-12 col-form-label  col-form-label-sm">CBM:{{ncbm}}</label>
-          </div>
-          <div class="col-sm-1">
-            <label class="col-sm-12 col-form-label  col-form-label-sm">GRWT:{{ngrwt}}</label>
-          </div>
-          <div class="col-sm-1">
-            <label class="col-sm-12 col-form-label  col-form-label-sm">NTWT-{{nntwt}}</label>
-          </div>
-          <div class="col-sm-1">
-            <label class="col-sm-12 col-form-label  col-form-label-sm">CHWT-{{nchwt}}</label>
-          </div>
-          <div class="col-sm-1">
-            <label class="col-sm-12 col-form-label  col-form-label-sm">COLLECT-{{cc_amt}}</label>
-          </div>
-          <div class="col-sm-1">
-            <label class="col-sm-12 col-form-label  col-form-label-sm">PREPAID-{{pp_amt}}</label>
-          </div>
-          <div class="col-sm-1">
-            <label class="col-sm-12 col-form-label  col-form-label-sm">TOTAL-{{total_amt}}</label>
-          </div>
-          <div class="col-sm-1">
-            <label class="col-sm-12 col-form-label  col-form-label-sm">REBATE-{{rebate_amt}}</label>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-4 col-form-label col-form-label-sm"></label>
+          <div class="col-sm-8">
+            <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm mr-2">Find</button>
           </div>
         </div>
       </div>
+
+      <div class="col-sm-2">
+        <div class="form-group row">
+          <label class="col-sm-12 col-form-label  col-form-label-sm">NATURE:&nbsp;{{hblnature}}</label>
+        </div>
+        <div class="form-group row">
+
+        </div>
+      </div>
+
+      <div class="col-sm-2">
+        <div class="form-group row">
+          <label class="col-sm-12 col-form-label  col-form-label-sm">GRWT:&nbsp;{{ngrwt}}</label>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-12 col-form-label  col-form-label-sm">NTWT:&nbsp;{{nntwt}}</label>
+        </div>
+      </div>
+
+      <div class="col-sm-2">
+        <div class="form-group row">
+          <label class="col-sm-12 col-form-label  col-form-label-sm">CHWT:&nbsp;{{nchwt}}</label>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-12 col-form-label  col-form-label-sm">CBM:&nbsp;{{ncbm}}</label>
+        </div>
+      </div>
+
+      <div class="col-sm-2">
+        <div class="form-group row">
+          <label class="col-sm-12 col-form-label  col-form-label-sm">COLLECT:&nbsp;{{cc_amt}}</label>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-12 col-form-label  col-form-label-sm">PREPAID:&nbsp;{{pp_amt}}</label>
+        </div>
+      </div>
+
+      <div class="col-sm-2">
+        <div class="form-group row">
+          <label class="col-sm-12 col-form-label  col-form-label-sm">TOTAL:&nbsp;{{total_amt}}</label>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-12 col-form-label  col-form-label-sm">REBATE:&nbsp;{{rebate_amt}}</label>
+        </div>
+      </div>
+
     </div>
 
   </div>

@@ -53,6 +53,7 @@ export class JobIncomeComponent {
   total_amt: number = 0;
   rebate_amt: number = 0;
   rebate2_amt: number = 0;
+  hblnature: string = '';
 
   loading = false;
   currentTab = 'LIST';
@@ -314,6 +315,7 @@ export class JobIncomeComponent {
         this.nchwt = response.chwt;
         this.CntrTypes = response.cntrtypes;
         this.lock_record = response.hbllock;
+        this.hblnature = response.hblnature;
 
         this.FindListTotal();
         this.ActionHandler("ADD", null);

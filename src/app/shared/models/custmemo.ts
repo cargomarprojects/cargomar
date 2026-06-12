@@ -3,6 +3,7 @@ import { GlobalVariables } from '../../core/models/globalvariables';
 export class CustMemo {
     cm_pkid: string;
     cm_parent_id: string;
+    cm_header_id: string;
     cm_type: string;
     cm_memo: string;
     rec_created_by: string;
@@ -13,6 +14,7 @@ export class CustMemo {
 
 export class VmMemo {
     pkid: string;
+    headerid: string;
     type: string;
     memo_List: CustMemo[] = [];
     _globalvariables: GlobalVariables;

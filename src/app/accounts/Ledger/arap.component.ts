@@ -503,10 +503,27 @@ export class ArApComponent {
 
       this.Record.LedgerList.splice(this.Record.LedgerList.findIndex(rec => rec.jv_pkid == event.id), 1);
       this.FindTotal();
+      if (this.type == "IN")
+        this.RemoveAddDesc(event.id);
     }
   }
 
-
+  RemoveAddDesc(Id: string) {
+    this.loading = true;
+    let SearchData = {
+      pkid: Id,
+    };
+    this.ErrorMessage = '';
+    this.mainService.RemoveAddDesc(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
 
   ResetControls() {
     this.disableSave = true;
@@ -2801,10 +2818,10 @@ export class ArApComponent {
 
   }
 
-   ShowInvDescModal(_rec: Ledgert) {
-      this._addinvdesc.showModal(_rec.jv_pkid, "INVOICE-DESC", "ALL-EDIT");
-    }
-  
+  ShowInvDescModal(_rec: Ledgert) {
+    this._addinvdesc.showModal(_rec.jv_pkid, "INVOICE-DESC", "ALL-EDIT", _rec.jv_parent_id);
+  }
+
 }
 
 

@@ -672,7 +672,7 @@
                 <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs"
                   [style.color]="Record.cont_doc_attached=='Y'?'darkred':'white'" (click)="ShowDocuments(doc)"
                   class="btn btn-success btn-sm mr-1">Documents</button>
-                <app-memo *ngIf="mode == 'EDIT'" [parentid]="Record.cont_pkid" [type]="'CONTACTS-MEMO'"></app-memo>
+                <app-memo *ngIf="mode == 'EDIT'" [parentid]="Record.cont_pkid" [type]="'CONTACTS-MEMO'" [title]="''"></app-memo>
                 <button [disabled]="loading" (click)="ActionHandler('LIST','')"
                   class="btn btn-success btn-sm mr-1">Return</button>
                 <!-- <button *ngIf="mode=='EDIT' && iisModalWindow=='N'" [disabled]="loading" (click)="ShowHide()" class="btn btn-success btn-sm">Hide
