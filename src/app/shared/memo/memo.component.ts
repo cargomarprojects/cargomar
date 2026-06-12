@@ -43,6 +43,19 @@ export class MemoComponent implements OnInit {
         this._btnshow = value;
     }
 
+    public _textheight: number = 3;
+    @Input() set textheight(value: number) {
+        this._textheight = value;
+    }
+    public _textlength: number = 500;
+    @Input() set textlength(value: number) {
+        this._textlength = value;
+    }
+     public _colcaption: string = 'MEMO';
+    @Input() set colcaption(value: string) {
+        this._colcaption = value;
+    }
+
     @Output() callbackevent = new EventEmitter<any>();
 
     @ViewChild('memomodal') memoModal: any;
@@ -58,7 +71,7 @@ export class MemoComponent implements OnInit {
         private modalService: NgbModal,
         private http2: HttpClient,
         private mainservice: CustMemoService,
-        private gs: GlobalService) {
+        public gs: GlobalService) {
 
     }
 
@@ -269,7 +282,7 @@ export class MemoComponent implements OnInit {
             gr_type: '',
             gr_subtype: '',
             gr_remarks: '',
-            gr_created_by:''
+            gr_created_by: ''
         }
         SearchData.gr_pkid = this._parentid;
         SearchData.gr_type = "MBL-SE";

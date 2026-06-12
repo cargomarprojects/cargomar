@@ -4,6 +4,10 @@
 </div>
 <ng-template #memomodal let-c="close" let-d="dismiss">
     <div *ngIf="_screentype=='ALL-EDIT'">
+        <div *ngIf="_title" class="modal-header" style="cursor: move;" (mousedown)="gs.startDrag($event)">
+            <h4 class="modal-title">{{_title}}</h4>
+            <button type="button" class="btn btn-primary btn-sm" (click)="d('Cross click')">Close</button>
+        </div>
         <div class="modal-body">
             <div class="page-box">
                 <div class="row">
@@ -12,15 +16,15 @@
                             <table class="table  table-hover table-sm mb-1">
                                 <thead class="page-body-thead">
                                     <tr>
-                                        <th width="90%">MEMO</th>
+                                        <th width="90%">{{_colcaption}}</th>
                                         <th width="10%"></th>
                                     </tr>
                                 </thead>
                                 <tbody class="page-body-tbody">
                                     <tr *ngFor="let rec of MemoList; let i = index">
                                         <td>
-                                            <textarea rows="3" class="form-control form-control-sm"
-                                                [(ngModel)]="rec.cm_memo" required maxlength="500"
+                                            <textarea [rows]="_textheight" class="form-control form-control-sm"
+                                                [(ngModel)]="rec.cm_memo" required [maxlength]="_textlength"
                                                 (blur)="OnBlur('cm_memo',rec)"></textarea>
                                         </td>
                                         <td>

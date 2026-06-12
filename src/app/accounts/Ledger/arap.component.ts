@@ -20,6 +20,7 @@ import { pendinglist } from '../models/pendinglist';
 import { SearchTable } from '../../shared/models/searchtable';
 import { PendingListComponent } from './Pendinglist.component';
 import { DateComponent } from '../../shared/date/date.component';
+import { MemoComponent } from '../../shared/memo/memo.component';
 import { AddressUpdateComponent } from './addressupdate.component';
 
 //Arap Component
@@ -53,6 +54,7 @@ export class ArApComponent {
   title = 'Ledger Details';
 
   @ViewChild('jvh_date') private jvh_date: DateComponent;
+  @ViewChild('addinvdesc') private _addinvdesc: MemoComponent;
   @Input() menuid: string = '';
   @Input() type: string = '';
   @Input() subtype: string = '';
@@ -2798,6 +2800,11 @@ export class ArApComponent {
     }
 
   }
+
+   ShowInvDescModal(_rec: Ledgert) {
+      this._addinvdesc.showModal(_rec.jv_pkid, "INVOICE-DESC", "ALL-EDIT");
+    }
+  
 }
 
 

@@ -678,7 +678,7 @@
               (click)="UnlockCustomer('UNLOCKED')" class="btn btn-success btn-sm mr-1">Unlock</button>
             <button *ngIf="mode == 'EDIT' && bCanLock && !Record.rec_locked" [disabled]="loading"
               (click)="UnlockCustomer('LOCKED')" class="btn btn-success btn-sm mr-1">Lock</button>
-            <app-memo *ngIf="mode == 'EDIT'" [parentid]="Record.cust_pkid" [type]="'CUSTOMER-MEMO'"></app-memo>
+            <app-memo *ngIf="mode == 'EDIT'" [parentid]="Record.cust_pkid" [type]="'CUSTOMER-MEMO'" [title]="''"></app-memo>
             <button [disabled]="loading" *ngIf="mode == 'EDIT'" class="btn btn-primary btn-sm mr-1"
               (click)="CheckCrLimit()">Check
               CR-Limit</button>

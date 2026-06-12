@@ -429,6 +429,7 @@
               <th>GST</th>
               <th>GST.RT</th>
               <th>NT.TOTAL</th>
+              <th *ngIf="mode=='EDIT'&&type=='IN'">DESC</th>
               <th>DELETE</th>
             </tr>
 
@@ -450,6 +451,7 @@
               <td>{{rec.jv_gst_amt}}</td>
               <td>{{rec.jv_gst_rate}}</td>
               <td>{{rec.jv_net_total}}</td>
+              <td  *ngIf="mode=='EDIT'&&type=='IN'" (click)="ShowInvDescModal(rec)" class="hlink">ADD</td>
               <td>
                 <App-Dialog [id]="{msg:'Delete Y/N', buttons:'yn', selected :false,id:rec.jv_pkid,name:i+1}"
                   (result)="RemoveList($event)"></App-Dialog>
@@ -956,3 +958,5 @@
     <button type="button" class="btn btn-outline-dark" (click)="d('N')">Ok</button>
   </div>
 </ng-template>
+
+<app-memo #addinvdesc [type]="'INVOICE-DESC'" [btnshow]="false" [screentype]="'ALL-EDIT'" [title]="'Additional Description'" [colcaption]="'DESCRIPTION'" [textheight]="1" [textlength]="100" ></app-memo>
