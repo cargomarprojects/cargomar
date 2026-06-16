@@ -57,7 +57,8 @@
                 WISE</option>
               <option *ngIf="bapprovalrights.indexOf('{19}') >= 0" [value]="'LEDGER-MAINCODE'">LEDGER SUMMARY MAINCODE
                 WISE</option>
-              <option *ngIf="bapprovalrights.indexOf('{20}') >= 0" [value]="'GSTR-2B-ITC-CLAIM-CONSOL'">GSTR-2B ITC CLAIM - CONSOLIDATED</option>
+              <option *ngIf="bapprovalrights.indexOf('{20}') >= 0" [value]="'GSTR-2B-ITC-CLAIM-CONSOL'">GSTR-2B ITC
+                CLAIM - CONSOLIDATED</option>
             </select>
             <div *ngIf="format_type=='PURCHASE'||format_type=='PURCHASE-DETAILS'||format_type=='PURCHASE-RATE-WISE'"
               class="ml-1">
@@ -90,7 +91,8 @@
               <option [value]="'LEDGER-SUBCODE'">LEDGER SUMMARY SUBCODE WISE</option>
               <option [value]="'LEDGER-MAINCODE'">LEDGER SUMMARY MAINCODE WISE</option>
               <option [value]="'GSTR-2B-ITC-CLAIM-CONSOL'">GSTR-2B ITC CLAIM - CONSOLIDATED</option>
-              <option *ngIf="bapprovalrights.indexOf('{IN-ES}') >= 0||gs.globalVariables.user_code == 'ADMIN'" [value]="'COSTING-INVOICE'">COSTING INVOICE</option>
+              <option *ngIf="bapprovalrights.indexOf('{IN-ES}') >= 0||gs.globalVariables.user_code == 'ADMIN'"
+                [value]="'COSTING-INVOICE'">COSTING INVOICE</option>
             </select>
             <div *ngIf="format_type=='PURCHASE'||format_type=='PURCHASE-DETAILS'||format_type=='PURCHASE-RATE-WISE'"
               class="ml-1">
@@ -130,9 +132,9 @@
           <div class="col-sm-10">
             <!-- <app-autocomplete [disabled]="!bCompany"  #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)">
             </app-autocomplete> -->
-            <app-autocompletemulti #BrLov [disabled]="!bCompany||format_type=='GSTR-2B-ITC-CLAIM-CONSOL'" [controlname]="controlname" [tabletype]="tabletype"
-              [subtype]="subtype" [where]="where" [displaycolumn]="'NAME'" [displaydata]="displaydata"
-              (ValueChanged)="LovSelected($event)">
+            <app-autocompletemulti #BrLov [disabled]="!bCompany||format_type=='GSTR-2B-ITC-CLAIM-CONSOL'"
+              [controlname]="controlname" [tabletype]="tabletype" [subtype]="subtype" [where]="where"
+              [displaycolumn]="'NAME'" [displaydata]="displaydata" (ValueChanged)="LovSelected($event)">
             </app-autocompletemulti>
           </div>
         </div>
@@ -855,8 +857,8 @@
         </tbody>
       </table>
     </div>
-    <div *ngIf="display_format_type=='GSTR-2B-ITC-CLAIM-CONSOL'" class="page-body table-responsive fixedTableHead my-0 p-0"
-      style="height: calc(100vh - 310px);">
+    <div *ngIf="display_format_type=='GSTR-2B-ITC-CLAIM-CONSOL'"
+      class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 310px);">
       <table class="table table-hover table-sm table-bordered table-striped">
         <thead class="page-body-thead">
           <tr>
@@ -918,14 +920,52 @@
         </tbody>
       </table>
     </div>
+    <div *ngIf="display_format_type=='COSTING-INVOICE'" class="page-body table-responsive fixedTableHead my-0 p-0"
+      style="height: calc(100vh - 310px);">
+      <table class="table  table-hover table-sm table-bordered table-striped">
+        <thead class="page-body-thead">
+          <tr>
+            <th>BRANCH</th>
+            <th>VRNO</th>
+            <th>DATE</th>
+            <th>REFERENCE</th>
+            <th>PARTY</th>
+            <th>CURR</th>
+            <th class="text-right">AMOUNT</th>
+            <th class="text-right" style="white-space: nowrap;">EX-RATE</th>
+            <th class="text-right">DEBIT</th>
+            <th class="text-right">CREDIT</th>
+            <th >NARRATION</th>
+            <th>CREATED.BY</th>
+            <th>CREATED.DT</th>
+          </tr>
+        </thead>
+        <tbody class="page-body-tbody">
+          <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+            (mousedown)="selectedRowIndex=i" [style.color]="rec.row_colour">
+            <td>{{rec.branch}}</td>
+            <td style="white-space: nowrap;">{{rec.jvh_docno}}</td>
+            <td>{{rec.jvh_date}}</td>
+            <td>{{rec.jvh_reference}}</td>
+            <td>{{rec.jvh_party_name}}</td>
+            <td>{{rec.jvh_curr_code}}</td>
+            <td class="text-right">{{rec.jvh_net_famt | number : '1.2-2'}}</td>
+            <td class="text-right">{{rec.jvh_exrate | number : '1.2-2'}}</td>
+            <td class="text-right">{{rec.jvh_debit | number : '1.2-2'}}</td>
+            <td class="text-right">{{rec.jvh_credit | number : '1.2-2'}}</td>
+            <td>{{rec.jvh_narration}}</td>
+            <td>{{rec.rec_created_by}}</td>
+            <td style="white-space: nowrap;">{{rec.rec_created_date}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
 <div *ngIf="currentTab=='GSTR2B'" class="page-list p-2">
   <h5>GSTR2B Processing</h5>
-
   <div class="row">
     <div class="col-md-4">
-
       <div class="form-group row">
         <label class="col-6 col-form-label col-form-label-sm">State</label>
         <div class="col-6">

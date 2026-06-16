@@ -51,6 +51,7 @@ export class GstComponent {
   gst_only: boolean = true;
   print_new_format: boolean = true;
 
+  selectedRowIndex: number = -1;
   controlname = '';
   tabletype = '';
   subtype = '';

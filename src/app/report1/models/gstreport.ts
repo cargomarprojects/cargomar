@@ -56,6 +56,14 @@ export class GstReport {
   jvh_gst_claimed_period: number;
   jvh_gst_claimed_period_disp: string;
 
+  jvh_vrno: number;
+  jvh_debit: number;
+  jvh_credit: number;
+  jvh_narration: string;
+  jvh_curr_code: string;
+  jvh_exrate: number;
+  jvh_net_famt: number;
+
   gstr2b_List: Gstr2bDownload[] = [];
   _globalvariables: GlobalVariables;
 }
