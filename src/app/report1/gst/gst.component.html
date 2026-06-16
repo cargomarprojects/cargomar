@@ -90,6 +90,7 @@
               <option [value]="'LEDGER-SUBCODE'">LEDGER SUMMARY SUBCODE WISE</option>
               <option [value]="'LEDGER-MAINCODE'">LEDGER SUMMARY MAINCODE WISE</option>
               <option [value]="'GSTR-2B-ITC-CLAIM-CONSOL'">GSTR-2B ITC CLAIM - CONSOLIDATED</option>
+              <option *ngIf="bapprovalrights.indexOf('{IN-ES}') >= 0||gs.globalVariables.user_code == 'ADMIN'" [value]="'COSTING-INVOICE'">COSTING INVOICE</option>
             </select>
             <div *ngIf="format_type=='PURCHASE'||format_type=='PURCHASE-DETAILS'||format_type=='PURCHASE-RATE-WISE'"
               class="ml-1">
