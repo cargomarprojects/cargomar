@@ -847,8 +847,9 @@
             <th class="text-right">SGST</th>
           </tr>
         </thead>
-        <tbody class="page-body-tbody" *ngFor="let rec of RecordList2">
-          <tr>
+        <tbody class="page-body-tbody">
+          <tr *ngFor="let rec of RecordList2; let i = index" [class.active]="i == selectedRowIndex"
+            (mousedown)="selectedRowIndex=i">
             <td>{{rec.reason}}</td>
             <td align='right'>{{ rec.g_igst_amt | number : '1.2-2' }}</td>
             <td align='right'>{{ rec.g_cgst_amt | number : '1.2-2' }}</td>
@@ -889,8 +890,9 @@
             <th>CLAIMED DATE</th>
           </tr>
         </thead>
-        <tbody class="page-body-tbody" *ngFor="let rec of RecordList2; let i = index">
-          <tr [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
+        <tbody class="page-body-tbody">
+          <tr *ngFor="let rec of RecordList2; let i = index" [class.active]="i == selectedRowIndex"
+            (mousedown)="selectedRowIndex=i">
             <td>{{rec.display_claimed_period}}</td>
             <td>{{rec.claim_status}}</td>
             <td>{{rec.display_download_period}}</td>
@@ -935,7 +937,7 @@
             <th class="text-right" style="white-space: nowrap;">EX-RATE</th>
             <th class="text-right">DEBIT</th>
             <th class="text-right">CREDIT</th>
-            <th >NARRATION</th>
+            <th>NARRATION</th>
             <th>CREATED.BY</th>
             <th>CREATED.DT</th>
           </tr>
