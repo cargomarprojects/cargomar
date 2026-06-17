@@ -85,8 +85,8 @@
                     <th>CLAIMED DATE</th>
                 </tr>
             </thead>
-            <tbody class="page-body-tbody" *ngFor="let rec of mainService.state.RecordListImsr; let i = index">
-                <tr [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
+            <tbody class="page-body-tbody" >
+                <tr *ngFor="let rec of mainService.state.RecordListImsr; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
                     <td>{{rec.display_download_period}}</td>
                     <td>{{rec.reconcile_status}}</td>
                     <td>{{rec.download_source}}</td>
@@ -115,7 +115,7 @@
                     </td>
                     <td *ngIf="!canSaveStatus(rec.claim_status)">{{rec.claim_status}}</td>
                     <td>{{rec.reason}}</td>
-                    <td class="hlink" >
+                    <td  *ngIf="bSave" class="hlink" >
                         <i *ngIf="canSaveStatus(rec.claim_status)"  (click)="UpdateImsRejected(rec.pkid,rec.claim_status)" class="fa fa-pencil fa-md pointer " aria-hidden="true"></i>
                     </td>
                     <td>{{rec.claim_created_by}}</td>
