@@ -28,7 +28,8 @@
             <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
           </div>
         </div>
-        <div *ngIf="gs.globalVariables.user_code == 'GSTAUDIT'" class="form-group row">
+        <div *ngIf="gs.globalVariables.user_code == 'GSTAUDIT'||gs.globalVariables.user_code == 'AJITH'"
+          class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Type</label>
           <div class="col-10 input-group input-group-sm">
             <select class="form-control form-control-sm" [(ngModel)]="format_type" (change)="OnChange('format_type')">
@@ -59,6 +60,8 @@
                 WISE</option>
               <option *ngIf="bapprovalrights.indexOf('{20}') >= 0" [value]="'GSTR-2B-ITC-CLAIM-CONSOL'">GSTR-2B ITC
                 CLAIM - CONSOLIDATED</option>
+              <option *ngIf="bapprovalrights.indexOf('{IN-ES}') >= 0" [value]="'COSTING-INVOICE'">COSTING INVOICE
+              </option>
             </select>
             <div *ngIf="format_type=='PURCHASE'||format_type=='PURCHASE-DETAILS'||format_type=='PURCHASE-RATE-WISE'"
               class="ml-1">
@@ -67,7 +70,7 @@
             </div>
           </div>
         </div>
-        <div *ngIf="gs.globalVariables.user_code != 'GSTAUDIT'" class="form-group row">
+        <div *ngIf="gs.globalVariables.user_code != 'GSTAUDIT'&&gs.globalVariables.user_code != 'AJITH'" class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Type</label>
           <div class="col-10 input-group input-group-sm">
             <select class="form-control form-control-sm" [(ngModel)]="format_type" (change)="OnChange('format_type')">
@@ -958,7 +961,7 @@
             <td>{{rec.jvh_party_name}}</td>
             <td>{{rec.jvh_curr_code}}</td>
             <td class="text-right">{{rec.jvh_net_famt | number : '1.2-2'}}</td>
-            <td class="text-right">{{rec.jvh_exrate | number : '1.2-2'}}</td>
+            <td class="text-right">{{rec.jvh_exrate > 0 ? (rec.jvh_exrate | number:'1.2-2') : '' }}</td>
             <td class="text-right">{{rec.jvh_debit | number : '1.2-2'}}</td>
             <td class="text-right">{{rec.jvh_credit | number : '1.2-2'}}</td>
             <td>{{rec.jvh_narration}}</td>
