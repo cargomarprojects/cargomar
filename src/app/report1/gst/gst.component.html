@@ -145,8 +145,8 @@
           <label class="col-2 col-form-label col-form-label-sm"></label>
           <div class="col-10">
             <div>
-              <input *ngIf="bCompany" type="checkbox" [(ngModel)]="all" (change)="OnChange('all')" id="_chkallbr">
-              <label *ngIf="bCompany" class="col-form-label col-form-label-sm" for="_chkallbr"> All
+              <input *ngIf="bCompany&&format_type!='COSTING-INVOICE'" type="checkbox" [(ngModel)]="all" (change)="OnChange('all')" id="_chkallbr">
+              <label *ngIf="bCompany&&format_type!='COSTING-INVOICE'" class="col-form-label col-form-label-sm" for="_chkallbr"> All
                 Branch&nbsp;&nbsp;</label>
               <input *ngIf="format_type=='PURCHASE-RATE-WISE'" type="checkbox" [(ngModel)]="print_new_format"
                 id="_chknewformat">
