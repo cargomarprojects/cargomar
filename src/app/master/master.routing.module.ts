@@ -35,7 +35,7 @@ import { AirBuyRateComponent } from './airbuyrate/airbuyrate.component';
 import { ChemCatgComponent } from './chemcatg/chemcatg.component';
 import { ProcessReportComponent } from './processreport/processreport.component';
 import { YearmComponent } from './yearm/yearm.component';
-
+import { LlmDocComponent } from './llmdoc/llmdoc.component';
 
 const routes: Routes = [
     { path: 'param', component: ParamComponent },
@@ -64,6 +64,7 @@ const routes: Routes = [
     { path: 'airbuyrate', component: AirBuyRateComponent },
     { path: 'chemcatg', component: ChemCatgComponent },
     { path: 'yearm', component: YearmComponent },
+    { path: 'llmdoc', component: LlmDocComponent },
     { path: 'processreport', component: ProcessReportComponent }
 ];
 

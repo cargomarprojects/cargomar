@@ -51,6 +51,7 @@ import { CustdetConsigneeComponent } from './customer/custdetconsignee.component
 import { RitcdComponent } from './ritcm/ritcd/ritcd.component';
 import { ParamImportComponent } from './param/param-import.component';
 import { YearmComponent } from './yearm/yearm.component';
+import { LlmDocComponent } from './llmdoc/llmdoc.component';
 
 @NgModule({
   imports: [
@@ -96,7 +97,8 @@ import { YearmComponent } from './yearm/yearm.component';
     CustdetConsigneeComponent,
     RitcdComponent,
     ParamImportComponent,
-    YearmComponent
+    YearmComponent,
+    LlmDocComponent
   ],
   providers: [
   ],
