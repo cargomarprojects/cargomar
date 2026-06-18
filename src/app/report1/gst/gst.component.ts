@@ -144,6 +144,8 @@ export class GstComponent {
   Init() {
     this.branch_code = this.gs.globalVariables.branch_code;
     this.format_type = "GSTR1";
+    if (this.gs.globalVariables.user_code == 'AJITH')
+      this.format_type = "COSTING-INVOICE";
     if (this.gs.globalVariables.user_code != 'GSTAUDIT') {
       this.from_date = this.gs.defaultValues.monthbegindate;
       this.to_date = this.gs.defaultValues.today;
