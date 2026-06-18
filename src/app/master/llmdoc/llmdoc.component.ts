@@ -3,7 +3,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { LlmDoc } from '../models/llmdoc';
-import {  LlmDocService } from '../services/llmdoc.services';
+import { LlmDocService } from '../services/llmdoc.services';
 import { SearchTable } from '../../shared/models/searchtable';
 
 @Component({
@@ -30,7 +30,7 @@ export class LlmDocComponent {
 
     // Single Record for add/edit/view details
     Record: LlmDoc = new LlmDoc;
-    
+
     constructor(
         private modalService: NgbModal,
         public mainService: LlmDocService,
@@ -38,7 +38,7 @@ export class LlmDocComponent {
         private gs: GlobalService
     ) {
         this.InitLov();
-       
+
         // URL Query Parameter 
         this.sub = this.route.queryParams.subscribe(params => {
             if (params["parameter"] != "") {
@@ -90,7 +90,7 @@ export class LlmDocComponent {
     }
 
     InitLov() {
-         
+
     }
 
     LovSelected(_Record: SearchTable) {
@@ -137,7 +137,7 @@ export class LlmDocComponent {
             this.disableSave = false;
         if (this.mainService.state.mode == "EDIT" && this.menu_record.rights_edit)
             this.disableSave = false;
-       return this.disableSave;
+        return this.disableSave;
     }
 
     // Query List Data
@@ -153,6 +153,7 @@ export class LlmDocComponent {
             page_rows: this.mainService.state.page_rows,
             page_rowcount: this.mainService.state.page_rowcount,
             company_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code,
             year_code: this.gs.globalVariables.year_code,
             report_folder: this.gs.globalVariables.report_folder
         };
@@ -276,7 +277,7 @@ export class LlmDocComponent {
 
 
     OnBlur(controlname: string) {
-      
+
         if (controlname == 'ld_remarks') {
             this.Record.ld_remarks = this.Record.ld_remarks.toUpperCase();
         }
