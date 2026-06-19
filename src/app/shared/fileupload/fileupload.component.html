@@ -90,7 +90,7 @@
       <div class="form-group row">
         <label class="col-sm-1 col-form-label col-form-label-sm">File</label>
         <div class="col-sm-11">
-          <input type="file" id="customfileInput" style="width: 600px;display: none;" #fileinput
+          <input type="file" id="customfileInput" style="width: 600px;display: none;" #fileinput 
             (change)="getFileDetails($event)">
           <label for="customfileInput" class="custom-file-upload" (dragover)="onDragOver($event)"
             (dragleave)="onDragLeave($event)" (drop)="onDrop($event)" [style.background-color]="bDragged?'#45a049':''">

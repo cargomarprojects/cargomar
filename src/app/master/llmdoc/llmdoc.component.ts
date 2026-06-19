@@ -78,7 +78,7 @@ export class LlmDocComponent {
                 this.bExcel = true;
         }
         this.LoadCombo();
-        // this.List("NEW");
+        //this.List("NEW");
     }
 
     // Destroy Will be called when this component is closed
@@ -230,6 +230,9 @@ export class LlmDocComponent {
         this.mainService.Save(this.Record)
             .subscribe(response => {
                 this.loading = false;
+                if (this.mainService.state.mode == 'ADD') {
+                    this.Record.ld_slno = response.slno;
+                }
                 this.mainService.state.ErrorMessage = "Save Complete";
                 this.mainService.state.mode = 'EDIT';
                 this.Record.rec_mode = this.mainService.state.mode;

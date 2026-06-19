@@ -6,6 +6,8 @@ export class LlmDoc {
     ld_pkid: string;
     ld_slno: string;
     ld_remarks: string;
+    rec_created_by: string;
+    rec_created_date: string;
 
     rec_mode: string;
     rec_branch_code: string;
