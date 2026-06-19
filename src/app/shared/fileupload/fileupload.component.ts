@@ -23,6 +23,7 @@ export class FileUploadComponent {
   @Input() public uploadfilesize: number = 0;
   @Input() public uploadfiletype: string = '';
   @Input() public showcheckbox: boolean = false;
+  @Input() public permanentdelete: string = 'N';
 
   public QrData: string = null;
   qrJson = {
@@ -433,7 +434,10 @@ export class FileUploadComponent {
       pkid: event.id,
       type: this.type,
       parentid: this.pkid,
-      user_code: this.gs.globalVariables.user_code
+      user_code: this.gs.globalVariables.user_code,
+      root_folder: this.gs.defaultValues.root_folder,
+      sub_folder: this.gs.defaultValues.sub_folder,
+      permanentdelete: this.permanentdelete
     };
 
     this.ErrorMessage = '';
@@ -626,7 +630,10 @@ export class FileUploadComponent {
       pkid: id,
       type: this.type,
       parentid: this.pkid,
-      user_code: this.gs.globalVariables.user_code
+      user_code: this.gs.globalVariables.user_code,
+      root_folder: this.gs.defaultValues.root_folder,
+      sub_folder: this.gs.defaultValues.sub_folder,
+      permanentdelete: this.permanentdelete
     };
 
     this.ErrorMessage = '';
