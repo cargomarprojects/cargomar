@@ -172,6 +172,7 @@ export class BenfComponent {
         this.Record.ben_pin = '';
         this.Record.ben_ifsc = '';
         this.Record.ben_bank_name = '';
+        this.Record.ben_bank_branch = '';
         if (this.gs.defaultValues.branch_accounts_email == undefined || this.gs.defaultValues.branch_accounts_email == null)
             this.Record.ben_email1 = this.getBrAccEmail();
         else
@@ -205,7 +206,7 @@ export class BenfComponent {
             str = "hoacc@cargomar.in";
         else if (this.gs.globalVariables.branch_code == "ABDSF")
             str = "ahmgen@cargomar.in";
-        else if (this.gs.globalVariables.branch_code == "COKSF")
+        else if (this.gs.globalVariables.branch_code == "COKSF" || this.gs.globalVariables.branch_code == "COKPR")
             str = "kochiacc@cargomar.in";
         else if (this.gs.globalVariables.branch_code == "TUTSF")
             str = "tutiacc@cargomar.in";
@@ -325,6 +326,7 @@ export class BenfComponent {
             REC.ben_acc_no = this.Record.ben_acc_no;
             REC.ben_acc_type = this.Record.ben_acc_type;
             REC.ben_bank_name = this.Record.ben_bank_name;
+            REC.ben_bank_branch = this.Record.ben_bank_branch;
             REC.ben_ifsc = this.Record.ben_ifsc;
             REC.ben_email1 = this.Record.ben_email1;
             REC.ben_mob = this.Record.ben_mob;
@@ -426,7 +428,12 @@ export class BenfComponent {
                     this.Record.ben_bank_name = this.Record.ben_bank_name.toUpperCase();
                     break;
                 }
-                case 'searchstring':
+            case 'ben_bank_branch':
+                {
+                    this.Record.ben_bank_branch = this.Record.ben_bank_branch.toUpperCase();
+                    break;
+                }
+            case 'searchstring':
                 {
                     this.searchstring = this.searchstring.toUpperCase();
                     break;
