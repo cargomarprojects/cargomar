@@ -48,6 +48,7 @@ export class MtReportComponent {
   jv_id: string = "";
   all: boolean = false;
   selectedRowIndex = 0;
+  mtformat: string = "IOB";
 
   SearchData = {
     type: '',
@@ -247,9 +248,10 @@ export class MtReportComponent {
     this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
   }
 
-  ShowMoneyTransfer(moneytransfer: any, _jvid: string = "") {
+  ShowMoneyTransfer(moneytransfer: any, _jvid: string = "", _mtformat: string = "") {
     this.ErrorMessage = '';
     this.jv_id = _jvid;
+    this.mtformat = _mtformat;
     this.open(moneytransfer);
   }
 

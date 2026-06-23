@@ -20,6 +20,7 @@ export class MoneyTransferComponent {
   @Input() menuid: string = '';
   @Input() type: string = '';
   @Input() jvid: string = '';
+  @Input() mtformat: string = 'IOB';
 
   InitCompleted: boolean = false;
   menu_record: any;
@@ -172,6 +173,7 @@ export class MoneyTransferComponent {
         this.Record.mt_ben_pin = "";
         this.Record.mt_ben_ifsc = "";
         this.Record.mt_ben_bank_name = "";
+        this.Record.mt_ben_bank_branch = "";
         this.Record.mt_ben_email1 = "";
         this.Record.mt_ben_email2 = "";
         this.Record.mt_ben_mob = "";
@@ -331,8 +333,30 @@ export class MoneyTransferComponent {
       bret = false;
       sError += " | Amount Cannot Be Blank";
     }
-    if (!bret)
+
+    if (this.mtformat == "HDFC") {
+
+      if (this.Record.mt_ben_email1.trim().length <= 0) {
+        bret = false;
+        sError += " | Email Cannot Be Blank";
+      }
+
+      if (this.Record.mt_ben_bank_branch.trim().length <= 0) {
+        bret = false;
+        sError += " | Bank Branch Name Cannot Be Blank";
+      }
+
+      if (this.Record.mt_remarks.trim().length <= 0) {
+        bret = false;
+        sError += " | Please update Customer Reference details in Remarks/SenderInfo";
+      }
+    }
+
+    if (!bret) {
       this.ErrorMessage = sError;
+      alert(this.ErrorMessage);
+    }
+
     return bret;
   }
 
@@ -416,6 +440,7 @@ export class MoneyTransferComponent {
           this.Record.mt_ben_pin = "";
           this.Record.mt_ben_ifsc = "";
           this.Record.mt_ben_bank_name = "";
+          this.Record.mt_ben_bank_branch = "";
           this.Record.mt_ben_email1 = "";
           this.Record.mt_ben_email2 = "";
           this.Record.mt_ben_mob = "";
@@ -437,6 +462,7 @@ export class MoneyTransferComponent {
             this.Record.mt_ben_pin = response.beneficiary[0].ben_pin;
             this.Record.mt_ben_ifsc = response.beneficiary[0].ben_ifsc;
             this.Record.mt_ben_bank_name = response.beneficiary[0].ben_bank_name;
+            this.Record.mt_ben_bank_branch = response.beneficiary[0].ben_bank_branch;
             this.Record.mt_ben_email1 = response.beneficiary[0].ben_email1;
             this.Record.mt_ben_email2 = response.beneficiary[0].ben_email2;
             this.Record.mt_ben_mob = response.beneficiary[0].ben_mob;

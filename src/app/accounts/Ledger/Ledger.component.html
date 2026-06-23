@@ -931,7 +931,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-moneytransfer [type]="type" [menuid]="''" [jvid]="this.Recorddet.jv_pkid"
+    <app-moneytransfer [type]="type" [menuid]="''" [jvid]="this.Recorddet.jv_pkid" [mtformat]="getMtFormat(Recorddet.jv_acc_name)"
       (ModifiedRecords)="ModifiedRecords($event)"></app-moneytransfer>
   </div>
 </ng-template>

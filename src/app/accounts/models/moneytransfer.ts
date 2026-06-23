@@ -65,11 +65,12 @@ export class MoneyTransfer {
     mt_jv_drcr: string;
     mt_category: string;
 
-    mt_ho_jvh_pkid : string ;
-    mt_ho_jvh_docno : string ;
-    mt_ho_jv_pkid : string ;
-    mt_parent_docno: string ;
-    
+    mt_ho_jvh_pkid: string;
+    mt_ho_jvh_docno: string;
+    mt_ho_jv_pkid: string;
+    mt_parent_docno: string;
+    mt_ben_bank_branch: string;
+
     rec_mode: string;
     rec_created_by: string;
 

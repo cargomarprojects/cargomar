@@ -1720,7 +1720,7 @@ export class LedgerComponent {
     if (this.type == "JV") {
       if (this.Recorddet.jv_drcr == "CR") {
         if (this.Recorddet.jv_acc_type_name == 'DIRECT INCOME' || this.Recorddet.jv_acc_type_name == 'DIRECT EXPENSE') {
-          if (this.Recorddet.jv_acc_main_code != '1108'&&this.Recorddet.jv_acc_code != 'P&LBR') {
+          if (this.Recorddet.jv_acc_main_code != '1108' && this.Recorddet.jv_acc_code != 'P&LBR') {
             this.ErrorMessage = 'Direct Income/Expense not allowed';
             alert(this.ErrorMessage);
             return;
@@ -3116,5 +3116,25 @@ export class LedgerComponent {
       }
     });
     return _amt;
+  }
+
+  getMtFormat(_bankName: string) {
+    let _mtformat: string = 'IOB';
+    if (!this.gs.isBlank(_bankName)) {
+      _bankName = _bankName.toString().toUpperCase().replace(/ /g, "");
+      if (_bankName.startsWith("INDIANOVERSEASBANK")) {
+        _mtformat = "IOB";
+      }
+      else if (_bankName.startsWith("AXISBANK")) {
+        _mtformat = "AXIS";
+      }
+      else if (_bankName.startsWith("HDFC")) {
+        _mtformat = "HDFC";
+      }
+      else {
+        _mtformat = _bankName;
+      }
+    }
+    return _mtformat;
   }
 }
