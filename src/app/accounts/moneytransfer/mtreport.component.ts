@@ -371,7 +371,7 @@ export class MtReportComponent {
         //   alert(this.InfoMessage);
         // }
 
-        if (response.bank === 'IOB') {
+        if (response.bank === 'IOB' || response.bank === 'HDFC') {
           for (let rec of response.filelist) {
             this.Downloadfile(rec.filename, rec.filetype, rec.filedisplayname);
           }
