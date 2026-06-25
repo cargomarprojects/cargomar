@@ -215,11 +215,11 @@ export class ReconComponent {
     }
 
     if (_type === 'OD') {
-
-      if (this.ACCRECORD.id.length <= 0 && this.searchstring.length <= 0) {
-        this.ErrorMessage = 'A/c code Cannot Be Blank';
+      if (this.searchstring.length <= 0) {
+        this.ErrorMessage = 'Please enter A/c Code in search box. To search multiple bank codes use comma.';
         return;
       }
+      this.InitLov();
     } else {
 
       if (this.ACCRECORD.id.length <= 0) {
