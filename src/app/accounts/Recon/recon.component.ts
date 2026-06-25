@@ -213,11 +213,20 @@ export class ReconComponent {
       this.ErrorMessage = 'To Date Cannot Be Blank';
       return;
     }
-    if (this.ACCRECORD.id.length <= 0) {
-      this.ErrorMessage = 'A/c code Cannot Be Blank';
-      return;
-    }
 
+    if (_type === 'OD') {
+
+      if (this.ACCRECORD.id.length <= 0 && this.searchstring.length <= 0) {
+        this.ErrorMessage = 'A/c code Cannot Be Blank';
+        return;
+      }
+    } else {
+
+      if (this.ACCRECORD.id.length <= 0) {
+        this.ErrorMessage = 'A/c code Cannot Be Blank';
+        return;
+      }
+    }
     this.SearchData.user_code = "";
     if (_type == "EXCEL2") {
       _type = "EXCEL";
