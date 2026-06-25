@@ -336,7 +336,7 @@ export class MoneyTransferComponent {
 
     if (this.mtformat == "HDFC") {
 
-      if (this.Record.mt_ben_email1.trim().length <= 0) {
+      if (this.Record.mt_ben_email1.trim().length <= 0 && this.Record.mt_ben_email2.trim().length <= 0) {
         bret = false;
         sError += " | Email Cannot Be Blank";
       }
@@ -346,7 +346,7 @@ export class MoneyTransferComponent {
         sError += " | Bank Branch Name Cannot Be Blank";
       }
 
-      if (this.Record.mt_remarks.trim().length <= 0) {
+      if (this.Record.mt_remarks.trim().length <= 0 && (this.Record.mt_txn_mode == 'N' || this.Record.mt_txn_mode == 'I')) {
         bret = false;
         sError += " | Please update Customer Reference details in Remarks/SenderInfo";
       }

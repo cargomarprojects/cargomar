@@ -173,6 +173,7 @@ export class MtReportComponent {
 
   // // Query List Data
   List(_type: string) {
+
     this.tot_amt = 0;
     this.selected_tot_amt = 0;
     this.ErrorMessage = '';
@@ -195,6 +196,7 @@ export class MtReportComponent {
     this.SearchData.to_date = this.todate;
 
     this.ErrorMessage = '';
+    this.InfoMessage = '';
     this.mainService.MtReport(this.SearchData)
       .subscribe(response => {
         this.loading = false;
