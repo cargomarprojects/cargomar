@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, ViewChild, ElementRef, EventEmitter, OnChanges, SimpleChange } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, ViewChild, ElementRef, EventEmitter, OnChanges, SimpleChange } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { SearchTable } from '../models/searchtable';
@@ -23,6 +23,12 @@ import { GlobalService } from '../../core/services/global.service';
                 z-index: 2000;
                 background: #fff;
                 display: block;
+            }
+           /* floatdrop: render the list as a viewport-anchored overlay so it escapes any
+               clipping/overflow ancestor (e.g. a scrolling table) and shows above all controls */
+            .my-class.my-class-float {
+                position: fixed;
+                z-index: 4000;
             }
     `
   ]
@@ -98,8 +104,18 @@ export class AutoComplete3Component {
   @Input() disabled: boolean = false;
   @Input() flag: string = 'NA';
   @Input() locked: string = 'N';
+
+  // opt-in: when true the dropdown is rendered as a fixed overlay anchored to the input,
+  // so it isn't clipped by a scrolling/overflow container (e.g. the quotation grid)
+  @Input() floatdrop: boolean = false;
+  dropStyle: any = {};
+
+
   //@ViewChild('inputbox', { static: true }) private inputbox: ElementRef;
   @ViewChild('inputbox') private inputbox: ElementRef;
+  @ViewChild('dropdown') private dropdown: ElementRef;
+  private movedToBody = false;
+
 
   rows_to_display: number = 0;
   rows_total: number = 0;
@@ -218,6 +234,7 @@ export class AutoComplete3Component {
           this.showDiv = false;
         }
         else {
+          this.setDropPosition();
           this.showDiv = true;
         }
       },
@@ -333,6 +350,31 @@ export class AutoComplete3Component {
       this.SelectedItem('', null);
     }
     this.showDiv = false;
+  }
+
+
+  // anchor the fixed overlay to the input's current screen position, and portal it to
+  // <body> so it isn't trapped inside the table's stacking context (where later sticky
+  // rows would otherwise paint on top of it)
+  setDropPosition() {
+    if (!this.floatdrop || !this.inputbox) return;
+    let r = this.inputbox.nativeElement.getBoundingClientRect();
+    this.dropStyle = {
+      'top': r.bottom + 'px',
+      'left': r.left + 'px',
+      'min-width': Math.max(r.width, 300) + 'px'
+    };
+    if (this.dropdown && !this.movedToBody) {
+      document.body.appendChild(this.dropdown.nativeElement);
+      this.movedToBody = true;
+    }
+  }
+
+  ngOnDestroy() {
+    // remove the portalled dropdown from <body> to avoid a leftover node
+    if (this.movedToBody && this.dropdown && this.dropdown.nativeElement.parentNode) {
+      this.dropdown.nativeElement.parentNode.removeChild(this.dropdown.nativeElement);
+    }
   }
 
 

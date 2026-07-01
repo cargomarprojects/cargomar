@@ -1,0 +1,261 @@
+/* TABULAR-QTN: component-scoped CSS (PRD §7a) for the config-panel chips + grid.
+   Light theme matching the app (steelblue headers, #007ee9 accent like styles.css);
+   scoped to this component so no other screen is affected. */
+
+/* smaller, denser type for this screen only so the wide grid fits */
+:host {
+  font-size: 0.8rem;
+  display: block;
+}
+
+:host .form-control-sm {
+  font-size: 0.78rem;
+  padding: 1px 4px;
+  height: auto;
+}
+
+:host .btn-sm {
+  font-size: 0.78rem;
+}
+
+:host .col-form-label-sm {
+  font-size: 0.78rem;
+}
+
+/* config panel: one row per kind — icon+label | inline chips | + Add link */
+.tab-cfg-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 1px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.tab-cfg-label {
+  width: 130px;
+  min-width: 130px;
+  font-weight: 600;
+  color: #444;
+  font-size: 0.68rem;
+}
+
+.tab-cfg-label .fa {
+  color: #888;
+  margin-right: 6px;
+}
+
+.tab-cfg-items {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.tab-chip {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #ccd2da;
+  border-radius: 14px;
+  padding: 0 8px;
+  margin: 2px 5px 2px 0;
+  background: #fff;
+  font-size: 0.68rem;
+  line-height: 1.4;
+  max-width: 220px;
+}
+
+.tab-chip .tab-chip-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tab-chip .fa-times {
+  color: #d9534f;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.tab-chip.tab-sel {
+  border-color: #007ee9;
+  box-shadow: 0 0 0 1px #007ee9 inset;
+}
+
+.tab-add {
+  color: #007ee9;
+  cursor: pointer;
+  font-weight: 600;
+  white-space: nowrap;
+  margin-left: 4px;
+  font-size: 0.68rem;
+}
+
+.tab-add .fa {
+  margin-right: 3px;
+}
+
+.tab-add-box {
+  min-width: 220px;
+  margin: 3px 0;
+}
+
+/* grid — size to its columns, don't stretch to full width.
+   Background matches the page background (#F8F8F8) so the grid blends with the page. */
+table.tab-grid {
+  width: auto;
+  max-width: none;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #F8F8F8;
+}
+
+.tab-grid td,
+.tab-grid th {
+  white-space: nowrap;
+  border: 1px solid #d6d6d6;
+  padding: 2px 4px;
+}
+
+.tab-code-col {
+  position: sticky;
+  left: 0;
+  min-width: 170px;
+  max-width: 170px;
+  z-index: 2;
+  background: #F8F8F8;
+  text-align: left;
+  font-weight: 600;
+}
+
+/* lift the cell (and its code-picker dropdown) above all other rows/controls while editing.
+   :focus-within keeps it lifted the whole time focus is inside the cell (input / "..." button /
+   dropdown links), avoiding the race where the blur-timeout drops the z-index while the list is open. */
+.tab-code-col.tab-code-top,
+.tab-code-col:focus-within {
+  z-index: 1500;
+}
+
+.tab-desc-col {
+  position: sticky;
+  left: 170px;
+  min-width: 240px;
+  max-width: 240px;
+  z-index: 2;
+  background: #F8F8F8;
+  text-align: left;
+  white-space: normal;
+}
+
+.tab-grid thead .tab-code-col,
+.tab-grid thead .tab-desc-col {
+  z-index: 3;
+  background: #F8F8F8;
+}
+
+/* carrier header: width is governed only by the fixed leaf columns; the name is an
+   absolutely-positioned overlay so a long name can't widen the group — it just clips */
+.tab-carrier-head {
+  position: relative;
+  height: 1.6rem;
+  padding: 0;
+  background: steelblue;
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+  overflow: hidden;
+}
+
+.tab-carrier-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+}
+
+.tab-carrier-name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.tab-cntr-head {
+  background: #eef1f4;
+  color: #2e7d32;
+  text-align: center;
+  font-weight: 600;
+}
+
+.tab-curr-head {
+  background: #f6f8fa;
+  text-align: center;
+  color: #007ee9;
+}
+
+/* fixed-width leaf columns (currency header + amount cells) so every carrier group is the same width */
+.tab-curr-head,
+.tab-amt-col {
+  width: 80px;
+  min-width: 80px;
+  max-width: 80px;
+}
+
+.tab-cell-input {
+  width: 72px;
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* hide the number-input up/down spinner buttons */
+.tab-cell-input::-webkit-outer-spin-button,
+.tab-cell-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Description: single line normally, expands to multi-line on focus */
+.tab-desc-input {
+  height: 1.7rem;
+  min-height: 1.7rem;
+  resize: none;
+  overflow: hidden;
+}
+
+.tab-desc-input:focus {
+  height: 4.5rem;
+  overflow-y: auto;
+}
+
+/* alternating vertical band per carrier group */
+.tab-grid td.tab-grp-alt,
+.tab-grid th.tab-grp-alt {
+  background: #eef3f9;
+}
+
+/* vertical separator line at the start of each carrier group */
+.tab-grid td.tab-carrier-start,
+.tab-grid th.tab-carrier-start {
+  border-left: 1px solid #ff6d00;
+}
+
+/* lighter separator at the start of each container group (begins below the container-type row) */
+.tab-grid td.tab-cntr-start,
+.tab-grid th.tab-cntr-start {
+  border-left: 1px solid #66bb6a;
+}
+
+.tab-total-row td {
+  background: #f6f8fa;
+  font-weight: 700;
+}
+
+.tab-dash {
+  color: #aaa;
+}

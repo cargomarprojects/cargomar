@@ -10,27 +10,29 @@ import { QuotationComponent } from './quotation/quotation.component';
 import { QuotationAirComponent } from './quotation/quotation-air.component';
 import { BizDevtReportComponent } from './marketing/bizdevtreport.component';
 import { QuotationFclComponent } from './quotation/quotation-fcl.component';
+import { QuotationTabularComponent } from './quotation/quotation-tabular/quotation-tabular.component';
 
 const routes: Routes = [
-    { path: 'markcontacts', component: ContactsComponent },
-    { path: 'markmarketing', component: MarketingComponent },
-    { path: 'markvisitrpt', component: VisitReportComponent },
-    { path: 'marksaleslead', component: SalesleadComponent },
-    { path: 'marksalesvolume', component: SalesVolumeComponent },
-    { path: 'quotation', component: QuotationComponent },
-    { path: 'newcustomer', component: NewCustComponent },
-    { path: 'quotationair', component: QuotationAirComponent },
-    { path: 'quotationfcl', component: QuotationFclComponent },
-    { path: 'bizdevtreport', component: BizDevtReportComponent }
+  { path: 'markcontacts', component: ContactsComponent },
+  { path: 'markmarketing', component: MarketingComponent },
+  { path: 'markvisitrpt', component: VisitReportComponent },
+  { path: 'marksaleslead', component: SalesleadComponent },
+  { path: 'marksalesvolume', component: SalesVolumeComponent },
+  { path: 'quotation', component: QuotationComponent },
+  { path: 'newcustomer', component: NewCustComponent },
+  { path: 'quotationair', component: QuotationAirComponent },
+  { path: 'quotationfcl', component: QuotationFclComponent },
+  { path: 'quotationtabular', component: QuotationTabularComponent }, //
+  { path: 'bizdevtreport', component: BizDevtReportComponent }
 ];
 
 @NgModule({
-    imports: [
-        RouterModule.forChild(routes)
-    ],
-    exports: [
-        RouterModule
-    ]
+  imports: [
+    RouterModule.forChild(routes)
+  ],
+  exports: [
+    RouterModule
+  ]
 })
 export class MarketingRoutingModule {
 }
