@@ -1,8 +1,8 @@
 <div class="input-group input-group-sm">
-  <input [disabled]="disabled"  type="text" class="form-control" (focus)="onfocus()" (blur)="onBlur()" [(ngModel)]="displaydata" aria-describedby="basic-addon1" #inputbox/>
-  <span class="input-group-btn" id="basic-addon1">
-    <button [disabled]="showDiv || disabled" class="btn btn-default btn-sm" (click)="List()" type="button">...</button>
-  </span>
+  <input [disabled]="disabled" type="text" class="form-control form-control-sm" (focus)="onfocus()" (blur)="onBlur()"
+    [(ngModel)]="displaydata" #inputbox style="max-height:27px !important" />
+  <button [disabled]="showDiv || disabled" [ngStyle]="setMyStyles()" class="btn btn-default btn-sm" (click)="List()"
+    type="button">...</button>
 </div>
 
 <div [ngClass]="{'my-class': showDiv}">

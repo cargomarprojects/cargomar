@@ -144,8 +144,8 @@ tr.selected {
 }
 
 .makebold {
- font-weight: bold;
- color: chocolate;
+  font-weight: bold;
+  color: chocolate;
 }
 
 
@@ -797,6 +797,8 @@ a {
   padding-top: 2px !important;
   padding-bottom: 2px !important;
 }
+
+
 
 
 
