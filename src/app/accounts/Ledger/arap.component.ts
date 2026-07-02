@@ -1499,6 +1499,7 @@ export class ArApComponent {
     this.Recorddet.jv_acc_id = '';
     this.Recorddet.jv_acc_code = '';
     this.Recorddet.jv_acc_name = '';
+    this.Recorddet.jv_acc_main_code = '';
     this.Recorddet.jv_acc_type_name = '';
 
     this.Recorddet.jv_curr_id = this.Record.jvh_curr_id;
@@ -1586,6 +1587,7 @@ export class ArApComponent {
     this.Recorddet.jv_acc_id = _Record.jv_acc_id;
     this.Recorddet.jv_acc_code = _Record.jv_acc_code;
     this.Recorddet.jv_acc_name = _Record.jv_acc_name;
+    this.Recorddet.jv_acc_main_code = _Record.jv_acc_main_code;
     this.Recorddet.jv_acc_type_name = _Record.jv_acc_type_name;
 
     this.Recorddet.jv_acc_against_invoice = _Record.jv_acc_against_invoice;
@@ -1742,10 +1744,11 @@ export class ArApComponent {
       return;
     }
 
-    if (!this.gs.IsBranchWiseCodeOK(this.gs.globalVariables.branch_type, this.Recorddet.jv_acc_code, this.Recorddet.jv_acc_main_code)) {
-      this.ErrorMessage = 'Invalid Sea/Air Code';
-      return;
-    }
+    // disabled for time being. if anyone requests we can provide
+    // if (!this.gs.IsBranchWiseCodeOK(this.gs.globalVariables.branch_type, this.Recorddet.jv_acc_code, this.Recorddet.jv_acc_main_code)) {
+    //   this.ErrorMessage = 'Invalid Sea/Air Code';
+    //   return;
+    // }
 
 
     if (this.Recorddet.jv_drcr == 'CR') {
@@ -1831,11 +1834,17 @@ export class ArApComponent {
           if (rec.ct_cost_name == 'Invalid Cost Center Code') {
             this.ErrorMessage = 'Cost Center Not Allocated';
           }
+          // newly added to check cost center mismatches
+          if (this.gs.IsMainCodeAndCostCenterOK(this.Recorddet.jv_acc_main_code, rec.ct_category) != "") {
+            this.ErrorMessage = 'selected cost center ' + rec.ct_category + ' cannot be used with this a/c code';
+          }
         });
       }
     }
 
+
     if (this.ErrorMessage != '') {
+
       return;
     }
 
@@ -1928,6 +1937,9 @@ export class ArApComponent {
     }
 
 
+
+
+
     this.Recorddet.jv_qty = this.Recorddet.jv_qty;
     this.Recorddet.jv_rate = this.Recorddet.jv_rate;
 
@@ -1955,6 +1967,7 @@ export class ArApComponent {
       REC.jv_acc_id = this.Recorddet.jv_acc_id;
       REC.jv_acc_code = this.Recorddet.jv_acc_code;
       REC.jv_acc_name = this.Recorddet.jv_acc_name;
+      REC.jv_acc_main_code = this.Recorddet.jv_acc_main_code;
       REC.jv_acc_type_name = this.Recorddet.jv_acc_type_name;
 
       REC.jv_acc_against_invoice = this.Recorddet.jv_acc_against_invoice;   // Against Invoice

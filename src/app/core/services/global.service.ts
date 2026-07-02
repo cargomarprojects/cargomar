@@ -846,18 +846,18 @@ export class GlobalService {
     return roundedTempNumber / factor;
   };
 
-  public IsBranchWiseCodeOK(Branch_Type: string, accode: string, maincode: string): Boolean {
+  public IsBranchWiseCodeOK(Branch_Type: string, accode: string, maincode: string): oolean {
     let bRet: boolean = true;
     let codetype: string = '';
     if (accode != maincode) {
 
-      if (maincode == '1101' || maincode == '1102' || maincode == '1103' || maincode == '1104' || maincode == '1105' || maincode == '1106' || maincode == '1107')
+      if (maincode == '1101' || maincode == '1102' || maincode == '1103' || maincode == '1104' || maincode == '1105' || maincode == '1106' || maincode == '1107' || maincode == '1108')
         codetype = 'SEA';
-      if (maincode == '1301' || maincode == '1302' || maincode == '1303' || maincode == '1304' || maincode == '1305' || maincode == '1306' || maincode == '1307')
+      if (maincode == '1301' || maincode == '1302' || maincode == '1303' || maincode == '1304' || maincode == '1305' || maincode == '1306' || maincode == '1307' || maincode == '1308')
         codetype = 'SEA';
-      if (maincode == '1201' || maincode == '1202' || maincode == '1203' || maincode == '1204' || maincode == '1205')
+      if (maincode == '1201' || maincode == '1202' || maincode == '1203' || maincode == '1204' || maincode == '1205' || maincode == '1208')
         codetype = 'AIR';
-      if (maincode == '1401' || maincode == '1402' || maincode == '1403' || maincode == '1404' || maincode == '1405')
+      if (maincode == '1401' || maincode == '1402' || maincode == '1403' || maincode == '1404' || maincode == '1405' || maincode == '1408')
         codetype = 'AIR';
       if (Branch_Type == "BOTH") {
         codetype = 'BOTH';
@@ -869,6 +869,32 @@ export class GlobalService {
       }
     }
     return bRet;
+  }
+
+
+  public IsMainCodeAndCostCenterOK(maincode: string, category: string): string {
+    let bRet: boolean = true;
+    if (maincode == '1101' || maincode == '1102' || maincode == '1103' || maincode == '1104' || maincode == '1105' || maincode == '1106' || maincode == '1107' || maincode == '1108') {
+      if (category != "CNTR SEA EXPORT" && category != 'JOB SEA EXPORT' && category != "SI SEA EXPORT") {
+        bRet = false;
+      }
+    }
+    if (maincode == '1301' || maincode == '1302' || maincode == '1303' || maincode == '1304' || maincode == '1305' || maincode == '1306' || maincode == '1307' || maincode == '1308') {
+      if (category != 'JOB SEA IMPORT' && category != "SI SEA IMPORT") {
+        bRet = false;
+      }
+    }
+    if (maincode == '1201' || maincode == '1202' || maincode == '1203' || maincode == '1204' || maincode == '1205' || maincode == '1208') {
+      if (category != 'JOB AIR EXPORT' && category != "SI AIR EXPORT") {
+        bRet = false;
+      }
+    }
+    if (maincode == '1401' || maincode == '1402' || maincode == '1403' || maincode == '1404' || maincode == '1405' || maincode == '1408') {
+      if (category != 'JOB AIR IMPORT' && category != "SI AIR IMPORT") {
+        bRet = false;
+      }
+    }
+    return bRet ? "" : category;
   }
 
 
