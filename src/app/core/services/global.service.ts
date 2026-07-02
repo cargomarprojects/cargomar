@@ -846,7 +846,7 @@ export class GlobalService {
     return roundedTempNumber / factor;
   };
 
-  public IsBranchWiseCodeOK(Branch_Type: string, accode: string, maincode: string): oolean {
+  public IsBranchWiseCodeOK(Branch_Type: string, accode: string, maincode: string): boolean {
     let bRet: boolean = true;
     let codetype: string = '';
     if (accode != maincode) {
