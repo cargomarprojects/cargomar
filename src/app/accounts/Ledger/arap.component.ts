@@ -1835,8 +1835,10 @@ export class ArApComponent {
             this.ErrorMessage = 'Cost Center Not Allocated';
           }
           // newly added to check cost center mismatches
-          if (this.gs.IsMainCodeAndCostCenterOK(this.Recorddet.jv_acc_main_code, rec.ct_category) != "") {
-            this.ErrorMessage = 'selected cost center ' + rec.ct_category + ' cannot be used with this a/c code';
+          if (this.Record.jvh_cc_category == 'NA') {
+            if (this.gs.IsMainCodeAndCostCenterOK(this.Recorddet.jv_acc_main_code, rec.ct_category) != "") {
+              this.ErrorMessage = 'selected cost center ' + rec.ct_category + ' cannot be used with this a/c code';
+            }
           }
         });
       }
