@@ -894,6 +894,8 @@ export class GlobalService {
         bRet = false;
       }
     }
+    if (category == "GENERAL JOB")
+      bRet = true;
     return bRet ? "" : category;
   }
 
