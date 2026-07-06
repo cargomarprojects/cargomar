@@ -208,7 +208,12 @@ export class ParamComponent {
       this.id2 = "Aadhaar Linked";
       this.id3 = "Active Status";
       this.dateCaption = "DOI";
+      this.name_length = 200;
       this.showDocs = true;
+    }
+
+    if (this.type == 'TAN') {
+      this.name_length = 200;
     }
 
     if (this.type == 'CONTAINER TYPE') {
