@@ -144,8 +144,6 @@ export class OsRepComponent {
       this.InitComponent();
     }
 
-
-
   }
 
   InitComponent() {
@@ -153,6 +151,7 @@ export class OsRepComponent {
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record)
       this.title = this.menu_record.menu_name;
+
 
 
   }

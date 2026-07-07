@@ -10,24 +10,16 @@
             <button class="btn btn-primary btn-sm" (click)="List('SCREEN','PARTYLIST')">Party Wise</button>
             <button class="btn btn-primary btn-sm" (click)="List('SCREEN','LEGAL')">Legal</button>
             <button class="btn btn-primary btn-sm" (click)="List('EXCEL','EXCEL')">Excel</button>
-            <!-- <button class="btn btn-primary btn-sm" (click)="Mail('OS-ALL',mailsent)"
-              *ngIf="gs.globalVariables.user_code == 'ADMIN'">Mail/All</button>
-            <button class="btn btn-primary btn-sm" (click)="Mail('OS-DELHI',mailsent)"
-              *ngIf="gs.globalVariables.user_code == 'ADMIN'">Mail/Delhi</button>
-              <button class="btn btn-primary btn-sm" (click)="Mail('OS-HISTORY',mailsent)"
-              *ngIf="gs.globalVariables.user_code == 'ADMIN'">Mail/History</button>
-              <button class="btn btn-primary btn-sm" (click)="Mail('OS-INVOICE',mailsent)"
-              *ngIf="gs.globalVariables.user_code == 'ADMIN'">Mail/Invoice</button> -->
             <button class="btn btn-primary btn-sm" (click)="Mail('OS-SALESMAN-ALL',mailsent)"
-              *ngIf="gs.globalVariables.user_code == 'ADMIN' || gs.globalVariables.user_code == 'NAIK'">Mail/Salesman</button>
+              *ngIf="gs.globalVariables.comp_code =='CPL' && (gs.globalVariables.user_code == 'ADMIN' || gs.globalVariables.user_code == 'NAIK')">Mail/Salesman</button>
             <button class="btn btn-primary btn-sm" (click)="OsBranchMail()"
-              *ngIf="gs.globalVariables.user_code == 'ADMIN' || gs.globalVariables.user_code == 'NAIK'">Mail/Branch</button>
+              *ngIf="gs.globalVariables.comp_code =='CPL' && (gs.globalVariables.user_code == 'ADMIN' || gs.globalVariables.user_code == 'NAIK')">Mail/Branch</button>
             <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
             <i *ngIf="loading" class="fa fa-spinner"></i>
           </div>
           <div class="col-sm-4">
             <app-allreport [reportname]="title" [canrefresh]="canRefresh" [company_code]="gs.globalVariables.comp_code"
-              [branch_code]='' [view_name]="'os'"></app-allreport>
+              [branch_code]='' [view_name]="gs.globalVariables.comp_code =='SGT'?'ossgt':'os'"></app-allreport>
           </div>
         </div>
         <div *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="form-group row">
@@ -35,11 +27,11 @@
             <button class="btn btn-primary btn-sm" (click)="Mail('OS-ALL',mailsent)"
               *ngIf="gs.globalVariables.user_code == 'ADMIN'">Mail/All</button>
             <button class="btn btn-primary btn-sm" (click)="Mail('OS-DELHI',mailsent)"
-              *ngIf="gs.globalVariables.user_code == 'ADMIN'">Mail/Delhi</button>
+              *ngIf="gs.globalVariables.comp_code =='CPL' && gs.globalVariables.user_code == 'ADMIN'">Mail/Delhi</button>
             <button class="btn btn-primary btn-sm" (click)="Mail('OS-HISTORY',mailsent)"
-              *ngIf="gs.globalVariables.user_code == 'ADMIN'">Mail/History</button>
+              *ngIf="gs.globalVariables.comp_code =='CPL' && gs.globalVariables.user_code == 'ADMIN'">Mail/History</button>
             <button class="btn btn-primary btn-sm" (click)="Mail('OS-INVOICE',mailsent)"
-              *ngIf="gs.globalVariables.user_code == 'ADMIN'">Mail/Invoice</button>
+              *ngIf="gs.globalVariables.comp_code =='CPL' && gs.globalVariables.user_code == 'ADMIN'">Mail/Invoice</button>
             <button *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="btn btn-primary btn-sm"
               (click)="List('EXCEL','EXCEL-ALL')">Excel/ALL</button>
             <label class="mt-1" *ngIf="gs.globalVariables.user_code == 'ADMIN'">
@@ -145,7 +137,7 @@
 
 
 
-  <div class="page-header">
+  <div *ngIf="gs.globalVariables.comp_code =='CPL'" class="page-header">
     <div class="col">
       <label>Air Line Payment</label>
       <button class="btn btn-primary btn-sm" (click)="AirListReport('SCREEN', 'BRANCH')">Branch Wise</button>
@@ -233,7 +225,7 @@
   </div>
 
 
-  <div class="page-header">
+  <div *ngIf="gs.globalVariables.comp_code =='CPL'" class="page-header">
     <div class="col">
       <label>O/S Against AirLine Payment</label>
       <button class="btn btn-primary btn-sm" (click)="InvReport('SCREEN', 'BRANCH')">Find</button>
@@ -241,7 +233,7 @@
     </div>
   </div>
 
-  <div class="row">
+  <div *ngIf="gs.globalVariables.comp_code =='CPL'" class="row">
 
     <div class="col-6">
 
