@@ -11,7 +11,7 @@
             <button class="btn btn-primary btn-sm" (click)="List('SCREEN','LEGAL')">Legal</button>
             <button class="btn btn-primary btn-sm" (click)="List('EXCEL','EXCEL')">Excel</button>
             <button class="btn btn-primary btn-sm" (click)="Mail('OS-SALESMAN-ALL',mailsent)"
-              *ngIf="gs.globalVariables.comp_code =='CPL' && (gs.globalVariables.user_code == 'ADMIN' || gs.globalVariables.user_code == 'NAIK')">Mail/Salesman</button>
+              *ngIf="gs.globalVariables.user_code == 'ADMIN' || gs.globalVariables.user_code == 'NAIK'">Mail/Salesman</button>
             <button class="btn btn-primary btn-sm" (click)="OsBranchMail()"
               *ngIf="gs.globalVariables.comp_code =='CPL' && (gs.globalVariables.user_code == 'ADMIN' || gs.globalVariables.user_code == 'NAIK')">Mail/Branch</button>
             <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
