@@ -1,0 +1,131 @@
+<div class="page-header">
+    <div class="col">
+        <label>{{title}}</label>
+        <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+        <i *ngIf="loading" class="fa fa-spinner"></i>
+    </div>
+</div>
+
+<div *ngIf="currentTab=='LIST'" class="page-list">
+    <div class="page-list">
+        <div class="page-search">
+            <div class="row">
+                <div class="col-4">
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label col-form-label-sm">From Date</label>
+                        <div class="col-8">
+                            <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-4 col-form-label col-form-label-sm">To Date</label>
+                        <div class="col-8">
+                            <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label col-form-label-sm">Costing Agent</label>
+                        <div class="col-8">
+                            <app-autocomplete #AgentAddLov [inputdata]="AGENTRECORD"
+                                (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label col-form-label-sm">Branch</label>
+                        <div class="col-8">
+                            <app-autocomplete #BrLov [inputdata]="BRRECORD"
+                                (ValueChanged)="LovSelected($event)"></app-autocomplete>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label col-form-label-sm">Search</label>
+                        <div class="col-8">
+                            <input type="text" class="col form-control form-control-sm" name="Search"
+                                [(ngModel)]="searchstring" (blur)="OnBlur('searchstring')" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label col-form-label-sm"></label>
+                        <div class="col-sm-8">
+                            <button [disabled]="loading" (click)="List('SCREEN')"
+                                class="btn btn-primary btn-sm">Search</button>
+                            <button [disabled]="loading" (click)="List('EXCEL')"
+                                class="btn btn-primary btn-sm">Excel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 280px);">
+        <table class="table table-hover table-sm table-bordered table-striped">
+            <thead class="page-body-thead">
+                <tr>
+                    <th>VRNO</th>
+                    <th>DOCNO</th>
+                    <th>DOCDATE</th>
+                    <th>STM#</th>
+                    <th>REFNO</th>
+                    <th>PARTY</th>
+                    <th>CURR</th>
+                    <th class="text-right">FAMT</th>
+                    <th class="text-right">EX-RATE</th>
+                    <th class="text-right">INR-AMT</th>
+                    <th>SWIFT-REFNO</th>
+                    <th>SWIFT-DT</th>
+                    <th class="text-right">SWIFT-AMT</th>
+                    <th class="text-right">BR-ALLOC-FAMT</th>
+                    <th class="text-right">OTHBR-ALLOC-FAMT</th>
+                    <th class="text-right">TOT-ALLOC-FAMT</th>
+                    <th class="text-right">BANK-CHARGES</th>
+                    <th class="text-right">NET-ALLOC-FAMT</th>
+                    <th class="text-right">DIFF AMT(SWIFT-NET)</th>
+                    <th>PREV-YEAR-INCLUDED</th>
+                    <th>NARRATION</th>
+                    <th>REMARKS</th>
+                </tr>
+            </thead>
+            <tbody class="page-body-tbody">
+                <tr [style.color]="rec.rowcolor" *ngFor="let rec of RecordList; let i = index"
+                    [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
+                    <td>{{rec.vrno}}</td>
+                    <td style="white-space: nowrap;">{{rec.docno}}</td>
+                    <td>{{rec.docdate}}</td>
+                    <td>{{rec.stm_no}}</td>
+                    <td>{{rec.refno}}</td>
+                    <td>{{rec.party}}</td>
+                    <td>{{rec.curr}}</td>
+                    <td class="text-right">{{rec.inv_forein_amt | number : '1.2-2'}}</td>
+                    <td class="text-right">{{rec.ex_rate | number : '1.2-2'}}</td>
+                    <td class="text-right">{{rec.inv_inr_amt | number : '1.2-2'}}</td>
+                    <td style="white-space: nowrap;">{{rec.swift_refno}}</td>
+                    <td style="white-space: nowrap;">{{rec.swift_date}}</td>
+                    <td class="text-right">{{rec.swift_amt | number : '1.2-2'}}</td>
+                    <td class="text-right">{{rec.inv_br_alloc_famt | number : '1.2-2'}}</td>
+                    <td class="text-right">{{rec.inv_oth_br_alloc_famt | number : '1.2-2'}}</td>
+                    <td class="text-right">{{rec.tot_inv_alloc_famt | number : '1.2-2'}}</td>
+                    <td class="text-right">{{rec.bank_charges | number : '1.2-2'}}</td>
+                    <td class="text-right">{{rec.net_inv_alloc_famt | number : '1.2-2'}}</td>
+                    <td class="text-right">{{rec.diff_famt | number : '1.2-2'}}</td>
+                    <td>{{rec.finyear_count>1?'Y':''}}</td>
+                    <td>{{rec.narration}}</td>
+                    <td>{{rec.remarks}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- <br /> -->
+
+<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+
+<div *ngIf="ErrorMessage" class="alert alert-danger">
+    {{ErrorMessage}}
+</div>

@@ -45,7 +45,7 @@ import { AiDocComponent } from './aidoc/aidoc.component';
 import { ShipTrackMasterComponent } from './shiptrackmaster/shiptrackmaster.component';
 import { JobUnlockTrackComponent } from './jobunlocktrack/jobunlocktrack.component';
 import { SalesProfitListComponent } from './salesprofit/salesprofitlist.component';
-
+import { CostFircRptComponent } from './costfircrpt/costfircrpt.component';
 
 
 const routes: Routes = [
@@ -90,6 +90,7 @@ const routes: Routes = [
   { path: 'aidoc', component: AiDocComponent },
   { path: 'shiptrackmaster', component: ShipTrackMasterComponent },
   { path: 'jobunlocktrack', component: JobUnlockTrackComponent },
+  { path: 'costfirc', component: CostFircRptComponent },
   { path: 'salesprofit', component: SalesProfitListComponent }
 ];
 
