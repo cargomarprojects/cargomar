@@ -1,5 +1,6 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
@@ -42,6 +43,9 @@ export class CostFircRptComponent {
     loading = false;
     currentTab = 'LIST';
     searchstring = '';
+    stm_no: number = 0;
+    stm_id: string = '';
+    modal: any;
 
     SearchData = {
         type: '',
@@ -68,6 +72,7 @@ export class CostFircRptComponent {
     AGENTRECORD: SearchTable = new SearchTable();
     BRRECORD: SearchTable = new SearchTable();
     constructor(
+        private modalService: NgbModal,
         private mainService: RepService,
         private route: ActivatedRoute,
         private gs: GlobalService
@@ -196,7 +201,7 @@ export class CostFircRptComponent {
             return;
         }
 
-         if (this.gs.isBlank(this.branch_code) ) {
+        if (this.gs.isBlank(this.branch_code)) {
             this.ErrorMessage = "Branch Cannot Be Blank";
             alert(this.ErrorMessage);
             return;
@@ -260,4 +265,14 @@ export class CostFircRptComponent {
         }
     }
 
+    ShowModal(_rec: CostFircRpt, _modal: any) {
+        this.ErrorMessage = '';
+        this.stm_id = _rec.stm_pkid;
+        this.stm_no = _rec.stm_no;
+        this.open(_modal);
+    }
+
+    open(content: any) {
+        this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
+    }
 }

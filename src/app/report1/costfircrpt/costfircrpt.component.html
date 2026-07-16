@@ -96,7 +96,7 @@
                     <td>{{rec.vrno}}</td>
                     <td style="white-space: nowrap;">{{rec.docno}}</td>
                     <td>{{rec.docdate}}</td>
-                    <td>{{rec.stm_no}}</td>
+                    <td class="hlink" (click)="ShowModal(rec,fircdet)" >{{rec.stm_no}}</td>
                     <td>{{rec.refno}}</td>
                     <td>{{rec.party}}</td>
                     <td>{{rec.curr}}</td>
@@ -129,3 +129,18 @@
 <div *ngIf="ErrorMessage" class="alert alert-danger">
     {{ErrorMessage}}
 </div>
+
+<ng-template #fircdet let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Allocation Details[{{stm_no}}]</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-costfircrptdet [pkid]="stm_id" ></app-costfircrptdet>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>

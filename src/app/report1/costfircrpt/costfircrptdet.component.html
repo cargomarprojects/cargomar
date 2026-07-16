@@ -1,0 +1,43 @@
+<div class="page-list pointer">
+    <div class="row m-0">
+        <div class="col-12">
+            <div class="page-body table-responsive fixedTableHead m-0 p-0" style="height: calc(100vh - 500px);">
+                <table class="table table-hover table-sm table-bordered table-striped">
+                    <thead class="page-body-thead">
+                        <tr>
+                            <th>DOCNO</th>
+                            <th>DATE</th>
+                            <th>LOCATION</th>
+                            <th>REFNO</th>
+                            <th>CATEGORY</th>
+                            <th class="text-right">BR-DR-FAMT</th>
+                            <th class="text-right">BR-DR-ALLCO-FAMT</th>
+                            <th class="text-right">OTHBR-DR-FAMT</th>
+                            <th class="text-right">OTHBR-DR-ALLCO-FAMT</th>
+                            <th class="text-right">CR-FAMT</th>
+                            <th class="text-right">CR-ALLCO-FAMT</th>
+                            <th class="text-right">BANK-CHARGES</th>
+                        </tr>
+                    </thead>
+                    <tbody class="page-body-tbody">
+                        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+                            (click)="selectedRowIndex=i">
+                            <td>{{rec.docno}}</td>
+                            <td>{{rec.docdate}}</td>
+                            <td>{{rec.location}}</td>
+                            <td>{{rec.refno}}</td>
+                            <td>{{rec.category}}</td>
+                            <td class="text-right">{{rec.br_dr_famt | number : '1.2-2'}}</td>
+                            <td class="text-right">{{rec.br_dr_alloc_famt | number : '1.2-2'}}</td>
+                            <td class="text-right">{{rec.othbr_dr_famt | number : '1.2-2'}}</td>
+                            <td class="text-right">{{rec.othbr_dr_alloc_famt | number : '1.2-2'}}</td>
+                            <td class="text-right">{{rec.cr_famt | number : '1.2-2'}}</td>
+                            <td class="text-right">{{rec.cr_alloc_famt | number : '1.2-2'}}</td>
+                            <td class="text-right">{{rec.bank_charges | number : '1.2-2'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

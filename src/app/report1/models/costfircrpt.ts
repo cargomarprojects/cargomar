@@ -28,5 +28,15 @@ export class CostFircRpt {
     stm_no_rownum: number;
     remarks: string;
 
+    location: string;
+    category: string;
+    br_dr_famt: number;
+    br_dr_alloc_famt: number;
+    othbr_dr_famt: number;
+    othbr_dr_alloc_famt: number;
+    cr_famt: number;
+    cr_alloc_famt: number;
+    stm_pkid: string;
+
     _globalvariables: GlobalVariables;
 }

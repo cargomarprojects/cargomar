@@ -92,6 +92,7 @@ import { JobUnlockTrackComponent } from './jobunlocktrack/jobunlocktrack.compone
 import { SalesProfitListComponent } from './salesprofit/salesprofitlist.component';
 import { AuditDeviceComponent } from './auditlog/auditdevice.component';
 import { CostFircRptComponent } from './costfircrpt/costfircrpt.component';
+import { CostFircRptDetComponent } from './costfircrpt/costfircrptdet.component';
 
 @NgModule({
   imports: [
@@ -167,7 +168,8 @@ import { CostFircRptComponent } from './costfircrpt/costfircrpt.component';
     JobUnlockTrackComponent,
     SalesProfitListComponent,
     AuditDeviceComponent,
-    CostFircRptComponent
+    CostFircRptComponent,
+    CostFircRptDetComponent
   ],
   providers: [GstReconRepService
   ],
