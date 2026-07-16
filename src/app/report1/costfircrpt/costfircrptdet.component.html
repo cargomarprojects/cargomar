@@ -21,7 +21,7 @@
                     </thead>
                     <tbody class="page-body-tbody">
                         <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
-                            (click)="selectedRowIndex=i">
+                            (click)="selectedRowIndex=i" [style.color]="rec.row_colour">
                             <td>{{rec.docno}}</td>
                             <td>{{rec.docdate}}</td>
                             <td>{{rec.location}}</td>

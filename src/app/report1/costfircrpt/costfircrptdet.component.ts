@@ -45,7 +45,7 @@ export class CostFircRptDetComponent {
     // Init Will be called After executing Constructor
     ngOnInit() {
         this.LoadCombo();
-        // this.List("NEW");
+        this.List("NEW");
     }
 
     InitComponent() {
@@ -86,8 +86,8 @@ export class CostFircRptDetComponent {
 
         this.loading = true;
         this.SearchData.parentid = this.pkid;
-        this.SearchData.company_code = this.gs.globalVariables.year_code;
-        this.SearchData.branch_code = this.gs.globalVariables.year_code;
+        this.SearchData.company_code = this.gs.globalVariables.comp_code;
+        this.SearchData.branch_code = this.gs.globalVariables.branch_code;
         this.SearchData.year_code = this.gs.globalVariables.year_code;
         this.mainService.CostFircDetList(this.SearchData)
             .subscribe(response => {

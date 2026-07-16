@@ -75,7 +75,7 @@ export class CostFircRptComponent {
         private modalService: NgbModal,
         private mainService: RepService,
         private route: ActivatedRoute,
-        private gs: GlobalService
+        public gs: GlobalService
     ) {
         // URL Query Parameter 
         this.sub = this.route.queryParams.subscribe(params => {
