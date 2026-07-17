@@ -493,13 +493,14 @@ export class EmpComponent {
     this.mainService.Save(this.Record)
       .subscribe(response => {
         this.loading = false;
-        this.InfoMessage = "Save Complete";
+        // this.InfoMessage = "Save Complete";
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
         this.ageinyears = '';
         if (this.Record.emp_do_birth != null) {
           this.ageinyears = this.GetAge().ageyears + "Yrs";
         }
+        this.InfoMessage = response.retmsg;
         alert(this.InfoMessage);
         this.RefreshList();
       },
