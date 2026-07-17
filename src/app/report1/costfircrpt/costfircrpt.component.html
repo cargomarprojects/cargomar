@@ -42,7 +42,7 @@
                 </div>
                 <div class="col-4">
                     <div class="form-group row">
-                        <label class="col-sm-4 col-form-label col-form-label-sm">Search</label>
+                        <label class="col-sm-4 col-form-label col-form-label-sm">Stm#</label>
                         <div class="col-8">
                             <input type="text" class="col form-control form-control-sm" name="Search"
                                 [(ngModel)]="searchstring" (blur)="OnBlur('searchstring')" />
@@ -91,12 +91,11 @@
                 </tr>
             </thead>
             <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
-                <tr  
-                    [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i" >
+                <tr [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
                     <td>{{rec.vrno}}</td>
                     <td style="white-space: nowrap;">{{rec.docno}}</td>
                     <td>{{rec.docdate}}</td>
-                    <td class="hlink" (click)="ShowModal(rec,fircdet)" >{{rec.stm_no}}</td>
+                    <td class="hlink" (click)="ShowModal(rec,fircdet)">{{rec.stm_no}}</td>
                     <td>{{rec.refno}}</td>
                     <td>{{rec.party}}</td>
                     <td>{{rec.curr}}</td>
@@ -131,16 +130,83 @@
 </div>
 
 <ng-template #fircdet let-c="close" let-d="dismiss">
-  <div class="modal-header"  style="cursor: move;" (mousedown)="gs.startDrag($event)">
-    <h4 class="modal-title">Allocation Details[{{stm_no}}]</h4>
-    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <app-costfircrptdet [pkid]="stm_id" ></app-costfircrptdet>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button>
-  </div>
+    <div class="modal-header" style="cursor: move;" (mousedown)="gs.startDrag($event)">
+        <h4 class="modal-title">Allocation Details[{{stm_no}}]</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-costfircrptdet [pkid]="stm_id" (ModifiedRecords)="ModifiedRecords($event)"></app-costfircrptdet>
+    </div>
+    <div class="modal-footer  d-block">
+        <!-- <label class="col-sm-6 col-form-label col-form-label-sm">Total BR Amt : <span style="color: red;">{{brdramt}}</span></label>
+    <label class="col-sm-6 col-form-label col-form-label-sm">Total Other BR Amt : <span style="color: red;">{{othbrdramt}}</span></label>
+     <label class="col-sm-6 col-form-label col-form-label-sm">Total CR Amt : <span style="color: red;">{{brdramt}}</span></label>
+
+    <label class="col-sm-6 col-form-label col-form-label-sm">Total Amt : <span style="color: red;">{{othbrdramt}}</span></label>
+    <label class="col-sm-6 col-form-label col-form-label-sm">Bank Charges : <span style="color: red;">{{othbrdramt}}</span></label>
+    <label class="col-sm-6 col-form-label col-form-label-sm">Net Amt : <span style="color: red;">{{othbrdramt}}</span></label> -->
+        <!-- <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button> -->
+
+        <!-- 2 Columns × 3 Rows -->
+        <div class="row">
+            <div class="col-md-2 mb-2">
+                <strong>TotDr BR Amt :</strong>
+            </div>
+            <div class="col-md-4 mb-2">
+                <span class="text-danger">{{brdramt | number:'1.2-2'}}</span>
+            </div>
+
+            <div class="col-md-2 mb-2">
+                <strong>Total Amt :</strong>
+            </div>
+            <div class="col-md-4 mb-2">
+                <span class="text-danger">{{brdramt+othbrdramt-totcramt | number:'1.2-2'}}</span>
+            </div>
+
+
+            <div class="col-md-2 mb-2">
+                <strong>TotDr Other BR Amt :</strong>
+            </div>
+            <div class="col-md-4 mb-2">
+                <span class="text-danger">{{othbrdramt | number:'1.2-2'}}</span>
+            </div>
+
+
+            <div class="col-md-2 mb-2">
+                <strong>Bank Charges :</strong>
+            </div>
+            <div class="col-md-4 mb-2">
+            
+                <span class="text-danger">{{bankamt | number:'1.2-2'}}</span>
+            </div>
+
+            <div class="col-md-2 mb-2">
+                <strong>TotCr Amt :</strong>
+            </div>
+            <div class="col-md-4 mb-2">
+                <span class="text-danger">{{totcramt | number:'1.2-2'}}</span>
+            </div>
+
+            <div class="col-md-2 mb-2">
+                <strong>Net Amt :</strong>
+            </div>
+             <div class="col-md-4 mb-2">
+                <span class="text-danger">{{brdramt+othbrdramt-totcramt-bankamt | number:'1.2-2'}}</span>
+            </div>
+            <div class="col-md-2 mb-2">
+                <strong>Net Other BR Amt :</strong>
+            </div>
+            <div class="col-md-4 mb-2">
+                <span class="text-danger">{{othbrdramt-totcramt | number:'1.2-2'}}</span>
+            </div>
+        </div>
+        <!-- Button Row -->
+        <!-- <div class="text-right mt-2">
+            <button type="button" class="btn btn-outline-secondary" (click)="c('Close click')">
+                Close
+            </button>
+        </div> -->
+    </div>
 </ng-template>

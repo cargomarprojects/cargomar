@@ -16,6 +16,7 @@ export class CostFircRptDetComponent {
 
     @Input() public pkid: string = "";
     @Input() public type: string = '';
+    @Output() ModifiedRecords = new EventEmitter<any>();
 
     InitCompleted: boolean = false;
     disableSave = true;
@@ -93,6 +94,9 @@ export class CostFircRptDetComponent {
             .subscribe(response => {
                 this.loading = false;
                 this.RecordList = response.list;
+
+                if (this.ModifiedRecords != null)
+                    this.ModifiedRecords.emit({ saction: 'LIST', brdramt: response.brdramt,othbrdramt: response.othbrdramt,totcramt: response.totcramt,bankamt: response.bankamt });
             },
                 error => {
                     this.loading = false;

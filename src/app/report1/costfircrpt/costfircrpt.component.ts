@@ -37,6 +37,11 @@ export class CostFircRptComponent {
     agent_code: string = '';
     agent_name: string = '';
 
+    brdramt: number = 0;
+    othbrdramt: number = 0;
+    totcramt: number = 0;
+    bankamt: number = 0;
+
     disableSave = true;
     bCompany = false;
     all: boolean = false;
@@ -274,5 +279,12 @@ export class CostFircRptComponent {
 
     open(content: any) {
         this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
+    }
+
+    ModifiedRecords(params: any) {
+        this.brdramt = params.brdramt;
+        this.othbrdramt = params.othbrdramt;
+        this.totcramt = params.totcramt;
+        this.bankamt = params.bankamt;
     }
 }
