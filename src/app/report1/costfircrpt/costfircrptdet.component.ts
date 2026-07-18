@@ -16,6 +16,7 @@ export class CostFircRptDetComponent {
 
     @Input() public pkid: string = "";
     @Input() public type: string = '';
+    @Input() public branch_code: string = '';
     @Output() ModifiedRecords = new EventEmitter<any>();
 
     InitCompleted: boolean = false;
@@ -28,7 +29,7 @@ export class CostFircRptDetComponent {
     SearchData = {
         parentid: '',
         company_code: '',
-        branch_code: '',
+        branch_code: this.branch_code,
         year_code: ''
     };
     RecordList: CostFircRpt[] = [];
@@ -88,7 +89,7 @@ export class CostFircRptDetComponent {
         this.loading = true;
         this.SearchData.parentid = this.pkid;
         this.SearchData.company_code = this.gs.globalVariables.comp_code;
-        this.SearchData.branch_code = this.gs.globalVariables.branch_code;
+        this.SearchData.branch_code = this.branch_code;
         this.SearchData.year_code = this.gs.globalVariables.year_code;
         this.mainService.CostFircDetList(this.SearchData)
             .subscribe(response => {

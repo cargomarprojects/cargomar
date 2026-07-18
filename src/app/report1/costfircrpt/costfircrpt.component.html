@@ -25,17 +25,17 @@
                     </div>
                 </div>
                 <div class="col-4">
-                    <div class="form-group row">
-                        <label class="col-sm-4 col-form-label col-form-label-sm">Costing Agent</label>
+                     <div class="form-group row">
+                        <label class="col-sm-4 col-form-label col-form-label-sm">Branch</label>
                         <div class="col-8">
-                            <app-autocomplete #AgentAddLov [inputdata]="AGENTRECORD"
+                            <app-autocomplete #BrLov [inputdata]="BRRECORD"
                                 (ValueChanged)="LovSelected($event)"></app-autocomplete>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-4 col-form-label col-form-label-sm">Branch</label>
+                        <label class="col-sm-4 col-form-label col-form-label-sm">Costing Agent</label>
                         <div class="col-8">
-                            <app-autocomplete #BrLov [inputdata]="BRRECORD"
+                            <app-autocomplete #AgentAddLov [inputdata]="AGENTRECORD"
                                 (ValueChanged)="LovSelected($event)"></app-autocomplete>
                         </div>
                     </div>
@@ -90,8 +90,8 @@
                     <th>REMARKS</th>
                 </tr>
             </thead>
-            <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
-                <tr [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
+            <tbody class="page-body-tbody" >
+                <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
                     <td>{{rec.vrno}}</td>
                     <td style="white-space: nowrap;">{{rec.docno}}</td>
                     <td>{{rec.docdate}}</td>
@@ -131,74 +131,64 @@
 
 <ng-template #fircdet let-c="close" let-d="dismiss">
     <div class="modal-header" style="cursor: move;" (mousedown)="gs.startDrag($event)">
-        <h4 class="modal-title">Allocation Details[{{stm_no}}]</h4>
+        <h4 class="modal-title">Allocation Details[Stm#&nbsp;{{stm_no}}]</h4>
         <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body">
-        <app-costfircrptdet [pkid]="stm_id" (ModifiedRecords)="ModifiedRecords($event)"></app-costfircrptdet>
+        <app-costfircrptdet [pkid]="stm_id" [branch_code]="SearchData.branch_code" (ModifiedRecords)="ModifiedRecords($event)"></app-costfircrptdet>
     </div>
     <div class="modal-footer  d-block">
-        <!-- <label class="col-sm-6 col-form-label col-form-label-sm">Total BR Amt : <span style="color: red;">{{brdramt}}</span></label>
-    <label class="col-sm-6 col-form-label col-form-label-sm">Total Other BR Amt : <span style="color: red;">{{othbrdramt}}</span></label>
-     <label class="col-sm-6 col-form-label col-form-label-sm">Total CR Amt : <span style="color: red;">{{brdramt}}</span></label>
-
-    <label class="col-sm-6 col-form-label col-form-label-sm">Total Amt : <span style="color: red;">{{othbrdramt}}</span></label>
-    <label class="col-sm-6 col-form-label col-form-label-sm">Bank Charges : <span style="color: red;">{{othbrdramt}}</span></label>
-    <label class="col-sm-6 col-form-label col-form-label-sm">Net Amt : <span style="color: red;">{{othbrdramt}}</span></label> -->
-        <!-- <button type="button" class="btn btn-outline-light" (click)="c('Close click')">Close</button> -->
-
-        <!-- 2 Columns × 3 Rows -->
         <div class="row">
-            <div class="col-md-2 mb-2">
-                <strong>TotDr BR Amt :</strong>
+            <div class="col-md-3 mb-2">
+                <strong>TotDr {{branch_code}} AllocAmt :</strong>
             </div>
-            <div class="col-md-4 mb-2">
+            <div class="col-md-3 mb-2">
                 <span class="text-danger">{{brdramt | number:'1.2-2'}}</span>
             </div>
 
             <div class="col-md-2 mb-2">
-                <strong>Total Amt :</strong>
+                <strong>TOT-ALLOC-FAMT :</strong>
             </div>
             <div class="col-md-4 mb-2">
                 <span class="text-danger">{{brdramt+othbrdramt-totcramt | number:'1.2-2'}}</span>
             </div>
 
 
-            <div class="col-md-2 mb-2">
-                <strong>TotDr Other BR Amt :</strong>
+            <div class="col-md-3 mb-2">
+                <strong>TotDr Other BR AllocAmt :</strong>
             </div>
-            <div class="col-md-4 mb-2">
+            <div class="col-md-3 mb-2">
                 <span class="text-danger">{{othbrdramt | number:'1.2-2'}}</span>
             </div>
 
 
             <div class="col-md-2 mb-2">
-                <strong>Bank Charges :</strong>
+                <strong>BANK-CHARGES :</strong>
             </div>
             <div class="col-md-4 mb-2">
             
                 <span class="text-danger">{{bankamt | number:'1.2-2'}}</span>
             </div>
 
-            <div class="col-md-2 mb-2">
-                <strong>TotCr Amt :</strong>
+            <div class="col-md-3 mb-2">
+                <strong>TotCr AllocAmt :</strong>
             </div>
-            <div class="col-md-4 mb-2">
+            <div class="col-md-3 mb-2">
                 <span class="text-danger">{{totcramt | number:'1.2-2'}}</span>
             </div>
 
             <div class="col-md-2 mb-2">
-                <strong>Net Amt :</strong>
+                <strong>NET-ALLOC-FAMT :</strong>
             </div>
              <div class="col-md-4 mb-2">
                 <span class="text-danger">{{brdramt+othbrdramt-totcramt-bankamt | number:'1.2-2'}}</span>
             </div>
-            <div class="col-md-2 mb-2">
-                <strong>Net Other BR Amt :</strong>
+            <div class="col-md-3 mb-2">
+                <strong>OTHBR-ALLOC-FAMT :</strong>
             </div>
-            <div class="col-md-4 mb-2">
+            <div class="col-md-3 mb-2">
                 <span class="text-danger">{{othbrdramt-totcramt | number:'1.2-2'}}</span>
             </div>
         </div>
