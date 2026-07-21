@@ -1,0 +1,47 @@
+<div class="page-list pointer">
+    <div class="row m-0">
+        <div class="col-12">
+            <div class="page-body table-responsive fixedTableHead m-0 p-0" style="height: calc(100vh - 500px);">
+                <table class="table table-hover table-sm table-bordered table-striped">
+                    <thead class="page-body-thead">
+                        <tr>
+                            <th>STM#</th>
+                            <th>CURR</th>
+                            <th>EX-RATE</th>
+                            <th class="text-right">BR-ALLCO-FAMT</th>
+                            <th class="text-right">OTHBR-ALLCO-FAMT</th>
+                            <th class="text-right">BANK-CHARGES</th>
+                            <th class="text-right">NET-FAMT</th>
+                            <th class="text-right">{{base_currency}}-FAMT</th>
+                        </tr>
+                    </thead>
+                    <tbody class="page-body-tbody">
+                        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+                            (click)="selectedRowIndex=i" [style.color]="rec.row_colour">
+                            <td  class="hlink" (click)="ShowModal(rec,fircdet)">{{rec.stm_no}}</td>
+                            <td>{{rec.curr}}</td>
+                            <td>{{rec.ex_rate}}</td>
+                            <td class="text-right">{{rec.br_dr_alloc_famt | number : '1.2-2'}}</td>
+                            <td class="text-right">{{rec.othbr_dr_alloc_famt | number : '1.2-2'}}</td>
+                            <td class="text-right">{{rec.bank_charges | number : '1.2-2'}}</td>
+                            <td class="text-right">{{rec.net_inv_alloc_famt | number : '1.2-2'}}</td>
+                            <td class="text-right">{{rec.base_curr_amt | number : '1.2-2'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #fircdet let-c="close" let-d="dismiss">
+    <div class="modal-header" style="cursor: move;" (mousedown)="gs.startDrag($event)">
+        <h4 class="modal-title">Allocation Details[Stm#&nbsp;{{stm_no}}]</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-costfircrptdet [pkid]="stm_id" [branch_code]="branch_code" ></app-costfircrptdet>
+    </div>
+</ng-template>

@@ -33,6 +33,10 @@ export class CostFircRptComponent {
     branch_name: string = '';
     branch_code: string = '';
 
+    swift_code: string = "";
+    base_currency: string = "";
+    base_exrate: number = 1;
+
     agent_id: string = '';
     agent_code: string = '';
     agent_name: string = '';
@@ -274,6 +278,16 @@ export class CostFircRptComponent {
         this.ErrorMessage = '';
         this.stm_id = _rec.stm_pkid;
         this.stm_no = _rec.stm_no;
+        this.open(_modal);
+    }
+
+    ShowSwiftModal(_rec: CostFircRpt, _modal: any) {
+        this.ErrorMessage = '';
+        this.stm_id = _rec.stm_pkid;
+        this.stm_no = _rec.stm_no;
+        this.swift_code = _rec.swift_refno;
+        this.base_currency = _rec.curr;
+        this.base_exrate = _rec.ex_rate;
         this.open(_modal);
     }
 

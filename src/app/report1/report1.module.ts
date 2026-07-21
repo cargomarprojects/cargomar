@@ -93,6 +93,7 @@ import { SalesProfitListComponent } from './salesprofit/salesprofitlist.componen
 import { AuditDeviceComponent } from './auditlog/auditdevice.component';
 import { CostFircRptComponent } from './costfircrpt/costfircrpt.component';
 import { CostFircRptDetComponent } from './costfircrpt/costfircrptdet.component';
+import { CostFircRptSWiftComponent } from './costfircrpt/costfircrptswift.component';
 
 @NgModule({
   imports: [
@@ -169,7 +170,8 @@ import { CostFircRptDetComponent } from './costfircrpt/costfircrptdet.component'
     SalesProfitListComponent,
     AuditDeviceComponent,
     CostFircRptComponent,
-    CostFircRptDetComponent
+    CostFircRptDetComponent,
+    CostFircRptSWiftComponent
   ],
   providers: [GstReconRepService
   ],
