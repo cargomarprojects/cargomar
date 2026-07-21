@@ -275,6 +275,8 @@ export class CostFircRptComponent {
     }
 
     ShowModal(_rec: CostFircRpt, _modal: any) {
+        if (this.gs.isBlank(_rec.stm_no))
+            return;
         this.ErrorMessage = '';
         this.stm_id = _rec.stm_pkid;
         this.stm_no = _rec.stm_no;
@@ -282,6 +284,8 @@ export class CostFircRptComponent {
     }
 
     ShowSwiftModal(_rec: CostFircRpt, _modal: any) {
+        if (this.gs.isBlank(_rec.swift_refno))
+            return;
         this.ErrorMessage = '';
         this.stm_id = _rec.stm_pkid;
         this.stm_no = _rec.stm_no;
