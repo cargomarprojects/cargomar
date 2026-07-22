@@ -18,6 +18,7 @@ export class CostFircRptSWiftComponent {
     @Input() public swift_code: string = "";
     @Input() public base_currency: string = "";
     @Input() public base_exrate: number = 1;
+    @Input() public swift_amt: number = 0;
     @Input() public branch_code: string = '';
     @Output() ModifiedRecords = new EventEmitter<any>();
 
@@ -38,14 +39,15 @@ export class CostFircRptSWiftComponent {
         swift_code: '',
         base_currency: '',
         base_curr_exrate: 1,
-        year_code: ''
+        year_code: '',
+        swift_amt: 0
     };
     RecordList: CostFircRpt[] = [];
 
     selectedRowIndex = 0;
 
     constructor(
-         private modalService: NgbModal,
+        private modalService: NgbModal,
         private mainService: RepService,
         private route: ActivatedRoute,
         public gs: GlobalService
@@ -102,6 +104,7 @@ export class CostFircRptSWiftComponent {
         this.SearchData.company_code = this.gs.globalVariables.comp_code;
         this.SearchData.branch_code = this.branch_code;
         this.SearchData.year_code = this.gs.globalVariables.year_code;
+        this.SearchData.swift_amt = this.swift_amt;
         this.mainService.CostFircSwiftList(this.SearchData)
             .subscribe(response => {
                 this.loading = false;
@@ -118,7 +121,7 @@ export class CostFircRptSWiftComponent {
     }
 
     ShowModal(_rec: CostFircRpt, _modal: any) {
-        if(this.gs.isBlank(_rec.stm_no))
+        if (this.gs.isBlank(_rec.stm_no))
             return;
         this.stm_id = _rec.stm_pkid;
         this.stm_no = _rec.stm_no;
@@ -129,6 +132,6 @@ export class CostFircRptSWiftComponent {
         this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
     }
 
-    
+
 
 }
