@@ -7,12 +7,12 @@
                         <tr>
                             <th>STM#</th>
                             <th>CURR</th>
-                            <th>EX-RATE</th>
+                            <!-- <th>EX-RATE</th> -->
                             <th class="text-right">BR-ALLCO-FAMT</th>
                             <th class="text-right">OTHBR-ALLCO-FAMT</th>
                             <th class="text-right">BANK-CHARGES</th>
                             <th class="text-right">NET-FAMT</th>
-                            <th class="text-right">{{base_currency}}-FAMT</th>
+                            <th  *ngIf="showinr" class="text-right">INR-AMT</th>
                         </tr>
                     </thead>
                     <tbody class="page-body-tbody">
@@ -20,12 +20,12 @@
                             (click)="selectedRowIndex=i" [style.color]="rec.row_colour">
                             <td  class="hlink" (click)="ShowModal(rec,fircdet)">{{rec.stm_no}}</td>
                             <td>{{rec.curr}}</td>
-                            <td>{{rec.ex_rate}}</td>
+                            <!-- <td>{{rec.ex_rate}}</td> -->
                             <td class="text-right">{{rec.br_dr_alloc_famt | number : '1.2-2'}}</td>
                             <td class="text-right">{{rec.othbr_dr_alloc_famt | number : '1.2-2'}}</td>
                             <td class="text-right">{{rec.bank_charges | number : '1.2-2'}}</td>
                             <td class="text-right">{{rec.net_inv_alloc_famt | number : '1.2-2'}}</td>
-                            <td class="text-right">{{rec.base_curr_amt | number : '1.2-2'}}</td>
+                            <td  *ngIf="showinr" class="text-right">{{rec.inr_amt | number : '1.2-2'}}</td>
                         </tr>
                     </tbody>
                 </table>

@@ -37,7 +37,7 @@ export class CostFircRpt {
     cr_famt: number;
     cr_alloc_famt: number;
     stm_pkid: string;
-    base_curr_amt: number;
+    inr_amt: number;
 
     _globalvariables: GlobalVariables;
 }

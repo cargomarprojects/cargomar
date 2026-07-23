@@ -31,6 +31,7 @@ export class CostFircRptSWiftComponent {
     stm_no: number = 0;
     stm_id: string = '';
     modal: any;
+    showinr: boolean = false;
 
     SearchData = {
         parentid: '',
@@ -109,7 +110,7 @@ export class CostFircRptSWiftComponent {
             .subscribe(response => {
                 this.loading = false;
                 this.RecordList = response.list;
-
+                this.showinr = response.showinr;
                 // if (this.ModifiedRecords != null)
                 //     this.ModifiedRecords.emit({ saction: 'LIST', brdramt: response.brdramt, othbrdramt: response.othbrdramt, totcramt: response.totcramt, bankamt: response.bankamt });
             },
