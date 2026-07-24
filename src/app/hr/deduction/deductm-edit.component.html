@@ -1,99 +1,100 @@
 <div *ngIf="currentTab=='DETAILS'" class="page-details">
     <div class="page-box">
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-7">
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">EMI Start Date</label>
-                    <div class="col-sm-5">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Employee</label>
+                    <div class="col-sm-8">
+                        <app-autocomplete [disabled]="Record.ded_alloc_exist && gs.globalVariables.user_code != 'ADMIN'"
+                            #EmpLov [inputdata]="EMPRECORD" (ValueChanged)="LovSelected($event)">
+                        </app-autocomplete>
+                    </div>
+                    <!-- <div class="col-sm-5">
+                        <input type="text" disabled class="form-control form-control-sm"
+                            [(ngModel)]="Record.ded_emp_name" />
+                    </div> -->
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">EMI Start Date</label>
+                    <div class="col-sm-8">
                         <app-date [disabled]="Record.ded_alloc_exist && gs.globalVariables.user_code != 'ADMIN'"
                             [inputdate]="Record.ded_start_date" (ValueChanged)="Record.ded_start_date=$event">
                         </app-date>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Employee</label>
-                    <div class="col-sm-5">
-                        <app-autocomplete [disabled]="Record.ded_alloc_exist && gs.globalVariables.user_code != 'ADMIN'"
-                            #EmpLov [inputdata]="EMPRECORD" (ValueChanged)="LovSelected($event)">
-                        </app-autocomplete>
-                    </div>
-                    <div class="col-sm-5">
-                        <input type="text" disabled class="form-control form-control-sm"
-                            [(ngModel)]="Record.ded_emp_name" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
-                    <div class="col-sm-5">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Type</label>
+                    <div class="col-sm-8">
                         <select [disabled]="Record.ded_alloc_exist && gs.globalVariables.user_code != 'ADMIN'"
                             class="form-control form-control-sm" [(ngModel)]="Record.ded_type">
                             <option *ngFor="let rec of Salheadlist" [value]="rec.sal_desc">{{rec.sal_head}}</option>
                         </select>
                     </div>
-                    <div class="col-sm-5">
+                    <!-- <div class="col-sm-5">
 
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Paid Amount</label>
-                    <div class="col-sm-5">
-                        <input type="number" [disabled]="Record.ded_alloc_exist&&gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm"
-                            [(ngModel)]="Record.ded_principal_amt" (blur)="OnBlur('ded_principal_amt')"
-                            (change)="OnChange('ded_principal_amt')" (focus)="OnFocus('ded_principal_amt')" required
-                            [maxlength]="14" />
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Paid Amount</label>
+                    <div class="col-sm-8">
+                        <input type="number"
+                            [disabled]="Record.ded_alloc_exist&&gs.globalVariables.user_code != 'ADMIN'"
+                            class="form-control form-control-sm" [(ngModel)]="Record.ded_principal_amt"
+                            (blur)="OnBlur('ded_principal_amt')" (change)="OnChange('ded_principal_amt')"
+                            (focus)="OnFocus('ded_principal_amt')" required [maxlength]="14" />
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Interest %</label>
-                    <div class="col-sm-2">
-                        <input type="number" [disabled]="Record.ded_alloc_exist&&gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm"
-                            [(ngModel)]="Record.ded_interest_rate" (blur)="OnBlur('ded_interest_rate')"
-                            (change)="OnChange('ded_interest_rate')" (focus)="OnFocus('ded_interest_rate')" required
-                            [maxlength]="5" />
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Interest %</label>
+                    <div class="col-sm-3">
+                        <input type="number"
+                            [disabled]="Record.ded_alloc_exist&&gs.globalVariables.user_code != 'ADMIN'"
+                            class="form-control form-control-sm" [(ngModel)]="Record.ded_interest_rate"
+                            (blur)="OnBlur('ded_interest_rate')" (change)="OnChange('ded_interest_rate')"
+                            (focus)="OnFocus('ded_interest_rate')" required [maxlength]="5" />
                     </div>
-                    <label class="col-sm-1 col-form-label col-form-label-sm">Tenure</label>
-                    <div class="col-sm-2">
-                        <input type="number" class="form-control form-control-sm" [disabled]="Record.ded_alloc_exist&&gs.globalVariables.user_code != 'ADMIN'" [(ngModel)]="Record.ded_tot_months"
-                            (blur)="OnBlur('ded_tot_months')" (change)="OnChange('ded_tot_months')"
-                            (focus)="OnFocus('ded_tot_months')" required [maxlength]="3" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Interest Amount</label>
-                    <div class="col-sm-5">
-                        <input type="number" [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm"
-                            [(ngModel)]="Record.ded_interest_amt" (blur)="OnBlur('ded_interest_amt')" required
-                            [maxlength]="14" />
+                    <label class="col-sm-2 col-form-label col-form-label-sm">Tenure</label>
+                    <div class="col-sm-3">
+                        <input type="number" class="form-control form-control-sm"
+                            [disabled]="Record.ded_alloc_exist&&gs.globalVariables.user_code != 'ADMIN'"
+                            [(ngModel)]="Record.ded_tot_months" (blur)="OnBlur('ded_tot_months')"
+                            (change)="OnChange('ded_tot_months')" (focus)="OnFocus('ded_tot_months')" required
+                            [maxlength]="3" />
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Total Amount</label>
-                    <div class="col-sm-2">
-                        <input type="number" [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm"
-                            [(ngModel)]="Record.ded_paid_amt" (blur)="OnBlur('ded_paid_amt')" required
-                            [maxlength]="14" />
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Interest Amount</label>
+                    <div class="col-sm-8">
+                        <input type="number" [disabled]="gs.globalVariables.user_code != 'ADMIN'"
+                            class="form-control form-control-sm" [(ngModel)]="Record.ded_interest_amt"
+                            (blur)="OnBlur('ded_interest_amt')" required [maxlength]="14" />
                     </div>
-                    <label class="col-sm-1 col-form-label col-form-label-sm">EMI</label>
-                    <div class="col-sm-2">
-                        <input type="number" [disabled]="gs.globalVariables.user_code != 'ADMIN'" class="form-control form-control-sm"
-                            [(ngModel)]="Record.ded_mon_amt" (blur)="OnBlur('ded_mon_amt')" required [maxlength]="14" />
-                    </div>
-                    <label *ngIf="mode=='EDIT'" class="col-sm-3 col-form-label col-form-label-sm pr-0">Collected :
-                        {{Record.ded_collected_amt}}</label>
-                    <label *ngIf="mode=='EDIT'" class="col-sm-2 col-form-label col-form-label-sm pl-0">Balance :
-                        {{Record.ded_bal_amt}}</label>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Disbursement Date</label>
-                    <div class="col-sm-5">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Total Amount</label>
+                    <div class="col-sm-3">
+                        <input type="number" [disabled]="gs.globalVariables.user_code != 'ADMIN'"
+                            class="form-control form-control-sm" [(ngModel)]="Record.ded_paid_amt"
+                            (blur)="OnBlur('ded_paid_amt')" required [maxlength]="14" />
+                    </div>
+                    <label class="col-sm-2 col-form-label col-form-label-sm">EMI</label>
+                    <div class="col-sm-3">
+                        <input type="number" [disabled]="gs.globalVariables.user_code != 'ADMIN'"
+                            class="form-control form-control-sm" [(ngModel)]="Record.ded_mon_amt"
+                            (blur)="OnBlur('ded_mon_amt')" required [maxlength]="14" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-3 col-form-label col-form-label-sm">Disbursement Date</label>
+                    <div class="col-sm-8">
                         <app-date [inputdate]="Record.ded_pay_date" (ValueChanged)="Record.ded_pay_date=$event">
                         </app-date>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Vr.No.</label>
-                    <div class="col-sm-5">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Vr.No.</label>
+                    <div class="col-sm-8">
                         <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ded_vrno"
                             (blur)="OnBlur('ded_vrno')" required [maxlength]="30" />
                     </div>
@@ -115,15 +116,15 @@
                 </div> -->
 
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Remarks</label>
-                    <div class="col-sm-5">
+                    <label class="col-sm-4 col-form-label col-form-label-sm">Remarks</label>
+                    <div class="col-sm-8">
                         <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.ded_remarks"
                             (blur)="OnBlur('ded_remarks')" required [maxlength]="250" />
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label col-form-label-sm">Closed</label>
-                    <div class="col-sm-5">
+                    <label class="col-sm-3 col-form-label col-form-label-sm">Closed</label>
+                    <div class="col-sm-8">
                         <select class="form-control form-control-sm"
                             [disabled]="gs.globalVariables.user_code != 'ADMIN'" name="clsd"
                             [(ngModel)]="Record.ded_closed">
@@ -133,13 +134,81 @@
                     </div>
                 </div>
             </div>
+            <div class="col-sm-5">
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <input type="text" disabled class="form-control form-control-sm"
+                            [(ngModel)]="Record.ded_emp_name" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label *ngIf="mode=='EDIT'" class="col-sm-6 col-form-label col-form-label-sm pr-0"><b>Collected
+                            :</b>
+                        <span style='color:green;'>{{Record.ded_collected_amt}}</span> </label>
+                    <label *ngIf="mode=='EDIT'" class="col-sm-6 col-form-label col-form-label-sm pl-0"><b>Balance :</b>
+                        <span style='color:red;'>{{Record.ded_bal_amt}}</span> </label>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-form-label-sm"></label>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-form-label-sm"></label>
+                </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-form-label-sm"></label>
+                </div>
+                <div *ngIf="mode=='EDIT'"  class="form-group row">
+                    <div class="col-sm-6">
+                        <input type="checkbox" [(ngModel)]="bRepayment" id="_chkrepayment">
+                        <label class="col-form-label col-form-label-sm" for="_chkrepayment">Repayment</label>
+                    </div>
+                </div>
+                <div *ngIf="bRepayment"  class="box p-2">
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label col-form-label-sm">Year</label>
+                        <div class="col-sm-4">
+                            <input type="number" class="col form-control form-control-sm" [(ngModel)]="repayment_year"
+                                required maxlength="4" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label col-form-label-sm">Month</label>
+                        <div class="col-sm-4">
+                            <select class="form-control form-control-sm" [(ngModel)]="repayment_month">
+                                <option *ngFor="let rec of MonList" [value]="rec.id">{{rec.name}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label col-form-label-sm">Amount</label>
+                         <div class="col-sm-4">
+                            <input type="number" class="col form-control form-control-sm" [(ngModel)]="repayment_amount"
+                              (blur)="OnBlur('repayment_amount')"   required maxlength="14" />
+                        </div>
+                    </div>
+                     <div class="form-group row">
+                        <label class="col-sm-2 col-form-label col-form-label-sm">Remarks</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="col form-control form-control-sm" [(ngModel)]="repayment_remarks"
+                               (blur)="OnBlur('repayment_remarks')"   required maxlength="100" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label col-form-label-sm"></label>
+                        <div class="col-sm-10">
+                             <button [disabled]="loading || lock_record" (click)="SaveRepayment()"
+                            class="btn btn-info btn-sm">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="page-box">
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-11">
                 <div class="form-group row">
-                    <div class="offset-2 col-sm-9">
+                    <div class="offset-2 col-sm-10">
                         <button [disabled]="loading || lock_record" (click)="Save()"
                             class="btn btn-success btn-sm">Save</button>
                         <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)"
@@ -159,29 +228,30 @@
         </div>
     </div>
     <div *ngIf="mode=='EDIT'" class="page-box">
-        <h6 class="my-1">DEDUCTION LIST&nbsp;&nbsp;&nbsp;&nbsp; Total : {{iTotal}}</h6>
-        <div style="max-height: 200px; overflow-y: scroll;">
-            <div class="page-body table-responsive">
-                <table class="table  table-hover table-sm">
-                    <thead class="page-body-thead">
-                        <tr>
-                            <th width="15%">YEAR</th>
-                            <th width="15%">MONTH</th>
-                            <th width="15%">AMOUNT</th>
-                            <th width="55%">SOURCE</th>
-                        </tr>
-                    </thead>
-                    <tbody class="page-body-tbody" *ngFor="let rec of RecordList">
-                        <tr>
-                            <td>{{rec.ded_year}}</td>
-                            <td>{{rec.ded_mon}}</td>
-                            <td>{{rec.ded_amt}}</td>
-                            <td>{{rec.ded_deduct_source}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        <h6 class="my-1">DEDUCTION LIST&nbsp;&nbsp;&nbsp;&nbsp; Total : <span class="text-danger">{{iTotal}}</span></h6>
+        <!-- <div style="max-height: 200px; overflow-y: scroll;"> -->
+        <div class="table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 710px);">
+            <table class="table  table-hover table-sm table-bordered table-striped">
+                <thead class="page-body-thead">
+                    <tr>
+                        <th width="15%">YEAR</th>
+                        <th width="15%">MONTH</th>
+                        <th width="15%">AMOUNT</th>
+                        <th width="55%">SOURCE</th>
+                    </tr>
+                </thead>
+                <tbody class="page-body-tbody">
+                    <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
+                        (mousedown)="selectedRowIndex=i">
+                        <td>{{rec.ded_year}}</td>
+                        <td>{{rec.ded_mon}}</td>
+                        <td>{{rec.ded_amt}}</td>
+                        <td>{{rec.ded_deduct_source}}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+        <!-- </div> -->
     </div>
 </div>
 

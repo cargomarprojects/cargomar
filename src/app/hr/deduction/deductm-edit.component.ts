@@ -38,18 +38,24 @@ export class DeductmEditComponent {
     sub: any;
     urlid: string;
     lock_record: boolean = false;
-
-
+    selectedRowIndex = -1;
+    bRepayment: boolean = false;
     bValueChanged: boolean = false;
     ErrorMessage = "";
     InfoMessage = "";
     iTotal: number = 0;
+
+    repayment_year: number = 0;
+    repayment_month: number = 0;
+    repayment_amount: number = 0;
+    repayment_remarks: string = '';
     // Array For Displaying List
     Salheadlist: SalaryHead[] = [];
     // Single Record for add/edit/view details
     Record: Deductm = new Deductm;
     RecordList: Deductd[] = [];
     EMPRECORD: SearchTable = new SearchTable();
+    MonList: any[] = [];
 
     constructor(
         private modalService: NgbModal,
@@ -74,11 +80,21 @@ export class DeductmEditComponent {
             if (this.menu_record.rights_print)
                 this.bPrint = true;
         }
+        if (this.gs.defaultValues.today.trim() != "") {
+            var tempdt = this.gs.defaultValues.today.split('-');
+            this.repayment_year = +tempdt[0];
+            this.repayment_month = +tempdt[1];
+        }
         this.InitLov();
         this.LoadCombo();
     }
 
     LoadCombo() {
+
+        this.MonList = [{ "id": 1, "name": "JANUARY" }, { "id": 2, "name": "FEBRUARY" }, { "id": 3, "name": "MARCH" }
+            , { "id": 4, "name": "APRIL" }, { "id": 5, "name": "MAY" }, { "id": 6, "name": "JUNE" }
+            , { "id": 7, "name": "JULY" }, { "id": 8, "name": "AUGUST" }, { "id": 9, "name": "SEPTEMBER" }
+            , { "id": 10, "name": "OCTOBER" }, { "id": 11, "name": "NOVEMBER" }, { "id": 12, "name": "DECEMBER" }];
 
         this.loading = true;
         let SearchData = {
@@ -341,6 +357,12 @@ export class DeductmEditComponent {
         if (field == 'ded_interest_amt') {
             this.Record.ded_interest_amt = this.gs.roundNumber(this.Record.ded_interest_amt, 0);
         }
+        if (field == 'repayment_amount') {
+            this.repayment_amount = this.gs.roundNumber(this.repayment_amount, 0);
+        }
+        if (field == 'repayment_remarks') {
+            this.repayment_remarks = this.repayment_remarks.toUpperCase();
+        }
     }
     OnChange(field: string) {
 
@@ -397,7 +419,7 @@ export class DeductmEditComponent {
         this.Record.ded_mon_amt = Math.ceil(emi);
         this.Record.ded_paid_amt = this.gs.roundNumber(+totalAmount.toFixed(2), 0);
         this.Record.ded_interest_amt = this.gs.roundNumber(+totalInterest.toFixed(2), 0);
-        
+
     }
     FindNetAmt() {
 
@@ -450,5 +472,63 @@ export class DeductmEditComponent {
     ShowHistory(history: any) {
         this.ErrorMessage = '';
         this.open(history);
+    }
+
+
+    SaveRepayment() {
+
+        if (this.repayment_year <= 0) {
+            alert("Invalid Year");
+            return;
+        } else if (this.repayment_year < 100) {
+            alert("YEAR FORMAT : - YYYY ");
+            return;
+        }
+        if (this.repayment_month <= 0 || this.repayment_month > 12) {
+            alert("Invalid Month");
+            return;
+        }
+        if (this.repayment_amount <= 0) {
+            alert("Repayment Amount cannot be blank");
+            return;
+        }
+        if (this.repayment_remarks.length <= 0) {
+            alert("Repayment remarks cannot be blank.");
+            return;
+        }
+
+        if (!confirm("Save, Repayment.")) {
+            return;
+        }
+
+        this.loading = true;
+        let SearchData = {
+            pkid: this.Record.ded_pkid,
+            company_code: this.gs.globalVariables.comp_code,
+            branch_code: this.gs.globalVariables.branch_code,
+            year_code: this.gs.globalVariables.year_code,
+            user_code: this.gs.globalVariables.user_code,
+            pay_year: this.repayment_year,
+            pay_month: this.repayment_month,
+            pay_amount: this.repayment_amount,
+            pay_remarks: this.repayment_remarks,
+            emp_id: this.Record.ded_emp_id
+        };
+        this.ErrorMessage = '';
+        this.InfoMessage = '';
+        this.mainService.SaveRepayment(SearchData)
+            .subscribe(response => {
+                this.loading = false;
+                this.RecordList = response.list;
+                this.iTotal = 0;
+                for (let rec of this.RecordList) {
+                    this.iTotal += rec.ded_amt;
+                }
+            },
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                    alert(this.ErrorMessage);
+                });
     }
 }
