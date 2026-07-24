@@ -326,6 +326,7 @@ export class CrLimitComponent {
       pkid: Id,
       comp_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
+      branch_name: this.gs.globalVariables.branch_name,
       user_code: this.gs.globalVariables.user_code,
       user_name: this.gs.globalVariables.user_name,
       user_short_name: this.gs.globalVariables.user_short_name,
