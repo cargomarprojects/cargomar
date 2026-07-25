@@ -45,6 +45,7 @@ export class DeductmEditComponent {
     InfoMessage = "";
     iTotal: number = 0;
 
+    canRepayment: boolean = false;
     repayment_year: number = 0;
     repayment_month: number = 0;
     repayment_amount: number = 0;
@@ -74,11 +75,14 @@ export class DeductmEditComponent {
 
     InitComponent() {
         this.bPrint = false;
+        this.canRepayment = false;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
             this.title = this.menu_record.menu_name;
             if (this.menu_record.rights_print)
                 this.bPrint = true;
+            if (this.menu_record.rights_approval.toString().indexOf('{REPAY}') >= 0 || this.gs.globalVariables.user_code == "ADMIN")
+                this.canRepayment = true;
         }
         if (this.gs.defaultValues.today.trim() != "") {
             var tempdt = this.gs.defaultValues.today.split('-');
@@ -519,11 +523,7 @@ export class DeductmEditComponent {
         this.mainService.SaveRepayment(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                this.RecordList = response.list;
-                this.iTotal = 0;
-                for (let rec of this.RecordList) {
-                    this.iTotal += rec.ded_amt;
-                }
+                this.GetRecord(this.Record.ded_pkid);
             },
                 error => {
                     this.loading = false;
