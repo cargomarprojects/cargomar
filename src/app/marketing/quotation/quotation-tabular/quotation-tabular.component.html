@@ -239,7 +239,7 @@
         <span *ngIf="mode!='VIEW' && !showAdd['CARRIER']" class="tab-add" (click)="ToggleAdd('CARRIER')">
           <i class="fa fa-plus"></i>Add</span>
         <span *ngIf="mode!='VIEW' && showAdd['CARRIER']" class="tab-add-box">
-          <app-autocomplete3 [controlname]="'TAB-CARRIER'" [tabletype]="carrier_lov" [displaycolumn]="'NAME'"
+          <app-autocomplete3 #CarrLov [controlname]="'TAB-CARRIER'" [tabletype]="carrier_lov" [displaycolumn]="'NAME'"
             [displaydata]="''" (ValueChanged)="LovSelected($event)"></app-autocomplete3>
         </span>
       </div>
@@ -255,7 +255,7 @@
         <span *ngIf="mode!='VIEW' && !showAdd['CONTAINER']" class="tab-add" (click)="ToggleAdd('CONTAINER')">
           <i class="fa fa-plus"></i>Add</span>
         <span *ngIf="mode!='VIEW' && showAdd['CONTAINER']" class="tab-add-box">
-          <app-autocomplete3 [controlname]="'TAB-CONTAINER'" [tabletype]="'CONTAINER TYPE'" [displaycolumn]="'CODE'"
+          <app-autocomplete3 #CntrLov [controlname]="'TAB-CONTAINER'" [tabletype]="'CONTAINER TYPE'" [displaycolumn]="'CODE'"
             [displaydata]="''" (ValueChanged)="LovSelected($event)"></app-autocomplete3>
         </span>
       </div>
@@ -271,7 +271,7 @@
         <span *ngIf="mode!='VIEW' && !showAdd['CURRENCY']" class="tab-add" (click)="ToggleAdd('CURRENCY')">
           <i class="fa fa-plus"></i>Add</span>
         <span *ngIf="mode!='VIEW' && showAdd['CURRENCY']" class="tab-add-box">
-          <app-autocomplete3 [controlname]="'TAB-CURRENCY'" [tabletype]="'CURRENCY'" [displaycolumn]="'CODE'"
+          <app-autocomplete3 #CurrLov [controlname]="'TAB-CURRENCY'" [tabletype]="'CURRENCY'" [displaycolumn]="'CODE'"
             [displaydata]="''" (ValueChanged)="LovSelected($event)"></app-autocomplete3>
         </span>
       </div>

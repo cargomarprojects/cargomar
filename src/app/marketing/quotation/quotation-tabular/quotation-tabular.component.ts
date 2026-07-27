@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../../core/services/global.service';
 import { Mark_Qtnm, Mark_Qtnd, SaveTermsData } from '../../models/quotation';
 import { GenRemarks } from '../../../shared/models/genremarks';
 import { SearchTable } from '../../../shared/models/searchtable';
 import { QuotationTabularService } from '../../services/quotationtabular.service';
+import { AutoComplete3Component } from '../../../shared/autocomplete3/autocomplete3.component';
 
 // TABULAR-QTN: a config-panel chip = one selected master value (carrier / container /
 // currency / charge) for this quotation.
@@ -30,6 +31,19 @@ export class QuotationTabularComponent {
   title = 'Tabular Quotation';
   @Input() menuid: string = '';
   @Input() type: string = 'TABULAR';   // REC_CATEGORY / discriminator (PRD §12)
+
+  private _CarrLovCmp: AutoComplete3Component;
+  @ViewChild('CarrLov') set CarrLov(cmp: AutoComplete3Component | undefined) {
+    this.onLovCreated(cmp, c => this._CarrLovCmp = c);
+  }
+  private _CntrLovCmp: AutoComplete3Component;
+  @ViewChild('CntrLov') set CntrLov(cmp: AutoComplete3Component | undefined) {
+    this.onLovCreated(cmp, c => this._CntrLovCmp = c);
+  }
+  private _CurrLovCmp: AutoComplete3Component;
+  @ViewChild('CurrLov') set CurrLov(cmp: AutoComplete3Component | undefined) {
+    this.onLovCreated(cmp, c => this._CurrLovCmp = c);
+  }
 
   InitCompleted: boolean = false;
   menu_record: any;
@@ -376,6 +390,7 @@ export class QuotationTabularComponent {
   ToggleAdd(_kind: string) {
     this.showAdd[_kind] = !this.showAdd[_kind];
   }
+
 
   listFor(_kind: string): TabChip[] {
     if (_kind == 'CARRIER') return this.Carriers;
@@ -950,5 +965,13 @@ export class QuotationTabularComponent {
 
   Close() {
     this.gs.ClosePage('home');
+  }
+
+  private onLovCreated(cmp: AutoComplete3Component | undefined,
+    assign: (c: AutoComplete3Component | undefined) => void) {
+    assign(cmp);
+    if (cmp) {
+      cmp.setfocus();
+    }
   }
 }
