@@ -1277,7 +1277,9 @@
             <br />
             <div>
               <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GenerateEdiFile('EDIFILE','SB')"
-                class="btn btn-success btn-sm">Edi File</button>
+                class="btn btn-success btn-sm mr-1">Edi File</button>
+              <!-- <button [disabled]="loading" *ngIf="mode=='EDIT'&&gs.globalVariables.user_code == 'ADMIN'" (click)="GenerateEdiFile('JSONFILE','JSON')"
+                class="btn btn-success btn-sm">Json File</button> -->
             </div>
             <hr />
             <br />
