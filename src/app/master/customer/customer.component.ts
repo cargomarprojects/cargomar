@@ -5,6 +5,7 @@ import { GlobalService } from '../../core/services/global.service';
 import { Customerm } from '../models/customer';
 import { CustomerService } from '../services/customer.service';
 import { SearchTable } from '../../shared/models/searchtable';
+import { WarningAlertComponent } from '../../shared/warningalert/warningalert.component';
 //EDIT-AJITH-29-09-2021
 
 @Component({
@@ -21,7 +22,7 @@ export class CustomerComponent {
   title = 'Address MASTER';
 
   @ViewChild('addressComponent') addressComponent: any;
-
+  @ViewChild('WarnMsg') private _WarnMsg: WarningAlertComponent;
 
   mdate: string;
 
@@ -536,10 +537,35 @@ export class CustomerComponent {
   }
 
 
+  Save() {
+    if (this.mode !== "ADD" || !this.Record.cust_is_shipper) {
+      this.Save2();
+      return;
+    }
 
+    let msg = "";
+
+    if (this.Record.cust_class === 'N' && this.Record.cust_type === 'N')
+      msg = "Merchant Class and Type not selected, continue?";
+    else if (this.Record.cust_class === 'N')
+      msg = "Merchant Class not selected, continue?";
+    else if (this.Record.cust_type === 'N')
+      msg = "Merchant Type not selected, continue?";
+
+    if (!msg) {
+      this.Save2();
+      return;
+    }
+
+    this._WarnMsg.showConfirm(msg).then(confirmed => {
+      if (confirmed) {
+        this.Save2();
+      }
+    });
+  }
 
   // Save Data
-  Save() {
+  Save2() {
     if (!this.allvalid()) {
       alert(this.ErrorMessage);
       return;
