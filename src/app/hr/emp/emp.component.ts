@@ -1021,7 +1021,7 @@ export class EmpComponent {
 
 
   getTrainingCompletionDateString(
-    joiningDate: Date | string,
+    joiningDate: string,
     trainingPeriodMonths: number
   ): string {
 
