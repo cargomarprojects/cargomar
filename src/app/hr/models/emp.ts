@@ -87,6 +87,8 @@ export class Emp {
   emp_hod_id: string;
   emp_hod_code: string;
   emp_hod_name: string;
+  emp_training_period: number;
+  emp_training_end_dt: string;
 
   rec_mode: string;
   rec_branch_code: string;

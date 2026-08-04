@@ -139,6 +139,7 @@
           <th>CONFIRM DATE</th>
           <th>RELIEVE DATE</th>
           <th>TRANSFER DATE</th>
+          <th>TRNG/PROB. END DT</th>
           <th>PHOTO</th>
         </tr>
       </thead>
@@ -158,6 +159,8 @@
           <td>{{rec.emp_do_confirmation}}</td>
           <td>{{rec.emp_do_relieve}}</td>
           <td>{{rec.emp_trans_date}}</td>
+          <td>{{rec.emp_trans_date}}</td>
+          <td>{{rec.emp_training_end_dt}}</td>
           <td>{{rec.emp_image_upload}}</td>
         </tr>
       </tbody>
@@ -566,58 +569,78 @@
           <ng-template ngbTabContent>
 
             <div class="page-box">
-              <div class="col-sm-6">
+              <div class="row">
+                <div class="col-sm-6">
 
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label col-form-label-sm">Branch Group</label>
-                  <div class="col-sm-9">
-                    <select class="form-control form-control-sm" name="empbr" [(ngModel)]="Record.emp_branch_group">
-                      <option [value]="'1'">1</option>
-                      <option [value]="'2'">2</option>
-                      <!-- <option [value]="'3'">3</option> -->
-                    </select>
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label col-form-label-sm">Branch Group</label>
+                    <div class="col-sm-9">
+                      <select class="form-control form-control-sm" name="empbr" [(ngModel)]="Record.emp_branch_group">
+                        <option [value]="'1'">1</option>
+                        <option [value]="'2'">2</option>
+                        <!-- <option [value]="'3'">3</option> -->
+                      </select>
+                    </div>
                   </div>
-                </div>
 
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label col-form-label-sm">Grade</label>
-                  <div class="col-sm-9">
-                    <select class="form-control form-control-sm" [(ngModel)]="Record.emp_grade_id">
-                      <option *ngFor="let rec of GradeList" [value]="rec.param_pkid">{{rec.param_name}}</option>
-                    </select>
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label col-form-label-sm">Grade</label>
+                    <div class="col-sm-9">
+                      <select class="form-control form-control-sm" [(ngModel)]="Record.emp_grade_id">
+                        <option *ngFor="let rec of GradeList" [value]="rec.param_pkid">{{rec.param_name}}</option>
+                      </select>
+                    </div>
                   </div>
-                </div>
 
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label col-form-label-sm">Department</label>
-                  <div class="col-sm-9">
-                    <select class="form-control form-control-sm" [(ngModel)]="Record.emp_department_id">
-                      <option *ngFor="let rec of DepartmentList" [value]="rec.param_pkid">{{rec.param_name}}</option>
-                    </select>
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label col-form-label-sm">Department</label>
+                    <div class="col-sm-9">
+                      <select class="form-control form-control-sm" [(ngModel)]="Record.emp_department_id">
+                        <option *ngFor="let rec of DepartmentList" [value]="rec.param_pkid">{{rec.param_name}}</option>
+                      </select>
+                    </div>
                   </div>
-                </div>
 
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label col-form-label-sm">Designation</label>
-                  <div class="col-sm-9">
-                    <select class="form-control form-control-sm" [(ngModel)]="Record.emp_designation_id">
-                      <option *ngFor="let rec of DesignationList" [value]="rec.param_pkid">{{rec.param_name}}</option>
-                    </select>
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label col-form-label-sm">Designation</label>
+                    <div class="col-sm-9">
+                      <select class="form-control form-control-sm" [(ngModel)]="Record.emp_designation_id">
+                        <option *ngFor="let rec of DesignationList" [value]="rec.param_pkid">{{rec.param_name}}</option>
+                      </select>
+                    </div>
                   </div>
-                </div>
 
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label col-form-label-sm">Status</label>
-                  <div class="col-sm-9">
-                    <select class="form-control form-control-sm" [(ngModel)]="Record.emp_status_id">
-                      <option *ngFor="let rec of StatusList" [value]="rec.param_pkid">{{rec.param_name}}</option>
-                    </select>
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label col-form-label-sm">Status</label>
+                    <div class="col-sm-9">
+                      <select class="form-control form-control-sm" [(ngModel)]="Record.emp_status_id">
+                        <option *ngFor="let rec of StatusList" [value]="rec.param_pkid">{{rec.param_name}}</option>
+                      </select>
+                    </div>
                   </div>
-                </div>
 
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label  col-form-label-sm">Trainee/Probation Period</label>
+                    <div class="col-sm-9">
+                      <input type="number" class="form-control form-control-sm" [(ngModel)]="Record.emp_training_period"
+                        (blur)="OnBlur('emp_training_period')" (change)="OnChange('emp_training_period')"
+                        (focus)="OnFocus('emp_training_period')" />
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label  col-form-label-sm">Trn./Prob. Completion Date</label>
+                    <div class="col-sm-9">
+                      <app-date [inputdate]="Record.emp_training_end_dt"
+                        (ValueChanged)="Record.emp_training_end_dt=$event">
+                      </app-date>
+                    </div>
+                  </div>
+
+                </div>
               </div>
             </div>
-
 
           </ng-template>
         </ngb-tab>

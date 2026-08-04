@@ -37,6 +37,8 @@ export class EmpComponent {
   menu_record: any;
   selectedRowIndex = 0;
 
+  bValueChanged: boolean = false;
+
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
@@ -404,6 +406,8 @@ export class EmpComponent {
     this.Record.emp_hod_id = '';
     this.Record.emp_hod_code = '';
     this.Record.emp_hod_name = '';
+    this.Record.emp_training_end_dt = '';
+    this.Record.emp_training_period = 0;
     this.lock_record = false;
     this.Initdefault();
 
@@ -608,6 +612,16 @@ export class EmpComponent {
       }
     }
 
+
+    if (this.GetFieldName("TRAINEE").fieldid == this.Record.emp_status_id || this.GetFieldName("PROBATION").fieldid == this.Record.emp_status_id) {
+
+      if (this.Record.emp_training_end_dt.trim().length <= 0) {
+        bret = false;
+        sError += "\n\r|Trainee/Probation Completion Date Cannot Be Blank";
+      }
+    }
+
+
     // if (this.GetFieldName("CONSULTANT").fieldid == this.Record.emp_status_id) {
     //   if (this.Record.emp_in_payroll == true) {
     //     bret = false;
@@ -679,6 +693,15 @@ export class EmpComponent {
     //     this.ageinyears = this.GetAge().ageyears + "Yrs";
     //   }
     // }
+
+    if (field == 'emp_training_period')
+      this.bValueChanged = true;
+  }
+
+  OnFocus(field: string) {
+
+    if (field == 'emp_training_period')
+      this.bValueChanged = false;
   }
 
   OnBlur(field: string) {
@@ -771,6 +794,10 @@ export class EmpComponent {
       this.searchstring = this.searchstring.toUpperCase();
     }
 
+    if (field == 'emp_training_period') {
+      if (this.bValueChanged && this.Record.emp_training_period > 0)
+        this.Record.emp_training_end_dt = this.getTrainingCompletionDateString(this.Record.emp_do_joining, this.Record.emp_training_period);
+    }
   }
 
 
@@ -991,6 +1018,19 @@ export class EmpComponent {
     }
 
   }
+
+
+  getTrainingCompletionDateString(
+    joiningDate: Date | string,
+    trainingPeriodMonths: number
+  ): string {
+
+    const date = new Date(joiningDate);
+    date.setMonth(date.getMonth() + trainingPeriodMonths);
+
+    return date.toISOString().split("T")[0];
+  }
+
 }
 
 
