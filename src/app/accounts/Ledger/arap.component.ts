@@ -2744,7 +2744,8 @@ export class ArApComponent {
       to_date: this.todate,
       year_code: '',
       print_in_temp: false,
-      user_code: ''
+      user_code: '',
+      searchstring:this.searchstring
     }
 
     SearchData.type = this.type;
@@ -2761,6 +2762,7 @@ export class ArApComponent {
     SearchData.year_code = this.gs.globalVariables.year_code;
     SearchData.print_in_temp = false;
     SearchData.user_code = this.gs.globalVariables.user_code;
+    SearchData.searchstring = this.searchstring;
 
     this.loading = true;
     this.mainService.GenerateAllInvoice(SearchData)
