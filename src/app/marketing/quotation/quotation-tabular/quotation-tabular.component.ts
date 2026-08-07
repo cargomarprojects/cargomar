@@ -837,12 +837,12 @@ export class QuotationTabularComponent {
 
   OnBlur(field: string, _rec: any = null) {
     switch (field) {
-      case 'gr_remarks':
-        if (_rec) _rec.gr_remarks = (_rec.gr_remarks || '').toUpperCase();
-        return;
-      case 'qtnm_term':
-        if (_rec) _rec.qtnm_remarks = (_rec.qtnm_remarks || '').toUpperCase();
-        return;
+      // case 'gr_remarks':
+      //   if (_rec) _rec.gr_remarks = (_rec.gr_remarks || '').toUpperCase();
+      //   return;
+      // case 'qtnm_term':
+      //   if (_rec) _rec.qtnm_remarks = (_rec.qtnm_remarks || '').toUpperCase();
+      //   return;
       case 'qtnm_to_name':
         this.Record.qtnm_to_name = this.Record.qtnm_to_name.toUpperCase();
         break;
