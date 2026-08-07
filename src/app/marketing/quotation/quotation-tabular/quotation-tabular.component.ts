@@ -270,18 +270,26 @@ export class QuotationTabularComponent {
     this.Record.qtnm_validity = '';
     this.Record.qtnm_salesman_id = this.gs.globalVariables.sman_id;
     this.Record.qtnm_salesman_name = this.gs.globalVariables.sman_name;
+    this.Record.qtnm_por_id = '';
+    this.Record.qtnm_por_code = '';
+    this.Record.qtnm_por_name = '';
     this.Record.qtnm_pol_id = '';
     this.Record.qtnm_pol_code = '';
     this.Record.qtnm_pol_name = '';
     this.Record.qtnm_pod_id = '';
     this.Record.qtnm_pod_code = '';
     this.Record.qtnm_pod_name = '';
+    this.Record.qtnm_pofd_id = '';
+    this.Record.qtnm_pofd_code = '';
+    this.Record.qtnm_pofd_name = '';
     this.Record.qtnm_commodity = '';
     this.Record.qtnm_package = '';
     this.Record.qtnm_pcs = '';
     this.Record.qtnm_kgs = 0;
     this.Record.qtnm_cbm = 0;
     this.Record.qtnm_remarks = '';
+    this.Record.qtnm_incoterm = '';
+    this.Record.qtnm_validity_dt = '';
     this.Record.rec_category = this.type;
     this.Record.rec_mode = this.mode;
     this.Record.qtnm_detList = new Array<Mark_Qtnd>();
@@ -635,6 +643,11 @@ export class QuotationTabularComponent {
         this.Record.qtnm_salesman_id = _Record.id;
         this.Record.qtnm_salesman_name = _Record.name;
         break;
+      case 'POR':
+        this.Record.qtnm_por_id = _Record.id;
+        this.Record.qtnm_por_code = _Record.code;
+        this.Record.qtnm_por_name = _Record.name;
+        break;
       case 'POL':
         this.Record.qtnm_pol_id = _Record.id;
         this.Record.qtnm_pol_code = _Record.code;
@@ -644,6 +657,11 @@ export class QuotationTabularComponent {
         this.Record.qtnm_pod_id = _Record.id;
         this.Record.qtnm_pod_code = _Record.code;
         this.Record.qtnm_pod_name = _Record.name;
+        break;
+        case 'POFD':
+        this.Record.qtnm_pofd_id = _Record.id;
+        this.Record.qtnm_pofd_code = _Record.code;
+        this.Record.qtnm_pofd_name = _Record.name;
         break;
     }
   }

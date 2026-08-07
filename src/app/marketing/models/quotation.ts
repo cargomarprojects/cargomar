@@ -77,6 +77,7 @@ export class Mark_Qtnm {
 
     qtnm_cont_id: string;
     qtnm_cont_code: string;
+    qtnm_validity_dt: string;
 
     _globalvariables: GlobalVariables;
 }

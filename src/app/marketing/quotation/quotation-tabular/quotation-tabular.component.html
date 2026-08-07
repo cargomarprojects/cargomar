@@ -25,10 +25,13 @@
   <div class="page-pager">
     <div *ngIf="page_count">
       <ul class="pagination pagination-sm mb-1">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
       </ul>
     </div>
@@ -42,6 +45,7 @@
           <th>DATE</th>
           <th>QUOTE TO</th>
           <th>QUOTE BY</th>
+          <th>TERM</th>
           <th>POL</th>
           <th>POD</th>
           <th>COMMODITY</th>
@@ -60,10 +64,11 @@
           <td>{{rec.qtnm_date}}</td>
           <td>{{rec.qtnm_to_name}}</td>
           <td>{{rec.qtnm_quot_by}}</td>
+          <td>{{rec.qtnm_incoterm}}</td>
           <td>{{rec.qtnm_pol_name}}</td>
           <td>{{rec.qtnm_pod_name}}</td>
           <td>{{rec.qtnm_commodity}}</td>
-          <td>{{rec.qtnm_validity}}</td>
+          <td>{{rec.qtnm_validity_dt}}</td>
           <td>{{rec.rec_created_by}}</td>
           <td>{{rec.rec_created_date}}</td>
           <td>{{rec.rec_edited_by}}</td>
@@ -77,10 +82,13 @@
   <div class="page-pager">
     <div *ngIf="page_count">
       <ul class="pagination pagination-sm mb-1">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a></li>
+        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a></li>
-        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a></li>
+        <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="List('NEXT')"><span class="fa fa-arrow-right"></span></a>
+        </li>
         <li class="page-item"><a class="page-link" (click)="List('LAST')"><span class="fa fa-forward"></span></a></li>
       </ul>
     </div>
@@ -165,7 +173,8 @@
         <div class="form-group row">
           <label class="col-sm-3 col-form-label col-form-label-sm">Quote.Date</label>
           <div class="col-sm-9">
-            <app-date [inputdate]="Record.qtnm_date" (ValueChanged)="Record.qtnm_date=$event"></app-date>
+            <app-date [inputdate]="Record.qtnm_date" (ValueChanged)="Record.qtnm_date=$event"
+              [disabled]="mode=='VIEW'"></app-date>
           </div>
         </div>
         <div class="form-group row">
@@ -176,21 +185,55 @@
           </div>
         </div>
         <div class="form-group row">
+          <label class="col-sm-3 col-form-label col-form-label-sm">Term</label>
+          <div class="col-sm-9">
+            <select class="form-control form-control-sm" [(ngModel)]="Record.qtnm_incoterm" [disabled]="mode=='VIEW'">
+              <option [value]="''">NA</option>
+              <option [value]="'CIF'">CIF</option>
+              <option [value]="'FOB'">FOB</option>
+              <option [value]="'DDU'">DDU</option>
+              <option [value]="'DAP'">DAP</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label col-form-label-sm">POR</label>
+          <div class="col-sm-9">
+            <app-autocomplete3 *ngIf="mode!='VIEW'" [controlname]="'POR'" [tabletype]="'SEA PORT'"
+              [displaycolumn]="'NAME'" [displaydata]="Record.qtnm_por_name"
+              (ValueChanged)="LovSelected($event)"></app-autocomplete3>
+            <input *ngIf="mode=='VIEW'" type="text" class="form-control form-control-sm"
+              [(ngModel)]="Record.qtnm_por_name" [disabled]="true" />
+          </div>
+        </div>
+        <div class="form-group row">
           <label class="col-sm-3 col-form-label col-form-label-sm">POL</label>
           <div class="col-sm-9">
-            <app-autocomplete3 *ngIf="mode!='VIEW'" [controlname]="'POL'" [tabletype]="'SEA PORT'" [displaycolumn]="'NAME'"
-              [displaydata]="Record.qtnm_pol_name" (ValueChanged)="LovSelected($event)"></app-autocomplete3>
-            <input *ngIf="mode=='VIEW'" type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_pol_name"
-              [disabled]="true" />
+            <app-autocomplete3 *ngIf="mode!='VIEW'" [controlname]="'POL'" [tabletype]="'SEA PORT'"
+              [displaycolumn]="'NAME'" [displaydata]="Record.qtnm_pol_name"
+              (ValueChanged)="LovSelected($event)"></app-autocomplete3>
+            <input *ngIf="mode=='VIEW'" type="text" class="form-control form-control-sm"
+              [(ngModel)]="Record.qtnm_pol_name" [disabled]="true" />
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-3 col-form-label col-form-label-sm">POD</label>
           <div class="col-sm-9">
-            <app-autocomplete3 *ngIf="mode!='VIEW'" [controlname]="'POD'" [tabletype]="'SEA PORT'" [displaycolumn]="'NAME'"
-              [displaydata]="Record.qtnm_pod_name" (ValueChanged)="LovSelected($event)"></app-autocomplete3>
-            <input *ngIf="mode=='VIEW'" type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_pod_name"
-              [disabled]="true" />
+            <app-autocomplete3 *ngIf="mode!='VIEW'" [controlname]="'POD'" [tabletype]="'SEA PORT'"
+              [displaycolumn]="'NAME'" [displaydata]="Record.qtnm_pod_name"
+              (ValueChanged)="LovSelected($event)"></app-autocomplete3>
+            <input *ngIf="mode=='VIEW'" type="text" class="form-control form-control-sm"
+              [(ngModel)]="Record.qtnm_pod_name" [disabled]="true" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-3 col-form-label col-form-label-sm">POFD</label>
+          <div class="col-sm-9">
+            <app-autocomplete3 *ngIf="mode!='VIEW'" [controlname]="'POFD'" [tabletype]="'SEA PORT'"
+              [displaycolumn]="'NAME'" [displaydata]="Record.qtnm_pofd_name"
+              (ValueChanged)="LovSelected($event)"></app-autocomplete3>
+            <input *ngIf="mode=='VIEW'" type="text" class="form-control form-control-sm"
+              [(ngModel)]="Record.qtnm_pofd_name" [disabled]="true" />
           </div>
         </div>
       </div>
@@ -199,8 +242,10 @@
         <div class="form-group row">
           <label class="col-sm-3 col-form-label col-form-label-sm">Validity</label>
           <div class="col-sm-9">
-            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_validity"
-              [disabled]="mode=='VIEW'" (blur)="OnBlur('qtnm_validity')" maxlength="60" />
+            <!-- <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_validity"
+              [disabled]="mode=='VIEW'" (blur)="OnBlur('qtnm_validity')" maxlength="60" /> -->
+            <app-date [inputdate]="Record.qtnm_validity_dt" (ValueChanged)="Record.qtnm_validity_dt=$event"
+              [disabled]="mode=='VIEW'"></app-date>
           </div>
         </div>
         <div class="form-group row">
@@ -255,8 +300,9 @@
         <span *ngIf="mode!='VIEW' && !showAdd['CONTAINER']" class="tab-add" (click)="ToggleAdd('CONTAINER')">
           <i class="fa fa-plus"></i>Add</span>
         <span *ngIf="mode!='VIEW' && showAdd['CONTAINER']" class="tab-add-box">
-          <app-autocomplete3 #CntrLov [controlname]="'TAB-CONTAINER'" [tabletype]="'CONTAINER TYPE'" [displaycolumn]="'CODE'"
-            [displaydata]="''" (ValueChanged)="LovSelected($event)"></app-autocomplete3>
+          <app-autocomplete3 #CntrLov [controlname]="'TAB-CONTAINER'" [tabletype]="'CONTAINER TYPE'"
+            [displaycolumn]="'CODE'" [displaydata]="''" [flag]="'ADD-LCL'"
+            (ValueChanged)="LovSelected($event)"></app-autocomplete3>
         </span>
       </div>
     </div>
@@ -297,8 +343,9 @@
           <!-- Level 2: containers -->
           <tr>
             <ng-container *ngFor="let carrier of Carriers; let ci = index">
-              <th *ngFor="let cont of Containers; let coni = index" [attr.colspan]="Currencies.length" class="tab-cntr-head"
-                [class.tab-grp-alt]="ci % 2 == 0" [class.tab-carrier-start]="ci > 0 && coni == 0">{{cont.name}}</th>
+              <th *ngFor="let cont of Containers; let coni = index" [attr.colspan]="Currencies.length"
+                class="tab-cntr-head" [class.tab-grp-alt]="ci % 2 == 0" [class.tab-carrier-start]="ci > 0 && coni == 0">
+                {{cont.name}}</th>
             </ng-container>
           </tr>
           <!-- Level 3: currencies -->
@@ -306,7 +353,8 @@
             <ng-container *ngFor="let carrier of Carriers; let ci = index">
               <ng-container *ngFor="let cont of Containers; let coni = index">
                 <th *ngFor="let curr of Currencies; let curi = index" class="tab-curr-head"
-                  [class.tab-grp-alt]="ci % 2 == 0" [class.tab-carrier-start]="ci > 0 && coni == 0 && curi == 0">{{curr.name}}</th>
+                  [class.tab-grp-alt]="ci % 2 == 0" [class.tab-carrier-start]="ci > 0 && coni == 0 && curi == 0">
+                  {{curr.name}}</th>
               </ng-container>
             </ng-container>
           </tr>
@@ -314,8 +362,8 @@
         <tbody class="page-body-tbody">
           <!-- one row per charge: Code + Description editable inline -->
           <tr *ngFor="let ref of Refs">
-            <td class="tab-code-col" [class.tab-code-top]="codeFocusRow==ref.rowid"
-              (focusin)="CodeFocus(ref.rowid)" (focusout)="CodeBlur()">
+            <td class="tab-code-col" [class.tab-code-top]="codeFocusRow==ref.rowid" (focusin)="CodeFocus(ref.rowid)"
+              (focusout)="CodeBlur()">
               <app-autocomplete3 *ngIf="mode!='VIEW'" [controlname]="'TAB-REF'" [uid]="ref.rowid" [tabletype]="'ACCTM'"
                 [displaycolumn]="'CODE'" [branchcode]="gs.globalVariables.branch_code" [where]="acc_sWhere"
                 [floatdrop]="true" [displaydata]="ref.code" (ValueChanged)="RefPicked($event)"></app-autocomplete3>
@@ -355,7 +403,8 @@
                 <td *ngFor="let curr of Currencies; let curi = index" class="text-right tab-amt-col"
                   [class.tab-grp-alt]="ci % 2 == 0" [class.tab-carrier-start]="ci > 0 && coni == 0 && curi == 0"
                   [class.tab-cntr-start]="coni > 0 && curi == 0">
-                  <span *ngIf="GetColTotal(carrier.id, cont.id, curr.id)">{{GetColTotal(carrier.id, cont.id, curr.id) | number:'1.0-0'}}</span>
+                  <span *ngIf="GetColTotal(carrier.id, cont.id, curr.id)">{{GetColTotal(carrier.id, cont.id, curr.id) |
+                    number:'1.0-0'}}</span>
                   <span *ngIf="!GetColTotal(carrier.id, cont.id, curr.id)" class="tab-dash">&mdash;</span>
                 </td>
               </ng-container>
