@@ -14,7 +14,7 @@ export class Coststmt {
   jvh_remarks: string;
   jvh_reference: string;
   rec_category: string;
-  
+
   jv_ftotal: number;
 
   jv_debit: number;
@@ -30,6 +30,8 @@ export class Coststmt {
 
   jvh_narration: string;
 
+  jv_debit_inr: number;
+  jv_credit_inr: number;
 
   _globalvariables: GlobalVariables;
 }

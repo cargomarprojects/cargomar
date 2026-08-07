@@ -50,6 +50,7 @@ export class CoststmtComponent {
   loading = false;
   currentTab = 'LIST';
   searchstring = '';
+  showinr: boolean = false;
 
   SearchData = {
     type: '',
@@ -71,6 +72,7 @@ export class CoststmtComponent {
     curr_id: '',
     curr_code: '',
     all: false,
+    showinr: false
   };
 
   // Array For Displaying List
@@ -134,8 +136,8 @@ export class CoststmtComponent {
     this.RecordList = null;
     this.branch_code = this.gs.globalVariables.branch_code;
     this.branch_name = this.gs.globalVariables.branch_name;
-    this.from_date = this.gs.defaultValues.monthbegindate;
-    this.to_date = this.gs.defaultValues.today;
+    this.from_date = this.gs.globalVariables.year_start_date;
+    this.to_date = this.gs.globalVariables.year_end_date;
 
     this.agent_id = '';
     this.agent_name = '';
@@ -275,7 +277,7 @@ export class CoststmtComponent {
     this.SearchData.agent_code = this.agent_code;
     this.SearchData.curr_id = this.curr_id;
     this.SearchData.curr_code = this.curr_code;
-
+    this.SearchData.showinr = this.showinr;
     //this.SearchData.all = this.all;
 
     this.ErrorMessage = '';
