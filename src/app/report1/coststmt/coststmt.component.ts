@@ -51,6 +51,7 @@ export class CoststmtComponent {
   currentTab = 'LIST';
   searchstring = '';
   showinr: boolean = false;
+  showinrList: boolean = false;
 
   SearchData = {
     type: '',
@@ -255,6 +256,8 @@ export class CoststmtComponent {
       alert(this.ErrorMessage);
       return;
     }
+
+    this.showinrList = this.showinr;
 
     this.loading = true;
     this.pkid = this.gs.getGuid();
