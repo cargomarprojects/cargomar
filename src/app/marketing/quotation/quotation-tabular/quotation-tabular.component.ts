@@ -387,10 +387,11 @@ export class QuotationTabularComponent {
         refByKey[rkey] = ref;
         this.Refs.push(ref);
       }
-      this.GetCell(rec.qtnd_carrier_id, rec.qtnd_cntr_type_id, rec.qtnd_curr_id, ref.rowid).amt = rec.qtnd_amt;
+      //this.GetCell(rec.qtnd_carrier_id, rec.qtnd_cntr_type_id, rec.qtnd_curr_id, ref.rowid).amt = rec.qtnd_amt; //IDs change to Code
+      this.GetCell(rec.qtnd_carrier_code, rec.qtnd_cntr_type_code, rec.qtnd_curr_code, ref.rowid).amt = rec.qtnd_amt;
     }
     if (this.Carriers.length > 0)
-      this.selectedCarrierId = this.Carriers[0].id;
+      this.selectedCarrierId = this.Carriers[0].code; //this.selectedCarrierId = this.Carriers[0].id;
   }
 
   // ----- CONFIG PANEL (chips) --------------------------------------------
@@ -408,26 +409,26 @@ export class QuotationTabularComponent {
   }
 
   AddChip(_kind: string, chip: TabChip) {
-    if (chip == null || this.gs.isBlank(chip.id))
+    if (chip == null || this.gs.isBlank(chip.code))//this.gs.isBlank(chip.id)
       return;
     let list = this.listFor(_kind);
-    if (list.find(c => c.id == chip.id) != null)
+    if (list.find(c => c.code == chip.code) != null) //list.find(c => c.id == chip.id) != null
       return;
     list.push({ id: chip.id, code: chip.code, name: chip.name, rowid: this.gs.getGuid() });
     if (_kind == 'CARRIER' && this.gs.isBlank(this.selectedCarrierId))
-      this.selectedCarrierId = chip.id;
+      this.selectedCarrierId = chip.code; //this.selectedCarrierId = chip.id;
   }
 
-  // axis chips (carrier / container / currency) — keep at least one column
-  RemoveChip(_kind: string, _id: string) {
+  // axis chips (carrier / container / currency) — keep at least one column //changr ID to Code
+  RemoveChip(_kind: string, _code: string) {
     let list = this.listFor(_kind);
     if (list.length <= 1)               // keep at least one (PRD §5)
       return;
-    let i = list.findIndex(c => c.id == _id);
+    let i = list.findIndex(c => c.code == _code);
     if (i >= 0)
       list.splice(i, 1);
-    if (_kind == 'CARRIER' && this.selectedCarrierId == _id && this.Carriers.length > 0)
-      this.selectedCarrierId = this.Carriers[0].id;
+    if (_kind == 'CARRIER' && this.selectedCarrierId == _code && this.Carriers.length > 0)
+      this.selectedCarrierId = this.Carriers[0].code;
   }
 
   // ----- DESCRIPTION ROWS (charges) — inline add / edit / delete in the grid -----
@@ -565,7 +566,7 @@ export class QuotationTabularComponent {
       case 'TAB-CURRENCY':
         this.AddChip('CURRENCY', { id: _Record.id, code: _Record.code, name: _Record.code });
         if (!this.gs.isBlank(_Record.id)) {
-          this.currExrate[_Record.id] = _Record.rate || 1;
+          this.currExrate[_Record.code] = _Record.rate || 1; //_Record.id
           this.showAdd['CURRENCY'] = false;
         }
         break;
@@ -668,38 +669,38 @@ export class QuotationTabularComponent {
 
   // ----- GRID CELLS -------------------------------------------------------
 
-  CellKey(carrierId: string, contId: string, currId: string, accId: string): string {
-    return carrierId + '~' + contId + '~' + currId + '~' + accId;
+  CellKey(carrierCode: string, contCode: string, currCode: string, accId: string): string {
+    return carrierCode + '~' + contCode + '~' + currCode + '~' + accId;
   }
 
   // returns a stable cell object so [(ngModel)] can bind to .amt
   // amt starts as null so the input shows blank (not a misleading 0) until a value is typed
-  GetCell(carrierId: string, contId: string, currId: string, accId: string): { amt: number } {
-    let key = this.CellKey(carrierId, contId, currId, accId);
+  GetCell(carrierCode: string, contCode: string, currCode: string, accId: string): { amt: number } {
+    let key = this.CellKey(carrierCode, contCode, currCode, accId);
     if (this.cells[key] == null)
       this.cells[key] = { amt: null };
     return this.cells[key];
   }
 
   // whole numbers only: drop any decimals the user typed into an amount cell
-  CellAmtBlur(carrierId: string, contId: string, currId: string, accId: string) {
-    let cell = this.GetCell(carrierId, contId, currId, accId);
+  CellAmtBlur(carrierCode: string, contCode: string, currCode: string, accId: string) {
+    let cell = this.GetCell(carrierCode, contCode, currCode, accId);
     if (cell.amt != null && cell.amt !== ('' as any))
       cell.amt = Math.trunc(cell.amt);
   }
 
   // exchange rate comes from the currency master (set when the currency chip is added);
   // it is no longer entered in the grid.
-  GetExrate(currId: string): number {
-    let r = this.currExrate[currId];
+  GetExrate(currCode: string): number {
+    let r = this.currExrate[currCode];
     return (r && r > 0) ? r : 1;
   }
 
   // total for one carrier x container x currency column (sum over charges)
-  GetColTotal(carrierId: string, contId: string, currId: string): number {
+  GetColTotal(carrierCode: string, contCode: string, currCode: string): number {
     let tot = 0;
     for (let ref of this.Refs)
-      tot += this.GetCell(carrierId, contId, currId, ref.rowid).amt || 0;
+      tot += this.GetCell(carrierCode, contCode, currCode, ref.rowid).amt || 0;
     return this.gs.roundNumber(tot, 2);
   }
 
@@ -708,13 +709,13 @@ export class QuotationTabularComponent {
     for (let carrier of this.Carriers)
       for (let cont of this.Containers)
         for (let curr of this.Currencies)
-          if (this.GetCell(carrier.id, cont.id, curr.id, ref.rowid).amt)
+          if (this.GetCell(carrier.code, cont.code, curr.code, ref.rowid).amt)
             return true;
     return false;
   }
 
   // all carrier columns are editable in ADD/EDIT (no single-carrier restriction)
-  IsCellEditable(carrierId: string): boolean {
+  IsCellEditable(carrierCode: string): boolean {
     return this.mode == 'ADD' || this.mode == 'EDIT';
   }
 
@@ -729,10 +730,10 @@ export class QuotationTabularComponent {
           for (let ref of this.Refs) {
             if (this.gs.isBlank(ref.name))   // description required; skip empty rows
               continue;
-            let amt = this.GetCell(carrier.id, cont.id, curr.id, ref.rowid).amt;
+            let amt = this.GetCell(carrier.code, cont.code, curr.code, ref.rowid).amt;
             if (amt == null || amt == 0)
               continue;
-            let exrate = this.GetExrate(curr.id);
+            let exrate = this.GetExrate(curr.code);
             let d = new Mark_Qtnd();
             d.qtnd_pkid = this.gs.getGuid();
             d.qtnd_parent_id = this.pkid;

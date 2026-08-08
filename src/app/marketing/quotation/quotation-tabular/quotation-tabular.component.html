@@ -285,9 +285,9 @@
     <div class="tab-cfg-row">
       <div class="tab-cfg-label"><i class="fa fa-ship"></i>Carriers</div>
       <div class="tab-cfg-items">
-        <span *ngFor="let chip of Carriers" class="tab-chip" [class.tab-sel]="chip.id==selectedCarrierId">
+        <span *ngFor="let chip of Carriers" class="tab-chip" [class.tab-sel]="chip.code==selectedCarrierId">
           <span class="tab-chip-name pointer" (click)="RenameChip('CARRIER', chip)">{{chip.name}}</span>
-          <i *ngIf="mode!='VIEW'" class="fa fa-times" (click)="RemoveChip('CARRIER', chip.id)"></i>
+          <i *ngIf="mode!='VIEW'" class="fa fa-times" (click)="RemoveChip('CARRIER', chip.code)"></i>
         </span>
         <span *ngIf="mode!='VIEW' && !showAdd['CARRIER']" class="tab-add" (click)="ToggleAdd('CARRIER')">
           <i class="fa fa-plus"></i>Add</span>
@@ -303,7 +303,7 @@
       <div class="tab-cfg-items">
         <span *ngFor="let chip of Containers" class="tab-chip">
           <span class="tab-chip-name pointer" (click)="RenameChip('CONTAINER', chip)">{{chip.name}}</span>
-          <i *ngIf="mode!='VIEW'" class="fa fa-times" (click)="RemoveChip('CONTAINER', chip.id)"></i>
+          <i *ngIf="mode!='VIEW'" class="fa fa-times" (click)="RemoveChip('CONTAINER', chip.code)"></i>
         </span>
         <span *ngIf="mode!='VIEW' && !showAdd['CONTAINER']" class="tab-add" (click)="ToggleAdd('CONTAINER')">
           <i class="fa fa-plus"></i>Add</span>
@@ -320,7 +320,7 @@
       <div class="tab-cfg-items">
         <span *ngFor="let chip of Currencies" class="tab-chip">
           <span class="tab-chip-name pointer" (click)="RenameChip('CURRENCY', chip)">{{chip.name}}</span>
-          <i *ngIf="mode!='VIEW'" class="fa fa-times" (click)="RemoveChip('CURRENCY', chip.id)"></i>
+          <i *ngIf="mode!='VIEW'" class="fa fa-times" (click)="RemoveChip('CURRENCY', chip.code)"></i>
         </span>
         <span *ngIf="mode!='VIEW' && !showAdd['CURRENCY']" class="tab-add" (click)="ToggleAdd('CURRENCY')">
           <i class="fa fa-plus"></i>Add</span>
@@ -390,13 +390,13 @@
                 <td *ngFor="let curr of Currencies; let curi = index" class="text-right tab-amt-col"
                   [class.tab-grp-alt]="ci % 2 == 0" [class.tab-carrier-start]="ci > 0 && coni == 0 && curi == 0"
                   [class.tab-cntr-start]="coni > 0 && curi == 0">
-                  <input *ngIf="IsCellEditable(carrier.id)" type="number" step="1"
+                  <input *ngIf="IsCellEditable(carrier.code)" type="number" step="1"
                     class="form-control form-control-sm tab-cell-input"
-                    [(ngModel)]="GetCell(carrier.id, cont.id, curr.id, ref.rowid).amt"
-                    (blur)="CellAmtBlur(carrier.id, cont.id, curr.id, ref.rowid)" />
-                  <span *ngIf="!IsCellEditable(carrier.id)"
-                    [class.text-muted]="!GetCell(carrier.id, cont.id, curr.id, ref.rowid).amt">
-                    {{GetCell(carrier.id, cont.id, curr.id, ref.rowid).amt | number:'1.0-0'}}
+                    [(ngModel)]="GetCell(carrier.code, cont.code, curr.code, ref.rowid).amt"
+                    (blur)="CellAmtBlur(carrier.code, cont.code, curr.code, ref.rowid)" />
+                  <span *ngIf="!IsCellEditable(carrier.code)"
+                    [class.text-muted]="!GetCell(carrier.code, cont.code, curr.code, ref.rowid).amt">
+                    {{GetCell(carrier.code, cont.code, curr.code, ref.rowid).amt | number:'1.0-0'}}
                   </span>
                 </td>
               </ng-container>
@@ -411,9 +411,9 @@
                 <td *ngFor="let curr of Currencies; let curi = index" class="text-right tab-amt-col"
                   [class.tab-grp-alt]="ci % 2 == 0" [class.tab-carrier-start]="ci > 0 && coni == 0 && curi == 0"
                   [class.tab-cntr-start]="coni > 0 && curi == 0">
-                  <span *ngIf="GetColTotal(carrier.id, cont.id, curr.id)">{{GetColTotal(carrier.id, cont.id, curr.id) |
+                  <span *ngIf="GetColTotal(carrier.code, cont.code, curr.code)">{{GetColTotal(carrier.code, cont.code, curr.code) |
                     number:'1.0-0'}}</span>
-                  <span *ngIf="!GetColTotal(carrier.id, cont.id, curr.id)" class="tab-dash">&mdash;</span>
+                  <span *ngIf="!GetColTotal(carrier.code, cont.code, curr.code)" class="tab-dash">&mdash;</span>
                 </td>
               </ng-container>
             </ng-container>

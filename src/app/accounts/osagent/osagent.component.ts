@@ -127,7 +127,7 @@ export class OsAgentComponent {
       if (this.menu_record.rights_company)
         this.bCompany = true;
     }
-    this.to_date = this.gs.defaultValues.today;
+    this.to_date = this.gs.globalVariables.year_end_date;
 
     this.Init();
     this.LoadCombo();
@@ -139,7 +139,7 @@ export class OsAgentComponent {
     this.branch_code = this.gs.globalVariables.branch_code;
     this.branch_name = this.gs.globalVariables.branch_name;
     this.agent_id = '';
-    this.curr_id = '';
+    this.curr_id = '8B60A0DB-0735-4516-B9C3-D97322C71917';
     this.category = "ALL";
     this.category_type = "DETAIL";
    
@@ -181,9 +181,9 @@ export class OsAgentComponent {
     this.CURRECORD.controlname = "CURRENCY";
     this.CURRECORD.displaycolumn = "CODE";
     this.CURRECORD.type = "CURRENCY";
-    this.CURRECORD.id = "";
-    this.CURRECORD.code = "";
-    this.CURRECORD.name = "";
+    this.CURRECORD.id = "8B60A0DB-0735-4516-B9C3-D97322C71917";
+    this.CURRECORD.code = "USD";
+    this.CURRECORD.name = "USd";
 
   }
 
