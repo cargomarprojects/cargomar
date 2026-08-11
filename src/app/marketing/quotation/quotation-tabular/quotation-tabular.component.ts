@@ -55,6 +55,7 @@ export class QuotationTabularComponent {
   mode = '';                 // 'ADD' | 'EDIT' | 'VIEW'
   pkid = '';
 
+  jsonstring = '';
   searchstring = '';
   page_count = 0;
   page_current = 0;
@@ -179,6 +180,7 @@ export class QuotationTabularComponent {
   ActionHandler(action: string, id: string) {
     this.ErrorMessage = '';
     this.InfoMessage = '';
+    this.jsonstring = '';
     if (action == 'LIST') {
       this.mode = '';
       this.pkid = '';
@@ -659,7 +661,7 @@ export class QuotationTabularComponent {
         this.Record.qtnm_pod_code = _Record.code;
         this.Record.qtnm_pod_name = _Record.name;
         break;
-        case 'POFD':
+      case 'POFD':
         this.Record.qtnm_pofd_id = _Record.id;
         this.Record.qtnm_pofd_code = _Record.code;
         this.Record.qtnm_pofd_name = _Record.name;
@@ -935,6 +937,23 @@ export class QuotationTabularComponent {
       .subscribe(response => {
         this.loading = false;
         this.InfoMessage = 'Save Complete';
+        alert(this.InfoMessage);
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
+
+  SaveQuotationJson() {
+    this.loading = true;
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.SaveQuotationJson({ jsonstring: this.jsonstring })
+      .subscribe(response => {
+        this.loading = false;
+         this.InfoMessage = "New Quotation " + response.qtnslno + " Generated Successfully";
         alert(this.InfoMessage);
       },
         error => {

@@ -240,8 +240,8 @@
               (ValueChanged)="LovSelected($event)"></app-autocomplete3>
           </div>
           <div class="col-sm-6">
-            <input type="text" class="form-control form-control-sm"
-              [(ngModel)]="Record.qtnm_pofd_name" [disabled]="mode=='VIEW'" required maxlength="60" />
+            <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.qtnm_pofd_name"
+              [disabled]="mode=='VIEW'" required maxlength="60" />
           </div>
         </div>
       </div>
@@ -411,7 +411,8 @@
                 <td *ngFor="let curr of Currencies; let curi = index" class="text-right tab-amt-col"
                   [class.tab-grp-alt]="ci % 2 == 0" [class.tab-carrier-start]="ci > 0 && coni == 0 && curi == 0"
                   [class.tab-cntr-start]="coni > 0 && curi == 0">
-                  <span *ngIf="GetColTotal(carrier.code, cont.code, curr.code)">{{GetColTotal(carrier.code, cont.code, curr.code) |
+                  <span *ngIf="GetColTotal(carrier.code, cont.code, curr.code)">{{GetColTotal(carrier.code, cont.code,
+                    curr.code) |
                     number:'1.0-0'}}</span>
                   <span *ngIf="!GetColTotal(carrier.code, cont.code, curr.code)" class="tab-dash">&mdash;</span>
                 </td>
@@ -473,7 +474,7 @@
             </div>
           </div>
         </div>
-         <div class="form-group row">
+        <div class="form-group row">
           <div class="col-sm-12">
             <div class="page-body table-responsive">
               <table class="table table-hover table-sm mb-1">
@@ -502,6 +503,19 @@
       </div>
     </div>
   </div>
+  <!-- Test JSON -->
+  <div *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="page-box">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group row">
+          <label class="col-sm-1 col-form-label col-form-label-sm">Json String</label>
+          <div class="col-sm-11">
+            <textarea class="form-control form-control-sm" rows="2" [(ngModel)]="jsonstring"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Actions -->
   <div class="page-box">
@@ -517,7 +531,9 @@
       </div>
       <div class="col-sm-4">
         <div *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="offset-2 col-10">
-          <button [disabled]="loading" (click)="SaveTerms()" class="btn btn-success btn-sm">Save Terms &amp;
+          <button [disabled]="loading" (click)="SaveTerms()" class="btn btn-success btn-sm mr-1">Save Terms &amp;
+            Conditions</button>
+          <button [disabled]="loading" (click)="SaveQuotationJson()" class="btn btn-success btn-sm mr-1">Save Json &amp;
             Conditions</button>
         </div>
       </div>

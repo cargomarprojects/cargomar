@@ -40,4 +40,9 @@ export class QuotationTabularService {
         return this.http2.post<any>(this.gs.baseUrl + '/api/Master/QuotationTabular/PrintQuotation', SearchData, this.gs.headerparam2('authorized'));
     }
 
+    SaveQuotationJson(SearchData: any) {
+        return this.http2.post<any>(this.gs.baseUrl + '/api/Master/QuotationTabular/SaveQuotationJson', SearchData, this.gs.headerparam2('authorized'));
+    }
+
+
 }
