@@ -953,11 +953,11 @@ export class QuotationTabularComponent {
     this.mainService.SaveQuotationJson({ jsonstring: this.jsonstring })
       .subscribe(response => {
         this.loading = false;
-         this.InfoMessage = "New Quotation " + response.qtnslno + " Generated Successfully";
+        this.InfoMessage = "New Quotation " + response.qtnslno + " Generated Successfully";
         alert(this.InfoMessage);
         //this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-
-         alert(response.qtnfile)
+        this.ErrorMessage = response.qtnfile;
+        alert(this.ErrorMessage);
       },
         error => {
           this.loading = false;
