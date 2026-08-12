@@ -955,6 +955,9 @@ export class QuotationTabularComponent {
         this.loading = false;
          this.InfoMessage = "New Quotation " + response.qtnslno + " Generated Successfully";
         alert(this.InfoMessage);
+        //this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+
+         alert(response.qtnfile)
       },
         error => {
           this.loading = false;
