@@ -14,6 +14,9 @@ interface TabChip {
   code: string;
   name: string;
   rowid?: string;   // stable per-row key for the Description grid rows (charges)
+  freetime?: string;
+  routing?: string;
+  transitdays?: string;
 }
 
 // TABULAR-QTN: component for the TABULAR quotation type. Cloned from
@@ -467,6 +470,15 @@ export class QuotationTabularComponent {
   // delay the reset so a click on a dropdown result lands before the cell drops back down
   CodeBlur() {
     setTimeout(() => { this.codeFocusRow = ''; }, 250);
+  }
+
+  carrierBlur(carr: TabChip) {
+    if (carr.freetime)
+      carr.freetime = carr.freetime.toUpperCase();
+    if (carr.routing)
+      carr.routing = carr.routing.toUpperCase();
+    if (carr.transitdays)
+      carr.transitdays = carr.transitdays.toUpperCase();
   }
 
   RenameChip(_kind: string, chip: TabChip) {
