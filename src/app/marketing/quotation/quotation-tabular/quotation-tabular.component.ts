@@ -1,12 +1,11 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../../core/services/global.service';
-import { Mark_Qtnm, Mark_Qtnd, SaveTermsData } from '../../models/quotation';
+import { Mark_Qtnm, Mark_Qtnd, Mark_Qtnd2, SaveTermsData } from '../../models/quotation';
 import { GenRemarks } from '../../../shared/models/genremarks';
 import { SearchTable } from '../../../shared/models/searchtable';
 import { QuotationTabularService } from '../../services/quotationtabular.service';
 import { AutoComplete3Component } from '../../../shared/autocomplete3/autocomplete3.component';
-
 // TABULAR-QTN: a config-panel chip = one selected master value (carrier / container /
 // currency / charge) for this quotation.
 interface TabChip {
@@ -14,11 +13,18 @@ interface TabChip {
   code: string;
   name: string;
   rowid?: string;   // stable per-row key for the Description grid rows (charges)
-  freetime?: string;
-  routing?: string;
-  transitdays?: string;
 }
 
+interface FreeTimeCarrier extends TabChip {
+  labelValues: { [key: string]: string };
+}
+
+interface CarrLabel {
+  labelKey: string;
+  labelValues: string;
+  labelCaption: string;
+  labelOrder: number;
+}
 // TABULAR-QTN: component for the TABULAR quotation type. Cloned from
 // QuotationFclComponent; the FCL line-item editor is replaced by a
 // carrier > container > currency x charge grid that pivots MARK_QTND rows.
@@ -82,6 +88,7 @@ export class QuotationTabularComponent {
   // Notes (per quotation) + Terms & Conditions (template per quotation type)
   TermList: Mark_Qtnm[] = [];
   FullTermList: Mark_Qtnm[] = [];
+  carrLabelList: Mark_Qtnd2[] = [];
 
   // Quote.To LOVs (customer -> address/branch -> contact), like QuotationComponent
   CUSTRECORD: SearchTable = new SearchTable();
@@ -93,6 +100,9 @@ export class QuotationTabularComponent {
   Containers: TabChip[] = [];
   Currencies: TabChip[] = [];
   Refs: TabChip[] = [];
+  FreeTimeCarriers: FreeTimeCarrier[] = [];
+  CarrierLabels: CarrLabel[] = [];
+
   selectedCarrierId = '';                     // the one carrier editable at a time
   currExrate: { [currId: string]: number } = {};   // per-quotation exchange rate by currency
   cells: { [key: string]: { amt: number } } = {};  // amount per carrier|container|currency|charge
@@ -120,8 +130,6 @@ export class QuotationTabularComponent {
         this.menuid = options.menuid;
         if (options.type)
           this.type = options.type;
-
-
 
         this.InitComponent();
       }
@@ -169,6 +177,24 @@ export class QuotationTabularComponent {
       .subscribe(response => {
         this.loading = false;
         this.FullTermList = response.termlist;
+        this.carrLabelList = response.labellist;
+
+        this.CarrierLabels = [];
+        this.carrLabelList.forEach(item => {
+          const exists = this.CarrierLabels.find(
+            x => x.labelKey === item.qtnd2_pkid
+          );
+
+          if (!exists) {
+            this.CarrierLabels.push({
+              labelKey: item.qtnd2_pkid,
+              labelValues: '',
+              labelCaption: item.qtnd2_key,
+              labelOrder: item.qtnd2_order
+            });
+          }
+        });
+
         this.List('NEW');
       },
         error => {
@@ -298,6 +324,7 @@ export class QuotationTabularComponent {
     this.Record.rec_category = this.type;
     this.Record.rec_mode = this.mode;
     this.Record.qtnm_detList = new Array<Mark_Qtnd>();
+    this.Record.qtnm_detList2 = new Array<Mark_Qtnd2>();
     this.Record.qtnm_remList = new Array<GenRemarks>();
     this.NewRemarkRecord();           // start with one blank Note row
     this.GetTermsAndConditions();     // load the TABULAR terms template
@@ -305,6 +332,7 @@ export class QuotationTabularComponent {
 
     // empty grid; seed the local currency so the user has a starting column
     this.Carriers = [];
+    this.FreeTimeCarriers = [];
     this.Containers = [];
     this.Currencies = [];
     this.Refs = [];
@@ -341,6 +369,8 @@ export class QuotationTabularComponent {
     this.Record.rec_mode = this.mode;
     if (this.gs.isBlank(this.Record.qtnm_detList))
       this.Record.qtnm_detList = new Array<Mark_Qtnd>();
+    if (this.gs.isBlank(this.Record.qtnm_detList2))
+      this.Record.qtnm_detList2 = new Array<Mark_Qtnd2>();
     if (this.gs.isBlank(this.Record.qtnm_remList))
       this.Record.qtnm_remList = new Array<GenRemarks>();
     if (this.Record.qtnm_remList.length == 0)
@@ -371,6 +401,7 @@ export class QuotationTabularComponent {
   // TABULAR-QTN: tall MARK_QTND rows -> grid axes + cell store.
   PivotDetail() {
     this.Carriers = [];
+    this.FreeTimeCarriers = [];
     this.Containers = [];
     this.Currencies = [];
     this.Refs = [];
@@ -395,8 +426,32 @@ export class QuotationTabularComponent {
       //this.GetCell(rec.qtnd_carrier_id, rec.qtnd_cntr_type_id, rec.qtnd_curr_id, ref.rowid).amt = rec.qtnd_amt; //IDs change to Code
       this.GetCell(rec.qtnd_carrier_code, rec.qtnd_cntr_type_code, rec.qtnd_curr_code, ref.rowid).amt = rec.qtnd_amt;
     }
+
+    // Free Time / Routing / Transit Days
+    for (let rec of this.Record.qtnm_detList2) {
+      let carrier = this.FreeTimeCarriers.find(
+        x => x.code === rec.qtnd2_carrier_code
+      );
+
+      // Carrier may not exist in main Carriers,
+      // so create it directly in FreeTimeCarriers.
+      if (!carrier) {
+        carrier = {
+          id: rec.qtnd2_carrier_id,
+          code: rec.qtnd2_carrier_code,
+          name: rec.qtnd2_carrier_name,
+          labelValues: {}
+        };
+        this.FreeTimeCarriers.push(carrier);
+      }
+
+      // GUID is the label key
+      carrier.labelValues[rec.qtnd2_key] = rec.qtnd2_value;
+    }
+
     if (this.Carriers.length > 0)
       this.selectedCarrierId = this.Carriers[0].code; //this.selectedCarrierId = this.Carriers[0].id;
+
   }
 
   // ----- CONFIG PANEL (chips) --------------------------------------------
@@ -420,8 +475,26 @@ export class QuotationTabularComponent {
     if (list.find(c => c.code == chip.code) != null) //list.find(c => c.id == chip.id) != null
       return;
     list.push({ id: chip.id, code: chip.code, name: chip.name, rowid: this.gs.getGuid() });
-    if (_kind == 'CARRIER' && this.gs.isBlank(this.selectedCarrierId))
-      this.selectedCarrierId = chip.code; //this.selectedCarrierId = chip.id;
+    if (_kind == 'CARRIER') {
+      if (this.gs.isBlank(this.selectedCarrierId))
+        this.selectedCarrierId = chip.code; //this.selectedCarrierId = chip.id;
+      // Add to FreeTimeCarriers
+      const freeTimeExists = this.FreeTimeCarriers.find(
+        x => x.code === chip.code
+      );
+      if (!freeTimeExists) {
+        const labelValues: { [key: string]: string } = {};
+        this.CarrierLabels.forEach(label => {
+          labelValues[label.labelKey] = '';
+        });
+        this.FreeTimeCarriers.push({
+          id: chip.id,
+          code: chip.code,
+          name: chip.name,
+          labelValues: labelValues
+        });
+      }
+    }
   }
 
   // axis chips (carrier / container / currency) — keep at least one column //changr ID to Code
@@ -434,6 +507,11 @@ export class QuotationTabularComponent {
       list.splice(i, 1);
     if (_kind == 'CARRIER' && this.selectedCarrierId == _code && this.Carriers.length > 0)
       this.selectedCarrierId = this.Carriers[0].code;
+    if (_kind == 'CARRIER') {
+      i = this.FreeTimeCarriers.findIndex(c => c.code == _code);
+      if (i >= 0)
+        this.FreeTimeCarriers.splice(i, 1);
+    }
   }
 
   // ----- DESCRIPTION ROWS (charges) — inline add / edit / delete in the grid -----
@@ -473,12 +551,12 @@ export class QuotationTabularComponent {
   }
 
   carrierBlur(carr: TabChip) {
-    if (carr.freetime)
-      carr.freetime = carr.freetime.toUpperCase();
-    if (carr.routing)
-      carr.routing = carr.routing.toUpperCase();
-    if (carr.transitdays)
-      carr.transitdays = carr.transitdays.toUpperCase();
+    // if (carr.freetime)
+    //   carr.freetime = carr.freetime.toUpperCase();
+    // if (carr.routing)
+    //   carr.routing = carr.routing.toUpperCase();
+    // if (carr.transitdays)
+    //   carr.transitdays = carr.transitdays.toUpperCase();
   }
 
   RenameChip(_kind: string, chip: TabChip) {
@@ -738,6 +816,7 @@ export class QuotationTabularComponent {
   // TABULAR-QTN: flatten the cell store back into one MARK_QTND per filled cell.
   BuildDetail() {
     let list: Mark_Qtnd[] = [];
+    let list2: Mark_Qtnd2[] = [];
     for (let carrier of this.Carriers) {
       for (let cont of this.Containers) {
         for (let curr of this.Currencies) {
@@ -773,6 +852,34 @@ export class QuotationTabularComponent {
       }
     }
     this.Record.qtnm_detList = list;
+
+    let iCtr: number = 0;
+    for (let carrier of this.FreeTimeCarriers) {
+      if (!carrier.labelValues)
+        continue;
+      for (let key of Object.keys(carrier.labelValues)) {
+        const value = carrier.labelValues[key];
+        // Skip empty values
+        if (this.gs.isBlank(value))
+          continue;
+        iCtr++;
+        let d = new Mark_Qtnd2();
+        d.qtnd2_pkid = this.gs.getGuid();
+        d.qtnd2_parent_id = this.pkid;
+        d.qtnd2_carrier_id = carrier.id;
+        d.qtnd2_carrier_code = carrier.code;
+        d.qtnd2_carrier_name = carrier.name;
+        d.qtnd2_data_type = 'STRING';
+        d.qtnd2_order = iCtr;
+
+        d.qtnd2_key = key;
+        d.qtnd2_value = value;
+
+        list2.push(d);
+      }
+    }
+    this.Record.qtnm_detList2 = list2;
+
   }
 
   allvalid(): boolean {
@@ -824,6 +931,7 @@ export class QuotationTabularComponent {
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
         this.Record.qtnm_detList = response.list;
+        this.Record.qtnm_detList2 = response.list2;
         this.RefreshList();
         alert(this.InfoMessage);
       },
@@ -1027,4 +1135,80 @@ export class QuotationTabularComponent {
       cmp.setfocus();
     }
   }
+
+  GetCarrierLabelValue(carrier: FreeTimeCarrier, labelKey: string): string {
+
+    if (!carrier.labelValues) {
+      return '';
+    }
+
+    return carrier.labelValues[labelKey] || '';
+  }
+
+  // SetCarrierLabelValue(
+  //   carrier: FreeTimeCarrier,
+  //   labelKey: string,
+  //   value: string
+  // ) {
+  //   if (!carrier.labelValues) {
+  //     carrier.labelValues = {};
+  //   }
+
+  //   carrier.labelValues[labelKey] = value;
+  // }
+
+  // SetCarrierLabelValue(
+  //   carrier: FreeTimeCarrier,
+  //   labelKey: string,
+  //   event: any
+  // ) {
+  //   const value = event.target.value;
+
+  //   if (!carrier.labelValues) {
+  //     carrier.labelValues = {};
+  //   }
+
+  //   carrier.labelValues[labelKey] = value;
+  // }
+
+  SetCarrierLabelValue(
+    carrier: FreeTimeCarrier,
+    labelKey: string,
+    event: any
+  ) {
+    const value = event.target.value;
+
+    // console.log('Setting Carrier:', carrier.name);
+    // console.log('Setting Label:', labelKey);
+    // console.log('Setting Value:', value);
+
+    carrier.labelValues[labelKey] = value;
+  }
+
+  carrierLabelBlur(carrier: FreeTimeCarrier, label: CarrLabel) {
+    let value = carrier.labelValues[label.labelKey];
+    if (value) {
+      value = value.toUpperCase();
+      carrier.labelValues[label.labelKey] = value;
+    }
+    console.log('Carrier:', carrier.name);
+    console.log('Label:', label.labelKey);
+    console.log('Value:', value);
+  }
+
+  // GetCarrierLabelValue(carrier: FreeTimeCarrier, labelKey: string): string {
+
+  //   console.log('Carrier:', carrier.name);
+  //   console.log('Requested Key:', labelKey);
+  //   console.log('labelValues:', carrier.labelValues);
+
+  //   if (!carrier.labelValues) {
+  //     return '';
+  //   }
+
+  //   console.log('Available Keys:', Object.keys(carrier.labelValues));
+
+  //   return carrier.labelValues[labelKey] || '';
+  // }
+
 }

@@ -67,6 +67,7 @@ export class Mark_Qtnm {
     qtnm_curr_code: string;
     qtnm_exrate: number;
     qtnm_detList: Mark_Qtnd[] = [];
+    qtnm_detList2: Mark_Qtnd2[] = [];
     qtnm_remList: GenRemarks[] = [];
     rec_created_by: string;
     rec_created_date: string;
@@ -112,6 +113,18 @@ export class Mark_Qtnd {
     qtnd_transitdays: string;
     qtnd_rate_20: number;
     qtnd_rate_40: number;
+}
+
+export class Mark_Qtnd2 {
+    qtnd2_pkid: string;
+    qtnd2_parent_id: string;
+    qtnd2_carrier_id: string;
+    qtnd2_carrier_code: string;
+    qtnd2_carrier_name: string;
+    qtnd2_key: string;
+    qtnd2_value: string;
+    qtnd2_data_type: string;
+    qtnd2_order: number;
 }
 
 export class SaveTermsData {

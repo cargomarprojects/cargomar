@@ -436,52 +436,25 @@
             <!-- First column -->
             <th class="freetime-label-col"></th>
             <!-- Carrier Names -->
-            <th *ngFor="let carrier of Carriers" class="text-center freetime-carrier-head">
+            <th *ngFor="let carrier of FreeTimeCarriers" class="text-center freetime-carrier-head">
               {{carrier.name}}
             </th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <!-- First column label -->
+          <tr *ngFor="let label of CarrierLabels">
             <td class="freetime-label-col p-1">
-              <strong>Free Time</strong>
+              <strong>{{label.labelCaption}}</strong>
             </td>
-            <!-- One input for each carrier -->
-            <td *ngFor="let carrier of Carriers" class="text-center p-1">
+            <td *ngFor="let carrier of FreeTimeCarriers" class="text-center p-1">
               <input *ngIf="mode!='VIEW'" type="text" class="form-control form-control-sm freetime-input"
-                [(ngModel)]="carrier.freetime" maxlength="100" (blur)="carrierBlur(carrier)" />
+                [value]="GetCarrierLabelValue(carrier, label.labelKey)"
+                (input)="SetCarrierLabelValue(carrier, label.labelKey, $event)" maxlength="100"
+                (blur)="carrierLabelBlur(carrier, label)" />
               <span *ngIf="mode=='VIEW'">
-                {{carrier.freetime}}
+                {{GetCarrierLabelValue(carrier, label.labelKey)}}
               </span>
-            </td>
-          </tr>
-          <tr>
-            <!-- Second column label -->
-            <td class="freetime-label-col p-1">
-              <strong>Routing</strong>
-            </td>
-            <!-- One input for each carrier -->
-            <td *ngFor="let carrier of Carriers" class="text-center p-1">
-              <input *ngIf="mode!='VIEW'" type="text" class="form-control form-control-sm freetime-input"
-                [(ngModel)]="carrier.routing" maxlength="100" (blur)="carrierBlur(routing)" />
-              <span *ngIf="mode=='VIEW'">
-                {{carrier.routing}}
-              </span>
-            </td>
-          </tr>
-          <tr>
-            <!-- third column label -->
-            <td class="freetime-label-col p-1">
-              <strong>Transit Days</strong>
-            </td>
-            <!-- One input for each carrier -->
-            <td *ngFor="let carrier of Carriers" class="text-center p-1">
-              <input *ngIf="mode!='VIEW'" type="text" class="form-control form-control-sm freetime-input"
-                [(ngModel)]="carrier.transitdays" maxlength="100" (blur)="carrierBlur(transitdays)" />
-              <span *ngIf="mode=='VIEW'">
-                {{carrier.transitdays}}
-              </span>
+
             </td>
           </tr>
         </tbody>
