@@ -121,6 +121,7 @@ export class Mark_Qtnd2 {
     qtnd2_carrier_id: string;
     qtnd2_carrier_code: string;
     qtnd2_carrier_name: string;
+    qtnd2_label_caption: string;
     qtnd2_key: string;
     qtnd2_value: string;
     qtnd2_data_type: string;
