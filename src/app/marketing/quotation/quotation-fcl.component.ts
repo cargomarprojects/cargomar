@@ -621,6 +621,9 @@ export class QuotationFclComponent {
             this.Record.qtnm_no = '';
             this.Record.qtnm_date = this.gs.defaultValues.today;
             this.Record.qtnm_validity = '';
+            for (let rec of this.Record.qtnm_detList) {
+                rec.qtnd_pkid = this.gs.getGuid();
+            }
         }
 
     }
@@ -1176,7 +1179,7 @@ export class QuotationFclComponent {
         this.mainService.PrintQuotation(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                 if (_type == 'PRINT') {
+                if (_type == 'PRINT') {
                     this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
                 }
                 else if (_type == 'MAIL') {

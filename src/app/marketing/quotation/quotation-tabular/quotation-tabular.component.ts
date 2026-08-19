@@ -395,6 +395,12 @@ export class QuotationTabularComponent {
       this.Record.qtnm_no = '';
       this.Record.qtnm_date = this.gs.defaultValues.today;
       this.Record.qtnm_validity = '';
+      for (let rec of this.Record.qtnm_detList) {
+        rec.qtnd_pkid = this.gs.getGuid();
+      }
+      for (let rec of this.Record.qtnm_detList2) {
+        rec.qtnd2_pkid = this.gs.getGuid();
+      }
     }
   }
 
