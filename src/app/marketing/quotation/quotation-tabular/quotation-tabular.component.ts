@@ -64,6 +64,8 @@ export class QuotationTabularComponent {
   mode = '';                 // 'ADD' | 'EDIT' | 'VIEW'
   pkid = '';
 
+  freetimelabel = '';
+  freetimeorder = 1;
   jsonstring = '';
   searchstring = '';
   page_count = 0;
@@ -556,23 +558,31 @@ export class QuotationTabularComponent {
     setTimeout(() => { this.codeFocusRow = ''; }, 250);
   }
 
-  carrierBlur(carr: TabChip) {
-    // if (carr.freetime)
-    //   carr.freetime = carr.freetime.toUpperCase();
-    // if (carr.routing)
-    //   carr.routing = carr.routing.toUpperCase();
-    // if (carr.transitdays)
-    //   carr.transitdays = carr.transitdays.toUpperCase();
-  }
-
   RenameChip(_kind: string, chip: TabChip) {
     if (this.mode == 'VIEW')
       return;
+
     let newName = prompt('Rename', chip.name);   // local label only; master unchanged
-    if (newName != null && newName.trim() != '')
-      chip.name = newName.toUpperCase().trim();
+    if (newName == null || newName.trim() == '')
+      return;
+
+    const _oldName = chip.name;
+    const _newName = newName.toUpperCase().trim();
+    chip.name = _newName;
+
+    if (_kind == "CARRIER") {
+      this.UpdateFreeTimeCarrierName(_oldName, _newName);
+    }
   }
 
+  UpdateFreeTimeCarrierName(oldName: string, newName: string) {
+    const carrier = this.FreeTimeCarriers.find(
+      x => x.name === oldName
+    );
+    if (carrier) {
+      carrier.name = newName;
+    }
+  }
   // reset the three Quote.To LOV pickers (customer / address-branch / contact)
   InitLov() {
     this.CUSTRECORD = new SearchTable();
@@ -1143,39 +1153,12 @@ export class QuotationTabularComponent {
   }
 
   GetCarrierLabelValue(carrier: FreeTimeCarrier, labelKey: string): string {
-
     if (!carrier.labelValues) {
       return '';
     }
-
     return carrier.labelValues[labelKey] || '';
   }
 
-  // SetCarrierLabelValue(
-  //   carrier: FreeTimeCarrier,
-  //   labelKey: string,
-  //   value: string
-  // ) {
-  //   if (!carrier.labelValues) {
-  //     carrier.labelValues = {};
-  //   }
-
-  //   carrier.labelValues[labelKey] = value;
-  // }
-
-  // SetCarrierLabelValue(
-  //   carrier: FreeTimeCarrier,
-  //   labelKey: string,
-  //   event: any
-  // ) {
-  //   const value = event.target.value;
-
-  //   if (!carrier.labelValues) {
-  //     carrier.labelValues = {};
-  //   }
-
-  //   carrier.labelValues[labelKey] = value;
-  // }
 
   SetCarrierLabelValue(
     carrier: FreeTimeCarrier,
@@ -1183,11 +1166,6 @@ export class QuotationTabularComponent {
     event: any
   ) {
     const value = event.target.value;
-
-    // console.log('Setting Carrier:', carrier.name);
-    // console.log('Setting Label:', labelKey);
-    // console.log('Setting Value:', value);
-
     carrier.labelValues[labelKey] = value;
   }
 
@@ -1197,24 +1175,36 @@ export class QuotationTabularComponent {
       value = value.toUpperCase();
       carrier.labelValues[label.labelKey] = value;
     }
-    console.log('Carrier:', carrier.name);
-    console.log('Label:', label.labelKey);
-    console.log('Value:', value);
   }
 
-  // GetCarrierLabelValue(carrier: FreeTimeCarrier, labelKey: string): string {
+  SaveFreeTimelabel() {
 
-  //   console.log('Carrier:', carrier.name);
-  //   console.log('Requested Key:', labelKey);
-  //   console.log('labelValues:', carrier.labelValues);
-
-  //   if (!carrier.labelValues) {
-  //     return '';
-  //   }
-
-  //   console.log('Available Keys:', Object.keys(carrier.labelValues));
-
-  //   return carrier.labelValues[labelKey] || '';
-  // }
+    if (this.gs.isBlank(this.freetimelabel)) {
+      alert('caption cannot be blank');
+      return;
+    }
+    if (this.gs.isBlank(this.freetimeorder)) {
+      alert('Order cannot be blank');
+      return;
+    }
+    this.loading = true;
+    let SearchData = {
+      freetimelabel: this.freetimelabel,
+      freetimeorder: this.freetimeorder
+    };
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.SaveFreeTimelabel(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        alert('Save Complete');
+        this.LoadCombo();
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
 
 }
