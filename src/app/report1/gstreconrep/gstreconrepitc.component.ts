@@ -23,6 +23,7 @@ export class GstReconRepItcComponent {
   @Input() bSave: boolean = false;
   @Input() bCompany: boolean = false;
   @Input() bAmendment: boolean = false;
+  @Input() bLock: boolean = false;
 
   InitCompleted: boolean = false;
   menu_record: any;
@@ -146,6 +147,46 @@ export class GstReconRepItcComponent {
 
   }
 
+  LockState() {
+
+    if (this.gs.isBlank(this.mainService.state.gst_recon_itc_state_code)) {
+      alert("State Cannot be Blank");
+      return;
+    }
+
+    if (this.gs.isBlank(this.mainService.state.gst_recon_itc_month) || this.gs.isBlank(this.mainService.state.gst_recon_itc_year)) {
+      alert("Period Cannot be Blank");
+      return;
+    }
+
+    if (!confirm("LOCK STATE " + this.mainService.state.gst_recon_itc_state_name + " FOR " + this.mainService.state.gst_recon_itc_month + "/" + this.mainService.state.gst_recon_itc_year + " ?")) {
+      return;
+    }
+
+    this.loading = true;
+    let SearchData = {
+      comp_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      period: '',
+      state_code: ''
+    };
+    SearchData.comp_code = this.gs.globalVariables.comp_code;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.period = this.mainService.state.gst_recon_itc_year + this.mainService.state.gst_recon_itc_month;
+    SearchData.state_code = this.mainService.state.gst_recon_itc_state_code;
+    this.ErrorMessage = '';
+    this.mainService.LockState(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        alert(response.retmsg)
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage)
+        });
+
+  }
   // // Query List Data
   List(_type: string) {
     if (this.gs.isBlank(this.mainService.state.gst_recon_itc_state_name)) {

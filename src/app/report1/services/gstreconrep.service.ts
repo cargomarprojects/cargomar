@@ -96,6 +96,11 @@ export class GstReconRepService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GstReconRep/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
   }
 
+  LockState(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GstReconRep/LockState', SearchData, this.gs.headerparam2('authorized'));
+  }
+
+
   Gstr2aReport(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GstReconRep/Gstr2aReport', SearchData, this.gs.headerparam2('authorized'));
   }

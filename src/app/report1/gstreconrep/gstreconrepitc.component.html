@@ -62,7 +62,9 @@
             <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm mr-1">Search
             </button>
             <button *ngIf="bPrint" [disabled]="loading" (click)="List('EXCEL')"
-              class="btn btn-primary btn-sm">Excel</button>
+              class="btn btn-primary btn-sm mr-1">Excel</button>
+            <button *ngIf="bLock" [disabled]="loading" (click)="LockState()"
+              class="btn btn-primary btn-sm">Lock</button>
 
           </div>
         </div>
