@@ -447,11 +447,29 @@
               <strong>{{label.labelCaption}}</strong>
             </td>
             <td *ngFor="let carrier of FreeTimeCarriers" class="text-center p-1">
-              <input *ngIf="mode!='VIEW'" type="text" class="form-control form-control-sm freetime-input"
+              <!-- <input *ngIf="mode!='VIEW'" type="text" class="form-control form-control-sm freetime-input"
                 [value]="GetCarrierLabelValue(carrier, label.labelKey)"
                 (input)="SetCarrierLabelValue(carrier, label.labelKey, $event)" maxlength="100"
                 (blur)="carrierLabelBlur(carrier, label)" />
               <span *ngIf="mode=='VIEW'">
+                {{GetCarrierLabelValue(carrier, label.labelKey)}}
+              </span> -->
+
+              <!-- STRING -->
+              <input *ngIf="label.dataType != 'DATE' && mode != 'VIEW'" type="text"
+                class="form-control form-control-sm freetime-input"
+                [value]="GetCarrierLabelValue(carrier, label.labelKey)"
+                (input)="SetCarrierLabelValue(carrier, label.labelKey, $event)" maxlength="100"
+                (blur)="carrierLabelBlur(carrier, label)" />
+
+              <!-- DATE -->
+              <app-date *ngIf="label.dataType == 'DATE' && mode != 'VIEW'"
+                [inputdate]="GetCarrierLabelValue(carrier, label.labelKey)"
+                (ValueChanged)="SetCarrierLabelDateValue(carrier, label.labelKey, $event)" [disabled]="false">
+              </app-date>
+
+              <!-- VIEW -->
+              <span *ngIf="mode == 'VIEW'">
                 {{GetCarrierLabelValue(carrier, label.labelKey)}}
               </span>
 

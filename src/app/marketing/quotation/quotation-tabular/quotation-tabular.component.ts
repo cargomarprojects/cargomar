@@ -23,6 +23,7 @@ interface CarrLabel {
   labelKey: string;
   labelValues: string;
   labelCaption: string;
+  dataType: string;   // STRING / DATE
   labelOrder: number;
 }
 // TABULAR-QTN: component for the TABULAR quotation type. Cloned from
@@ -192,6 +193,7 @@ export class QuotationTabularComponent {
               labelKey: item.qtnd2_pkid,
               labelValues: '',
               labelCaption: item.qtnd2_key,
+              dataType: item.qtnd2_data_type,
               labelOrder: item.qtnd2_order
             });
           }
@@ -1169,6 +1171,12 @@ export class QuotationTabularComponent {
     carrier.labelValues[labelKey] = value;
   }
 
+  SetCarrierLabelDateValue(carrier: FreeTimeCarrier, labelKey: string, value: any) {
+    if (!carrier.labelValues)
+      carrier.labelValues = {};
+    carrier.labelValues[labelKey] = value;
+  }
+  
   carrierLabelBlur(carrier: FreeTimeCarrier, label: CarrLabel) {
     let value = carrier.labelValues[label.labelKey];
     if (value) {
