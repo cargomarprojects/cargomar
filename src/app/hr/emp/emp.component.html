@@ -159,7 +159,6 @@
           <td>{{rec.emp_do_confirmation}}</td>
           <td>{{rec.emp_do_relieve}}</td>
           <td>{{rec.emp_trans_date}}</td>
-          <td>{{rec.emp_trans_date}}</td>
           <td>{{rec.emp_training_end_dt}}</td>
           <td>{{rec.emp_image_upload}}</td>
         </tr>
@@ -1009,7 +1008,8 @@
       <app-fileupload-direct *ngIf="mode=='EDIT' && bPhoto" class="mr-1" [pkid]="pkid" [type]="'EMPLOYEE-PHOTO'"
         [islock]="false" [desc]="Record.emp_no" [uploadfilesize]="'10240'" [accepttype]="'.jpeg,.jpg,.png'"
         (callbackevent)="callbackeventupload($event)"></app-fileupload-direct>
-
+      <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)"
+        class="btn btn-success btn-sm mr-1">History</button>
       <button [disabled]="loading" (click)="ActionHandler('LIST','')"
         class="btn btn-success btn-sm mr-1">Return</button>
       <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
@@ -1082,9 +1082,17 @@
   </div>
 </ng-template>
 
-
-
-
+<ng-template #history let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">History</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-history [pkid]="pkid" [type]="'EMPM'" [usetype]="'Y'"></app-history>
+  </div>
+</ng-template>
 
 
 <!-- <br /> -->

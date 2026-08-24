@@ -1030,6 +1030,10 @@ export class EmpComponent {
 
     return date.toISOString().split("T")[0];
   }
+  ShowHistory(history: any) {
+    this.ErrorMessage = '';
+    this.open(history);
+  }
 
 }
 
