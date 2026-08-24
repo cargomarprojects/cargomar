@@ -880,6 +880,9 @@ export class QuotationTabularComponent {
         // Skip empty values
         if (this.gs.isBlank(value))
           continue;
+
+        const label = this.CarrierLabels.find(x => x.labelKey == key);
+
         iCtr++;
         let d = new Mark_Qtnd2();
         d.qtnd2_pkid = this.gs.getGuid();
@@ -887,12 +890,14 @@ export class QuotationTabularComponent {
         d.qtnd2_carrier_id = carrier.id;
         d.qtnd2_carrier_code = carrier.code;
         d.qtnd2_carrier_name = carrier.name;
-        d.qtnd2_data_type = 'STRING';
+        if (label)
+          d.qtnd2_data_type = label.dataType;
+        else
+          d.qtnd2_data_type = 'STRING';
         d.qtnd2_order = iCtr;
 
         d.qtnd2_key = key;
         d.qtnd2_value = value;
-
         list2.push(d);
       }
     }
@@ -1176,7 +1181,7 @@ export class QuotationTabularComponent {
       carrier.labelValues = {};
     carrier.labelValues[labelKey] = value;
   }
-  
+
   carrierLabelBlur(carrier: FreeTimeCarrier, label: CarrLabel) {
     let value = carrier.labelValues[label.labelKey];
     if (value) {
