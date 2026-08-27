@@ -47,6 +47,7 @@ export class GstReconRepComponent {
   bOtpSave: boolean = false;
   bGstr2Download: boolean = false;
   bLock: boolean = false;
+  bSaveRc: boolean = false;
 
   disableSave = true;
   loading = false;
@@ -117,6 +118,7 @@ export class GstReconRepComponent {
     this.bPrint = false;
     this.bSave = false;
     this.bLock = false;
+    this.bSaveRc = false;
     this.bAmendment = this.gs.globalVariables.user_code == "ADMIN";
     this.bOtpSave = this.gs.globalVariables.user_code == "ADMIN";
     this.bGstr2Download = this.gs.globalVariables.user_code == "ADMIN";
@@ -137,6 +139,8 @@ export class GstReconRepComponent {
           this.bGstr2Download = true;
         if (this.menu_record.rights_approval.toString().indexOf('{LOCK}') >= 0 || this.gs.globalVariables.user_code == "ADMIN")
           this.bLock = true;
+        if (this.menu_record.rights_approval.toString().indexOf('{SAVE-RC}') >= 0 || this.gs.globalVariables.user_code == "ADMIN")
+          this.bSaveRc = true;
       }
     }
     this.initLov();

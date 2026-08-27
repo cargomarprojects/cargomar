@@ -21,6 +21,8 @@ export class GstReconRepDetComponent {
   @Input() state_code: string = '';
   @Input() download_doc_type: string = '';
   @Input() reverse_charge: string = 'NO';
+  @Input() bSaveRc: boolean = false;
+
 
   InitCompleted: boolean = false;
   menu_record: any;
@@ -29,6 +31,8 @@ export class GstReconRepDetComponent {
 
   bpending: boolean = false;
   recon_rc_status: string = "ALL";
+  recon_claim_status: string = "ITC AVAILED";
+  list_rc_status: string = "";
   ErrorMessage = "";
   mode = '';
   pkid = '';
@@ -75,6 +79,7 @@ export class GstReconRepDetComponent {
 
   }
   List() {
+    this.list_rc_status = this.recon_rc_status;
     this.loading = true;
     let SearchData = {
       category: this.type,
@@ -123,5 +128,55 @@ export class GstReconRepDetComponent {
       this.List();
     }
   }
+
+  UpdateRcItcClaim() {
+
+    if (this.list_rc_status == "" || this.list_rc_status == "ALL" || this.list_rc_status == "PENDING") {
+      alert('Please search with valid status');
+      return;
+    }
+
+    let sPkids: string = "";//Main List
+    for (let rec of this.RecordList) {
+      if (!this.gs.isBlank(rec.pkid)) {
+        if (sPkids != "")
+          sPkids += ",";
+        sPkids += rec.pkid;
+      }
+    }
+
+    if (this.gs.isBlank(sPkids)) {
+      alert('No records found');
+      return;
+    }
+
+    if (!confirm("Update " + this.list_rc_status + " items with " + this.recon_claim_status)) {
+      return;
+    }
+
+    this.loading = true;
+    let SearchData = {
+      category: this.type,
+      pkid: sPkids,
+      recon_rc_status: this.recon_rc_status,
+      claim_status: this.recon_claim_status,
+      claim_period: this.period,
+      user_code: this.gs.globalVariables.user_code
+    };
+    this.ErrorMessage = '';
+    this.mainService.UpdateRcItcClaim(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.List();
+        alert('Update Successfully');
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+
+  }
+
 
 }

@@ -145,5 +145,10 @@ export class GstReconRepService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GstReconRep/ImsPendingList', SearchData, this.gs.headerparam2('authorized'));
   }
 
+  UpdateRcItcClaim(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/GstReconRep/UpdateRcItcClaim', SearchData, this.gs.headerparam2('authorized'));
+  }
+
+
 }
 

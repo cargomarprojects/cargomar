@@ -24,6 +24,7 @@ export class GstReconRepRcComponent {
     @Input() bCompany: boolean = false;
     @Input() download_doc_type: string = 'INVOICE';
     @Input() reverse_charge: string = 'YES';
+    @Input() bSaveRc: boolean = false;
 
     InitCompleted: boolean = false;
     menu_record: any;

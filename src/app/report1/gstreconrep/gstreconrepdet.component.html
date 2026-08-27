@@ -25,21 +25,17 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="type=='GSTR-2B'&&reverse_charge=='YES'" class="col-sm-6">
+            <div *ngIf="type=='GSTR-2B'&&reverse_charge=='YES'&&bSaveRc" class="col-sm-6">
                 <div class=" form-group row">
                     <label class="col-sm-4 col-form-label col-form-label-sm">Claimed Status</label>
                     <div class="col-5 input-group input-group-sm">
-                        <select class="form-control form-control-sm" [(ngModel)]="recon_rc_status">
-                            <option [value]="'ALL'">ALL</option>
-                            <option [value]="'PENDING'">PENDING ONLY</option>
-                            <option [value]="'MATCHED'">MATCHED</option>
-                            <option [value]="'ALMOST MATCHED'">ALMOST MATCHED</option>
-                            <option [value]="'MISMATCHED (GST AMOUNT)'">MISMATCHED (GST AMOUNT)</option>
-                            <option [value]="'MISMATCHED (PERIOD)'">MISMATCHED (PERIOD)</option>
+                        <select class="form-control form-control-sm" [(ngModel)]="recon_claim_status">
+                            <option [value]="'ITC AVAILED'">ITC AVAILED</option>
+                            <option [value]="'PENDING'">PENDING</option>
                         </select>
                     </div>
                     <div class="col-sm-3">
-                        <button [disabled]="loading" (click)="List()"
+                        <button [disabled]="loading" (click)="UpdateRcItcClaim()"
                             class="btn btn-primary btn-sm mr-1">Update</button>
                     </div>
                 </div>
