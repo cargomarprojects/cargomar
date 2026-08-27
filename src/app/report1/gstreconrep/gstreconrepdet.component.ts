@@ -28,6 +28,7 @@ export class GstReconRepDetComponent {
   urlid: string;
 
   bpending: boolean = false;
+  recon_rc_status: string = "ALL";
   ErrorMessage = "";
   mode = '';
   pkid = '';
@@ -82,7 +83,8 @@ export class GstReconRepDetComponent {
       state_code: this.state_code,
       download_doc_type: this.download_doc_type,
       reverse_charge: this.reverse_charge,
-      bpending: this.bpending
+      bpending: this.recon_rc_status == 'PENDING' ? true : false,
+      recon_rc_status: this.recon_rc_status
     };
     this.ErrorMessage = '';
     this.mainService.DetailList(SearchData)
