@@ -1,5 +1,5 @@
 
-import { Component, ViewEncapsulation, Input, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, ViewEncapsulation, Input, OnInit, OnDestroy, ViewChild, ElementRef, HostListener } from '@angular/core';
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
@@ -55,6 +55,8 @@ export class ArApComponent {
 
   @ViewChild('jvh_date') private jvh_date: DateComponent;
   @ViewChild('addinvdesc') private _addinvdesc: MemoComponent;
+  @ViewChild('okBtn') private _okBtn: ElementRef;
+
   @Input() menuid: string = '';
   @Input() type: string = '';
   @Input() subtype: string = '';
@@ -185,6 +187,24 @@ export class ArApComponent {
       }
     });
 
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.ctrlKey && event.key === 'Enter') {
+      event.preventDefault();
+
+      // Move focus to last input.
+      // Current input's blur event will fire automatically.
+      if (this._okBtn) {
+        this._okBtn.nativeElement.focus();
+      }
+      
+      setTimeout(() => {
+        this.Ok();
+      }, 0);
+
+    }
   }
 
   // Init Will be called After executing Constructor
@@ -1291,6 +1311,7 @@ export class ArApComponent {
 
 
   OnBlur(field: string) {
+    console.log('feild: ', field);
     if (field == 'jv_acc_name') {
       this.Recorddet.jv_acc_name = this.Recorddet.jv_acc_name.toUpperCase();
     }
