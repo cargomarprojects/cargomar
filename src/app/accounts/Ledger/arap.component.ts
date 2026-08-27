@@ -247,11 +247,11 @@ export class ArApComponent {
       this.PARTYRECORD.where = "";
 
       //FRTRATECHANGE
-      if (this.type == 'IN')
+      if (this.type == 'IN' || this.type == 'CN')
         this.PARTYRECORD.where = "( acc_type_id in (select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "'  and actype_name = 'DEBTORS') or acc_code in('1105001','1205001','1305001','1405001','1105111','1205111','1405111') )";
-      if (this.type == 'PN')
+      if (this.type == 'PN' || this.type == 'CI')
         this.PARTYRECORD.where = " acc_type_id in (select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "'  and actype_name = 'CREDITORS') ";
-      if (this.type == 'PN-JV')
+      if (this.type == 'PN-JV' || this.type == 'PN-CI')
         this.PARTYRECORD.where = " (acc_type_id in (select actype_pkid from actypem where rec_company_code ='" + this.gs.globalVariables.comp_code + "'  and actype_name in ('CREDITORS','ASSET'))) or (acc_group_id in (select acgrp_pkid from acgroupm where rec_company_code ='" + this.gs.globalVariables.comp_code + "'  and acgrp_name in ('SECURED LOANS'))) ";
     }
     if (saction == 'PARTYADDRESS' || saction == '') {
@@ -2745,7 +2745,7 @@ export class ArApComponent {
       year_code: '',
       print_in_temp: false,
       user_code: '',
-      searchstring:this.searchstring
+      searchstring: this.searchstring
     }
 
     SearchData.type = this.type;
