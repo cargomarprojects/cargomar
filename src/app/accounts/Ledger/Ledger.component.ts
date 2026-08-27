@@ -1,5 +1,5 @@
 
-import { Component, ViewEncapsulation, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component, ViewEncapsulation, Input, OnInit, OnDestroy, ViewChild, ElementRef, HostListener } from '@angular/core';
 
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
@@ -60,6 +60,7 @@ export class LedgerComponent {
 
   // Local Variables
   title = 'Ledger Details';
+  @ViewChild('okBtn') private _okBtn: ElementRef;
 
   @Input() menuid: string = '';
   @Input() type: string = '';
@@ -171,6 +172,24 @@ export class LedgerComponent {
       }
     });
 
+  }
+
+  @HostListener('document:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.ctrlKey && event.key === 'Enter') {
+      event.preventDefault();
+
+      // Move focus to last input.
+      // Current input's blur event will fire automatically.
+      if (this._okBtn) {
+        this._okBtn.nativeElement.focus();
+      }
+
+      setTimeout(() => {
+        this.Ok();
+      }, 0);
+
+    }
   }
 
   // Init Will be called After executing Constructor
