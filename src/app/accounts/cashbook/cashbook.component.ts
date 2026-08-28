@@ -51,7 +51,7 @@ export class CashBookComponent {
     from_date: string;
     to_date: string;
     ismaincode: boolean = false;
-    showtotaldrcr : boolean =false;
+    showtotaldrcr: boolean = false;
     bAdmin: boolean = false;
     bCompany = false;
     branch_code: string = '';
@@ -82,7 +82,7 @@ export class CashBookComponent {
         from_date: '',
         to_date: '',
         ismaincode: false,
-        showtotaldrcr : false,
+        showtotaldrcr: false,
         page_count: 0,
         page_current: 0,
         page_rows: 0,
@@ -251,7 +251,7 @@ export class CashBookComponent {
         this.ACCRECORD.code = "";
         this.ACCRECORD.name = "";
         this.ACCRECORD.showlocked = true;
-        
+
         this.ACCMAINRECORD = new SearchTable();
         this.ACCMAINRECORD.controlname = "ACCOUNTS MAIN CODE";
         this.ACCMAINRECORD.displaycolumn = "CODE";
@@ -329,7 +329,7 @@ export class CashBookComponent {
             .subscribe(response => {
                 this.loading = false;
                 if (_type == 'EXCEL')
-                    this.Downloadfile(_type);
+                    this.Downloadfile(response.reportfile, _type);
                 else {
                     const state: LedgerReportState = {
                         urlid: this.urlid,
@@ -339,8 +339,8 @@ export class CashBookComponent {
                         from_date: this.SearchData.from_date,
                         to_date: this.SearchData.to_date,
                         ismaincode: this.SearchData.ismaincode,
-                        showtotaldrcr : this.SearchData.showtotaldrcr,
-                        branch_code : this.SearchData.branch_code,
+                        showtotaldrcr: this.SearchData.showtotaldrcr,
+                        branch_code: this.SearchData.branch_code,
                         acc_pkid: this.SearchData.acc_id,
                         acc_code: this.SearchData.acc_code,
                         acc_name: this.SearchData.acc_name,
@@ -360,8 +360,8 @@ export class CashBookComponent {
                 });
     }
 
-    Downloadfile(_type: string) {
-        this.gs.DownloadFile(this.gs.globalVariables.report_folder, this.pkid, _type);
+    Downloadfile(filename: string, _type: string) {
+        this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, _type, "Report.xls");
     }
 
 
