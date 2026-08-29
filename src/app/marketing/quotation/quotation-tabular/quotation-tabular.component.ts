@@ -67,6 +67,7 @@ export class QuotationTabularComponent {
 
   freetimelabel = '';
   freetimeorder = 1;
+  freetimetype = 'STRING';
   jsonstring = '';
   searchstring = '';
   page_count = 0;
@@ -1203,7 +1204,8 @@ export class QuotationTabularComponent {
     this.loading = true;
     let SearchData = {
       freetimelabel: this.freetimelabel,
-      freetimeorder: this.freetimeorder
+      freetimeorder: this.freetimeorder,
+      freetimetype: this.freetimetype
     };
     this.ErrorMessage = '';
     this.InfoMessage = '';
