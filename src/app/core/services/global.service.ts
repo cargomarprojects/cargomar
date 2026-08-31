@@ -708,6 +708,7 @@ export class GlobalService {
       this.defaultValues.pf_emplr_pension_per = payrollsetting.ps_pf_emplr_pension_per;
       this.defaultValues.pf_br_region = payrollsetting.ps_pf_br_region;
       this.defaultValues.esi_col_excluded = payrollsetting.ps_esi_col_excluded;
+      this.defaultValues.esi_based_on = payrollsetting.ps_esi_based_on;
 
       this.defaultValues.gst_recon_state_code = this.globalVariables.branch_gstin_state_code;
       this.defaultValues.gst_recon_state_name = this.globalVariables.branch_gstin_state_name;

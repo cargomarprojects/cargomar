@@ -41,8 +41,7 @@ export class SalaryMasterComponent {
   porttype = 'PORT';
   radio_emp: string = 'EMPLOYEE';
   csvamt: string;
-  esibasedon: string = "GROSS";
-
+  
   ErrorMessage = "";
   InfoMessage = "";
   bDocs: boolean = false;
@@ -184,7 +183,6 @@ export class SalaryMasterComponent {
     this.mainService.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.esibasedon = response.esibasedon;
         if (_type == 'EXCEL' || _type == 'CSV')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
@@ -578,7 +576,7 @@ export class SalaryMasterComponent {
     PF_Amt = this.gs.roundNumber(PF_Amt, 0);
 
     ESI_Amt = 0
-    if (this.esibasedon == "GROSS") {
+    if (this.gs.defaultValues.esi_based_on == "GROSS") {
       if ((TotEarning - ESI_ExcludedAmt) <= this.gs.defaultValues.esi_limit || this.Record.sal_is_esi) {
         ESI_Amt = (TotEarning - ESI_ExcludedAmt) * (this.Record.sal_esi_emply_per / 100);
         ESI_Amt = this.gs.roundNumber(ESI_Amt, 2);

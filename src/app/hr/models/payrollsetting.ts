@@ -14,15 +14,16 @@ export class PayrollSetting {
   ps_pf_emplr_pension_per: number;
   ps_pf_cel_limit: number;
   ps_pf_cel_limit_amt: number;
-  ps_pf_col_excluded:string
+  ps_pf_col_excluded: string
   ps_pf_per: number;
   ps_esi_emply_per: number;
   ps_pf_br_region: string;
-  ps_sal_calc_days:number;
-  ps_bonus_amt:number;
-  ps_esi_col_excluded:string
-  ps_ptax_mon_included:string;
+  ps_sal_calc_days: number;
+  ps_bonus_amt: number;
+  ps_esi_col_excluded: string
+  ps_ptax_mon_included: string;
   ps_lwf_emplr: number;
+  ps_esi_based_on: string;
 
   rec_mode: string;
 
