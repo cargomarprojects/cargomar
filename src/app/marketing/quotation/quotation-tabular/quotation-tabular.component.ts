@@ -1097,7 +1097,10 @@ export class QuotationTabularComponent {
     this.mainService.SaveQuotationJson({ jsonstring: this.jsonstring })
       .subscribe(response => {
         this.loading = false;
-        this.InfoMessage = "New Quotation " + response.qtnslno + " Generated Successfully";
+        if (response.qtnmode == 'ADD')
+          this.InfoMessage = "New Quotation " + response.qtnslno + " Generated Successfully";
+        else
+          this.InfoMessage = "Quotation " + response.qtnslno + " Modified Successfully";
         alert(this.InfoMessage);
         //this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         this.ErrorMessage = response.qtnfile;
