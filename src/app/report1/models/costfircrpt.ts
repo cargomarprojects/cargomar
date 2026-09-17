@@ -23,6 +23,7 @@ export class CostFircRpt {
     bank_charges: number;
     net_inv_alloc_famt: number;
     diff_famt: number;
+    diff_inramt:number;
     finyear_count: number;
     narration: string;
     stm_no_rownum: number;
