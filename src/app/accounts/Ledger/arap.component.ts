@@ -199,7 +199,7 @@ export class ArApComponent {
       if (this._okBtn) {
         this._okBtn.nativeElement.focus();
       }
-      
+
       setTimeout(() => {
         this.Ok();
       }, 0);
@@ -394,7 +394,10 @@ export class ArApComponent {
       this.Record.jvh_acc_br_slno = _Record.code;
       this.Record.jvh_acc_br_address = this.GetBrAddress(_Record.name).address;
 
-      this.Record.jvh_gstin = _Record.col1;
+      if (_Record.col8 == "PAN") //add_gst_type
+        this.Record.jvh_gstin = "";
+      else
+        this.Record.jvh_gstin = _Record.col1;
 
       this.Record.jvh_state_id = _Record.col2;
       this.Record.jvh_state_code = _Record.col3;
