@@ -21,6 +21,7 @@ export class Ritcm {
 
   ritc_tot_used: number;
   ritc_used_date: string;
+  ritc_is_fr: boolean;
 
   rec_created_by: string;
   rec_created_date: string;

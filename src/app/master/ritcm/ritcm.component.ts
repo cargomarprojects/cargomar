@@ -251,6 +251,7 @@ export class RitcmComponent {
     }
     this.Record.rec_locked = false;
     this.Record.ritc_info_code = false;
+    this.Record.ritc_is_fr = false;
     this.mode = 'ADD';
     this.Record.rec_mode = this.mode;
   }
