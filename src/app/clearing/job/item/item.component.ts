@@ -641,6 +641,7 @@ export class ItemComponent {
     this.Record.itm_end_use = '';
     this.Record.itm_hawb = '';
     this.Record.itm_igst_pay_status = 'NA';
+    this.Record.itm_fr_qualifier = 'NA';
     this.Record.itm_taxable_value = 0;
     this.Record.itm_igst_amt = 0;
     this.Record.itm_igst_rate = 0;

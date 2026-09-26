@@ -109,6 +109,7 @@ export class Itemm {
     itm_jobwork_no: string;
 
     itm_edit_pmv: boolean;
+    itm_fr_qualifier: string;
 
     rec_mode: string;
     rec_category: string;
