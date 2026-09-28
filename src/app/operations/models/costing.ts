@@ -117,8 +117,10 @@ export class Costingd {
 
   costd_pkid: string;
   costd_parent_id: string;
+  costd_acc_type: string;
   costd_acc_id: string;
   costd_acc_name: string;
+  costd_acc_code: string;
   costd_acc_amt: number;
   costd_type: string;
   costd_sino: string;

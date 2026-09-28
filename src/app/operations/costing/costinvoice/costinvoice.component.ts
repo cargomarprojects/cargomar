@@ -30,6 +30,7 @@ export class CostInvoiceComponent {
   pkid = "";
   ErrorMessage = "";
   InfoMessage = "";
+  acc_sWhere = "";
 
   @Input() mRecord: Costingm = new Costingm;
   Record: Costingd = new Costingd;
@@ -54,7 +55,8 @@ export class CostInvoiceComponent {
 
 
   }
-  LovSelected(_Record: SearchTable) {
+
+  LovSelected(_Record: SearchTable, _rec: Costingd) {
 
   }
   // Destroy Will be called when this component is closed
@@ -143,6 +145,9 @@ export class CostInvoiceComponent {
     this.Record.costd_parent_id = this.mRecord.cost_pkid;
     this.Record.costd_category = "INVOICE";
     this.Record.costd_blno = "";
+    this.Record.costd_acc_type = "NA";
+    this.Record.costd_acc_id = "";
+    this.Record.costd_acc_code = "";
     if (this.type == "SEA EXPORT COSTING" || this.type == "SE CONSOLE COSTING")
       this.Record.costd_acc_name = "OUR HANDLING CHARGES";
     else
@@ -174,9 +179,8 @@ export class CostInvoiceComponent {
     this.mRecord.DetailList.splice(this.mRecord.DetailList.findIndex(rec => rec.costd_pkid == Id), 1);
     this.FindTotal();
   }
-  
-  LoadInvoiceDesc()
-  {
+
+  LoadInvoiceDesc() {
     this.loading = true;
     let SearchData = {
       type: this.type,
@@ -202,5 +206,6 @@ export class CostInvoiceComponent {
           alert(this.ErrorMessage);
         });
   }
-  
+
+
 }
