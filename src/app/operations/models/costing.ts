@@ -105,6 +105,8 @@ export class Costingm {
   cost_ddp: boolean;
   cost_einv_status: string;
   cost_print_bank: boolean;
+  cost_tot_ex_works: number;
+  cost_oth_amt: number;
 
   rec_mode: string;
   rec_category: string;
@@ -223,4 +225,6 @@ export class Costingd {
   costd_srate: number;
   costd_brate: number;
   costd_split: number;
+
+  
 }

@@ -404,6 +404,9 @@ export class DrCrComponent {
     this.RecordDet.costd_parent_id = this.Record.cost_pkid;
     this.RecordDet.costd_category = "INVOICE";
     this.RecordDet.costd_blno = "";
+    this.RecordDet.costd_acc_type = "NA";
+    this.RecordDet.costd_acc_id = "";
+    this.RecordDet.costd_acc_code = "";
     this.RecordDet.costd_acc_name = "";
     this.RecordDet.costd_remarks = "";
     this.RecordDet.costd_acc_qty = 1;

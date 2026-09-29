@@ -26,7 +26,8 @@
                 (blur)="OnBlurTableCell('costd_blno',rec.costd_pkid)" required maxlength="25" />
             </td>
             <td style="padding:0px 0px 0px 0px">
-              <select class="form-control form-control-sm p-1" [(ngModel)]="rec.costd_acc_type">
+              <select class="form-control form-control-sm p-1" [(ngModel)]="rec.costd_acc_type"
+                (change)="OnChangeTableCell('costd_acc_type',rec.costd_acc_type)">
                 <option [value]="'NA'">NA</option>
                 <option [value]="'FREIGHT'">FREIGHT</option>
                 <option [value]="'EX-WORK'">EX-WORK</option>
@@ -88,8 +89,10 @@
         <thead class="page-body-thead">
           <tr>
             <th width="15%">HOUSE BL</th>
-            <th width="30%">DESCRIPTION</th>
-            <th width="20%">REMARKS</th>
+            <th width="5%">TYPE</th>
+            <th width="10%">CODE</th>
+            <th width="20%">DESCRIPTION</th>
+            <th width="15%">REMARKS</th>
             <th width="10%">QTY</th>
             <th width="10%">RATE</th>
             <th width="10%">AMT</th>
@@ -101,6 +104,20 @@
             <td style="padding:0px 0px 0px 0px">
               <input type="text" name="blno" class="form-control form-control-sm" [(ngModel)]="rec.costd_blno"
                 (blur)="OnBlurTableCell('costd_blno',rec.costd_pkid)" required maxlength="25" />
+            </td>
+            <td style="padding:0px 0px 0px 0px">
+              <select class="form-control form-control-sm p-1" [(ngModel)]="rec.costd_acc_type"
+                (change)="OnChangeTableCell('costd_acc_type',rec.costd_acc_type)">
+                <option [value]="'NA'">NA</option>
+                <option [value]="'FREIGHT'">FREIGHT</option>
+                <option [value]="'EX-WORK'">EX-WORK</option>
+              </select>
+            </td>
+            <td style="padding:0px 0px 0px 0px">
+              <app-autocomplete3 [controlname]="'ACCTM'" [tabletype]="'ACCTM'" [displaycolumn]="'CODE'"
+                [branchcode]="gs.globalVariables.branch_code" [where]="acc_sWhere" [displaydata]="rec.costd_acc_code"
+                (ValueChanged)="LovSelected($event,rec)">
+              </app-autocomplete3>
             </td>
             <td style="padding:0px 0px 0px 0px">
               <input type="text" name="desc" class="form-control form-control-sm" [(ngModel)]="rec.costd_acc_name"
@@ -138,23 +155,38 @@
   </div>
   <div class="page-box">
     <div class="row">
-      <div class="col-8">
+      <div class="col-4">
         <div class="form-group row">
           <div class="offset-1 col-10">
             <button [disabled]="loading" (click)="NewRecord()" class="btn btn-default btn-sm mr-1">Add Row</button>
-            <button *ngIf="type=='SEA EXPORT COSTING'||type=='AIR EXPORT COSTING'" [disabled]="loading"
-              (click)="LoadInvoiceDesc()" class="btn btn-default btn-sm mr-1">Load Desc</button>
+            <!-- <button *ngIf="type=='SEA EXPORT COSTING'||type=='AIR EXPORT COSTING'" [disabled]="loading"
+              (click)="LoadInvoiceDesc()" class="btn btn-default btn-sm mr-1">Load Desc</button> -->
+              <button [disabled]="loading"  (click)="LoadInvoiceDesc()" class="btn btn-default btn-sm mr-1">Load Desc</button>
           </div>
         </div>
       </div>
       <div class="col-4">
         <div class="form-group row">
-          <label class="col-4 col-form-label  col-form-label-sm">Total Amount</label>
-          <div *ngIf="type=='DRCR ISSUE'" class="offset-2 col-4">
+          <label class="col-2 col-form-label  col-form-label-sm">ExWork.Amt</label>
+          <div class="col-4">
+            <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="mRecord.cost_tot_ex_works"
+              required maxlength="20" />
+          </div>
+          <label class="col-2 col-form-label  col-form-label-sm">Other.Amt</label>
+          <div class="col-4">
+            <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="mRecord.cost_oth_amt"
+              required maxlength="20" />
+          </div>
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="form-group row">
+          <label class="offset-3 col-3 col-form-label  col-form-label-sm">Total.Amt</label>
+          <div *ngIf="type=='DRCR ISSUE'" class="offset-1 col-3">
             <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="mRecord.cost_drcr_amount"
               required maxlength="20" />
           </div>
-          <div *ngIf="type!='DRCR ISSUE'" class="offset-2 col-4">
+          <div *ngIf="type!='DRCR ISSUE'" class="offset-1 col-3">
             <input type="number" disabled class="form-control form-control-sm" [(ngModel)]="mRecord.cost_tot_acc_amt"
               required maxlength="20" />
           </div>

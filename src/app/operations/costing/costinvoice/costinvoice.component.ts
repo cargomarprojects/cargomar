@@ -31,6 +31,8 @@ export class CostInvoiceComponent {
   ErrorMessage = "";
   InfoMessage = "";
   acc_sWhere = "";
+  // totExworkAmt = 0;
+  // diffAmt = 0;
 
   @Input() mRecord: Costingm = new Costingm;
   Record: Costingd = new Costingd;
@@ -51,6 +53,9 @@ export class CostInvoiceComponent {
     this.InitLov();
   }
 
+  ngAfterViewInit() {
+
+  }
   InitLov() {
 
 
@@ -83,10 +88,14 @@ export class CostInvoiceComponent {
   }
 
   OnChangeTableCell(field: string, fieldid: string) {
-    var REC = this.mRecord.DetailList.find(rec => rec.costd_pkid == fieldid);
-    if (REC != null) {
-      if (field == "costd_acc_qty" || field == "costd_acc_rate" || field == "costd_acc_amt")
-        this.bChanged = true;
+    if (field == "costd_acc_type") {
+      this.FindTotal();
+    } else {
+      var REC = this.mRecord.DetailList.find(rec => rec.costd_pkid == fieldid);
+      if (REC != null) {
+        if (field == "costd_acc_qty" || field == "costd_acc_rate" || field == "costd_acc_amt")
+          this.bChanged = true;
+      }
     }
   }
 
@@ -148,10 +157,24 @@ export class CostInvoiceComponent {
     this.Record.costd_acc_type = "NA";
     this.Record.costd_acc_id = "";
     this.Record.costd_acc_code = "";
+    this.Record.costd_acc_name = "";
+    if (this.type == "SEA EXPORT COSTING")
+      this.AssignFreightCode("SEA EXPORT")
+    else if (this.type == "AIR EXPORT COSTING")
+      this.AssignFreightCode("AIR EXPORT")
+    else if (this.type == "DRCR ISSUE") {
+
+      if (this.mRecord.cost_category.includes("SEA EXPORT"))
+        this.AssignFreightCode("SEA EXPORT");
+      else if (this.mRecord.cost_category.includes("AIR EXPORT"))
+        this.AssignFreightCode("AIR EXPORT");
+      else if (this.mRecord.cost_category.includes("SEA IMPORT"))
+        this.AssignFreightCode("SEA IMPORT");
+      else if (this.mRecord.cost_category.includes("AIR IMPORT"))
+        this.AssignFreightCode("AIR IMPORT");
+    }
     if (this.type == "SEA EXPORT COSTING" || this.type == "SE CONSOLE COSTING")
       this.Record.costd_acc_name = "OUR HANDLING CHARGES";
-    else
-      this.Record.costd_acc_name = "";
     this.Record.costd_remarks = "";
     this.Record.costd_acc_qty = 1;
     this.Record.costd_acc_rate = 0;
@@ -163,15 +186,27 @@ export class CostInvoiceComponent {
   }
 
   FindTotal() {
+    let totExworkAmt = 0;
+    let otherAmt = 0;
     let nAmt: number = 0;
     for (let rec of this.mRecord.DetailList) {
       nAmt += rec.costd_acc_amt;
+      if (rec.costd_acc_type == "EX-WORK")
+        totExworkAmt += rec.costd_acc_amt;
+      else
+        otherAmt += rec.costd_acc_amt;
     }
+
     nAmt = this.gs.roundNumber(nAmt, 2);
+    totExworkAmt = this.gs.roundNumber(totExworkAmt, 2);
+    otherAmt = this.gs.roundNumber(otherAmt, 2);
+
     if (this.type == "DRCR ISSUE")
       this.mRecord.cost_drcr_amount = nAmt;
     else
       this.mRecord.cost_tot_acc_amt = nAmt;
+    this.mRecord.cost_tot_ex_works = totExworkAmt;
+    this.mRecord.cost_oth_amt = otherAmt;
   }
 
 
@@ -186,11 +221,13 @@ export class CostInvoiceComponent {
       type: this.type,
       pkid: this.mRecord.cost_pkid,
       comp_code: this.gs.globalVariables.comp_code,
-      branch_code: this.gs.globalVariables.branch_code
+      branch_code: this.gs.globalVariables.branch_code,
+      cost_category: ''
     };
 
     SearchData.comp_code = this.gs.globalVariables.comp_code;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.cost_category = this.mRecord.cost_category;
 
     this.ErrorMessage = '';
     this.InfoMessage = '';
@@ -207,5 +244,31 @@ export class CostInvoiceComponent {
         });
   }
 
+  AssignFreightCode(_type: string) {
 
+    if (_type == "SEA EXPORT") {
+      this.Record.costd_acc_type = "FREIGHT";
+      this.Record.costd_acc_id = "DBE55D92-338A-8386-8F77-695809C9A074";
+      this.Record.costd_acc_code = "1105111";
+      this.Record.costd_acc_name = "OCEAN FREIGHT CHARGES - EXPORT";
+    }
+    else if (_type == "AIR EXPORT") {
+      this.Record.costd_acc_type = "FREIGHT";
+      this.Record.costd_acc_id = "418BDF96-1604-7F2E-A3DB-E365A3D985CE";
+      this.Record.costd_acc_code = "1205111";
+      this.Record.costd_acc_name = "AIR FRIEGHT CHARGES - EXPORT";
+    }
+    else if (_type == "SEA IMPORT") {
+      this.Record.costd_acc_type = "FREIGHT";
+      this.Record.costd_acc_id = "F7FA9F67-A627-4AB6-A285-CEE605F12A27";
+      this.Record.costd_acc_code = "1305001";
+      this.Record.costd_acc_name = "OCEAN FREIGHT CHARGES - IMPORT";
+    }
+    else if (_type == "AIR IMPORT") {
+      this.Record.costd_acc_type = "FREIGHT";
+      this.Record.costd_acc_id = "9D695D2D-5E1E-FE63-FAB4-1141C7B8A622";
+      this.Record.costd_acc_code = "1405111";
+      this.Record.costd_acc_name = "AIR FREIGHT CHARGES - AIR IMPORT";
+    }
+  }
 }
