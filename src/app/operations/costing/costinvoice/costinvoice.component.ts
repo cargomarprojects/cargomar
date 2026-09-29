@@ -227,7 +227,10 @@ export class CostInvoiceComponent {
 
     SearchData.comp_code = this.gs.globalVariables.comp_code;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
-    SearchData.cost_category = this.mRecord.cost_category;
+    if (this.gs.isBlank(this.mRecord.cost_category))
+      SearchData.cost_category = '';
+    else
+      SearchData.cost_category = this.mRecord.cost_category;
 
     this.ErrorMessage = '';
     this.InfoMessage = '';
