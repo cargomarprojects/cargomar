@@ -8,13 +8,13 @@ export class Posting {
 
   mbl_pkid: string;
   mbl_type: string;
-  
+
   jv_type: string;
   jv_year: string;
   jv_date: string;
 
   jv_br_record_pkid: string;
-  
+
   jv_ho_id: string;
   jv_ho_code: string;
   jv_ho_name: string;
@@ -34,10 +34,10 @@ export class Posting {
   jv_br_name: string;
 
   jv_ftotal: number;
-  
+
   jv_curr_id: string;
   jv_curr_code: string;
-  jv_exrate: number  ;
+  jv_exrate: number;
 
   jv_total: number;
   jv_debit: number;
@@ -62,6 +62,7 @@ export class Posting {
   jvh_irn: string;
 
   jvh_docno: string;
+  jv_cost_source: string;
 
   rec_mode: string;
   rec_category: string;
