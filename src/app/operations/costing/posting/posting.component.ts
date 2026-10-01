@@ -297,8 +297,8 @@ export class PostingComponent {
 
   // Save Data
   Save() {
-    // if (!this.allvalid())
-    //   return;
+    if (!this.allvalid())
+      return;
     this.loading = true;
     this.ErrorMessage = '';
 

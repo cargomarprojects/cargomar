@@ -62,6 +62,11 @@ export class CostInvoiceComponent {
   }
 
   LovSelected(_Record: SearchTable, _rec: Costingd) {
+    if (_Record.controlname == "ACCTM") {
+      _rec.costd_acc_code = _Record.code;
+      _rec.costd_acc_id = _Record.id;
+      _rec.costd_acc_name = _Record.name;
+    }
 
   }
   // Destroy Will be called when this component is closed
@@ -269,9 +274,9 @@ export class CostInvoiceComponent {
     }
     else if (_type == "AIR IMPORT") {
       this.Record.costd_acc_type = "FREIGHT";
-      this.Record.costd_acc_id = "9D695D2D-5E1E-FE63-FAB4-1141C7B8A622";
-      this.Record.costd_acc_code = "1405111";
-      this.Record.costd_acc_name = "AIR FREIGHT CHARGES - AIR IMPORT";
+      this.Record.costd_acc_id = "53D15175-C40C-492E-A434-AAE99314585C";
+      this.Record.costd_acc_code = "1405001";
+      this.Record.costd_acc_name = "AIR FREIGHT CHARGES IMPORT";
     }
   }
 }
