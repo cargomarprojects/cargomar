@@ -5,6 +5,8 @@ import { GlobalVariables } from '../../core/models/globalvariables';
 export class Posting {
 
   category: string;
+  rowtype: string;
+  rowcolor: string;
 
   mbl_pkid: string;
   mbl_type: string;
@@ -14,6 +16,7 @@ export class Posting {
   jv_date: string;
 
   jv_br_record_pkid: string;
+  jv_br_inv_record_pkid: string;
 
   jv_ho_id: string;
   jv_ho_code: string;
@@ -63,10 +66,11 @@ export class Posting {
 
   jvh_docno: string;
   jv_cost_source: string;
+  jv_acc_name: string;
 
   rec_mode: string;
   rec_category: string;
-
+  rec_branch_code:string;
 
   _globalvariables: GlobalVariables;
 

@@ -69,6 +69,7 @@ export class CostingComponent {
   mode = '';
   pkid = '';
   tot_acc_amt: number = 0;
+   
 
   AGENTRECORD: SearchTable = new SearchTable();
   AGENTADDRECORD: SearchTable = new SearchTable();
@@ -264,7 +265,7 @@ export class CostingComponent {
       page_current: this.page_current,
       page_rows: this.page_rows,
       page_rowcount: this.page_rowcount,
-      report_folder:this.gs.globalVariables.report_folder
+      report_folder: this.gs.globalVariables.report_folder
     };
 
     this.InfoMessage = '';
@@ -446,7 +447,6 @@ export class CostingComponent {
     //  this.RecordDetList[rec.costd_ctr - 1].costd_acc_amt = rec.costd_acc_amt;
     //  this.RecordDetList[rec.costd_ctr - 1].costd_ctr = rec.costd_ctr;
     //}
-
     this.FindInvoiceTotal();
     this.InitLov();
     this.CURRECORD.code = this.Record.cost_currency_code;

@@ -51,6 +51,7 @@ import { ShipTrackComponent } from './mblsea/shiptrack.component';
 import {  TransitTrackingRptComponent } from './transittrackingrpt/transittrackingrpt.component';
 import { HblBkmPartyComponent } from './mblsea/hblbkmparty.component';
 import { BlSurrenderComponent } from './mblsea/blsurrender.component';
+import { PostingRptComponent } from './costing/postingrpt/postingrpt.component';
 
 @NgModule({
   imports: [
@@ -101,7 +102,8 @@ import { BlSurrenderComponent } from './mblsea/blsurrender.component';
     ShipTrackComponent,
     TransitTrackingRptComponent,
     HblBkmPartyComponent,
-    BlSurrenderComponent
+    BlSurrenderComponent,
+    PostingRptComponent
   ],
   providers: [
   ],

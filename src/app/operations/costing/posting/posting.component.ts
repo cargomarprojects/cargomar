@@ -1,6 +1,6 @@
 
 import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
-
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 
 import { GlobalService } from '../../../core/services/global.service';
@@ -41,13 +41,16 @@ export class PostingComponent {
 
   sub: any;
   urlid: string;
-
+  modal: any;
   LockErrorMessage = "";
   ErrorMessage = "";
 
   mode = '';
 
   jv_date = '';
+  inv_pkid = '';
+  jvbr_pkid = '';
+  jvho_pkid = '';
 
   AcGrpList: any[] = [];
   AcTypeList: any[] = [];
@@ -66,6 +69,7 @@ export class PostingComponent {
   FRTRECORD: SearchTable = new SearchTable();
 
   constructor(
+    private modalService: NgbModal,
     private mainService: PostingService,
     private route: ActivatedRoute,
     public gs: GlobalService
@@ -259,7 +263,7 @@ export class PostingComponent {
   }
 
 
-  IsBackDateEntry() {
+  IsBackDateEntry(_content: any) {
 
     let eSearchData = {
       company_code: '',
@@ -281,10 +285,10 @@ export class PostingComponent {
         if (response.retvalue) {
           this.ErrorMessage = response.retstring;
           if (confirm(this.ErrorMessage)) {
-            this.Save();
+            this.Save(_content);
           }
         } else {
-          this.Save();
+          this.Save(_content);
         }
       },
         error => {
@@ -296,7 +300,7 @@ export class PostingComponent {
 
 
   // Save Data
-  Save() {
+  Save(_content: any) {
     if (!this.allvalid())
       return;
     this.loading = true;
@@ -310,7 +314,16 @@ export class PostingComponent {
         this.ErrorMessage = "Save Complete";
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
-        alert(this.ErrorMessage);
+
+        this.inv_pkid = response.invid;
+        this.jvbr_pkid = response.jvbrid;
+        this.jvho_pkid = response.jvhoid;
+        this.Record.jv_br_inv_record_pkid = this.inv_pkid;
+        this.Record.jv_br_record_pkid = this.jvbr_pkid;
+        this.Record.jv_ho_record_pkid = this.jvho_pkid;
+
+        this.open(_content);
+        // alert(this.ErrorMessage);
       },
         error => {
           this.loading = false;
@@ -367,5 +380,15 @@ export class PostingComponent {
     }
   }
 
+  open(content: any) {
+    this.modal = this.modalService.open(content, { backdrop: 'static', keyboard: true });
+  }
 
+  ShowPosting(content: any) {
+    this.inv_pkid = this.Record.jv_br_inv_record_pkid;
+    this.jvbr_pkid = this.Record.jv_br_record_pkid;
+    this.jvho_pkid = this.Record.jv_ho_record_pkid;
+    this.open(content);
+  }
 }
+

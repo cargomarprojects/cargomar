@@ -24,6 +24,9 @@ export class PostingService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Costing/Posting/GetRecord', SearchData, this.gs.headerparam2('authorized'));
   }
 
+  postingrpt(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Costing/Posting/postingrpt', SearchData, this.gs.headerparam2('authorized'));
+  }
 
   DeleteRecord(SearchData: any) {
 
