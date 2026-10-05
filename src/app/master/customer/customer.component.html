@@ -406,7 +406,7 @@
               <div class="form-group row">
                 <label class="col-sm-2 col-form-label col-form-label-sm">This Branch Only</label>
                 <div class="col-sm-4">
-                  <app-autocomplete [disabled]="!Record.cust_is_editable" #LinerLov [inputdata]="COMPRECORD"
+                  <app-autocomplete [disabled]="!Record.cust_is_editable||!bAdmin2" #LinerLov [inputdata]="COMPRECORD"
                     (ValueChanged)="LovSelected($event)"></app-autocomplete>
                 </div>
                 <label class="col-2 col-form-label col-form-label-sm">Nomination</label>
