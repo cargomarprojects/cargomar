@@ -105,6 +105,7 @@ export class CustomerComponent {
   // Acc Group , Acc Type
   AcGrpList: any[] = [];
   AcTypeList: any[] = [];
+  GstList: any[] = [];
 
   PARENTREC: any = {};
   SMANREC: any = {};
@@ -199,6 +200,15 @@ export class CustomerComponent {
   LoadCombo() {
 
     this.ClassList = [{ "name": "Private" }, { "name": "Public" }];
+    this.GstList = [
+      { "code": 'GSN', "name": "IEC" },
+      { "code": 'GSG', "name": "GOVT.ENTITIES" },
+      { "code": 'GSD', "name": "DIPLOMATS" },
+      { "code": 'PAN', "name": "PAN NO" },
+      { "code": 'TAN', "name": "TAN NO" },
+      { "code": 'PSP', "name": "PASSPORT NO" },
+      { "code": 'ADH', "name": "ADHAR NO" },
+      { "code": 'NA', "name": "NA" }];
 
     this.loading = true;
     let SearchData = {
@@ -416,6 +426,7 @@ export class CustomerComponent {
     this.Record.cust_tanno = '';
     this.Record.cust_class = 'N';
     this.Record.cust_type = 'N';
+    this.Record.cust_filing_type = 'NA';
 
 
     this.Record.cust_iata_limit = false;

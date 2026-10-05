@@ -20,6 +20,7 @@ export class Customerm {
     cust_csd_id: string;
     cust_csd_name: string;
     cust_kyc_status: string;
+    cust_filing_type: string;
 
     cust_crdays: number;
     cust_crlimit: number;

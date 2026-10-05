@@ -217,7 +217,8 @@ export class AddressmComponent {
 
         this.Record.add_gstin = _Record.add_gstin;
         this.Record.add_gst_type = _Record.add_gst_type;
-
+        this.Record.rec_mode = _Record.rec_mode;
+        
         if (this.Record.add_fstate_id == "" || this.Record.add_fstate_id == null || this.Record.add_fstate_id == undefined) {
             this.Record.add_fstate_id = "";
             this.Record.add_fstate_name = "";

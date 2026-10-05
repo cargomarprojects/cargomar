@@ -369,6 +369,8 @@
                     <option [value]="'N'">NA</option>
                     <option [value]="'R'">Merchant</option>
                     <option [value]="'F'">Manufacturer</option>
+                    <option [value]="'C'">Merchant Courier</option>
+                    <option [value]="'D'">Manufacturer Courier</option>
                   </select>
                 </div>
               </div>
@@ -381,13 +383,19 @@
                     <option [value]="'N'">NA</option>
                     <option [value]="'P'">Private</option>
                     <option [value]="'G'">Government</option>
+                    <option [value]="'W'">Warehouse Shipping Bill</option>
                   </select>
                 </div>
 
 
 
-                <label class="col-2 col-form-label col-form-label-sm"></label>
-                <div class="col-4">
+                <label class="col-2 col-form-label col-form-label-sm">SB Filing</label>
+                <div class="col-2">
+                  <select class="form-control form-control-sm" [(ngModel)]="Record.cust_filing_type">
+                    <option *ngFor="let rec of GstList" [value]="rec.code">{{rec.name}}</option>
+                  </select>
+                </div>
+                <div class="col-2">
                   <input type="checkbox" [disabled]="!Record.cust_is_editable" [(ngModel)]="Record.cust_sepz_unit" />
                   <span>Sez Unit</span>
                 </div>
@@ -678,7 +686,8 @@
               (click)="UnlockCustomer('UNLOCKED')" class="btn btn-success btn-sm mr-1">Unlock</button>
             <button *ngIf="mode == 'EDIT' && bCanLock && !Record.rec_locked" [disabled]="loading"
               (click)="UnlockCustomer('LOCKED')" class="btn btn-success btn-sm mr-1">Lock</button>
-            <app-memo *ngIf="mode == 'EDIT'" [parentid]="Record.cust_pkid" [type]="'CUSTOMER-MEMO'" [title]="''"></app-memo>
+            <app-memo *ngIf="mode == 'EDIT'" [parentid]="Record.cust_pkid" [type]="'CUSTOMER-MEMO'"
+              [title]="''"></app-memo>
             <button [disabled]="loading" *ngIf="mode == 'EDIT'" class="btn btn-primary btn-sm mr-1"
               (click)="CheckCrLimit()">Check
               CR-Limit</button>

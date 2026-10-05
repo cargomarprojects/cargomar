@@ -1106,6 +1106,8 @@
                               <option [value]="'N'">NA</option>
                               <option [value]="'R'">Merchant</option>
                               <option [value]="'F'">Manufacturer</option>
+                              <option [value]="'C'">Merchant Courier</option>
+                              <option [value]="'D'">Manufacturer Courier</option>
                             </select>
                           </div>
                         </div>
@@ -1278,8 +1280,8 @@
             <div>
               <button [disabled]="loading" *ngIf="mode=='EDIT'" (click)="GenerateEdiFile('EDIFILE','SB')"
                 class="btn btn-success btn-sm mr-1">Edi File</button>
-              <button [disabled]="loading" *ngIf="mode=='EDIT'&&gs.globalVariables.user_code == 'ADMIN'" (click)="GenerateEdiFile('JSONFILE','JSON')"
-                class="btn btn-success btn-sm">Json File</button>
+              <button [disabled]="loading" *ngIf="mode=='EDIT'&&gs.globalVariables.user_code == 'ADMIN'"
+                (click)="GenerateEdiFile('JSONFILE','JSON')" class="btn btn-success btn-sm">Json File</button>
             </div>
             <hr />
             <br />
