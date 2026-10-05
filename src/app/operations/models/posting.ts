@@ -67,6 +67,7 @@ export class Posting {
   jvh_docno: string;
   jv_cost_source: string;
   jv_acc_name: string;
+  jv_acc_code: string;
 
   rec_mode: string;
   rec_category: string;
