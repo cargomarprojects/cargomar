@@ -239,6 +239,10 @@
             <input type="checkbox" (click)="RcCheckBox()" [(ngModel)]="Record.jvh_rc">
             <span>RC</span>
           </div>
+          <div  *ngIf="type=='IN-ES'" class="col-sm-3">
+            <input type="checkbox" disabled [(ngModel)]="Record.jvh_exwork">
+            <span>ExWork</span>
+          </div>
         </div>
 
         <div class="form-group row">
@@ -931,8 +935,8 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-moneytransfer [type]="type" [menuid]="''" [jvid]="this.Recorddet.jv_pkid" [mtformat]="getMtFormat(Recorddet.jv_acc_name)"
-      (ModifiedRecords)="ModifiedRecords($event)"></app-moneytransfer>
+    <app-moneytransfer [type]="type" [menuid]="''" [jvid]="this.Recorddet.jv_pkid"
+      [mtformat]="getMtFormat(Recorddet.jv_acc_name)" (ModifiedRecords)="ModifiedRecords($event)"></app-moneytransfer>
   </div>
 </ng-template>
 
