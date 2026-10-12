@@ -33,6 +33,7 @@ export class CostingComponent {
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
+  print_format: string = "SUMMARY";
 
   searchstring = '';
   page_count = 0;
@@ -69,7 +70,7 @@ export class CostingComponent {
   mode = '';
   pkid = '';
   tot_acc_amt: number = 0;
-   
+
 
   AGENTRECORD: SearchTable = new SearchTable();
   AGENTADDRECORD: SearchTable = new SearchTable();
@@ -333,6 +334,7 @@ export class CostingComponent {
     this.lock_record = false;
     this.lock_date = false;
 
+    this.print_format = "SUMMARY";
 
     this.pkid = this.gs.getGuid();
     this.Record = new Costingm();
@@ -868,7 +870,8 @@ export class CostingComponent {
       parentid: '',
       comp_code: '',
       incometype: '',
-      printfcbank: 'N'
+      printfcbank: 'N',
+      format: this.print_format
     };
     SearchData.type = _type;
     SearchData.pkid = this.pkid;
@@ -877,6 +880,7 @@ export class CostingComponent {
     SearchData.folderid = this.folder_id;
     SearchData.comp_code = this.gs.globalVariables.comp_code;
     SearchData.printfcbank = this.printfcbank == true ? 'Y' : 'N';
+    SearchData.format = this.print_format;
 
     this.InfoMessage = '';
     this.ErrorMessage = '';
@@ -997,7 +1001,8 @@ export class CostingComponent {
       branch_code: this.gs.globalVariables.branch_code,
       agent_code: this.Record.cost_jv_agent_code,
       agent_name: this.Record.cost_jv_agent_name,
-      cost_pkid: this.pkid
+      cost_pkid: this.pkid,
+      format: this.print_format
     };
 
     SearchData.report_folder = this.gs.globalVariables.report_folder;
@@ -1006,7 +1011,7 @@ export class CostingComponent {
     SearchData.cost_pkid = this.pkid;
     SearchData.agent_code = this.Record.cost_jv_agent_code;
     SearchData.agent_name = this.Record.cost_jv_agent_name;
-
+    SearchData.format = this.print_format;
 
     this.mainService.GenerateXmlCostingInvoice(SearchData)
       .subscribe(response => {

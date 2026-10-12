@@ -11,13 +11,14 @@
 <div *ngIf="currentTab=='LIST'" class="page-list">
 
   <div class="page-search">
-     <div class="row">
+    <div class="row">
       <div class="col-sm-3">
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">From.Date</label>
           <div class="col-sm-8">
-              <app-date [inputdate]="gs.globalData.cost_air_fromdate" (ValueChanged)="gs.globalData.cost_air_fromdate=$event">
-        </app-date>
+            <app-date [inputdate]="gs.globalData.cost_air_fromdate"
+              (ValueChanged)="gs.globalData.cost_air_fromdate=$event">
+            </app-date>
           </div>
         </div>
       </div>
@@ -25,8 +26,8 @@
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">To.Date</label>
           <div class="col-sm-8">
-             <app-date [inputdate]="gs.globalData.cost_air_todate" (ValueChanged)="gs.globalData.cost_air_todate=$event">
-        </app-date>
+            <app-date [inputdate]="gs.globalData.cost_air_todate" (ValueChanged)="gs.globalData.cost_air_todate=$event">
+            </app-date>
           </div>
         </div>
       </div>
@@ -34,7 +35,7 @@
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">Search</label>
           <div class="col-sm-8">
-             <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+            <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
           </div>
         </div>
       </div>
@@ -43,7 +44,8 @@
           <label class="col-sm-4 col-form-label col-form-label-sm"></label>
           <div class="col-sm-8">
             <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
-            <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')" class="btn btn-primary btn-sm">Print</button>
+            <button *ngIf='bPrint' [disabled]="loading" (click)="List('EXCEL')"
+              class="btn btn-primary btn-sm">Print</button>
           </div>
         </div>
       </div>
@@ -614,19 +616,23 @@
           <div class="row">
             <div class="col-sm-6">
               <div class="form-group row">
-                <div class="offset-2 col-10">
+                <div class="offset-2 col-10 input-group input-group-sm">
                   <button [hidden]="disableSave" [disabled]="disableSave || lock_record" (click)="Save()"
-                    class="btn btn-success btn-sm">Save</button>
-                  <button *ngIf="mode == 'EDIT'" (click)="PrintNote('EXCEL')" class="btn btn-success btn-sm">Print
+                    class="btn btn-success btn-sm mr-1">Save</button>
+                  <select class="form-control form-control-sm mr-1" name="pformat" [(ngModel)]="print_format">
+                    <option [value]="'SUMMARY'">Summary</option>
+                    <option [value]="'DETAIL'">Detail</option>
+                  </select>
+                  <button *ngIf="mode == 'EDIT'" (click)="PrintNote('EXCEL')" class="btn btn-success btn-sm mr-1">Print
                     Dr/Cr</button>
                   <button *ngIf="mode == 'EDIT'" (click)="PrintNote('EXCEL2')"
-                    class="btn btn-success btn-sm">Excel</button>
-                  <button *ngIf="mode == 'EDIT'" (click)="PrintNote('PDF')" class="btn btn-success btn-sm">Pdf</button>
-                  <button *ngIf="mode == 'EDIT'" (click)="GenerateXml(ftpsent)" class="btn btn-success btn-sm">Generate
+                    class="btn btn-success btn-sm mr-1">Excel</button>
+                  <button *ngIf="mode == 'EDIT'" (click)="PrintNote('PDF')" class="btn btn-success btn-sm mr-1">Pdf</button>
+                  <button *ngIf="mode == 'EDIT'" (click)="GenerateXml(ftpsent)" class="btn btn-success btn-sm mr-1">Generate
                     Xml</button>
                   <button [disabled]="loading" *ngIf="mode == 'EDIT'"
                     (click)="PrintInvoice('SUMMARY','PDF',Record.cost_jv_br_inv_id)"
-                    class="btn btn-success btn-sm">Invoice</button>
+                    class="btn btn-success btn-sm mr-1">Invoice</button>
                   <i *ngIf="loading" class="fa fa-spinner"></i>
                 </div>
               </div>

@@ -55,6 +55,7 @@ export class AirCostingComponent {
   canftp: boolean = false;
   mMsg: string = "";
   mail_update_type: string = "";
+  print_format: string = "SUMMARY";
 
   sub: any;
   urlid: string;
@@ -324,6 +325,7 @@ export class AirCostingComponent {
     this.lock_record = false;
     this.lock_date = false;
 
+    this.print_format = "SUMMARY";
 
     this.pkid = this.gs.getGuid();
     this.Record = new Costingm();
@@ -981,7 +983,8 @@ export class AirCostingComponent {
       parentid: '',
       comp_code: '',
       incometype: '',
-      printfcbank: ''
+      printfcbank: '',
+      format: this.print_format
     };
     SearchData.type = _type;
     SearchData.pkid = this.pkid;
@@ -990,6 +993,7 @@ export class AirCostingComponent {
     SearchData.folderid = this.folder_id;
     SearchData.comp_code = this.gs.globalVariables.comp_code;
     SearchData.printfcbank = this.printfcbank == true ? 'Y' : 'N';
+    SearchData.format = this.print_format;
 
     this.ErrorMessage = '';
     this.InfoMessage = '';
@@ -1116,7 +1120,8 @@ export class AirCostingComponent {
       branch_code: this.gs.globalVariables.branch_code,
       agent_code: this.Record.cost_jv_agent_code,
       agent_name: this.Record.cost_jv_agent_name,
-      cost_pkid: this.pkid
+      cost_pkid: this.pkid,
+      format: this.print_format
     };
 
     SearchData.report_folder = this.gs.globalVariables.report_folder;
@@ -1125,6 +1130,7 @@ export class AirCostingComponent {
     SearchData.cost_pkid = this.pkid;
     SearchData.agent_code = this.Record.cost_jv_agent_code;
     SearchData.agent_name = this.Record.cost_jv_agent_name;
+    SearchData.format = this.print_format;
 
     this.mainService.GenerateXmlCostingInvoice(SearchData)
       .subscribe(response => {
