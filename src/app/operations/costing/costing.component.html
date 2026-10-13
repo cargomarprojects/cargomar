@@ -453,8 +453,8 @@
                 <div class="offset-2 col-10 input-group input-group-sm">
                   <button [disabled]="loading" [hidden]="disableSave" [disabled]="disableSave || lock_record"
                     (click)="Save()" class="btn btn-success btn-sm mr-1">Save</button>
-
-                  <select class="form-control form-control-sm mr-1" name="pformat" [(ngModel)]="print_format">
+                  <label *ngIf="mode == 'EDIT'"  class="col-form-label col-form-label-sm mr-2">Print Format</label>
+                  <select *ngIf="mode == 'EDIT'"  class="form-control form-control-sm mr-1" name="pformat" [(ngModel)]="print_format">
                     <option [value]="'SUMMARY'">Summary</option>
                     <option [value]="'DETAIL'">Detail</option>
                   </select>

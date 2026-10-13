@@ -227,7 +227,8 @@ export class CostInvoiceComponent {
       pkid: this.mRecord.cost_pkid,
       comp_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
-      cost_category: ''
+      cost_category: '',
+      mblid: this.mRecord.cost_mblid
     };
 
     SearchData.comp_code = this.gs.globalVariables.comp_code;
@@ -236,7 +237,8 @@ export class CostInvoiceComponent {
       SearchData.cost_category = '';
     else
       SearchData.cost_category = this.mRecord.cost_category;
-
+    SearchData.mblid = this.mRecord.cost_mblid;
+    
     this.ErrorMessage = '';
     this.InfoMessage = '';
     this.mainService.LoadDefault(SearchData)

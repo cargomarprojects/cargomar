@@ -41,6 +41,7 @@ export class DrCrComponent {
   bAdmin = false;
   bPrint = false;
 
+  print_format: string = "SUMMARY";
   sSubject: string = '';
   ftpUpdtSql: string = '';
   ftpTransfertype: string = 'DRCR ISSUE';
@@ -336,6 +337,7 @@ export class DrCrComponent {
 
     this.lock_record = false;
     this.lock_date = false;
+    this.print_format = "SUMMARY";
 
     this.pkid = this.gs.getGuid();
     this.Record = new Costingm();
@@ -777,7 +779,8 @@ export class DrCrComponent {
       parentid: '',
       comp_code: '',
       incometype: '',
-      printfcbank: 'N'
+      printfcbank: 'N',
+      format: this.print_format
     };
     SearchData.type = _type;
     SearchData.pkid = this.pkid;
@@ -786,6 +789,7 @@ export class DrCrComponent {
     SearchData.folderid = this.folder_id;
     SearchData.comp_code = this.gs.globalVariables.comp_code;
     SearchData.printfcbank = this.printfcbank == true ? 'Y' : 'N';
+    SearchData.format = this.print_format;
 
     this.ErrorMessage = '';
     this.InfoMessage = '';
@@ -902,7 +906,8 @@ export class DrCrComponent {
       branch_code: this.gs.globalVariables.branch_code,
       agent_code: this.Record.cost_jv_agent_code,
       agent_name: this.Record.cost_jv_agent_name,
-      cost_pkid: this.pkid
+      cost_pkid: this.pkid,
+      format: this.print_format
     };
 
     SearchData.report_folder = this.gs.globalVariables.report_folder;
@@ -911,6 +916,7 @@ export class DrCrComponent {
     SearchData.cost_pkid = this.pkid;
     SearchData.agent_code = this.Record.cost_jv_agent_code;
     SearchData.agent_name = this.Record.cost_jv_agent_name;
+    SearchData.format = this.print_format;
 
     this.mainService.GenerateXmlCostingInvoice(SearchData)
       .subscribe(response => {
