@@ -160,9 +160,10 @@
           <th>NAME</th>
           <th>GROSS</th>
           <th>EPF</th>
-          <th>EPS</th>
-          <th>EDLI</th>
+          <th>EPS WAGES</th>
+          <th>EDLI WAGES</th>
           <th>PF.EMPLY</th>
+          <th>EPS AMT</th>
           <th>PF.EMPLR</th>
           <th>NCP DAYS</th>
         </tr>
@@ -175,8 +176,9 @@
           <td>{{rec.sal_gross_earn}}</td>
           <td>{{rec.pf_base_salary}}</td>
           <td>{{rec.eps_amt}}</td>
-          <td>{{rec.edli_chrg | number : '1.2-2'}}</td>
+          <td>{{rec.edli_base_amt | number : '1.2-2'}}</td>
           <td>{{rec.pf_deduction | number : '1.2-2'}}</td>
+          <td>{{rec.pension | number : '1.2-2'}}</td>
           <td>{{rec.emplyr_share | number : '1.2-2'}}</td>
           <td>{{rec.emp_lp_days }}</td>
         </tr>
