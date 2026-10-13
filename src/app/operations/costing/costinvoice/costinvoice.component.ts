@@ -33,6 +33,7 @@ export class CostInvoiceComponent {
   acc_sWhere = "";
   // totExworkAmt = 0;
   // diffAmt = 0;
+  selectedRowIndex: number = -1;
 
   @Input() mRecord: Costingm = new Costingm;
   Record: Costingd = new Costingd;
@@ -238,7 +239,7 @@ export class CostInvoiceComponent {
     else
       SearchData.cost_category = this.mRecord.cost_category;
     SearchData.mblid = this.mRecord.cost_mblid;
-    
+
     this.ErrorMessage = '';
     this.InfoMessage = '';
     this.mainService.LoadDefault(SearchData)
@@ -280,5 +281,32 @@ export class CostInvoiceComponent {
       this.Record.costd_acc_code = "1405001";
       this.Record.costd_acc_name = "AIR FREIGHT CHARGES IMPORT";
     }
+  }
+
+  SetRowIndex(_indx: number) {
+    this.selectedRowIndex = _indx;
+  }
+
+  changePosition(thistype: string) {
+    if (this.selectedRowIndex == -1) {
+      alert('Please select a row to move up or down.');
+      return;
+    }
+    let _newindx: number = this.selectedRowIndex;
+
+    if (thistype == 'UP')
+      _newindx--;
+    if (thistype == 'DOWN')
+      _newindx++;
+
+    if (_newindx >= 0 && _newindx < this.mRecord.DetailList.length) {
+      this.swapItem(this.selectedRowIndex, _newindx);
+      this.selectedRowIndex = _newindx;
+    }
+  }
+  swapItem(slot1: number, slot2: number) {
+    var tempVal = this.mRecord.DetailList[slot2];
+    this.mRecord.DetailList[slot2] = this.mRecord.DetailList[slot1];
+    this.mRecord.DetailList[slot1] = tempVal;
   }
 }
