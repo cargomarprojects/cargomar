@@ -620,7 +620,7 @@
                   <button [hidden]="disableSave" [disabled]="disableSave || lock_record" (click)="Save()"
                     class="btn btn-success btn-sm mr-1">Save</button>
                   <label *ngIf="mode == 'EDIT'" class="col-form-label col-form-label-sm mr-2">Print Format</label>
-                  <select *ngIf="mode == 'EDIT'" class="form-control form-control-sm mr-1" name="pformat"
+                  <select *ngIf="mode == 'EDIT'" class="form-control form-control-sm mr-1" style="width: auto; max-width: 130px; flex: 0 1 130px;" name="pformat"
                     [(ngModel)]="print_format">
                     <option [value]="'SUMMARY'">Summary</option>
                     <option [value]="'DETAIL'">Detail</option>

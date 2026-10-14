@@ -26,7 +26,7 @@ export class CostInvoiceComponent {
   Total_Amount: number = 0;
 
   bChanged: boolean;
-
+  income_category: string = "BOTH";
   pkid = "";
   ErrorMessage = "";
   InfoMessage = "";
@@ -229,7 +229,8 @@ export class CostInvoiceComponent {
       comp_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       cost_category: '',
-      mblid: this.mRecord.cost_mblid
+      mblid: this.mRecord.cost_mblid,
+      income_category: this.income_category
     };
 
     SearchData.comp_code = this.gs.globalVariables.comp_code;
@@ -239,6 +240,7 @@ export class CostInvoiceComponent {
     else
       SearchData.cost_category = this.mRecord.cost_category;
     SearchData.mblid = this.mRecord.cost_mblid;
+    SearchData.income_category = this.income_category;
 
     this.ErrorMessage = '';
     this.InfoMessage = '';
