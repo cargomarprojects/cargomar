@@ -191,7 +191,8 @@ export class CcReportComponent {
     }
 
     if (_CanUpdate == "Y") {
-      if (this.cc_type == "CNTR SEA EXPORT" || this.cc_type == "GENERAL JOB" || this.cc_type == "EMPLOYEE" || this.cc_type == "ACC CODE" || this.cc_type == "COST CENTER") {
+      // || this.cc_type == "GENERAL JOB" //remarked on 15/10/2026 to include cc update for general job
+      if (this.cc_type == "CNTR SEA EXPORT" || this.cc_type == "EMPLOYEE" || this.cc_type == "ACC CODE" || this.cc_type == "COST CENTER") {
         this.ErrorMessage = "Cannot Update this type";
         alert(this.ErrorMessage);
         return;
