@@ -11,14 +11,14 @@ import { MenuService } from '../services/menu.service';
 @Component({
     selector: 'app-menu',
     templateUrl: './menu.component.html',
-    providers : [MenuService]
+    providers: [MenuService]
 })
 export class MenuComponent {
     // Local Variables 
     title = 'MENU MASTER';
     loading = false;
     currentTab = 'LIST';
-    
+
     searchstring = '';
     page_count = 0;
     page_current = 0;
@@ -31,7 +31,7 @@ export class MenuComponent {
     selectedRowIndex = 0;
 
     ErrorMessage = "User Details";
-    
+
     mode = '';
     pkid = '';
 
@@ -58,15 +58,15 @@ export class MenuComponent {
 
     // Init Will be called After executing Constructor
     ngOnInit() {
-    
+
     }
     // Destroy Will be called when this component is closed
     ngOnDestroy() {
-        
+
     }
 
     //function for handling LIST/NEW/EDIT Buttons
-    ActionHandler(action : string, id :string ) {
+    ActionHandler(action: string, id: string) {
         this.ErrorMessage = '';
         if (action == 'LIST') {
             this.mode = '';
@@ -91,7 +91,7 @@ export class MenuComponent {
         this.loading = true;
         let SearchData = {
             type: 'type',
-            comp_code : this.gs.globalVariables.comp_code
+            comp_code: this.gs.globalVariables.comp_code
         };
 
         this.ErrorMessage = '';
@@ -102,10 +102,10 @@ export class MenuComponent {
                 this.GroupList = response.grouplist;
                 this.List("NEW");
             },
-            error => {
-                this.loading = false;
-                this.ErrorMessage = this.gs.getError(error);
-            });
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
     }
 
 
@@ -133,10 +133,10 @@ export class MenuComponent {
                 this.page_current = response.page_current;
                 this.page_rowcount = response.page_rowcount;
             },
-            error => {
-                this.loading = false;
-                this.ErrorMessage = this.gs.getError(error);
-            });
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
     }
 
     NewRecord() {
@@ -153,7 +153,10 @@ export class MenuComponent {
         this.Record.menu_module_name = '';
         this.Record.menu_group_id = '';
         this.Record.menu_group_name = '';
+        this.Record.menu_newsoftware = false;
+        this.Record.menu_displayed = false;
         this.Record.rec_mode = this.mode;
+
     }
 
     // Load a single Record for VIEW/EDIT
@@ -170,10 +173,10 @@ export class MenuComponent {
                 this.loading = false;
                 this.LoadData(response.record);
             },
-            error => {
-                this.loading = false;
-                this.ErrorMessage = this.gs.getError(error);
-            });
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+                });
     }
 
     LoadData(_Record: Menum) {
@@ -199,11 +202,11 @@ export class MenuComponent {
                 this.Record.rec_mode = this.mode;
                 this.RefreshList();
             },
-            error => {
-              this.loading = false;
-              this.ErrorMessage = this.gs.getError(error);
-                
-            });
+                error => {
+                    this.loading = false;
+                    this.ErrorMessage = this.gs.getError(error);
+
+                });
     }
 
     allvalid() {
@@ -255,7 +258,7 @@ export class MenuComponent {
             REC.menu_group_name = this.GroupList.find(row => row.param_pkid == this.Record.menu_group_id).param_name;
         }
     }
-    
+
     Close() {
         this.gs.ClosePage('home');
     }
