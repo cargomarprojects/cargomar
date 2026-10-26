@@ -29,7 +29,7 @@ export class GlobalVariables {
   comp_pkid: string;
   comp_code: string;
   comp_name: string;
-
+  
   branch_pkid: string;
   branch_code: string;
   branch_name: string;
