@@ -119,6 +119,12 @@ export class HeaderComponent {
     this.router.navigate(['home'], { replaceUrl: true });
   }
 
-
+  openNewSoftware() {
+    let _url: string = this.gs.defaultValues.comp_newsoftware_url;
+    _url = _url.replace("{APPID}", this.gs.appid)
+    if (this.gs.isBlank(_url))
+      return;
+    window.open(_url, "_blank");
+  }
 
 }
