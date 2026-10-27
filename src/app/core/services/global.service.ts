@@ -401,7 +401,7 @@ export class GlobalService {
     this.defaultValues.gst_recon_itc_status = 'MATCHED';
     this.defaultValues.gst_recon_itc_claim_status = 'ITC AVAILED';
     this.defaultValues.gst_recon_itc_claim_period = '';
-    this.defaultValues.comp_newsoftware = '';
+    this.defaultValues.comp_newsoftware_url = '';
     var tempdt = this.getPreviousMonth().split('-');
     if (tempdt.length > 1) {
       this.defaultValues.gst_recon_year = tempdt[0];
@@ -491,8 +491,8 @@ export class GlobalService {
         if (rec.caption == 'BL-ISSUED-BY5')
           this.defaultValues.bl_issued_by5 = rec.name;
 
-        if (rec.caption == 'CO_NEW_SOFTWARE')
-          this.defaultValues.comp_newsoftware = rec.name;
+        if (rec.caption == 'CO_NEW_SOFTWARE_URL')
+          this.defaultValues.comp_newsoftware_url = rec.name;
 
       }
       if (rec.parentid == this.globalVariables.branch_code) {

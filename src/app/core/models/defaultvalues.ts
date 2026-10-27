@@ -155,5 +155,5 @@ export class DefaultValues {
     gst_recon_itc_list_month: string;
     gst_recon_itc_list_year: string;
 
-    comp_newsoftware: string;
+    comp_newsoftware_url: string;
 }
