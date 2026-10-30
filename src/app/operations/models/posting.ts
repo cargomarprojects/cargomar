@@ -17,6 +17,7 @@ export class Posting {
 
   jv_br_record_pkid: string;
   jv_br_inv_record_pkid: string;
+  jv_br_ex_inv_record_pkid: string;
 
   jv_ho_id: string;
   jv_ho_code: string;
@@ -71,7 +72,7 @@ export class Posting {
 
   rec_mode: string;
   rec_category: string;
-  rec_branch_code:string;
+  rec_branch_code: string;
 
   _globalvariables: GlobalVariables;
 

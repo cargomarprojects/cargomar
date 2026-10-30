@@ -10,10 +10,11 @@ import { PostingService } from '../../services/posting.service';
   providers: [PostingService]
 })
 export class PostingRptComponent {
-   
+
   title = 'Posting Status';
 
   @Input() public inv_pkid: string = "";
+  @Input() public exwork_inv_pkid: string = "";
   @Input() public jvbr_pkid: string = "";
   @Input() public jvho_pkid: string = "";
   @Input() public type: string = '';
@@ -27,7 +28,7 @@ export class PostingRptComponent {
 
   listHtmlHt: string = '400px';
   RecordList: Posting[] = [];
-   
+
   selectedRowIndex = 0;
   searchString: string = "";
 
@@ -39,7 +40,7 @@ export class PostingRptComponent {
     // URL Query Parameter
   }
 
-   
+
 
   // Init Will be called After executing Constructor
   ngOnInit() {
@@ -83,6 +84,7 @@ export class PostingRptComponent {
       inv_pkid: this.inv_pkid,
       jvbr_pkid: this.jvbr_pkid,
       jvho_pkid: this.jvho_pkid,
+      exwork_inv_pkid: this.exwork_inv_pkid,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,

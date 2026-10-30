@@ -48,10 +48,7 @@ export class PostingComponent {
   mode = '';
 
   jv_date = '';
-  inv_pkid = '';
-  jvbr_pkid = '';
-  jvho_pkid = '';
-
+  
   AcGrpList: any[] = [];
   AcTypeList: any[] = [];
 
@@ -314,13 +311,11 @@ export class PostingComponent {
         this.ErrorMessage = "Save Complete";
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
-
-        this.inv_pkid = response.invid;
-        this.jvbr_pkid = response.jvbrid;
-        this.jvho_pkid = response.jvhoid;
-        this.Record.jv_br_inv_record_pkid = this.inv_pkid;
-        this.Record.jv_br_record_pkid = this.jvbr_pkid;
-        this.Record.jv_ho_record_pkid = this.jvho_pkid;
+         
+        this.Record.jv_br_inv_record_pkid = response.invid;
+        this.Record.jv_br_ex_inv_record_pkid = response.exworkinvid;
+        this.Record.jv_br_record_pkid = response.jvbrid;
+        this.Record.jv_ho_record_pkid = response.jvhoid;
 
         this.open(_content);
         // alert(this.ErrorMessage);
@@ -385,9 +380,6 @@ export class PostingComponent {
   }
 
   ShowPosting(content: any) {
-    this.inv_pkid = this.Record.jv_br_inv_record_pkid;
-    this.jvbr_pkid = this.Record.jv_br_record_pkid;
-    this.jvho_pkid = this.Record.jv_ho_record_pkid;
     this.open(content);
   }
 }
