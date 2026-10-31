@@ -65,6 +65,10 @@ export class Posting {
   jvh_is_einv: string;
   jvh_irn: string;
 
+  jvh_is_ex_einv: string;
+  jvh_ex_einv_status: string;
+  jvh_ex_irn: string;
+
   jvh_docno: string;
   jv_cost_source: string;
   jv_acc_name: string;
@@ -78,3 +82,4 @@ export class Posting {
 
 
 }
+ 

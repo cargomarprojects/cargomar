@@ -48,7 +48,7 @@ export class PostingComponent {
   mode = '';
 
   jv_date = '';
-  
+
   AcGrpList: any[] = [];
   AcTypeList: any[] = [];
 
@@ -311,7 +311,7 @@ export class PostingComponent {
         this.ErrorMessage = "Save Complete";
         this.mode = 'EDIT';
         this.Record.rec_mode = this.mode;
-         
+
         this.Record.jv_br_inv_record_pkid = response.invid;
         this.Record.jv_br_ex_inv_record_pkid = response.exworkinvid;
         this.Record.jv_br_record_pkid = response.jvbrid;
@@ -338,7 +338,7 @@ export class PostingComponent {
       sError += "| Cannot Save, It is Posted / Allocated ";
     }
 
-    if (this.Record.jvh_einv_status == "G") {
+    if (this.Record.jvh_einv_status == "G" || this.Record.jvh_ex_einv_status == "G") {
       bret = false;
       sError += "| Cannot Save, Einvoice Already Generated ";
     }

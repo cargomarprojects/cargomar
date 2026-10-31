@@ -163,6 +163,7 @@ export class Costingd {
   cost_jv_ho_vrno: string;
   cost_jv_br_vrno: string;
   cost_jv_br_invno: string;
+  cost_jv_br_ex_invno: string;
   cost_jv_posted: boolean;
 
   costd_category: string;
@@ -221,10 +222,11 @@ export class Costingd {
 
   costd_agent_format: string;
   costd_remarks: string;
+  cost_ex_einv_status: string;
 
   costd_srate: number;
   costd_brate: number;
   costd_split: number;
 
-  
+
 }
