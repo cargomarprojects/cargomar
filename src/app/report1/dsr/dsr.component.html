@@ -1,13 +1,13 @@
 <div class="page-header">
   <div class="col">
-    <label>{{title}}</label>
+    <label>{{ms.state.title}}</label>
     <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
-    <i *ngIf="loading" class="fa fa-spinner"></i>
+    <i *ngIf="ms.state.loading" class="fa fa-spinner"></i>
   </div>
 </div>
 
 
-<div *ngIf="currentTab=='LIST'" class="page-list">
+<div *ngIf="ms.state.currentTab=='LIST'" class="page-list">
   <div class="page-list">
     <div class="page-search">
       <div class="row">
@@ -15,24 +15,26 @@
           <div class="form-group row">
             <!-- <label class="col-4 col-form-label col-form-label-sm">From Date</label> -->
             <div class="col-sm-3">
-              <select class="form-control form-control-sm" [(ngModel)]="filter_date_type">
+              <select class="form-control form-control-sm" [(ngModel)]="ms.state.filter_date_type">
                 <option [value]="'JOB'">JOB DATE</option>
                 <option [value]="'CREATED'">CREATED DATE</option>
               </select>
             </div>
             <div class="col-sm-4">
-              <app-date #_from_date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+              <app-date #_from_date [inputdate]="ms.state.from_date"
+                (ValueChanged)="ms.state.from_date=$event"></app-date>
             </div>
             <label class="col-sm-1 col-form-label col-form-label-sm">To</label>
             <div class="col-sm-4">
-              <app-date #_to_date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+              <app-date #_to_date [inputdate]="ms.state.to_date" (ValueChanged)="ms.state.to_date=$event"></app-date>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-3 col-form-label col-form-label-sm">Customer</label>
             <div class="col-sm-9">
-              <select class="form-control form-control-sm" [(ngModel)]="tp_code" (change)="OnChange('tp_code')">
-                <option *ngFor="let rec of TpList" [value]="rec.user_tp_code">
+              <select class="form-control form-control-sm" [(ngModel)]="ms.state.tp_code"
+                (change)="OnChange('tp_code')">
+                <option *ngFor="let rec of ms.state.TpList" [value]="rec.user_tp_code">
                   {{rec.user_tp_name}}
                 </option>
               </select>
@@ -40,40 +42,59 @@
           </div>
 
           <div class="form-group row">
-            <label *ngIf="rec_category=='SEA EXPORT' || rec_category=='AIR EXPORT'"
+            <label *ngIf="ms.state.rec_category=='SEA EXPORT' || ms.state.rec_category=='AIR EXPORT'"
               class="col-sm-3 col-form-label col-form-label-sm">Shipper</label>
-            <label *ngIf="rec_category=='SEA IMPORT'|| rec_category=='AIR IMPORT'"
+            <label *ngIf="ms.state.rec_category=='SEA IMPORT'|| ms.state.rec_category=='AIR IMPORT'"
               class="col-sm-3 col-form-label col-form-label-sm">Exporter</label>
-            <div *ngIf="rec_category=='SEA EXPORT' || rec_category=='AIR EXPORT'" class="col-sm-9">
-              <app-autocomplete #ExporterLov [inputdata]="EXPRECORD"
-                (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            <div *ngIf="ms.state.rec_category=='SEA EXPORT' || ms.state.rec_category=='AIR EXPORT'" class="col-sm-9">
+              <!-- <app-autocomplete #ExporterLov [inputdata]="ms.state.EXPRECORD"
+                (ValueChanged)="LovSelected($event)"></app-autocomplete> -->
+              <app-autocomplete3 #ExporterLov [controlname]="'SHIPPER'" [tabletype]="'CUSTOMER'"
+                [where]="getSwhere('SHIPPER')" [displaycolumn]="'NAME'" [displaydata]="ms.state.shipper_name"
+                (ValueChanged)="LovSelected($event)">
+              </app-autocomplete3>
             </div>
-            <div *ngIf="rec_category=='SEA IMPORT'|| rec_category=='AIR IMPORT'" class="col-sm-9">
-              <app-autocomplete #ImporterLov [inputdata]="IMPRECORD"
-                (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            <div *ngIf="ms.state.rec_category=='SEA IMPORT'|| ms.state.rec_category=='AIR IMPORT'" class="col-sm-9">
+              <!-- <app-autocomplete #ImporterLov [inputdata]="ms.state.IMPRECORD"
+                (ValueChanged)="LovSelected($event)"></app-autocomplete> -->
+              <app-autocomplete3 #ImporterLov [controlname]="'CONSIGNEE'" [tabletype]="'CUSTOMER'"
+                [where]="getSwhere('CONSIGNEE')" [displaycolumn]="'NAME'" [displaydata]="ms.state.consignee_name"
+                (ValueChanged)="LovSelected($event)">
+              </app-autocomplete3>
             </div>
           </div>
 
 
           <div class="form-group row">
-            <label *ngIf="rec_category=='SEA EXPORT' || rec_category=='AIR EXPORT'"
+            <label *ngIf="ms.state.rec_category=='SEA EXPORT' || ms.state.rec_category=='AIR EXPORT'"
               class="col-sm-3 col-form-label col-form-label-sm">Consignee</label>
-            <label *ngIf="rec_category=='SEA IMPORT'|| rec_category=='AIR IMPORT'"
+            <label *ngIf="ms.state.rec_category=='SEA IMPORT'|| ms.state.rec_category=='AIR IMPORT'"
               class="col-sm-3 col-form-label col-form-label-sm">Importer</label>
-            <div *ngIf="rec_category=='SEA EXPORT' || rec_category=='AIR EXPORT'" class="col-sm-9">
-              <app-autocomplete #ImporterLov [inputdata]="IMPRECORD"
-                (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            <div *ngIf="ms.state.rec_category=='SEA EXPORT' || ms.state.rec_category=='AIR EXPORT'" class="col-sm-9">
+              <!-- <app-autocomplete #ImporterLov [inputdata]="ms.state.IMPRECORD"
+                (ValueChanged)="LovSelected($event)"></app-autocomplete> -->
+              <app-autocomplete3 #ImporterLov [controlname]="'CONSIGNEE'" [tabletype]="'CUSTOMER'"
+                [where]="getSwhere('CONSIGNEE')" [displaycolumn]="'NAME'" [displaydata]="ms.state.consignee_name"
+                (ValueChanged)="LovSelected($event)">
+              </app-autocomplete3>
             </div>
-            <div *ngIf="rec_category=='SEA IMPORT'|| rec_category=='AIR IMPORT'" class="col-sm-9">
-              <app-autocomplete #ExporterLov [inputdata]="EXPRECORD"
-                (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            <div *ngIf="ms.state.rec_category=='SEA IMPORT'|| ms.state.rec_category=='AIR IMPORT'" class="col-sm-9">
+              <!-- <app-autocomplete #ExporterLov [inputdata]="ms.state.EXPRECORD"
+                (ValueChanged)="LovSelected($event)"></app-autocomplete> -->
+              <app-autocomplete3 #ExporterLov [controlname]="'SHIPPER'" [tabletype]="'CUSTOMER'"
+                [where]="getSwhere('SHIPPER')" [displaycolumn]="'NAME'" [displaydata]="ms.state.shipper_name"
+                (ValueChanged)="LovSelected($event)">
+              </app-autocomplete3>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-3 col-form-label col-form-label-sm">Agent</label>
             <div class="col-sm-9">
-              <app-autocomplete #AgentAddLov [inputdata]="AGENTRECORD"
-                (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              <!-- <app-autocomplete #AgentAddLov [inputdata]="ms.state.AGENTRECORD"
+                (ValueChanged)="LovSelected($event)"></app-autocomplete> -->
+              <app-autocomplete3 #AgentAddLov [controlname]="'AGENT'" [tabletype]="'CUSTOMER'" [where]="getSwhere('AGENT')"
+                [displaycolumn]="'NAME'" [displaydata]="ms.state.agent_name" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete3>
             </div>
           </div>
         </div>
@@ -82,16 +103,22 @@
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Carrier</label>
             <div class="col-sm-10">
-              <app-autocomplete #CarrierAddLov [inputdata]="CARRIERRECORD"
-                (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              <!-- <app-autocomplete #CarrierAddLov [inputdata]="ms.state.CARRIERRECORD"
+                (ValueChanged)="LovSelected($event)"></app-autocomplete> -->
+                <app-autocomplete3 #CarrierAddLov [controlname]="'CARRIER'" [tabletype]="ms.state.carriertype" [where]="getSwhere('CARRIER')"
+                [displaycolumn]="'NAME'" [displaydata]="ms.state.carrier_name" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete3>
             </div>
           </div>
 
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Pol</label>
             <div class="col-sm-10">
-              <app-autocomplete #LoadPortAddLov [inputdata]="POLRECORD"
-                (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              <!-- <app-autocomplete #LoadPortAddLov [inputdata]="ms.state.POLRECORD"
+                (ValueChanged)="LovSelected($event)"></app-autocomplete> -->
+                <app-autocomplete3 #LoadPortAddLov [controlname]="'POL'" [tabletype]="ms.state.porttype" [where]="getSwhere('POL')"
+                [displaycolumn]="'NAME'" [displaydata]="ms.state.pol_name" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete3>
             </div>
           </div>
 
@@ -99,22 +126,25 @@
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Pod</label>
             <div class="col-sm-10">
-              <app-autocomplete #DischrgPortAddLov [inputdata]="PODRECORD"
-                (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              <!-- <app-autocomplete #DischrgPortAddLov [inputdata]="ms.state.PODRECORD"
+                (ValueChanged)="LovSelected($event)"></app-autocomplete> -->
+                 <app-autocomplete3 #DischrgPortAddLov [controlname]="'POD'" [tabletype]="ms.state.porttype" [where]="getSwhere('POD')"
+                [displaycolumn]="'NAME'" [displaydata]="ms.state.pod_name" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete3>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Salesperson</label>
             <div class="col-sm-10">
               <app-autocomplete3 [controlname]="'SMAN'" [tabletype]="'SALESMAN'" [displaycolumn]="'NAME'"
-                [displaydata]="sman_name" (ValueChanged)="LovSelected($event)" [disabled]="bSman">
+                [displaydata]="ms.state.sman_name" (ValueChanged)="LovSelected($event)" [disabled]="ms.state.bSman">
               </app-autocomplete3>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Type</label>
             <div class="col-sm-10">
-              <select [disabled]="bookingrpt" class="form-control form-control-sm" [(ngModel)]="job_type">
+              <select [disabled]="bookingrpt" class="form-control form-control-sm" [(ngModel)]="ms.state.job_type">
 
                 <option [value]="'ALL'">ALL</option>
                 <option [value]="'BOTH'">BOTH</option>
@@ -129,16 +159,18 @@
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Sort.By</label>
             <div class="col-sm-10">
-              <div *ngIf="rec_category=='SEA EXPORT' || rec_category=='AIR EXPORT' ">
-                <select [disabled]="bookingrpt" class="form-control form-control-sm" [(ngModel)]="type_date">
+              <div *ngIf="ms.state.rec_category=='SEA EXPORT' || ms.state.rec_category=='AIR EXPORT' ">
+                <select [disabled]="ms.state.bookingrpt" class="form-control form-control-sm"
+                  [(ngModel)]="ms.state.type_date">
                   <option [value]="'DATE'">JOB-DATE</option>
                   <option [value]="'JOB-NO'">JOB-NO</option>
                   <option [value]="'JOB-TYPE'">JOB-TYPE</option>
                 </select>
               </div>
 
-              <div *ngIf="rec_category=='SEA IMPORT'|| rec_category=='AIR IMPORT' ">
-                <select [disabled]="bookingrpt" class="form-control form-control-sm" [(ngModel)]="type_date">
+              <div *ngIf="ms.state.rec_category=='SEA IMPORT'|| ms.state.rec_category=='AIR IMPORT' ">
+                <select [disabled]="ms.state.bookingrpt" class="form-control form-control-sm"
+                  [(ngModel)]="ms.state.type_date">
                   <option [value]="'DATE'">MBL-DATE</option>
                   <option [value]="'MBL-NO'">MBL-NO</option>
                 </select>
@@ -146,39 +178,40 @@
             </div>
           </div>
 
-          <div *ngIf="bCompany||bSman" class="form-group row">
+          <div *ngIf="ms.state.bCompany||ms.state.bSman" class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
             <div class="col-sm-10">
-              <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              <app-autocomplete #BrLov [inputdata]="ms.state.BRRECORD"
+                (ValueChanged)="LovSelected($event)"></app-autocomplete>
             </div>
           </div>
-          <div *ngIf="!bookingrpt" class="form-group row">
+          <div *ngIf="!ms.state.bookingrpt" class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Format</label>
             <div class="col-sm-10">
-              <app-customreport #CustRpt [menuid]="menuid" [fieldList]="CustomReportList" [type]="'DSR-'+type"
+              <app-customreport #CustRpt [menuid]="menuid" [fieldList]="ms.state.CustomReportList" [type]="'DSR-'+type"
                 (callbackevent)="customreportcallbackevent($event)"></app-customreport>
             </div>
           </div>
 
           <div class="form-group row">
-            <div *ngIf="bCompany||bSman" class="col-sm-2">
-              <input type="checkbox" [(ngModel)]="all" (change)="OnChange('all')">
+            <div *ngIf="ms.state.bCompany||ms.state.bSman" class="col-sm-2">
+              <input type="checkbox" [(ngModel)]="ms.state.all" (change)="OnChange('all')">
               <span> All</span>
             </div>
-            <div *ngIf="rec_category=='AIR EXPORT'||rec_category=='AIR IMPORT'" class="col-sm-2">
-              <input type="checkbox" [(ngModel)]="bookingrpt" (change)="OnChange('bookingrpt')">
+            <div *ngIf="ms.state.rec_category=='AIR EXPORT'||ms.state.rec_category=='AIR IMPORT'" class="col-sm-2">
+              <input type="checkbox" [(ngModel)]="ms.state.bookingrpt" (change)="OnChange('bookingrpt')">
               <span> Booking</span>
             </div>
             <div class="col-sm-4">
-              <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Process
+              <button [disabled]="ms.state.loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Process
                 Report</button>
-              <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL')"
+              <button *ngIf="ms.state.bExcel" [disabled]="ms.state.loading" (click)="List('EXCEL')"
                 class="btn btn-primary btn-sm">Excel</button>
             </div>
             <div class="col-sm-4 input-group input-group-sm">
               <!-- <app-mail-direct [menuid]="menuid" [type]="'WEEKLY-KGS-TEU'"
                 (mailcallbackevent)="mailcallbackevent($event)"></app-mail-direct> -->
-              <button [disabled]="loading" *ngIf="bEmail" (click)="List('MAIL',dsrmailsent)"
+              <button [disabled]="ms.state.loading" *ngIf="ms.state.bEmail" (click)="List('MAIL',dsrmailsent)"
                 class="btn btn-primary btn-sm mr-1">Mail</button>
               <!-- <app-customreport [fieldList]="CustomReportList" [type]="'DSR-'+type"
                 (callbackevent)="customreportcallbackevent($event)"></app-customreport> -->
@@ -188,21 +221,25 @@
       </div>
     </div>
   </div>
-  <div *ngIf="!search_bookingrpt"  class="page-body table-responsive fixedTableHead my-0 p-0"
+  <div *ngIf="!ms.state.search_bookingrpt" class="page-body table-responsive fixedTableHead my-0 p-0"
     style="height: calc(100vh - 360px);">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
-          <th *ngIf="all">BRANCH</th>
-          <th *ngFor="let col of feildList" [ngClass]="{'text-right': col.rd_isright}">
+          <th *ngIf="ms.state.all">BRANCH</th>
+          <th>EDIT(SI#)</th>
+          <th *ngFor="let col of ms.state.feildList" [ngClass]="{'text-right': col.rd_isright}">
             {{ col.rd_caption }}
           </th>
         </tr>
       </thead>
-      <tbody class="page-body-tbody" >
-        <tr *ngFor="let rec of RecordList; let i = index">
-          <td *ngIf="all">{{ rec.branch }}</td>
-          <td *ngFor="let col of feildList" [ngClass]="{'text-right': col.rd_isright}">
+      <tbody class="page-body-tbody">
+        <tr *ngFor="let rec of ms.state.RecordList; let i = index">
+          <td *ngIf="ms.state.all">{{ rec.branch }}</td>
+          <td (click)="EditHouse(rec)" class="hlink">
+            <i class="fa fa-pencil fa-md pointer " aria-hidden="true"></i>
+          </td>
+          <td *ngFor="let col of ms.state.feildList" [ngClass]="{'text-right': col.rd_isright}">
             <ng-container *ngIf="col.rd_format">
               {{ +rec[col.rd_field] | number: col.rd_format }}
             </ng-container>
@@ -215,11 +252,12 @@
     </table>
   </div>
 
- <div *ngIf="search_bookingrpt"  class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 360px);">
+  <div *ngIf="ms.state.search_bookingrpt" class="page-body table-responsive fixedTableHead my-0 p-0"
+    style="height: calc(100vh - 360px);">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
-          <th *ngIf="all">BRANCH</th>
+          <th *ngIf="ms.state.all">BRANCH</th>
           <th>SI#</th>
           <th>SI-DATE</th>
           <th>PO#</th>
@@ -247,9 +285,9 @@
           <th>STATUS</th>
         </tr>
       </thead>
-      <tbody class="page-body-tbody" *ngFor="let rec of RecordList; let i = index">
-        <tr [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
-          <td *ngIf="all">{{rec.branch}}</td>
+      <tbody class="page-body-tbody" *ngFor="let rec of ms.state.RecordList; let i = index">
+        <tr [class.active]="i == ms.state.selectedRowIndex" (mousedown)="ms.state.selectedRowIndex=i">
+          <td *ngIf="ms.state.all">{{rec.branch}}</td>
           <td>{{rec.hbl_no}}</td>
           <td>{{rec.hbl_cf_date}}</td>
           <td>{{rec.po_no}}</td>
@@ -285,10 +323,10 @@
 <!-- <br /> -->
 
 
-<App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
+<App-Wait [visible]="ms.state.loading" [msg]="'Please Wait'"></App-Wait>
 
-<div *ngIf="ErrorMessage" class="alert alert-danger">
-  {{ErrorMessage}}
+<div *ngIf="ms.state.ErrorMessage" class="alert alert-danger">
+  {{ms.state.ErrorMessage}}
 </div>
 <ng-template #dsrmailsent let-c="close" let-d="dismiss">
   <div class="modal-header">
@@ -298,7 +336,8 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="'DSR-'+type" [defaultto_ids]="sTo_ids" [sHtml]="sHtml"
-      [defaultmessage]="sMsg" [defaultsubject]="sSubject" [updateto_ids]=false [AttachList]="AttachList"></app-mail>
+    <app-mail [pkid]="gs.globalVariables.user_pkid" [type]="'DSR-'+type" [defaultto_ids]="ms.state.sTo_ids"
+      [sHtml]="ms.state.sHtml" [defaultmessage]="ms.state.sMsg" [defaultsubject]="ms.state.sSubject"
+      [updateto_ids]=false [AttachList]="ms.state.AttachList"></app-mail>
   </div>
 </ng-template>

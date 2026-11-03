@@ -12,7 +12,9 @@ import { User } from '../../admin/models/user';
 import { CustomReportComponent } from '../../shared/customreport/customreport.component';
 //EDIT-AJITH-21-10-2021
 //EDIT-AJITH-22-10-2021
-
+/*
+1. In dsr model create interface iDsrModel and initialState: iDsrModel.
+*/
 @Component({
   selector: 'app-dsr',
   templateUrl: './dsr.component.html',
@@ -20,7 +22,6 @@ import { CustomReportComponent } from '../../shared/customreport/customreport.co
 })
 
 export class DsrComponent {
-  title = 'Dsr Report'
 
   @ViewChild('_from_date') private from_date_ctrl: DateComponent;
   @ViewChild('_to_date') private to_date_ctrl: DateComponent;
@@ -29,138 +30,30 @@ export class DsrComponent {
   @Input() menuid: string = '';
   @Input() type: string = '';
 
-  InitCompleted: boolean = false;
-  menu_record: any;
-  sub: any;
-  urlid: string;
-  selectedRowIndex = 0;
-
-  ErrorMessage = "";
-  mode = '';
-  pkid = '';
   modal: any;
-  format_type: string = "";
-  rec_category: string = "";
-  filter_date_type: string = 'JOB';
-  type_date: string = '';
-  from_date: string = '';
-  to_date: string = '';
-  branch_name: string;
-  branch_code: string;
-  job_type: string;
-  shipper_id: string;
-  shipper_name: string;
-  consignee_id: string;
-  consignee_name: string;
-  agent_id: string;
-  agent_code: string;
-  agent_name: string;
+  sub: any;
 
-  carrier_id: string;
-  carrier_code: string;
-  carrier_name: string;
-  carriertype: string;
-  pol_id: string;
-  pol_code: string;
-  pol_name: string;
-  pod_id: string;
-  pod_code: string;
-  pod_name: string;
-  porttype: string;
-  tp_code: string;
-  sman_id: string;
-  sman_code: string;
-  sman_name: string;
-  bSman = false;
-
-  search_bookingrpt: boolean = false;
-  bookingrpt: boolean = false;
-  bExcel = false;
-  disableSave = true;
-  bCompany = false;
-  all: boolean = false;
-  loading = false;
-  bAdmin = false;
-  bEmail = false;
-  currentTab = 'LIST';
-  searchstring = '';
-
-  SearchData = {
-    type: '',
-    rec_category: '',
-    pkid: '',
-    report_folder: '',
-    company_code: '',
-    branch_code: '',
-    branch_name: '',
-    year_code: '',
-    searchstring: '',
-    from_date: '',
-    to_date: '',
-    type_date: '',
-    job_type: '',
-    shipper_id: '',
-    shipper_name: '',
-    consignee_id: '',
-    consignee_name: '',
-    agent_id: '',
-    agent_code: '',
-    agent_name: '',
-    carrier_id: '',
-    carrier_code: '',
-    carrier_name: '',
-    pol_id: '',
-    pol_code: '',
-    pol_name: '',
-    pod_id: '',
-    pod_code: '',
-    pod_name: '',
-    all: false,
-    format_type: '',
-    bookingrpt: false,
-    filter_date_type: '',
-    sman_id: '',
-    sman_code: '',
-    sman_name: '',
-    tp_code: this.gs.globalVariables.tp_code
-  };
-
-  sSubject: string = '';
-  sMsg: string = '';
-  sHtml: string = '';
-  sTo_ids: string = '';
-  AttachList: any[] = [];
-  CustomReportList: any[] = [];
-  // Array For Displaying List
-  RecordList: Dsr[] = [];
-  // Single Record for add/edit/view details
-  Record: Dsr = new Dsr;
-  TpList: User[] = [];
-  feildList: CustomReportD[] = [];
-  BRRECORD: SearchTable = new SearchTable();
-  EXPRECORD: SearchTable = new SearchTable();
-  IMPRECORD: SearchTable = new SearchTable();
-  AGENTRECORD: SearchTable = new SearchTable();
-  CARRIERRECORD: SearchTable = new SearchTable();
-  POLRECORD: SearchTable = new SearchTable();
-  PODRECORD: SearchTable = new SearchTable();
+  // BRRECORD: SearchTable;
+  // EXPRECORD: SearchTable;
+  // IMPRECORD: SearchTable;
+  // AGENTRECORD: SearchTable;
+  // CARRIERRECORD: SearchTable;
+  // POLRECORD: SearchTable;
+  // PODRECORD: SearchTable;
 
   constructor(
     private modalService: NgbModal,
-    private mainService: RepService,
+    private ms: RepService,
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {
     // URL Query Parameter 
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
-        this.InitCompleted = true;
+        this.ms.state.InitCompleted = true;
         var options = JSON.parse(params["parameter"]);
         this.menuid = options.menuid;
         this.type = options.type;
-
-        this.rec_category = this.type;
-
         this.InitComponent();
       }
     });
@@ -169,81 +62,84 @@ export class DsrComponent {
 
   // Init Will be called After executing Constructor
   ngOnInit() {
-    if (!this.InitCompleted) {
+    if (!this.ms.state.InitCompleted) {
       this.InitComponent();
     }
+
+    this.ms.init(this.menuid);
+     if (this.type.toString() == "SEA EXPORT" || this.type.toString() == "SEA IMPORT") {
+      this.ms.state.porttype = "SEA PORT";
+      this.ms.state.carriertype = "SEA CARRIER";
+    }
+    else {
+      this.ms.state.porttype = "AIR PORT";
+      this.ms.state.carriertype = "AIR CARRIER";
+    }
+    this.ms.state.rec_category = this.type;
   }
 
   InitComponent() {
     if (this.gs.globalVariables.istp)
-      this.tp_code = this.gs.globalVariables.tp_code;
-    this.bExcel = false;
-    this.bCompany = false;
-    this.bAdmin = false;
-    this.bEmail = false;
-    this.bSman = false;
-    this.menu_record = this.gs.getMenu(this.menuid);
-    if (this.menu_record) {
-      this.title = this.menu_record.menu_name;
-      if (this.menu_record.rights_company)
-        this.bCompany = true;
-      if (this.menu_record.rights_admin)
-        this.bAdmin = true;
-      if (this.menu_record.rights_print)
-        this.bExcel = true;
-      if (this.menu_record.rights_email)
-        this.bEmail = true;
-      if (this.menu_record.rights_approval.toString().includes("{SMAN}"))
-        this.bSman = true;
+      this.ms.state.tp_code = this.gs.globalVariables.tp_code;
+    this.ms.state.bExcel = false;
+    this.ms.state.bCompany = false;
+    this.ms.state.bAdmin = false;
+    this.ms.state.bEmail = false;
+    this.ms.state.bSman = false;
+    this.ms.state.menu_record = this.gs.getMenu(this.menuid);
+    if (this.ms.state.menu_record) {
+      this.ms.state.title = this.ms.state.menu_record.menu_name;
+      if (this.ms.state.menu_record.rights_company)
+        this.ms.state.bCompany = true;
+      if (this.ms.state.menu_record.rights_admin)
+        this.ms.state.bAdmin = true;
+      if (this.ms.state.menu_record.rights_print)
+        this.ms.state.bExcel = true;
+      if (this.ms.state.menu_record.rights_email)
+        this.ms.state.bEmail = true;
+      if (this.ms.state.menu_record.rights_approval.toString().includes("{SMAN}"))
+        this.ms.state.bSman = true;
     }
-    if (this.type.toString() == "SEA EXPORT" || this.type.toString() == "SEA IMPORT") {
-      this.porttype = "SEA PORT";
-      this.carriertype = "SEA CARRIER";
-    }
-    else {
-      this.porttype = "AIR PORT";
-      this.carriertype = "AIR CARRIER";
-    }
+   
 
-    this.Init();
     this.initLov();
     this.LoadCombo();
     this.Loadtplist();
   }
 
-  Init() {
+  // Init() {
 
-    this.type_date = "DATE";
-    this.filter_date_type = "JOB";
-    this.job_type = "ALL";
-    this.RecordList = null;
-    this.branch_code = this.gs.globalVariables.branch_code;
-    this.branch_name = this.gs.globalVariables.branch_name;
-    this.from_date = this.gs.defaultValues.monthbegindate;
-    this.to_date = this.gs.defaultValues.today;
-    this.EXPRECORD.id = '';
-    this.IMPRECORD.id = '';
-    this.shipper_id = '';
-    this.shipper_name = '';
-    this.consignee_id = '';
-    this.consignee_name = '';
-    this.agent_id = '';
-    this.agent_code = '';
-    this.agent_name = '';
-    this.carrier_id = '';
-    this.carrier_code = '';
-    this.carrier_name = '';
-    this.pol_id = '';
-    this.pol_code = '';
-    this.pol_name = '';
-    this.pod_id = '';
-    this.pod_code = '';
-    this.pod_name = '';
-    this.sman_id = this.gs.globalVariables.sman_id;
-    this.sman_code = '';
-    this.sman_name = this.gs.globalVariables.sman_name;
-    this.format_type = 'GENERAL';
-  }
+  //   this.ms.state.type_date = "DATE";
+  //   this.ms.state.filter_date_type = "JOB";
+  //   this.ms.state.job_type = "ALL";
+  //   this.ms.state.RecordList = [];
+  //   this.ms.state.branch_code = this.gs.globalVariables.branch_code;
+  //   this.ms.state.branch_name = this.gs.globalVariables.branch_name;
+  //   this.ms.state.from_date = this.gs.defaultValues.monthbegindate;
+  //   this.ms.state.to_date = this.gs.defaultValues.today;
+  //   this.ms.state.EXPRECORD.id = '';
+  //   this.ms.state.IMPRECORD.id = '';
+  //   this.ms.state.shipper_id = '';
+  //   this.ms.state.shipper_name = '';
+  //   this.ms.state.consignee_id = '';
+  //   this.ms.state.consignee_name = '';
+  //   this.ms.state.agent_id = '';
+  //   this.ms.state.agent_code = '';
+  //   this.ms.state.agent_name = '';
+  //   this.ms.state.carrier_id = '';
+  //   this.ms.state.carrier_code = '';
+  //   this.ms.state.carrier_name = '';
+  //   this.ms.state.pol_id = '';
+  //   this.ms.state.pol_code = '';
+  //   this.ms.state.pol_name = '';
+  //   this.ms.state.pod_id = '';
+  //   this.ms.state.pod_code = '';
+  //   this.ms.state.pod_name = '';
+  //   this.ms.state.sman_id = this.gs.globalVariables.sman_id;
+  //   this.ms.state.sman_code = '';
+  //   this.ms.state.sman_name = this.gs.globalVariables.sman_name;
+  //   this.ms.state.format_type = 'GENERAL';
+  // }
 
   // Destroy Will be called when this component is closed 
   ngOnDestroy() {
@@ -253,113 +149,113 @@ export class DsrComponent {
 
   initLov(caption: string = '') {
 
-    this.BRRECORD = new SearchTable();
-    this.BRRECORD.controlname = "BRANCH";
-    this.BRRECORD.displaycolumn = "CODE";
-    this.BRRECORD.type = "BRANCH";
-    this.BRRECORD.id = "";
-    this.BRRECORD.code = this.gs.globalVariables.branch_code;
+    // this.BRRECORD = new SearchTable();
+    // this.BRRECORD.controlname = "BRANCH";
+    // this.BRRECORD.displaycolumn = "CODE";
+    // this.BRRECORD.type = "BRANCH";
+    // this.BRRECORD.id = "";
+    // this.BRRECORD.code = this.gs.globalVariables.branch_code;
 
 
-    this.EXPRECORD = new SearchTable();
-    this.EXPRECORD.controlname = "SHIPPER";
-    this.EXPRECORD.displaycolumn = "NAME";
-    this.EXPRECORD.type = "CUSTOMER";
-    this.EXPRECORD.where = " CUST_IS_SHIPPER = 'Y' ";
-    this.EXPRECORD.id = "";
-    this.EXPRECORD.code = "";
-    this.EXPRECORD.name = "";
-    this.EXPRECORD.parentid = "";
+    // this.EXPRECORD = new SearchTable();
+    // this.EXPRECORD.controlname = "SHIPPER";
+    // this.EXPRECORD.displaycolumn = "NAME";
+    // this.EXPRECORD.type = "CUSTOMER";
+    // this.EXPRECORD.where = " CUST_IS_SHIPPER = 'Y' ";
+    // this.EXPRECORD.id = "";
+    // this.EXPRECORD.code = "";
+    // this.EXPRECORD.name = "";
+    // this.EXPRECORD.parentid = "";
 
 
-    this.IMPRECORD = new SearchTable();
-    this.IMPRECORD.controlname = "CONSIGNEE";
-    this.IMPRECORD.displaycolumn = "NAME";
-    this.IMPRECORD.type = "CUSTOMER";
-    this.IMPRECORD.where = " CUST_IS_CONSIGNEE = 'Y' ";
-    this.IMPRECORD.id = "";
-    this.IMPRECORD.code = "";
-    this.IMPRECORD.name = "";
-    this.IMPRECORD.parentid = "";
+    // this.IMPRECORD = new SearchTable();
+    // this.IMPRECORD.controlname = "CONSIGNEE";
+    // this.IMPRECORD.displaycolumn = "NAME";
+    // this.IMPRECORD.type = "CUSTOMER";
+    // this.IMPRECORD.where = " CUST_IS_CONSIGNEE = 'Y' ";
+    // this.IMPRECORD.id = "";
+    // this.IMPRECORD.code = "";
+    // this.IMPRECORD.name = "";
+    // this.IMPRECORD.parentid = "";
 
 
-    this.AGENTRECORD = new SearchTable();
-    this.AGENTRECORD.controlname = "AGENT";
-    this.AGENTRECORD.where = " CUST_IS_AGENT = 'Y' ";
-    this.AGENTRECORD.displaycolumn = "NAME";
-    this.AGENTRECORD.type = "CUSTOMER";
-    this.AGENTRECORD.id = "";
-    this.AGENTRECORD.code = "";
-    this.AGENTRECORD.name = "";
+    // this.AGENTRECORD = new SearchTable();
+    // this.AGENTRECORD.controlname = "AGENT";
+    // this.AGENTRECORD.where = " CUST_IS_AGENT = 'Y' ";
+    // this.AGENTRECORD.displaycolumn = "NAME";
+    // this.AGENTRECORD.type = "CUSTOMER";
+    // this.AGENTRECORD.id = "";
+    // this.AGENTRECORD.code = "";
+    // this.AGENTRECORD.name = "";
 
-    this.CARRIERRECORD = new SearchTable();
-    this.CARRIERRECORD.controlname = "CARRIER";
-    this.CARRIERRECORD.displaycolumn = "NAME";
-    this.CARRIERRECORD.type = this.carriertype;
-    this.CARRIERRECORD.id = "";
-    this.CARRIERRECORD.code = "";
-    this.CARRIERRECORD.name = "";
+    // this.CARRIERRECORD = new SearchTable();
+    // this.CARRIERRECORD.controlname = "CARRIER";
+    // this.CARRIERRECORD.displaycolumn = "NAME";
+    // this.CARRIERRECORD.type = this.carriertype;
+    // this.CARRIERRECORD.id = "";
+    // this.CARRIERRECORD.code = "";
+    // this.CARRIERRECORD.name = "";
 
-    this.POLRECORD = new SearchTable();
-    this.POLRECORD.controlname = "POL";
-    this.POLRECORD.displaycolumn = "NAME";
-    this.POLRECORD.type = this.porttype;
-    this.POLRECORD.id = "";
-    this.POLRECORD.code = "";
-    this.POLRECORD.name = "";
+    // this.POLRECORD = new SearchTable();
+    // this.POLRECORD.controlname = "POL";
+    // this.POLRECORD.displaycolumn = "NAME";
+    // this.POLRECORD.type = this.porttype;
+    // this.POLRECORD.id = "";
+    // this.POLRECORD.code = "";
+    // this.POLRECORD.name = "";
 
 
-    this.PODRECORD = new SearchTable();
-    this.PODRECORD.controlname = "POD";
-    this.PODRECORD.displaycolumn = "NAME";
-    this.PODRECORD.type = this.porttype;
-    this.PODRECORD.id = "";
-    this.PODRECORD.code = "";
-    this.PODRECORD.name = "";
+    // this.PODRECORD = new SearchTable();
+    // this.PODRECORD.controlname = "POD";
+    // this.PODRECORD.displaycolumn = "NAME";
+    // this.PODRECORD.type = this.porttype;
+    // this.PODRECORD.id = "";
+    // this.PODRECORD.code = "";
+    // this.PODRECORD.name = "";
 
   }
 
   LovSelected(_Record: SearchTable) {
     // Company Settings
     if (_Record.controlname == "BRANCH") {
-      this.branch_code = _Record.code;
-      this.branch_name = _Record.name;
-      this.shipper_id = '';
-      this.consignee_id = '';
+      this.ms.state.branch_code = _Record.code;
+      this.ms.state.branch_name = _Record.name;
+      this.ms.state.shipper_id = '';
+      this.ms.state.consignee_id = '';
     }
     if (_Record.controlname == "SHIPPER") {
-      this.shipper_id = _Record.id;
-      this.shipper_name = _Record.name;
+      this.ms.state.shipper_id = _Record.id;
+      this.ms.state.shipper_name = _Record.name;
     }
     if (_Record.controlname == "CONSIGNEE") {
-      this.consignee_id = _Record.id;
-      this.consignee_name = _Record.name;
+      this.ms.state.consignee_id = _Record.id;
+      this.ms.state.consignee_name = _Record.name;
     }
     if (_Record.controlname == "AGENT") {
-      this.agent_id = _Record.id;
-      this.agent_code = _Record.code;
-      this.agent_name = _Record.name;
+      this.ms.state.agent_id = _Record.id;
+      this.ms.state.agent_code = _Record.code;
+      this.ms.state.agent_name = _Record.name;
     }
     if (_Record.controlname == "CARRIER") {
-      this.carrier_id = _Record.id;
-      this.carrier_code = _Record.code;
-      this.carrier_name = _Record.name;
+      this.ms.state.carrier_id = _Record.id;
+      this.ms.state.carrier_code = _Record.code;
+      this.ms.state.carrier_name = _Record.name;
     }
     if (_Record.controlname == "POL") {
-      this.pol_id = _Record.id;
-      this.pol_code = _Record.code;
-      this.pol_name = _Record.name;
+      this.ms.state.pol_id = _Record.id;
+      this.ms.state.pol_code = _Record.code;
+      this.ms.state.pol_name = _Record.name;
     }
     if (_Record.controlname == "POD") {
-      this.pod_id = _Record.id;
-      this.pod_code = _Record.code;
-      this.pod_name = _Record.name;
+      this.ms.state.pod_id = _Record.id;
+      this.ms.state.pod_code = _Record.code;
+      this.ms.state.pod_name = _Record.name;
     }
 
     if (_Record.controlname == "SMAN") {
-      this.sman_id = _Record.id;
-      this.sman_code = _Record.code;
-      this.sman_name = _Record.name;
+      this.ms.state.sman_id = _Record.id;
+      this.ms.state.sman_code = _Record.code;
+      this.ms.state.sman_name = _Record.name;
     }
 
   }
@@ -367,7 +263,7 @@ export class DsrComponent {
   LoadCombo() {
 
     if (this.type == "SEA EXPORT") {
-      this.CustomReportList = [
+      this.ms.state.CustomReportList = [
         { "rd_ctr": 1, "rd_code": "SLNO", "rd_caption": "SL#", "rd_field": "job_docno", "rd_sort_order": 1, "rd_col_width": 15, "rd_data_type": "S" },
         { "rd_ctr": 2, "rd_code": "JOBNO", "rd_caption": "JOB#", "rd_field": "job_docno", "rd_sort_order": 5, "rd_col_width": 15, "rd_data_type": "S" },
         { "rd_ctr": 3, "rd_code": "JOBDATE", "rd_caption": "JOB DATE", "rd_field": "job_date", "rd_sort_order": 10, "rd_col_width": 15, "rd_data_type": "D" },
@@ -483,7 +379,7 @@ export class DsrComponent {
         { "rd_ctr": 113, "rd_code": "TS-OR-DIRECT", "rd_caption": "TS OR DIRECT", "rd_field": "ts_or_direct", "rd_sort_order": 560, "rd_col_width": 15, "rd_data_type": "S" }
       ];
     } else if (this.type == "AIR EXPORT") {
-      this.CustomReportList = [
+      this.ms.state.CustomReportList = [
         { "rd_ctr": 1, "rd_code": "JOBNO", "rd_caption": "JOB#", "rd_field": "job_docno", "rd_sort_order": 1, "rd_col_width": 15, "rd_data_type": "S" },
         { "rd_ctr": 2, "rd_code": "JOBDATE", "rd_caption": "JOB DATE", "rd_field": "job_date", "rd_sort_order": 5, "rd_col_width": 15, "rd_data_type": "D" },
         { "rd_ctr": 3, "rd_code": "REFERENCE", "rd_caption": "REF#", "rd_field": "job_prefix", "rd_sort_order": 10, "rd_col_width": 15, "rd_data_type": "S" },
@@ -578,7 +474,7 @@ export class DsrComponent {
       ];
     } else if (this.type == "SEA IMPORT" || this.type == "AIR IMPORT") {
 
-      this.CustomReportList = [
+      this.ms.state.CustomReportList = [
         { "rd_ctr": 1, "rd_code": "MASTER-DATE", "rd_caption": "MASTER DATE", "rd_field": "mbl_date", "rd_sort_order": 1, "rd_col_width": 15, "rd_data_type": "D" },
         { "rd_ctr": 2, "rd_code": "MBLBKNO", "rd_caption": "MBLBK#", "rd_field": "mbl_no", "rd_sort_order": 5, "rd_col_width": 15, "rd_data_type": "S" },
         { "rd_ctr": 3, "rd_code": "MASTERNO", "rd_caption": "MASTER#", "rd_field": "mbl_bl_no", "rd_sort_order": 10, "rd_col_width": 15, "rd_data_type": "S" },
@@ -638,55 +534,94 @@ export class DsrComponent {
 
     SearchData.comp_code = this.gs.globalVariables.comp_code;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
-    this.ErrorMessage = '';
-    this.loading = true;
-    this.mainService.Loadtplist(SearchData)
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.loading = true;
+    this.ms.Loadtplist(SearchData)
       .subscribe(response => {
-        this.loading = false;
-        this.TpList = response.tplist;
-        if (!this.gs.isBlank(this.TpList)) {
-          if (this.TpList.length > 0)
-            this.tp_code = this.TpList[0].user_tp_code;
+        this.ms.state.loading = false;
+        this.ms.state.TpList = response.tplist;
+        if (!this.gs.isBlank(this.ms.state.TpList)) {
+          if (this.ms.state.TpList.length > 0)
+            this.ms.state.tp_code = this.ms.state.TpList[0].user_tp_code;
         }
       },
         error => {
-          this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.loading = false;
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
 
   }
 
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string) {
-    this.ErrorMessage = '';
+    this.ms.state.ErrorMessage = '';
     if (action == 'LIST') {
-      this.mode = '';
-      this.pkid = '';
-      this.currentTab = 'LIST';
+      this.ms.state.mode = '';
+      this.ms.state.pkid = '';
+      this.ms.state.currentTab = 'LIST';
     }
   }
 
   ResetControls() {
-    this.disableSave = true;
-    if (!this.menu_record)
+    this.ms.state.disableSave = true;
+    if (!this.ms.state.menu_record)
       return;
 
-    if (this.menu_record.rights_admin)
-      this.disableSave = false;
-    if (this.mode == "ADD" && this.menu_record.rights_add)
-      this.disableSave = false;
-    if (this.mode == "EDIT" && this.menu_record.rights_edit)
-      this.disableSave = false;
+    if (this.ms.state.menu_record.rights_admin)
+      this.ms.state.disableSave = false;
+    if (this.ms.state.mode == "ADD" && this.ms.state.menu_record.rights_add)
+      this.ms.state.disableSave = false;
+    if (this.ms.state.mode == "EDIT" && this.ms.state.menu_record.rights_edit)
+      this.ms.state.disableSave = false;
 
-    return this.disableSave;
+    return this.ms.state.disableSave;
   }
 
   // Query List Data
   List(_type: string, mailsent: any = null) {
 
-    this.search_bookingrpt = this.bookingrpt;
-    this.ErrorMessage = '';
+    let SearchData = {
+      type: '',
+      rec_category: '',
+      pkid: '',
+      report_folder: '',
+      company_code: '',
+      branch_code: '',
+      branch_name: '',
+      year_code: '',
+      searchstring: '',
+      from_date: '',
+      to_date: '',
+      type_date: '',
+      job_type: '',
+      shipper_id: '',
+      shipper_name: '',
+      consignee_id: '',
+      consignee_name: '',
+      agent_id: '',
+      agent_code: '',
+      agent_name: '',
+      carrier_id: '',
+      carrier_code: '',
+      carrier_name: '',
+      pol_id: '',
+      pol_code: '',
+      pol_name: '',
+      pod_id: '',
+      pod_code: '',
+      pod_name: '',
+      all: false,
+      format_type: '',
+      bookingrpt: false,
+      filter_date_type: '',
+      sman_id: '',
+      sman_code: '',
+      sman_name: '',
+      tp_code: this.gs.globalVariables.tp_code
+    };
+    this.ms.state.search_bookingrpt = this.ms.state.bookingrpt;
+    this.ms.state.ErrorMessage = '';
     //if (this.from_date.trim().length <= 0) {
     //  this.ErrorMessage = "From Date Cannot Be Blank";
     //  return;
@@ -696,98 +631,98 @@ export class DsrComponent {
     //  return;
     //}
 
-    if (this.bSman) {
-      if (this.gs.isBlank(this.sman_id)) {
-        this.ErrorMessage = "Salesperson Cannot Be Blank";
-        alert(this.ErrorMessage);
+    if (this.ms.state.bSman) {
+      if (this.gs.isBlank(this.ms.state.sman_id)) {
+        this.ms.state.ErrorMessage = "Salesperson Cannot Be Blank";
+        alert(this.ms.state.ErrorMessage);
         return;
       }
     }
 
-    if (this.format_type == "STATUS") {
-      if (this.from_date.trim().length <= 0)
-        this.from_date = this.gs.globalVariables.year_start_date;
-      if (this.to_date.trim().length <= 0)
-        this.to_date = this.gs.globalVariables.year_end_date;
+    if (this.ms.state.format_type == "STATUS") {
+      if (this.ms.state.from_date.trim().length <= 0)
+        this.ms.state.from_date = this.gs.globalVariables.year_start_date;
+      if (this.ms.state.to_date.trim().length <= 0)
+        this.ms.state.to_date = this.gs.globalVariables.year_end_date;
     }
 
-    this.loading = true;
-    this.pkid = this.gs.getGuid();
-    this.SearchData.pkid = this.pkid;
-    this.SearchData.report_folder = this.gs.globalVariables.report_folder;
-    this.SearchData.company_code = this.gs.globalVariables.comp_code;
+    this.ms.state.loading = true;
+    this.ms.state.pkid = this.gs.getGuid();
+    SearchData.pkid = this.ms.state.pkid;
+    SearchData.report_folder = this.gs.globalVariables.report_folder;
+    SearchData.company_code = this.gs.globalVariables.comp_code;
 
-    if (this.bCompany) {
-      this.SearchData.branch_code = this.branch_code;
-      this.SearchData.branch_name = this.branch_name;
+    if (this.ms.state.bCompany) {
+      SearchData.branch_code = this.ms.state.branch_code;
+      SearchData.branch_name = this.ms.state.branch_name;
     }
     else {
-      this.SearchData.branch_code = this.gs.globalVariables.branch_code;
-      this.SearchData.branch_name = this.gs.globalVariables.branch_name;
+      SearchData.branch_code = this.gs.globalVariables.branch_code;
+      SearchData.branch_name = this.gs.globalVariables.branch_name;
 
     }
-    this.SearchData.year_code = this.gs.globalVariables.year_code;
-    this.SearchData.searchstring = this.searchstring.toUpperCase();
-    this.SearchData.type = _type;
-    this.SearchData.rec_category = this.rec_category;
-    this.SearchData.type_date = this.type_date;
-    this.SearchData.from_date = this.from_date;
-    this.SearchData.to_date = this.to_date;
-    this.SearchData.job_type = this.job_type;
-    this.SearchData.shipper_id = this.shipper_id;
-    this.SearchData.shipper_name = this.shipper_name;
-    this.SearchData.consignee_id = this.consignee_id;
-    this.SearchData.consignee_name = this.consignee_name;
-    this.SearchData.agent_id = this.agent_id;
-    this.SearchData.agent_name = this.agent_name;
-    this.SearchData.agent_code = this.agent_code;
-    this.SearchData.carrier_id = this.carrier_id;
-    this.SearchData.carrier_code = this.carrier_code;
-    this.SearchData.carrier_name = this.carrier_name;
-    this.SearchData.pol_id = this.pol_id;
-    this.SearchData.pol_code = this.pol_code;
-    this.SearchData.pol_name = this.pol_name;
-    this.SearchData.pod_id = this.pod_id;
-    this.SearchData.pod_code = this.pod_code;
-    this.SearchData.pod_name = this.pod_name;
-    this.SearchData.all = this.all;
-    this.SearchData.format_type = this.format_type;
-    this.SearchData.bookingrpt = this.bookingrpt;
-    this.SearchData.filter_date_type = this.filter_date_type;
-    this.SearchData.sman_id = this.sman_id;
-    this.SearchData.tp_code = this.tp_code;
-    this.ErrorMessage = '';
-    this.mainService.DsrList(this.SearchData)
+    SearchData.year_code = this.gs.globalVariables.year_code;
+    SearchData.searchstring = this.ms.state.searchstring.toUpperCase();
+    SearchData.type = _type;
+    SearchData.rec_category = this.ms.state.rec_category;
+    SearchData.type_date = this.ms.state.type_date;
+    SearchData.from_date = this.ms.state.from_date;
+    SearchData.to_date = this.ms.state.to_date;
+    SearchData.job_type = this.ms.state.job_type;
+    SearchData.shipper_id = this.ms.state.shipper_id;
+    SearchData.shipper_name = this.ms.state.shipper_name;
+    SearchData.consignee_id = this.ms.state.consignee_id;
+    SearchData.consignee_name = this.ms.state.consignee_name;
+    SearchData.agent_id = this.ms.state.agent_id;
+    SearchData.agent_name = this.ms.state.agent_name;
+    SearchData.agent_code = this.ms.state.agent_code;
+    SearchData.carrier_id = this.ms.state.carrier_id;
+    SearchData.carrier_code = this.ms.state.carrier_code;
+    SearchData.carrier_name = this.ms.state.carrier_name;
+    SearchData.pol_id = this.ms.state.pol_id;
+    SearchData.pol_code = this.ms.state.pol_code;
+    SearchData.pol_name = this.ms.state.pol_name;
+    SearchData.pod_id = this.ms.state.pod_id;
+    SearchData.pod_code = this.ms.state.pod_code;
+    SearchData.pod_name = this.ms.state.pod_name;
+    SearchData.all = this.ms.state.all;
+    SearchData.format_type = this.ms.state.format_type;
+    SearchData.bookingrpt = this.ms.state.bookingrpt;
+    SearchData.filter_date_type = this.ms.state.filter_date_type;
+    SearchData.sman_id = this.ms.state.sman_id;
+    SearchData.tp_code = this.ms.state.tp_code;
+    this.ms.state.ErrorMessage = '';
+    this.ms.DsrList(SearchData)
       .subscribe(response => {
-        this.loading = false;
+        this.ms.state.loading = false;
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else if (_type == 'MAIL') {
-          this.AttachList = new Array<any>();
-          this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filesize: response.filesize });
-          this.sSubject = response.subject;
-          this.sMsg = response.message;
-          this.sTo_ids = response.toids;
+          this.ms.state.AttachList = new Array<any>();
+          this.ms.state.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filesize: response.filesize });
+          this.ms.state.sSubject = response.subject;
+          this.ms.state.sMsg = response.message;
+          this.ms.state.sTo_ids = response.toids;
           this.open(mailsent);
         } else {
-          this.RecordList = response.list;
-          this.feildList = response.feildlist;
-          if (!this.gs.isBlank(this.feildList))
+          this.ms.state.RecordList = response.list;
+          this.ms.state.feildList = response.feildlist;
+          if (!this.gs.isBlank(this.ms.state.feildList))
             this.setColFormat();
         }
       },
         error => {
-          this.loading = false;
-          this.RecordList = null;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.loading = false;
+          this.ms.state.RecordList = [];
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
   setColFormat() {
-    this.feildList.forEach(col => {
+    this.ms.state.feildList.forEach(col => {
       // number format
-       col.rd_isright = false;
+      col.rd_isright = false;
       if (col.rd_data_type && col.rd_data_type.indexOf('N-') !== -1) {
         col.rd_isright = true;
         const d = col.rd_data_type.split('-')[1];
@@ -805,12 +740,12 @@ export class DsrComponent {
   OnChange(field: string) {
     let _format: string = "GENERAL";
     if (field == "all" || field == "bookingrpt")
-      this.RecordList = null;
+      this.ms.state.RecordList = [];
     if (field == "tp_code") {
-      if (this.tp_code == "NA")
+      if (this.ms.state.tp_code == "NA")
         _format = "GENERAL";
       else
-        _format = this.getTpname(this.tp_code);
+        _format = this.getTpname(this.ms.state.tp_code);
       if (!this.gs.isBlank(this._CustRpt)) {
         this._CustRpt.setFormat(_format);
       }
@@ -819,8 +754,8 @@ export class DsrComponent {
 
   getTpname(_tpcode: string) {
     let _str = "GENERAL";
-    if (this.TpList != null) {
-      var REC = this.TpList.find(rec => rec.user_tp_code == _tpcode);
+    if (this.ms.state.TpList != null) {
+      var REC = this.ms.state.TpList.find(rec => rec.user_tp_code == _tpcode);
       if (REC != null) {
         _str = REC.user_tp_name;
       }
@@ -852,12 +787,12 @@ export class DsrComponent {
 
   MailVolumeReport(sbr_code: string) {
 
-    if (this.from_date.trim().length <= 0) {
-      this.ErrorMessage = "From Date Cannot Be Blank";
+    if (this.ms.state.from_date.trim().length <= 0) {
+      this.ms.state.ErrorMessage = "From Date Cannot Be Blank";
       return;
     }
-    if (this.to_date.trim().length <= 0) {
-      this.ErrorMessage = "To Date Cannot Be Blank";
+    if (this.ms.state.to_date.trim().length <= 0) {
+      this.ms.state.ErrorMessage = "To Date Cannot Be Blank";
       return;
     }
 
@@ -872,25 +807,46 @@ export class DsrComponent {
       mailtype: this.type,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: sbr_code,
-      from_date: this.from_date,
-      to_date: this.to_date,
+      from_date: this.ms.state.from_date,
+      to_date: this.ms.state.to_date,
       report_folder: this.gs.globalVariables.report_folder,
       user_code: this.gs.globalVariables.user_code,
       user_pkid: this.gs.globalVariables.user_pkid
     };
 
-    this.ErrorMessage = '';
-    this.mainService.VolumeReport(SearchData2)
+    this.ms.state.ErrorMessage = '';
+    this.ms.VolumeReport(SearchData2)
       .subscribe(response => {
         if (response.mailmsg.length > 0)
           alert(response.mailmsg);
       },
         error => {
-          this.ErrorMessage = this.gs.getError(error);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
         });
   }
 
   customreportcallbackevent(params: any) {
-    this.format_type = params.format;
+    this.ms.state.format_type = params.format;
+  }
+
+  EditHouse(rec: Dsr) {
+    let param = {
+      menuid: 'SISEAEXPORT',
+      type: 'SEA EXPORT'
+    }
+    this.gs.Naviagete("operations/hblseaair", JSON.stringify(param));
+  }
+
+  getSwhere(_type: string) {
+    let _retstr = "";
+
+    if (_type == "AGENT")
+      _retstr = " CUST_IS_AGENT = 'Y' ";
+    else if (_type == "SHIPPER")
+      _retstr = " CUST_IS_SHIPPER = 'Y' ";
+    else if (_type == "CONSIGNEE")
+      _retstr = " CUST_IS_CONSIGNEE = 'Y' ";
+
+    return _retstr;
   }
 }
