@@ -337,14 +337,13 @@ export class TonnageComponent {
       .subscribe(response => {
         this.loading = false;
         this.mainService.state.YearList = response.yearlist;
-        this.mainService.state.year_code = this.gs.globalVariables.year_code;
+        //this.mainService.state.year_code = this.gs.globalVariables.year_code;
       },
         error => {
           this.loading = false;
           this.ErrorMessage = this.gs.getError(error);
         });
   }
-
 
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string) {
