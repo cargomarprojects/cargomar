@@ -132,27 +132,25 @@ export class DsrComponent {
         this.bSman = true;
     }
 
-    if (this.type.toString() == "SEA EXPORT" || this.type.toString() == "SEA IMPORT") {
-      this.porttype = "SEA PORT";
-      this.carriertype = "SEA CARRIER";
-    }
-    else {
-      this.porttype = "AIR PORT";
-      this.carriertype = "AIR CARRIER";
-    }
-
     this.hbl_menuid = '';
     this.canEditHouse = false;
     if (this.type.toString() == "SEA EXPORT") {
+      this.porttype = "SEA PORT";
+      this.carriertype = "SEA CARRIER";
       this.hbl_menuid = "SISEAEXPORT";
     } else if (this.type.toString() == "SEA IMPORT") {
+      this.porttype = "SEA PORT";
+      this.carriertype = "SEA CARRIER";
       this.hbl_menuid = "SISEAIMPORT";
     } else if (this.type.toString() == "AIR EXPORT") {
+      this.porttype = "AIR PORT";
+      this.carriertype = "AIR CARRIER";
       this.hbl_menuid = "SIAIREXPORT";
     } else if (this.type.toString() == "AIR IMPORT") {
+      this.porttype = "AIR PORT";
+      this.carriertype = "AIR CARRIER";
       this.hbl_menuid = "SIAIRIMPORT";
     }
-
 
     if (this.hbl_menuid) {
       this.hbl_menu_record = this.gs.getMenu(this.hbl_menuid);
