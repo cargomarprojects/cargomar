@@ -27,6 +27,7 @@ export class JobComponent {
 
   @Input() menuid: string = '';
   @Input() type: string = '';
+  @Input() job_id: string = '';
   InitCompleted: boolean = false;
   menu_record: any;
 
@@ -75,7 +76,7 @@ export class JobComponent {
 
   bCreditLimit: boolean = false;
   showalert = false;
-
+  invokefromRpt: boolean = false;
 
   sub: any;
   urlid: string = "";
@@ -145,22 +146,38 @@ export class JobComponent {
     this.page_count = 0;
     this.page_rows = 15;
     this.page_current = 0;
+    this.invokefromRpt = false;
     // URL Query Parameter
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
-        this.InitCompleted = true;
+        // this.InitCompleted = true;
         var options = JSON.parse(params["parameter"]);
         this.menuid = options.menuid;
         this.type = options.type;
-        this.InitComponent();
+        if (!gs.isBlank(options.pkid)) {
+          this.invokefromRpt = true;
+          this.job_id = options.pkid;
+        }
+        // this.InitComponent();
       }
     });
   }
 
   // Init Will be called After executing Constructor
   ngOnInit() {
-    if (!this.InitCompleted) {
+
+    if (this.invokefromRpt) {  //modal change
       this.InitComponent();
+      if (this.gs.isBlank(this.job_id))
+        this.ActionHandler('ADD', '');
+      else
+        this.ActionHandler('EDIT', this.job_id)
+    }
+    else {
+      if (!this.InitCompleted) {
+        this.InitCompleted = true;
+        this.InitComponent();
+      }
     }
   }
 
@@ -2151,5 +2168,8 @@ export class JobComponent {
         });
   }
 
+  Return() {
+    this.gs.ClosePage('', false);
+  }
 
 }

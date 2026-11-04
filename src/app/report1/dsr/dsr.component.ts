@@ -679,6 +679,7 @@ export class DsrComponent {
       tp_code: this.gs.globalVariables.tp_code
     };
 
+    this.ms.state.selectedRowIndex = 0;
     this.ms.state.all_br_list = this.ms.state.all;
     this.ms.state.search_bookingrpt = this.ms.state.bookingrpt;
     this.ms.state.ErrorMessage = '';
@@ -769,7 +770,9 @@ export class DsrComponent {
           this.ms.state.feildList = response.feildlist;
           if (!this.gs.isBlank(this.ms.state.feildList))
             this.setColFormat();
+          this.restoreRowPosition();
         }
+
       },
         error => {
           this.loading = false;
