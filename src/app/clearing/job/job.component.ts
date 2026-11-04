@@ -239,7 +239,7 @@ export class JobComponent {
     this.mainService.LoadShipmentStage(SearchData).subscribe(response => {
       this.loading = false;
       console.log(response);
-      this.ShipmentStageList = response.list;
+      this.ShipmentStageList = response.list; //shown on list page
     }, error => {
       this.loading = false;
       this.ErrorMessage = this.gs.getError(error);
