@@ -36,7 +36,7 @@ export class DsrComponent {
   urlid: string = '';
   modal: any;
   sub: any;
-  
+
   rec_category: string = '';
   loading: boolean = false;
   bAdmin: boolean = false;
@@ -862,7 +862,9 @@ export class DsrComponent {
     this.ms.state.format_type = params.format;
   }
 
-  EditHouse(rec: Dsr) {
+  EditHouse() {
+
+
     let param = {
       menuid: 'SISEAEXPORT',
       type: 'SEA EXPORT'
@@ -882,4 +884,12 @@ export class DsrComponent {
 
     return _retstr;
   }
+
+  setSelectedIndex(_rec: Dsr, _i: number) {
+    this.ms.state.selectedRowIndex = _i;
+    this.ms.state.job_id = _rec.job_pkid;
+    this.ms.state.hbl_id = _rec.hbl_pkid;
+    this.ms.state.mbl_id = _rec.mbl_pkid;
+  }
+  
 }

@@ -224,6 +224,12 @@
                 (callbackevent)="customreportcallbackevent($event)"></app-customreport> -->
             </div>
           </div>
+
+          <div class="form-group row">
+            <div class="offset-2 col-sm-8">
+              <button [disabled]="loading" (click)="EditHouse()" class="btn btn-primary btn-sm">SI</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -240,7 +246,8 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr *ngFor="let rec of ms.state.RecordList; let i = index" [id]="i" [class.active]="i == ms.state.selectedRowIndex" (mousedown)="ms.state.selectedRowIndex=i">
+        <tr *ngFor="let rec of ms.state.RecordList; let i = index" [id]="i"
+          [class.active]="i == ms.state.selectedRowIndex" (mousedown)="setSelectedIndex(rec,i)">
           <td *ngIf="ms.state.all">{{ rec.branch }}</td>
           <!-- <td (click)="EditHouse(rec)" class="hlink">
             <i class="fa fa-pencil fa-md pointer " aria-hidden="true"></i>

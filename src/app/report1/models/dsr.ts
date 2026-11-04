@@ -14,7 +14,7 @@ export class Dsr {
   job_pol: string = '';
   job_pod: string = '';
 
-
+  hbl_pkid: string = '';
   hbl_bl_no: string = '';
   mbl_bl_no: string = '';
   job_cbm: number = 0;
@@ -143,7 +143,10 @@ export class Dsr {
 
 
 export interface iDsrModel {
-  tp_code: string ;
+  job_id: string;
+  hbl_id: string;
+  mbl_id: string;
+  tp_code: string;
   selectedRowIndex: number;
   ErrorMessage: string;
   mode: string;
@@ -191,6 +194,9 @@ export interface iDsrModel {
 };
 
 export const initialState: iDsrModel = {
+  job_id: '',
+  hbl_id: '',
+  mbl_id: '',
   tp_code: '',
   selectedRowIndex: 0,
   ErrorMessage: '',
