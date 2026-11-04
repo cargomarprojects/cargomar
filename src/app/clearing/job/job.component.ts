@@ -225,6 +225,9 @@ export class JobComponent {
 
   LoadCombo() {
 
+    if (this.invokefromRpt)
+      return;
+
     // this.JobTypeList = [{ "name": "ALL" }, { "name": "BOTH" }, { "name": "CLEARING" }, { "name": "FORWARDING" }];
     //this.loading = true;
     let SearchData = {
@@ -242,8 +245,7 @@ export class JobComponent {
       this.ErrorMessage = this.gs.getError(error);
     });
 
-    if (!this.invokefromRpt)
-      this.List("NEW");
+    this.List("NEW");
   }
 
 
