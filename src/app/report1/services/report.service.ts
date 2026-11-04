@@ -36,6 +36,8 @@ export class RepService {
   }
 
   InitValues() {
+    if (this.gs.globalVariables.istp)
+      this.state.tp_code = this.gs.globalVariables.tp_code;
     this.state.type_date = "DATE";
     this.state.filter_date_type = "JOB";
     this.state.job_type = "ALL";

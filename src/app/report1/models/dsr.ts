@@ -143,16 +143,12 @@ export class Dsr {
 
 
 export interface iDsrModel {
-  title: string;
-  InitCompleted: boolean
-  menu_record: any;
-  urlid: string;
+  tp_code: string ;
   selectedRowIndex: number;
   ErrorMessage: string;
   mode: string;
   pkid: string;
   format_type: string;
-  rec_category: string;
   filter_date_type: string;
   type_date: string;
   from_date: string;
@@ -170,28 +166,18 @@ export interface iDsrModel {
   carrier_id: string;
   carrier_code: string;
   carrier_name: string;
-  carriertype: string;
   pol_id: string;
   pol_code: string;
   pol_name: string;
   pod_id: string;
   pod_code: string;
   pod_name: string;
-  porttype: string;
-  tp_code: string;
   sman_id: string;
   sman_code: string;
   sman_name: string;
-  bSman: boolean;
   search_bookingrpt: boolean;
   bookingrpt: boolean;
-  bExcel: boolean;
-  disableSave: boolean;
-  bCompany: boolean;
   all: boolean;
-  loading: boolean;
-  bAdmin: boolean;
-  bEmail: boolean;
   currentTab: string;
   searchstring: string;
   sSubject: string;
@@ -199,24 +185,18 @@ export interface iDsrModel {
   sHtml: string;
   sTo_ids: string;
   AttachList: any[];
-  CustomReportList: any[];
   RecordList: Dsr[];
   Record: Dsr;
-  TpList: User[];
   feildList: CustomReportD[];
 };
 
 export const initialState: iDsrModel = {
-  title: 'Dsr Report',
-  InitCompleted: false,
-  menu_record: '',
-  urlid: '',
+  tp_code: '',
   selectedRowIndex: 0,
   ErrorMessage: '',
   mode: '',
   pkid: '',
   format_type: '',
-  rec_category: '',
   filter_date_type: 'JOB',
   type_date: '',
   from_date: '',
@@ -234,28 +214,18 @@ export const initialState: iDsrModel = {
   carrier_id: '',
   carrier_code: '',
   carrier_name: '',
-  carriertype: '',
   pol_id: '',
   pol_code: '',
   pol_name: '',
   pod_id: '',
   pod_code: '',
   pod_name: '',
-  porttype: '',
-  tp_code: '',
   sman_id: '',
   sman_code: '',
   sman_name: '',
-  bSman: false,
   search_bookingrpt: false,
   bookingrpt: false,
-  bExcel: false,
-  disableSave: true,
-  bCompany: false,
   all: false,
-  loading: false,
-  bAdmin: false,
-  bEmail: false,
   currentTab: 'LIST',
   searchstring: '',
   sSubject: '',
@@ -263,9 +233,7 @@ export const initialState: iDsrModel = {
   sHtml: '',
   sTo_ids: '',
   AttachList: [],
-  CustomReportList: [],
   RecordList: [],
   Record: new Dsr,
-  TpList: [],
   feildList: []
 }
