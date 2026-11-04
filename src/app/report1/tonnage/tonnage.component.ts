@@ -28,7 +28,7 @@ export class TonnageComponent {
   pkid = '';
   //selectedRowIndex = 0;
 
-  list_format: string = 'GENERAL';
+  //list_format: string = 'GENERAL';
   //report_format: string = 'GENERAL';
   //type_date: string = 'MAWB DATE';
   //from_date: string = '';
@@ -374,10 +374,10 @@ export class TonnageComponent {
   // Query List Data
   List(_type: string) {
 
-    this.list_format = this.mainService.state.report_format;
+    this.mainService.state.list_format = this.mainService.state.report_format;
     if (this.mainService.state.report_format == "BRANCH MONTH WISE" || this.mainService.state.report_format == "CUSTOMER MONTH WISE" || this.mainService.state.report_format == "CONSIGNEE MONTH WISE" ||
       this.mainService.state.report_format == "AGENT MONTH WISE" || this.mainService.state.report_format == "POL MONTH WISE" || this.mainService.state.report_format == "POD MONTH WISE")
-      this.list_format = "SUMMARY";
+      this.mainService.state.list_format = "SUMMARY";
 
     this.ErrorMessage = '';
     //if (this.from_date.trim().length <= 0) {

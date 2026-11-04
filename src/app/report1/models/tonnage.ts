@@ -56,6 +56,7 @@ export interface iTonnageModel {
   selectedRowIndex: number;
   mode: string;
   pkid: string;
+  list_format: string;
   currentTab: string;
   RecordList: Tonnage[];
 
@@ -98,6 +99,7 @@ export const initialState: iTonnageModel = {
   selectedRowIndex: 0,
   mode: '',
   pkid: '',
+  list_format: 'GENERAL',
   currentTab: 'LIST',
   RecordList: [],
   ColNames: [],
