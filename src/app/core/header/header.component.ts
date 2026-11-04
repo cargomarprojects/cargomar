@@ -39,6 +39,9 @@ export class HeaderComponent {
       bFlag = true;
     if (rec.menu_route1 == 'accounts/cashbook')
       bFlag = true;
+    if (rec.menu_route1 == 'report1/tonnage')
+      bFlag = true;
+
 
     // replaceurl parameter has to be added in menu_route2 or menu master
     if (rec.menu_route2 != "") {
