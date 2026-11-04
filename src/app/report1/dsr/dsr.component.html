@@ -227,7 +227,10 @@
 
           <div class="form-group row">
             <div class="offset-2 col-sm-8">
-              <button  *ngIf="canEditHouse&&!ms.state.all_br_list" [disabled]="loading" (click)="EditHouse()" class="btn btn-primary btn-sm">SI</button>
+              <button *ngIf="canEditJob&&!ms.state.all_br_list" [disabled]="loading" (click)="EditJob()"
+                class="btn btn-primary btn-sm">Job</button>
+              <button *ngIf="canEditHouse&&!ms.state.all_br_list" [disabled]="loading" (click)="EditHouse()"
+                class="btn btn-primary btn-sm">SI</button>
             </div>
           </div>
         </div>

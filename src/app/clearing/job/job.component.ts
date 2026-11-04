@@ -241,7 +241,9 @@ export class JobComponent {
       this.loading = false;
       this.ErrorMessage = this.gs.getError(error);
     });
-    this.List("NEW");
+
+    if (!this.invokefromRpt)
+      this.List("NEW");
   }
 
 
