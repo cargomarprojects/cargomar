@@ -60,7 +60,7 @@ export class DsrComponent {
 
   constructor(
     private modalService: NgbModal,
-    private ms: RepService,
+    public ms: RepService,
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {
@@ -863,11 +863,20 @@ export class DsrComponent {
   }
 
   EditHouse() {
+    if (this.gs.isBlank(this.ms.state.hbl_id)) {
+      alert("Invalid House selected");
+      return;
+    }
 
+    if (this.ms.state.branch_code != this.gs.globalVariables.branch_code) {
+      alert("Cannot Edit details from another branch");
+      return;
+    }
 
     let param = {
       menuid: 'SISEAEXPORT',
-      type: 'SEA EXPORT'
+      type: 'SEA EXPORT',
+      pkid: this.ms.state.hbl_id
     }
     this.gs.Naviagete("operations/hblseaair", JSON.stringify(param));
   }
@@ -891,5 +900,5 @@ export class DsrComponent {
     this.ms.state.hbl_id = _rec.hbl_pkid;
     this.ms.state.mbl_id = _rec.mbl_pkid;
   }
-  
+
 }
