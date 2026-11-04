@@ -26,41 +26,56 @@ export class TonnageComponent {
   ErrorMessage = "";
   mode = '';
   pkid = '';
-  selectedRowIndex = 0;
+  //selectedRowIndex = 0;
 
-  list_format: string = 'GENERAL';
-  report_format: string = 'GENERAL';
-  type_date: string = 'MAWB DATE';
-  from_date: string = '';
-  to_date: string = '';
-  branch_name: string;
-  branch_code: string;
-  year_code: string = '';
+  //list_format: string = 'GENERAL';
+  //report_format: string = 'GENERAL';
+  //type_date: string = 'MAWB DATE';
+  //from_date: string = '';
+  //to_date: string = '';
 
-  shipper_id: string;
-  shipper_name: string;
-  consignee_id: string;
-  consignee_name: string;
-  agent_id: string;
-  agent_code: string;
-  agent_name: string;
-
-  carrier_id: string;
-  carriertype: string;
-  pol_id: string;
-  pod_id: string;
-  porttype: string;
+  //branch_name: string = '';
+  //branch_code: string = '';
+  //year_code: string = '';
+  //shipper_id: string;
+  //shipper_name: string;
+  //consignee_id: string;
+  //consignee_name: string;
+  //agent_id: string;
+  //agent_code: string;
+  //agent_name: string;
+  //carrier_id: string;
+  //carrier_name: string;
+  //pol_id: string;
+  //pol_name: string;
+  //pod_id: string;
+  //pod_name: string;
+  //all: boolean = false;
   rec_category: string;
+
+  //this.carriertype = "AIR CARRIER";
+  //this.porttype = "AIR PORT";
+  porttype: string = 'AIR PORT';
+  carriertype: string = 'AIR CARRIER';
 
   bExcel = false;
   disableSave = true;
   loading = false;
   bCompany = false;
-  all: boolean = false;
+
   isAirExport: boolean = false;
 
   currentTab = 'LIST';
   searchstring = '';
+
+
+  //ColNames: any[] = [];
+  //YearList: any[] = [];
+  //HeaderList: TblColumns[] = [];
+  //RecordList: Tonnage[] = [];
+
+  Record: Tonnage = new Tonnage;
+
 
   SearchData = {
     type: '',
@@ -86,31 +101,25 @@ export class TonnageComponent {
     pod_id: '',
     rec_category: '',
     all: false,
-    report_format: this.report_format
+    report_format: this.mainService.state.report_format
   };
 
-  ColNames: any[] = [];
-  YearList: any[] = [];
-  HeaderList: TblColumns[] = [];
-  // Array For Displaying List
-  RecordList: Tonnage[] = [];
-  // Single Record for add/edit/view details
-  Record: Tonnage = new Tonnage;
 
-  BRRECORD: SearchTable = new SearchTable();
-  EXPRECORD: SearchTable = new SearchTable();
-  IMPRECORD: SearchTable = new SearchTable();
-  AGENTRECORD: SearchTable = new SearchTable();
-  CARRIERRECORD: SearchTable = new SearchTable();
-  POLRECORD: SearchTable = new SearchTable();
-  PODRECORD: SearchTable = new SearchTable();
+
+  // BRRECORD: SearchTable = new SearchTable();
+  // EXPRECORD: SearchTable = new SearchTable();
+  // IMPRECORD: SearchTable = new SearchTable();
+  // AGENTRECORD: SearchTable = new SearchTable();
+  // CARRIERRECORD: SearchTable = new SearchTable();
+  // POLRECORD: SearchTable = new SearchTable();
+  // PODRECORD: SearchTable = new SearchTable();
 
   constructor(
-    private mainService: TonnageService,
+    public mainService: TonnageService,
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {
-    // URL Query Parameter 
+    // URL Query Parameter
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
         this.InitCompleted = true;
@@ -127,8 +136,10 @@ export class TonnageComponent {
   // Init Will be called After executing Constructor
   ngOnInit() {
     if (!this.InitCompleted) {
+      this.InitCompleted = true;
       this.InitComponent();
     }
+    this.mainService.init(this.menuid);
   }
 
   InitComponent() {
@@ -144,35 +155,35 @@ export class TonnageComponent {
         this.bExcel = true;
     }
 
-    this.porttype = "AIR PORT";
-    this.carriertype = "AIR CARRIER";
+    //this.porttype = "AIR PORT";
+    //this.carriertype = "AIR CARRIER";
 
     this.Init();
-    this.initLov();
+    //this.initLov();
     this.LoadCombo();
   }
 
   Init() {
     if (this.type == "AIR IMPORT") {
       this.isAirExport = false;
-      this.type_date = "ETA";
+      this.mainService.state.type_date = "ETA";
     }
     else {
       this.isAirExport = true;
-      this.type_date = "MAWB DATE";
+      this.mainService.state.type_date = "MAWB DATE";
     }
-    this.report_format = "GENERAL";
-    this.branch_code = this.gs.globalVariables.branch_code;
-    this.branch_name = this.gs.globalVariables.branch_name;
-    this.from_date = this.gs.defaultValues.monthbegindate;
-    this.to_date = this.gs.defaultValues.today;
-    this.RecordList = null;
-    this.shipper_id = '';
-    this.consignee_id = '';
-    this.agent_id = '';
-    this.carrier_id = '';
-    this.pol_id = '';
-    this.pod_id = '';
+    this.mainService.state.report_format = "GENERAL";
+    this.mainService.state.branch_code = this.gs.globalVariables.branch_code;
+    this.mainService.state.branch_name = this.gs.globalVariables.branch_name;
+    this.mainService.state.from_date = this.gs.defaultValues.monthbegindate;
+    this.mainService.state.to_date = this.gs.defaultValues.today;
+    this.mainService.state.RecordList = [];
+    this.mainService.state.shipper_id = '';
+    this.mainService.state.consignee_id = '';
+    this.mainService.state.agent_id = '';
+    this.mainService.state.carrier_id = '';
+    this.mainService.state.pol_id = '';
+    this.mainService.state.pod_id = '';
 
   }
 
@@ -182,107 +193,128 @@ export class TonnageComponent {
   }
 
 
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.restoreRowPosition();
+    }, 100);
+  }
+
+  restoreRowPosition() {
+
+    const row = document.getElementById('row-' + this.mainService.state.selectedRowIndex);
+
+    if (row) {
+      row.scrollIntoView({
+        behavior: 'auto',
+        block: 'center'
+      });
+    }
+  }
+
+
+
+  shipper_where = " CUST_IS_SHIPPER = 'Y' ";
+  consingee_where = " CUST_IS_CONSIGNEE = 'Y' ";
+  agent_where = " CUST_IS_AGENT = 'Y' ";
+
   initLov(caption: string = '') {
 
-    this.BRRECORD = new SearchTable();
-    this.BRRECORD.controlname = "BRANCH";
-    this.BRRECORD.displaycolumn = "CODE";
-    this.BRRECORD.type = "BRANCH";
-    this.BRRECORD.id = "";
-    this.BRRECORD.code = this.gs.globalVariables.branch_code;
+    // this.BRRECORD = new SearchTable();
+    // this.BRRECORD.controlname = "BRANCH";
+    // this.BRRECORD.displaycolumn = "CODE";
+    // this.BRRECORD.type = "BRANCH";
+    // this.BRRECORD.id = "";
+    // this.BRRECORD.code = this.gs.globalVariables.branch_code;
 
 
-    this.EXPRECORD = new SearchTable();
-    this.EXPRECORD.controlname = "SHIPPER";
-    this.EXPRECORD.displaycolumn = "NAME";
-    this.EXPRECORD.type = "CUSTOMER";
-    this.EXPRECORD.where = " CUST_IS_SHIPPER = 'Y' ";
-    this.EXPRECORD.id = "";
-    this.EXPRECORD.code = "";
-    this.EXPRECORD.name = "";
-    this.EXPRECORD.parentid = "";
+    // this.EXPRECORD = new SearchTable();
+    // this.EXPRECORD.controlname = "SHIPPER";
+    // this.EXPRECORD.displaycolumn = "NAME";
+    // this.EXPRECORD.type = "CUSTOMER";
+    // this.EXPRECORD.where = " CUST_IS_SHIPPER = 'Y' ";
+    // this.EXPRECORD.id = "";
+    // this.EXPRECORD.code = "";
+    // this.EXPRECORD.name = "";
+    // this.EXPRECORD.parentid = "";
 
 
-    this.IMPRECORD = new SearchTable();
-    this.IMPRECORD.controlname = "CONSIGNEE";
-    this.IMPRECORD.displaycolumn = "NAME";
-    this.IMPRECORD.type = "CUSTOMER";
-    this.IMPRECORD.where = " CUST_IS_CONSIGNEE = 'Y' ";
-    this.IMPRECORD.id = "";
-    this.IMPRECORD.code = "";
-    this.IMPRECORD.name = "";
-    this.IMPRECORD.parentid = "";
+    // this.IMPRECORD = new SearchTable();
+    // this.IMPRECORD.controlname = "CONSIGNEE";
+    // this.IMPRECORD.displaycolumn = "NAME";
+    // this.IMPRECORD.type = "CUSTOMER";
+    // this.IMPRECORD.where = " CUST_IS_CONSIGNEE = 'Y' ";
+    // this.IMPRECORD.id = "";
+    // this.IMPRECORD.code = "";
+    // this.IMPRECORD.name = "";
+    // this.IMPRECORD.parentid = "";
 
 
-    this.AGENTRECORD = new SearchTable();
-    this.AGENTRECORD.controlname = "AGENT";
-    this.AGENTRECORD.where = " CUST_IS_AGENT = 'Y' ";
-    this.AGENTRECORD.displaycolumn = "NAME";
-    this.AGENTRECORD.type = "CUSTOMER";
-    this.AGENTRECORD.id = "";
-    this.AGENTRECORD.code = "";
-    this.AGENTRECORD.name = "";
+    // this.AGENTRECORD = new SearchTable();
+    // this.AGENTRECORD.controlname = "AGENT";
+    // this.AGENTRECORD.where = " CUST_IS_AGENT = 'Y' ";
+    // this.AGENTRECORD.displaycolumn = "NAME";
+    // this.AGENTRECORD.type = "CUSTOMER";
+    // this.AGENTRECORD.id = "";
+    // this.AGENTRECORD.code = "";
+    // this.AGENTRECORD.name = "";
 
-    this.CARRIERRECORD = new SearchTable();
-    this.CARRIERRECORD.controlname = "CARRIER";
-    this.CARRIERRECORD.displaycolumn = "NAME";
-    this.CARRIERRECORD.type = this.carriertype;
-    this.CARRIERRECORD.id = "";
-    this.CARRIERRECORD.code = "";
-    this.CARRIERRECORD.name = "";
+    // this.CARRIERRECORD = new SearchTable();
+    // this.CARRIERRECORD.controlname = "CARRIER";
+    // this.CARRIERRECORD.displaycolumn = "NAME";
+    // this.CARRIERRECORD.type = this.carriertype;
+    // this.CARRIERRECORD.id = "";
+    // this.CARRIERRECORD.code = "";
+    // this.CARRIERRECORD.name = "";
 
-    this.POLRECORD = new SearchTable();
-    this.POLRECORD.controlname = "POL";
-    this.POLRECORD.displaycolumn = "NAME";
-    this.POLRECORD.type = this.porttype;
-    this.POLRECORD.id = "";
-    this.POLRECORD.code = "";
-    this.POLRECORD.name = "";
+    // this.POLRECORD = new SearchTable();
+    // this.POLRECORD.controlname = "POL";
+    // this.POLRECORD.displaycolumn = "NAME";
+    // this.POLRECORD.type = this.porttype;
+    // this.POLRECORD.id = "";
+    // this.POLRECORD.code = "";
+    // this.POLRECORD.name = "";
 
 
-    this.PODRECORD = new SearchTable();
-    this.PODRECORD.controlname = "POD";
-    this.PODRECORD.displaycolumn = "NAME";
-    this.PODRECORD.type = this.porttype;
-    this.PODRECORD.id = "";
-    this.PODRECORD.code = "";
-    this.PODRECORD.name = "";
+    // this.PODRECORD = new SearchTable();
+    // this.PODRECORD.controlname = "POD";
+    // this.PODRECORD.displaycolumn = "NAME";
+    // this.PODRECORD.type = this.porttype;
+    // this.PODRECORD.id = "";
+    // this.PODRECORD.code = "";
+    // this.PODRECORD.name = "";
 
   }
 
   LovSelected(_Record: SearchTable) {
     // Company Settings
     if (_Record.controlname == "BRANCH") {
-      this.branch_code = _Record.code;
-      this.branch_name = _Record.name;
+      this.mainService.state.branch_code = _Record.code;
+      this.mainService.state.branch_name = _Record.name;
     }
     if (_Record.controlname == "SHIPPER") {
-      this.shipper_id = _Record.id;
-      this.shipper_name = _Record.name;
+      this.mainService.state.shipper_id = _Record.id;
+      this.mainService.state.shipper_name = _Record.name;
     }
     if (_Record.controlname == "CONSIGNEE") {
-      this.consignee_id = _Record.id;
-      this.consignee_name = _Record.name;
+      this.mainService.state.consignee_id = _Record.id;
+      this.mainService.state.consignee_name = _Record.name;
     }
     if (_Record.controlname == "AGENT") {
-      this.agent_id = _Record.id;
-      this.agent_code = _Record.code;
-      this.agent_name = _Record.name;
+      this.mainService.state.agent_id = _Record.id;
+      this.mainService.state.agent_code = _Record.code;
+      this.mainService.state.agent_name = _Record.name;
     }
     if (_Record.controlname == "CARRIER") {
-      this.carrier_id = _Record.id;
-      // this.carrier_code = _Record.code;
-      // this.carrier_name = _Record.name;
+      this.mainService.state.carrier_id = _Record.id;
+      this.mainService.state.carrier_name = _Record.name;
     }
     if (_Record.controlname == "POL") {
-      this.pol_id = _Record.id;
-      // this.pol_code = _Record.code;
-      //  this.pol_name = _Record.name;
+      this.mainService.state.pol_id = _Record.id;
+      this.mainService.state.pol_name = _Record.name;
     }
     if (_Record.controlname == "POD") {
-      this.pod_id = _Record.id;
-      // this.pod_code = _Record.code;
-      // this.pod_name = _Record.name;
+      this.mainService.state.pod_id = _Record.id;
+      this.mainService.state.pod_name = _Record.name;
     }
 
 
@@ -304,8 +336,8 @@ export class TonnageComponent {
     this.mainService.LoadDefault(SearchData2)
       .subscribe(response => {
         this.loading = false;
-        this.YearList = response.yearlist;
-        this.year_code = this.gs.globalVariables.year_code;
+        this.mainService.state.YearList = response.yearlist;
+        this.mainService.state.year_code = this.gs.globalVariables.year_code;
       },
         error => {
           this.loading = false;
@@ -342,10 +374,10 @@ export class TonnageComponent {
   // Query List Data
   List(_type: string) {
 
-    this.list_format = this.report_format;
-    if (this.report_format == "BRANCH MONTH WISE" || this.report_format == "CUSTOMER MONTH WISE" || this.report_format == "CONSIGNEE MONTH WISE" ||
-      this.report_format == "AGENT MONTH WISE" || this.report_format == "POL MONTH WISE" || this.report_format == "POD MONTH WISE")
-      this.list_format = "SUMMARY";
+    this.mainService.state.list_format = this.mainService.state.report_format;
+    if (this.mainService.state.report_format == "BRANCH MONTH WISE" || this.mainService.state.report_format == "CUSTOMER MONTH WISE" || this.mainService.state.report_format == "CONSIGNEE MONTH WISE" ||
+      this.mainService.state.report_format == "AGENT MONTH WISE" || this.mainService.state.report_format == "POL MONTH WISE" || this.mainService.state.report_format == "POD MONTH WISE")
+      this.mainService.state.list_format = "SUMMARY";
 
     this.ErrorMessage = '';
     //if (this.from_date.trim().length <= 0) {
@@ -364,8 +396,8 @@ export class TonnageComponent {
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
 
     if (this.bCompany) {
-      this.SearchData.branch_code = this.branch_code;
-      this.SearchData.branch_name = this.branch_name;
+      this.SearchData.branch_code = this.mainService.state.branch_code;
+      this.SearchData.branch_name = this.mainService.state.branch_name;
     }
     else {
       this.SearchData.branch_code = this.gs.globalVariables.branch_code;
@@ -373,45 +405,46 @@ export class TonnageComponent {
 
     }
     //this.SearchData.year_code = this.gs.globalVariables.year_code;
-    this.SearchData.year_code = this.year_code;
+    this.SearchData.year_code = this.mainService.state.year_code;
     this.SearchData.searchstring = this.searchstring.toUpperCase();
     this.SearchData.type = _type;
-    this.SearchData.type_date = this.type_date;
-    if (this.type_date == 'FIN-YEAR') {
+    this.SearchData.type_date = this.mainService.state.type_date;
+    if (this.mainService.state.type_date == 'FIN-YEAR') {
       this.SearchData.from_date = this.gs.globalVariables.year_start_date;
       this.SearchData.to_date = this.gs.globalVariables.year_end_date;
     } else {
-      this.SearchData.from_date = this.from_date;
-      this.SearchData.to_date = this.to_date;
+      this.SearchData.from_date = this.mainService.state.from_date;
+      this.SearchData.to_date = this.mainService.state.to_date;
     }
-    this.SearchData.shipper_id = this.shipper_id;
-    this.SearchData.consignee_id = this.consignee_id;
-    this.SearchData.agent_id = this.agent_id;
-    this.SearchData.agent_name = this.agent_name;
-    this.SearchData.agent_code = this.agent_code;
-    this.SearchData.carrier_id = this.carrier_id;
-    this.SearchData.pol_id = this.pol_id;
-    this.SearchData.pod_id = this.pod_id;
-    this.SearchData.all = this.all;
+    this.SearchData.shipper_id = this.mainService.state.shipper_id;
+    this.SearchData.consignee_id = this.mainService.state.consignee_id;
+    this.SearchData.agent_id = this.mainService.state.agent_id;
+    this.SearchData.agent_name = this.mainService.state.agent_name;
+    this.SearchData.agent_code = this.mainService.state.agent_code;
+    this.SearchData.carrier_id = this.mainService.state.carrier_id;
+    this.SearchData.pol_id = this.mainService.state.pol_id;
+    this.SearchData.pod_id = this.mainService.state.pod_id;
+    this.SearchData.all = this.mainService.state.all;
     this.SearchData.rec_category = this.rec_category;
-    this.SearchData.report_format = this.report_format;
+    this.SearchData.report_format = this.mainService.state.report_format;
 
     this.ErrorMessage = '';
     this.mainService.List(this.SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.ColNames = response.colnames;
-        this.HeaderList = response.headerlist;
+        this.mainService.state.ColNames = response.colnames;
+        this.mainService.state.HeaderList = response.headerlist;
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
-          this.RecordList = response.list;
+          this.mainService.state.RecordList = response.list;
         }
       },
         error => {
           this.loading = false;
-          this.RecordList = null;
+          this.mainService.state.RecordList = [];
           this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
         });
   }
 
@@ -420,7 +453,7 @@ export class TonnageComponent {
   }
 
   OnChange(field: string) {
-    this.RecordList = null;
+    this.mainService.state.RecordList = [];
   }
 
   Close() {
