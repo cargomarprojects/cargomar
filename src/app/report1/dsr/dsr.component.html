@@ -234,18 +234,17 @@
       <thead class="page-body-thead">
         <tr>
           <th *ngIf="ms.state.all">BRANCH</th>
-          <th>EDIT(SI#)</th>
           <th *ngFor="let col of ms.state.feildList" [ngClass]="{'text-right': col.rd_isright}">
             {{ col.rd_caption }}
           </th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr *ngFor="let rec of ms.state.RecordList; let i = index">
+        <tr *ngFor="let rec of ms.state.RecordList; let i = index" [id]="i" [class.active]="i == ms.state.selectedRowIndex" (mousedown)="ms.state.selectedRowIndex=i">
           <td *ngIf="ms.state.all">{{ rec.branch }}</td>
-          <td (click)="EditHouse(rec)" class="hlink">
+          <!-- <td (click)="EditHouse(rec)" class="hlink">
             <i class="fa fa-pencil fa-md pointer " aria-hidden="true"></i>
-          </td>
+          </td> -->
           <td *ngFor="let col of ms.state.feildList" [ngClass]="{'text-right': col.rd_isright}">
             <ng-container *ngIf="col.rd_format">
               {{ +rec[col.rd_field] | number: col.rd_format }}

@@ -86,6 +86,26 @@ export class DsrComponent {
     this.ms.init(this.menuid);
   }
 
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.restoreRowPosition();
+    }, 100);
+  }
+
+  restoreRowPosition() {
+
+    const row = document.getElementById(this.ms.state.selectedRowIndex.toString());
+
+    if (row) {
+      row.scrollIntoView({
+        behavior: 'auto',
+        block: 'center'
+      });
+    }
+  }
+
+
   InitComponent() {
     this.bExcel = false;
     this.bCompany = false;
