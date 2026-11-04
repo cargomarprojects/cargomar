@@ -77,7 +77,7 @@ export class ImpHblSeaAirComponent {
   unlockparentid = '';
   old_importer_id = '';
   old_billto_id = '';
-
+  invokefromRpt: boolean = false;
   bCreditLimit: boolean = false;
   showalert = false;
   CrList: any[];
@@ -116,7 +116,7 @@ export class ImpHblSeaAirComponent {
     this.page_count = 0;
     this.page_rows = 10;
     this.page_current = 0;
-
+    this.invokefromRpt = false;
     // URL Query Parameter 
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
@@ -124,6 +124,10 @@ export class ImpHblSeaAirComponent {
         var options = JSON.parse(params["parameter"]);
         this.menuid = options.menuid;
         this.type = options.type;
+        if (!gs.isBlank(options.pkid)) {
+          this.invokefromRpt = true;
+          this.house_id = options.pkid;
+        }
         // this.InitComponent(); //modal change
       }
     });
@@ -132,7 +136,7 @@ export class ImpHblSeaAirComponent {
   // Init Will be called After executing Constructor
   ngOnInit() {
 
-    if (this.isModalWindow == "Y") {  //modal change
+    if (this.isModalWindow == "Y" || this.invokefromRpt) {  //modal change
       this.InitComponent();
       this.page_rows = 5;
       if (this.gs.isBlank(this.house_id))
@@ -1375,5 +1379,8 @@ export class ImpHblSeaAirComponent {
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
+  }
+  Return() {
+    this.gs.ClosePage('', false);
   }
 }

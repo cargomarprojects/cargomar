@@ -181,6 +181,7 @@ export interface iDsrModel {
   search_bookingrpt: boolean;
   bookingrpt: boolean;
   all: boolean;
+  all_br_list: boolean;
   currentTab: string;
   searchstring: string;
   sSubject: string;
@@ -232,6 +233,7 @@ export const initialState: iDsrModel = {
   search_bookingrpt: false,
   bookingrpt: false,
   all: false,
+  all_br_list: false,
   currentTab: 'LIST',
   searchstring: '',
   sSubject: '',

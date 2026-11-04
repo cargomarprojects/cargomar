@@ -209,25 +209,25 @@
               <input type="checkbox" [(ngModel)]="ms.state.bookingrpt" (change)="OnChange('bookingrpt')">
               <span> Booking</span>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-8">
               <button [disabled]="loading" (click)="List('SCREEN')" class="btn btn-primary btn-sm">Process
-                Report</button>
+              </button>
               <button *ngIf="bExcel" [disabled]="loading" (click)="List('EXCEL')"
-                class="btn btn-primary btn-sm">Excel</button>
-            </div>
-            <div class="col-sm-4 input-group input-group-sm">
-              <!-- <app-mail-direct [menuid]="menuid" [type]="'WEEKLY-KGS-TEU'"
-                (mailcallbackevent)="mailcallbackevent($event)"></app-mail-direct> -->
+                class="btn btn-primary btn-sm mr-1">Excel</button>
               <button [disabled]="loading" *ngIf="bEmail" (click)="List('MAIL',dsrmailsent)"
                 class="btn btn-primary btn-sm mr-1">Mail</button>
-              <!-- <app-customreport [fieldList]="CustomReportList" [type]="'DSR-'+type"
-                (callbackevent)="customreportcallbackevent($event)"></app-customreport> -->
             </div>
+            <!-- <div class="col-sm-4">
+              <app-mail-direct [menuid]="menuid" [type]="'WEEKLY-KGS-TEU'"
+                (mailcallbackevent)="mailcallbackevent($event)"></app-mail-direct>
+              <app-customreport [fieldList]="CustomReportList" [type]="'DSR-'+type"
+                (callbackevent)="customreportcallbackevent($event)"></app-customreport>
+            </div> -->
           </div>
 
           <div class="form-group row">
             <div class="offset-2 col-sm-8">
-              <button [disabled]="loading" (click)="EditHouse()" class="btn btn-primary btn-sm">SI</button>
+              <button  *ngIf="canEditHouse&&!ms.state.all_br_list" [disabled]="loading" (click)="EditHouse()" class="btn btn-primary btn-sm">SI</button>
             </div>
           </div>
         </div>

@@ -37,6 +37,11 @@ export class DsrComponent {
   modal: any;
   sub: any;
 
+
+  hbl_menuid: string = "";
+  hbl_menu_record: any;
+  canEditHouse: boolean = false;
+
   rec_category: string = '';
   loading: boolean = false;
   bAdmin: boolean = false;
@@ -135,6 +140,28 @@ export class DsrComponent {
       this.porttype = "AIR PORT";
       this.carriertype = "AIR CARRIER";
     }
+
+    this.hbl_menuid = '';
+    this.canEditHouse = false;
+    if (this.type.toString() == "SEA EXPORT") {
+      this.hbl_menuid = "SISEAEXPORT";
+    } else if (this.type.toString() == "SEA IMPORT") {
+      this.hbl_menuid = "SISEAIMPORT";
+    } else if (this.type.toString() == "AIR EXPORT") {
+      this.hbl_menuid = "SIAIREXPORT";
+    } else if (this.type.toString() == "AIR IMPORT") {
+      this.hbl_menuid = "SIAIRIMPORT";
+    }
+
+
+    if (this.hbl_menuid) {
+      this.hbl_menu_record = this.gs.getMenu(this.hbl_menuid);
+      if (this.hbl_menu_record) {
+        if (this.hbl_menu_record.rights_edit)
+          this.canEditHouse = true;
+      }
+    }
+
     this.initLov();
     this.LoadCombo();
     this.Loadtplist();
@@ -653,6 +680,8 @@ export class DsrComponent {
       sman_name: '',
       tp_code: this.gs.globalVariables.tp_code
     };
+
+    this.ms.state.all_br_list = this.ms.state.all;
     this.ms.state.search_bookingrpt = this.ms.state.bookingrpt;
     this.ms.state.ErrorMessage = '';
     //if (this.from_date.trim().length <= 0) {
@@ -864,7 +893,7 @@ export class DsrComponent {
 
   EditHouse() {
     if (this.gs.isBlank(this.ms.state.hbl_id)) {
-      alert("Invalid House selected");
+      alert("Shipping Instruction not found");
       return;
     }
 
@@ -874,11 +903,14 @@ export class DsrComponent {
     }
 
     let param = {
-      menuid: 'SISEAEXPORT',
-      type: 'SEA EXPORT',
+      menuid: this.hbl_menuid,
+      type: this.rec_category,
       pkid: this.ms.state.hbl_id
     }
-    this.gs.Naviagete("operations/hblseaair", JSON.stringify(param));
+    if (this.rec_category == "SEA EXPORT" || this.rec_category == "AIR EXPORT")
+      this.gs.Naviagete("operations/hblseaair", JSON.stringify(param));
+    else
+      this.gs.Naviagete("operations/imphblseaair", JSON.stringify(param));
   }
 
   getSwhere(_type: string) {

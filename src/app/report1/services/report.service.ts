@@ -50,6 +50,7 @@ export class RepService {
     this.state.sman_code = '';
     this.state.sman_name = this.gs.globalVariables.sman_name;
     this.state.format_type = 'GENERAL';
+    this.state.all_br_list = false;
   }
 
   List(SearchData: any) {
