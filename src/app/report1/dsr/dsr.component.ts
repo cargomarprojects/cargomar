@@ -30,8 +30,25 @@ export class DsrComponent {
   @Input() menuid: string = '';
   @Input() type: string = '';
 
+  title: string = 'Dsr Report';
+  InitCompleted: boolean = false;
+  menu_record: any;
+  urlid: string = '';
   modal: any;
   sub: any;
+  
+  rec_category: string = '';
+  loading: boolean = false;
+  bAdmin: boolean = false;
+  bEmail: boolean = false;
+  bExcel: boolean = false;
+  disableSave: boolean = false;
+  bCompany: boolean = false;
+  bSman: boolean = false;
+  carriertype: string = '';
+  porttype: string = '';
+  CustomReportList: any[] = [];
+  TpList: User[] = [];
 
   // BRRECORD: SearchTable;
   // EXPRECORD: SearchTable;
@@ -50,10 +67,11 @@ export class DsrComponent {
     // URL Query Parameter 
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
-        this.ms.state.InitCompleted = true;
+        this.InitCompleted = true;
         var options = JSON.parse(params["parameter"]);
         this.menuid = options.menuid;
         this.type = options.type;
+        this.rec_category = this.type;
         this.InitComponent();
       }
     });
@@ -62,46 +80,41 @@ export class DsrComponent {
 
   // Init Will be called After executing Constructor
   ngOnInit() {
-    if (!this.ms.state.InitCompleted) {
+    if (!this.InitCompleted) {
       this.InitComponent();
     }
-
     this.ms.init(this.menuid);
-     if (this.type.toString() == "SEA EXPORT" || this.type.toString() == "SEA IMPORT") {
-      this.ms.state.porttype = "SEA PORT";
-      this.ms.state.carriertype = "SEA CARRIER";
-    }
-    else {
-      this.ms.state.porttype = "AIR PORT";
-      this.ms.state.carriertype = "AIR CARRIER";
-    }
-    this.ms.state.rec_category = this.type;
   }
 
   InitComponent() {
-    if (this.gs.globalVariables.istp)
-      this.ms.state.tp_code = this.gs.globalVariables.tp_code;
-    this.ms.state.bExcel = false;
-    this.ms.state.bCompany = false;
-    this.ms.state.bAdmin = false;
-    this.ms.state.bEmail = false;
-    this.ms.state.bSman = false;
-    this.ms.state.menu_record = this.gs.getMenu(this.menuid);
-    if (this.ms.state.menu_record) {
-      this.ms.state.title = this.ms.state.menu_record.menu_name;
-      if (this.ms.state.menu_record.rights_company)
-        this.ms.state.bCompany = true;
-      if (this.ms.state.menu_record.rights_admin)
-        this.ms.state.bAdmin = true;
-      if (this.ms.state.menu_record.rights_print)
-        this.ms.state.bExcel = true;
-      if (this.ms.state.menu_record.rights_email)
-        this.ms.state.bEmail = true;
-      if (this.ms.state.menu_record.rights_approval.toString().includes("{SMAN}"))
-        this.ms.state.bSman = true;
+    this.bExcel = false;
+    this.bCompany = false;
+    this.bAdmin = false;
+    this.bEmail = false;
+    this.bSman = false;
+    this.menu_record = this.gs.getMenu(this.menuid);
+    if (this.menu_record) {
+      this.title = this.menu_record.menu_name;
+      if (this.menu_record.rights_company)
+        this.bCompany = true;
+      if (this.menu_record.rights_admin)
+        this.bAdmin = true;
+      if (this.menu_record.rights_print)
+        this.bExcel = true;
+      if (this.menu_record.rights_email)
+        this.bEmail = true;
+      if (this.menu_record.rights_approval.toString().includes("{SMAN}"))
+        this.bSman = true;
     }
-   
 
+    if (this.type.toString() == "SEA EXPORT" || this.type.toString() == "SEA IMPORT") {
+      this.porttype = "SEA PORT";
+      this.carriertype = "SEA CARRIER";
+    }
+    else {
+      this.porttype = "AIR PORT";
+      this.carriertype = "AIR CARRIER";
+    }
     this.initLov();
     this.LoadCombo();
     this.Loadtplist();
@@ -263,7 +276,7 @@ export class DsrComponent {
   LoadCombo() {
 
     if (this.type == "SEA EXPORT") {
-      this.ms.state.CustomReportList = [
+      this.CustomReportList = [
         { "rd_ctr": 1, "rd_code": "SLNO", "rd_caption": "SL#", "rd_field": "job_docno", "rd_sort_order": 1, "rd_col_width": 15, "rd_data_type": "S" },
         { "rd_ctr": 2, "rd_code": "JOBNO", "rd_caption": "JOB#", "rd_field": "job_docno", "rd_sort_order": 5, "rd_col_width": 15, "rd_data_type": "S" },
         { "rd_ctr": 3, "rd_code": "JOBDATE", "rd_caption": "JOB DATE", "rd_field": "job_date", "rd_sort_order": 10, "rd_col_width": 15, "rd_data_type": "D" },
@@ -379,7 +392,7 @@ export class DsrComponent {
         { "rd_ctr": 113, "rd_code": "TS-OR-DIRECT", "rd_caption": "TS OR DIRECT", "rd_field": "ts_or_direct", "rd_sort_order": 560, "rd_col_width": 15, "rd_data_type": "S" }
       ];
     } else if (this.type == "AIR EXPORT") {
-      this.ms.state.CustomReportList = [
+      this.CustomReportList = [
         { "rd_ctr": 1, "rd_code": "JOBNO", "rd_caption": "JOB#", "rd_field": "job_docno", "rd_sort_order": 1, "rd_col_width": 15, "rd_data_type": "S" },
         { "rd_ctr": 2, "rd_code": "JOBDATE", "rd_caption": "JOB DATE", "rd_field": "job_date", "rd_sort_order": 5, "rd_col_width": 15, "rd_data_type": "D" },
         { "rd_ctr": 3, "rd_code": "REFERENCE", "rd_caption": "REF#", "rd_field": "job_prefix", "rd_sort_order": 10, "rd_col_width": 15, "rd_data_type": "S" },
@@ -474,7 +487,7 @@ export class DsrComponent {
       ];
     } else if (this.type == "SEA IMPORT" || this.type == "AIR IMPORT") {
 
-      this.ms.state.CustomReportList = [
+      this.CustomReportList = [
         { "rd_ctr": 1, "rd_code": "MASTER-DATE", "rd_caption": "MASTER DATE", "rd_field": "mbl_date", "rd_sort_order": 1, "rd_col_width": 15, "rd_data_type": "D" },
         { "rd_ctr": 2, "rd_code": "MBLBKNO", "rd_caption": "MBLBK#", "rd_field": "mbl_no", "rd_sort_order": 5, "rd_col_width": 15, "rd_data_type": "S" },
         { "rd_ctr": 3, "rd_code": "MASTERNO", "rd_caption": "MASTER#", "rd_field": "mbl_bl_no", "rd_sort_order": 10, "rd_col_width": 15, "rd_data_type": "S" },
@@ -535,18 +548,18 @@ export class DsrComponent {
     SearchData.comp_code = this.gs.globalVariables.comp_code;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
     this.ms.state.ErrorMessage = '';
-    this.ms.state.loading = true;
+    this.loading = true;
     this.ms.Loadtplist(SearchData)
       .subscribe(response => {
-        this.ms.state.loading = false;
-        this.ms.state.TpList = response.tplist;
-        if (!this.gs.isBlank(this.ms.state.TpList)) {
-          if (this.ms.state.TpList.length > 0)
-            this.ms.state.tp_code = this.ms.state.TpList[0].user_tp_code;
+        this.loading = false;
+        this.TpList = response.tplist;
+        if (!this.gs.isBlank(this.TpList)) {
+          if (this.TpList.length > 0)
+            this.ms.state.tp_code = this.TpList[0].user_tp_code;
         }
       },
         error => {
-          this.ms.state.loading = false;
+          this.loading = false;
           this.ms.state.ErrorMessage = this.gs.getError(error);
           alert(this.ms.state.ErrorMessage);
         });
@@ -564,18 +577,18 @@ export class DsrComponent {
   }
 
   ResetControls() {
-    this.ms.state.disableSave = true;
-    if (!this.ms.state.menu_record)
+    this.disableSave = true;
+    if (!this.menu_record)
       return;
 
-    if (this.ms.state.menu_record.rights_admin)
-      this.ms.state.disableSave = false;
-    if (this.ms.state.mode == "ADD" && this.ms.state.menu_record.rights_add)
-      this.ms.state.disableSave = false;
-    if (this.ms.state.mode == "EDIT" && this.ms.state.menu_record.rights_edit)
-      this.ms.state.disableSave = false;
+    if (this.menu_record.rights_admin)
+      this.disableSave = false;
+    if (this.ms.state.mode == "ADD" && this.menu_record.rights_add)
+      this.disableSave = false;
+    if (this.ms.state.mode == "EDIT" && this.menu_record.rights_edit)
+      this.disableSave = false;
 
-    return this.ms.state.disableSave;
+    return this.disableSave;
   }
 
   // Query List Data
@@ -631,7 +644,7 @@ export class DsrComponent {
     //  return;
     //}
 
-    if (this.ms.state.bSman) {
+    if (this.bSman) {
       if (this.gs.isBlank(this.ms.state.sman_id)) {
         this.ms.state.ErrorMessage = "Salesperson Cannot Be Blank";
         alert(this.ms.state.ErrorMessage);
@@ -646,13 +659,13 @@ export class DsrComponent {
         this.ms.state.to_date = this.gs.globalVariables.year_end_date;
     }
 
-    this.ms.state.loading = true;
+    this.loading = true;
     this.ms.state.pkid = this.gs.getGuid();
     SearchData.pkid = this.ms.state.pkid;
     SearchData.report_folder = this.gs.globalVariables.report_folder;
     SearchData.company_code = this.gs.globalVariables.comp_code;
 
-    if (this.ms.state.bCompany) {
+    if (this.bCompany) {
       SearchData.branch_code = this.ms.state.branch_code;
       SearchData.branch_name = this.ms.state.branch_name;
     }
@@ -664,7 +677,7 @@ export class DsrComponent {
     SearchData.year_code = this.gs.globalVariables.year_code;
     SearchData.searchstring = this.ms.state.searchstring.toUpperCase();
     SearchData.type = _type;
-    SearchData.rec_category = this.ms.state.rec_category;
+    SearchData.rec_category = this.rec_category;
     SearchData.type_date = this.ms.state.type_date;
     SearchData.from_date = this.ms.state.from_date;
     SearchData.to_date = this.ms.state.to_date;
@@ -694,7 +707,7 @@ export class DsrComponent {
     this.ms.state.ErrorMessage = '';
     this.ms.DsrList(SearchData)
       .subscribe(response => {
-        this.ms.state.loading = false;
+        this.loading = false;
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else if (_type == 'MAIL') {
@@ -712,7 +725,7 @@ export class DsrComponent {
         }
       },
         error => {
-          this.ms.state.loading = false;
+          this.loading = false;
           this.ms.state.RecordList = [];
           this.ms.state.ErrorMessage = this.gs.getError(error);
           alert(this.ms.state.ErrorMessage);
@@ -754,8 +767,8 @@ export class DsrComponent {
 
   getTpname(_tpcode: string) {
     let _str = "GENERAL";
-    if (this.ms.state.TpList != null) {
-      var REC = this.ms.state.TpList.find(rec => rec.user_tp_code == _tpcode);
+    if (this.TpList != null) {
+      var REC = this.TpList.find(rec => rec.user_tp_code == _tpcode);
       if (REC != null) {
         _str = REC.user_tp_name;
       }
