@@ -959,14 +959,16 @@ export class DsrComponent {
     }
 
     let param = {
+      appid: this.gs.appid,
       menuid: this.hbl_menuid,
       type: this.rec_category,
-      pkid: this.ms.state.hbl_id
+      pkid: this.ms.state.hbl_id,
+      deviceid: this.gs.deviceId
     }
     if (this.rec_category == "SEA EXPORT" || this.rec_category == "AIR EXPORT")
-      this.gs.Naviagete("operations/hblseaair", JSON.stringify(param));
+      this.gs.Naviagete2("operations/hblseaair", JSON.stringify(param));
     else
-      this.gs.Naviagete("operations/imphblseaair", JSON.stringify(param));
+      this.gs.Naviagete2("operations/imphblseaair", JSON.stringify(param));
   }
 
   EditJob() {
@@ -989,12 +991,14 @@ export class DsrComponent {
     }
 
     let param = {
+      appid: this.gs.appid,
       menuid: this.job_menuid,
       type: this.rec_category,
-      pkid: this.ms.state.job_id
+      pkid: this.ms.state.job_id,
+      deviceid: this.gs.deviceId
     }
 
-    this.gs.Naviagete("clearing/jobm", JSON.stringify(param));
+    this.gs.Naviagete2("clearing/jobm", JSON.stringify(param));
 
   }
 
@@ -1016,17 +1020,19 @@ export class DsrComponent {
     }
 
     let param = {
+      appid: this.gs.appid,
       menuid: this.mbl_menuid,
       type: this.rec_category,
-      pkid: this.ms.state.mbl_id
+      pkid: this.ms.state.mbl_id,
+      deviceid: this.gs.deviceId
     }
 
     if (this.rec_category == "SEA EXPORT")
-      this.gs.Naviagete("operations/mblsea", JSON.stringify(param));
+      this.gs.Naviagete2("operations/mblsea", JSON.stringify(param));
     else if (this.rec_category == "AIR EXPORT")
-      this.gs.Naviagete("operations/mblair", JSON.stringify(param));
+      this.gs.Naviagete2("operations/mblair", JSON.stringify(param));
     else if (this.rec_category == "SEA IMPORT" || this.rec_category == "AIR IMPORT")
-      this.gs.Naviagete("operations/impmblseaair", JSON.stringify(param));
+      this.gs.Naviagete2("operations/impmblseaair", JSON.stringify(param));
   }
 
   getSwhere(_type: string) {

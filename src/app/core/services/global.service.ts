@@ -911,6 +911,10 @@ export class GlobalService {
 
   }
 
+  Naviagete2(menu_route: string, jsonstring: string) {
+    this.router.navigate([menu_route], { queryParams: {parameter: jsonstring }, replaceUrl: false });
+  }
+
   public IsValidTelephone(_tel: string, _maxval: number = 12): Boolean {
     let bRet: boolean = false;
     let pattrn: string = "^([0-9]{6," + _maxval.toString() + "})$";
