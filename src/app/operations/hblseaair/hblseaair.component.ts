@@ -256,7 +256,7 @@ export class HblSeaAirComponent {
             .subscribe(response => {
                 this.loading = false;
                 this.ShipmentStageList = response.stagelist;
-                if (this.isModalWindow == "N")
+                if (this.isModalWindow == "N" && !this.invokefromRpt)
                     this.List("NEW");
             },
                 error => {
