@@ -943,7 +943,7 @@ export class DsrComponent {
   EditHouse() {
 
     if (!this.canEditHouse) {
-      alert("Access Denied");
+      alert("Access Denied, Insufficient rights");
       return;
     }
 
@@ -975,7 +975,7 @@ export class DsrComponent {
       return;
 
     if (!this.canEditJob) {
-      alert("Access Denied");
+      alert("Access Denied, Insufficient rights");
       return;
     }
 
@@ -1001,7 +1001,7 @@ export class DsrComponent {
   EditMaster() {
 
     if (!this.canEditMaster) {
-      alert("Access Denied");
+      alert("Access Denied, Insufficient rights");
       return;
     }
 
