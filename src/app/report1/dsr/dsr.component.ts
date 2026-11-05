@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { Dsr } from '../models/dsr';
-import { RepService } from '../services/report.service';
+import { DsrService } from '../services/dsr.service';
 import { DateComponent } from '../../shared/date/date.component';
 import { CustomReportD } from '../../shared/models/customreporth';
 import { User } from '../../admin/models/user';
@@ -18,7 +18,7 @@ import { CustomReportComponent } from '../../shared/customreport/customreport.co
 @Component({
   selector: 'app-dsr',
   templateUrl: './dsr.component.html',
-  providers: [RepService]
+  providers: [DsrService]
 })
 
 export class DsrComponent {
@@ -74,7 +74,7 @@ export class DsrComponent {
 
   constructor(
     private modalService: NgbModal,
-    public ms: RepService,
+    public ms: DsrService,
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {

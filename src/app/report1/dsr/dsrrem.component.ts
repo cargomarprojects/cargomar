@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
-import { RepService } from '../services/report.service';
+import { DsrService } from '../services/dsr.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { Dsr } from '../models/dsr';
 
@@ -9,7 +9,7 @@ import { Dsr } from '../models/dsr';
 @Component({
   selector: 'app-dsrrem',
   templateUrl: './dsrrem.component.html',
-  providers: [RepService]
+  providers: [DsrService]
 })
 
 export class DsrRemComponent {
@@ -55,7 +55,7 @@ export class DsrRemComponent {
 
 
   constructor(
-    private mainService: RepService,
+    private mainService: DsrService,
     private route: ActivatedRoute,
     private gs: GlobalService
 
