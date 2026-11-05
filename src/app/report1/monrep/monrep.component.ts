@@ -1,15 +1,14 @@
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { Location } from '@angular/common';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { MonRep } from '../models/monrep';
-import { RepService } from '../services/report.service';
+import { MonRepService } from '../services/monrep.service';
 
 @Component({
   selector: 'app-monrep',
   templateUrl: './monrep.component.html',
-  providers: [RepService]
+  providers: [MonRepService]
 })
 
 export class MonrepComponent {
@@ -17,7 +16,6 @@ export class MonrepComponent {
   /*
   Ajith 24/06/2019 nom/sman update implemented
   */
-
 
   @Input() menuid: string = '';
   @Input() type: string = '';
@@ -32,26 +30,30 @@ export class MonrepComponent {
   pkid = '';
 
   rec_category: string = "";
-  type_date: string = 'SOB';
-  from_date: string = '';
-  to_date: string = '';
-  branch_name: string;
-  branch_code: string;
-  agent_id: string;
-  agent_code: string;
-  agent_name: string;
-  shipper_id: string;
-  consignee_id: string;
-  carrier_id: string;
-  carriertype: string;
-  pol_id: string;
-  pod_id: string;
-  porttype: string;
+
+  //type_date: string = 'SOB';
+  //from_date: string = '';
+  //to_date: string = '';
+  //branch_name: string;
+  //branch_code: string;
+  //agent_id: string;
+  //agent_code: string;
+  //agent_name: string;
+  //shipper_id: string;
+  //consignee_id: string;
+  //carrier_id: string;
+
+  //pol_id: string;
+  //pod_id: string;
+
   format_type: string = '';
 
+  carriertype = '';
+  porttype = '';
+
   disableSave = true;
-  all: boolean = false;
-  pendingInvoice: boolean = false;
+  //all: boolean = false;
+  //pendingInvoice: boolean = false;
 
   bExcel = false;
   bCompany = false;
@@ -60,8 +62,8 @@ export class MonrepComponent {
   bEmail = false;
 
   loading = false;
-  currentTab = 'LIST';
-  searchstring = '';
+  //currentTab = 'LIST';
+
 
   SearchData = {
     type: '',
@@ -92,27 +94,27 @@ export class MonrepComponent {
   };
 
   // Array For Displaying List
-  RecordList: MonRep[] = [];
+  //RecordList: MonRep[] = [];
   // Single Record for add/edit/view details
   Record: MonRep = new MonRep;
 
-  BRRECORD: SearchTable = new SearchTable();
-  AGENTRECORD: SearchTable = new SearchTable();
-  EXPRECORD: SearchTable = new SearchTable();
-  IMPRECORD: SearchTable = new SearchTable();
-  CARRIERRECORD: SearchTable = new SearchTable();
-  POLRECORD: SearchTable = new SearchTable();
-  PODRECORD: SearchTable = new SearchTable();
+  // BRRECORD: SearchTable = new SearchTable();
+  // AGENTRECORD: SearchTable = new SearchTable();
+  // EXPRECORD: SearchTable = new SearchTable();
+  // IMPRECORD: SearchTable = new SearchTable();
+  // CARRIERRECORD: SearchTable = new SearchTable();
+  // POLRECORD: SearchTable = new SearchTable();
+  // PODRECORD: SearchTable = new SearchTable();
 
   constructor(
-    private mainService: RepService,
+    public ms: MonRepService,
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {
-    // URL Query Parameter 
+    // URL Query Parameter
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
-        this.InitCompleted = true;
+
         var options = JSON.parse(params["parameter"]);
         this.menuid = options.menuid;
         this.type = options.type;
@@ -120,6 +122,8 @@ export class MonrepComponent {
         this.rec_category = this.type;
 
         this.InitComponent();
+        this.InitCompleted = true;
+
       }
     });
 
@@ -127,9 +131,13 @@ export class MonrepComponent {
 
   // Init Will be called After executing Constructor
   ngOnInit() {
+
     if (!this.InitCompleted) {
+      this.InitCompleted = true;
       this.InitComponent();
     }
+    this.ms.init(this.menuid);
+
   }
 
   InitComponent() {
@@ -162,23 +170,23 @@ export class MonrepComponent {
     }
 
     this.Init();
-    this.initLov();
+    //this.initLov();
     this.LoadCombo();
   }
 
   Init() {
-    this.type_date = "SOB";
-    this.RecordList = null;
-    this.branch_code = this.gs.globalVariables.branch_code;
-    this.branch_name = this.gs.globalVariables.branch_name;
-    this.from_date = this.gs.defaultValues.monthbegindate;
-    this.to_date = this.gs.defaultValues.today;
-    this.agent_id = '';
-    this.shipper_id = '';
-    this.consignee_id = '';
-    this.carrier_id = '';
-    this.pol_id = '';
-    this.pod_id = '';
+    this.ms.state.type_date = "SOB";
+    this.ms.state.RecordList = [];
+    this.ms.state.branch_code = this.gs.globalVariables.branch_code;
+    this.ms.state.branch_name = this.gs.globalVariables.branch_name;
+    this.ms.state.from_date = this.gs.defaultValues.monthbegindate;
+    this.ms.state.to_date = this.gs.defaultValues.today;
+    this.ms.state.agent_id = '';
+    this.ms.state.shipper_id = '';
+    this.ms.state.consignee_id = '';
+    this.ms.state.carrier_id = '';
+    this.ms.state.pol_id = '';
+    this.ms.state.pod_id = '';
   }
 
   // Destroy Will be called when this component is closed
@@ -186,104 +194,126 @@ export class MonrepComponent {
     this.sub.unsubscribe();
   }
 
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.restoreRowPosition();
+    }, 100);
+  }
+
+  restoreRowPosition() {
+
+    const row = document.getElementById(this.ms.state.selectedRowIndex.toString());
+
+    if (row) {
+      row.scrollIntoView({
+        behavior: 'auto',
+        block: 'center'
+      });
+    }
+  }
+
+
+
+
+  shipper_where = " CUST_IS_SHIPPER = 'Y' ";
+  consingee_where = " CUST_IS_CONSIGNEE = 'Y' ";
+  agent_where = " CUST_IS_AGENT = 'Y' ";
 
   initLov(caption: string = '') {
+    // this.BRRECORD = new SearchTable();
+    // this.BRRECORD.controlname = "BRANCH";
+    // this.BRRECORD.displaycolumn = "CODE";
+    // this.BRRECORD.type = "BRANCH";
+    // this.BRRECORD.id = "";
+    // this.BRRECORD.code = this.gs.globalVariables.branch_code;
 
-    this.BRRECORD = new SearchTable();
-    this.BRRECORD.controlname = "BRANCH";
-    this.BRRECORD.displaycolumn = "CODE";
-    this.BRRECORD.type = "BRANCH";
-    this.BRRECORD.id = "";
-    this.BRRECORD.code = this.gs.globalVariables.branch_code;
+    // this.AGENTRECORD = new SearchTable();
+    // this.AGENTRECORD.controlname = "AGENT";
+    // this.AGENTRECORD.where = " CUST_IS_AGENT = 'Y' ";
+    // this.AGENTRECORD.displaycolumn = "NAME";
+    // this.AGENTRECORD.type = "CUSTOMER";
+    // this.AGENTRECORD.id = "";
+    // this.AGENTRECORD.code = "";
+    // this.AGENTRECORD.name = "";
 
-    this.AGENTRECORD = new SearchTable();
-    this.AGENTRECORD.controlname = "AGENT";
-    this.AGENTRECORD.where = " CUST_IS_AGENT = 'Y' ";
-    this.AGENTRECORD.displaycolumn = "NAME";
-    this.AGENTRECORD.type = "CUSTOMER";
-    this.AGENTRECORD.id = "";
-    this.AGENTRECORD.code = "";
-    this.AGENTRECORD.name = "";
+    // this.EXPRECORD = new SearchTable();
+    // this.EXPRECORD.controlname = "SHIPPER";
+    // this.EXPRECORD.displaycolumn = "NAME";
+    // this.EXPRECORD.type = "CUSTOMER";
+    // this.EXPRECORD.where = " CUST_IS_SHIPPER = 'Y' ";
+    // this.EXPRECORD.id = "";
+    // this.EXPRECORD.code = "";
+    // this.EXPRECORD.name = "";
+    // this.EXPRECORD.parentid = "";
 
-    this.EXPRECORD = new SearchTable();
-    this.EXPRECORD.controlname = "SHIPPER";
-    this.EXPRECORD.displaycolumn = "NAME";
-    this.EXPRECORD.type = "CUSTOMER";
-    this.EXPRECORD.where = " CUST_IS_SHIPPER = 'Y' ";
-    this.EXPRECORD.id = "";
-    this.EXPRECORD.code = "";
-    this.EXPRECORD.name = "";
-    this.EXPRECORD.parentid = "";
+    // this.IMPRECORD = new SearchTable();
+    // this.IMPRECORD.controlname = "CONSIGNEE";
+    // this.IMPRECORD.displaycolumn = "NAME";
+    // this.IMPRECORD.type = "CUSTOMER";
+    // this.IMPRECORD.where = " CUST_IS_CONSIGNEE = 'Y' ";
+    // this.IMPRECORD.id = "";
+    // this.IMPRECORD.code = "";
+    // this.IMPRECORD.name = "";
+    // this.IMPRECORD.parentid = "";
 
-    this.IMPRECORD = new SearchTable();
-    this.IMPRECORD.controlname = "CONSIGNEE";
-    this.IMPRECORD.displaycolumn = "NAME";
-    this.IMPRECORD.type = "CUSTOMER";
-    this.IMPRECORD.where = " CUST_IS_CONSIGNEE = 'Y' ";
-    this.IMPRECORD.id = "";
-    this.IMPRECORD.code = "";
-    this.IMPRECORD.name = "";
-    this.IMPRECORD.parentid = "";
+    // this.CARRIERRECORD = new SearchTable();
+    // this.CARRIERRECORD.controlname = "CARRIER";
+    // this.CARRIERRECORD.displaycolumn = "NAME";
+    // this.CARRIERRECORD.type = this.carriertype;
+    // this.CARRIERRECORD.id = "";
+    // this.CARRIERRECORD.code = "";
+    // this.CARRIERRECORD.name = "";
 
-    this.CARRIERRECORD = new SearchTable();
-    this.CARRIERRECORD.controlname = "CARRIER";
-    this.CARRIERRECORD.displaycolumn = "NAME";
-    this.CARRIERRECORD.type = this.carriertype;
-    this.CARRIERRECORD.id = "";
-    this.CARRIERRECORD.code = "";
-    this.CARRIERRECORD.name = "";
-
-    this.POLRECORD = new SearchTable();
-    this.POLRECORD.controlname = "POL";
-    this.POLRECORD.displaycolumn = "NAME";
-    this.POLRECORD.type = this.porttype;
-    this.POLRECORD.id = "";
-    this.POLRECORD.code = "";
-    this.POLRECORD.name = "";
+    // this.POLRECORD = new SearchTable();
+    // this.POLRECORD.controlname = "POL";
+    // this.POLRECORD.displaycolumn = "NAME";
+    // this.POLRECORD.type = this.porttype;
+    // this.POLRECORD.id = "";
+    // this.POLRECORD.code = "";
+    // this.POLRECORD.name = "";
 
 
-    this.PODRECORD = new SearchTable();
-    this.PODRECORD.controlname = "POD";
-    this.PODRECORD.displaycolumn = "NAME";
-    this.PODRECORD.type = this.porttype;
-    this.PODRECORD.id = "";
-    this.PODRECORD.code = "";
-    this.PODRECORD.name = "";
+    // this.PODRECORD = new SearchTable();
+    // this.PODRECORD.controlname = "POD";
+    // this.PODRECORD.displaycolumn = "NAME";
+    // this.PODRECORD.type = this.porttype;
+    // this.PODRECORD.id = "";
+    // this.PODRECORD.code = "";
+    // this.PODRECORD.name = "";
   }
 
   LovSelected(_Record: SearchTable) {
     // Company Settings
     if (_Record.controlname == "BRANCH") {
-      this.branch_code = _Record.code;
-      this.branch_name = _Record.name;
+      this.ms.state.branch_code = _Record.code;
+      this.ms.state.branch_name = _Record.name;
     }
     if (_Record.controlname == "AGENT") {
-      this.agent_id = _Record.id;
-      this.agent_code = _Record.code;
-      this.agent_name = _Record.name;
+      this.ms.state.agent_id = _Record.id;
+      this.ms.state.agent_code = _Record.code;
+      this.ms.state.agent_name = _Record.name;
     }
     if (_Record.controlname == "SHIPPER") {
-      this.shipper_id = _Record.id;
-      // this.shipper_name = _Record.name;
+      this.ms.state.shipper_id = _Record.id;
+      this.ms.state.shipper_name = _Record.name;
     }
     if (_Record.controlname == "CONSIGNEE") {
-      this.consignee_id = _Record.id;
-      //  this.consignee_name = _Record.name;
+      this.ms.state.consignee_id = _Record.id;
+      this.ms.state.consignee_name = _Record.name;
     }
     if (_Record.controlname == "CARRIER") {
-      this.carrier_id = _Record.id;
-      // this.carrier_code = _Record.code;
-      // this.carrier_name = _Record.name;
+      this.ms.state.carrier_id = _Record.id;
+      this.ms.state.carrier_name = _Record.name;
     }
     if (_Record.controlname == "POL") {
-      this.pol_id = _Record.id;
+      this.ms.state.pol_id = _Record.id;
       // this.pol_code = _Record.code;
-      //  this.pol_name = _Record.name;
+      this.ms.state.pol_name = _Record.name;
     }
     if (_Record.controlname == "POD") {
-      this.pod_id = _Record.id;
+      this.ms.state.pod_id = _Record.id;
       // this.pod_code = _Record.code;
-      // this.pod_name = _Record.name;
+      this.ms.state.pod_name = _Record.name;
     }
   }
   LoadCombo() {
@@ -296,7 +326,7 @@ export class MonrepComponent {
     if (action == 'LIST') {
       this.mode = '';
       this.pkid = '';
-      this.currentTab = 'LIST';
+      this.ms.state.currentTab = 'LIST';
     }
   }
 
@@ -328,16 +358,19 @@ export class MonrepComponent {
     //  return;
     //}
 
-    if (this.pendingInvoice && this.type_date != 'CREATED') {
+    if (this.ms.state.pendingInvoice && this.ms.state.type_date != 'CREATED') {
       this.ErrorMessage = " Please Select CREATED Date for Pending Invoice and Continue....";
       alert(this.ErrorMessage);
       return;
     }
 
-    if (_type == "MAIL")
+    if (_type == "MAIL") {
       if (!confirm("Do you want to Send Invoice Pending List? ")) {
         return;
       }
+    }
+
+    this.restoreRowPosition();
 
     this.loading = true;
     this.pkid = this.gs.getGuid();
@@ -346,56 +379,53 @@ export class MonrepComponent {
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
 
     if (this.bCompany) {
-      this.SearchData.branch_code = this.branch_code;
-      this.SearchData.branch_name = this.branch_name;
+      this.SearchData.branch_code = this.ms.state.branch_code;
+      this.SearchData.branch_name = this.ms.state.branch_name;
     }
     else {
       this.SearchData.branch_code = this.gs.globalVariables.branch_code;
       this.SearchData.branch_name = this.gs.globalVariables.branch_name;
-
     }
 
     this.SearchData.badmin = this.bAdmin;
 
     this.SearchData.year_code = this.gs.globalVariables.year_code;
-    this.SearchData.searchstring = this.searchstring.toUpperCase();
+    this.SearchData.searchstring = '';
     this.SearchData.type = _type;
     this.SearchData.rec_category = this.rec_category;
-    this.SearchData.type_date = this.type_date;
-    this.SearchData.from_date = this.from_date;
-    this.SearchData.to_date = this.to_date;
-    this.SearchData.all = this.all;
-    this.SearchData.agent_id = this.agent_id;
-    this.SearchData.agent_name = this.agent_name;
-    this.SearchData.agent_code = this.agent_code;
-    this.SearchData.shipper_id = this.shipper_id;
-    this.SearchData.consignee_id = this.consignee_id;
-    this.SearchData.carrier_id = this.carrier_id;
-    this.SearchData.pol_id = this.pol_id;
-    this.SearchData.pod_id = this.pod_id;
-    this.SearchData.pendingInvoice = this.pendingInvoice;
+    this.SearchData.type_date = this.ms.state.type_date;
+    this.SearchData.from_date = this.ms.state.from_date;
+    this.SearchData.to_date = this.ms.state.to_date;
+    this.SearchData.all = this.ms.state.all;
+    this.SearchData.agent_id = this.ms.state.agent_id;
+    this.SearchData.agent_name = this.ms.state.agent_name;
+    this.SearchData.agent_code = this.ms.state.agent_code;
+    this.SearchData.shipper_id = this.ms.state.shipper_id;
+    this.SearchData.consignee_id = this.ms.state.consignee_id;
+    this.SearchData.carrier_id = this.ms.state.carrier_id;
+    this.SearchData.pol_id = this.ms.state.pol_id;
+    this.SearchData.pod_id = this.ms.state.pod_id;
+    this.SearchData.pendingInvoice = this.ms.state.pendingInvoice;
     this.SearchData.user_code = this.gs.globalVariables.user_code;
     this.SearchData.user_name = this.gs.globalVariables.user_name;
     this.ErrorMessage = '';
-    this.mainService.List(this.SearchData)
-      .subscribe(response => {
-        this.loading = false;
-        if (_type == 'EXCEL')
-          this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-        else if (_type == 'MAIL') {
-          if (response.mailmsg.length > 0)
-            alert(response.mailmsg);
-        }
-        else {
-          this.RecordList = response.list;
-        }
-      },
-        error => {
-          this.loading = false;
-          this.RecordList = null;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
-        });
+    this.ms.List(this.SearchData).subscribe(response => {
+      this.loading = false;
+      if (_type == 'EXCEL')
+        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
+      else if (_type == 'MAIL') {
+        if (response.mailmsg.length > 0)
+          alert(response.mailmsg);
+      }
+      else {
+        this.ms.state.RecordList = response.list;
+      }
+    }, error => {
+      this.loading = false;
+      this.ms.state.RecordList = [];
+      this.ErrorMessage = this.gs.getError(error);
+      alert(this.ErrorMessage);
+    });
   }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
@@ -403,7 +433,7 @@ export class MonrepComponent {
   }
 
   OnChange(field: string) {
-    this.RecordList = null;
+    this.ms.state.RecordList = []
 
   }
   Close() {
@@ -442,7 +472,7 @@ export class MonrepComponent {
       let old_sman_names: string = "";
       let hblnos: string = "";
       let shpr: string = "";
-      for (let rec of this.RecordList) {
+      for (let rec of this.ms.state.RecordList) {
         if (rec.hbl_pkid != null) {
           shpr = rec.shipper_name;
           if (hbl_ids != "") {
@@ -459,14 +489,14 @@ export class MonrepComponent {
       params.SearchData.old_smanname = old_sman_names;
       params.SearchData.hblno = hblnos;
       params.SearchData.shipper = shpr;
-      params.SearchData.periods = 'From ' + this.from_date + ' to ' + this.to_date;
+      params.SearchData.periods = 'From ' + this.ms.state.from_date + ' to ' + this.ms.state.to_date;
       this.loading = true;
       this.ErrorMessage = '';
-      this.mainService.UpdateMonReport(params.SearchData)
+      this.ms.UpdateMonReport(params.SearchData)
         .subscribe(response => {
           this.loading = false;
           if (response.status == "OK") {
-            for (let rec of this.RecordList) {
+            for (let rec of this.ms.state.RecordList) {
               rec.sman_id = params.smanid;
               rec.sman_name = params.smanname;
               rec.displayed = false;
@@ -476,10 +506,7 @@ export class MonrepComponent {
           error => {
             this.loading = false;
             this.ErrorMessage = this.gs.getError(error);
-
           });
     }
-
   }
-
 }

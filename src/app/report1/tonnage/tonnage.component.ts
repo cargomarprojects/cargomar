@@ -122,12 +122,13 @@ export class TonnageComponent {
     // URL Query Parameter
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
-        this.InitCompleted = true;
+
         var options = JSON.parse(params["parameter"]);
         this.menuid = options.menuid;
         this.type = options.type;
         this.rec_category = this.type;
         this.InitComponent();
+        this.InitCompleted = true;
       }
     });
 

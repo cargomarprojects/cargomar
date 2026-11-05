@@ -66,3 +66,85 @@ export class MonRep {
 
   _globalvariables: GlobalVariables;
 }
+
+
+export interface iMonRepModel {
+  // filter Values
+  selectedRowIndex: number;
+  mode: string;
+  pkid: string;
+  currentTab: string;
+  ErrorMessage: string;
+
+  RecordList: MonRep[];
+
+  type_date: string;
+  from_date: string;
+  to_date: string;
+  year_code: string;
+  shipper_id: string;
+  shipper_name: string;
+  consignee_id: string;
+  consignee_name: string;
+  agent_id: string;
+  agent_code: string;
+  agent_name: string;
+  carrier_id: string;
+  carrier_name: string;
+  pol_id: string;
+  pol_name: string;
+  pod_id: string;
+  pod_name: string;
+  branch_code: string;
+  branch_name: string;
+  report_format: string;
+  all: boolean;
+  pendingInvoice: boolean;
+
+
+  // Page Values
+  page_count: number;
+  page_current: number;
+  page_rows: number;
+  page_rowcount: number;
+};
+
+export const initialState: iMonRepModel = {
+  selectedRowIndex: 0,
+  mode: '',
+  pkid: '',
+  currentTab: '',
+  RecordList: [],
+  ErrorMessage: '',
+
+  type_date: '',
+  from_date: '',
+  to_date: '',
+  year_code: '',
+  shipper_id: '',
+  shipper_name: '',
+  consignee_id: '',
+  consignee_name: '',
+  agent_id: '',
+  agent_code: '',
+  agent_name: '',
+  carrier_id: '',
+  carrier_name: '',
+  pol_id: '',
+  pol_name: '',
+  pod_id: '',
+  pod_name: '',
+  branch_code: '',
+  branch_name: '',
+  report_format: '',
+  all: false,
+  pendingInvoice: false,
+
+  page_count: 0,
+  page_current: 0,
+  page_rows: 15,
+  page_rowcount: 0
+
+
+}
+
