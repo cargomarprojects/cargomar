@@ -388,6 +388,9 @@ export class TonnageComponent {
     //  return;
     //}
 
+    this.mainService.state.selectedRowIndex = 0;
+    this.restoreRowPosition()
+
     this.loading = true;
     this.pkid = this.gs.getGuid();
     this.SearchData.pkid = this.pkid;
