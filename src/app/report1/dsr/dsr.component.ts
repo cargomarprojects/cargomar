@@ -46,6 +46,11 @@ export class DsrComponent {
   job_menu_record: any;
   canEditJob: boolean = false;
 
+  lbl_master_caption: string = "Master";
+  mbl_menuid: string = "";
+  mbl_menu_record: any;
+  canEditMaster: boolean = false;
+
   rec_category: string = '';
   loading: boolean = false;
   bAdmin: boolean = false;
@@ -136,31 +141,41 @@ export class DsrComponent {
         this.bSman = true;
     }
 
-
     this.job_menuid = '';
     this.canEditJob = false;
     this.hbl_menuid = '';
     this.canEditHouse = false;
+    this.mbl_menuid = '';
+    this.canEditMaster = false;
+    this.lbl_master_caption = 'Master';
     if (this.type.toString() == "SEA EXPORT") {
       this.porttype = "SEA PORT";
       this.carriertype = "SEA CARRIER";
       this.job_menuid = "JOBSEAEXPORT";
       this.hbl_menuid = "SISEAEXPORT";
+      this.mbl_menuid = "MBLSEAEXPORT";
+      this.lbl_master_caption = 'Booking Sea Export';
     } else if (this.type.toString() == "SEA IMPORT") {
       this.porttype = "SEA PORT";
       this.carriertype = "SEA CARRIER";
       this.job_menuid = "";
       this.hbl_menuid = "SISEAIMPORT";
+      this.mbl_menuid = "MBLSEAIMPORT";
+      this.lbl_master_caption = 'Master Sea Import';
     } else if (this.type.toString() == "AIR EXPORT") {
       this.porttype = "AIR PORT";
       this.carriertype = "AIR CARRIER";
       this.job_menuid = "JOBAIREXPORT";
       this.hbl_menuid = "SIAIREXPORT";
+      this.mbl_menuid = "MBLAIREXPORT";
+      this.lbl_master_caption = 'Master Air Export';
     } else if (this.type.toString() == "AIR IMPORT") {
       this.porttype = "AIR PORT";
       this.carriertype = "AIR CARRIER";
       this.job_menuid = "";
       this.hbl_menuid = "SIAIRIMPORT";
+      this.mbl_menuid = "MBLAIRIMPORT";
+      this.lbl_master_caption = 'Master Air Import';
     }
 
     if (this.job_menuid) {
@@ -175,6 +190,14 @@ export class DsrComponent {
       if (this.hbl_menu_record) {
         if (this.hbl_menu_record.rights_edit)
           this.canEditHouse = true;
+      }
+    }
+
+    if (this.mbl_menuid) {
+      this.mbl_menu_record = this.gs.getMenu(this.mbl_menuid);
+      if (this.mbl_menu_record) {
+        if (this.mbl_menu_record.rights_edit)
+          this.canEditMaster = true;
       }
     }
 
@@ -697,6 +720,9 @@ export class DsrComponent {
       tp_code: this.gs.globalVariables.tp_code
     };
 
+    this.ms.state.job_id = "";
+    this.ms.state.hbl_id = "";
+    this.ms.state.mbl_id = "";
     this.ms.state.selectedRowIndex = 0;
     this.ms.state.all_br_list = this.ms.state.all;
     this.ms.state.search_bookingrpt = this.ms.state.bookingrpt;
@@ -788,6 +814,10 @@ export class DsrComponent {
           this.ms.state.feildList = response.feildlist;
           if (!this.gs.isBlank(this.ms.state.feildList))
             this.setColFormat();
+          for (let rec of this.ms.state.RecordList) {
+            this.setSelectedIndex(rec, 0);
+            break;
+          }
           this.restoreRowPosition();
         }
 
@@ -911,6 +941,13 @@ export class DsrComponent {
   }
 
   EditHouse() {
+
+    if (!this.canEditHouse) {
+      alert("Access Denied");
+      return;
+    }
+
+
     if (this.gs.isBlank(this.ms.state.hbl_id)) {
       alert("Shipping Instruction not found");
       return;
@@ -936,6 +973,11 @@ export class DsrComponent {
     if (this.rec_category == "SEA IMPORT" || this.rec_category == "AIR IMPORT")
       return;
 
+    if (!this.canEditJob) {
+      alert("Access Denied");
+      return;
+    }
+
     if (this.gs.isBlank(this.ms.state.job_id)) {
       alert("Job not found");
       return;
@@ -956,6 +998,36 @@ export class DsrComponent {
 
   }
 
+  EditMaster() {
+
+    if (!this.canEditMaster) {
+      alert("Access Denied");
+      return;
+    }
+
+    if (this.gs.isBlank(this.ms.state.mbl_id)) {
+      alert("Master not found");
+      return;
+    }
+
+    if (this.ms.state.branch_code != this.gs.globalVariables.branch_code) {
+      alert("Cannot Edit details from another branch");
+      return;
+    }
+
+    let param = {
+      menuid: this.mbl_menuid,
+      type: this.rec_category,
+      pkid: this.ms.state.mbl_id
+    }
+
+    if (this.rec_category == "SEA EXPORT")
+      this.gs.Naviagete("operations/mblsea", JSON.stringify(param));
+    else if (this.rec_category == "AIR EXPORT")
+      this.gs.Naviagete("operations/mblair", JSON.stringify(param));
+    else if (this.rec_category == "SEA IMPORT" || this.rec_category == "AIR IMPORT")
+      this.gs.Naviagete("operations/impmblseaair", JSON.stringify(param));
+  }
 
   getSwhere(_type: string) {
     let _retstr = "";

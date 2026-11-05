@@ -2,10 +2,12 @@
   <div class="page-header">
     <div class="col">
       <label>{{title}}</label>
-      <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
-      <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
-
-      <button class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+      <button *ngIf="!invokefromRpt" [disabled]="loading" (click)="ActionHandler('LIST','')"
+        class="btn btn-primary btn-sm">List</button>
+      <button *ngIf="!invokefromRpt" [disabled]="loading" (click)="ActionHandler('ADD','')"
+        class="btn btn-primary btn-sm">New</button>
+      <button *ngIf="!invokefromRpt" class="btn btn-primary btn-sm" (click)="Close()">Close</button>
+      <button *ngIf="invokefromRpt" class="btn btn-primary btn-sm" (click)="Return()">Return</button>
       <i *ngIf="loading" class="fa fa-spinner"></i>
     </div>
   </div>
@@ -1169,7 +1171,7 @@
     </div>
   </div>
 </div>
-<app-warningalert #WarnMsg [showYesNo]="true" ></app-warningalert>
+<app-warningalert #WarnMsg [showYesNo]="true"></app-warningalert>
 <ng-template #hblcontentse let-c="close" let-d="dismiss">
   <div class="modal-header" style="cursor: move;" (mousedown)="gs.startDrag($event)">
     <h4 class="modal-title">{{hbl_title}}</h4>

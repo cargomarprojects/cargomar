@@ -227,10 +227,12 @@
 
           <div class="form-group row">
             <div class="offset-2 col-sm-8">
-              <button *ngIf="canEditJob&&!ms.state.all_br_list" [disabled]="loading" (click)="EditJob()"
+              <button *ngIf="canEditJob&&!ms.state.all_br_list&&!ms.state.bookingrpt" [disabled]="loading" (click)="EditJob()"
                 class="btn btn-primary btn-sm">Job</button>
               <button *ngIf="canEditHouse&&!ms.state.all_br_list" [disabled]="loading" (click)="EditHouse()"
                 class="btn btn-primary btn-sm">SI</button>
+              <button *ngIf="canEditMaster&&!ms.state.all_br_list" [disabled]="loading" (click)="EditMaster()"
+                class="btn btn-primary btn-sm">{{lbl_master_caption}}</button>
             </div>
           </div>
         </div>
@@ -301,8 +303,8 @@
           <th>STATUS</th>
         </tr>
       </thead>
-      <tbody class="page-body-tbody" *ngFor="let rec of ms.state.RecordList; let i = index">
-        <tr [class.active]="i == ms.state.selectedRowIndex" (mousedown)="ms.state.selectedRowIndex=i">
+      <tbody class="page-body-tbody" *ngFor="let rec of ms.state.RecordList; let i = index" [id]="i">
+        <tr [class.active]="i == ms.state.selectedRowIndex" (mousedown)="setSelectedIndex(rec,i)">
           <td *ngIf="ms.state.all">{{rec.branch}}</td>
           <td>{{rec.hbl_no}}</td>
           <td>{{rec.hbl_cf_date}}</td>

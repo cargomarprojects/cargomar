@@ -40,6 +40,7 @@ export class MblSeaComponent {
 
   @Input() menuid: string = '';
   @Input() type: string = '';
+  @Input() mbl_id: string = '';
   InitCompleted: boolean = false;
   menu_record: any;
   hbl_menu_record: any;
@@ -62,7 +63,7 @@ export class MblSeaComponent {
   bSurrenderMailAgent = false;
   default_ftptype: string = 'BL-FTP';
   default_mailftp_rootpage: string = 'MAILPAGE';
-  
+
   mMsg: string = '';
   sSubject: string = '';
   folder_id: string;
@@ -105,7 +106,7 @@ export class MblSeaComponent {
   sAgent_ID2 = "";
   sCarrier_ID = "";
   lockChar = "";
-
+  invokefromRpt: boolean = false;
   shipmentstage_completed: boolean = false;
   shptstagetype: string = "SHPT.STAGE";
   shipmentstage = "NA";
@@ -154,22 +155,37 @@ export class MblSeaComponent {
     this.page_count = 0;
     this.page_rows = 10;
     this.page_current = 0;
+    this.invokefromRpt = false;
     // URL Query Parameter
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
-        this.InitCompleted = true;
+        // this.InitCompleted = true;
         var options = JSON.parse(params["parameter"]);
         this.menuid = options.menuid;
         this.type = options.type;
-        this.InitComponent();
+        if (!gs.isBlank(options.pkid)) {
+          this.invokefromRpt = true;
+          this.mbl_id = options.pkid;
+        }
+        // this.InitComponent();
       }
     });
   }
 
   // Init Will be called After executing Constructor
   ngOnInit() {
-    if (!this.InitCompleted) {
+    if (this.invokefromRpt) {  //modal change
       this.InitComponent();
+      if (this.gs.isBlank(this.mbl_id))
+        this.ActionHandler('ADD', '');
+      else
+        this.ActionHandler('EDIT', this.mbl_id)
+    }
+    else {
+      if (!this.InitCompleted) {
+        this.InitCompleted = true;
+        this.InitComponent();
+      }
     }
   }
 
@@ -253,7 +269,9 @@ export class MblSeaComponent {
             this.sDefaultCntrType_ID = REC.param_pkid;
           }
         }
-        this.List("NEW");
+
+        if (!this.invokefromRpt)
+          this.List("NEW");
       },
         error => {
           this.loading = false;
@@ -2327,6 +2345,10 @@ export class MblSeaComponent {
 
   copyText(text: string) {
     (navigator as any).clipboard.writeText(text);
+  }
+
+   Return() {
+    this.gs.ClosePage('', false);
   }
 
 }

@@ -23,6 +23,7 @@ export class ImpMblSeaAirComponent {
   @ViewChild('WarnMsg') private _WarnMsg: WarningAlertComponent;
   @Input() menuid: string = '';
   @Input() type: string = '';
+  @Input() mbl_id: string = '';
   InitCompleted: boolean = false;
   menu_record: any;
   hbl_menu_record: any;
@@ -61,6 +62,7 @@ export class ImpMblSeaAirComponent {
   ErrorMessage = "";
   InfoMessage = "";
 
+  invokefromRpt: boolean = false;
   search_all_house: boolean = false;
   hbl_menuid: string = "";
   hbl_title: string = "";
@@ -111,19 +113,33 @@ export class ImpMblSeaAirComponent {
     // URL Query Parameter 
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
-        this.InitCompleted = true;
+        // this.InitCompleted = true;
         var options = JSON.parse(params["parameter"]);
         this.menuid = options.menuid;
         this.type = options.type;
-        this.InitComponent();
+        if (!gs.isBlank(options.pkid)) {
+          this.invokefromRpt = true;
+          this.mbl_id = options.pkid;
+        }
+        // this.InitComponent();
       }
     });
   }
 
   // Init Will be called After executing Constructor
   ngOnInit() {
-    if (!this.InitCompleted) {
+    if (this.invokefromRpt) {  //modal change
       this.InitComponent();
+      if (this.gs.isBlank(this.mbl_id))
+        this.ActionHandler('ADD', '');
+      else
+        this.ActionHandler('EDIT', this.mbl_id)
+    }
+    else {
+      if (!this.InitCompleted) {
+        this.InitCompleted = true;
+        this.InitComponent();
+      }
     }
   }
 
@@ -199,7 +215,9 @@ export class ImpMblSeaAirComponent {
       .subscribe(response => {
         this.loading = false;
         this.StatusList = response.statuslist;
-        this.List("NEW");
+
+        if (!this.invokefromRpt)
+          this.List("NEW");
       },
         error => {
           this.loading = false;
@@ -1315,6 +1333,10 @@ export class ImpMblSeaAirComponent {
       this.HblList(this.Record, true)
     }
 
+  }
+
+  Return() {
+    this.gs.ClosePage('', false);
   }
 
 }
