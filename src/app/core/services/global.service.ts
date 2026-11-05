@@ -910,8 +910,8 @@ export class GlobalService {
     this.router.navigate([menu_route], { queryParams: { id: id, parameter: jsonstring }, replaceUrl: false });
   }
 
-  Naviagete2(menu_route: string, jsonstring: string) {
-    this.router.navigate([menu_route], { queryParams: {parameter: jsonstring }, replaceUrl: false });
+  Naviagete2(menu_route: string, jsonstring: string, _appid: string, _deviceid: string) {
+    this.router.navigate([menu_route], { queryParams: { appid: _appid, parameter: jsonstring, deviceid: _deviceid, }, replaceUrl: false });
   }
 
   public IsValidTelephone(_tel: string, _maxval: number = 12): Boolean {
