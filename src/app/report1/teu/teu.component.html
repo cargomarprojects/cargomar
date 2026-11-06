@@ -6,7 +6,7 @@
   </div>
 </div>
 
-<div *ngIf="currentTab=='LIST'" class="page-list">
+<div *ngIf="ms.state.currentTab=='LIST'" class="page-list">
   <div class="page-list">
     <div class="page-search">
       <div class="row">
@@ -14,22 +14,22 @@
           <div class="form-group row">
             <!-- <label class="col-4 col-form-label col-form-label-sm">From Date</label> -->
             <div class="col-sm-3">
-              <select class="form-control form-control-sm pl-0" [(ngModel)]="type_date">
+              <select class="form-control form-control-sm pl-0" [(ngModel)]="ms.state.type_date">
                 <option [value]="'SOB'">SOB</option>
                 <option [value]="'CREATED'">CREATED DATE</option>
                 <option *ngIf="rec_category=='TEU-IMPORT'" [value]="'ETA'">ETA</option>
                 <option [value]="'FIN-YEAR'">FIN-YEAR</option>
               </select>
             </div>
-            <div *ngIf="type_date!='FIN-YEAR'" class="col-sm-4">
-              <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+            <div *ngIf="ms.state.type_date!='FIN-YEAR'" class="col-sm-4">
+              <app-date [inputdate]="ms.state.from_date" (ValueChanged)="ms.state.from_date=$event"></app-date>
             </div>
-            <label *ngIf="type_date!='FIN-YEAR'" class="col-sm-1 col-form-label col-form-label-sm">To</label>
-            <div *ngIf="type_date!='FIN-YEAR'" class="col-sm-4">
-              <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+            <label *ngIf="ms.state.type_date!='FIN-YEAR'" class="col-sm-1 col-form-label col-form-label-sm">To</label>
+            <div *ngIf="ms.state.type_date!='FIN-YEAR'" class="col-sm-4">
+              <app-date [inputdate]="ms.state.to_date" (ValueChanged)="ms.state.to_date=$event"></app-date>
             </div>
-            <div *ngIf="type_date=='FIN-YEAR'" class="col-sm-9">
-              <select class="form-control form-control-sm" [(ngModel)]="year_code">
+            <div *ngIf="ms.state.type_date=='FIN-YEAR'" class="col-sm-9">
+              <select class="form-control form-control-sm" [(ngModel)]="ms.state.year_code">
                 <option *ngFor="let rec of YearList" [value]="rec.year_code">{{rec.year_name}}</option>
               </select>
             </div>
@@ -43,30 +43,50 @@
           <div class="form-group row">
             <label class="col-sm-3 col-form-label col-form-label-sm">Shipper</label>
             <div *ngIf="rec_category=='TEU-EXPORT'" class="col-sm-9">
-              <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)">
-              </app-autocomplete>
+              <!-- <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete> -->
+
+              <app-autocomplete3 [controlname]="'SHIPPER'" [tabletype]="'CUSTOMER'" [where]="shipper_where"
+                [displaycolumn]="'NAME'" [displaydata]="ms.state.shipper_name" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete3>
+
             </div>
             <div *ngIf="rec_category=='TEU-IMPORT'" class="col-sm-9">
-              <app-autocomplete #ImporterLov [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)">
-              </app-autocomplete>
+              <!-- <app-autocomplete #ImporterLov [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete> -->
+              <app-autocomplete3 [controlname]="'CONSIGNEE'" [tabletype]="'CUSTOMER'" [where]="consignee_where"
+                [displaycolumn]="'NAME'" [displaydata]="ms.state.consignee_name" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete3>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-3 col-form-label col-form-label-sm">Consignee</label>
             <div *ngIf="rec_category=='TEU-EXPORT'" class="col-sm-9">
-              <app-autocomplete #ImporterLov [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)">
-              </app-autocomplete>
+              <!-- <app-autocomplete #ImporterLov [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete> -->
+
+              <app-autocomplete3 [controlname]="'CONSIGNEE'" [tabletype]="'CUSTOMER'" [where]="consignee_where"
+                [displaycolumn]="'NAME'" [displaydata]="ms.state.consignee_name" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete3>
+
             </div>
             <div *ngIf="rec_category=='TEU-IMPORT'" class="col-sm-9">
-              <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)">
-              </app-autocomplete>
+              <!-- <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete> -->
+              <app-autocomplete3 [controlname]="'SHIPPER'" [tabletype]="'CUSTOMER'" [where]="shipper_where"
+                [displaycolumn]="'NAME'" [displaydata]="ms.state.shipper_name" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete3>
+
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-3 col-form-label col-form-label-sm">Agent</label>
             <div class="col-sm-9">
-              <app-autocomplete #AgentAddLov [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)">
-              </app-autocomplete>
+              <!-- <app-autocomplete #AgentAddLov [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete> -->
+              <app-autocomplete3 [controlname]="'AGENT'" [tabletype]="'CUSTOMER'" [where]="agent_where"
+                [displaycolumn]="'NAME'" [displaydata]="ms.state.agent_name" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete3>
             </div>
           </div>
         </div>
@@ -75,28 +95,46 @@
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Carrier</label>
             <div class="col-sm-10">
-              <app-autocomplete #CarrierAddLov [inputdata]="CARRIERRECORD" (ValueChanged)="LovSelected($event)">
-              </app-autocomplete>
+              <!-- <app-autocomplete #CarrierAddLov [inputdata]="CARRIERRECORD" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete> -->
+              <app-autocomplete3 [controlname]="'CARRIER'" [tabletype]="'SEA CARRIER'" [where]="''"
+                [displaycolumn]="'NAME'" [displaydata]="ms.state.carrier_name" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete3>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Pol</label>
             <div class="col-sm-10">
-              <app-autocomplete #LoadPortAddLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)">
-              </app-autocomplete>
+              <!-- <app-autocomplete #LoadPortAddLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete> -->
+              <app-autocomplete3 [controlname]="'POL'" [tabletype]="'SEA PORT'" [where]="''" [displaycolumn]="'NAME'"
+                [displaydata]="ms.state.pol_name" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete3>
+
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Pod</label>
             <div class="col-sm-10">
-              <app-autocomplete #DischrgPortAddLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)">
-              </app-autocomplete>
+              <!-- <app-autocomplete #DischrgPortAddLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete> -->
+
+              <app-autocomplete3 [controlname]="'POD'" [tabletype]="'SEA PORT'" [where]="''" [displaycolumn]="'NAME'"
+                [displaydata]="ms.state.pod_name" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete3>
+
             </div>
           </div>
           <div *ngIf="bCompany" class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
             <div class="col-sm-10">
-              <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              <!-- <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete> -->
+
+              <app-autocomplete3 [controlname]="'BRANCH'" [tabletype]="'BRANCH'" [where]="''" [displaycolumn]="'CODE'"
+                [displaydata]="ms.state.branch_code" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete3>
+
+
             </div>
           </div>
         </div>
@@ -105,7 +143,7 @@
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Format</label>
             <div class="col-sm-10">
-              <select class="form-control form-control-sm" [(ngModel)]="report_format">
+              <select class="form-control form-control-sm" [(ngModel)]="ms.state.report_format">
                 <option [value]="'GENERAL'">GENERAL</option>
                 <option [value]="'BRANCH MONTH WISE'">BRANCH MONTH WISE</option>
                 <option [value]="'CUSTOMER MONTH WISE'">CUSTOMER MONTH WISE</option>
@@ -123,7 +161,7 @@
               <input type="checkbox" [(ngModel)]="all" (change)="OnChange('all')" id="_chkall">
               <label class="col-form-label col-form-label-sm mr-1" for="_chkall">All Branch</label>
               <!-- <span> All</span> -->
-              <input type="checkbox" [(ngModel)]="isSubtot" (change)="OnChange('isSubtot')" id="_chkSubtotal">
+              <input type="checkbox" [(ngModel)]="ms.state.isSubtot" (change)="OnChange('isSubtot')" id="_chkSubtotal">
               <label class="col-form-label col-form-label-sm" for="_chkSubtotal">Subtotal</label>
               <!-- <span> Subtotal</span> -->
             </div>
@@ -142,12 +180,12 @@
     </div>
   </div>
 
-  <div *ngIf="rec_category=='TEU-EXPORT'&& list_format=='GENERAL'"
+  <div *ngIf="rec_category=='TEU-EXPORT'&& ms.state.list_format=='GENERAL'"
     class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 340px);">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
-          <th *ngIf="all">BRANCH</th>
+          <th *ngIf="ms.state.all">BRANCH</th>
           <th>CONTAINER</th>
           <th>TYPE</th>
           <th>A.SEALNO</th>
@@ -181,9 +219,9 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
-          (mousedown)="selectedRowIndex=i" [style.color]="rec.row_colour">
-          <td *ngIf="all">{{rec.branch}}</td>
+        <tr *ngFor="let rec of ms.state.RecordList; let i = index" [class.active]="i == ms.state.selectedRowIndex"
+          (mousedown)="ms.state.selectedRowIndex=i" [style.color]="rec.row_colour" [id]="i">
+          <td *ngIf="ms.state.all">{{rec.branch}}</td>
           <td>{{rec.cntr_no}}</td>
           <td>{{rec.cntr_type_code}}</td>
           <td>{{rec.cntr_asealno}}</td>
@@ -219,55 +257,55 @@
     </table>
   </div>
 
-  <div *ngIf="list_format=='SUMMARY'" class="page-body table-responsive fixedTableHead my-0 p-0"
+  <div *ngIf="ms.state.list_format=='SUMMARY'" class="page-body table-responsive fixedTableHead my-0 p-0"
     style="height: calc(100vh - 340px);">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
-          <th>{{ColNames.length>0?ColNames[0]:''}}</th>
-          <th *ngIf="ColNames.length>2" class="text-right">{{ColNames[2]}}</th>
-          <th *ngIf="ColNames.length>3" class="text-right">{{ColNames[3]}}</th>
-          <th *ngIf="ColNames.length>4" class="text-right">{{ColNames[4]}}</th>
-          <th *ngIf="ColNames.length>5" class="text-right">{{ColNames[5]}}</th>
-          <th *ngIf="ColNames.length>6" class="text-right">{{ColNames[6]}}</th>
-          <th *ngIf="ColNames.length>7" class="text-right">{{ColNames[7]}}</th>
-          <th *ngIf="ColNames.length>8" class="text-right">{{ColNames[8]}}</th>
-          <th *ngIf="ColNames.length>9" class="text-right">{{ColNames[9]}}</th>
-          <th *ngIf="ColNames.length>10" class="text-right">{{ColNames[10]}}</th>
-          <th *ngIf="ColNames.length>11" class="text-right">{{ColNames[11]}}</th>
-          <th *ngIf="ColNames.length>12" class="text-right">{{ColNames[12]}}</th>
-          <th *ngIf="ColNames.length>13" class="text-right">{{ColNames[13]}}</th>
+          <th>{{ms.state.ColNames.length>0?ms.state.ColNames[0]:''}}</th>
+          <th *ngIf="ms.state.ColNames.length>2" class="text-right">{{ms.state.ColNames[2]}}</th>
+          <th *ngIf="ms.state.ColNames.length>3" class="text-right">{{ms.state.ColNames[3]}}</th>
+          <th *ngIf="ms.state.ColNames.length>4" class="text-right">{{ms.state.ColNames[4]}}</th>
+          <th *ngIf="ms.state.ColNames.length>5" class="text-right">{{ms.state.ColNames[5]}}</th>
+          <th *ngIf="ms.state.ColNames.length>6" class="text-right">{{ms.state.ColNames[6]}}</th>
+          <th *ngIf="ms.state.ColNames.length>7" class="text-right">{{ms.state.ColNames[7]}}</th>
+          <th *ngIf="ms.state.ColNames.length>8" class="text-right">{{ms.state.ColNames[8]}}</th>
+          <th *ngIf="ms.state.ColNames.length>9" class="text-right">{{ms.state.ColNames[9]}}</th>
+          <th *ngIf="ms.state.ColNames.length>10" class="text-right">{{ms.state.ColNames[10]}}</th>
+          <th *ngIf="ms.state.ColNames.length>11" class="text-right">{{ms.state.ColNames[11]}}</th>
+          <th *ngIf="ms.state.ColNames.length>12" class="text-right">{{ms.state.ColNames[12]}}</th>
+          <th *ngIf="ms.state.ColNames.length>13" class="text-right">{{ms.state.ColNames[13]}}</th>
           <th class="text-right">TEU</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
-          (mousedown)="selectedRowIndex=i" [style.color]="rec.row_colour">
-          <td>{{ColNames.length>0?rec[ColNames[1]]:''}}</td>
-          <td *ngIf="ColNames.length>2" class="text-right">{{rec[ColNames[2]]}}</td>
-          <td *ngIf="ColNames.length>3" class="text-right">{{rec[ColNames[3]]}}</td>
-          <td *ngIf="ColNames.length>4" class="text-right">{{rec[ColNames[4]]}}</td>
-          <td *ngIf="ColNames.length>5" class="text-right">{{rec[ColNames[5]]}}</td>
-          <td *ngIf="ColNames.length>6" class="text-right">{{rec[ColNames[6]]}}</td>
-          <td *ngIf="ColNames.length>7" class="text-right">{{rec[ColNames[7]]}}</td>
-          <td *ngIf="ColNames.length>8" class="text-right">{{rec[ColNames[8]]}}</td>
-          <td *ngIf="ColNames.length>9" class="text-right">{{rec[ColNames[9]]}}</td>
-          <td *ngIf="ColNames.length>10" class="text-right">{{rec[ColNames[10]]}}</td>
-          <td *ngIf="ColNames.length>11" class="text-right">{{rec[ColNames[11]]}}</td>
-          <td *ngIf="ColNames.length>12" class="text-right">{{rec[ColNames[12]]}}</td>
-          <td *ngIf="ColNames.length>13" class="text-right">{{rec[ColNames[13]]}}</td>
+        <tr *ngFor="let rec of ms.state.RecordList; let i = index" [class.active]="i == ms.state.selectedRowIndex"
+          (mousedown)="ms.state.selectedRowIndex=i" [style.color]="rec.row_colour" [id]="i">
+          <td>{{ms.state.ColNames.length>0?rec[ms.state.ColNames[1]]:''}}</td>
+          <td *ngIf="ms.state.ColNames.length>2" class="text-right">{{rec[ms.state.ColNames[2]]}}</td>
+          <td *ngIf="ms.state.ColNames.length>3" class="text-right">{{rec[ms.state.ColNames[3]]}}</td>
+          <td *ngIf="ms.state.ColNames.length>4" class="text-right">{{rec[ms.state.ColNames[4]]}}</td>
+          <td *ngIf="ms.state.ColNames.length>5" class="text-right">{{rec[ms.state.ColNames[5]]}}</td>
+          <td *ngIf="ms.state.ColNames.length>6" class="text-right">{{rec[ms.state.ColNames[6]]}}</td>
+          <td *ngIf="ms.state.ColNames.length>7" class="text-right">{{rec[ms.state.ColNames[7]]}}</td>
+          <td *ngIf="ms.state.ColNames.length>8" class="text-right">{{rec[ms.state.ColNames[8]]}}</td>
+          <td *ngIf="ms.state.ColNames.length>9" class="text-right">{{rec[ms.state.ColNames[9]]}}</td>
+          <td *ngIf="ms.state.ColNames.length>10" class="text-right">{{rec[ms.state.ColNames[10]]}}</td>
+          <td *ngIf="ms.state.ColNames.length>11" class="text-right">{{rec[ms.state.ColNames[11]]}}</td>
+          <td *ngIf="ms.state.ColNames.length>12" class="text-right">{{rec[ms.state.ColNames[12]]}}</td>
+          <td *ngIf="ms.state.ColNames.length>13" class="text-right">{{rec[ms.state.ColNames[13]]}}</td>
           <td class="text-right">{{rec.cntr_teu}}</td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <div *ngIf="rec_category=='TEU-IMPORT'&& list_format=='GENERAL'"
+  <div *ngIf="rec_category=='TEU-IMPORT'&& ms.state.list_format=='GENERAL'"
     class="page-body table-responsive fixedTableHead my-0 p-0" style="height: calc(100vh - 340px);">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
-          <th *ngIf="all">BRANCH</th>
+          <th *ngIf="ms.state.all">BRANCH</th>
           <th>CONTAINER</th>
           <th>TYPE</th>
           <th>ETA</th>
@@ -297,9 +335,9 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
-          (mousedown)="selectedRowIndex=i" [style.color]="rec.row_colour">
-          <td *ngIf="all">{{rec.branch}}</td>
+        <tr *ngFor="let rec of ms.state.RecordList; let i = index" [class.active]="i == ms.state.selectedRowIndex"
+          (mousedown)="ms.state.selectedRowIndex=i" [style.color]="rec.row_colour" [id]="i">
+          <td *ngIf="ms.state.all">{{rec.branch}}</td>
           <td>{{rec.cntr_no}}</td>
           <td>{{rec.cntr_type_code}}</td>
           <td>{{rec.mbl_pod_eta}}</td>
@@ -331,16 +369,16 @@
     </table>
   </div>
 
-  <div *ngIf="list_format=='BRANCH YEAR WISE'" class="page-body table-responsive">
+  <div *ngIf="ms.state.list_format=='BRANCH YEAR WISE'" class="page-body table-responsive">
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
-          <th *ngFor="let rec of HeaderList" class="{{rec.col_class_style}}">{{rec.col_header_name}}</th>
+          <th *ngFor="let rec of ms.state.HeaderList" class="{{rec.col_class_style}}">{{rec.col_header_name}}</th>
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
-          (mousedown)="selectedRowIndex=i" [style.color]="rec.row_colour">
+        <tr *ngFor="let rec of ms.state.RecordList; let i = index" [class.active]="i == ms.state.selectedRowIndex"
+          (mousedown)="ms.state.selectedRowIndex=i" [style.color]="rec.row_colour" [id]="i">
           <td>{{rec.branch}}</td>
           <td *ngFor="let rec2 of rec.TableDataList" class="{{rec2.col_class_style}}">{{rec2.col_field_value}}</td>
         </tr>

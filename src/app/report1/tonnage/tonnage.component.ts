@@ -101,7 +101,7 @@ export class TonnageComponent {
     pod_id: '',
     rec_category: '',
     all: false,
-    report_format: this.mainService.state.report_format
+    report_format: this.ms.state.report_format
   };
 
 
@@ -115,7 +115,7 @@ export class TonnageComponent {
   // PODRECORD: SearchTable = new SearchTable();
 
   constructor(
-    public mainService: TonnageService,
+    public ms: TonnageService,
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {
@@ -140,7 +140,7 @@ export class TonnageComponent {
       this.InitCompleted = true;
       this.InitComponent();
     }
-    this.mainService.init(this.menuid);
+    this.ms.init(this.menuid, this.type);
   }
 
   InitComponent() {
@@ -167,24 +167,24 @@ export class TonnageComponent {
   Init() {
     if (this.type == "AIR IMPORT") {
       this.isAirExport = false;
-      this.mainService.state.type_date = "ETA";
+      this.ms.state.type_date = "ETA";
     }
     else {
       this.isAirExport = true;
-      this.mainService.state.type_date = "MAWB DATE";
+      this.ms.state.type_date = "MAWB DATE";
     }
-    this.mainService.state.report_format = "GENERAL";
-    this.mainService.state.branch_code = this.gs.globalVariables.branch_code;
-    this.mainService.state.branch_name = this.gs.globalVariables.branch_name;
-    this.mainService.state.from_date = this.gs.defaultValues.monthbegindate;
-    this.mainService.state.to_date = this.gs.defaultValues.today;
-    this.mainService.state.RecordList = [];
-    this.mainService.state.shipper_id = '';
-    this.mainService.state.consignee_id = '';
-    this.mainService.state.agent_id = '';
-    this.mainService.state.carrier_id = '';
-    this.mainService.state.pol_id = '';
-    this.mainService.state.pod_id = '';
+    this.ms.state.report_format = "GENERAL";
+    this.ms.state.branch_code = this.gs.globalVariables.branch_code;
+    this.ms.state.branch_name = this.gs.globalVariables.branch_name;
+    this.ms.state.from_date = this.gs.defaultValues.monthbegindate;
+    this.ms.state.to_date = this.gs.defaultValues.today;
+    this.ms.state.RecordList = [];
+    this.ms.state.shipper_id = '';
+    this.ms.state.consignee_id = '';
+    this.ms.state.agent_id = '';
+    this.ms.state.carrier_id = '';
+    this.ms.state.pol_id = '';
+    this.ms.state.pod_id = '';
 
   }
 
@@ -202,7 +202,7 @@ export class TonnageComponent {
 
   restoreRowPosition() {
 
-    const row = document.getElementById('row-' + this.mainService.state.selectedRowIndex);
+    const row = document.getElementById('row-' + this.ms.state.selectedRowIndex);
 
     if (row) {
       row.scrollIntoView({
@@ -289,33 +289,33 @@ export class TonnageComponent {
   LovSelected(_Record: SearchTable) {
     // Company Settings
     if (_Record.controlname == "BRANCH") {
-      this.mainService.state.branch_code = _Record.code;
-      this.mainService.state.branch_name = _Record.name;
+      this.ms.state.branch_code = _Record.code;
+      this.ms.state.branch_name = _Record.name;
     }
     if (_Record.controlname == "SHIPPER") {
-      this.mainService.state.shipper_id = _Record.id;
-      this.mainService.state.shipper_name = _Record.name;
+      this.ms.state.shipper_id = _Record.id;
+      this.ms.state.shipper_name = _Record.name;
     }
     if (_Record.controlname == "CONSIGNEE") {
-      this.mainService.state.consignee_id = _Record.id;
-      this.mainService.state.consignee_name = _Record.name;
+      this.ms.state.consignee_id = _Record.id;
+      this.ms.state.consignee_name = _Record.name;
     }
     if (_Record.controlname == "AGENT") {
-      this.mainService.state.agent_id = _Record.id;
-      this.mainService.state.agent_code = _Record.code;
-      this.mainService.state.agent_name = _Record.name;
+      this.ms.state.agent_id = _Record.id;
+      this.ms.state.agent_code = _Record.code;
+      this.ms.state.agent_name = _Record.name;
     }
     if (_Record.controlname == "CARRIER") {
-      this.mainService.state.carrier_id = _Record.id;
-      this.mainService.state.carrier_name = _Record.name;
+      this.ms.state.carrier_id = _Record.id;
+      this.ms.state.carrier_name = _Record.name;
     }
     if (_Record.controlname == "POL") {
-      this.mainService.state.pol_id = _Record.id;
-      this.mainService.state.pol_name = _Record.name;
+      this.ms.state.pol_id = _Record.id;
+      this.ms.state.pol_name = _Record.name;
     }
     if (_Record.controlname == "POD") {
-      this.mainService.state.pod_id = _Record.id;
-      this.mainService.state.pod_name = _Record.name;
+      this.ms.state.pod_id = _Record.id;
+      this.ms.state.pod_name = _Record.name;
     }
 
 
@@ -334,10 +334,10 @@ export class TonnageComponent {
     SearchData2.branch_code = this.gs.globalVariables.branch_code;
 
     this.ErrorMessage = '';
-    this.mainService.LoadDefault(SearchData2)
+    this.ms.LoadDefault(SearchData2)
       .subscribe(response => {
         this.loading = false;
-        this.mainService.state.YearList = response.yearlist;
+        this.ms.state.YearList = response.yearlist;
         //this.mainService.state.year_code = this.gs.globalVariables.year_code;
       },
         error => {
@@ -374,10 +374,10 @@ export class TonnageComponent {
   // Query List Data
   List(_type: string) {
 
-    this.mainService.state.list_format = this.mainService.state.report_format;
-    if (this.mainService.state.report_format == "BRANCH MONTH WISE" || this.mainService.state.report_format == "CUSTOMER MONTH WISE" || this.mainService.state.report_format == "CONSIGNEE MONTH WISE" ||
-      this.mainService.state.report_format == "AGENT MONTH WISE" || this.mainService.state.report_format == "POL MONTH WISE" || this.mainService.state.report_format == "POD MONTH WISE")
-      this.mainService.state.list_format = "SUMMARY";
+    this.ms.state.list_format = this.ms.state.report_format;
+    if (this.ms.state.report_format == "BRANCH MONTH WISE" || this.ms.state.report_format == "CUSTOMER MONTH WISE" || this.ms.state.report_format == "CONSIGNEE MONTH WISE" ||
+      this.ms.state.report_format == "AGENT MONTH WISE" || this.ms.state.report_format == "POL MONTH WISE" || this.ms.state.report_format == "POD MONTH WISE")
+      this.ms.state.list_format = "SUMMARY";
 
     this.ErrorMessage = '';
     //if (this.from_date.trim().length <= 0) {
@@ -389,7 +389,7 @@ export class TonnageComponent {
     //  return;
     //}
 
-    this.mainService.state.selectedRowIndex = 0;
+    this.ms.state.selectedRowIndex = 0;
     this.restoreRowPosition()
 
     this.loading = true;
@@ -399,8 +399,8 @@ export class TonnageComponent {
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
 
     if (this.bCompany) {
-      this.SearchData.branch_code = this.mainService.state.branch_code;
-      this.SearchData.branch_name = this.mainService.state.branch_name;
+      this.SearchData.branch_code = this.ms.state.branch_code;
+      this.SearchData.branch_name = this.ms.state.branch_name;
     }
     else {
       this.SearchData.branch_code = this.gs.globalVariables.branch_code;
@@ -408,44 +408,44 @@ export class TonnageComponent {
 
     }
     //this.SearchData.year_code = this.gs.globalVariables.year_code;
-    this.SearchData.year_code = this.mainService.state.year_code;
+    this.SearchData.year_code = this.ms.state.year_code;
     this.SearchData.searchstring = this.searchstring.toUpperCase();
     this.SearchData.type = _type;
-    this.SearchData.type_date = this.mainService.state.type_date;
-    if (this.mainService.state.type_date == 'FIN-YEAR') {
+    this.SearchData.type_date = this.ms.state.type_date;
+    if (this.ms.state.type_date == 'FIN-YEAR') {
       this.SearchData.from_date = this.gs.globalVariables.year_start_date;
       this.SearchData.to_date = this.gs.globalVariables.year_end_date;
     } else {
-      this.SearchData.from_date = this.mainService.state.from_date;
-      this.SearchData.to_date = this.mainService.state.to_date;
+      this.SearchData.from_date = this.ms.state.from_date;
+      this.SearchData.to_date = this.ms.state.to_date;
     }
-    this.SearchData.shipper_id = this.mainService.state.shipper_id;
-    this.SearchData.consignee_id = this.mainService.state.consignee_id;
-    this.SearchData.agent_id = this.mainService.state.agent_id;
-    this.SearchData.agent_name = this.mainService.state.agent_name;
-    this.SearchData.agent_code = this.mainService.state.agent_code;
-    this.SearchData.carrier_id = this.mainService.state.carrier_id;
-    this.SearchData.pol_id = this.mainService.state.pol_id;
-    this.SearchData.pod_id = this.mainService.state.pod_id;
-    this.SearchData.all = this.mainService.state.all;
+    this.SearchData.shipper_id = this.ms.state.shipper_id;
+    this.SearchData.consignee_id = this.ms.state.consignee_id;
+    this.SearchData.agent_id = this.ms.state.agent_id;
+    this.SearchData.agent_name = this.ms.state.agent_name;
+    this.SearchData.agent_code = this.ms.state.agent_code;
+    this.SearchData.carrier_id = this.ms.state.carrier_id;
+    this.SearchData.pol_id = this.ms.state.pol_id;
+    this.SearchData.pod_id = this.ms.state.pod_id;
+    this.SearchData.all = this.ms.state.all;
     this.SearchData.rec_category = this.rec_category;
-    this.SearchData.report_format = this.mainService.state.report_format;
+    this.SearchData.report_format = this.ms.state.report_format;
 
     this.ErrorMessage = '';
-    this.mainService.List(this.SearchData)
+    this.ms.List(this.SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.mainService.state.ColNames = response.colnames;
-        this.mainService.state.HeaderList = response.headerlist;
+        this.ms.state.ColNames = response.colnames;
+        this.ms.state.HeaderList = response.headerlist;
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
-          this.mainService.state.RecordList = response.list;
+          this.ms.state.RecordList = response.list;
         }
       },
         error => {
           this.loading = false;
-          this.mainService.state.RecordList = [];
+          this.ms.state.RecordList = [];
           this.ErrorMessage = this.gs.getError(error);
           alert(this.ErrorMessage);
         });
@@ -456,10 +456,11 @@ export class TonnageComponent {
   }
 
   OnChange(field: string) {
-    this.mainService.state.RecordList = [];
+    this.ms.state.RecordList = [];
   }
 
   Close() {
     this.gs.ClosePage('home');
   }
 }
+
