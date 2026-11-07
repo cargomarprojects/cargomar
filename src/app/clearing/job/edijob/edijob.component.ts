@@ -343,6 +343,7 @@ export class EdijobComponent {
     saveRecord.pkid = sPkids;
     saveRecord.root_folder = this.gs.defaultValues.root_folder;
     saveRecord.sub_folder = this.gs.defaultValues.sub_folder;
+    saveRecord.report_folder = this.gs.globalVariables.report_folder;
     if (_type == "SAVE")
       saveRecord.save = "Y";
     else if (_type == "RE-SAVE")
@@ -389,6 +390,7 @@ export class EdijobComponent {
     saveRecord.pkid = _jobId;
     saveRecord.root_folder = this.gs.defaultValues.root_folder;
     saveRecord.sub_folder = this.gs.defaultValues.sub_folder;
+    saveRecord.report_folder = this.gs.globalVariables.report_folder;
     saveRecord.save = "N";
     saveRecord._globalvariables = this.gs.globalVariables;
 

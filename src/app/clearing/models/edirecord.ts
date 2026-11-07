@@ -4,6 +4,7 @@ export class EdiRecord {
     pkid: string;
     root_folder: string;
     sub_folder: string;
+    report_folder: string;
     save: string;
     _globalvariables: GlobalVariables;
 }
