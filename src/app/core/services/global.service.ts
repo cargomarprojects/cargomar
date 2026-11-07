@@ -12,10 +12,9 @@ import { Modulem } from '../models/modulem';
 import { Settings } from '../models/settings';
 import { AppDetails } from '../models/appdetails';
 
-
-
-
 //npm install shortid
+//Created By : Joy
+// Last Modified : 20-06-2024
 
 @Injectable()
 export class GlobalService {
