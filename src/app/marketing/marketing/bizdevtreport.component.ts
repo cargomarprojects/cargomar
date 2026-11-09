@@ -6,12 +6,14 @@ import { MarkMarketingm } from '../models/markmarketingm';
 import { BizdevelopReport } from '../models/markmarketingm';
 import { MarkMarketingService } from '../services/markmarketing.service';
 import { SearchTable } from '../../shared/models/searchtable';
+import { BizdevelopReportService } from '../services/bizdevtreport.service';
 
 
 @Component({
     selector: 'app-bizdevtreport',
     templateUrl: './bizdevtreport.component.html',
-    providers: [MarkMarketingService]
+    // providers: [MarkMarketingService]
+    providers: [BizdevelopReportService]
 })
 export class BizDevtReportComponent {
 
@@ -32,11 +34,11 @@ export class BizDevtReportComponent {
     currentTab = 'LIST';
     currentPage = "ROOT";
     invokeByMenu = true;
-    selectedRowIndex = 0;
+    // selectedRowIndex = 0;
 
-    from_date: string;
-    to_date: string;
-    searchDateType: string = 'MONTHLY';
+    // from_date: string;
+    // to_date: string;
+    // searchDateType: string = 'MONTHLY';
     selectDateType: string = 'NEXT';
 
     searchstring = '';
@@ -72,7 +74,7 @@ export class BizDevtReportComponent {
     iYear: number;
 
     // Array For Displaying List
-    RecordList: BizdevelopReport[] = [];
+    // RecordList: BizdevelopReport[] = [];
     // Single Record for add/edit/view details
     Record: BizdevelopReport = new BizdevelopReport;
 
@@ -83,7 +85,8 @@ export class BizDevtReportComponent {
 
     constructor(
         private modalService: NgbModal,
-        private mainService: MarkMarketingService,
+        private ms: BizdevelopReportService,
+        // private ms: MarkMarketingService,
         private route: ActivatedRoute,
         public gs: GlobalService
 
@@ -115,17 +118,15 @@ export class BizDevtReportComponent {
         if (!this.InitCompleted) {
             this.InitComponent();
         }
+        this.ms.init(this.menuid, this.type);
     }
 
     InitComponent() {
 
         let d = new Date();
         this.iYear = d.getFullYear();
-        this.from_date = this.gs.defaultValues.monthbegindate;
-        this.to_date = this.gs.defaultValues.today;
         this.IsAdmin = false;
         this.IsCompany = false;
-        this.bCoreTeam = true;
         this.bPrint = false;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
@@ -137,9 +138,9 @@ export class BizDevtReportComponent {
             if (this.menu_record.rights_print)
                 this.bPrint = true;
         }
-        this.FindDefaultDate();
+        // this.FindDefaultDate();
         this.LoadCombo();
-        this.List('NEW', 'SCREEN');
+        //this.List('NEW', 'SCREEN');
         this.InitCompleted = true;
     }
 
@@ -147,81 +148,99 @@ export class BizDevtReportComponent {
     ngOnDestroy() {
         this.sub.unsubscribe();
     }
-
-
-    FindDefaultDate() {
-        this.from_date = this.gs.defaultValues.monthbegindate;
-        this.to_date = this.gs.defaultValues.today;
-        var today = new Date();
-
-        if (this.searchDateType == "MONTHLY") {
-            let daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
-            today.setDate(daysInMonth);
-            this.to_date = today.toISOString().slice(0, 10);
-        }
-
-        if (this.searchDateType == "WEEKLY") {
-            let dayOfWk: number = 0;
-            dayOfWk = today.getDay();
-            var wkday = today.getDate() - today.getDay() + 1;
-            var wkStart = new Date(today.setDate(wkday));
-            var wkEnd = new Date(new Date(wkStart).setDate(wkStart.getDate() + 6));
-
-            if (dayOfWk == 0) {
-                //if Sunday will show previous week
-                wkStart = new Date(new Date(wkStart).setDate(wkStart.getDate() - 7));
-                wkEnd = new Date(new Date(wkStart).setDate(wkStart.getDate() + 6));
-            }
-            this.from_date = wkStart.toISOString().slice(0, 10);
-            this.to_date = wkEnd.toISOString().slice(0, 10);
-        }
-
+    
+    ngAfterViewInit() {
+        setTimeout(() => {
+        this.restoreRowPosition();
+        }, 100);
     }
 
+    restoreRowPosition() {
+
+        const row = document.getElementById('row-' + this.ms.state.selectedRowIndex);
+
+        if (row) {
+            row.scrollIntoView({
+                behavior: 'auto',
+                block: 'center'
+            });
+        }
+    }
+
+
+    // FindDefaultDate() {
+    //     this.ms.state.from_date = this.gs.defaultValues.monthbegindate;
+    //     this.ms.state.to_date = this.gs.defaultValues.today;
+    //     var today = new Date();
+
+    //     if (this.ms.state.searchDateType == "MONTHLY") {
+    //         let daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+    //         today.setDate(daysInMonth);
+    //         this.ms.state.to_date = today.toISOString().slice(0, 10);
+    //     }
+
+    //     if (this.ms.state.searchDateType == "WEEKLY") {
+    //         let dayOfWk: number = 0;
+    //         dayOfWk = today.getDay();
+    //         var wkday = today.getDate() - today.getDay() + 1;
+    //         var wkStart = new Date(today.setDate(wkday));
+    //         var wkEnd = new Date(new Date(wkStart).setDate(wkStart.getDate() + 6));
+
+    //         if (dayOfWk == 0) {
+    //             //if Sunday will show previous week
+    //             wkStart = new Date(new Date(wkStart).setDate(wkStart.getDate() - 7));
+    //             wkEnd = new Date(new Date(wkStart).setDate(wkStart.getDate() + 6));
+    //         }
+    //         this.ms.state.from_date = wkStart.toISOString().slice(0, 10);
+    //         this.ms.state.to_date = wkEnd.toISOString().slice(0, 10);
+    //     }
+
+    // }
+
     FindPrevDate() {
-        if (this.gs.isBlank(this.from_date))
+        if (this.gs.isBlank(this.ms.state.from_date))
             return;
-        var d1 = this.from_date.split('-');
+        var d1 = this.ms.state.from_date.split('-');
         var datef = new Date(parseInt(d1[0]), parseInt(d1[1]) - 1, parseInt(d1[2]));
-        if (this.searchDateType == "MONTHLY") {
+        if (this.ms.state.searchDateType == "MONTHLY") {
             datef.setDate(0);
             datef.setDate(1);
-            this.from_date = datef.getFullYear().toString() + "-" + (datef.getMonth() + 1).toString() + "-" + datef.getDate().toString();
+            this.ms.state.from_date = datef.getFullYear().toString() + "-" + (datef.getMonth() + 1).toString() + "-" + datef.getDate().toString();
             var datet = new Date(parseInt(d1[0]), parseInt(d1[1]) - 1, parseInt(d1[2]));
             datet.setDate(0);
-            this.to_date = datet.getFullYear().toString() + "-" + (datet.getMonth() + 1).toString() + "-" + datet.getDate().toString();
+            this.ms.state.to_date = datet.getFullYear().toString() + "-" + (datet.getMonth() + 1).toString() + "-" + datet.getDate().toString();
         }
-        if (this.searchDateType == "WEEKLY") {
+        if (this.ms.state.searchDateType == "WEEKLY") {
             datef.setDate(datef.getDate() - 7);
             var wkday = datef.getDate() - datef.getDay() + (datef.getDay() === 0 ? -6 : 1);
             datef.setDate(wkday);
-            this.from_date = datef.getFullYear().toString() + "-" + (datef.getMonth() + 1).toString() + "-" + datef.getDate().toString();
+            this.ms.state.from_date = datef.getFullYear().toString() + "-" + (datef.getMonth() + 1).toString() + "-" + datef.getDate().toString();
             var wkEnd = new Date(new Date(datef).setDate(datef.getDate() + 6));
-            this.to_date = wkEnd.getFullYear().toString() + "-" + (wkEnd.getMonth() + 1).toString() + "-" + wkEnd.getDate().toString();
+            this.ms.state.to_date = wkEnd.getFullYear().toString() + "-" + (wkEnd.getMonth() + 1).toString() + "-" + wkEnd.getDate().toString();
         }
 
     }
     FindNextDate() {
-        if (this.gs.isBlank(this.from_date))
+        if (this.gs.isBlank(this.ms.state.from_date))
             return;
-        var d1 = this.from_date.split('-');
+        var d1 = this.ms.state.from_date.split('-');
         var datef = new Date(parseInt(d1[0]), parseInt(d1[1]) - 1, parseInt(d1[2]));
-        if (this.searchDateType == "MONTHLY") {
+        if (this.ms.state.searchDateType == "MONTHLY") {
             datef.setMonth(datef.getMonth() + 1);
             datef.setDate(1);
-            this.from_date = datef.getFullYear().toString() + "-" + (datef.getMonth() + 1).toString() + "-" + datef.getDate().toString();
+            this.ms.state.from_date = datef.getFullYear().toString() + "-" + (datef.getMonth() + 1).toString() + "-" + datef.getDate().toString();
 
             let daysInMonth = new Date(datef.getFullYear(), datef.getMonth() + 1, 0).getDate();
             datef.setDate(daysInMonth);
-            this.to_date = datef.getFullYear().toString() + "-" + (datef.getMonth() + 1).toString() + "-" + datef.getDate().toString();
+            this.ms.state.to_date = datef.getFullYear().toString() + "-" + (datef.getMonth() + 1).toString() + "-" + datef.getDate().toString();
         }
-        if (this.searchDateType == "WEEKLY") {
+        if (this.ms.state.searchDateType == "WEEKLY") {
             datef.setDate(datef.getDate() + 7);
             var wkday = datef.getDate() - datef.getDay() + (datef.getDay() === 0 ? -6 : 1);
             datef.setDate(wkday);
-            this.from_date = datef.getFullYear().toString() + "-" + (datef.getMonth() + 1).toString() + "-" + datef.getDate().toString();
+            this.ms.state.from_date = datef.getFullYear().toString() + "-" + (datef.getMonth() + 1).toString() + "-" + datef.getDate().toString();
             var wkEnd = new Date(new Date(datef).setDate(datef.getDate() + 6));
-            this.to_date = wkEnd.getFullYear().toString() + "-" + (wkEnd.getMonth() + 1).toString() + "-" + wkEnd.getDate().toString();
+            this.ms.state.to_date = wkEnd.getFullYear().toString() + "-" + (wkEnd.getMonth() + 1).toString() + "-" + wkEnd.getDate().toString();
         }
 
     }
@@ -243,7 +262,7 @@ export class BizDevtReportComponent {
 
         // this.ErrorMessage = '';
         // this.InfoMessage = '';
-        // this.mainService.LoadDefault(SearchData)
+        // this.ms.LoadDefault(SearchData)
         //   .subscribe(response => {
         //     this.loading = false;
         //     this.List("NEW");
@@ -283,21 +302,21 @@ export class BizDevtReportComponent {
             report_folder: this.gs.globalVariables.report_folder,
             report_type: this.report_type,
             sman_id: this.gs.isBlank(this.sman_id) ? this.gs.globalVariables.sman_id : this.sman_id,
-            from_date: this.from_date,
-            to_date: this.to_date,
+            from_date: this.ms.state.from_date,
+            to_date: this.ms.state.to_date,
             searchstring: this.searchstring,
             iscoreteam: this.bCoreTeam
         };
-
+        this.restoreRowPosition()
         this.ErrorMessage = '';
         this.InfoMessage = '';
-        this.mainService.BizDevelopmentReport(SearchData)
+        this.ms.BizDevelopmentReport(SearchData)
             .subscribe(response => {
                 this.loading = false;
                 if (_output_type == 'EXCEL')
                     this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
                 else {
-                    this.RecordList = response.list;
+                    this.ms.state.RecordList = response.list;
                     this.page_count = response.page_count;
                     this.page_current = response.page_current;
                     this.page_rowcount = response.page_rowcount;
@@ -337,7 +356,7 @@ export class BizDevtReportComponent {
     OnChange(field: string) {
 
         if (field == 'searchDateType') {
-            this.FindDefaultDate();
+            this.ms.FindDefaultDate();
         }
 
     }
@@ -371,8 +390,8 @@ export class BizDevtReportComponent {
             report_type: this.search_report_type,
             cust_id: cust_id,
             cust_name: cust_name,
-            from_date: this.from_date,
-            to_date: this.to_date,
+            from_date: this.ms.state.from_date,
+            to_date: this.ms.state.to_date,
             cust_category: _cont_type
         };
         this.currentPage = "VISIT-REPORT-CHILD";
