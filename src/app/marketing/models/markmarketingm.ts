@@ -201,3 +201,47 @@ export class MonColumns {
   col_field_name: string;
   col_field_value: number;
 }
+
+export interface iBizdevelopReportModel {
+  // filter Values
+  selectedRowIndex: number;
+  mode: string;
+  pkid: string;
+  list_format: string;
+  currentTab: string;
+  RecordList: BizdevelopReport[];
+
+  ErrorMessage: string;
+
+  searchDateType: string;
+  from_date: string;
+  to_date: string;
+  bCoreTeam: Boolean;
+
+    // Page Values
+  page_count: number;
+  page_current: number;
+  page_rows: number;
+  page_rowcount: number;
+};
+
+export const initialState: iBizdevelopReportModel = {
+  selectedRowIndex: 0,
+  mode: '',
+  pkid: '',
+  list_format: '',
+  currentTab: '',
+  RecordList: [],
+  
+  ErrorMessage: '',
+
+  searchDateType: '',
+  from_date: '',
+  to_date: '',
+  bCoreTeam: true,
+
+  page_count: 0,
+  page_current: 0,
+  page_rows: 15,
+  page_rowcount: 0
+}

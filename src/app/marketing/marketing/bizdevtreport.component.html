@@ -14,7 +14,7 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label col-form-label-sm">Type</label>
                         <div class="col-sm-4">
-                            <select class="form-control form-control-sm" name="tpecovrtd" [(ngModel)]="searchDateType"
+                            <select class="form-control form-control-sm" name="tpecovrtd" [(ngModel)]="ms.state.searchDateType"
                                 (change)="OnChange('searchDateType')">
                                 <option [value]="'MONTHLY'">MONTHLY</option>
                                 <option [value]="'WEEKLY'">WEEKLY</option>
@@ -40,11 +40,11 @@
                             </ul>
                         </div>
                         <div class="col-sm-4">
-                            <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+                            <app-date [inputdate]="ms.state.from_date" (ValueChanged)="ms.state.from_date=$event"></app-date>
                         </div>
                         <label class="col-sm-1 col-form-label col-form-label-sm">To</label>
                         <div class="col-sm-4">
-                            <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+                            <app-date [inputdate]="ms.state.to_date" (ValueChanged)="ms.state.to_date=$event"></app-date>
                         </div>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
                     <div class="form-group row">
                         <label class="col-sm-3 col-form-label col-form-label-sm"></label>
                         <div class="col-sm-4">
-                            <input type="checkbox" [(ngModel)]="bCoreTeam">
+                            <input type="checkbox" [(ngModel)]="ms.state.bCoreTeam">
                             <label class="checkbox-inline">Core Team Only</label>
                         </div>
                     </div>
@@ -101,8 +101,8 @@
                     </tr>
                 </thead>
                 <tbody class="page-body-tbody">
-                    <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
-                        (mousedown)="selectedRowIndex=i">
+                    <tr *ngFor="let rec of ms.state.RecordList; let i = index" [id]="'row-' + i" [class.active]="i == ms.state.selectedRowIndex"
+                        (mousedown)="ms.state.selectedRowIndex=i">
                         <td>
                             <div class="hlink" (click)="ShowReport(rec,'ALL')">
                                 <a>{{rec.user_name}}</a>
