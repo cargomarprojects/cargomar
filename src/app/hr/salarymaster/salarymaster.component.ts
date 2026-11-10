@@ -41,13 +41,14 @@ export class SalaryMasterComponent {
   porttype = 'PORT';
   radio_emp: string = 'EMPLOYEE';
   csvamt: string;
-  
+
+  search_branch_code: string = "";
   ErrorMessage = "";
   InfoMessage = "";
   bDocs: boolean = false;
   modal: any;
   bImport = false;
-
+  bCompany: boolean = false;
   SalDetails: any[] = [];
   mode = '';
   pkid = '';
@@ -89,6 +90,8 @@ export class SalaryMasterComponent {
     this.bPrint = false;
     this.bDocs = false;
     this.bImport = false;
+     this.bCompany = false;
+    this.search_branch_code = this.gs.globalVariables.branch_code;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -96,6 +99,8 @@ export class SalaryMasterComponent {
         this.bPrint = true;
       if (this.menu_record.rights_docs)
         this.bDocs = true;
+      if (this.menu_record.rights_company)
+        this.bCompany = true;
       if (this.menu_record.rights_approval.toString() == "{IMPORT}" || this.gs.globalVariables.user_code == 'ADMIN')
         this.bImport = true;
     }
@@ -112,7 +117,11 @@ export class SalaryMasterComponent {
 
   }
 
-
+  LovSelected(_Record: any) {
+    if (_Record.controlname == "BRANCH") {
+      this.search_branch_code = _Record.code;
+    }
+  }
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string, empid: string) {
     this.ErrorMessage = '';
@@ -178,6 +187,10 @@ export class SalaryMasterComponent {
       page_rowcount: this.page_rowcount
     };
 
+    if (_type == "EXCEL")
+      SearchData.branch_code = this.search_branch_code;
+    else
+      SearchData.branch_code = this.gs.globalVariables.branch_code;
     this.ErrorMessage = '';
     this.InfoMessage = '';
     this.mainService.List(SearchData)
