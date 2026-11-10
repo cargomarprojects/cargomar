@@ -158,7 +158,7 @@
               {{ +rec[col.rd_field] | number: col.rd_format }}
             </ng-container>
             <ng-container *ngIf="!col.rd_format">
-              {{ rec[col.rd_field] }}
+              {{ rec[col.rd_field] === true ? 'Y' : rec[col.rd_field] === false ? 'N' : rec[col.rd_field] }}
             </ng-container>
           </td>
         </tr>

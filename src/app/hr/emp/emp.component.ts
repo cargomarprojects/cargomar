@@ -387,6 +387,9 @@ export class EmpComponent {
           this.page_count = response.page_count;
           this.page_current = response.page_current;
           this.page_rowcount = response.page_rowcount;
+
+          if (!this.gs.isBlank(this.fieldList))
+            this.setColFormat();
         }
       },
         error => {
@@ -395,6 +398,21 @@ export class EmpComponent {
           alert(this.ErrorMessage);
         });
   }
+
+  setColFormat() {
+    this.fieldList.forEach(col => {
+      // number format
+      col.rd_isright = false;
+      if (col.rd_data_type && col.rd_data_type.indexOf('N-') !== -1) {
+        col.rd_isright = true;
+        const d = col.rd_data_type.split('-')[1];
+        col.rd_format = '1.' + d + '-' + d;
+      } else {
+        col.rd_format = '';
+      }
+    });
+  }
+  
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
