@@ -29,13 +29,13 @@ export class ArrivalNoticeComponent {
 
   modal: any;
 
-  selectedRowIndex = 0;
-  page_count = 0;
-  page_current = 0;
-  page_rows = 0;
-  page_rowcount = 0;
+  // selectedRowIndex = 0;
+  // page_count = 0;
+  // page_current = 0;
+  // page_rows = 0;
+  // page_rowcount = 0;
 
-  ErrorMessage = "";
+  // ErrorMessage = "";
   mode = '';
   pkid = '';
 
@@ -46,7 +46,8 @@ export class ArrivalNoticeComponent {
   to_date: string = '';
   branch_name: string;
   branch_code: string;
-  shipper_id: string;
+  // shipper_id: string;
+  // shipper_name: string;
   consignee_id: string;
   agent_id: string;
   carrier_id: string;
@@ -56,7 +57,7 @@ export class ArrivalNoticeComponent {
   porttype: string;
   hbl_pkid: string = "";
 
-  priordays: number = 10;
+  // priordays: number = 10;
   bExcel = false;
   disableSave = true;
   bCompany = false;
@@ -86,10 +87,10 @@ export class ArrivalNoticeComponent {
     pod_id: '',
     all: false,
     priordays: 10,
-    page_count: this.page_count,
-    page_current: this.page_current,
-    page_rows: this.page_rows,
-    page_rowcount: this.page_rowcount
+    page_count: 0,
+    page_current: 0,
+    page_rows: 15,
+    page_rowcount: 0
   };
 
   sTo_ids: string = '';
@@ -99,27 +100,27 @@ export class ArrivalNoticeComponent {
   AttachList: any[] = [];
 
   // Array For Displaying List
-  RecordList: ArrivalNotice[] = [];
+  // RecordList: ArrivalNotice[] = [];
   //  Single Record for add/edit/view details
   Record: ArrivalNotice = new ArrivalNotice;
 
-  BRRECORD: SearchTable = new SearchTable();
-  EXPRECORD: SearchTable = new SearchTable();
-  IMPRECORD: SearchTable = new SearchTable();
-  AGENTRECORD: SearchTable = new SearchTable();
-  CARRIERRECORD: SearchTable = new SearchTable();
-  POLRECORD: SearchTable = new SearchTable();
-  PODRECORD: SearchTable = new SearchTable();
+  // BRRECORD: SearchTable = new SearchTable();
+  // EXPRECORD: SearchTable = new SearchTable();
+  // IMPRECORD: SearchTable = new SearchTable();
+  // AGENTRECORD: SearchTable = new SearchTable();
+  // CARRIERRECORD: SearchTable = new SearchTable();
+  // POLRECORD: SearchTable = new SearchTable();
+  // PODRECORD: SearchTable = new SearchTable();
 
   constructor(
-    private modalService: NgbModal,
-    private mainService: ArrivalNoticeService,
+    private modalService: NgbModal, 
+    private ms: ArrivalNoticeService,
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {
-    this.page_count = 0;
-    this.page_rows = 20;
-    this.page_current = 0;
+    // this.page_count = 0;
+    // this.page_rows = 20;
+    // this.page_current = 0;
     // URL Query Parameter 
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
@@ -138,7 +139,7 @@ export class ArrivalNoticeComponent {
     if (!this.InitCompleted) {
       this.InitComponent();
     }
-
+    this.ms.init(this.menuid, this.type);
   }
 
   InitComponent() {
@@ -159,7 +160,7 @@ export class ArrivalNoticeComponent {
     this.porttype = "SEA PORT";
     this.carriertype = "SEA CARRIER";
 
-    this.Init();
+    // this.Init();
     this.initLov();
     this.LoadCombo();
   }
@@ -170,7 +171,7 @@ export class ArrivalNoticeComponent {
     this.branch_name = this.gs.globalVariables.branch_name;
     this.from_date = this.gs.defaultValues.monthbegindate;
     this.to_date = this.gs.defaultValues.today;
-    this.shipper_id = '';
+    // this.shipper_id = '';
     this.consignee_id = '';
     this.agent_id = '';
 
@@ -185,69 +186,92 @@ export class ArrivalNoticeComponent {
   }
 
 
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.restoreRowPosition();
+    }, 100);
+  }
+
+  restoreRowPosition() {
+
+    const row = document.getElementById('row-' + this.ms.state.selectedRowIndex);
+
+    if (row) {
+      row.scrollIntoView({
+        behavior: 'auto',
+        block: 'center'
+      });
+    }
+  }
+
+
+
+  shipper_where = " CUST_IS_SHIPPER = 'Y' ";
+
+
   initLov(caption: string = '') {
 
-    this.BRRECORD = new SearchTable();
-    this.BRRECORD.controlname = "BRANCH";
-    this.BRRECORD.displaycolumn = "CODE";
-    this.BRRECORD.type = "BRANCH";
-    this.BRRECORD.id = "";
-    this.BRRECORD.code = this.gs.globalVariables.branch_code;
+    // this.BRRECORD = new SearchTable();
+    // this.BRRECORD.controlname = "BRANCH";
+    // this.BRRECORD.displaycolumn = "CODE";
+    // this.BRRECORD.type = "BRANCH";
+    // this.BRRECORD.id = "";
+    // this.BRRECORD.code = this.gs.globalVariables.branch_code;
 
-    this.EXPRECORD = new SearchTable();
-    this.EXPRECORD.controlname = "SHIPPER";
-    this.EXPRECORD.displaycolumn = "NAME";
-    this.EXPRECORD.type = "CUSTOMER";
-    this.EXPRECORD.where = " CUST_IS_SHIPPER = 'Y' ";
-    this.EXPRECORD.id = "";
-    this.EXPRECORD.code = "";
-    this.EXPRECORD.name = "";
-    this.EXPRECORD.parentid = "";
+    // this.EXPRECORD = new SearchTable();
+    // this.EXPRECORD.controlname = "SHIPPER";
+    // this.EXPRECORD.displaycolumn = "NAME";
+    // this.EXPRECORD.type = "CUSTOMER";
+    // this.EXPRECORD.where = " CUST_IS_SHIPPER = 'Y' ";
+    // this.EXPRECORD.id = "";
+    // this.EXPRECORD.code = "";
+    // this.EXPRECORD.name = "";
+    // this.EXPRECORD.parentid = "";
 
-    this.IMPRECORD = new SearchTable();
-    this.IMPRECORD.controlname = "CONSIGNEE";
-    this.IMPRECORD.displaycolumn = "NAME";
-    this.IMPRECORD.type = "CUSTOMER";
-    this.IMPRECORD.where = " CUST_IS_CONSIGNEE = 'Y' ";
-    this.IMPRECORD.id = "";
-    this.IMPRECORD.code = "";
-    this.IMPRECORD.name = "";
-    this.IMPRECORD.parentid = "";
-
-
-    this.AGENTRECORD = new SearchTable();
-    this.AGENTRECORD.controlname = "AGENT";
-    this.AGENTRECORD.where = " CUST_IS_AGENT = 'Y' ";
-    this.AGENTRECORD.displaycolumn = "NAME";
-    this.AGENTRECORD.type = "CUSTOMER";
-    this.AGENTRECORD.id = "";
-    this.AGENTRECORD.code = "";
-    this.AGENTRECORD.name = "";
-
-    this.CARRIERRECORD = new SearchTable();
-    this.CARRIERRECORD.controlname = "CARRIER";
-    this.CARRIERRECORD.displaycolumn = "NAME";
-    this.CARRIERRECORD.type = this.carriertype;
-    this.CARRIERRECORD.id = "";
-    this.CARRIERRECORD.code = "";
-    this.CARRIERRECORD.name = "";
-
-    this.POLRECORD = new SearchTable();
-    this.POLRECORD.controlname = "POL";
-    this.POLRECORD.displaycolumn = "NAME";
-    this.POLRECORD.type = this.porttype;
-    this.POLRECORD.id = "";
-    this.POLRECORD.code = "";
-    this.POLRECORD.name = "";
+    // this.IMPRECORD = new SearchTable();
+    // this.IMPRECORD.controlname = "CONSIGNEE";
+    // this.IMPRECORD.displaycolumn = "NAME";
+    // this.IMPRECORD.type = "CUSTOMER";
+    // this.IMPRECORD.where = " CUST_IS_CONSIGNEE = 'Y' ";
+    // this.IMPRECORD.id = "";
+    // this.IMPRECORD.code = "";
+    // this.IMPRECORD.name = "";
+    // this.IMPRECORD.parentid = "";
 
 
-    this.PODRECORD = new SearchTable();
-    this.PODRECORD.controlname = "POD";
-    this.PODRECORD.displaycolumn = "NAME";
-    this.PODRECORD.type = this.porttype;
-    this.PODRECORD.id = "";
-    this.PODRECORD.code = "";
-    this.PODRECORD.name = "";
+    // this.AGENTRECORD = new SearchTable();
+    // this.AGENTRECORD.controlname = "AGENT";
+    // this.AGENTRECORD.where = " CUST_IS_AGENT = 'Y' ";
+    // this.AGENTRECORD.displaycolumn = "NAME";
+    // this.AGENTRECORD.type = "CUSTOMER";
+    // this.AGENTRECORD.id = "";
+    // this.AGENTRECORD.code = "";
+    // this.AGENTRECORD.name = "";
+
+    // this.CARRIERRECORD = new SearchTable();
+    // this.CARRIERRECORD.controlname = "CARRIER";
+    // this.CARRIERRECORD.displaycolumn = "NAME";
+    // this.CARRIERRECORD.type = this.carriertype;
+    // this.CARRIERRECORD.id = "";
+    // this.CARRIERRECORD.code = "";
+    // this.CARRIERRECORD.name = "";
+
+    // this.POLRECORD = new SearchTable();
+    // this.POLRECORD.controlname = "POL";
+    // this.POLRECORD.displaycolumn = "NAME";
+    // this.POLRECORD.type = this.porttype;
+    // this.POLRECORD.id = "";
+    // this.POLRECORD.code = "";
+    // this.POLRECORD.name = "";
+
+
+    // this.PODRECORD = new SearchTable();
+    // this.PODRECORD.controlname = "POD";
+    // this.PODRECORD.displaycolumn = "NAME";
+    // this.PODRECORD.type = this.porttype;
+    // this.PODRECORD.id = "";
+    // this.PODRECORD.code = "";
+    // this.PODRECORD.name = "";
 
 
   }
@@ -259,8 +283,8 @@ export class ArrivalNoticeComponent {
       this.branch_name = _Record.name;
     }
     if (_Record.controlname == "SHIPPER") {
-      this.shipper_id = _Record.id;
-      // this.shipper_name = _Record.name;
+      this.ms.state.shipper_id = _Record.id;
+      this.ms.state.shipper_name = _Record.name;
     }
     if (_Record.controlname == "CONSIGNEE") {
       this.consignee_id = _Record.id;
@@ -294,7 +318,7 @@ export class ArrivalNoticeComponent {
 
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string) {
-    this.ErrorMessage = '';
+    this.ms.state.ErrorMessage = '';
     if (action == 'LIST') {
       this.mode = '';
       this.pkid = '';
@@ -320,9 +344,9 @@ export class ArrivalNoticeComponent {
   // // Query List Data
   List(_type: string, mailsent: any) {
 
-    this.ErrorMessage = '';
-    if (this.shipper_id.trim().length <= 0) {
-      this.ErrorMessage = "Shipper Cannot Be Blank";
+    this.ms.state.ErrorMessage = '';
+    if (this.ms.state.shipper_id.trim().length <= 0) {
+      this.ms.state.ErrorMessage = "Shipper Cannot Be Blank";
       return;
     }
 
@@ -333,18 +357,18 @@ export class ArrivalNoticeComponent {
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
     this.SearchData.branch_code = this.gs.globalVariables.branch_code;
     this.SearchData.branch_name = this.gs.globalVariables.branch_name;
-    this.SearchData.priordays = this.priordays;
+    this.SearchData.priordays = this.ms.state.priordays;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.searchstring = this.searchstring.toUpperCase();
     this.SearchData.type = _type;
-    this.SearchData.shipper_id = this.shipper_id;
-    this.SearchData.page_count = this.page_count;
-    this.SearchData.page_current = this.page_current;
-    this.SearchData.page_rows = this.page_rows;
-    this.SearchData.page_rowcount = this.page_rowcount;
+    this.SearchData.shipper_id = this.ms.state.shipper_id;
+    this.SearchData.page_count = this.ms.state.page_count;
+    this.SearchData.page_current = this.ms.state.page_current;
+    this.SearchData.page_rows = this.ms.state.page_rows;
+    this.SearchData.page_rowcount = this.ms.state.page_rowcount;
 
-    this.ErrorMessage = '';
-    this.mainService.List(this.SearchData)
+    this.ms.state.ErrorMessage = '';
+    this.ms.List(this.SearchData)
       .subscribe(response => {
         this.loading = false;
         this.chkallselected = false;
@@ -361,16 +385,16 @@ export class ArrivalNoticeComponent {
           this.open(mailsent);
         }
         else {
-          this.RecordList = response.list;
-          this.page_count = response.page_count;
-          this.page_current = response.page_current;
-          this.page_rowcount = response.page_rowcount;
+          this.ms.state.RecordList = response.list;
+          this.ms.state.page_count = response.page_count;
+          this.ms.state.page_current = response.page_current;
+          this.ms.state.page_rowcount = response.page_rowcount;
         }
       },
         error => {
           this.loading = false;
-          this.RecordList = null;
-          this.ErrorMessage = this.gs.getError(error);
+          this.ms.state.RecordList = [];
+          this.ms.state.ErrorMessage = this.gs.getError(error);
         });
   }
   setMailBody() {
@@ -387,7 +411,7 @@ export class ArrivalNoticeComponent {
   }
 
   OnChange(field: string) {
-    this.RecordList = null;
+    this.ms.state.RecordList = [];
 
   }
 
@@ -401,7 +425,7 @@ export class ArrivalNoticeComponent {
 
   SelectDeselect() {
     this.selectdeselect = !this.selectdeselect;
-    for (let rec of this.RecordList) {
+    for (let rec of this.ms.state.RecordList) {
       rec.hbl_selected = this.selectdeselect;
     }
   }

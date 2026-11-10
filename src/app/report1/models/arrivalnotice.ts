@@ -39,3 +39,45 @@ export class ArrivalNotice {
     hbl_pkid:string;
     _globalvariables: GlobalVariables;
 }
+
+export interface iArrivalNoticeModel {
+  // filter Values
+  selectedRowIndex: number;
+  mode: string;
+  pkid: string;
+  list_format: string;
+  currentTab: string;
+  RecordList: ArrivalNotice[];
+
+  ErrorMessage: string;
+
+  //Search Values
+  shipper_id: string;
+  shipper_name: string;
+  priordays: number;
+  // Page Values
+  page_count: number;
+  page_current: number;
+  page_rows: number;
+  page_rowcount: number;
+};
+
+export const initialState: iArrivalNoticeModel = {
+  selectedRowIndex: 0,
+  mode: '',
+  pkid: '',
+  list_format: '',
+  currentTab: '',
+  RecordList: [],
+  
+  ErrorMessage: '',
+
+  shipper_id: '',
+  shipper_name: '',
+  priordays: 0,
+
+  page_count: 0,
+  page_current: 0,
+  page_rows: 15,
+  page_rowcount: 0
+}

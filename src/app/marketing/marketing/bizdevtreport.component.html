@@ -69,10 +69,10 @@
             </div>
         </div>
         <div class="page-pager">
-            <div *ngIf="page_count">
+            <div *ngIf="ms.state.page_count">
                 <ul class="pagination pagination-sm mb-1">
-                    <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
-                            (Records-{{page_rowcount}})</a>
+                    <li class="page-item"><a class="page-link">Page {{ms.state.page_current}}/{{ms.state.page_count}}
+                            (Records-{{ms.state.page_rowcount}})</a>
                     </li>
                     <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
                                 class="fa fa-backward"></span></a></li>
@@ -143,10 +143,10 @@
             </table>
         </div>
         <div *ngIf="invokeByMenu" class="page-pager">
-            <div *ngIf="page_count">
+            <div *ngIf="ms.state.page_count">
                 <ul class="pagination pagination-sm mb-1">
-                    <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
-                            (Records-{{page_rowcount}})</a>
+                    <li class="page-item"><a class="page-link">Page {{ms.state.page_current}}/{{ms.state.page_count}}
+                            (Records-{{ms.state.page_rowcount}})</a>
                     </li>
                     <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span
                                 class="fa fa-backward"></span></a></li>

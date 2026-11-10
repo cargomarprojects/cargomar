@@ -16,8 +16,11 @@
           <div class="form-group row">
             <label class="col-4 col-form-label col-form-label-sm">Shipper</label>
             <div class="col-8">
-              <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)">
-              </app-autocomplete>
+              <!-- <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete> -->
+              <app-autocomplete3 [controlname]="'SHIPPER'" [tabletype]="'CUSTOMER'" [where]="shipper_where"
+                [displaycolumn]="'NAME'" [displaydata]="ms.state.shipper_name" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete3>
             </div>
           </div>
         </div>
@@ -26,7 +29,7 @@
           <div class="form-group row">
             <label class="col-sm-4 col-form-label col-form-label-sm">Days Prior to Arrival</label>
             <div class="col-4">
-              <input type="number" class="form-control form-control-sm" [(ngModel)]="priordays" required
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="ms.state.priordays" required
                 maxlength="10" />
             </div>
 
@@ -48,10 +51,10 @@
     </div>
   </div>
   <div class="page-pager">
-    <div *ngIf="page_count">
+    <div *ngIf="ms.state.page_count">
       <ul class="pagination pagination-sm">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
-            (Records-{{page_rowcount}})</a>
+        <li class="page-item"><a class="page-link">Page {{ms.state.page_current}}/{{ms.state.page_count}}
+            (Records-{{ms.state.page_rowcount}})</a>
         </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST','')"><span class="fa fa-backward"></span></a>
         </li>
@@ -94,7 +97,8 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr  *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i" [style.color]="rec.row_colour">
+        <tr  *ngFor="let rec of ms.state.RecordList; let i = index" [id]="'row-' + i" 
+          [class.active]="i == ms.state.selectedRowIndex" (mousedown)="ms.state.selectedRowIndex=i" [style.color]="rec.row_colour">
           <!-- <td><input type="checkbox" [(ngModel)]="rec.hbl_selected"></td> -->
           <td>{{rec.mbl_slno}}</td>
           <td>{{rec.mbl_no}}</td>
@@ -124,10 +128,10 @@
     </table>
   </div>
   <div class="page-pager">
-    <div *ngIf="page_count">
+    <div *ngIf="ms.state.page_count">
       <ul class="pagination pagination-sm">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
-            (Records-{{page_rowcount}})</a>
+        <li class="page-item"><a class="page-link">Page {{ms.state.page_current}}/{{ms.state.page_count}}
+            (Records-{{ms.state.page_rowcount}})</a>
         </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST','')"><span class="fa fa-backward"></span></a>
         </li>

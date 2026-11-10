@@ -42,10 +42,10 @@ export class BizDevtReportComponent {
     selectDateType: string = 'NEXT';
 
     searchstring = '';
-    page_count = 0;
-    page_current = 0;
-    page_rows = 0;
-    page_rowcount = 0;
+    // page_count = 0;
+    // page_current = 0;
+    // page_rows = 0;
+    // page_rowcount = 0;
 
     sub: any;
     urlid: string;
@@ -91,9 +91,9 @@ export class BizDevtReportComponent {
         public gs: GlobalService
 
     ) {
-        this.page_count = 0;
-        this.page_rows = 100;
-        this.page_current = 0;
+        // this.page_count = 0;
+        // this.page_rows = 100;
+        // this.page_current = 0;
         this.InitLov();
         // URL Query Parameter 
         this.sub = this.route.queryParams.subscribe(params => {
@@ -287,10 +287,10 @@ export class BizDevtReportComponent {
             filter_source: 'REPORT',
             iscompany: this.IsCompany,
             isadmin: this.IsAdmin,
-            page_count: this.page_count,
-            page_current: this.page_current,
-            page_rows: this.page_rows,
-            page_rowcount: this.page_rowcount,
+            page_count: this.ms.state.page_count,
+            page_current: this.ms.state.page_current,
+            page_rows: this.ms.state.page_rows,
+            page_rowcount: this.ms.state.page_rowcount,
             userid: this.gs.globalVariables.user_pkid,
             usercode: this.gs.globalVariables.user_code,
             companyid: this.gs.globalVariables.comp_code,
@@ -317,9 +317,9 @@ export class BizDevtReportComponent {
                     this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
                 else {
                     this.ms.state.RecordList = response.list;
-                    this.page_count = response.page_count;
-                    this.page_current = response.page_current;
-                    this.page_rowcount = response.page_rowcount;
+                    this.ms.state.page_count = response.page_count;
+                    this.ms.state.page_current = response.page_current;
+                    this.ms.state.page_rowcount = response.page_rowcount;
                 }
             },
                 error => {

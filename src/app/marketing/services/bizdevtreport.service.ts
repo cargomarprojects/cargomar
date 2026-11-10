@@ -65,7 +65,12 @@ export class BizdevelopReportService {
             this.state.to_date = wkEnd.toISOString().slice(0, 10);
         }
       }
-
+    List(SearchData : any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkMarketing/List', SearchData, this.gs.headerparam2('authorized'));
+    }
+    LoadDefault(SearchData: any) {
+      return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkMarketing/LoadDefault', SearchData, this.gs.headerparam2('authorized'));
+    }
     BizDevelopmentReport(SearchData : any) {
       return this.http2.post<any>(this.gs.baseUrl + '/api/Master/MarkMarketing/BizDevelopmentReport', SearchData, this.gs.headerparam2('authorized'));
     }
