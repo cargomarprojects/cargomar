@@ -14,6 +14,7 @@ import { EmpService } from '../services/emp.service';
 import { Param } from '../../master/models/param';
 import { DateComponent } from '../../shared/date/date.component';
 import { SearchTable } from '../../shared/models/searchtable';
+import { CustomReportD } from '../../shared/models/customreporth';
 
 @Component({
   selector: 'app-emp',
@@ -22,7 +23,7 @@ import { SearchTable } from '../../shared/models/searchtable';
 })
 
 export class EmpComponent {
-  // Local Variables 
+  // Local Variables
   title = 'EMP MASTER';
 
   @ViewChild('_do_relieve') private _do_relieve: DateComponent;
@@ -62,6 +63,8 @@ export class EmpComponent {
   to_date = '';
   allbranch: boolean = false;
 
+  format_type = "GENERAL";
+
   lock_record: boolean = false;
   bPrint: boolean = false;
   bAdmin: boolean = false;
@@ -95,11 +98,16 @@ export class EmpComponent {
 
   IncentiveTypeList: any[] = [];
 
+  fieldList: CustomReportD[] = [];
+
   // Array For Displaying List
   RecordList: Emp[] = [];
   // Single Record for add/edit/view details
   Record: Emp = new Emp;
   RecordDocList: EmpDocs[] = [];
+
+  CustomReportList: any[] = [];
+
 
   constructor(
     private modalService: NgbModal,
@@ -153,6 +161,7 @@ export class EmpComponent {
     if (this.gs.globalVariables.user_code == "ADMIN")
       this.bPhoto = true;
     this.LoadCombo();
+    this.createCustomFields();
   }
   // Destroy Will be called when this component is closed
   ngOnDestroy() {
@@ -171,15 +180,6 @@ export class EmpComponent {
     this.VehicleTypeList = [{ "id": "N", "name": "N/A" }, { "id": "T", "name": "2 Wheeler" }, { "id": "F", "name": "4 Wheeler" }, { "id": "B", "name": "Both" }];
     this.MaritalStatusList = [{ "id": "SINGLE", "name": "SINGLE" }, { "id": "MARRIED", "name": "MARRIED" }, { "id": "DIVORCED", "name": "DIVORCED" }];
     this.GenderList = [{ "id": "N", "name": "N/A" }, { "id": "M", "name": "MALE" }, { "id": "F", "name": "FEMALE" }];
-
-    //this.IncentiveTypeList = [{ "id": "NA", "name": "NA" }, { "id": "BIMONTHLY-A", "name": "BIMONTHLY-A" }, { "id": "BIMONTHLY-B", "name": "BIMONTHLY-B" }, { "id": "QUARTERLY", "name": "QUARTERLY" }];
-
-    /*
-    <option [value]="'NA'">NA</option>
-    <option [value]="'BIMONTHLY-A'">BIMONTHLY-A</option>
-    <option [value]="'BIMONTHLY-B'">BIMONTHLY-B</option>
-    <option [value]="'QUARTERLY'">QUARTERLY</option>
-    */
 
 
     this.loading = true;
@@ -214,6 +214,33 @@ export class EmpComponent {
           alert(this.ErrorMessage);
         });
   }
+
+  createCustomFields() {
+    this.CustomReportList = [
+      { "rd_ctr": 1, "rd_code": "CODE", "rd_caption": "CODE", "rd_field": "emp_no", "rd_sort_order": 1, "rd_col_width": 15, "rd_data_type": "S" },
+      { "rd_ctr": 2, "rd_code": "NAME", "rd_caption": "NAME", "rd_field": "emp_name", "rd_sort_order": 2, "rd_col_width": 25, "rd_data_type": "S" },
+      { "rd_ctr": 3, "rd_code": "BRANCH", "rd_caption": "BRANCH", "rd_field": "emp_branch_name", "rd_sort_order": 3, "rd_col_width": 20, "rd_data_type": "S" },
+      { "rd_ctr": 4, "rd_code": "BLOOD-GROUP", "rd_caption": "BLOOD-GROUP", "rd_field": "emp_blood_group", "rd_sort_order": 4, "rd_col_width": 10, "rd_data_type": "S" },
+      { "rd_ctr": 5, "rd_code": "MOBILE", "rd_caption": "MOBILE", "rd_field": "emp_mobile", "rd_sort_order": 5, "rd_col_width": 20, "rd_data_type": "S" },
+      { "rd_ctr": 6, "rd_code": "EMAIL", "rd_caption": "EMAIL", "rd_field": "emp_email_personal", "rd_sort_order": 6, "rd_col_width": 20, "rd_data_type": "S" },
+      { "rd_ctr": 7, "rd_code": "BANK ACNO", "rd_caption": "BANK A/C#", "rd_field": "emp_bank_acno", "rd_sort_order": 7, "rd_col_width": 20, "rd_data_type": "S" },
+      { "rd_ctr": 8, "rd_code": "PFNO", "rd_caption": "PF#", "rd_field": "emp_pfno", "rd_sort_order": 8, "rd_col_width": 20, "rd_data_type": "S" },
+      { "rd_ctr": 9, "rd_code": "DOB", "rd_caption": "DOB", "rd_field": "emp_do_birth", "rd_sort_order": 9, "rd_col_width": 20, "rd_data_type": "D" },
+      { "rd_ctr": 10, "rd_code": "JOIN DATE", "rd_caption": "DOJ", "rd_field": "emp_do_joining", "rd_sort_order": 10, "rd_col_width": 20, "rd_data_type": "D" },
+      { "rd_ctr": 11, "rd_code": "CONFRM DATE", "rd_caption": "CONF.DATE", "rd_field": "emp_do_confirmation", "rd_sort_order": 11, "rd_col_width": 20, "rd_data_type": "D" },
+      { "rd_ctr": 12, "rd_code": "RELIEVE DATE", "rd_caption": "RELIEVE.DATE", "rd_field": "emp_do_relieve", "rd_sort_order": 12, "rd_col_width": 20, "rd_data_type": "D" },
+      { "rd_ctr": 13, "rd_code": "TRANSFER DATE", "rd_caption": "TRANSFER.DATE", "rd_field": "emp_trans_date", "rd_sort_order": 13, "rd_col_width": 20, "rd_data_type": "D" },
+      { "rd_ctr": 14, "rd_code": "TRNG/PROB. END DT", "rd_caption": "TRANG/PROB.END DT", "rd_field": "emp_training_end_dt", "rd_sort_order": 14, "rd_col_width": 20, "rd_data_type": "D" },
+      { "rd_ctr": 15, "rd_code": "PHOTO", "rd_caption": "PHOTO", "rd_field": "emp_image_upload", "rd_sort_order": 15, "rd_col_width": 20, "rd_data_type": "D" }
+    ];
+
+  }
+
+
+  customreportcallbackevent(params: any) {
+    this.format_type = params.format;
+  }
+
 
 
 
@@ -291,6 +318,7 @@ export class EmpComponent {
       to_date: this.to_date,
       allbranch: this.allbranch,
       brelieved: this.bRelieved,
+      format_type: this.format_type,
       page_count: this.page_count,
       page_current: this.page_current,
       page_rows: this.page_rows,
@@ -306,6 +334,7 @@ export class EmpComponent {
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
           this.RecordList = response.list;
+          this.fieldList = response.fieldlist;
           this.page_count = response.page_count;
           this.page_current = response.page_current;
           this.page_rowcount = response.page_rowcount;
