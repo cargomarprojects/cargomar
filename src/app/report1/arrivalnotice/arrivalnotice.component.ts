@@ -114,7 +114,7 @@ export class ArrivalNoticeComponent {
 
   constructor(
     private modalService: NgbModal, 
-    private ms: ArrivalNoticeService,
+    public ms: ArrivalNoticeService,
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {

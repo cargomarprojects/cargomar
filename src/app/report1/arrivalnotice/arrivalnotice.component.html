@@ -150,8 +150,8 @@
 
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 
-<div *ngIf="ErrorMessage" class="alert alert-danger">
-  {{ErrorMessage}}
+<div *ngIf="ms.state.ErrorMessage" class="alert alert-danger">
+  {{ms.state.ErrorMessage}}
 </div>
 
 <ng-template #mailsent let-c="close" let-d="dismiss">

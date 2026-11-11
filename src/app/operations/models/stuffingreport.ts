@@ -26,3 +26,50 @@ export class StuffingReport {
   _globalvariables: GlobalVariables;
 }
 
+export interface iStuffingReportModel {
+  // filter Values
+  selectedRowIndex: number;
+  mode: string;
+  pkid: string;
+  list_format: string;
+  currentTab: string;
+  RecordList: StuffingReport[];
+
+  ErrorMessage: string;
+
+  //Search Values
+  searchstring: string;
+  shipper_id: string;
+  shipper_name: string;
+  searchtype: string;
+  mailformat: string;
+
+  // Page Values
+  page_count: number;
+  page_current: number;
+  page_rows: number;
+  page_rowcount: number;
+};
+
+export const initialState: iStuffingReportModel = {
+  selectedRowIndex: 0,
+  mode: '',
+  pkid: '',
+  list_format: '',
+  currentTab: '',
+  RecordList: [],
+  
+  ErrorMessage: '',
+
+  searchstring: '',
+  shipper_id: '',
+  shipper_name: '',
+  searchtype: '',
+  mailformat: '',
+
+  page_count: 0,
+  page_current: 0,
+  page_rows: 15,
+  page_rowcount: 0
+}
+
