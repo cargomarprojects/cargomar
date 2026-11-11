@@ -30,9 +30,9 @@ export class VesselLoadingComponent {
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
-  searchcarrierid = '';
-  searchvesselid = '';
-  searchvoyage = '';
+  // searchcarrierid = '';
+  // searchvesselid = '';
+  // searchvoyage = '';
 
   rows_to_display: number = 0;
   rows_total: number = 0;
@@ -43,7 +43,7 @@ export class VesselLoadingComponent {
   sub: any;
   urlid: string;
 
-  ErrorMessage = "";
+  // ErrorMessage = "";
   mode = '';
   pkid = '';
 
@@ -62,18 +62,18 @@ export class VesselLoadingComponent {
     searchvoyage: ''
   };
 
-  VESSELRECORD: any;
-  VESSELREC: any = { id: '', code: '', name: '' };
-  SEACARRIERRECORD: any;
-  SEACARRIERREC: any = { id: '', code: '', name: '' };
+  // VESSELRECORD: any;
+  // VESSELREC: any = { id: '', code: '', name: '' };
+  // SEACARRIERRECORD: any;
+  // SEACARRIERREC: any = { id: '', code: '', name: '' };
 
   // Array For Displaying List
-  RecordList: VesselLoadingReport[] = [];
+  // RecordList: VesselLoadingReport[] = [];
   // Single Record for add/edit/view details
   Record: VesselLoadingReport = new VesselLoadingReport;
 
   constructor(
-    private mainService: VesselLoadingReportService,
+    public ms: VesselLoadingReportService,
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {
@@ -95,6 +95,7 @@ export class VesselLoadingComponent {
     if (!this.InitCompleted) {
       this.InitComponent();
     }
+    this.ms.init(this.menuid, this.type);
   }
 
   InitComponent() {
@@ -102,7 +103,7 @@ export class VesselLoadingComponent {
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record)
       this.title = this.menu_record.menu_name;
-    this.initLov();
+    // this.initLov();
     this.LoadCombo();
   }
 
@@ -111,29 +112,48 @@ export class VesselLoadingComponent {
     this.sub.unsubscribe();
   }
 
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.restoreRowPosition();
+    }, 100);
+  }
+
+  restoreRowPosition() {
+
+    const row = document.getElementById('row-' + this.ms.state.selectedRowIndex);
+
+    if (row) {
+      row.scrollIntoView({
+        behavior: 'auto',
+        block: 'center'
+      });
+    }
+  }
 
   initLov(caption: string = '') {
-    if (caption == '' || caption == 'VSL')
-      this.VESSELRECORD = {
-        controlname: 'VSL', type: 'VESSEL', displaycolumn: 'NAME',
-        parentid: '', id: this.VESSELREC.id, code: this.VESSELREC.code, name: this.VESSELREC.name
-      };
+    // if (caption == '' || caption == 'VSL')
+    //   this.VESSELRECORD = {
+    //     controlname: 'VSL', type: 'VESSEL', displaycolumn: 'NAME',
+    //     parentid: '', id: this.VESSELREC.id, code: this.VESSELREC.code, name: this.VESSELREC.name
+    //   };
 
-    if (caption == '' || caption == 'SEACARRIER')
-      this.SEACARRIERRECORD = {
-        controlname: 'SEACARRIER', type: 'SEA CARRIER', displaycolumn: 'NAME',
-        parentid: '', id: this.SEACARRIERREC.id, code: this.SEACARRIERREC.code, name: this.SEACARRIERREC.name
-      };
+    // if (caption == '' || caption == 'SEACARRIER')
+    //   this.SEACARRIERRECORD = {
+    //     controlname: 'SEACARRIER', type: 'SEA CARRIER', displaycolumn: 'NAME',
+    //     parentid: '', id: this.SEACARRIERREC.id, code: this.SEACARRIERREC.code, name: this.SEACARRIERREC.name
+    //   };
 
   }
 
   LovSelected(_Record: SearchTable) {
     // Company Settings
     if (_Record.controlname == 'SEACARRIER') {
-      this.searchcarrierid = _Record.id;
+      this.ms.state.searchcarrierid = _Record.id;
+      this.ms.state.searchcarrier_name = _Record.name;
     }
     if (_Record.controlname == 'VSL') {
-      this.searchvesselid = _Record.id;
+      this.ms.state.searchvesselid = _Record.id;
+      this.ms.state.searchvessel_name = _Record.name;
     }
   }
   LoadCombo() {
@@ -142,7 +162,7 @@ export class VesselLoadingComponent {
 
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string) {
-    this.ErrorMessage = '';
+    this.ms.state.ErrorMessage = '';
     if (action == 'LIST') {
       this.mode = '';
       this.pkid = '';
@@ -168,9 +188,9 @@ export class VesselLoadingComponent {
 
   // Query List Data
   List(_type: string) {
-    if (this.searchcarrierid.trim().length <= 0) {
-      this.ErrorMessage = 'Carrier Cannot Be Blank';
-      alert(this.ErrorMessage);
+    if (this.ms.state.searchcarrierid.trim().length <= 0) {
+      this.ms.state.ErrorMessage = 'Carrier Cannot Be Blank';
+      alert(this.ms.state.ErrorMessage);
       return;
     }
     if (_type == "NEW") {
@@ -190,14 +210,16 @@ export class VesselLoadingComponent {
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
     this.SearchData.branch_code = this.gs.globalVariables.branch_code;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
-    this.SearchData.searchvslid = this.searchvesselid;
-    this.SearchData.searchcarrid = this.searchcarrierid;
-    this.SearchData.searchvoyage = this.searchvoyage.toUpperCase();
+    this.SearchData.searchvslid = this.ms.state.searchvesselid;
+    this.SearchData.searchcarrid = this.ms.state.searchcarrierid;
+    this.SearchData.searchvoyage = this.ms.state.searchvoyage.toUpperCase();
     this.SearchData.type = _type;
 
+    this.ms.state.selectedRowIndex = 0;
+    this.restoreRowPosition()
 
-    this.ErrorMessage = '';
-    this.mainService.List(this.SearchData)
+    this.ms.state.ErrorMessage = '';
+    this.ms.List(this.SearchData)
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')
@@ -209,16 +231,16 @@ export class VesselLoadingComponent {
             this.bShowMore = false;
 
           if (_type == 'NEW') {
-            this.RecordList = response.list;
+            this.ms.state.RecordList = response.list;
           } else {
-            this.RecordList.push(...response.list);//_type=NEXT
+            this.ms.state.RecordList.push(...response.list);//_type=NEXT
           }
         }
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 

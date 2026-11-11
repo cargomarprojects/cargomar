@@ -14,7 +14,7 @@
 
       <label class="col-1 col-form-label col-form-label-sm">Container</label>
       <div class="col-2">
-        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchcontainer" (blur)="OnBlur('searchcontainer')" />
+        <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="ms.state.searchcontainer" (blur)="OnBlur('searchcontainer')" />
       </div>
       <div class="col">
         <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
@@ -36,7 +36,7 @@
       </thead>
 
       <tbody class="page-body-tbody" >
-        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
+        <tr *ngFor="let rec of ms.state.RecordList; let i = index" [id]="'row-' + i" [class.active]="i == ms.state.selectedRowIndex" (mousedown)="ms.state.selectedRowIndex=i">
           <td>{{rec.hbl_no}}</td>
           <td>{{rec.hbl_agent_name}}</td>
           <td>{{rec.hbl_shipper_name}}</td>
@@ -51,8 +51,8 @@
 
 <br />
 
-<div *ngIf="ErrorMessage" class="alert alert-info">
-  {{ErrorMessage}}
+<div *ngIf="ms.state.ErrorMessage" class="alert alert-info">
+  {{ms.state.ErrorMessage}}
 </div>
 
 

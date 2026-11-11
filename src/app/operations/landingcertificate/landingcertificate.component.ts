@@ -25,19 +25,19 @@ export class LandingCertificateComponent {
   @Input() type: string = '';
   InitCompleted: boolean = false;
   menu_record: any;
-  selectedRowIndex = 0;
+  // selectedRowIndex = 0;
   hbl_ids = '';
   selectdeselect = false;
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
-  from_date: string = '';
-  to_date: string = '';
-  search_shprid: string = '';
+  // from_date: string = '';
+  // to_date: string = '';
+  // search_shprid: string = '';
   sub: any;
   urlid: string;
 
-  ErrorMessage = "";
+  // ErrorMessage = "";
   mode = '';
   pkid = '';
 
@@ -54,15 +54,15 @@ export class LandingCertificateComponent {
     hbl_ids: ''
   };
 
-  EXPRECORD: any;
-  EXPREC: any = { id: '', code: '', name: '' };
+  // EXPRECORD: any;
+  // EXPREC: any = { id: '', code: '', name: '' };
   // Array For Displaying List
-  RecordList: LandingCertificateReport[] = [];
+  // RecordList: LandingCertificateReport[] = [];
   // Single Record for add/edit/view details
   Record: LandingCertificateReport = new LandingCertificateReport;
 
   constructor(
-    private mainService: LandingCertificateReportService,
+    public ms: LandingCertificateReportService,
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {
@@ -84,6 +84,7 @@ export class LandingCertificateComponent {
     if (!this.InitCompleted) {
       this.InitComponent();
     }
+    this.ms.init(this.menuid, this.type);
   }
 
   InitComponent() {
@@ -91,8 +92,8 @@ export class LandingCertificateComponent {
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record)
       this.title = this.menu_record.menu_name;
-    this.initLov();
-    this.InitDefault();
+    // this.initLov();
+    // this.InitDefault();
     this.LoadCombo();
   }
 
@@ -101,39 +102,59 @@ export class LandingCertificateComponent {
     this.sub.unsubscribe();
   }
 
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.restoreRowPosition();
+    }, 100);
+  }
+
+  restoreRowPosition() {
+
+    const row = document.getElementById('row-' + this.ms.state.selectedRowIndex);
+
+    if (row) {
+      row.scrollIntoView({
+        behavior: 'auto',
+        block: 'center'
+      });
+    }
+  }
+
+  shipper_where = " CUST_IS_SHIPPER = 'Y' ";
 
   initLov(caption: string = '') {
-    if (caption == '' || caption == 'SHIPPER') {
-      this.EXPRECORD = {
-        controlname: 'SHIPPER', type: 'CUSTOMER', where: " CUST_IS_SHIPPER = 'Y' ", displaycolumn: 'NAME',
-        parentid: '', id: this.EXPREC.id, code: this.EXPREC.code, name: this.EXPREC.name
-      };
-    }
+    // if (caption == '' || caption == 'SHIPPER') {
+    //   this.EXPRECORD = {
+    //     controlname: 'SHIPPER', type: 'CUSTOMER', where: " CUST_IS_SHIPPER = 'Y' ", displaycolumn: 'NAME',
+    //     parentid: '', id: this.EXPREC.id, code: this.EXPREC.code, name: this.EXPREC.name
+    //   };
+    // }
   }
 
   LovSelected(_Record: SearchTable) {
 
     // Company Settings
     if (_Record.controlname == 'SHIPPER') {
-      this.search_shprid = _Record.id;
+      this.ms.state.search_shprid = _Record.id;
+      this.ms.state.search_shprname = _Record.name;
     }
   }
   LoadCombo() {
   }
   InitDefault() {
-    this.to_date = this.gs.defaultValues.today;
-    //var tempdt = this.to_date.split('-');
-    //let dtyr: number = +tempdt[0];
-    //let dtmn: number = +tempdt[1];
-    //let dtdy: number = +tempdt[2];
-    //let dt = new Date(dtyr, dtmn, dtdy);
-    // dt.setDate(dt.getDate() - 60) ;
-    this.from_date = this.gs.defaultValues.monthbegindate;
+    // this.to_date = this.gs.defaultValues.today;
+    // //var tempdt = this.to_date.split('-');
+    // //let dtyr: number = +tempdt[0];
+    // //let dtmn: number = +tempdt[1];
+    // //let dtdy: number = +tempdt[2];
+    // //let dt = new Date(dtyr, dtmn, dtdy);
+    // // dt.setDate(dt.getDate() - 60) ;
+    // this.from_date = this.gs.defaultValues.monthbegindate;
   }
 
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string) {
-    this.ErrorMessage = '';
+    this.ms.state.ErrorMessage = '';
     if (action == 'LIST') {
       this.mode = '';
       this.pkid = '';
@@ -160,31 +181,31 @@ export class LandingCertificateComponent {
   // Query List Data
   List(_type: string) {
     this.hbl_ids = "";
-    if (this.from_date.trim().length <= 0) {
-      this.ErrorMessage = 'From Date Cannot Be Blank';
-      alert(this.ErrorMessage);
+    if (this.ms.state.from_date.trim().length <= 0) {
+      this.ms.state.ErrorMessage = 'From Date Cannot Be Blank';
+      alert(this.ms.state.ErrorMessage);
       return;
     }
-    if (this.to_date.trim().length <= 0) {
-      this.ErrorMessage = 'To Date Cannot Be Blank';
-      alert(this.ErrorMessage);
+    if (this.ms.state.to_date.trim().length <= 0) {
+      this.ms.state.ErrorMessage = 'To Date Cannot Be Blank';
+      alert(this.ms.state.ErrorMessage);
       return;
     }
-    if (this.search_shprid.trim().length <= 0) {
-      this.ErrorMessage = 'Shipper Cannot Be Blank';
-      alert(this.ErrorMessage);
+    if (this.ms.state.search_shprid.trim().length <= 0) {
+      this.ms.state.ErrorMessage = 'Shipper Cannot Be Blank';
+      alert(this.ms.state.ErrorMessage);
       return;
     }
     if (_type == 'EXCEL') {
-      if (this.RecordList.length <= 0) {
-        this.ErrorMessage = 'List Not Found.';
-        alert(this.ErrorMessage);
+      if (this.ms.state.RecordList.length <= 0) {
+        this.ms.state.ErrorMessage = 'List Not Found.';
+        alert(this.ms.state.ErrorMessage);
         return;
       }
       this.GetSelectedSINos();
       if (this.hbl_ids.trim().length <= 0) {
-        this.ErrorMessage = 'Please select SI Nos and Continue.....';
-        alert(this.ErrorMessage);
+        this.ms.state.ErrorMessage = 'Please select SI Nos and Continue.....';
+        alert(this.ms.state.ErrorMessage);
         return;
       }
     }
@@ -196,26 +217,29 @@ export class LandingCertificateComponent {
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
     this.SearchData.branch_code = this.gs.globalVariables.branch_code;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
-    this.SearchData.search_shprid = this.search_shprid;
+    this.SearchData.search_shprid = this.ms.state.search_shprid;
     this.SearchData.type = _type;
-    this.SearchData.from_date = this.from_date;
-    this.SearchData.to_date = this.to_date;
+    this.SearchData.from_date = this.ms.state.from_date;
+    this.SearchData.to_date = this.ms.state.to_date;
     this.SearchData.hbl_ids = this.hbl_ids;
 
-    this.ErrorMessage = '';
-    this.mainService.List(this.SearchData)
+    this.ms.state.selectedRowIndex = 0;
+    this.restoreRowPosition()
+
+    this.ms.state.ErrorMessage = '';
+    this.ms.List(this.SearchData)
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
-          this.RecordList = response.list;
+          this.ms.state.RecordList = response.list;
         }
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
@@ -235,14 +259,14 @@ export class LandingCertificateComponent {
 
   SelectSINos() {
     this.selectdeselect = !this.selectdeselect;
-    for (let rec of this.RecordList) {
+    for (let rec of this.ms.state.RecordList) {
       rec.hbl_no_checked = this.selectdeselect;
     }
   }
 
   GetSelectedSINos() {
     this.hbl_ids = "";
-    for (let rec of this.RecordList) {
+    for (let rec of this.ms.state.RecordList) {
       if (rec.hbl_no_checked) {
         if (this.hbl_ids.trim() != "")
           this.hbl_ids = this.hbl_ids.concat(",");
