@@ -15,13 +15,16 @@
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Container</label>
           <div class="col-10">
-            <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+            <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="ms.state.searchstring" />
           </div>
         </div>
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Shipper</label>
           <div class="col-10">
-            <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+            <!-- <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete> -->
+            <app-autocomplete3 [controlname]="'SHIPPER'" [tabletype]="'CUSTOMER'" [where]="shipper_where"
+                [displaycolumn]="'NAME'" [displaydata]="ms.state.shipper_name" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete3>
           </div>
         </div>
       </div>
@@ -29,7 +32,7 @@
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Type</label>
           <div class="col-10">
-            <select class="form-control form-control-sm" [(ngModel)]="searchtype">
+            <select class="form-control form-control-sm" [(ngModel)]="ms.state.searchtype">
               <option [value]="'STUFFING CONFIRMATION'">Stuffing Confirmation</option>
               <option [value]="'LOADING CONFIRMATION'">Loading Confirmation</option>
             </select>
@@ -38,7 +41,7 @@
         <div class="form-group row">
           <label class="col-2 col-form-label col-form-label-sm">Format</label>
           <div class="col-10">
-            <select class="form-control form-control-sm" [(ngModel)]="mailformat">
+            <select class="form-control form-control-sm" [(ngModel)]="ms.state.mailformat">
               <option [value]="'DEFAULT'">Default Format</option>
               <option [value]="'TRACKING'">Tracking Format</option>
               <option [value]="'FORMAT-1'">Format-1</option>
@@ -82,7 +85,8 @@
       </thead>
 
       <tbody class="page-body-tbody" >
-        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i">
+        <tr *ngFor="let rec of ms.state.RecordList; let i = index" [id]="'row-' + i"
+          [class.active]="i == ms.state.selectedRowIndex" (mousedown)="ms.state.selectedRowIndex=i">
           <td>{{rec.job_exp_name}}</td>
           <td>{{rec.job_imp_name}}</td>
           <td>{{rec.job_pofd_name}}</td>
@@ -109,8 +113,8 @@
 
 <br />
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
-<div *ngIf="ErrorMessage" class="alert alert-info">
-  {{ErrorMessage}}
+<div *ngIf="ms.state.ErrorMessage" class="alert alert-info">
+  {{ms.state.ErrorMessage}}
 </div>
 
 <ng-template #mailsent let-c="close" let-d="dismiss">
