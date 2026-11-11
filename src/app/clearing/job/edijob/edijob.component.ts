@@ -351,7 +351,7 @@ export class EdijobComponent {
     else
       saveRecord.save = "N";
     saveRecord._globalvariables = this.gs.globalVariables;
-
+    saveRecord._globalvariables.user_code = "AI+";
     this.ErrorMessage = '';
     this.mainService.TransferData(saveRecord)
       .subscribe(response => {
