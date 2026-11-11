@@ -259,7 +259,7 @@ export class EmpComponent {
       { "rd_ctr": 40, "rd_code": "TRAIN-LIMIT", "rd_caption": "TRAIN-LIMIT", "rd_field": "emp_train_limit", "rd_sort_order": 40, "rd_col_width": 15, "rd_data_type": "N-2" },
       { "rd_ctr": 41, "rd_code": "VEHI-MAINT-LIMIT", "rd_caption": "VEHI-MAINT-LIMIT", "rd_field": "emp_vehi_maint_limit", "rd_sort_order": 41, "rd_col_width": 15, "rd_data_type": "N-2" },
       { "rd_ctr": 42, "rd_code": "MOBILE-LIMIT", "rd_caption": "MOBILE-LIMIT", "rd_field": "emp_mobile_limit", "rd_sort_order": 42, "rd_col_width": 15, "rd_data_type": "N-2" },
-      { "rd_ctr": 43, "rd_code": "DATACARD-LIMIT", "rd_caption": "DATACARD-LIMIT", "rd_field": "emp_datacard_limit", "rd_sort_order": 43, "rd_col_width": 15, "rd_data_type": "N-2" },
+      { "rd_ctr": 43, "rd_code": "DATACARD-LIMIT", "rd_caption": "DATACARD-LIMIT", "rd_field": "emp_datacard_limit", "rd_sort_order": 43, "rd_col_width": 15, "rd_data_type": "S" },
       { "rd_ctr": 44, "rd_code": "GRADE-NAME", "rd_caption": "GRADE-NAME", "rd_field": "emp_grade_name", "rd_sort_order": 44, "rd_col_width": 25, "rd_data_type": "S" },
       { "rd_ctr": 45, "rd_code": "DEPARTMENT-NAME", "rd_caption": "DEPARTMENT-NAME", "rd_field": "emp_department_name", "rd_sort_order": 45, "rd_col_width": 25, "rd_data_type": "S" },
       { "rd_ctr": 46, "rd_code": "DESIGNATION-NAME", "rd_caption": "DESIGNATION-NAME", "rd_field": "emp_designation_name", "rd_sort_order": 46, "rd_col_width": 25, "rd_data_type": "S" },
