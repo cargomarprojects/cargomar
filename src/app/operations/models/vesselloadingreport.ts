@@ -19,3 +19,49 @@ export class VesselLoadingReport {
   _globalvariables: GlobalVariables;
 }
 
+export interface iVesselLoadingReportModel {
+  // filter Values
+  selectedRowIndex: number;
+  mode: string;
+  pkid: string;
+  list_format: string;
+  currentTab: string;
+  RecordList: VesselLoadingReport[];
+
+  ErrorMessage: string;
+
+  //Search Values
+  searchcarrierid: string;
+  searchcarrier_name: string;
+  searchvesselid: string;
+  searchvessel_name: string;
+  searchvoyage: string;
+
+  // Page Values
+  page_count: number;
+  page_current: number;
+  page_rows: number;
+  page_rowcount: number;
+};
+export const initialState: iVesselLoadingReportModel = {
+  selectedRowIndex: 0,
+  mode: '',
+  pkid: '',
+  list_format: '',
+  currentTab: '',
+  RecordList: [],
+  
+  ErrorMessage: '',
+
+  searchcarrierid: '',
+  searchcarrier_name: '',
+  searchvesselid: '',
+  searchvessel_name: '',
+  searchvoyage: '',
+
+  page_count: 0,
+  page_current: 0,
+  page_rows: 15,
+  page_rowcount: 0
+}
+

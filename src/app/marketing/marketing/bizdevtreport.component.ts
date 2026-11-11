@@ -50,7 +50,7 @@ export class BizDevtReportComponent {
     sub: any;
     urlid: string;
 
-    ErrorMessage = "";
+    // ErrorMessage = "";
     InfoMessage = "";
     // hyperlinkStyle = "'hlink'";
 
@@ -308,7 +308,7 @@ export class BizDevtReportComponent {
             iscoreteam: this.bCoreTeam
         };
         this.restoreRowPosition()
-        this.ErrorMessage = '';
+        this.ms.state.ErrorMessage = '';
         this.InfoMessage = '';
         this.ms.BizDevelopmentReport(SearchData)
             .subscribe(response => {
@@ -324,8 +324,8 @@ export class BizDevtReportComponent {
             },
                 error => {
                     this.loading = false;
-                    this.ErrorMessage = this.gs.getError(error);
-                    alert(this.ErrorMessage);
+                    this.ms.state.ErrorMessage = this.gs.getError(error);
+                    alert(this.ms.state.ErrorMessage);
                 });
     }
 

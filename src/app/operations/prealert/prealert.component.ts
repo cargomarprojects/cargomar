@@ -25,18 +25,18 @@ export class PreAlertComponent {
   @Input() type: string = '';
   InitCompleted: boolean = false;
   menu_record: any;
-  selectedRowIndex = 0;
+  // selectedRowIndex = 0;
   
   disableSave = true;
   loading = false;
   currentTab = 'LIST';
-  searchcontainer = '';
+  // searchcontainer = '';
 
 
   sub: any;
   urlid: string;
 
-  ErrorMessage = "";
+  // ErrorMessage = "";
   mode = '';
   pkid = '';
 
@@ -51,15 +51,15 @@ export class PreAlertComponent {
     docattach:'N'
   };
 
-  EXPRECORD: any;
-  EXPREC: any = { id: '', code: '', name: '' };
-  // Array For Displaying List
-  RecordList: PreAlertReport[] = [];
+  // EXPRECORD: any;
+  // EXPREC: any = { id: '', code: '', name: '' };
+  // // Array For Displaying List
+  // RecordList: PreAlertReport[] = [];
   // Single Record for add/edit/view details
   Record: PreAlertReport = new PreAlertReport;
 
   constructor(
-    private mainService: PreAlertReportService,
+    public ms: PreAlertReportService,
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {
@@ -81,6 +81,7 @@ export class PreAlertComponent {
     if (!this.InitCompleted) {
       this.InitComponent();
     }
+    this.ms.init(this.menuid, this.type);
   }
 
   InitComponent() {
@@ -97,6 +98,23 @@ export class PreAlertComponent {
     this.sub.unsubscribe();
   }
 
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.restoreRowPosition();
+    }, 100);
+  }
+
+  restoreRowPosition() {
+
+    const row = document.getElementById('row-' + this.ms.state.selectedRowIndex);
+
+    if (row) {
+      row.scrollIntoView({
+        behavior: 'auto',
+        block: 'center'
+      });
+    }
+  }
 
   initLov(caption: string = '') {
     //if (caption == '' || caption == 'SHIPPER')
@@ -116,7 +134,7 @@ export class PreAlertComponent {
 
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string) {
-    this.ErrorMessage = '';
+    this.ms.state.ErrorMessage = '';
     if (action == 'LIST') {
       this.mode = '';
       this.pkid = '';
@@ -142,9 +160,9 @@ export class PreAlertComponent {
 
   // Query List Data
   List(_type: string) {
-    if (this.searchcontainer.trim().length <= 0) {
-      this.ErrorMessage = 'Container Cannot Be Blank';
-      alert(this.ErrorMessage);
+    if (this.ms.state.searchcontainer.trim().length <= 0) {
+      this.ms.state.ErrorMessage = 'Container Cannot Be Blank';
+      alert(this.ms.state.ErrorMessage);
       return;
     }
 
@@ -155,24 +173,27 @@ export class PreAlertComponent {
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
     this.SearchData.branch_code = this.gs.globalVariables.branch_code;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
-    this.SearchData.searchcontainer = this.searchcontainer.toUpperCase();
+    this.SearchData.searchcontainer = this.ms.state.searchcontainer.toUpperCase();
     this.SearchData.type = _type;
     this.SearchData.docattach = "N";
 
-    this.ErrorMessage = '';
-    this.mainService.List(this.SearchData)
+    this.ms.state.selectedRowIndex = 0;
+    this.restoreRowPosition()
+
+    this.ms.state.ErrorMessage = '';
+    this.ms.List(this.SearchData)
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
-          this.RecordList = response.list;
+          this.ms.state.RecordList = response.list;
         }
       },
       error => {
         this.loading = false;
-        this.ErrorMessage = this.gs.getError(error);
-        alert(this.ErrorMessage);
+        this.ms.state.ErrorMessage = this.gs.getError(error);
+        alert(this.ms.state.ErrorMessage);
       });
   }
 
@@ -187,7 +208,7 @@ export class PreAlertComponent {
     switch (field) {
       case 'searchcontainer':
         {
-          this.searchcontainer = this.searchcontainer.toUpperCase().trim();
+          this.ms.state.searchcontainer = this.ms.state.searchcontainer.toUpperCase().trim();
           break;
         }
     }

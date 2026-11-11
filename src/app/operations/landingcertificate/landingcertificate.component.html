@@ -14,17 +14,20 @@
 
       <label class="col-1 col-form-label col-form-label-sm">From Date</label>
       <div class="col-2">
-        <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+        <app-date [inputdate]="ms.state.from_date" (ValueChanged)="ms.state.from_date=$event"></app-date>
       </div>
 
       <label class="col-1 col-form-label col-form-label-sm">To Date</label>
       <div class="col-2">
-        <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+        <app-date [inputdate]="ms.state.to_date" (ValueChanged)="ms.state.to_date=$event"></app-date>
       </div>
 
       <label class="col-1 col-form-label col-form-label-sm">Shipper</label>
       <div class="col-2">
-        <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+        <!-- <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete> -->
+        <app-autocomplete3 [controlname]="'SHIPPER'" [tabletype]="'CUSTOMER'" [where]="shipper_where"
+          [displaycolumn]="'NAME'" [displaydata]="ms.state.search_shprname" (ValueChanged)="LovSelected($event)">
+        </app-autocomplete3>
       </div>
       <div class="col">
         <button [disabled]="loading" (click)="List('NEW')" class="btn btn-primary btn-sm">Search</button>
@@ -49,7 +52,7 @@
       </thead>
 
       <tbody class="page-body-tbody" >
-        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i" >
+        <tr *ngFor="let rec of ms.state.RecordList; let i = index" [id]="'row-' + i" [class.active]="i == ms.state.selectedRowIndex" (mousedown)="ms.state.selectedRowIndex=i" >
           <td><input type="checkbox" [(ngModel)]="rec.hbl_no_checked">&nbsp;&nbsp;{{rec.hbl_no}}</td>
           <td>{{rec.hbl_imp_name}}</td>
           <td>{{rec.hbl_bl_no}}</td>
@@ -67,8 +70,8 @@
 
 <br />
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
-<div *ngIf="ErrorMessage" class="alert alert-info">
-  {{ErrorMessage}}
+<div *ngIf="ms.state.ErrorMessage" class="alert alert-info">
+  {{ms.state.ErrorMessage}}
 </div>
 
 
