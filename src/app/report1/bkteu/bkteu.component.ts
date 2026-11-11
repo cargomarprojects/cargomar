@@ -28,33 +28,33 @@ export class BkTeuComponent {
 
   modal: any;
 
-  selectedRowIndex = 0;
-  ErrorMessage = "";
+  // selectedRowIndex = 0;
+  // ErrorMessage = "";
   mode = '';
   pkid = '';
    
 
-  type_date: string = 'SOB';
-  from_date: string = '';
-  to_date: string = '';
-  branch_name: string;
-  branch_code: string;
-  shipper_id: string;
-  consignee_id: string;
-  agent_id: string;
-  carrier_id: string;
-  carriertype: string;
-  pol_id: string;
-  pod_id: string;
-  porttype: string;
+  // type_date: string = 'SOB';
+  // from_date: string = '';
+  // to_date: string = '';
+  // branch_name: string;
+  // branch_code: string;
+  // shipper_id: string;
+  // consignee_id: string;
+  // agent_id: string;
+  // carrier_id: string;
+  // carriertype: string;
+  // pol_id: string;
+  // pod_id: string;
+  // porttype: string;
 
   bExcel = false;
   disableSave = true;
   bCompany = false;
-  all: boolean = false;
+  // all: boolean = false;
   bAdmin = false;
   loading = false;
-  currentTab = 'LIST';
+  // currentTab = 'LIST';
   searchstring = '';
 
   SearchData = {
@@ -85,21 +85,21 @@ export class BkTeuComponent {
   AttachList: any[] = [];
 
   // Array For Displaying List
-  RecordList: BkTeu[] = [];
+  // RecordList: BkTeu[] = [];
  //  Single Record for add/edit/view details
   Record: BkTeu = new BkTeu;
 
-  BRRECORD: SearchTable = new SearchTable();
-  EXPRECORD: SearchTable = new SearchTable();
-  IMPRECORD: SearchTable = new SearchTable();
-  AGENTRECORD: SearchTable = new SearchTable();
-  CARRIERRECORD: SearchTable = new SearchTable();
-  POLRECORD: SearchTable = new SearchTable();
-  PODRECORD: SearchTable = new SearchTable();
+  // BRRECORD: SearchTable = new SearchTable();
+  // EXPRECORD: SearchTable = new SearchTable();
+  // IMPRECORD: SearchTable = new SearchTable();
+  // AGENTRECORD: SearchTable = new SearchTable();
+  // CARRIERRECORD: SearchTable = new SearchTable();
+  // POLRECORD: SearchTable = new SearchTable();
+  // PODRECORD: SearchTable = new SearchTable();
 
   constructor(
     private modalService: NgbModal,
-    private mainService: BkTeuService,
+    public ms: BkTeuService,
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {
@@ -121,7 +121,7 @@ export class BkTeuComponent {
     if (!this.InitCompleted) {
       this.InitComponent();
     }
-    
+    this.ms.init(this.menuid, this.type);
   }
 
   InitComponent() {
@@ -139,27 +139,27 @@ export class BkTeuComponent {
         this.bExcel = true;
     }
 
-    this.porttype = "SEA PORT";
-    this.carriertype = "SEA CARRIER";
+    // this.porttype = "SEA PORT";
+    // this.carriertype = "SEA CARRIER";
 
-    this.Init();
+    // this.Init();
     this.initLov();
     this.LoadCombo();
   }
 
   Init() {
-    this.type_date = "SOB";
-    this.branch_code = this.gs.globalVariables.branch_code;
-    this.branch_name = this.gs.globalVariables.branch_name;
-    this.from_date = this.gs.defaultValues.monthbegindate;
-    this.to_date = this.gs.defaultValues.today;
-    this.shipper_id = '';
-    this.consignee_id = '';
-    this.agent_id = '';
+    // this.type_date = "SOB";
+    // this.branch_code = this.gs.globalVariables.branch_code;
+    // this.branch_name = this.gs.globalVariables.branch_name;
+    // this.from_date = this.gs.defaultValues.monthbegindate;
+    // this.to_date = this.gs.defaultValues.today;
+    // this.shipper_id = '';
+    // this.consignee_id = '';
+    // this.agent_id = '';
    
-    this.carrier_id = '';
-    this.pol_id = '';
-    this.pod_id = '';
+    // this.carrier_id = '';
+    // this.pol_id = '';
+    // this.pod_id = '';
   }
 
  // // Destroy Will be called when this component is closed
@@ -167,70 +167,89 @@ export class BkTeuComponent {
     this.sub.unsubscribe();
   }
 
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.restoreRowPosition();
+    }, 100);
+  }
+
+  restoreRowPosition() {
+    const row = document.getElementById(this.ms.state.selectedRowIndex.toString());
+    if (row) {
+      row.scrollIntoView({
+        behavior: 'auto',
+        block: 'center'
+      });
+    }
+  }
+
+  shipper_where = " CUST_IS_SHIPPER = 'Y' ";
+  consingee_where = " CUST_IS_CONSIGNEE = 'Y' ";
+  agent_where = " CUST_IS_AGENT = 'Y' ";
 
   initLov(caption: string = '') {
 
-    this.BRRECORD = new SearchTable();
-    this.BRRECORD.controlname = "BRANCH";
-    this.BRRECORD.displaycolumn = "CODE";
-    this.BRRECORD.type = "BRANCH";
-    this.BRRECORD.id = "";
-    this.BRRECORD.code = this.gs.globalVariables.branch_code;
+    // this.BRRECORD = new SearchTable();
+    // this.BRRECORD.controlname = "BRANCH";
+    // this.BRRECORD.displaycolumn = "CODE";
+    // this.BRRECORD.type = "BRANCH";
+    // this.BRRECORD.id = "";
+    // this.BRRECORD.code = this.gs.globalVariables.branch_code;
 
-    this.EXPRECORD = new SearchTable();
-    this.EXPRECORD.controlname = "SHIPPER";
-    this.EXPRECORD.displaycolumn = "NAME";
-    this.EXPRECORD.type = "CUSTOMER";
-    this.EXPRECORD.where = " CUST_IS_SHIPPER = 'Y' ";
-    this.EXPRECORD.id = "";
-    this.EXPRECORD.code = "";
-    this.EXPRECORD.name = "";
-    this.EXPRECORD.parentid = "";
+    // this.EXPRECORD = new SearchTable();
+    // this.EXPRECORD.controlname = "SHIPPER";
+    // this.EXPRECORD.displaycolumn = "NAME";
+    // this.EXPRECORD.type = "CUSTOMER";
+    // this.EXPRECORD.where = " CUST_IS_SHIPPER = 'Y' ";
+    // this.EXPRECORD.id = "";
+    // this.EXPRECORD.code = "";
+    // this.EXPRECORD.name = "";
+    // this.EXPRECORD.parentid = "";
 
-    this.IMPRECORD = new SearchTable();
-    this.IMPRECORD.controlname = "CONSIGNEE";
-    this.IMPRECORD.displaycolumn = "NAME";
-    this.IMPRECORD.type = "CUSTOMER";
-    this.IMPRECORD.where = " CUST_IS_CONSIGNEE = 'Y' ";
-    this.IMPRECORD.id = "";
-    this.IMPRECORD.code = "";
-    this.IMPRECORD.name = "";
-    this.IMPRECORD.parentid = "";
-
-
-    this.AGENTRECORD = new SearchTable();
-    this.AGENTRECORD.controlname = "AGENT";
-    this.AGENTRECORD.where = " CUST_IS_AGENT = 'Y' ";
-    this.AGENTRECORD.displaycolumn = "NAME";
-    this.AGENTRECORD.type = "CUSTOMER";
-    this.AGENTRECORD.id = "";
-    this.AGENTRECORD.code = "";
-    this.AGENTRECORD.name = "";
-
-    this.CARRIERRECORD = new SearchTable();
-    this.CARRIERRECORD.controlname = "CARRIER";
-    this.CARRIERRECORD.displaycolumn = "NAME";
-    this.CARRIERRECORD.type = this.carriertype;
-    this.CARRIERRECORD.id = "";
-    this.CARRIERRECORD.code = "";
-    this.CARRIERRECORD.name = "";
-
-    this.POLRECORD = new SearchTable();
-    this.POLRECORD.controlname = "POL";
-    this.POLRECORD.displaycolumn = "NAME";
-    this.POLRECORD.type = this.porttype;
-    this.POLRECORD.id = "";
-    this.POLRECORD.code = "";
-    this.POLRECORD.name = "";
+    // this.IMPRECORD = new SearchTable();
+    // this.IMPRECORD.controlname = "CONSIGNEE";
+    // this.IMPRECORD.displaycolumn = "NAME";
+    // this.IMPRECORD.type = "CUSTOMER";
+    // this.IMPRECORD.where = " CUST_IS_CONSIGNEE = 'Y' ";
+    // this.IMPRECORD.id = "";
+    // this.IMPRECORD.code = "";
+    // this.IMPRECORD.name = "";
+    // this.IMPRECORD.parentid = "";
 
 
-    this.PODRECORD = new SearchTable();
-    this.PODRECORD.controlname = "POD";
-    this.PODRECORD.displaycolumn = "NAME";
-    this.PODRECORD.type = this.porttype;
-    this.PODRECORD.id = "";
-    this.PODRECORD.code = "";
-    this.PODRECORD.name = "";
+    // this.AGENTRECORD = new SearchTable();
+    // this.AGENTRECORD.controlname = "AGENT";
+    // this.AGENTRECORD.where = " CUST_IS_AGENT = 'Y' ";
+    // this.AGENTRECORD.displaycolumn = "NAME";
+    // this.AGENTRECORD.type = "CUSTOMER";
+    // this.AGENTRECORD.id = "";
+    // this.AGENTRECORD.code = "";
+    // this.AGENTRECORD.name = "";
+
+    // this.CARRIERRECORD = new SearchTable();
+    // this.CARRIERRECORD.controlname = "CARRIER";
+    // this.CARRIERRECORD.displaycolumn = "NAME";
+    // this.CARRIERRECORD.type = this.carriertype;
+    // this.CARRIERRECORD.id = "";
+    // this.CARRIERRECORD.code = "";
+    // this.CARRIERRECORD.name = "";
+
+    // this.POLRECORD = new SearchTable();
+    // this.POLRECORD.controlname = "POL";
+    // this.POLRECORD.displaycolumn = "NAME";
+    // this.POLRECORD.type = this.porttype;
+    // this.POLRECORD.id = "";
+    // this.POLRECORD.code = "";
+    // this.POLRECORD.name = "";
+
+
+    // this.PODRECORD = new SearchTable();
+    // this.PODRECORD.controlname = "POD";
+    // this.PODRECORD.displaycolumn = "NAME";
+    // this.PODRECORD.type = this.porttype;
+    // this.PODRECORD.id = "";
+    // this.PODRECORD.code = "";
+    // this.PODRECORD.name = "";
 
 
   }
@@ -238,36 +257,33 @@ export class BkTeuComponent {
   LovSelected(_Record: SearchTable) {
     // Company Settings
     if (_Record.controlname == "BRANCH") {
-      this.branch_code = _Record.code;
-      this.branch_name = _Record.name;
+      this.ms.state.branch_code = _Record.code;
+      this.ms.state.branch_name = _Record.name;
     }
     if (_Record.controlname == "SHIPPER") {
-      this.shipper_id = _Record.id;
-      // this.shipper_name = _Record.name;
+      this.ms.state.shipper_id = _Record.id;
+      this.ms.state.shipper_name = _Record.name;
     }
     if (_Record.controlname == "CONSIGNEE") {
-      this.consignee_id = _Record.id;
-      //  this.consignee_name = _Record.name;
+      this.ms.state.consignee_id = _Record.id;
+       this.ms.state.consignee_name = _Record.name;
     }
     if (_Record.controlname == "AGENT") {
-      this.agent_id = _Record.id;
-     // this.agent_code = _Record.code;
-     // this.agent_name = _Record.name;
+      this.ms.state.agent_id = _Record.id;
+     this.ms.state.agent_code = _Record.code;
+     this.ms.state.agent_name = _Record.name;
     }
     if (_Record.controlname == "CARRIER") {
-      this.carrier_id = _Record.id;
-      // this.carrier_code = _Record.code;
-      // this.carrier_name = _Record.name;
+      this.ms.state.carrier_id = _Record.id;
+      this.ms.state.carrier_name = _Record.name;
     }
     if (_Record.controlname == "POL") {
-      this.pol_id = _Record.id;
-      // this.pol_code = _Record.code;
-      //  this.pol_name = _Record.name;
+      this.ms.state.pol_id = _Record.id;
+      this.ms.state.pol_name = _Record.name;
     }
     if (_Record.controlname == "POD") {
-      this.pod_id = _Record.id;
-      // this.pod_code = _Record.code;
-      // this.pod_name = _Record.name;
+      this.ms.state.pod_id = _Record.id;
+      this.ms.state.pod_name = _Record.name;
     }
 
   }
@@ -277,11 +293,11 @@ export class BkTeuComponent {
 
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string) {
-    this.ErrorMessage = '';
+    this.ms.state.ErrorMessage = '';
     if (action == 'LIST') {
       this.mode = '';
       this.pkid = '';
-      this.currentTab = 'LIST';
+      this.ms.state.currentTab = 'LIST';
     }
   }
 
@@ -303,7 +319,7 @@ export class BkTeuComponent {
  // // Query List Data
   List(_type: string, mailsent: any) {
 
-    this.ErrorMessage = '';
+    this.ms.state.ErrorMessage = '';
     //if (this.from_date.trim().length <= 0) {
     //  this.ErrorMessage = "From Date Cannot Be Blank";
     //  return;
@@ -320,8 +336,8 @@ export class BkTeuComponent {
     this.SearchData.company_code = this.gs.globalVariables.comp_code;
    
     if (this.bCompany) {
-      this.SearchData.branch_code = this.branch_code;
-      this.SearchData.branch_name = this.branch_name;
+      this.SearchData.branch_code = this.ms.state.branch_code;
+      this.SearchData.branch_name = this.ms.state.branch_name;
     }
     else {
       this.SearchData.branch_code = this.gs.globalVariables.branch_code;
@@ -334,19 +350,21 @@ export class BkTeuComponent {
       this.SearchData.type = "EXCEL";
     else
       this.SearchData.type = _type;
-    this.SearchData.type_date = this.type_date;
-    this.SearchData.from_date = this.from_date;
-    this.SearchData.to_date = this.to_date;
-    this.SearchData.shipper_id = this.shipper_id;
-    this.SearchData.consignee_id = this.consignee_id;
-    this.SearchData.agent_id = this.agent_id;
-    this.SearchData.carrier_id = this.carrier_id;
-    this.SearchData.pol_id = this.pol_id;
-    this.SearchData.pod_id = this.pod_id;
-    this.SearchData.all = this.all;
+    this.SearchData.type_date = this.ms.state.type_date;
+    this.SearchData.from_date = this.ms.state.from_date;
+    this.SearchData.to_date = this.ms.state.to_date;
+    this.SearchData.shipper_id = this.ms.state.shipper_id;
+    this.SearchData.consignee_id = this.ms.state.consignee_id;
+    this.SearchData.agent_id = this.ms.state.agent_id;
+    this.SearchData.carrier_id = this.ms.state.carrier_id;
+    this.SearchData.pol_id = this.ms.state.pol_id;
+    this.SearchData.pod_id = this.ms.state.pod_id;
+    this.SearchData.all = this.ms.state.all;
 
-    this.ErrorMessage = '';
-    this.mainService.List(this.SearchData)
+    this.restoreRowPosition();
+
+    this.ms.state.ErrorMessage = '';
+    this.ms.List(this.SearchData)
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')
@@ -361,13 +379,13 @@ export class BkTeuComponent {
         }
       else
         {
-          this.RecordList = response.list;
+          this.ms.state.RecordList = response.list;
         }
       },
       error => {
         this.loading = false;
-        this.RecordList = null;
-        this.ErrorMessage = this.gs.getError(error);
+        this.ms.state.RecordList = [];
+        this.ms.state.ErrorMessage = this.gs.getError(error);
       });
   }
   
@@ -390,7 +408,7 @@ export class BkTeuComponent {
   }
 
   OnChange(field: string) {
-    this.RecordList = null;
+    this.ms.state.RecordList = [];
 
   }
 
