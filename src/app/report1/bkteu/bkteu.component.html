@@ -141,7 +141,7 @@
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
-          <th *ngIf="all">BRANCH</th>
+          <th *ngIf="ms.state.all">BRANCH</th>
           <th>MBLBK#</th>
           <th>BOOKING.NO</th>
           <th>MBL#</th>
@@ -165,8 +165,9 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody" >
-        <tr *ngFor="let rec of ms.state.RecordList; let i = index" [id]="'row-' + i" [class.active]=" i == ms.state.selectedRowIndex" (mousedown)="ms.state.selectedRowIndex=i" [style.color]="rec.row_colour">
-          <td *ngIf="all">{{rec.branch}}</td>
+        <tr *ngFor="let rec of ms.state.RecordList; let i = index" [id]="'row-' + i" 
+          [class.active]="i == ms.state.selectedRowIndex" (mousedown)="ms.state.selectedRowIndex=i" [style.color]="rec.row_colour">
+          <td *ngIf="ms.state.all">{{rec.branch}}</td>
           <td>{{rec.cntr_booking_no}}</td>
           <td>{{rec.mbl_book_no}}</td>
           <td>{{rec.mbl_no}}</td>

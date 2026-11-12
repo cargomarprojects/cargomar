@@ -350,7 +350,6 @@ export class ArrivalNoticeComponent {
       return;
     }
 
-
     this.loading = true;
     this.SearchData.pkid = this.hbl_pkid;
     this.SearchData.report_folder = this.gs.globalVariables.report_folder;
@@ -366,7 +365,8 @@ export class ArrivalNoticeComponent {
     this.SearchData.page_current = this.ms.state.page_current;
     this.SearchData.page_rows = this.ms.state.page_rows;
     this.SearchData.page_rowcount = this.ms.state.page_rowcount;
-
+    this.ms.state.selectedRowIndex = 0;
+    this.restoreRowPosition()
     this.ms.state.ErrorMessage = '';
     this.ms.List(this.SearchData)
       .subscribe(response => {

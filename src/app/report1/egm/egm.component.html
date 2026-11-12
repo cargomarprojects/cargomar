@@ -6,7 +6,7 @@
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
 </div>
-<div *ngIf="currentTab=='LIST'" class="page-list">
+<div *ngIf="ms.state.currentTab=='LIST'" class="page-list">
   <div class="page-list">
     <div class="page-search">
       <div class="row">
@@ -14,7 +14,7 @@
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Container</label>
             <div class="col-8">
-              <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring" />
+              <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="ms.state.searchstring" />
             </div>
           </div>
           <div class="form-group row">
@@ -68,7 +68,8 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody" >
-        <tr [style.color]="rec.row_colour" *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i" >
+        <tr [style.color]="rec.row_colour" *ngFor="let rec of ms.state.RecordList; let i = index" [id]="'row-' + i"
+          [class.active]="i == ms.state.selectedRowIndex" (mousedown)="ms.state.selectedRowIndex=i" >
           <td>{{rec.job_docno}}</td>
           <td>{{rec.pol_code}}</td>
             <!--<td>{{rec.pol}}</td>-->
@@ -100,7 +101,7 @@
 </div>
 <br />
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
-<div *ngIf="ErrorMessage" class="alert alert-danger">
-  {{ErrorMessage}}
+<div *ngIf="ms.state.ErrorMessage" class="alert alert-danger">
+  {{ms.state.ErrorMessage}}
 </div>
 

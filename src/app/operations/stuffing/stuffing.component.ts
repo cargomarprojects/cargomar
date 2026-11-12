@@ -192,6 +192,8 @@ export class StuffingComponent {
     this.SearchData.searchtype = this.ms.state.searchtype;
     this.SearchData.mailformat = this.ms.state.mailformat;
 
+    this.ms.state.selectedRowIndex = 0;
+    this.restoreRowPosition()
     this.ms.state.ErrorMessage = '';
     this.ms.List(this.SearchData)
       .subscribe(response => {

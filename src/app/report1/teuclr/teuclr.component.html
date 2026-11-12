@@ -6,7 +6,7 @@
   </div>
 </div>
 
-<div *ngIf="currentTab=='LIST'" class="page-list">
+<div *ngIf="ms.state.currentTab=='LIST'" class="page-list">
 
   <div class="page-list">
     <div class="page-search">
@@ -15,25 +15,31 @@
           <div class="form-group row">
             <label class="col-4 col-form-label col-form-label-sm">From Date</label>
             <div class="col-8">
-              <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event"></app-date>
+              <app-date [inputdate]="ms.state.from_date" (ValueChanged)="ms.state.from_date=$event"></app-date>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-4 col-form-label col-form-label-sm">To Date</label>
             <div class="col-8">
-              <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event"></app-date>
+              <app-date [inputdate]="ms.state.to_date" (ValueChanged)="ms.state.to_date=$event"></app-date>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-4 col-form-label col-form-label-sm">Shipper</label>
             <div class="col-8">
-              <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              <!-- <app-autocomplete #ExporterLov [inputdata]="EXPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete> -->
+              <app-autocomplete3 [controlname]="'SHIPPER'" [tabletype]="'CUSTOMER'" [where]="shipper_where"
+                [displaycolumn]="'NAME'" [displaydata]="ms.state.shipper_name" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete3>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-4 col-form-label col-form-label-sm">Consignee</label>
             <div class="col-8">
-              <app-autocomplete #ImporterLov [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              <!-- <app-autocomplete #ImporterLov [inputdata]="IMPRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete> -->
+              <app-autocomplete3 [controlname]="'CONSIGNEE'" [tabletype]="'CUSTOMER'" [where]="consignee_where"
+                [displaycolumn]="'NAME'" [displaydata]="ms.state.consignee_name" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete3>
             </div>
           </div>
         </div>
@@ -41,25 +47,37 @@
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Agent</label>
             <div class="col-8">
-              <app-autocomplete #AgentAddLov [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              <!-- <app-autocomplete #AgentAddLov [inputdata]="AGENTRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete> -->
+              <app-autocomplete3 [controlname]="'AGENT'" [tabletype]="'CUSTOMER'" [where]="agent_where"
+                [displaycolumn]="'NAME'" [displaydata]="ms.state.agent_name" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete3>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Carrier</label>
             <div class="col-8">
-              <app-autocomplete #CarrierAddLov [inputdata]="CARRIERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              <!-- <app-autocomplete #CarrierAddLov [inputdata]="CARRIERRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete> -->
+              <app-autocomplete3 [controlname]="'CARRIER'" [tabletype]="'SEA CARRIER'" [where]="''"
+                [displaycolumn]="'NAME'" [displaydata]="ms.state.carrier_name" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete3>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Pol</label>
             <div class="col-8">
-              <app-autocomplete #LoadPortAddLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              <!-- <app-autocomplete #LoadPortAddLov [inputdata]="POLRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete> -->
+              <app-autocomplete3 [controlname]="'POL'" [tabletype]="'SEA PORT'" [where]="''" [displaycolumn]="'NAME'"
+                [displaydata]="ms.state.pol_name" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete3>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Pod</label>
             <div class="col-8">
-              <app-autocomplete #DischrgPortAddLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              <!-- <app-autocomplete #DischrgPortAddLov [inputdata]="PODRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete> -->
+              <app-autocomplete3 [controlname]="'POD'" [tabletype]="'SEA PORT'" [where]="''" [displaycolumn]="'NAME'"
+                [displaydata]="ms.state.pod_name" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete3>
             </div>
           </div>
         </div>
@@ -76,13 +94,16 @@
           <div *ngIf="bCompany" class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Branch</label>
             <div class="col-8">
-              <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete>
+              <!-- <app-autocomplete #BrLov [inputdata]="BRRECORD" (ValueChanged)="LovSelected($event)"></app-autocomplete> -->
+              <app-autocomplete3 [controlname]="'BRANCH'" [tabletype]="'BRANCH'" [where]="''" [displaycolumn]="'CODE'"
+                [displaydata]="ms.state.branch_code" (ValueChanged)="LovSelected($event)">
+              </app-autocomplete3>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm"></label>
             <div *ngIf="bCompany" class="col-8">
-              <input type="checkbox" [(ngModel)]="all" (change)="OnChange('all')">
+              <input type="checkbox" [(ngModel)]="ms.state.all" (change)="OnChange('all')">
               <span> All</span>
             </div>
           </div>
@@ -102,7 +123,7 @@
     <table class="table table-hover table-sm table-bordered table-striped">
       <thead class="page-body-thead">
         <tr>
-          <th *ngIf="all">BRANCH</th>
+          <th *ngIf="ms.state.all">BRANCH</th>
           <th>JOB-DATE</th>
           <th>CONTAINER</th>
           <th>TYPE</th>
@@ -131,8 +152,9 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody" >
-        <tr [style.color]="rec.row_colour" *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex" (mousedown)="selectedRowIndex=i" >
-          <td *ngIf="all">{{rec.branch}}</td>
+        <tr [style.color]="rec.row_colour" *ngFor="let rec of ms.state.RecordList; let i = index" [id]="'row-' + i"
+          [class.active]="i == ms.state.selectedRowIndex" (mousedown)="ms.state.selectedRowIndex=i" >
+          <td *ngIf="ms.state.all">{{rec.branch}}</td>
           <td>{{rec.job_date}}</td>
           <td>{{rec.cntr_no}}</td>
           <td>{{rec.cntr_type_code}}</td>
@@ -169,6 +191,6 @@
 
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
 
-<div *ngIf="ErrorMessage" class="alert alert-danger">
-  {{ErrorMessage}}
+<div *ngIf="ms.state.ErrorMessage" class="alert alert-danger">
+  {{ms.state.ErrorMessage}}
 </div>
