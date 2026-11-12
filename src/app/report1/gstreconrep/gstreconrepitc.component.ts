@@ -401,6 +401,14 @@ export class GstReconRepItcComponent {
 
 
   UpdateItcRowWise(_id: string, _status: string, _remarks: string, _display_claim_period: string, _download_source: string, _match_id: string, _doc_type: string) {
+
+    if (_status == 'REJECTED' || _status == 'IMS-REJECTED' || _status == 'IMS-PENDING') {
+      if (this.gs.isBlank(_remarks)) {
+        alert('Remarks cannot be blank');
+        return;
+      }
+    }
+
     let SearchData2 = {
       category: this.type,
       pkid: _id,

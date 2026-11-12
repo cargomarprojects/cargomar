@@ -73,7 +73,7 @@ export class EdilinkComponent {
 
   ) {
     this.page_count = 0;
-    this.page_rows = 15;
+    this.page_rows = 25;
     this.page_current = 0;
 
     // URL Query Parameter
