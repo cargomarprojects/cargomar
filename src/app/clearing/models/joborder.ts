@@ -116,3 +116,78 @@ export class JobOrder_VM {
   ord_parent_id: string;
   ord_source: string;
 }
+
+export interface iJobordermModel {
+  // filter Values
+  selectedRowIndex: number;
+  mode: string;
+  pkid: string;
+  list_format: string;
+  currentTab: string;
+  RecordList: Joborderm[];
+
+  ErrorMessage: string;
+
+  //Search Values
+  selectcheckbox: boolean;
+  from_date: string;
+  to_date: string;
+  list_exp_id: string;
+  list_exp_name: string;
+  list_exp_code: string;
+  list_imp_id: string;
+  list_imp_name: string;
+  list_imp_code: string;
+  list_agent_id: string;
+  list_agent_name: string;
+  list_agent_code: string;
+  job_docno: string;
+  ord_invoice: string;
+  sort_colname: string;
+  ord_showpending: boolean;
+  ord_status: string;
+  ord_po: string;
+  ftpTransfertype: string;
+
+  // Page Values
+  page_count: number;
+  page_current: number;
+  page_rows: number;
+  page_rowcount: number;
+};
+
+export const initialState: iJobordermModel = {
+  selectedRowIndex: 0,
+  mode: '',
+  pkid: '',
+  list_format: '',
+  currentTab: '',
+  RecordList: [],
+  
+  ErrorMessage: '',
+
+  selectcheckbox: false,
+  from_date: '',
+  to_date: '',
+  list_exp_id: '',
+  list_exp_name: '',
+  list_exp_code: '',
+  list_imp_id: '',
+  list_imp_name: '',
+  list_imp_code: '',
+  list_agent_id: '',
+  list_agent_name: '',
+  list_agent_code: '',
+  job_docno: '',
+  ord_invoice: '',
+  sort_colname: '',
+  ord_showpending: false,
+  ord_status: '',
+  ord_po: '',
+  ftpTransfertype: '',
+
+  page_count: 0,
+  page_current: 0,
+  page_rows: 15,
+  page_rowcount: 0
+}
