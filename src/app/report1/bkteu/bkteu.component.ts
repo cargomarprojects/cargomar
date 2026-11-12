@@ -174,7 +174,7 @@ export class BkTeuComponent {
   }
 
   restoreRowPosition() {
-    const row = document.getElementById(this.ms.state.selectedRowIndex.toString());
+    const row = document.getElementById('row-' + this.ms.state.selectedRowIndex);
     if (row) {
       row.scrollIntoView({
         behavior: 'auto',
@@ -266,12 +266,12 @@ export class BkTeuComponent {
     }
     if (_Record.controlname == "CONSIGNEE") {
       this.ms.state.consignee_id = _Record.id;
-       this.ms.state.consignee_name = _Record.name;
+      this.ms.state.consignee_name = _Record.name;
     }
     if (_Record.controlname == "AGENT") {
       this.ms.state.agent_id = _Record.id;
-     this.ms.state.agent_code = _Record.code;
-     this.ms.state.agent_name = _Record.name;
+      this.ms.state.agent_code = _Record.code;
+      this.ms.state.agent_name = _Record.name;
     }
     if (_Record.controlname == "CARRIER") {
       this.ms.state.carrier_id = _Record.id;
@@ -328,7 +328,9 @@ export class BkTeuComponent {
     //  this.ErrorMessage = "To Date Cannot Be Blank";
     //  return;
     //}
-    
+    this.ms.state.selectedRowIndex = 0;
+    this.restoreRowPosition()
+
     this.loading = true;
     this.pkid = this.gs.getGuid();
     this.SearchData.pkid = this.pkid;
@@ -360,8 +362,6 @@ export class BkTeuComponent {
     this.SearchData.pol_id = this.ms.state.pol_id;
     this.SearchData.pod_id = this.ms.state.pod_id;
     this.SearchData.all = this.ms.state.all;
-
-    this.restoreRowPosition();
 
     this.ms.state.ErrorMessage = '';
     this.ms.List(this.SearchData)

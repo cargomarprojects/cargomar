@@ -5,12 +5,13 @@ import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { SearchTable } from '../../shared/models/searchtable';
 import { Egm } from '../models/egm';
-import { RepService } from '../services/report.service';
+import { EgmService } from '../services/egm.service';
+// import { RepService } from '../services/report.service';
 
 @Component({
   selector: 'app-egm',
   templateUrl: './egm.component.html',
-  providers: [RepService]
+  providers: [EgmService]
 })
 
 export class EgmComponent {
@@ -23,14 +24,14 @@ export class EgmComponent {
   menu_record: any;
   sub: any;
   urlid: string;
-  selectedRowIndex = 0;
+  // selectedRowIndex = 0;
   
-  ErrorMessage = "";
+  // ErrorMessage = "";
   mode = '';
   pkid = '';
   rec_category: string = "";
-  branch_name: string;
-  branch_code: string;
+  // branch_name: string;
+  // branch_code: string;
   job_type: string;
 
   bExcel = false;
@@ -38,8 +39,8 @@ export class EgmComponent {
   bCompany = false;
   loading = false;
 
-  currentTab = 'LIST';
-  searchstring = '';
+  // currentTab = 'LIST';
+  // searchstring = '';
 
   SearchData = {
     type: '',
@@ -61,7 +62,7 @@ export class EgmComponent {
   Record: Egm = new Egm;
 
   constructor(
-    private mainService: RepService,
+    public ms: EgmService,
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {
@@ -86,6 +87,7 @@ export class EgmComponent {
     if (!this.InitCompleted) {
       this.InitComponent();
     }
+    this.ms.init(this.menuid, this.type);
   }
 
   InitComponent() {
@@ -99,23 +101,39 @@ export class EgmComponent {
       if (this.menu_record.rights_print)
         this.bExcel = true;
     }
-    this.Init();
+    // this.Init();
     this.initLov();
     this.LoadCombo();
   }
 
   Init() {
     
-    this.job_type = "ALL";
-    this.RecordList = null;
-    this.branch_code = this.gs.globalVariables.branch_code;
-    this.branch_name = this.gs.globalVariables.branch_name;
+    // this.job_type = "ALL";
+    // this.RecordList = null;
+    // this.branch_code = this.gs.globalVariables.branch_code;
+    // this.branch_name = this.gs.globalVariables.branch_name;
 
   }
 
   // Destroy Will be called when this component is closed
   ngOnDestroy() {
     this.sub.unsubscribe();
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.restoreRowPosition();
+    }, 100);
+  }
+
+  restoreRowPosition() {
+    const row = document.getElementById('row-' + this.ms.state.selectedRowIndex);
+    if (row) {
+      row.scrollIntoView({
+        behavior: 'auto',
+        block: 'center'
+      });
+    }
   }
 
   initLov(caption: string = '') {
@@ -129,11 +147,11 @@ export class EgmComponent {
 
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string) {
-    this.ErrorMessage = '';
+    this.ms.state.ErrorMessage = '';
     if (action == 'LIST') {
       this.mode = '';
       this.pkid = '';
-      this.currentTab = 'LIST';
+      this.ms.state.currentTab = 'LIST';
     }
   }
 
@@ -155,10 +173,10 @@ export class EgmComponent {
   // Query List Data
   List(_type: string) {
 
-    this.ErrorMessage = '';
-    if (this.searchstring.trim().length <= 0) {
-      this.RecordList = null;
-      this.ErrorMessage = "Container Cannot Be Blank";
+    this.ms.state.ErrorMessage = '';
+    if (this.ms.state.searchstring.trim().length <= 0) {
+      this.ms.state.RecordList = [];
+      this.ms.state.ErrorMessage = "Container Cannot Be Blank";
       return;
     }
 
@@ -170,12 +188,14 @@ export class EgmComponent {
     this.SearchData.branch_code = this.gs.globalVariables.branch_code;
     this.SearchData.branch_name = this.gs.globalVariables.branch_name;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
-    this.SearchData.searchstring = this.searchstring.toUpperCase();
+    this.SearchData.searchstring = this.ms.state.searchstring.toUpperCase();
     this.SearchData.type = _type;
     this.SearchData.rec_category = this.rec_category;
     this.SearchData.job_type = this.job_type;
-    this.ErrorMessage = '';
-    this.mainService.EgmList(this.SearchData)
+    this.ms.state.selectedRowIndex = 0;
+    this.restoreRowPosition()
+    this.ms.state.ErrorMessage = '';
+    this.ms.EgmList(this.SearchData)
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')
@@ -186,8 +206,8 @@ export class EgmComponent {
       },
       error => {
         this.loading = false;
-        this.RecordList = null;
-        this.ErrorMessage = this.gs.getError(error);
+        this.ms.state.RecordList = [];
+        this.ms.state.ErrorMessage = this.gs.getError(error);
       });
   }
 

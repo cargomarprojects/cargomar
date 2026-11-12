@@ -307,6 +307,7 @@ export class BizDevtReportComponent {
             searchstring: this.searchstring,
             iscoreteam: this.bCoreTeam
         };
+        this.ms.state.selectedRowIndex = 0;
         this.restoreRowPosition()
         this.ms.state.ErrorMessage = '';
         this.InfoMessage = '';

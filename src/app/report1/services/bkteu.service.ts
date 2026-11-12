@@ -40,6 +40,7 @@ export class BkTeuService {
       this.state.pod_name = '';
       this.state.branch_code = this.gs.globalVariables.branch_code;
       this.state.branch_name = this.gs.globalVariables.branch_name;
+      this.state.all = false;
 
       this.state.currentTab = 'LIST';
       this.gs.appStates[this.screen_id] = this.state;
