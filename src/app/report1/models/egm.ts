@@ -48,6 +48,7 @@ export interface iEgmModel {
 
   //Search Values
   searchstring: string;
+  job_type: string;
 
   // Page Values
   page_count: number;
@@ -67,6 +68,7 @@ export const initialState: iEgmModel = {
   ErrorMessage: '',
 
   searchstring: '',
+  job_type: '',
 
   page_count: 0,
   page_current: 0,

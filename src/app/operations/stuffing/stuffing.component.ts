@@ -26,7 +26,7 @@ export class StuffingComponent {
   loading = false;
   currentTab = 'LIST';
   // searchstring = '';
-  searchexpid = '';
+  // searchexpid = '';
   // searchtype = 'STUFFING CONFIRMATION';
   // mailformat = 'DEFAULT';
 
@@ -187,7 +187,7 @@ export class StuffingComponent {
     this.SearchData.branch_code = this.gs.globalVariables.branch_code;
     this.SearchData.year_code = this.gs.globalVariables.year_code;
     this.SearchData.searchstring = this.ms.state.searchstring.toUpperCase();
-    this.SearchData.searchexpid = this.searchexpid;
+    this.SearchData.searchexpid = this.ms.state.shipper_id;
     this.SearchData.type = _type;
     this.SearchData.searchtype = this.ms.state.searchtype;
     this.SearchData.mailformat = this.ms.state.mailformat;

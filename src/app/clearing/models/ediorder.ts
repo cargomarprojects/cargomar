@@ -36,3 +36,54 @@ export class EdiOrder {
   _globalvariables: GlobalVariables;
 }
 
+export interface iEdiOrderModel {
+  // filter Values
+  selectedRowIndex: number;
+  mode: string;
+  pkid: string;
+  list_format: string;
+  currentTab: string;
+  RecordList: EdiOrder[];
+
+  ErrorMessage: string;
+  InfoMessage: string;
+
+  //Search Values
+  selectcheck: boolean;
+  agent_id: string;
+  update_type: string;
+  chk_all_pol: boolean;
+  searchstring: string;
+  ord_po_aprvd: string;
+
+  // Page Values
+  page_count: number;
+  page_current: number;
+  page_rows: number;
+  page_rowcount: number;
+};
+
+export const initialState: iEdiOrderModel = {
+  selectedRowIndex: 0,
+  mode: '',
+  pkid: '',
+  list_format: '',
+  currentTab: '',
+  RecordList: [],
+  
+  ErrorMessage: '',
+  InfoMessage: '',
+
+  selectcheck: false,
+  agent_id: '',
+  update_type: '',
+  chk_all_pol: false,
+  searchstring: '',
+  ord_po_aprvd: '',
+
+  page_count: 0,
+  page_current: 0,
+  page_rows: 15,
+  page_rowcount: 0
+}
+
