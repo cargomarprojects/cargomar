@@ -21,21 +21,21 @@ export class EdiOrderComponent {
   @Input() menuid: string = '';
   @Input() type: string = '';
   @Input() parentid: string = '';
-  selectedRowIndex: number = -1;
+  // selectedRowIndex: number = -1;
   InitCompleted: boolean = false;
   menu_record: any;
   sub: any;
 
   modal: any;
-  page_count = 0;
-  page_current = 0;
-  page_rows = 0;
-  page_rowcount = 0;
+  // page_count = 0;
+  // page_current = 0;
+  // page_rows = 0;
+  // page_rowcount = 0;
 
   loading = false;
   currentTab = 'LIST';
 
-  chk_all_pol: boolean = false;
+  // chk_all_pol: boolean = false;
   selectcheckbox: boolean = false;
   selectcheck: boolean = false;
   bAdmin = false;
@@ -43,15 +43,15 @@ export class EdiOrderComponent {
   user_admin = false;
 
   from_date: string = "";
-  searchstring = "";
-  ErrorMessage = "";
-  InfoMessage = "";
-  ord_po_aprvd: string = "";
+  // searchstring = "";
+  // ErrorMessage = "";
+  // InfoMessage = "";
+  // ord_po_aprvd: string = "";
 
   mode = 'ADD';
   pkid = '';
-  agent_id = '';
-  update_type = "";
+  // agent_id = '';
+  // update_type = "";
   pono = "";
   poid = "";
   styleno = "";
@@ -59,20 +59,20 @@ export class EdiOrderComponent {
   ctr: number;
 
   // Array For Displaying List
-  RecordList: EdiOrder[] = [];
+  // RecordList: EdiOrder[] = [];
   // Single Record for add/edit/view details
   Record: EdiOrder = new EdiOrder;
   RecordMissingList: EdiOrder[] = [];
 
   constructor(
     private modalService: NgbModal,
-    private mainService: EdiOrderService,
+    public ms: EdiOrderService,
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {
-    this.page_count = 0;
-    this.page_rows = 30;
-    this.page_current = 0;
+    // this.page_count = 0;
+    // this.page_rows = 30;
+    // this.page_current = 0;
     this.InitLov();
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
@@ -93,14 +93,15 @@ export class EdiOrderComponent {
       this.InitComponent();
 
     }
+    this.ms.init(this.menuid, this.type);
     //  this.List("NEW");
   }
 
   InitComponent() {
     this.bAdmin = false;
     this.user_admin = false;
-    this.agent_id = 'B8C93DB0-5127-E16A-23C0-BF42E6E06005';//Transport Multimodal ID
-    this.update_type = "ALL";
+    // this.ms.state.agent_id = 'B8C93DB0-5127-E16A-23C0-BF42E6E06005';//Transport Multimodal ID
+    // this.ms.state.update_type = "ALL";
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -115,6 +116,22 @@ export class EdiOrderComponent {
     this.sub.unsubscribe();
   }
 
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.restoreRowPosition();
+    }, 100);
+  }
+
+  restoreRowPosition() {
+    const row = document.getElementById('row-' + this.ms.state.selectedRowIndex);
+    if (row) {
+      row.scrollIntoView({
+        behavior: 'auto',
+        block: 'center'
+      });
+    }
+  }
+
   InitLov() {
 
   }
@@ -125,8 +142,8 @@ export class EdiOrderComponent {
 
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string, _selectedRowIndex: number = -1) {
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
     /*
     if (action == 'LIST') {
       this.mode = '';
@@ -167,37 +184,38 @@ export class EdiOrderComponent {
       type: _type,
       rowtype: this.type,
       parentid: this.parentid,
-      searchstring: this.searchstring.toUpperCase(),
+      searchstring: this.ms.state.searchstring.toUpperCase(),
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
-      page_count: this.page_count,
-      page_current: this.page_current,
-      page_rows: this.page_rows,
-      page_rowcount: this.page_rowcount,
+      page_count: this.ms.state.page_count,
+      page_current: this.ms.state.page_current,
+      page_rows: this.ms.state.page_rows,
+      page_rowcount: this.ms.state.page_rowcount,
       from_date: this.from_date,
       report_folder: this.gs.globalVariables.report_folder,
       user_code: this.gs.globalVariables.user_code,
-      update_type: this.update_type,
-      chkallpol: this.chk_all_pol == true ? "Y" : "N",
-      ord_po_aprvd: this.ord_po_aprvd
+      update_type: this.ms.state.update_type,
+      chkallpol: this.ms.state.chk_all_pol == true ? "Y" : "N",
+      ord_po_aprvd: this.ms.state.ord_po_aprvd
     };
-
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.List(SearchData)
+    this.ms.state.selectedRowIndex = 0;
+    this.restoreRowPosition();
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
+    this.ms.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.RecordList = response.list;
-        this.page_count = response.page_count;
-        this.page_current = response.page_current;
-        this.page_rowcount = response.page_rowcount;
+        this.ms.state.RecordList = response.list;
+        this.ms.state.page_count = response.page_count;
+        this.ms.state.page_current = response.page_current;
+        this.ms.state.page_rowcount = response.page_rowcount;
 
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
@@ -211,23 +229,23 @@ export class EdiOrderComponent {
       year_code: this.gs.globalVariables.year_code,
       report_folder: this.gs.globalVariables.report_folder,
       user_code: this.gs.globalVariables.user_code,
-      ftptypeid: this.agent_id
+      ftptypeid: this.ms.state.agent_id
     };
 
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.Process(SearchData)
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
+    this.ms.Process(SearchData)
       .subscribe(response => {
         this.loading = false;
         if (_type == "DOWNLOAD") {
           if (response.serror == "Complete") {
-            this.InfoMessage = response.dfilecount + " Files Downloaded";
-            alert(this.InfoMessage);
+            this.ms.state.InfoMessage = response.dfilecount + " Files Downloaded";
+            alert(this.ms.state.InfoMessage);
           }
           else {
             if (response.serror) {
-              this.ErrorMessage = response.serror;
-              alert(this.ErrorMessage);
+              this.ms.state.ErrorMessage = response.serror;
+              alert(this.ms.state.ErrorMessage);
             }
           }
         } else {
@@ -236,8 +254,8 @@ export class EdiOrderComponent {
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
@@ -278,7 +296,7 @@ export class EdiOrderComponent {
 
     //this.ErrorMessage = '';
     //this.InfoMessage = '';
-    //this.mainService.GetRecord(SearchData)
+    //this.ms.GetRecord(SearchData)
     //    .subscribe(response => {
     //        this.loading = false;
     //        this.LoadData(response.record);
@@ -328,7 +346,7 @@ export class EdiOrderComponent {
     // SearchData.branch_code = this.gs.globalVariables.branch_code;
     // SearchData.year_code = this.gs.globalVariables.year_code;
 
-    // this.mainService.SaveSettings(SearchData)
+    // this.ms.SaveSettings(SearchData)
     //   .subscribe(response => {
     //     this.loading = false;
     //     if (_type == "SAVE")
@@ -359,8 +377,8 @@ export class EdiOrderComponent {
   allvalid(_type: string) {
     let sError: string = "";
     let bret: boolean = true;
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
 
     /*
       if (this.Record.ord_desc.trim().length <= 0) {
@@ -422,18 +440,18 @@ export class EdiOrderComponent {
   }
 
   Update(_type: string) {
-    if (this.agent_id == "") {
-      this.ErrorMessage = "Please Select Agent and Continue.....";
-      alert(this.ErrorMessage);
+    if (this.ms.state.agent_id == "") {
+      this.ms.state.ErrorMessage = "Please Select Agent and Continue.....";
+      alert(this.ms.state.ErrorMessage);
       return;
     }
 
     let ordids: string = "";
-    for (let rec of this.RecordList) {
+    for (let rec of this.ms.state.RecordList) {
       if (rec.selected) {
         if (rec.pol != rec.comp_pol_code) {
-          this.ErrorMessage = "Invalid POL Selected";
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = "Invalid POL Selected";
+          alert(this.ms.state.ErrorMessage);
           return;
         }
         if (ordids != "")
@@ -445,7 +463,7 @@ export class EdiOrderComponent {
     this.loading = true;
     let SearchData = {
       type: _type,
-      agent_id: this.agent_id,
+      agent_id: this.ms.state.agent_id,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
@@ -455,39 +473,39 @@ export class EdiOrderComponent {
       pkid: ordids
     };
 
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.UpdateOrdersList(SearchData)
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
+    this.ms.UpdateOrdersList(SearchData)
       .subscribe(response => {
         this.loading = false;
         this.RecordMissingList = response.list;
         if (response.error.length > 0) {
-          this.ErrorMessage = response.error;
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = response.error;
+          alert(this.ms.state.ErrorMessage);
         }
         else {
           if (_type == 'UPDATE')
-            this.InfoMessage = "Updated Successfully";
+            this.ms.state.InfoMessage = "Updated Successfully";
           else if (_type == 'VALIDATE')//Validate
-            this.InfoMessage = "No Errors Found";
+            this.ms.state.InfoMessage = "No Errors Found";
           if (_type == 'CREATE-PO')
-            this.InfoMessage = "Save Complete";
+            this.ms.state.InfoMessage = "Save Complete";
           
-          if (this.InfoMessage)
-            alert(this.InfoMessage);
+          if (this.ms.state.InfoMessage)
+            alert(this.ms.state.InfoMessage);
         }
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
   SelectCheckbox() {
     this.selectcheckbox = !this.selectcheckbox;
-    for (var i = 0; i < this.RecordList.length; i++) {
-      this.RecordList[i].selected = this.selectcheckbox;
+    for (var i = 0; i < this.ms.state.RecordList.length; i++) {
+      this.ms.state.RecordList[i].selected = this.selectcheckbox;
     }
   }
 
@@ -496,8 +514,8 @@ export class EdiOrderComponent {
     this.modal = this.modalService.open(content);
   }
   ShowEdiUpdate(ediordupdt: any, _rec: EdiOrder) {
-    this.InfoMessage = '';
-    this.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
+    this.ms.state.ErrorMessage = '';
     // if (_rec.comp_pol_code != _rec.pol) {
     //   this.ErrorMessage = "Invalid POL " + _rec.pol + " Found.";
     //   alert(this.ErrorMessage);
@@ -512,7 +530,7 @@ export class EdiOrderComponent {
 
   ModifiedRecords(params: any) {
 
-    for (let rec of this.RecordList.filter(rec => rec.pkid == params.sid)) {
+    for (let rec of this.ms.state.RecordList.filter(rec => rec.pkid == params.sid)) {
 
       if (params.saction == "SAVE")
         rec.agent_ref_no = params.srefno;

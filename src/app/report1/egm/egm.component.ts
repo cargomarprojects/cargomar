@@ -32,7 +32,7 @@ export class EgmComponent {
   rec_category: string = "";
   // branch_name: string;
   // branch_code: string;
-  job_type: string;
+  // job_type: string;
 
   bExcel = false;
   disableSave = true;
@@ -191,7 +191,7 @@ export class EgmComponent {
     this.SearchData.searchstring = this.ms.state.searchstring.toUpperCase();
     this.SearchData.type = _type;
     this.SearchData.rec_category = this.rec_category;
-    this.SearchData.job_type = this.job_type;
+    this.SearchData.job_type = this.ms.state.job_type;
     this.ms.state.selectedRowIndex = 0;
     this.restoreRowPosition()
     this.ms.state.ErrorMessage = '';
@@ -201,7 +201,7 @@ export class EgmComponent {
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
-          this.RecordList = response.list;
+          this.ms.state.RecordList = response.list;
         }
       },
       error => {

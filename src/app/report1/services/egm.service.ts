@@ -35,6 +35,7 @@ export class EgmService {
     else {
       this.state = { ...initialState };
       this.state.searchstring = '';
+      this.state.job_type = 'ALL';
 
       this.state.currentTab = 'LIST';
       this.gs.appStates[this.screen_id] = this.state;

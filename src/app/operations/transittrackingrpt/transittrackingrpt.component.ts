@@ -28,9 +28,9 @@ export class TransitTrackingRptComponent {
     InitCompleted: boolean = false;
     menu_record: any;
 
-    selectedRowIndex: number = -1;
-    from_date: string = '';
-    to_date: string = '';
+    // selectedRowIndex: number = -1;
+    // from_date: string = '';
+    // to_date: string = '';
     Total_Amount: number = 0;
     sub: any;
     urlid: string;
@@ -42,28 +42,28 @@ export class TransitTrackingRptComponent {
     porttype = 'SEA PORT';
     bChanged: boolean;
     trk_confirm: boolean = false;
-    ErrorMessage = "";
-    InfoMessage = "";
+    // ErrorMessage = "";
+    // InfoMessage = "";
     mode = 'ADD';
     pkid = '';
     ctr: number;
-    page_count = 0;
-    page_current = 0;
-    page_rows = 0;
-    page_rowcount = 0;
+    // page_count = 0;
+    // page_current = 0;
+    // page_rows = 0;
+    // page_rowcount = 0;
     // Array For Displaying List
-    RecordList: Trackingm[] = [];
+    // RecordList: Trackingm[] = [];
     // Single Record for add/edit/view details
     Record: Trackingm = new Trackingm;
 
     constructor(
-        private mainService: TrackingService,
+        public ms: TrackingService,
         private route: ActivatedRoute,
         private gs: GlobalService
     ) {
-        this.page_count = 0;
-        this.page_rows = 15;
-        this.page_current = 0;
+        // this.page_count = 0;
+        // this.page_rows = 15;
+        // this.page_current = 0;
         // URL Query Parameter 
         this.sub = this.route.queryParams.subscribe(params => {
             if (params["parameter"] != "") {
@@ -75,12 +75,16 @@ export class TransitTrackingRptComponent {
             }
         });
     }
-
-
+    ngOnInit() {
+        if (!this.InitCompleted) {
+        this.InitComponent();
+        }
+        this.ms.init(this.menuid, this.type);
+    }
 
     InitComponent() {
-        this.from_date = this.gs.defaultValues.lastmonthdate;
-        this.to_date = this.gs.defaultValues.today;
+        // this.from_date = this.gs.defaultValues.lastmonthdate;
+        // this.to_date = this.gs.defaultValues.today;
         this.bPrint = false;
         this.menu_record = this.gs.getMenu(this.menuid);
         if (this.menu_record) {
@@ -101,6 +105,22 @@ export class TransitTrackingRptComponent {
     // Destroy Will be called when this component is closed
     ngOnDestroy() {
         this.sub.unsubscribe();
+    }
+
+    ngAfterViewInit() {
+        setTimeout(() => {
+        this.restoreRowPosition();
+        }, 100);
+    }
+
+    restoreRowPosition() {
+        const row = document.getElementById('row-' + this.ms.state.selectedRowIndex);
+        if (row) {
+        row.scrollIntoView({
+            behavior: 'auto',
+            block: 'center'
+        });
+        }
     }
 
     InitLov() {
@@ -137,35 +157,37 @@ export class TransitTrackingRptComponent {
             branch_code: this.gs.globalVariables.branch_code,
             year_code: this.gs.globalVariables.year_code,
             user_code: this.gs.globalVariables.user_code,
-            page_count: this.page_count,
-            page_current: this.page_current,
-            page_rows: this.page_rows,
-            page_rowcount: this.page_rowcount,
-            from_date: this.from_date,
-            to_date: this.to_date,
+            page_count: this.ms.state.page_count,
+            page_current: this.ms.state.page_current,
+            page_rows: this.ms.state.page_rows,
+            page_rowcount: this.ms.state.page_rowcount,
+            from_date: this.ms.state.from_date,
+            to_date: this.ms.state.to_date,
             trk_confirm: this.trk_confirm,
             report_folder: this.gs.globalVariables.report_folder
         };
-
-        this.ErrorMessage = '';
-        this.InfoMessage = '';
-        this.mainService.TransitTrackingList(SearchData)
+        this.ms.state.selectedRowIndex = 0;
+        this.restoreRowPosition();
+        this.ms.state.ErrorMessage = '';
+        this.ms.state.InfoMessage = '';
+        this.ms.TransitTrackingList(SearchData)
             .subscribe(response => {
                 this.loading = false;
                 if (_type == 'EXCEL')
                     this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
                 else {
-                    this.RecordList = response.list;
-                    this.page_count = response.page_count;
-                    this.page_current = response.page_current;
-                    this.page_rowcount = response.page_rowcount;
+                    this.ms.state.RecordList = response.list;
+                    this.ms.state.page_count = response.page_count;
+                    this.ms.state.page_current = response.page_current;
+                    this.ms.state.page_rowcount = response.page_rowcount;
                 }
             },
                 error => {
                     this.loading = false;
-                    this.ErrorMessage = this.gs.getError(error);
-                    alert(this.ErrorMessage);
+                    this.ms.state.ErrorMessage = this.gs.getError(error);
+                    alert(this.ms.state.ErrorMessage);
                 });
+                
     }
 
     Downloadfile(filename: string, filetype: string, filedisplayname: string) {

@@ -75,3 +75,46 @@ export class Trackingh {
   trk_vessel_voyage3: string;
    _globalvariables: GlobalVariables;
 }
+
+export interface iTrackingModel {
+  // filter Values
+  selectedRowIndex: number;
+  mode: string;
+  pkid: string;
+  list_format: string;
+  currentTab: string;
+  RecordList: Trackingm[];
+
+  ErrorMessage: string;
+  InfoMessage: string;
+
+  //Search Values
+  from_date: string;
+  to_date: string;
+
+  // Page Values
+  page_count: number;
+  page_current: number;
+  page_rows: number;
+  page_rowcount: number;
+};
+
+export const initialState: iTrackingModel = {
+  selectedRowIndex: 0,
+  mode: '',
+  pkid: '',
+  list_format: '',
+  currentTab: '',
+  RecordList: [],
+  
+  ErrorMessage: '',
+  InfoMessage: '',
+
+  from_date: '',
+  to_date: '',
+
+  page_count: 0,
+  page_current: 0,
+  page_rows: 15,
+  page_rowcount: 0
+}

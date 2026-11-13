@@ -34,7 +34,7 @@
                       <!-- <app-autocomplete #AgentAddLov [inputdata]="LIST_AGENTRECORD"
                         (ValueChanged)="LovSelected($event)">
                       </app-autocomplete> -->
-                      <app-autocomplete3 [controlname]="'AGENT'" [tabletype]="'CUSTOMER'" [where]="agent_where"
+                      <app-autocomplete3 [controlname]="'LIST_AGENT'" [tabletype]="'CUSTOMER'" [where]="agent_where"
                         [displaycolumn]="'NAME'" [displaydata]="ms.state.list_agent_name" (ValueChanged)="LovSelected($event)">
                       </app-autocomplete3>
                     </div>
@@ -44,8 +44,8 @@
                     <div class="col-10">
                       <!-- <app-autocomplete #ExporterLov [inputdata]="LIST_EXPRECORD" (ValueChanged)="LovSelected($event)">
                       </app-autocomplete> -->
-                      <app-autocomplete3 [controlname]="'SHIPPER'" [tabletype]="'CUSTOMER'" [where]="shipper_where"
-                        [displaycolumn]="'NAME'" [displaydata]="ms.state.list_imp_name" (ValueChanged)="LovSelected($event)">
+                      <app-autocomplete3 [controlname]="'LIST_SHIPPER'" [tabletype]="'CUSTOMER'" [where]="shipper_where"
+                        [displaycolumn]="'NAME'" [displaydata]="ms.state.list_exp_name" (ValueChanged)="LovSelected($event)">
                       </app-autocomplete3>
                     </div>
                   </div>
@@ -54,8 +54,8 @@
                     <div class="col-10">
                       <!-- <app-autocomplete #ImporterLov [inputdata]="LIST_IMPRECORD" (ValueChanged)="LovSelected($event)">
                       </app-autocomplete> -->
-                      <app-autocomplete3 [controlname]="'CONSIGNEE'" [tabletype]="'CUSTOMER'" [where]="consignee_where"
-                        [displaycolumn]="'NAME'" [displaydata]="ms.state.list_exp_name" (ValueChanged)="LovSelected($event)">
+                      <app-autocomplete3 [controlname]="'LIST_CONSIGNEE'" [tabletype]="'CUSTOMER'" [where]="consignee_where"
+                        [displaycolumn]="'NAME'" [displaydata]="ms.state.list_imp_name" (ValueChanged)="LovSelected($event)">
                       </app-autocomplete3>
                     </div>
                   </div>
