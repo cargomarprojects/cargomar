@@ -587,13 +587,21 @@
                   <input [disabled]="!bAdmin2" type="checkbox" [(ngModel)]="Record.cust_is_incomplete" />
                   <!-- <span>Incomplete</span> -->
                   <label class="col-form-label col-form-label-sm">Incomplete</label>
-                </div>
-                <div class="col-sm-6">
                   <input *ngIf="gs.globalVariables.user_code == 'ADMIN'" type="checkbox"
                     [(ngModel)]="Record.cust_alert" />
                   <label *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="col-form-label col-form-label-sm">Job
                     Alert&nbsp;</label>
-
+                </div>
+                <!-- <div class="col-sm-6">
+                  <input *ngIf="gs.globalVariables.user_code == 'ADMIN'" type="checkbox"
+                    [(ngModel)]="Record.cust_alert" />
+                  <label *ngIf="gs.globalVariables.user_code == 'ADMIN'" class="col-form-label col-form-label-sm">Job
+                    Alert&nbsp;</label>
+                </div> -->
+                <label class="col-2 col-form-label col-form-label-sm">Billing Locked Dt.</label>
+                <div class="col-4">
+                  <app-date [disabled]="!Record.cust_is_editable||!bAdmin2" [inputdate]="Record.cust_billing_locked_dt"
+                    (ValueChanged)="Record.cust_billing_locked_dt=$event"></app-date>
                 </div>
               </div>
 

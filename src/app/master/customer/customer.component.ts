@@ -493,6 +493,7 @@ export class CustomerComponent {
     this.Record.cust_acq_date = '';
     this.Record.cust_pan_doi = '';
     this.Record.cust_flag = 'NA';
+    this.Record.cust_billing_locked_dt = '';
     this.Record.rec_mode = this.mode;
 
     this.InitLov();
