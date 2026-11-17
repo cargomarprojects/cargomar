@@ -65,9 +65,7 @@ export class DsrService {
 
   }
 
-  LoadFeildlist(SearchData: any) {
-    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/CustomReport/LoadFeildlist', SearchData, this.gs.headerparam2('authorized'));
-  }
+   
 
 }
 
