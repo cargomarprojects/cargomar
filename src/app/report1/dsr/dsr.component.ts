@@ -204,6 +204,7 @@ export class DsrComponent {
     this.initLov();
     this.LoadCombo();
     this.Loadtplist();
+    this.LoadFeildlist();
   }
 
   // Init() {
@@ -652,6 +653,39 @@ export class DsrComponent {
 
   }
 
+  LoadFeildlist() {
+    let SearchData = {
+      company_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code,
+      rec_category: this.type,
+      format_type: this.ms.state.format_type
+    };
+
+    if (this.gs.isBlank(this.ms.state.format_type))
+      SearchData.format_type = "GENERAL";
+
+    this.ms.state.ErrorMessage = '';
+    this.loading = true;
+    this.ms.LoadFeildlist(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.ms.state.feildList = response.feildlist;
+        if (!this.gs.isBlank(this.ms.state.feildList))
+          this.setColFormat();
+        // this.TpList = response.tplist;
+        // if (!this.gs.isBlank(this.TpList)) {
+        //   if (this.TpList.length > 0)
+        //     this.ms.state.tp_code = this.TpList[0].user_tp_code;
+        // }
+      },
+        error => {
+          this.loading = false;
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
+        });
+
+  }
+
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string) {
     this.ms.state.ErrorMessage = '';
@@ -811,9 +845,9 @@ export class DsrComponent {
           this.open(mailsent);
         } else {
           this.ms.state.RecordList = response.list;
-          this.ms.state.feildList = response.feildlist;
-          if (!this.gs.isBlank(this.ms.state.feildList))
-            this.setColFormat();
+          // this.ms.state.feildList = response.feildlist;
+          // if (!this.gs.isBlank(this.ms.state.feildList))
+          //   this.setColFormat();
           for (let rec of this.ms.state.RecordList) {
             this.setSelectedIndex(rec, 0);
             break;
@@ -938,6 +972,9 @@ export class DsrComponent {
 
   customreportcallbackevent(params: any) {
     this.ms.state.format_type = params.format;
+    this.LoadFeildlist();
+    if (this.ms.state.format_type == "PENDING")
+      this.ms.state.RecordList = [];
   }
 
   EditHouse() {
@@ -963,7 +1000,7 @@ export class DsrComponent {
       type: this.rec_category,
       pkid: this.ms.state.hbl_id
     }
-    
+
     if (this.rec_category == "SEA EXPORT" || this.rec_category == "AIR EXPORT")
       this.gs.Naviagete2("operations/hblseaair", JSON.stringify(param), this.gs.appid, this.gs.deviceId);
     else
