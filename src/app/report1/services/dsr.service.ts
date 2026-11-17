@@ -56,17 +56,18 @@ export class DsrService {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/Loadtplist', SearchData, this.gs.headerparam2('authorized'));
   }
 
-   LoadFeildlist(SearchData: any) {
-    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/LoadFeildlist', SearchData, this.gs.headerparam2('authorized'));
-  }
-
   VolumeReport(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/VolumeReport', SearchData, this.gs.headerparam2('authorized'));
   }
-  
+
   UpdateDsrRemarks(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/ReportList/UpdateDsrRemarks', SearchData, this.gs.headerparam2('authorized'));
 
   }
+
+  LoadFeildlist(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Report1/CustomReport/LoadFeildlist', SearchData, this.gs.headerparam2('authorized'));
+  }
+
 }
 
