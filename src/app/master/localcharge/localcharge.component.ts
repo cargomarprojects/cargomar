@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { LocalCharge } from '../models/localcharge';
@@ -32,29 +32,29 @@ export class LocalChargeComponent {
   ispercent = false;
   disableSave = true;
   loading = false;
-  currentTab = 'LIST';
+  /// currentTab = 'LIST';
   bPrint = false;
   bDelete = false;
 
-  selectedRowIndex = 0;
+  /// selectedRowIndex = 0;
 
   dbkmode = '';
-  searchstring = '';
-  page_count = 0;
-  page_current = 0;
-  page_rows = 0;
-  page_rowcount = 0;
+  /// searchstring = '';
+  /// page_count = 0;
+  /// page_current = 0;
+  /// page_rows = 0;
+  /// page_rowcount = 0;
 
   sub: any;
   urlid: string;
   modal: any;
-  fromdate: string = "";
-  todate: string = "";
-  ErrorMessage = "";
-  InfoMessage = "";
+  /// fromdate: string = "";
+  /// todate: string = "";
+  /// ErrorMessage = "";
+  /// InfoMessage = "";
 
-  mode = '';
-  pkid = '';
+  /// mode = '';
+  /// pkid = '';
 
   POLRECORD: any = {};
   PODRECORD: any = {};
@@ -63,20 +63,20 @@ export class LocalChargeComponent {
   CURRECORD: any = {};
   CUROTHRECORD: any = {};
   // Array For Displaying List
-  RecordList: LocalCharge[] = [];
+  /// RecordList: LocalCharge[] = [];
   // Single Record for add/edit/view details
   Record: LocalCharge = new LocalCharge;
 
   constructor(
     private modalService: NgbModal,
-    private mainService: LocalChargeService,
+    public ms: LocalChargeService,
     private route: ActivatedRoute,
     private gs: GlobalService
 
   ) {
-    this.page_count = 0;
-    this.page_rows = 30;
-    this.page_current = 0;
+    /// this.page_count = 0;
+    /// this.page_rows = 30;
+    /// this.page_current = 0;
 
 
     // URL Query Parameter 
@@ -97,12 +97,17 @@ export class LocalChargeComponent {
     if (!this.InitCompleted) {
       this.InitComponent();
     }
-  }
+    this.ms.init(this.menuid, this.type);
 
-  InitComponent() {
+    /// to load add/edit screen when selected
+    if (this.ms.state.mode == "ADD")
+        this.ActionHandler('ADD', '');
+    else if (this.ms.state.mode == "EDIT")
+        this.ActionHandler('EDIT', this.ms.state.pkid)
+    
     this.bDocs = false;
-    this.fromdate = this.gs.defaultValues.monthbegindate;
-    this.todate = '';
+    /// this.fromdate = this.gs.defaultValues.monthbegindate;
+    /// this.todate = '';
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -111,6 +116,20 @@ export class LocalChargeComponent {
       if (this.menu_record.rights_docs)
         this.bDocs = true;
     }
+  }
+
+  InitComponent() {
+    /// this.bDocs = false;
+    /// /// this.fromdate = this.gs.defaultValues.monthbegindate;
+    /// // this.todate = '';
+    /// this.menu_record = this.gs.getMenu(this.menuid);
+    /// if (this.menu_record) {
+    ///   this.title = this.menu_record.menu_name;
+    ///   this.bPrint = this.menu_record.rights_print;
+    ///   this.bDelete = this.menu_record.rights_delete;
+    ///   if (this.menu_record.rights_docs)
+    ///     this.bDocs = true;
+    /// }
     this.LoadCombo();
   }
 
@@ -119,7 +138,27 @@ export class LocalChargeComponent {
     this.sub.unsubscribe();
   }
 
+  ngAfterViewInit() {
+    this.restoreRowPosition();
+  }
 
+  restoreRowPosition() {
+    setTimeout(() => {
+      this.scrollToRowPosition();
+    }, 100);
+  }
+
+  scrollToRowPosition() {
+
+    const row = document.getElementById('row-' + this.ms.state.selectedRowIndex);
+
+    if (row) {
+      row.scrollIntoView({
+        behavior: 'auto',
+        block: 'center'
+      });
+    }
+  }
 
   LoadCombo() {
     //this.loading = true;
@@ -131,7 +170,7 @@ export class LocalChargeComponent {
 
     //this.ErrorMessage = '';
     //this.InfoMessage = '';
-    //this.mainService.LoadDefault(SearchData)
+    //this.ms.LoadDefault(SearchData)
     //  .subscribe(response => {
     //    this.loading = false;
 
@@ -141,7 +180,7 @@ export class LocalChargeComponent {
     //    this.loading = false;
     //    this.ErrorMessage = JSON.parse(error._body).Message;
     //  });
-    this.List("NEW");
+    // this.List("NEW");
   }
 
 
@@ -167,29 +206,32 @@ export class LocalChargeComponent {
 
 
   //function for handling LIST/NEW/EDIT Buttons
-  ActionHandler(action: string, id: string, _brcode: string = '') {
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
+  /// removed _brcode: string = '' checking
+  ActionHandler(action: string, id: string) {
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
     if (action == 'LIST') {
-      this.mode = '';
-      this.pkid = '';
-      this.currentTab = 'LIST';
+      this.ms.state.mode = '';
+      this.ms.state.pkid = '';
+      this.ms.state.currentTab = 'LIST';
+      this.restoreRowPosition();
     }
     else if (action === 'ADD') {
-      this.currentTab = 'DETAILS';
-      this.mode = 'ADD';
+      this.ms.state.currentTab = 'DETAILS';
+      this.ms.state.mode = 'ADD';
       this.ResetControls();
       this.NewRecord();
     }
     else if (action === 'EDIT') {
-      if (_brcode != this.gs.globalVariables.branch_code) {
-        alert('Cannot Edit from another Branch')
-        return;
-      }
-      this.currentTab = 'DETAILS';
-      this.mode = 'EDIT';
+      /// if (_brcode != this.gs.globalVariables.branch_code) {
+      ///   alert('Cannot Edit from another Branch')
+      ///   return;
+      /// }
+      this.ms.state.currentTab = 'DETAILS';
+      this.ms.state.mode = 'EDIT';
       this.ResetControls();
-      this.pkid = id;
+      this.ms.state.pkid = id;
+      // this.ms.state.rec_branch_code = _brcode;  /// for saving branch in load state
       this.GetRecord(id);
     }
   }
@@ -202,9 +244,9 @@ export class LocalChargeComponent {
 
     if (this.menu_record.rights_admin)
       this.disableSave = false;
-    if (this.mode == "ADD" && this.menu_record.rights_add)
+    if (this.ms.state.mode == "ADD" && this.menu_record.rights_add)
       this.disableSave = false;
-    if (this.mode == "EDIT" && this.menu_record.rights_edit)
+    if (this.ms.state.mode == "EDIT" && this.menu_record.rights_edit)
       this.disableSave = false;
     return this.disableSave;
   }
@@ -217,36 +259,38 @@ export class LocalChargeComponent {
     let SearchData = {
       type: _type,
       rowtype: this.type,
-      searchstring: this.searchstring.toUpperCase(),
-      page_count: this.page_count,
-      page_current: this.page_current,
-      page_rows: this.page_rows,
-      page_rowcount: this.page_rowcount,
+      searchstring: this.ms.state.searchstring.toUpperCase(),
+      page_count: this.ms.state.page_count,
+      page_current: this.ms.state.page_current,
+      page_rows: this.ms.state.page_rows,
+      page_rowcount: this.ms.state.page_rowcount,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
-      from_date: this.fromdate,
-      to_date: this.todate,
+      from_date: this.ms.state.fromdate,
+      to_date: this.ms.state.todate,
       report_folder: this.gs.globalVariables.report_folder
     };
 
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.List(SearchData)
+    this.ms.state.selectedRowIndex = 0;
+    this.restoreRowPosition();
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
+    this.ms.List(SearchData)
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
-          this.RecordList = response.list;
-          this.page_count = response.page_count;
-          this.page_current = response.page_current;
-          this.page_rowcount = response.page_rowcount;
+          this.ms.state.RecordList = response.list;
+          this.ms.state.page_count = response.page_count;
+          this.ms.state.page_current = response.page_current;
+          this.ms.state.page_rowcount = response.page_rowcount;
         }
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
@@ -256,10 +300,10 @@ export class LocalChargeComponent {
 
 
   NewRecord() {
-    this.pkid = this.gs.getGuid();
+    this.ms.state.pkid = this.gs.getGuid();
     this.Record = new LocalCharge();
-    this.Record.lc_pkid = this.pkid;
-    this.Record.rec_mode = this.mode;
+    this.Record.lc_pkid = this.ms.state.pkid;
+    this.Record.rec_mode = this.ms.state.mode;
     this.Init();
     this.POLRECORD = { 'controlname': 'POL', 'type': 'SEA PORT', displaycolumn: 'CODE', id: '', code: '', name: '' };
     this.LINERRECORD = { 'controlname': 'LINER', 'type': 'SEA CARRIER', displaycolumn: 'CODE', id: '', code: '', name: '' };
@@ -310,27 +354,33 @@ export class LocalChargeComponent {
       pkid: Id,
     };
 
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.GetRecord(SearchData)
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
+    this.ms.GetRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
         this.LoadData(response.record);
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
   LoadData(_Record: LocalCharge) {
     this.Record = _Record;
-    this.Record.rec_mode = this.mode;
+    this.Record.rec_mode = this.ms.state.mode;
     this.POLRECORD = { 'controlname': 'POL', 'type': 'SEA PORT', displaycolumn: 'CODE', id: this.Record.lc_pol_id, code: this.Record.lc_pol_code, name: this.Record.lc_pol_name };
     this.LINERRECORD = { 'controlname': 'LINER', 'type': 'SEA CARRIER', displaycolumn: 'CODE', id: this.Record.lc_carrier_id, code: this.Record.lc_carrier_code, name: this.Record.lc_carrier_name };
     this.CURRECORD = { 'controlname': 'SEALCURR', 'type': 'CURRENCY', displaycolumn: 'CODE', id: '', code: this.Record.lc_seal_curr, name: this.Record.lc_seal_curr };
     this.CUROTHRECORD = { 'controlname': 'OTHCURR', 'type': 'CURRENCY', displaycolumn: 'CODE', id: '', code: this.Record.lc_oth_curr, name: this.Record.lc_oth_curr };
+
+    if (this.Record.rec_branch_code != this.gs.globalVariables.branch_code) {
+      alert('Cannot Edit from another Branch');
+      this.ms.state.ErrorMessage = " | Cannot Edit from another Branch";
+      // return;
+    }
   }
 
   // Save Data
@@ -340,11 +390,11 @@ export class LocalChargeComponent {
       return;
 
     this.loading = true;
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
     this.Record._globalvariables = this.gs.globalVariables;
 
-    this.mainService.CanSave(this.Record)
+    this.ms.CanSave(this.Record)
       .subscribe(response => {
         this.loading = false;
         if (response.warningmsg.length > 0) {
@@ -357,8 +407,8 @@ export class LocalChargeComponent {
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
 
         });
   }
@@ -366,48 +416,56 @@ export class LocalChargeComponent {
   Save2() {
 
     this.loading = true;
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
     this.Record._globalvariables = this.gs.globalVariables;
 
-    this.mainService.Save(this.Record)
+    this.ms.Save(this.Record)
       .subscribe(response => {
         this.loading = false;
-        this.InfoMessage = "Save Complete";
-        this.mode = 'EDIT';
-        this.Record.rec_mode = this.mode;
+        this.ms.state.InfoMessage = "Save Complete";
+        this.ms.state.mode = 'EDIT';
+        this.Record.rec_mode = this.ms.state.mode;
         this.RefreshList();
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
   allvalid() {
     let sError: string = "";
     let bret: boolean = true;
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
+    
+    if (this.Record.rec_branch_code != this.gs.globalVariables.branch_code) {
+      bret = false;
+      alert('Cannot Edit from another Branch');
+      sError = " | Cannot Edit from another Branch";
+    }
+
     // if (this.Record.dbk_slno.trim().length <= 0) {
     //   bret = false;
     //   sError = " | Drawback Code Cannot Be Blank";
     // }
 
-    // if (bret === false)
-    //   this.ErrorMessage = sError;
+    if (bret === false)
+      this.ms.state.ErrorMessage = sError;
     return bret;
   }
 
   RefreshList() {
 
-    if (this.RecordList == null)
+    if (this.ms.state.RecordList == null)
       return;
-    var REC = this.RecordList.find(rec => rec.lc_pkid == this.Record.lc_pkid);
+    var REC = this.ms.state.RecordList.find(rec => rec.lc_pkid == this.Record.lc_pkid);
     if (REC == null) {
-      this.RecordList.push(this.Record);
-      REC = this.RecordList.find(rec => rec.lc_pkid == this.Record.lc_pkid);
+      this.ms.state.RecordList.push(this.Record);
+      this.ms.state.selectedRowIndex = this.ms.state.RecordList.length - 1;
+      REC = this.ms.state.RecordList.find(rec => rec.lc_pkid == this.Record.lc_pkid);
       REC.lc_valid_from = this.lc_valid_from_ctrl.GetDisplayDate();
       REC.lc_valid_to = this.lc_valid_to_ctrl.GetDisplayDate();
     }
@@ -435,22 +493,22 @@ export class LocalChargeComponent {
       return;
     }
 
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
     this.loading = true;
     let SearchData = {
       pkid: Id
     };
 
-    this.mainService.DeleteRecord(SearchData)
+    this.ms.DeleteRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.RecordList.splice(this.RecordList.findIndex(rec => rec.lc_pkid == Id), 1);
+        this.ms.state.RecordList.splice(this.ms.state.RecordList.findIndex(rec => rec.lc_pkid == Id), 1);
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
@@ -463,7 +521,7 @@ export class LocalChargeComponent {
       this.Record.lc_carrier_name = this.Record.lc_carrier_name.toUpperCase();
     }
     if (field == 'Search') {
-      this.searchstring = this.searchstring.toUpperCase();
+      this.ms.state.searchstring = this.ms.state.searchstring.toUpperCase();
     }
 
     if (field == 'lc_dry_20_thc') {
@@ -504,7 +562,7 @@ export class LocalChargeComponent {
   }
 
   ShowDocuments(doc: any) {
-    this.ErrorMessage = '';
+    this.ms.state.ErrorMessage = '';
     this.open(doc);
   }
 
