@@ -204,7 +204,7 @@ export class DsrComponent {
     this.initLov();
     this.LoadCombo();
     this.Loadtplist();
-    this.LoadFeildlist();
+    this.LoadFieldlist();
   }
 
   // Init() {
@@ -653,36 +653,10 @@ export class DsrComponent {
 
   }
 
-  LoadFeildlist() {
-    let SearchData = {
-      company_code: this.gs.globalVariables.comp_code,
-      branch_code: this.gs.globalVariables.branch_code,
-      rec_category: this.type,
-      format_type: this.ms.state.format_type
-    };
-
-    if (this.gs.isBlank(this.ms.state.format_type))
-      SearchData.format_type = "GENERAL";
-
-    this.ms.state.ErrorMessage = '';
-    this.loading = true;
-    this.ms.LoadFeildlist(SearchData)
-      .subscribe(response => {
-        this.loading = false;
-        this.ms.state.feildList = response.feildlist;
-        if (!this.gs.isBlank(this.ms.state.feildList))
-          this.setColFormat();
-        // this.TpList = response.tplist;
-        // if (!this.gs.isBlank(this.TpList)) {
-        //   if (this.TpList.length > 0)
-        //     this.ms.state.tp_code = this.TpList[0].user_tp_code;
-        // }
-      },
-        error => {
-          this.loading = false;
-          this.ms.state.ErrorMessage = this.gs.getError(error);
-          alert(this.ms.state.ErrorMessage);
-        });
+  LoadFieldlist() {
+    this.gs.getCustomReportFields("DSR-" + this.type, this.ms.state.format_type, 'GENERAL').then(resp => {
+      this.ms.state.feildList = resp;
+    });
 
   }
 
@@ -864,19 +838,19 @@ export class DsrComponent {
         });
   }
 
-  setColFormat() {
-    this.ms.state.feildList.forEach(col => {
-      // number format
-      col.rd_isright = false;
-      if (col.rd_data_type && col.rd_data_type.indexOf('N-') !== -1) {
-        col.rd_isright = true;
-        const d = col.rd_data_type.split('-')[1];
-        col.rd_format = '1.' + d + '-' + d;
-      } else {
-        col.rd_format = '';
-      }
-    });
-  }
+  // setColFormat() {
+  //   this.ms.state.feildList.forEach(col => {
+  //     // number format
+  //     col.rd_isright = false;
+  //     if (col.rd_data_type && col.rd_data_type.indexOf('N-') !== -1) {
+  //       col.rd_isright = true;
+  //       const d = col.rd_data_type.split('-')[1];
+  //       col.rd_format = '1.' + d + '-' + d;
+  //     } else {
+  //       col.rd_format = '';
+  //     }
+  //   });
+  // }
 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
@@ -972,7 +946,7 @@ export class DsrComponent {
 
   customreportcallbackevent(params: any) {
     this.ms.state.format_type = params.format;
-    this.LoadFeildlist();
+    this.LoadFieldlist();
     if (this.ms.state.format_type == "PENDING")
       this.ms.state.RecordList = [];
   }

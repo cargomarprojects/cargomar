@@ -162,6 +162,7 @@ export class EmpComponent {
       this.bPhoto = true;
     this.LoadCombo();
     this.createCustomFields();
+    this.LoadFieldlist();
   }
   // Destroy Will be called when this component is closed
   ngOnDestroy() {
@@ -288,6 +289,7 @@ export class EmpComponent {
 
   customreportcallbackevent(params: any) {
     this.format_type = params.format;
+    this.LoadFieldlist();
   }
 
 
@@ -383,13 +385,9 @@ export class EmpComponent {
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
           this.RecordList = response.list;
-          this.fieldList = response.fieldlist;
           this.page_count = response.page_count;
           this.page_current = response.page_current;
           this.page_rowcount = response.page_rowcount;
-
-          if (!this.gs.isBlank(this.fieldList))
-            this.setColFormat();
         }
       },
         error => {
@@ -398,21 +396,7 @@ export class EmpComponent {
           alert(this.ErrorMessage);
         });
   }
-
-  setColFormat() {
-    this.fieldList.forEach(col => {
-      // number format
-      col.rd_isright = false;
-      if (col.rd_data_type && col.rd_data_type.indexOf('N-') !== -1) {
-        col.rd_isright = true;
-        const d = col.rd_data_type.split('-')[1];
-        col.rd_format = '1.' + d + '-' + d;
-      } else {
-        col.rd_format = '';
-      }
-    });
-  }
-  
+ 
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
@@ -1131,6 +1115,11 @@ export class EmpComponent {
     this.open(history);
   }
 
+  LoadFieldlist() {
+    this.gs.getCustomReportFields('EMP-LIST', this.format_type).then(resp => {
+      this.fieldList = resp;
+    });
+  }
 }
 
 

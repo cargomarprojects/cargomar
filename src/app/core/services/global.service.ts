@@ -8,7 +8,7 @@ import { GlobalVariables } from '../models/globalvariables';
 import { DefaultValues } from '../models/defaultvalues';
 import { Menum } from '../models/menum';
 import { Modulem } from '../models/modulem';
-
+import { CustomReportD } from '../../shared/models/customreporth';
 import { Settings } from '../models/settings';
 import { AppDetails } from '../models/appdetails';
 
@@ -1257,4 +1257,41 @@ export class GlobalService {
     document.addEventListener('mousemove', mouseMoveHandler);
     document.addEventListener('mouseup', mouseUpHandler);
   }
+
+  public async getCustomReportFields(report_source: string, report_format: string, report_default_selection: string = "DEFAULT") {
+
+    let feildList: CustomReportD[] = [];
+
+    let SearchData = {
+      company_code: this.globalVariables.comp_code,
+      branch_code: this.globalVariables.branch_code,
+      report_source: report_source,
+      format_type: report_format
+    };
+
+    if (this.isBlank(report_format))
+      SearchData.format_type = report_default_selection;
+    await this.http2.post<any>(this.baseUrl + "/api/Report1/CustomReport/LoadFeildlist", SearchData, this.headerparam2('authorized')).toPromise().then(
+      (resp) => {
+        feildList = resp.feildlist;
+        if (!this.isBlank(feildList)) {
+          feildList.forEach(col => {
+            // number format
+            col.rd_isright = false;
+            if (col.rd_data_type && col.rd_data_type.indexOf('N-') !== -1) {
+              col.rd_isright = true;
+              const d = col.rd_data_type.split('-')[1];
+              col.rd_format = '1.' + d + '-' + d;
+            } else {
+              col.rd_format = '';
+            }
+          });
+        }
+      }, error => {
+        alert(this.getError(error));
+      });
+
+    return feildList;
+  }
+
 }
