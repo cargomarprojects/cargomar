@@ -1,10 +1,9 @@
-import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { SeaBuyRate } from '../models/seabuyrate';
 import { SeaBuyRateService } from '../services/seabuyrate.service';
-import { SearchTable } from '../../shared/models/searchtable';
 import { WarningAlertComponent } from '../../shared/warningalert/warningalert.component';
 
 @Component({
@@ -25,69 +24,69 @@ export class SeaBuyRateComponent {
   @Input() type: string = '';
   InitCompleted: boolean = false;
   menu_record: any;
-  selectedRowIndex = 0;
+  /// selectedRowIndex = 0;
   
   ispercent = false;
   disableSave = true;
   loading = false;
-  currentTab = 'LIST';
+  /// currentTab = 'LIST';
   bPrint = false;
   bDelete = false;
   bAdmin = false;
-  allbr = false;
+  /// allbr = false;
 
   dbkmode = '';
   searchstring = '';
-  page_count = 0;
-  page_current = 0;
-  page_rows = 0;
-  page_rowcount = 0;
+  /// page_count = 0;
+  /// page_current = 0;
+  /// page_rows = 0;
+  /// page_rowcount = 0;
 
   sub: any;
   urlid: string;
   modal: any;
-  fromdate: string = "";
-  todate: string = "";
-  search_validdate: string = "";
-  search_tradelane: string = "";
-  search_pol: string = "";
-  search_pod: string = "";
-  search_liner: string = "";
-  search_branch_code: string = "";
-  sort_by = "sbr_valid_from,sbr_valid_to";
-  print_format = "FORMAT-1";
-  search_tradelane_id: string = "";
-  search_pol_id: string = "";
-  search_pod_id: string = "";
-  search_liner_id: string = "";
+  /// fromdate: string = "";
+  /// todate: string = "";
+  /// search_validdate: string = "";
+  /// search_tradelane: string = "";
+  /// search_pol: string = "";
+  /// search_pod: string = "";
+  /// search_liner: string = "";
+  /// search_branch_code: string = "";
+  /// sort_by = "sbr_valid_from,sbr_valid_to";
+  /// print_format = "FORMAT-1";
+  /// search_tradelane_id: string = "";
+  /// search_pol_id: string = "";
+  /// search_pod_id: string = "";
+  /// search_liner_id: string = "";
 
-  ErrorMessage = "";
-  InfoMessage = "";
+  /// ErrorMessage = "";
+  /// InfoMessage = "";
 
 
-  mode = '';
-  pkid = '';
+  /// mode = '';
+  /// pkid = '';
 
   POLRECORD: any = {};
   PODRECORD: any = {};
   LINERRECORD: any = {};
   TRADELANERECORD: any = {};
 
-  // Array For Displaying List
-  RecordList: SeaBuyRate[] = [];
-  // Single Record for add/edit/view details
+  /// Array For Displaying List
+  /// RecordList: SeaBuyRate[] = [];
+  /// Single Record for add/edit/view details
   Record: SeaBuyRate = new SeaBuyRate;
 
   constructor(
     private modalService: NgbModal,
-    private mainService: SeaBuyRateService,
+    public ms: SeaBuyRateService,
     private route: ActivatedRoute,
     private gs: GlobalService
 
   ) {
-    this.page_count = 0;
-    this.page_rows = 30;
-    this.page_current = 0;
+    /// this.page_count = 0;
+    /// this.page_rows = 30;
+    /// this.page_current = 0;
 
 
     // URL Query Parameter 
@@ -105,25 +104,39 @@ export class SeaBuyRateComponent {
 
   // Init Will be called After executing Constructor
   ngOnInit() {
+    
+    
     if (!this.InitCompleted) {
       this.InitComponent();
     }
+
+    this.ms.init(this.menuid, this.type);
+
+    if (this.bAdmin) {
+      this.ms.state.search_branch_code = '';
+      this.ms.state.allbr = true;
+    }
+    if(!this.ms.state.Initialized){
+      this.List('NEW');
+      this.ms.state.Initialized = true;
+    }
+    /// to load add/edit screen when selected
+    if (this.ms.state.mode == "ADD")
+        this.ActionHandler('ADD', '');
+    else if (this.ms.state.mode == "EDIT")
+        this.ActionHandler('EDIT', this.ms.state.pkid);
   }
 
   InitComponent() {
-    this.search_branch_code = this.gs.globalVariables.branch_code;
-    this.fromdate = this.gs.defaultValues.monthbegindate;
-    this.todate = '';
+    /// this.search_branch_code = this.gs.globalVariables.branch_code;
+    /// this.fromdate = this.gs.defaultValues.monthbegindate;
+    /// this.todate = '';
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
       this.bPrint = this.menu_record.rights_print;
       this.bDelete = this.menu_record.rights_delete;
       this.bAdmin = this.menu_record.rights_admin;
-    }
-    if (this.bAdmin) {
-      this.search_branch_code = '';
-      this.allbr = true;
     }
     this.LoadCombo();
   }
@@ -133,7 +146,26 @@ export class SeaBuyRateComponent {
     this.sub.unsubscribe();
   }
 
+  /// for restore selected row in list
+  ngAfterViewInit() {
+    this.restoreRowPosition();
+  }
 
+  restoreRowPosition(){
+    setTimeout(() => {
+      this.scrollToRowPosition();
+    }, 100);
+  }
+
+  scrollToRowPosition() {
+    const row = document.getElementById('row-' + this.ms.state.selectedRowIndex);
+    if (row) {
+      row.scrollIntoView({
+        behavior: 'auto',
+        block: 'center'
+      });
+    }
+  }
 
   LoadCombo() {
 
@@ -146,7 +178,7 @@ export class SeaBuyRateComponent {
 
     //this.ErrorMessage = '';
     //this.InfoMessage = '';
-    //this.mainService.LoadDefault(SearchData)
+    //this.ms.LoadDefault(SearchData)
     //  .subscribe(response => {
     //    this.loading = false;
 
@@ -157,7 +189,7 @@ export class SeaBuyRateComponent {
     //    this.ErrorMessage = JSON.parse(error._body).Message;
     //  });
 
-    this.List("NEW");
+    // this.List("NEW");
   }
 
 
@@ -185,24 +217,24 @@ export class SeaBuyRateComponent {
     }
 
     if (_Record.controlname == "BRANCH") {
-      this.search_branch_code = _Record.code;
+      this.ms.state.search_branch_code = _Record.code;
     }
 
     if (_Record.controlname == "SEARCHPOL") {
-      this.search_pol_id = _Record.id;
-      this.search_pol = _Record.name;
+      this.ms.state.search_pol_id = _Record.id;
+      this.ms.state.search_pol = _Record.name;
     }
     if (_Record.controlname == "SEARCHPOD") {
-      this.search_pod_id = _Record.id;
-      this.search_pod = _Record.name;
+      this.ms.state.search_pod_id = _Record.id;
+      this.ms.state.search_pod = _Record.name;
     }
     if (_Record.controlname == "SEARCHLINER") {
-      this.search_liner_id = _Record.id;
-      this.search_liner = _Record.name;
+      this.ms.state.search_liner_id = _Record.id;
+      this.ms.state.search_liner = _Record.name;
     }
     if (_Record.controlname == "SEARCHTRADELANE") {
-      this.search_tradelane_id = _Record.id;
-      this.search_tradelane = _Record.name;
+      this.ms.state.search_tradelane_id = _Record.id;
+      this.ms.state.search_tradelane = _Record.name;
     }
   }
 
@@ -210,24 +242,25 @@ export class SeaBuyRateComponent {
 
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string) {
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
     if (action == 'LIST') {
-      this.mode = '';
-      this.pkid = '';
-      this.currentTab = 'LIST';
+      this.ms.state.mode = '';
+      this.ms.state.pkid = '';
+      this.ms.state.currentTab = 'LIST';
+      this.restoreRowPosition();
     }
     else if (action === 'ADD') {
-      this.currentTab = 'DETAILS';
-      this.mode = 'ADD';
+      this.ms.state.currentTab = 'DETAILS';
+      this.ms.state.mode = 'ADD';
       this.ResetControls();
       this.NewRecord();
     }
     else if (action === 'EDIT') {
-      this.currentTab = 'DETAILS';
-      this.mode = 'EDIT';
+      this.ms.state.currentTab = 'DETAILS';
+      this.ms.state.mode = 'EDIT';
       this.ResetControls();
-      this.pkid = id;
+      this.ms.state.pkid = id;
       this.GetRecord(id);
     }
   }
@@ -240,9 +273,9 @@ export class SeaBuyRateComponent {
 
     if (this.menu_record.rights_admin)
       this.disableSave = false;
-    if (this.mode == "ADD" && this.menu_record.rights_add)
+    if (this.ms.state.mode == "ADD" && this.menu_record.rights_add)
       this.disableSave = false;
-    if (this.mode == "EDIT" && this.menu_record.rights_edit)
+    if (this.ms.state.mode == "EDIT" && this.menu_record.rights_edit)
       this.disableSave = false;
     return this.disableSave;
   }
@@ -250,8 +283,8 @@ export class SeaBuyRateComponent {
   // Query List Data
   List(_type: string) {
 
-    if (!this.allbr) {
-      if (this.gs.isBlank(this.search_branch_code)) {
+    if (!this.ms.state.allbr) {
+      if (this.gs.isBlank(this.ms.state.search_branch_code)) {
         alert('Enter the Branch or Select All');
         return;
       }
@@ -261,48 +294,50 @@ export class SeaBuyRateComponent {
       type: _type,
       rowtype: this.type,
       searchstring: this.searchstring.toUpperCase(),
-      page_count: this.page_count,
-      page_current: this.page_current,
-      page_rows: this.page_rows,
-      page_rowcount: this.page_rowcount,
+      page_count: this.ms.state.page_count,
+      page_current: this.ms.state.page_current,
+      page_rows: this.ms.state.page_rows,
+      page_rowcount: this.ms.state.page_rowcount,
       company_code: this.gs.globalVariables.comp_code,
-      branch_code: this.search_branch_code,
-      from_date: this.fromdate,
-      to_date: this.todate,
+      branch_code: this.ms.state.search_branch_code,
+      from_date: this.ms.state.fromdate,
+      to_date: this.ms.state.todate,
       report_folder: this.gs.globalVariables.report_folder,
-      sort_by: this.sort_by,
+      sort_by: this.ms.state.sort_by,
       is_admin: this.bAdmin,
-      search_validdate: this.search_validdate,
-      search_tradelane: this.search_tradelane,
-      search_pol: this.search_pol,
-      search_pod: this.search_pod,
-      search_liner: this.search_liner,
-      search_tradelane_id: this.search_tradelane_id,
-      search_pol_id: this.search_pol_id,
-      search_pod_id: this.search_pod_id,
-      search_liner_id: this.search_liner_id,
-      allbr: this.allbr,
-      print_format: this.print_format
+      search_validdate: this.ms.state.search_validdate,
+      search_tradelane: this.ms.state.search_tradelane,
+      search_pol: this.ms.state.search_pol,
+      search_pod: this.ms.state.search_pod,
+      search_liner: this.ms.state.search_liner,
+      search_tradelane_id: this.ms.state.search_tradelane_id,
+      search_pol_id: this.ms.state.search_pol_id,
+      search_pod_id: this.ms.state.search_pod_id,
+      search_liner_id: this.ms.state.search_liner_id,
+      allbr: this.ms.state.allbr,
+      print_format: this.ms.state.print_format
     };
 
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.List(SearchData)
+    this.ms.state.selectedRowIndex = 0;
+    this.restoreRowPosition();
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
+    this.ms.List(SearchData)
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
-          this.RecordList = response.list;
-          this.page_count = response.page_count;
-          this.page_current = response.page_current;
-          this.page_rowcount = response.page_rowcount;
+          this.ms.state.RecordList = response.list;
+          this.ms.state.page_count = response.page_count;
+          this.ms.state.page_current = response.page_current;
+          this.ms.state.page_rowcount = response.page_rowcount;
         }
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
@@ -312,11 +347,11 @@ export class SeaBuyRateComponent {
 
 
   NewRecord() {
-    this.pkid = this.gs.getGuid();
+    this.ms.state.pkid = this.gs.getGuid();
 
     this.Record = new SeaBuyRate();
-    this.Record.sbr_pkid = this.pkid;
-    this.Record.rec_mode = this.mode;
+    this.Record.sbr_pkid = this.ms.state.pkid;
+    this.Record.rec_mode = this.ms.state.mode;
     this.Init();
     // this.ClearRates();
 
@@ -418,31 +453,31 @@ export class SeaBuyRateComponent {
       pkid: Id,
     };
 
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.GetRecord(SearchData)
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
+    this.ms.GetRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
         this.LoadData(response.record);
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
   LoadData(_Record: SeaBuyRate) {
     this.Record = _Record;
-    this.Record.rec_mode = this.mode;
+    this.Record.rec_mode = this.ms.state.mode;
 
     this.POLRECORD = { 'controlname': 'POL', 'type': 'SEA PORT', displaycolumn: 'CODE', id: this.Record.sbr_pol_id, code: this.Record.sbr_pol_code, name: this.Record.sbr_pol_name };
     this.PODRECORD = { 'controlname': 'POD', 'type': 'SEA PORT', displaycolumn: 'CODE', id: this.Record.sbr_pod_id, code: this.Record.sbr_pod_code, name: this.Record.sbr_pod_name };
     this.LINERRECORD = { 'controlname': 'LINER', 'type': 'SEA CARRIER', displaycolumn: 'CODE', id: this.Record.sbr_carrier_id, code: this.Record.sbr_carrier_code, name: this.Record.sbr_carrier_name };
     this.TRADELANERECORD = { 'controlname': 'TRADELANE', 'type': 'COUNTRY', displaycolumn: 'CODE', id: this.Record.sbr_tradelane_id, code: this.Record.sbr_tradelane_code, name: this.Record.sbr_tradelane_name };
     //Fill Duplicate buyrate
-    if (this.mode == "ADD") {
-      this.Record.sbr_pkid = this.pkid;
+    if (this.ms.state.mode == "ADD") {
+      this.Record.sbr_pkid = this.ms.state.pkid;
     }
   }
 
@@ -453,11 +488,11 @@ export class SeaBuyRateComponent {
       return;
 
     this.loading = true;
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
     this.Record._globalvariables = this.gs.globalVariables;
 
-    this.mainService.CanSave(this.Record)
+    this.ms.CanSave(this.Record)
       .subscribe(response => {
         this.loading = false;
         if (response.warningmsg.length > 0) {
@@ -476,8 +511,8 @@ export class SeaBuyRateComponent {
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
 
         });
   }
@@ -485,30 +520,30 @@ export class SeaBuyRateComponent {
   Save2() {
 
     this.loading = true;
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
     this.Record._globalvariables = this.gs.globalVariables;
 
-    this.mainService.Save(this.Record)
+    this.ms.Save(this.Record)
       .subscribe(response => {
         this.loading = false;
-        this.InfoMessage = "Save Complete";
-        this.mode = 'EDIT';
-        this.Record.rec_mode = this.mode;
+        this.ms.state.InfoMessage = "Save Complete";
+        this.ms.state.mode = 'EDIT';
+        this.Record.rec_mode = this.ms.state.mode;
         this.RefreshList();
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
   allvalid() {
     let sError: string = "";
     let bret: boolean = true;
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
     // if (this.Record.dbk_slno.trim().length <= 0) {
     //   bret = false;
     //   sError = " | Drawback Code Cannot Be Blank";
@@ -521,11 +556,12 @@ export class SeaBuyRateComponent {
 
   RefreshList() {
 
-    if (this.RecordList == null)
+    if (this.ms.state.RecordList == null)
       return;
-    var REC = this.RecordList.find(rec => rec.sbr_pkid == this.Record.sbr_pkid);
+    var REC = this.ms.state.RecordList.find(rec => rec.sbr_pkid == this.Record.sbr_pkid);
     if (REC == null) {
-      this.RecordList.push(this.Record);
+      this.ms.state.RecordList.push(this.Record);
+      this.ms.state.selectedRowIndex = this.ms.state.RecordList.length - 1;
     }
     else {
       REC.sbr_tradelane_name = this.Record.sbr_tradelane_name;
@@ -557,22 +593,22 @@ export class SeaBuyRateComponent {
       return;
     }
 
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
     this.loading = true;
     let SearchData = {
       pkid: Id
     };
 
-    this.mainService.DeleteRecord(SearchData)
+    this.ms.DeleteRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.RecordList.splice(this.RecordList.findIndex(rec => rec.sbr_pkid == Id), 1);
+        this.ms.state.RecordList.splice(this.ms.state.RecordList.findIndex(rec => rec.sbr_pkid == Id), 1);
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
@@ -788,24 +824,24 @@ export class SeaBuyRateComponent {
     }
 
     if (field == 'search_tradelane') {
-      this.search_tradelane = this.search_tradelane.toUpperCase();
+      this.ms.state.search_tradelane = this.ms.state.search_tradelane.toUpperCase();
     }
     if (field == 'search_pol') {
-      this.search_pol = this.search_pol.toUpperCase();
+      this.ms.state.search_pol = this.ms.state.search_pol.toUpperCase();
     }
     if (field == 'search_pod') {
-      this.search_pod = this.search_pod.toUpperCase();
+      this.ms.state.search_pod = this.ms.state.search_pod.toUpperCase();
     }
     if (field == 'search_liner') {
-      this.search_liner = this.search_liner.toUpperCase();
+      this.ms.state.search_liner = this.ms.state.search_liner.toUpperCase();
     }
 
   }
   OnChange(field: string) {
-    if (this.allbr)
-      this.search_branch_code = '';
+    if (this.ms.state.allbr)
+      this.ms.state.search_branch_code = '';
     else
-      this.search_branch_code = this.gs.globalVariables.branch_code;
+      this.ms.state.search_branch_code = this.gs.globalVariables.branch_code;
   }
 
   Close() {
@@ -868,7 +904,7 @@ export class SeaBuyRateComponent {
 
   //   this.ErrorMessage = '';
   //   this.InfoMessage = '';
-  //   this.mainService.ProcessDrawbackRates(SearchData)
+  //   this.ms.ProcessDrawbackRates(SearchData)
   //     .subscribe(response => {
   //       this.loading = false;
   //       this.InfoMessage = "Process Complete";
@@ -881,7 +917,7 @@ export class SeaBuyRateComponent {
 
   // }
   ShowDocuments(doc: any) {
-    this.ErrorMessage = '';
+    this.ms.state.ErrorMessage = '';
     this.open(doc);
   }
 

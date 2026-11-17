@@ -31,4 +31,49 @@ export class LocalCharge {
     _globalvariables: GlobalVariables;
 }
 
+export interface iLocalChargeModel {
+  // filter Values
+  selectedRowIndex: number;
+  mode: string;
+  pkid: string;
+  list_format: string;
+  currentTab: string;
+  RecordList: LocalCharge[];
 
+  InfoMessage: string;
+  ErrorMessage: string;
+
+  //Search Values
+  fromdate: string;
+  todate: string;
+  searchstring: string;
+  rec_branch_code: string;
+
+  // Page Values
+  page_count: number;
+  page_current: number;
+  page_rows: number;
+  page_rowcount: number;
+};
+
+export const initialState: iLocalChargeModel = {
+  selectedRowIndex: 0,
+  mode: '',
+  pkid: '',
+  list_format: '',
+  currentTab: 'LIST',
+  RecordList: [],
+  
+  InfoMessage: '',
+  ErrorMessage: '',
+
+  fromdate: '',
+  todate: '',
+  searchstring: '',
+  rec_branch_code: '',
+
+  page_count: 0,
+  page_current: 0,
+  page_rows: 30,
+  page_rowcount: 0
+}
