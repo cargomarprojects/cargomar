@@ -84,3 +84,73 @@ export class SeaBuyRate {
 
 }
 
+export interface iSeaBuyRateModel {
+  // filter Values
+  Initialized: boolean;
+  selectedRowIndex: number;
+  mode: string;
+  pkid: string;
+  list_format: string;
+  currentTab: string;
+  RecordList: SeaBuyRate[];
+
+  InfoMessage: string;
+  ErrorMessage: string;
+
+  //Search Values
+  fromdate: string;
+  todate: string;
+  search_validdate: string;
+  search_tradelane_id: string;
+  search_tradelane: string;
+  search_pol_id: string;
+  search_pol: string;
+  search_pod_id: string;
+  search_pod: string;
+  search_liner_id: string;
+  search_liner: string;
+  sort_by: string;
+  print_format: string;
+  search_branch_code: string;
+  allbr: boolean;
+
+  // Page Values
+  page_count: number;
+  page_current: number;
+  page_rows: number;
+  page_rowcount: number;
+};
+
+export const initialState: iSeaBuyRateModel = {
+  Initialized: false,
+  selectedRowIndex: 0,
+  mode: '',
+  pkid: '',
+  list_format: '',
+  currentTab: 'LIST',
+  RecordList: [],
+  
+  InfoMessage: '',
+  ErrorMessage: '',
+
+  fromdate: '',
+  todate: '',
+  search_validdate: '',
+  search_tradelane_id: '',
+  search_tradelane: '',
+  search_pol_id: '',
+  search_pol: '',
+  search_pod_id: '',
+  search_pod: '',
+  search_liner_id: '',
+  search_liner: '',
+  sort_by: '',
+  print_format: '',
+  search_branch_code: '',
+  allbr: false,
+
+  page_count: 0,
+  page_current: 0,
+  page_rows: 30,
+  page_rowcount: 0
+}

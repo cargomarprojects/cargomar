@@ -42,7 +42,7 @@ export class CartingOrderComponent {
 
     constructor(
         private modalService: NgbModal,
-        public mainService: CartingOrderService,
+        public ms: CartingOrderService,
         private route: ActivatedRoute,
         private gs: GlobalService
     ) {
@@ -64,11 +64,11 @@ export class CartingOrderComponent {
             this.InitComponent();
         }
 
-        this.mainService.init(this.menuid);
-        if (this.mainService.state.mode == "ADD")
+        this.ms.init(this.menuid);
+        if (this.ms.state.mode == "ADD")
             this.ActionHandler('ADD', '');
-        else if (this.mainService.state.mode == "EDIT")
-            this.ActionHandler('EDIT', this.mainService.state.pkid)
+        else if (this.ms.state.mode == "EDIT")
+            this.ActionHandler('EDIT', this.ms.state.pkid)
     }
 
     InitComponent() {
@@ -83,8 +83,24 @@ export class CartingOrderComponent {
     }
 
     // Destroy Will be called when this component is closed
-    ngOnDestroy() {
-        this.sub.unsubscribe();
+    ngAfterViewInit() {
+        this.restoreRowPosition();
+    }
+
+    restoreRowPosition(){
+        setTimeout(() => {
+        this.scrollToRowPosition();
+        }, 100);
+    }
+
+    scrollToRowPosition() {
+        const row = document.getElementById('row-' + this.ms.state.selectedRowIndex);
+        if (row) {
+        row.scrollIntoView({
+            behavior: 'auto',
+            block: 'center'
+        });
+        }
     }
 
     LoadCombo() {
@@ -117,23 +133,24 @@ export class CartingOrderComponent {
 
     //function for handling LIST/NEW/EDIT Buttons
     ActionHandler(action: string, id: string) {
-        this.mainService.state.ErrorMessage = '';
-        this.mainService.state.InfoMessage = '';
+        this.ms.state.ErrorMessage = '';
+        this.ms.state.InfoMessage = '';
         if (action == 'LIST') {
-            this.mainService.state.mode = '';
-            this.mainService.state.pkid = '';
-            this.mainService.state.currentTab = 'LIST';
+            this.ms.state.mode = '';
+            this.ms.state.pkid = '';
+            this.ms.state.currentTab = 'LIST';
+            this.restoreRowPosition();
         }
         else if (action === 'ADD') {
-            this.mainService.state.currentTab = 'DETAILS';
-            this.mainService.state.mode = 'ADD';
+            this.ms.state.currentTab = 'DETAILS';
+            this.ms.state.mode = 'ADD';
             this.ResetControls();
             this.NewRecord();
         }
         else if (action === 'EDIT') {
-            this.mainService.state.currentTab = 'DETAILS';
-            this.mainService.state.pkid = id;
-            this.mainService.state.mode = 'EDIT';
+            this.ms.state.currentTab = 'DETAILS';
+            this.ms.state.pkid = id;
+            this.ms.state.mode = 'EDIT';
             this.ResetControls();
             this.GetRecord(id, '');
         }
@@ -146,9 +163,9 @@ export class CartingOrderComponent {
 
         if (this.menu_record.rights_admin)
             this.disableSave = false;
-        if (this.mainService.state.mode == "ADD" && this.menu_record.rights_add)
+        if (this.ms.state.mode == "ADD" && this.menu_record.rights_add)
             this.disableSave = false;
-        if (this.mainService.state.mode == "EDIT" && this.menu_record.rights_edit)
+        if (this.ms.state.mode == "EDIT" && this.menu_record.rights_edit)
             this.disableSave = false;
 
         return this.disableSave;
@@ -160,29 +177,31 @@ export class CartingOrderComponent {
         let SearchData = {
             type: _type,
             rowtype: this.type,
-            searchstring: this.mainService.state.searchstring.toUpperCase(),
+            searchstring: this.ms.state.searchstring.toUpperCase(),
             company_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
             year_code: this.gs.globalVariables.year_code,
-            page_count: this.mainService.state.page_count,
-            page_current: this.mainService.state.page_current,
-            page_rows: this.mainService.state.page_rows,
-            page_rowcount: this.mainService.state.page_rowcount
+            page_count: this.ms.state.page_count,
+            page_current: this.ms.state.page_current,
+            page_rows: this.ms.state.page_rows,
+            page_rowcount: this.ms.state.page_rowcount
         };
 
-        this.mainService.state.ErrorMessage = '';
-        this.mainService.state.InfoMessage = '';
-        this.mainService.List(SearchData)
+        this.ms.state.selectedRowIndex = 0;
+        this.restoreRowPosition();
+        this.ms.state.ErrorMessage = '';
+        this.ms.state.InfoMessage = '';
+        this.ms.List(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                this.mainService.state.RecordList = response.list;
-                this.mainService.state.page_count = response.page_count;
-                this.mainService.state.page_current = response.page_current;
-                this.mainService.state.page_rowcount = response.page_rowcount;
+                this.ms.state.RecordList = response.list;
+                this.ms.state.page_count = response.page_count;
+                this.ms.state.page_current = response.page_current;
+                this.ms.state.page_rowcount = response.page_rowcount;
             },
                 error => {
                     this.loading = false;
-                    this.mainService.state.ErrorMessage = this.gs.getError(error);
+                    this.ms.state.ErrorMessage = this.gs.getError(error);
                 });
     }
 
@@ -190,9 +209,9 @@ export class CartingOrderComponent {
         this.ord_po = "";
         this.chkselected = false;
         this.ord_selected = false;
-        this.mainService.state.pkid = this.gs.getGuid();
+        this.ms.state.pkid = this.gs.getGuid();
         this.Record = new CartingOrderm();
-        this.Record.co_pkid = this.mainService.state.pkid;
+        this.Record.co_pkid = this.ms.state.pkid;
         this.Record.co_sl_no = null;
         this.Record.co_date = this.gs.defaultValues.today;
         this.Record.co_agent_id = '';
@@ -209,7 +228,7 @@ export class CartingOrderComponent {
         this.Record.co_vessel_code = '';
         this.Record.co_vessel_name = '';
         this.Record.co_vessel_no = '';
-        this.Record.rec_mode = this.mainService.state.mode;
+        this.Record.rec_mode = this.ms.state.mode;
     }
 
     // Load a single Record for VIEW/EDIT
@@ -224,9 +243,9 @@ export class CartingOrderComponent {
             type: _type,
         };
 
-        this.mainService.state.ErrorMessage = '';
-        this.mainService.state.InfoMessage = '';
-        this.mainService.GetRecord(SearchData)
+        this.ms.state.ErrorMessage = '';
+        this.ms.state.InfoMessage = '';
+        this.ms.GetRecord(SearchData)
             .subscribe(response => {
                 this.loading = false;
                 if (_type == 'EXCEL')
@@ -237,14 +256,14 @@ export class CartingOrderComponent {
             },
                 error => {
                     this.loading = false;
-                    this.mainService.state.ErrorMessage = this.gs.getError(error);
+                    this.ms.state.ErrorMessage = this.gs.getError(error);
                 });
     }
 
     LoadData(_Record: CartingOrderm) {
         this.ord_po = "";
         this.Record = _Record;
-        this.Record.rec_mode = this.mainService.state.mode;
+        this.Record.rec_mode = this.ms.state.mode;
         this.Record.OrderList = _Record.OrderList;
         this.ord_selected = false;
         if (this.Record.OrderList.length > 0)
@@ -257,35 +276,35 @@ export class CartingOrderComponent {
         if (!this.allvalid())
             return;
         this.loading = true;
-        this.mainService.state.ErrorMessage = '';
-        this.mainService.state.InfoMessage = '';
+        this.ms.state.ErrorMessage = '';
+        this.ms.state.InfoMessage = '';
         this.Record._globalvariables = this.gs.globalVariables;
-        this.mainService.Save(this.Record)
+        this.ms.Save(this.Record)
             .subscribe(response => {
                 this.loading = false;
-                if (this.mainService.state.mode == 'ADD') {
+                if (this.ms.state.mode == 'ADD') {
                     this.Record.co_sl_no = response.slno;
-                    this.mainService.state.InfoMessage = "New Record " + this.Record.co_sl_no + " Generated Successfully";
+                    this.ms.state.InfoMessage = "New Record " + this.Record.co_sl_no + " Generated Successfully";
                 } else
-                    this.mainService.state.InfoMessage = "Save Complete";
+                    this.ms.state.InfoMessage = "Save Complete";
 
-                this.mainService.state.mode = 'EDIT';
-                this.Record.rec_mode = this.mainService.state.mode;
+                this.ms.state.mode = 'EDIT';
+                this.Record.rec_mode = this.ms.state.mode;
                 this.RefreshList();
-                alert(this.mainService.state.InfoMessage);
+                alert(this.ms.state.InfoMessage);
             },
                 error => {
                     this.loading = false;
-                    this.mainService.state.ErrorMessage = this.gs.getError(error);
-                    alert(this.mainService.state.ErrorMessage);
+                    this.ms.state.ErrorMessage = this.gs.getError(error);
+                    alert(this.ms.state.ErrorMessage);
                 });
     }
 
     allvalid() {
         let sError: string = "";
         let bret: boolean = true;
-        this.mainService.state.ErrorMessage = '';
-        this.mainService.state.InfoMessage = '';
+        this.ms.state.ErrorMessage = '';
+        this.ms.state.InfoMessage = '';
 
         if (this.Record.co_date.trim().length <= 0) {
             bret = false;
@@ -301,19 +320,20 @@ export class CartingOrderComponent {
         }
 
         if (bret === false) {
-            this.mainService.state.ErrorMessage = sError;
-            alert(this.mainService.state.ErrorMessage);
+            this.ms.state.ErrorMessage = sError;
+            alert(this.ms.state.ErrorMessage);
         }
         return bret;
     }
 
     RefreshList() {
-        if (this.mainService.state.RecordList == null)
+        if (this.ms.state.RecordList == null)
             return;
-        var REC = this.mainService.state.RecordList.find(rec => rec.co_pkid == this.Record.co_pkid);
+        var REC = this.ms.state.RecordList.find(rec => rec.co_pkid == this.Record.co_pkid);
         if (REC == null) {
-            this.mainService.state.RecordList.push(this.Record);
-            REC = this.mainService.state.RecordList.find(rec => rec.co_pkid == this.Record.co_pkid);
+            this.ms.state.RecordList.push(this.Record);
+            this.ms.state.selectedRowIndex = this.ms.state.RecordList.length - 1;
+            REC = this.ms.state.RecordList.find(rec => rec.co_pkid == this.Record.co_pkid);
             if (!this.gs.isBlank(this.ctrl_co_date))
                 REC.co_date = this.ctrl_co_date.GetDisplayDate();
         }
@@ -362,8 +382,8 @@ export class CartingOrderComponent {
 
     OrderList(_Record: CartingOrderm) {
 
-        this.mainService.state.ErrorMessage = '';
-        this.mainService.state.InfoMessage = '';
+        this.ms.state.ErrorMessage = '';
+        this.ms.state.InfoMessage = '';
 
         this.loading = true;
         let SearchData = {
@@ -376,7 +396,7 @@ export class CartingOrderComponent {
             branch_code: this.gs.globalVariables.branch_code
         };
 
-        this.mainService.OrderList(SearchData)
+        this.ms.OrderList(SearchData)
             .subscribe(response => {
                 this.loading = false;
                 var REC = null;
@@ -390,7 +410,7 @@ export class CartingOrderComponent {
             },
                 error => {
                     this.loading = false;
-                    this.mainService.state.ErrorMessage = this.gs.getError(error);
+                    this.ms.state.ErrorMessage = this.gs.getError(error);
                 });
     }
 
@@ -410,7 +430,7 @@ export class CartingOrderComponent {
     }
 
     TrackOrders(trkorder: any) {
-        this.mainService.state.ErrorMessage = "";
+        this.ms.state.ErrorMessage = "";
         this.ord_trkids = "";
         this.ord_trkpos = "";
         for (let rec of this.Record.OrderList) {
@@ -428,8 +448,8 @@ export class CartingOrderComponent {
             }
         }
         if (this.ord_trkids == "") {
-            this.mainService.state.ErrorMessage = " Please select PO and continue.....";
-            alert(this.mainService.state.ErrorMessage);
+            this.ms.state.ErrorMessage = " Please select PO and continue.....";
+            alert(this.ms.state.ErrorMessage);
             return;
         }
         this.open(trkorder);
