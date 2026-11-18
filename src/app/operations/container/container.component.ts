@@ -1,12 +1,7 @@
-
-import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
-
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
 import { GlobalService } from '../../core/services/global.service';
-
 import { Containerm } from '../models/container';
-
 import { ContainerService } from '../services/container.service';
 import { SearchTable } from '../../shared/models/searchtable';
 
@@ -20,7 +15,7 @@ export class ContainerComponent {
   // Local Variables 
   title = 'Container Master';
 
-  selectedRowIndex = 0;
+  /// selectedRowIndex = 0;
 
   @Input() menuid: string = '';
   @Input() type: string = '';
@@ -29,13 +24,13 @@ export class ContainerComponent {
   // booking_mbl_no: string;
   disableSave = true;
   loading = false;
-  currentTab = 'LIST';
+  /// currentTab = 'LIST';
 
-  searchstring = '';
-  page_count = 0;
-  page_current = 0;
-  page_rows = 0;
-  page_rowcount = 0;
+  /// searchstring = '';
+  /// page_count = 0;
+  /// page_current = 0;
+  /// page_rows = 0;
+  /// page_rowcount = 0;
 
   booking_no: string;
   mbl_no: string;
@@ -45,30 +40,30 @@ export class ContainerComponent {
   sub: any;
   urlid: string;
 
-  ErrorMessage = "";
-  InfoMessage = "";
+  /// ErrorMessage = "";
+  /// InfoMessage = "";
 
-  mode = '';
-  pkid = '';
+  /// mode = '';
+  /// pkid = '';
 
   lock_record: boolean = false;
   lock_bookingno: boolean = false;
 
   // Array For Displaying List
-  RecordList: Containerm[] = [];
+  /// RecordList: Containerm[] = [];
   // Single Record for add/edit/view details
   Record: Containerm = new Containerm;
   CNTRTYPERECORD: SearchTable = new SearchTable();
   SERVICECONTRACTRECORD: SearchTable = new SearchTable();
 
   constructor(
-    private mainService: ContainerService,
+    public ms: ContainerService,
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {
-    this.page_count = 0;
-    this.page_rows = 15;
-    this.page_current = 0;
+    /// this.page_count = 0;
+    /// this.page_rows = 15;
+    /// this.page_current = 0;
 
     // URL Query Parameter 
     this.sub = this.route.queryParams.subscribe(params => {
@@ -88,6 +83,17 @@ export class ContainerComponent {
     if (!this.InitCompleted) {
       this.InitComponent();
     }
+    this.ms.init(this.menuid, this.type);
+
+    if(!this.ms.state.Initialized){
+      this.List('NEW');
+      this.ms.state.Initialized = true;
+    }
+    /// to load add/edit screen when selected
+    if (this.ms.state.mode == "ADD")
+        this.ActionHandler('ADD', '');
+    else if (this.ms.state.mode == "EDIT")
+        this.ActionHandler('EDIT', this.ms.state.pkid);
   }
 
   InitComponent() {
@@ -104,6 +110,27 @@ export class ContainerComponent {
     this.sub.unsubscribe();
   }
 
+  /// for restore selected row in list
+  ngAfterViewInit() {
+    this.restoreRowPosition();
+  }
+
+  restoreRowPosition(){
+    setTimeout(() => {
+      this.scrollToRowPosition();
+    }, 100);
+  }
+
+  scrollToRowPosition() {
+    const row = document.getElementById('row-' + this.ms.state.selectedRowIndex);
+    if (row) {
+      row.scrollIntoView({
+        behavior: 'auto',
+        block: 'center'
+      });
+    }
+  }
+
   LoadCombo() {
 
     //this.loading = true;
@@ -113,7 +140,7 @@ export class ContainerComponent {
 
     //this.ErrorMessage = '';
     //this.InfoMessage = '';
-    //this.mainService.LoadDefault(SearchData)
+    //this.ms.LoadDefault(SearchData)
     //    .subscribe(response => {
     //        this.loading = false;
     //        //this.AcGrpList = response.acgroupm;
@@ -126,7 +153,7 @@ export class ContainerComponent {
     //        this.ErrorMessage = this.gs.getError(error);
     //  });
 
-    this.List("NEW");
+    /// this.List("NEW");
   }
   InitLov() {
 
@@ -163,17 +190,17 @@ export class ContainerComponent {
 
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string) {
-    this.ErrorMessage = '';
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
     if (action == 'LIST') {
-      this.mode = '';
-      this.pkid = '';
-      this.currentTab = 'LIST';
-
-
+      this.ms.state.mode = '';
+      this.ms.state.pkid = '';
+      this.ms.state.currentTab = 'LIST';
+      this.restoreRowPosition();
     }
     else if (action === 'ADD') {
-      this.currentTab = 'DETAILS';
-      this.mode = 'ADD';
+      this.ms.state.currentTab = 'DETAILS';
+      this.ms.state.mode = 'ADD';
       this.ResetControls();
       this.book_and_mbl = '';
 
@@ -181,10 +208,10 @@ export class ContainerComponent {
 
     }
     else if (action === 'EDIT') {
-      this.currentTab = 'DETAILS';
-      this.mode = 'EDIT';
+      this.ms.state.currentTab = 'DETAILS';
+      this.ms.state.mode = 'EDIT';
       this.ResetControls();
-      this.pkid = id;
+      this.ms.state.pkid = id;
       this.GetRecord(id);
     }
   }
@@ -197,9 +224,9 @@ export class ContainerComponent {
 
     if (this.menu_record.rights_admin)
       this.disableSave = false;
-    if (this.mode == "ADD" && this.menu_record.rights_add)
+    if (this.ms.state.mode == "ADD" && this.menu_record.rights_add)
       this.disableSave = false;
-    if (this.mode == "EDIT" && this.menu_record.rights_edit)
+    if (this.ms.state.mode == "EDIT" && this.menu_record.rights_edit)
       this.disableSave = false;
 
     return this.disableSave;
@@ -213,39 +240,41 @@ export class ContainerComponent {
     let SearchData = {
       type: _type,
       rowtype: this.type,
-      searchstring: this.searchstring.toUpperCase(),
+      searchstring: this.ms.state.searchstring.toUpperCase(),
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
-      page_count: this.page_count,
-      page_current: this.page_current,
-      page_rows: this.page_rows,
-      page_rowcount: this.page_rowcount
+      page_count: this.ms.state.page_count,
+      page_current: this.ms.state.page_current,
+      page_rows: this.ms.state.page_rows,
+      page_rowcount: this.ms.state.page_rowcount
     };
 
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.List(SearchData)
+    this.ms.state.selectedRowIndex = 0;
+    this.restoreRowPosition();
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
+    this.ms.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.RecordList = response.list;
-        this.page_count = response.page_count;
-        this.page_current = response.page_current;
-        this.page_rowcount = response.page_rowcount;
+        this.ms.state.RecordList = response.list;
+        this.ms.state.page_count = response.page_count;
+        this.ms.state.page_current = response.page_current;
+        this.ms.state.page_rowcount = response.page_rowcount;
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
   NewRecord() {
     this.lock_record = false;
     this.lock_bookingno = false;
-    this.pkid = this.gs.getGuid();
+    this.ms.state.pkid = this.gs.getGuid();
     this.Record = new Containerm();
-    this.Record.cntr_pkid = this.pkid;
+    this.Record.cntr_pkid = this.ms.state.pkid;
     this.Record.cntr_no = '';
     this.Record.cntr_csealno = '';
     this.Record.cntr_asealno = '';
@@ -270,7 +299,7 @@ export class ContainerComponent {
     this.Record.cntr_service_contract_code = "";
     this.Record.cntr_service_contract_name = "";
     this.InitLov();
-    this.Record.rec_mode = this.mode;
+    this.Record.rec_mode = this.ms.state.mode;
   }
 
   // Load a single Record for VIEW/EDIT
@@ -281,9 +310,9 @@ export class ContainerComponent {
       pkid: Id,
     };
 
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.GetRecord(SearchData)
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
+    this.ms.GetRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
         this.LoadData(response.record);
@@ -305,8 +334,8 @@ export class ContainerComponent {
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
@@ -319,7 +348,7 @@ export class ContainerComponent {
     this.SERVICECONTRACTRECORD.id = this.Record.cntr_service_contract_id;
     this.SERVICECONTRACTRECORD.code = this.Record.cntr_service_contract_code;
     this.SERVICECONTRACTRECORD.name = this.Record.cntr_service_contract_name;
-    this.Record.rec_mode = this.mode;
+    this.Record.rec_mode = this.ms.state.mode;
     /*
     this.lock_record = true;
     this.lock_bookingno = true;
@@ -338,30 +367,30 @@ export class ContainerComponent {
     if (!this.allvalid())
       return;
     this.loading = true;
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
     this.Record.rec_category = this.type;
     this.Record._globalvariables = this.gs.globalVariables;
-    this.mainService.Save(this.Record)
+    this.ms.Save(this.Record)
       .subscribe(response => {
         this.loading = false;
-        this.InfoMessage = "Save Complete";
-        this.mode = 'EDIT';
-        this.Record.rec_mode = this.mode;
+        this.ms.state.InfoMessage = "Save Complete";
+        this.ms.state.mode = 'EDIT';
+        this.Record.rec_mode = this.ms.state.mode;
         this.RefreshList();
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
   allvalid() {
     let sError: string = "";
     let bret: boolean = true;
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
 
     if (this.Record.cntr_no.trim().length <= 0) {
       bret = false;
@@ -398,19 +427,20 @@ export class ContainerComponent {
     }
 
     if (bret === false) {
-      this.ErrorMessage = sError;
-      alert(this.ErrorMessage);
+      this.ms.state.ErrorMessage = sError;
+      alert(this.ms.state.ErrorMessage);
     }
     return bret;
   }
 
   RefreshList() {
 
-    if (this.RecordList == null)
+    if (this.ms.state.RecordList == null)
       return;
-    var REC = this.RecordList.find(rec => rec.cntr_pkid == this.Record.cntr_pkid);
+    var REC = this.ms.state.RecordList.find(rec => rec.cntr_pkid == this.Record.cntr_pkid);
     if (REC == null) {
-      this.RecordList.push(this.Record);
+      this.ms.state.RecordList.push(this.Record);
+      this.ms.state.selectedRowIndex = this.ms.state.RecordList.length - 1;
     }
     else {
       REC.cntr_no = this.Record.cntr_no;
@@ -486,12 +516,12 @@ export class ContainerComponent {
       SearchData.year_code = this.gs.globalVariables.year_code;
       SearchData.book_slno = this.Record.cntr_booking_no;
     }
-    this.ErrorMessage = '';
+    this.ms.state.ErrorMessage = '';
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
         this.Record.cntr_booking_id = '';
-        this.ErrorMessage = '';
+        this.ms.state.ErrorMessage = '';
         if (response.linerbkm.length > 0) {
           this.Record.cntr_booking_id = response.linerbkm[0].book_pkid;
           this.Record.cntr_booking_name = response.linerbkm[0].book_no;
@@ -511,14 +541,14 @@ export class ContainerComponent {
 
         }
         else {
-          this.ErrorMessage = 'Invalid Booking SL#';
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = 'Invalid Booking SL#';
+          alert(this.ms.state.ErrorMessage);
         }
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 

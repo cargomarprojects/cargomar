@@ -119,6 +119,7 @@ export class JobOrder_VM {
 
 export interface iJobordermModel {
   // filter Values
+  Initialized: boolean;
   selectedRowIndex: number;
   mode: string;
   pkid: string;
@@ -127,6 +128,7 @@ export interface iJobordermModel {
   RecordList: Joborderm[];
 
   ErrorMessage: string;
+  InfoMessage: string;
 
   //Search Values
   selectcheckbox: boolean;
@@ -157,14 +159,16 @@ export interface iJobordermModel {
 };
 
 export const initialState: iJobordermModel = {
+  Initialized: false,
   selectedRowIndex: 0,
   mode: '',
   pkid: '',
   list_format: '',
-  currentTab: '',
+  currentTab: 'LIST',
   RecordList: [],
   
   ErrorMessage: '',
+  InfoMessage: '',
 
   selectcheckbox: false,
   from_date: '',

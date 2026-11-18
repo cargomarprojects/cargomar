@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { GenJobm } from '../models/genjob';
@@ -21,38 +21,38 @@ export class GenJobComponent {
   InitCompleted: boolean = false;
   menu_record: any;
 
-  selectedRowIndex = 0;
+  /// selectedRowIndex = 0;
 
   disableSave = true;
   //hideLRno = true;
   //  disablecategory = true;
   //disableLRNo = false;
   loading = false;
-  currentTab = 'LIST';
+  /// currentTab = 'LIST';
 
-  searchstring = '';
+  /// searchstring = '';
 
-  page_count = 0;
-  page_current = 0;
-  page_rows = 0;
-  page_rowcount = 0;
+  /// page_count = 0;
+  /// page_current = 0;
+  /// page_rows = 0;
+  /// page_rowcount = 0;
 
   sub: any;
   urlid: string;
 
   porttype = 'PORT';
 
-  ErrorMessage = "";
-  InfoMessage = "";
+  /// ErrorMessage = "";
+  /// InfoMessage = "";
 
-  mode = '';
-  pkid = '';
+  /// mode = '';
+  /// pkid = '';
 
 
   bDocs = false;
 
   // Array For Displaying List
-  RecordList: GenJobm[] = [];
+  /// RecordList: GenJobm[] = [];
   // Single Record for add/edit/view details
   Record: GenJobm = new GenJobm;
 
@@ -65,13 +65,13 @@ export class GenJobComponent {
 
 
   constructor(
-    private mainService: GenJobService,
+    public ms: GenJobService,
     private route: ActivatedRoute,
     private gs: GlobalService
   ) {
-    this.page_count = 0;
-    this.page_rows = 15;
-    this.page_current = 0;
+    /// this.page_count = 0;
+    /// this.page_rows = 15;
+    /// this.page_current = 0;
     // URL Query Parameter 
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
@@ -89,6 +89,17 @@ export class GenJobComponent {
     if (!this.InitCompleted) {
       this.InitComponent();
     }
+    this.ms.init(this.menuid, this.type);
+
+    if(!this.ms.state.Initialized){
+      this.List('NEW');
+      this.ms.state.Initialized = true;
+    }
+    /// to load add/edit screen when selected
+    if (this.ms.state.mode == "ADD")
+        this.ActionHandler('ADD', '');
+    else if (this.ms.state.mode == "EDIT")
+        this.ActionHandler('EDIT', this.ms.state.pkid);
   }
 
   InitComponent() {
@@ -107,6 +118,27 @@ export class GenJobComponent {
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
+  
+  /// for restore selected row in list
+  ngAfterViewInit() {
+    this.restoreRowPosition();
+  }
+
+  restoreRowPosition(){
+    setTimeout(() => {
+      this.scrollToRowPosition();
+    }, 100);
+  }
+
+  scrollToRowPosition() {
+    const row = document.getElementById('row-' + this.ms.state.selectedRowIndex);
+    if (row) {
+      row.scrollIntoView({
+        behavior: 'auto',
+        block: 'center'
+      });
+    }
+  }
 
   LoadCombo() {
 
@@ -119,7 +151,7 @@ export class GenJobComponent {
 
     //this.ErrorMessage = '';
     //this.InfoMessage = '';
-    //this.mainService.LoadDefault(SearchData)
+    //this.ms.LoadDefault(SearchData)
     //  .subscribe(response => {
     //    this.loading = false;
     //    this.StatusList = response.statuslist;
@@ -131,7 +163,7 @@ export class GenJobComponent {
     //    this.ErrorMessage = this.gs.getError(error);
     //  });
 
-    this.List("NEW");
+    /// this.List("NEW");
   }
 
 
@@ -233,24 +265,25 @@ export class GenJobComponent {
 
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string) {
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
     if (action == 'LIST') {
-      this.mode = '';
-      this.pkid = '';
-      this.currentTab = 'LIST';
+      this.ms.state.mode = '';
+      this.ms.state.pkid = '';
+      this.ms.state.currentTab = 'LIST';
+      this.restoreRowPosition();
     }
     else if (action === 'ADD') {
-      this.currentTab = 'DETAILS';
-      this.mode = 'ADD';
+      this.ms.state.currentTab = 'DETAILS';
+      this.ms.state.mode = 'ADD';
       this.ResetControls();
       this.NewRecord();
     }
     else if (action === 'EDIT') {
-      this.currentTab = 'DETAILS';
-      this.mode = 'EDIT';
+      this.ms.state.currentTab = 'DETAILS';
+      this.ms.state.mode = 'EDIT';
       this.ResetControls();
-      this.pkid = id;
+      this.ms.state.pkid = id;
       this.GetRecord(id);
     }
   }
@@ -262,12 +295,12 @@ export class GenJobComponent {
 
     if (this.menu_record.rights_admin)
       this.disableSave = false;
-    if (this.mode == "ADD" && this.menu_record.rights_add)
+    if (this.ms.state.mode == "ADD" && this.menu_record.rights_add)
       this.disableSave = false;
-    if (this.mode == "EDIT" && this.menu_record.rights_edit)
+    if (this.ms.state.mode == "EDIT" && this.menu_record.rights_edit)
       this.disableSave = false;
 
-    if (this.mode == "ADD" && this.gs.globalVariables.year_closed == "Y")
+    if (this.ms.state.mode == "ADD" && this.gs.globalVariables.year_closed == "Y")
       this._WarnMsg.show("Financial Year (" + this.gs.globalVariables.year_name + ") closed. No Changes allowed.");
 
     return this.disableSave;
@@ -280,38 +313,40 @@ export class GenJobComponent {
     let SearchData = {
       type: _type,
       rowtype: this.type,
-      searchstring: this.searchstring.toUpperCase(),
+      searchstring: this.ms.state.searchstring.toUpperCase(),
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
-      page_count: this.page_count,
-      page_current: this.page_current,
-      page_rows: this.page_rows,
-      page_rowcount: this.page_rowcount
+      page_count: this.ms.state.page_count,
+      page_current: this.ms.state.page_current,
+      page_rows: this.ms.state.page_rows,
+      page_rowcount: this.ms.state.page_rowcount
     };
 
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.List(SearchData)
+    this.ms.state.selectedRowIndex = 0;
+    this.restoreRowPosition();
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
+    this.ms.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.RecordList = response.list;
-        this.page_count = response.page_count;
-        this.page_current = response.page_current;
-        this.page_rowcount = response.page_rowcount;
+        this.ms.state.RecordList = response.list;
+        this.ms.state.page_count = response.page_count;
+        this.ms.state.page_current = response.page_current;
+        this.ms.state.page_rowcount = response.page_rowcount;
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
   NewRecord() {
 
-    this.pkid = this.gs.getGuid();
+    this.ms.state.pkid = this.gs.getGuid();
     this.Record = new GenJobm();
-    this.Record.gj_pkid = this.pkid;
+    this.Record.gj_pkid = this.ms.state.pkid;
     this.Record.gj_job_prefix = '';
     this.Record.rec_category = '';
     this.Record.gj_job_date = this.gs.defaultValues.today;
@@ -368,7 +403,7 @@ export class GenJobComponent {
     this.Record.hbl_beno = '';
     this.Record.hbl_bedate = '';
     this.InitLov();
-    this.Record.rec_mode = this.mode;
+    this.Record.rec_mode = this.ms.state.mode;
   }
 
   // Load a single Record for VIEW/EDIT
@@ -378,17 +413,17 @@ export class GenJobComponent {
       pkid: Id,
     };
 
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.GetRecord(SearchData)
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
+    this.ms.GetRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
         this.LoadData(response.record);
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
@@ -421,7 +456,7 @@ export class GenJobComponent {
 
 
 
-    this.Record.rec_mode = this.mode;
+    this.Record.rec_mode = this.ms.state.mode;
   }
 
   // Save Data
@@ -429,33 +464,33 @@ export class GenJobComponent {
     if (!this.allvalid())
       return;
     this.loading = true;
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
     this.Record._globalvariables = this.gs.globalVariables;
-    this.mainService.Save(this.Record)
+    this.ms.Save(this.Record)
       .subscribe(response => {
         this.loading = false;
-        if (this.mode == 'ADD') {
+        if (this.ms.state.mode == 'ADD') {
           this.Record.gj_job_prefix = response.genjobprefix;
         }
-        this.InfoMessage = "Save Complete";
-        this.mode = 'EDIT';
-        this.Record.rec_mode = this.mode;
+        this.ms.state.InfoMessage = "Save Complete";
+        this.ms.state.mode = 'EDIT';
+        this.Record.rec_mode = this.ms.state.mode;
         this.RefreshList();
-        alert(this.InfoMessage);
+        alert(this.ms.state.InfoMessage);
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
   allvalid() {
     let sError: string = "";
     let bret: boolean = true;
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
     //if (this.Record.job_date.trim().length <= 0) {
     //  bret = false;
     //  sError = " | Job Date Cannot Be Blank";
@@ -477,18 +512,19 @@ export class GenJobComponent {
     }
 
     if (bret === false) {
-      this.ErrorMessage = sError;
-      alert(this.ErrorMessage);
+      this.ms.state.ErrorMessage = sError;
+      alert(this.ms.state.ErrorMessage);
     }
     return bret;
   }
 
   RefreshList() {
-    if (this.RecordList == null)
+    if (this.ms.state.RecordList == null)
       return;
-    var REC = this.RecordList.find(rec => rec.gj_pkid == this.Record.gj_pkid);
+    var REC = this.ms.state.RecordList.find(rec => rec.gj_pkid == this.Record.gj_pkid);
     if (REC == null) {
-      this.RecordList.push(this.Record);
+      this.ms.state.RecordList.push(this.Record);
+      this.ms.state.selectedRowIndex = this.ms.state.RecordList.length - 1;
     }
     else {
       REC.gj_job_prefix = this.Record.gj_job_prefix;
@@ -637,9 +673,9 @@ export class GenJobComponent {
       year_code: this.gs.globalVariables.year_code
     };
 
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.GenerateLRNo(SearchData)
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
+    this.ms.GenerateLRNo(SearchData)
       .subscribe(response => {
         this.loading = false;
         this.Record.gj_lr_no = response.genlrnoprefix;
@@ -647,21 +683,21 @@ export class GenJobComponent {
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
   folder_id: string;
   PrintLrReceipt(_type: string = 'PDF') {
-    this.ErrorMessage = ''
+    this.ms.state.ErrorMessage = ''
 
-    if (this.pkid.length <= 0) {
-      this.ErrorMessage = "\n\r | Invalid ID";
+    if (this.ms.state.pkid.length <= 0) {
+      this.ms.state.ErrorMessage = "\n\r | Invalid ID";
     }
 
-    if (this.ErrorMessage.length > 0) {
-      alert(this.ErrorMessage);
+    if (this.ms.state.ErrorMessage.length > 0) {
+      alert(this.ms.state.ErrorMessage);
       return;
     }
 
@@ -678,23 +714,23 @@ export class GenJobComponent {
       branch_code: ''
     }
 
-    SearchData.pkid = this.pkid;
+    SearchData.pkid = this.ms.state.pkid;
     SearchData.report_folder = this.gs.globalVariables.report_folder;
     SearchData.company_code = this.gs.globalVariables.comp_code;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
     SearchData.folderid = this.folder_id;
 
 
-    this.ErrorMessage = '';
-    this.mainService.PrintReceipt(SearchData)
+    this.ms.state.ErrorMessage = '';
+    this.ms.PrintReceipt(SearchData)
       .subscribe(response => {
         this.loading = false;
         this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
