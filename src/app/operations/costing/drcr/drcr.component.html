@@ -85,6 +85,8 @@
           <th>BR-VRNO</th>
           <th>BR-INVNO</th>
           <th>EINV-STATUS</th>
+          <th>BR-EX-INVNO</th>
+          <th>EX-EINV-STATUS</th>
           <th>POSTED</th>
           <th>SENT-ON</th>
           <th>CHECKED-ON</th>
@@ -113,6 +115,8 @@
           <td>{{rec.cost_jv_br_vrno}}</td>
           <td>{{rec.cost_jv_br_invno}}</td>
           <td>{{rec.cost_einv_status}}</td>
+          <td>{{rec.cost_jv_br_ex_invno}}</td>
+          <td>{{rec.cost_ex_einv_status}}</td>
           <td>{{rec.cost_jv_posted ? 'Y' : 'N'}}</td>
           <td>{{rec.cost_sent_on}}</td>
           <td>{{rec.cost_checked_on}}</td>
@@ -330,8 +334,8 @@
                   <button [hidden]="disableSave" [disabled]="disableSave || lock_record" (click)="Save()"
                     class="btn btn-success btn-sm mr-1">Save</button>
                   <label *ngIf="mode == 'EDIT'" class="col-form-label col-form-label-sm mr-2">Print Format</label>
-                  <select *ngIf="mode == 'EDIT'"  class="form-control form-control-sm mr-1" style="width: auto; max-width: 130px; flex: 0 1 130px;" name="pformat"
-                    [(ngModel)]="print_format">
+                  <select *ngIf="mode == 'EDIT'" class="form-control form-control-sm mr-1"
+                    style="width: auto; max-width: 130px; flex: 0 1 130px;" name="pformat" [(ngModel)]="print_format">
                     <option [value]="'SUMMARY'">Summary</option>
                     <option [value]="'DETAIL'">Detail</option>
                   </select>
