@@ -83,3 +83,46 @@ export class GenJobm {
 
   _globalvariables: GlobalVariables;
 }
+
+export interface iGenJobmModel {
+  // filter Values
+  Initialized: boolean;
+  selectedRowIndex: number;
+  mode: string;
+  pkid: string;
+  list_format: string;
+  currentTab: string;
+  RecordList: GenJobm[];
+
+  InfoMessage: string;
+  ErrorMessage: string;
+
+  //Search Values
+  searchstring: string;
+
+  // Page Values
+  page_count: number;
+  page_current: number;
+  page_rows: number;
+  page_rowcount: number;
+};
+
+export const initialState: iGenJobmModel = {
+  Initialized: false,
+  selectedRowIndex: 0,
+  mode: '',
+  pkid: '',
+  list_format: '',
+  currentTab: 'LIST',
+  RecordList: [],
+  
+  InfoMessage: '',
+  ErrorMessage: '',
+
+  searchstring: '',
+
+  page_count: 0,
+  page_current: 0,
+  page_rows: 15,
+  page_rowcount: 0
+}

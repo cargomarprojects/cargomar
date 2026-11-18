@@ -30,6 +30,7 @@ export class OrderListService {
       this.state = this.gs.appStates[this.screen_id];
     else {
       this.state = { ...initialState };
+      this.state.Initialized = false;
       this.state.from_date = '';
       this.state.to_date = '';
       this.state.list_imp_code = '';
@@ -45,7 +46,6 @@ export class OrderListService {
       this.state.ord_status = 'ALL';
       this.state.ord_po = '';
       this.state.ftpTransfertype = 'ORDERLIST';
-      // this.state.branch_name = this.gs.globalVariables.branch_name;
 
       this.state.currentTab = 'LIST';
       this.gs.appStates[this.screen_id] = this.state;

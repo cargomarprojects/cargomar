@@ -24,58 +24,58 @@ export class OrderListComponent {
   menu_record: any;
 
   modal: any;
-  // selectedRowIndex = 0;
+  /// selectedRowIndex = 0;
   bAdmin = false;
   disableSave = true;
   loading = false;
-  currentTab = 'LIST';
+  /// currentTab = 'LIST';
 
   sSubject: string = '';
   ftpUpdtSql: string = '';
   // ftpTransfertype: string = 'ORDERLIST';
 
   searchstring = '';
-  // page_count = 0;
-  // page_current = 0;
-  // page_rows = 0;
-  // page_rowcount = 0;
+  /// page_count = 0;
+  /// page_current = 0;
+  /// page_rows = 0;
+  /// page_rowcount = 0;
 
   sub: any;
   urlid: string;
   ord_uid_prevalue = 0;
   ord_trkids: string = "";
   ord_trkpos: string = "";
-  // job_docno: string = "";
-  // ord_po: string = "";
-  // ord_invoice: string = "";
-  // from_date: string = '';
-  // to_date: string = '';
-  // ord_showpending: boolean = false;
-  // ord_status: string = "ALL";
-  // sort_colname: string = "a.rec_created_date desc";
+  /// job_docno: string = "";
+  /// ord_po: string = "";
+  /// ord_invoice: string = "";
+  /// from_date: string = '';
+  /// to_date: string = '';
+  /// ord_showpending: boolean = false;
+  /// ord_status: string = "ALL";
+  /// sort_colname: string = "a.rec_created_date desc";
 
-  // list_exp_id: string = "";
-  // list_exp_name: string = "";
-  // list_exp_code: string = "";
-  // list_imp_id: string = "";
-  // list_imp_name: string = "";
-  // list_imp_code: string = "";
-  // list_agent_id: string = "";
-  // list_agent_name: string = "";
-  // list_agent_code: string = "";
+  /// list_exp_id: string = "";
+  /// list_exp_name: string = "";
+  /// list_exp_code: string = "";
+  /// list_imp_id: string = "";
+  /// list_imp_name: string = "";
+  /// list_imp_code: string = "";
+  /// list_agent_id: string = "";
+  /// list_agent_name: string = "";
+  /// list_agent_code: string = "";
   ftp_agent_name: string = "";
   ftp_agent_code: string = "";
 
-  // ErrorMessage = "";
-  InfoMessage = "";
+  /// ErrorMessage = "";
+  /// InfoMessage = "";
 
-  mode = '';
-  pkid = '';
+  /// mode = '';
+  /// pkid = '';
 
 
   bShowPasteData: boolean = false;
   bDisabledControl: boolean = false;
-  // selectcheckbox: boolean = false;
+  /// selectcheckbox: boolean = false;
   selectcheck: boolean = false;
 
   EXPRECORD: SearchTable = new SearchTable();
@@ -84,15 +84,15 @@ export class OrderListComponent {
   POLRECORD: SearchTable = new SearchTable();
   PODRECORD: SearchTable = new SearchTable();
 
-  // LIST_EXPRECORD: SearchTable = new SearchTable();
-  // LIST_IMPRECORD: SearchTable = new SearchTable();
-  // LIST_AGENTRECORD: SearchTable = new SearchTable();
+  /// LIST_EXPRECORD: SearchTable = new SearchTable();
+  /// LIST_IMPRECORD: SearchTable = new SearchTable();
+  /// LIST_AGENTRECORD: SearchTable = new SearchTable();
 
   OrdColList: any[] = [];
   AttachList: any[] = [];
   SortList: any[] = [];
   // Array For Displaying List
-  // RecordList: Joborderm[] = [];
+  /// RecordList: Joborderm[] = [];
   // Single Record for add/edit/view details
   Record: Joborderm = new Joborderm;
 
@@ -106,9 +106,9 @@ export class OrderListComponent {
     private gs: GlobalService
 
   ) {
-    // this.page_count = 0;
-    // this.page_rows = 30;
-    // this.page_current = 0;
+    /// this.page_count = 0;
+    /// this.page_rows = 30;
+    /// this.page_current = 0;
 
     // URL Query Parameter 
     this.sub = this.route.queryParams.subscribe(params => {
@@ -129,6 +129,15 @@ export class OrderListComponent {
       this.InitComponent();
     }
     this.ms.init(this.menuid, this.type);
+    if(!this.ms.state.Initialized){
+      this.List('NEW');
+      this.ms.state.Initialized = true;
+    }
+
+    if (this.ms.state.mode == "ADD")
+      this.ActionHandler('ADD', '');
+    else if (this.ms.state.mode == "EDIT")
+      this.ActionHandler('EDIT', this.ms.state.pkid)
   }
 
   InitComponent() {
@@ -151,19 +160,23 @@ export class OrderListComponent {
   }
 
   ngAfterViewInit() {
-    setTimeout(() => {
       this.restoreRowPosition();
-    }, 100);
   }
 
-  restoreRowPosition() {
-    const row = document.getElementById('row-' + this.ms.state.selectedRowIndex);
-    if (row) {
+  restoreRowPosition(){
+      setTimeout(() => {
+      this.scrollToRowPosition();
+      }, 100);
+  }
+
+  scrollToRowPosition() {
+      const row = document.getElementById('row-' + this.ms.state.selectedRowIndex);
+      if (row) {
       row.scrollIntoView({
-        behavior: 'auto',
-        block: 'center'
+          behavior: 'auto',
+          block: 'center'
       });
-    }
+      }
   }
 
   shipper_where = " CUST_IS_SHIPPER = 'Y' ";
@@ -339,7 +352,7 @@ export class OrderListComponent {
     // SearchData.branch_code = this.gs.globalVariables.branch_code;
 
     // this.ms.state.ErrorMessage = '';
-    // this.InfoMessage = '';
+    // this.ms.state.InfoMessage = '';
     // this.ms.LoadDefault(SearchData)
     //   .subscribe(response => {
     //     this.loading = false;
@@ -357,24 +370,24 @@ export class OrderListComponent {
   ////function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string) {
     this.ms.state.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.InfoMessage = '';
     if (action == 'LIST') {
-      this.mode = '';
-      this.pkid = '';
-
-      this.currentTab = 'LIST';
+      this.ms.state.mode = '';
+      this.ms.state.pkid = '';
+      this.ms.state.currentTab = 'LIST';
+      this.restoreRowPosition();
     }
     else if (action === 'ADD') {
-      this.currentTab = 'DETAILS';
-      this.mode = 'ADD';
+      this.ms.state.currentTab = 'DETAILS';
+      this.ms.state.mode = 'ADD';
       this.ResetControls();
       this.NewRecord();
     }
     else if (action === 'EDIT') {
-      this.currentTab = 'DETAILS';
-      this.mode = 'EDIT';
+      this.ms.state.currentTab = 'DETAILS';
+      this.ms.state.mode = 'EDIT';
       this.ResetControls();
-      this.pkid = id;
+      this.ms.state.pkid = id;
       this.GetRecord(id);
     }
   }
@@ -387,9 +400,9 @@ export class OrderListComponent {
 
     if (this.menu_record.rights_admin)
       this.disableSave = false;
-    if (this.mode == "ADD" && this.menu_record.rights_add)
+    if (this.ms.state.mode == "ADD" && this.menu_record.rights_add)
       this.disableSave = false;
-    if (this.mode == "EDIT" && this.menu_record.rights_edit)
+    if (this.ms.state.mode == "EDIT" && this.menu_record.rights_edit)
       this.disableSave = false;
     return this.disableSave;
   }
@@ -431,7 +444,7 @@ export class OrderListComponent {
     };
 
     this.ms.state.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.InfoMessage = '';
     this.ms.List(SearchData)
       .subscribe(response => {
         this.loading = false;
@@ -459,9 +472,9 @@ export class OrderListComponent {
     this.mList = [];
     this.bShowList = false;
     this.bDisabledControl = false;
-    this.pkid = this.gs.getGuid();
+    this.ms.state.pkid = this.gs.getGuid();
     this.Record = new Joborderm();
-    this.Record.ord_pkid = this.pkid;
+    this.Record.ord_pkid = this.ms.state.pkid;
     this.Record.ord_exp_id = '';
     this.Record.ord_exp_name = '';
     this.Record.ord_imp_id = '';
@@ -504,9 +517,9 @@ export class OrderListComponent {
     // this.AGENTRECORD.name = '';
     this.Record.ord_agent_code = '';
     this.Record.ord_pkg_unit = '';
-    this.Record.rec_mode = this.mode;
+    this.Record.rec_mode = this.ms.state.mode;
     // this.InitLov();
-    this.Record.rec_mode = this.mode;
+    this.Record.rec_mode = this.ms.state.mode;
   }
 
 
@@ -521,7 +534,7 @@ export class OrderListComponent {
     };
 
     this.ms.state.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.InfoMessage = '';
     this.ms.GetRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
@@ -536,7 +549,7 @@ export class OrderListComponent {
 
   LoadData(_Record: Joborderm) {
     this.Record = _Record;
-    this.Record.rec_mode = this.mode;
+    this.Record.rec_mode = this.ms.state.mode;
     this.initLov();
     this.EXPRECORD.id = this.Record.ord_exp_id;
     this.EXPRECORD.name = this.Record.ord_exp_name;
@@ -569,22 +582,22 @@ export class OrderListComponent {
 
     this.loading = true;
     this.ms.state.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.InfoMessage = '';
 
     this.Record._globalvariables = this.gs.globalVariables;
 
     this.ms.Save(this.Record)
       .subscribe(response => {
         this.loading = false;
-        if (this.mode == 'ADD')
+        if (this.ms.state.mode == 'ADD')
           this.Record.ord_uid = response.uidno;
         if (response.uidstatus.length > 0)
           this.Record.ord_status = response.uidstatus;
         else
           this.Record.ord_status = "REPORTED";
-        this.InfoMessage = "Save Complete";
-        this.mode = 'EDIT';
-        this.Record.rec_mode = this.mode;
+        this.ms.state.InfoMessage = "Save Complete";
+        this.ms.state.mode = 'EDIT';
+        this.Record.rec_mode = this.ms.state.mode;
         this.RefreshList();
       },
         error => {
@@ -598,7 +611,7 @@ export class OrderListComponent {
     let sError: string = "";
     let bret: boolean = true;
     this.ms.state.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.InfoMessage = '';
 
     if (this.AGENTRECORD.id.trim().length <= 0) {
       bret = false;
@@ -636,6 +649,7 @@ export class OrderListComponent {
     var REC = this.ms.state.RecordList.find(rec => rec.ord_pkid == this.Record.ord_pkid);
     if (REC == null) {
       this.ms.state.RecordList.push(this.Record);
+      this.ms.state.selectedRowIndex = this.ms.state.RecordList.length - 1;
     }
     else {
       REC.ord_agent_name = this.Record.ord_agent_name;
@@ -811,7 +825,7 @@ export class OrderListComponent {
   PasteData(content: any) {
     this.bShowPasteData = true;
     this.ms.state.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.InfoMessage = '';
     this.modal = this.modalService.open(content);
   }
 
@@ -1145,7 +1159,7 @@ export class OrderListComponent {
   Upload() {
 
     if (this.mList.length <= 0) {
-      this.InfoMessage = '';
+      this.ms.state.InfoMessage = '';
       this.ms.state.ErrorMessage = 'Data Cannot Be Blank';
       alert(this.ms.state.ErrorMessage);
       return;
@@ -1169,7 +1183,7 @@ export class OrderListComponent {
 
     this.loading = true;
     this.ms.state.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.InfoMessage = '';
 
 
     let VM = new JobOrder_VM;
@@ -1184,7 +1198,7 @@ export class OrderListComponent {
       .subscribe(response => {
         this.loading = false;
         if (response.list.length <= 0) {
-          this.InfoMessage = "Upload Complete";
+          this.ms.state.InfoMessage = "Upload Complete";
         }
         else {
           this.ms.state.ErrorMessage = "Cannot Insert, All These PO's Already Exist!";
@@ -1268,7 +1282,7 @@ export class OrderListComponent {
   }
 
   MailOrders(ftpsent: any, sType: string, _filetype: string = "") {
-    this.InfoMessage = '';
+    this.ms.state.InfoMessage = '';
     this.ms.state.ErrorMessage = '';
     this.ftp_agent_code = '';
     this.ftp_agent_name = '';
@@ -1315,9 +1329,9 @@ export class OrderListComponent {
         alert(this.ms.state.ErrorMessage);
         return;
       }
-      this.pkid = ord_ids;
+      this.ms.state.pkid = ord_ids;
     } else {
-      for (let rec of this.ms.state.RecordList.filter(rec => rec.ord_pkid == this.pkid)) {
+      for (let rec of this.ms.state.RecordList.filter(rec => rec.ord_pkid == this.ms.state.pkid)) {
         this.ftp_agent_code = rec.ord_agent_code;
         this.ftp_agent_name = rec.ord_agent_name;
         if (this.ms.state.ftpTransfertype == 'TRACKING' && rec.ord_uid == 0)
@@ -1326,7 +1340,7 @@ export class OrderListComponent {
     }
 
 
-    if (this.pkid.trim().length <= 0) {
+    if (this.ms.state.pkid.trim().length <= 0) {
       this.ms.state.ErrorMessage = "\n\r | Invalid ID";
       alert(this.ms.state.ErrorMessage);
       return;
@@ -1354,7 +1368,7 @@ export class OrderListComponent {
     SearchData.branch_code = this.gs.globalVariables.branch_code;
     SearchData.company_code = this.gs.globalVariables.comp_code;
     SearchData.type = this.ms.state.ftpTransfertype;
-    SearchData.pkid = this.pkid;
+    SearchData.pkid = this.ms.state.pkid;
     SearchData.rowtype = _filetype;
     SearchData.filedisplayname = '';
     SearchData.agent_code = this.ftp_agent_code;
@@ -1367,7 +1381,7 @@ export class OrderListComponent {
           this.sSubject = response.subject;
           this.ftpUpdtSql = response.updatesql;
           if (sType == 'MULTIPLE')
-            this.pkid = ord_id_POs;//pkid and pos for ftplog separate record
+            this.ms.state.pkid = ord_id_POs;//pkid and pos for ftplog separate record
           this.AttachList = new Array<any>();
           if (this.ms.state.ftpTransfertype == 'ORDERLIST') {
             this.AttachList.push({ filename: response.filename, filetype: response.filetype, filedisplayname: response.filedisplayname, filecategory: 'ORDER', fileftpfolder: 'FTP-FOLDER-PO-CREATE', fileisack: 'N', fileprocessid: response.processid, filesize: response.filesize, fileftptype: 'PO-FTP' });
@@ -1426,7 +1440,7 @@ export class OrderListComponent {
     };
 
     this.ms.state.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.InfoMessage = '';
     this.ms.DeleteRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
@@ -1473,7 +1487,7 @@ export class OrderListComponent {
       company_code: this.gs.globalVariables.comp_code
     };
     this.ms.state.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.InfoMessage = '';
     this.ms.UpdateUid(SearchData)
       .subscribe(response => {
         this.loading = false;

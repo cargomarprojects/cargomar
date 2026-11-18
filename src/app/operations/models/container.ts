@@ -50,3 +50,45 @@ export class Containerm {
   _globalvariables: GlobalVariables;
 }
 
+export interface iContainermModel {
+  // filter Values
+  Initialized: boolean;
+  selectedRowIndex: number;
+  mode: string;
+  pkid: string;
+  list_format: string;
+  currentTab: string;
+  RecordList: Containerm[];
+
+  InfoMessage: string;
+  ErrorMessage: string;
+
+  //Search Values
+  searchstring: string;
+
+  // Page Values
+  page_count: number;
+  page_current: number;
+  page_rows: number;
+  page_rowcount: number;
+};
+
+export const initialState: iContainermModel = {
+  Initialized: false,
+  selectedRowIndex: 0,
+  mode: '',
+  pkid: '',
+  list_format: '',
+  currentTab: 'LIST',
+  RecordList: [],
+  
+  InfoMessage: '',
+  ErrorMessage: '',
+
+  searchstring: '',
+
+  page_count: 0,
+  page_current: 0,
+  page_rows: 15,
+  page_rowcount: 0
+}

@@ -12,7 +12,7 @@
           <i *ngIf="loading" class="fa fa-spinner"></i>
         </div>
       </div>
-      <div *ngIf="currentTab=='LIST'" class="page-list">
+      <div *ngIf="ms.state.currentTab=='LIST'" class="page-list">
         <div class="page-search">
           <div class="row">
             <div class="col-8">
@@ -297,7 +297,7 @@
 
       </div>
 
-      <div *ngIf="currentTab=='DETAILS'" class="page-details">
+      <div *ngIf="ms.state.currentTab=='DETAILS'" class="page-details">
         <ngb-tabset>
           <ngb-tab title="Basic Details">
             <ng-template ngbTabContent>
@@ -512,14 +512,14 @@
                         class="btn btn-success btn-sm">Return</button>
                       <i *ngIf="loading" class="fa fa-spinner"></i>
                     </div>
-                    <div *ngIf="mode == 'EDIT'" class="col-sm-2">
+                    <div *ngIf="ms.state.mode == 'EDIT'" class="col-sm-2">
                       <select class="form-control form-control-sm" [(ngModel)]="ms.state.ftpTransfertype">
                         <option [value]="'ORDERLIST'">ORDER LIST</option>
                         <option [value]="'TRACKING'">TRACKING</option>
                       </select>
                     </div>
                     <div class="col-sm-2">
-                      <button [disabled]="loading" *ngIf="mode == 'EDIT'" (click)="MailOrders(ftpsent,'','')"
+                      <button [disabled]="loading" *ngIf="ms.state.mode == 'EDIT'" (click)="MailOrders(ftpsent,'','')"
                         class="btn btn-success btn-sm">Mail/FTP</button>
                     </div>
                   </div>
@@ -620,11 +620,11 @@
 
 
               <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
-              <div *ngIf="InfoMessage" class="alert alert-success">
-                {{InfoMessage}}
+              <div *ngIf="ms.state.InfoMessage" class="alert alert-success">
+                {{ms.state.InfoMessage}}
               </div>
-              <div *ngIf="ErrorMessage" class="alert alert-danger">
-                {{ErrorMessage}}
+              <div *ngIf="ms.state.ErrorMessage" class="alert alert-danger">
+                {{ms.state.ErrorMessage}}
               </div>
             </ng-template>
           </ngb-tab>
@@ -669,7 +669,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <app-mail [pkid]="pkid" [canftp]=true [type]="ftpTransfertype" [sHtml]="''" [defaultmessage]="''"
+          <app-mail [pkid]="ms.state.pkid" [canftp]=true [type]="ftpTransfertype" [sHtml]="''" [defaultmessage]="''"
             [agentname]="ftp_agent_name" [agentcode]="ftp_agent_code" [defaultsubject]="sSubject" [updateto_ids]=true
             [FtpAttachList]="AttachList" [updatesql]="ftpUpdtSql" [rootpage]="'FTPPAGE'" [disableBLftp]=true [default_ftptype]="'PO-FTP'"
             (ModifiedRecords)="ModifiedRecords($event)">
@@ -684,7 +684,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <app-ftpreport [type]="ftpTransfertype" [pkid]="pkid"></app-ftpreport>
+          <app-ftpreport [type]="ms.state.ftpTransfertype" [pkid]="ms.state.pkid"></app-ftpreport>
         </div>
       </ng-template>
     </ng-template>
