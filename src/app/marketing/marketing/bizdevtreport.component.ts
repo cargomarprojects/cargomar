@@ -2,10 +2,7 @@ import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
-import { MarkMarketingm } from '../models/markmarketingm';
-import { BizdevelopReport } from '../models/markmarketingm';
-import { MarkMarketingService } from '../services/markmarketing.service';
-import { SearchTable } from '../../shared/models/searchtable';
+import { BizdevelopReport } from '../models/markbizdevtreport';
 import { BizdevelopReportService } from '../services/bizdevtreport.service';
 
 
@@ -85,7 +82,7 @@ export class BizDevtReportComponent {
 
     constructor(
         private modalService: NgbModal,
-        private ms: BizdevelopReportService,
+        public ms: BizdevelopReportService,
         // private ms: MarkMarketingService,
         private route: ActivatedRoute,
         public gs: GlobalService

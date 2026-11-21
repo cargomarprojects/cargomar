@@ -1,35 +1,35 @@
 <div class="page-header">
   <div class="col">
     <label>{{title}}</label>
-    <button [disabled]="loading" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
+    <button [disabled]="loading" *ngIf="iisModalWindow=='N'" (click)="ActionHandler('LIST','')" class="btn btn-primary btn-sm">List</button>
     <button [disabled]="loading" (click)="ActionHandler('ADD','')" class="btn btn-primary btn-sm">New</button>
-    <button *ngIf="mode=='EDIT'||mode=='ADD'" [disabled]="loading" (click)="ActionHandler('LIST','')"
+    <button *ngIf="(ms.state.mode=='EDIT'||ms.state.mode=='ADD') && iisModalWindow=='N'" [disabled]="loading" (click)="ActionHandler('LIST','')"
       class="btn btn-primary btn-sm">Return</button>
     <button class="btn btn-primary btn-sm" *ngIf="showclosebutton" (click)="Close()">Close</button>
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
 </div>
-<div *ngIf="currentTab=='LIST'" class="page-list">
+<div *ngIf="ms.state.currentTab=='LIST'" class="page-list">
   <div class="page-search">
     <div class="row">
       <div class="col-sm-3">
         <div class="form-group row">
           <!-- <label class="col-sm-4 col-form-label col-form-label-sm">From</label> -->
           <div class="col-sm-4">
-            <select class="form-control form-control-sm" name="vstdt" [(ngModel)]="searchdatetype">
+            <select class="form-control form-control-sm" name="vstdt" [(ngModel)]="ms.state.searchdatetype">
               <option [value]="'CREATED-DATE'">Created Date</option>
               <option [value]="'LAST-VISIT-DATE'">Visit Date</option>
             </select>
           </div>
           <div class="col-sm-8">
-            <app-date [inputdate]="fromdate" (ValueChanged)="fromdate=$event">
+            <app-date [inputdate]="ms.state.fromdate" (ValueChanged)="ms.state.fromdate=$event">
             </app-date>
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">To</label>
           <div class="col-sm-8">
-            <app-date [inputdate]="todate" (ValueChanged)="todate=$event">
+            <app-date [inputdate]="ms.state.todate" (ValueChanged)="ms.state.todate=$event">
             </app-date>
           </div>
         </div>
@@ -38,7 +38,7 @@
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">Lead.Source</label>
           <div class="col-sm-8">
-            <select class="form-control form-control-sm" name="tpecovrtd" [(ngModel)]="searchLeadSource">
+            <select class="form-control form-control-sm" name="tpecovrtd" [(ngModel)]="ms.state.searchLeadSource">
               <option [value]="'ALL'">ALL</option>
               <option [value]="'HO-MARKETING'">HO-MARKETING</option>
               <option [value]="'NA'">NA</option>
@@ -61,7 +61,7 @@
           </div> -->
           <label class="col-sm-4 col-form-label col-form-label-sm">Cust.Status</label>
           <div class="col-sm-8">
-            <select class="form-control form-control-sm" [(ngModel)]="searchConvrtStatus">
+            <select class="form-control form-control-sm" [(ngModel)]="ms.state.searchConvrtStatus">
               <option [value]="'NA'">NA</option>
               <option [value]="'REGULAR'">REGULAR CUSTOMER</option>
               <option [value]="'INACTIVE'">INACTIVE-NO BUSINESS ABOVE 12 MONTHS</option>
@@ -78,38 +78,38 @@
       <div class="col-sm-6">
         <div class="form-group row">
           <div class="col-sm-3">
-            <input type="checkbox" [(ngModel)]="cont_is_shipper" id="_chkshipper">
+            <input type="checkbox" [(ngModel)]="ms.state.cont_is_shipper" id="_chkshipper">
             <label class="col-form-label col-form-label-sm" for="_chkshipper">Shipper</label>
           </div>
           <div class="col-sm-3">
-            <input type="checkbox" [(ngModel)]="cont_is_consignee" id="_chkconsignee">
+            <input type="checkbox" [(ngModel)]="ms.state.cont_is_consignee" id="_chkconsignee">
             <label class="col-form-label col-form-label-sm" for="_chkconsignee">Consignee</label>
           </div>
           <div class="col-sm-3">
-            <input type="checkbox" [(ngModel)]="cont_is_agent" id="_chkagent">
+            <input type="checkbox" [(ngModel)]="ms.state.cont_is_agent" id="_chkagent">
             <label class="col-form-label col-form-label-sm" for="_chkagent">Agent</label>
           </div>
           <div class="col-sm-3">
-            <input type="checkbox" [(ngModel)]="cont_is_carrier" id="_chkcarrier">
+            <input type="checkbox" [(ngModel)]="ms.state.cont_is_carrier" id="_chkcarrier">
             <label class="col-form-label col-form-label-sm" for="_chkcarrier">Carrier</label>
           </div>
         </div>
         <div class="form-group row">
 
           <div class="col-sm-3">
-            <input type="checkbox" [(ngModel)]="cont_is_corporate" id="_chkcorporate">
+            <input type="checkbox" [(ngModel)]="ms.state.cont_is_corporate" id="_chkcorporate">
             <label class="col-form-label col-form-label-sm" for="_chkcorporate">Corporate</label>
           </div>
           <div class="col-sm-3">
-            <input type="checkbox" [(ngModel)]="cont_is_convert" id="_chkisconvert">
+            <input type="checkbox" [(ngModel)]="ms.state.cont_is_convert" id="_chkisconvert">
             <label class="col-form-label col-form-label-sm" for="_chkisconvert">Converted</label>
           </div>
           <div class="col-sm-3">
-            <input type="checkbox" [(ngModel)]="cont_is_buyingagent" id="_chkbuyingagent">
+            <input type="checkbox" [(ngModel)]="ms.state.cont_is_buyingagent" id="_chkbuyingagent">
             <label class="col-form-label col-form-label-sm" for="_chkbuyingagent">Buying.Agent</label>
           </div>
           <div class="col-sm-3">
-            <input type="checkbox" [(ngModel)]="reclocked" id="_chklocked" />
+            <input type="checkbox" [(ngModel)]="ms.state.reclocked" id="_chklocked" />
             <label class="col-form-label col-form-label-sm" for="_chklocked">Locked</label>
           </div>
         </div>
@@ -124,7 +124,7 @@
             <!-- <input type="text" class="col form-control form-control-sm" name="Searchsperson"
               [(ngModel)]="searchSalesperson" (blur)="OnBlur('searchSalesperson')" /> -->
             <app-autocomplete3 [controlname]="'SMAN'" [tabletype]="'SALESMAN'" [displaycolumn]="'NAME'"
-              [displaydata]="searchSalesperson" [locked]="'A'" (ValueChanged)="LovSelected($event)">
+              [displaydata]="ms.state.searchSalesperson" [locked]="'A'" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
           </div>
         </div>
@@ -133,7 +133,7 @@
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">Customer</label>
           <div class="col-sm-8">
-            <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring"
+            <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="ms.state.searchstring"
               (blur)="OnBlur('searchstring')" />
           </div>
         </div>
@@ -142,7 +142,7 @@
         <div class="form-group row">
           <label class="col-sm-1 col-form-label col-form-label-sm">Sort.By</label>
           <div class="col-sm-3">
-            <select class="form-control form-control-sm" name="sper" [(ngModel)]="searchsortby">
+            <select class="form-control form-control-sm" name="sper" [(ngModel)]="ms.state.searchsortby">
               <option [value]="'a.cont_name'">NAME</option>
               <option [value]="'a.cont_last_visit asc'">VISIT DATE</option>
               <option [value]="'a.cont_last_visit desc'">VISIT DATE DESC</option>
@@ -155,7 +155,7 @@
           </div>
           <label class="col-sm-2 col-form-label col-form-label-sm">Check.Valid</label>
           <div class="col-sm-3">
-            <select class="form-control form-control-sm" name="sper" [(ngModel)]="searchvalidation">
+            <select class="form-control form-control-sm" name="sper" [(ngModel)]="ms.state.searchvalidation">
               <option [value]="'NA'">NA</option>
               <option [value]="'SALESPERSON'">SALESPERSON</option>
               <option [value]="'CUSTOMER-NOT-LINKED'">CUSTOMER-NOT-LINKED</option>
@@ -166,10 +166,10 @@
     </div>
   </div>
   <div class="page-pager">
-    <div *ngIf="page_count">
+    <div *ngIf="ms.state.page_count">
       <ul class="pagination pagination-sm mb-1">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
-            (Records-{{page_rowcount}})</a>
+        <li class="page-item"><a class="page-link">Page {{ms.state.page_current}}/{{ms.state.page_count}}
+            (Records-{{ms.state.page_rowcount}})</a>
         </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a>
         </li>
@@ -214,8 +214,8 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
-          (mousedown)="selectedRowIndex=i">
+        <tr *ngFor="let rec of ms.state.RecordList; let i = index" [id]="'row-' + i" [class.active]="i == ms.state.selectedRowIndex"
+          (mousedown)="ms.state.selectedRowIndex=i">
           <td class="hlink" (click)="ActionHandler('EDIT',rec.cont_pkid,rec.cont_name,rec.cont_saleman_id)">
             {{rec.cont_name}}</td>
           <td>{{rec.cont_add1}}</td>
@@ -249,10 +249,10 @@
   </div>
 
   <div class="page-pager">
-    <div *ngIf="page_count">
+    <div *ngIf="ms.state.page_count">
       <ul class="pagination pagination-sm mb-1">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
-            (Records-{{page_rowcount}})</a>
+        <li class="page-item"><a class="page-link">Page {{ms.state.page_current}}/{{ms.state.page_count}}
+            (Records-{{ms.state.page_rowcount}})</a>
         </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a>
         </li>
@@ -267,7 +267,7 @@
 </div>
 
 
-<div *ngIf="currentTab=='DETAILS' && showDetails" class="page-details">
+<div *ngIf="ms.state.currentTab=='DETAILS' && showDetails" class="page-details">
   <ngb-tabset [(activeId)]="activeTabId" (tabChange)="onTabChange($event)">
     <ngb-tab id="contactTab" title="Contact Details">
       <ng-template ngbTabContent>
@@ -281,7 +281,7 @@
                 <div class="col-sm-10 input-group input-group-sm">
                   <input type="text" class="form-control form-control-sm mr-1" [(ngModel)]="Record.cont_name" required
                     maxlength="60" (blur)="OnBlur('cont_name')" />
-                  <button *ngIf="mode=='ADD'" [disabled]="loading" (click)="SearchRecord('cont_name')"
+                  <button *ngIf="ms.state.mode=='ADD'" [disabled]="loading" (click)="SearchRecord('cont_name')"
                     class="btn btn-primary btn-sm">Fill</button>
                 </div>
               </div>
@@ -605,7 +605,7 @@
               <label class="checkbox-inline" for="_is_project">Is Projects Customer</label>
               <input type="checkbox" [(ngModel)]="Record.cont_is_project" id="_is_project">
              </div> -->
-                <div *ngIf="mode=='EDIT' && IsAdmin" class="col-sm-4"
+                <div *ngIf="ms.state.mode=='EDIT' && IsAdmin" class="col-sm-4"
                   [ngClass]="{ 'input-group': iisModalWindow === 'Y' }">
                   <input type="checkbox" [(ngModel)]="Record.rec_locked" id="_locked">
                   <label class="col-form-label col-form-label-sm" for="_locked">Locked</label>
@@ -616,7 +616,7 @@
 
           </div>
         </div>
-        <div class="page-box" *ngIf="mode=='EDIT'&&iisModalWindow=='N'">
+        <div class="page-box" *ngIf="ms.state.mode=='EDIT'&&iisModalWindow=='N'">
           <div class="row">
             <div class="col-sm-6">
               <div class="form-group row">
@@ -669,11 +669,11 @@
               <div class="offset-1 col-sm-11  input-group input-group-sm">
                 <button [hidden]="disableSave" [disabled]="loading" (click)="Save()"
                   class="btn btn-success btn-sm mr-1">Save</button>
-                <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs"
+                <button [disabled]="loading" *ngIf="ms.state.mode == 'EDIT' && bDocs && iisModalWindow=='N'"
                   [style.color]="Record.cont_doc_attached=='Y'?'darkred':'white'" (click)="ShowDocuments(doc)"
                   class="btn btn-success btn-sm mr-1">Documents</button>
-                <app-memo *ngIf="mode == 'EDIT'" [parentid]="Record.cont_pkid" [type]="'CONTACTS-MEMO'" [title]="''"></app-memo>
-                <button [disabled]="loading" (click)="ActionHandler('LIST','')"
+                <app-memo *ngIf="ms.state.mode == 'EDIT' && iisModalWindow=='N'" [parentid]="Record.cont_pkid" [type]="'CONTACTS-MEMO'" [title]="''"></app-memo>
+                <button [disabled]="loading" *ngIf="iisModalWindow=='N'" (click)="ActionHandler('LIST','')"
                   class="btn btn-success btn-sm mr-1">Return</button>
                 <!-- <button *ngIf="mode=='EDIT' && iisModalWindow=='N'" [disabled]="loading" (click)="ShowHide()" class="btn btn-success btn-sm">Hide
             Contact</button> -->
@@ -685,26 +685,26 @@
 
 
 
-        <div *ngIf="InfoMessage" class="alert alert-success">
-          {{InfoMessage}}
+        <div *ngIf="ms.state.InfoMessage" class="alert alert-success">
+          {{ms.state.InfoMessage}}
         </div>
-        <div *ngIf="ErrorMessage" class="alert alert-danger">
-          {{ErrorMessage}}
+        <div *ngIf="ms.state.ErrorMessage" class="alert alert-danger">
+          {{ms.state.ErrorMessage}}
         </div>
       </ng-template>
     </ngb-tab>
-    <ngb-tab id="visitTab" title="Visit Details" *ngIf="mode=='EDIT'&&iisModalWindow=='N'">
+    <!-- <ngb-tab id="visitTab" title="Visit Details" *ngIf="ms.state.mode=='EDIT'&&iisModalWindow=='N'">
       <ng-template ngbTabContent>
 
-        <div *ngIf="mode=='EDIT' && currentTab=='DETAILS' && iisModalWindow=='N'" class="page-details">
-          <!-- <h6 style="color: white;background-color: darkcyan; padding: 5px; font-size: small;" class="my-1">VISIT
+        <div *ngIf="ms.state.mode=='EDIT' && ms.state.currentTab=='DETAILS' && iisModalWindow=='N'" class="page-details">
+        --><!-- <h6 style="color: white;background-color: darkcyan; padding: 5px; font-size: small;" class="my-1">VISIT
             DETAILS</h6> -->
-          <div>
+          <!--<div>
             <app-visitreport [menuid]="'MARKVISITREPORT'" [type]="'INVOKE-FRM-CONTACT'" [customer_name]="cust_name"
               [sman_id]="sman_id"></app-visitreport>
           </div>
         </div>
-        <div *ngIf="mode=='EDIT'&&IsAdmin" class="page-details">
+        <div *ngIf="ms.state.mode=='EDIT'&&IsAdmin" class="page-details">
           <h6 style="color: white;background-color: darkcyan; padding: 5px; font-size: small;" class="my-1">CUSTOMER
             INFO</h6>
           <div class="row">
@@ -717,7 +717,7 @@
         </div>
 
       </ng-template>
-    </ngb-tab>
+    </ngb-tab> -->
 
   </ngb-tabset>
 </div>
@@ -733,13 +733,13 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-upload [pkid]="pkid" [type]="'MARK-CONTACTS'" [canupload]="bDocsUpload"></app-upload>
+    <app-upload [pkid]="ms.state.pkid" [type]="'MARK-CONTACTS'" [canupload]="bDocsUpload"></app-upload>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-primary btn-sm" (click)="c('Close click')">Close</button>
   </div>
 </ng-template>
 
-<div *ngIf="activeTabId === 'contactTab'&&mode=='EDIT'&&iisModalWindow=='N'">
+<div *ngIf="activeTabId === 'contactTab'&& ms.state.mode=='EDIT'&&iisModalWindow=='N'">
   <app-joblist [RecordList]="ConvRecList"></app-joblist>
 </div>

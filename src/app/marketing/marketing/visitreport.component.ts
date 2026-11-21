@@ -1,18 +1,15 @@
-import { Component, Input, OnInit, OnDestroy, ViewChild, ViewChildren, QueryList, ElementRef, AfterViewInit } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input, ViewChild, ViewChildren, QueryList, ElementRef } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
-import { MarkMarketingm, MonColumns } from '../models/markmarketingm';
-import { MarkReport } from '../models/markmarketingm';
-import { MarkMarketingService } from '../services/markmarketing.service';
-import { SearchTable } from '../../shared/models/searchtable';
-import { get } from 'https';
+import { MarkReport } from '../models/markvisitreport';
+import { MarkReportService } from '../services/markvisitreport.service';
 
 
 @Component({
     selector: 'app-visitreport',
     templateUrl: './visitreport.component.html',
-    providers: [MarkMarketingService]
+    providers: [MarkReportService]
 })
 export class VisitReportComponent {
 
@@ -41,22 +38,22 @@ export class VisitReportComponent {
     modal: any;
     disableSave = true;
     loading = false;
-    currentTab = 'LIST';
+    /// currentTab = 'LIST';
     currentPage = "ROOT";
     invokeByMenu = true;
-    selectedRowIndex = 0;
-    branch_code: string = '';
-    branch_name: string = '';
-    sortby: string = 'DEFAULT';
-    report_format: string = 'WEEK-WISE';
+    /// selectedRowIndex = 0;
+    /// branch_code: string = '';
+    /// branch_name: string = '';
+    /// sortby: string = 'DEFAULT';
+    /// report_format: string = 'WEEK-WISE';
 
-    searchstring = '';
-    page_count = 0;
-    page_current = 0;
-    page_rows = 0;
-    page_rowcount = 0;
-    totdays: number = 0;
-    week5: number = 0;
+    /// searchstring = '';
+    /// page_count = 0;
+    /// page_current = 0;
+    /// page_rows = 0;
+    /// page_rowcount = 0;
+    // totdays: number = 0;
+    // ms.state.week5: number = 0;
 
     sub: any;
     urlid: string;
@@ -65,21 +62,21 @@ export class VisitReportComponent {
     selectedRowDay: string = "";
     selectedRowWeek: string = "";
 
-    included: string = "NA";
+    /// included: string = "NA";
 
     sSubject: string = '';
     sMsg: string = '';
     sHtml: string = '';
     sTo_ids: string = '';
     AttachList: any[] = [];
-    ErrorMessage = "";
-    InfoMessage = "";
+    /// ErrorMessage = "";
+    /// InfoMessage = "";
     // hyperlinkStyle = "'hlink'";
     sundayColor: string = "#FF8A8A";
-    report_type = 'SALES PERSON';
-    search_report_type = 'SALES PERSON';
-    mode = '';
-    pkid = '';
+    /// report_type = 'SALES PERSON';
+    /// search_report_type = 'SALES PERSON';
+    /// mode = '';
+    /// pkid = '';
     ChildRecord = {
         type: '',
         user_id: '',
@@ -95,18 +92,18 @@ export class VisitReportComponent {
         cust_conv_type: '',
         login_user_code: ''
     };
-    iYear: number;
-    iYearCaption: number;
+    /// iYear: number;
+    /// iYearCaption: number;
 
-    iMonth: string = 'ALL';
-    search_iMonth: string = 'ALL';
-    search_format: string = 'MONTH-WISE';
+    // iMonth: string = 'ALL';
+    // search_iMonth: string = 'ALL';
+    // search_format: string = 'MONTH-WISE';
     // Array For Displaying List
-    RecordList: MarkReport[] = [];
+    /// RecordList: MarkReport[] = [];
 
     // Single Record for add/edit/view details
     Record: MarkReport = new MarkReport;
-    RecordCaption: MarkReport = new MarkReport;
+    // RecordCaption: MarkReport = new MarkReport;
     MonList: any[] = [];
     IsCompany: boolean = false;
     IsAdmin: boolean = false;
@@ -114,16 +111,16 @@ export class VisitReportComponent {
     bEmail: boolean = false;
     constructor(
         private modalService: NgbModal,
-        private mainService: MarkMarketingService,
+        public ms: MarkReportService,
         private route: ActivatedRoute,
         public gs: GlobalService
 
     ) {
-        this.page_count = 0;
-        this.page_rows = 200;
-        this.page_current = 0;
+        /// this.page_count = 0;
+        /// this.page_rows = 200;
+        /// this.page_current = 0;
         this.InitLov();
-        this.OnChange('report_format');
+        /// this.OnChange('report_format');
         // URL Query Parameter 
         this.sub = this.route.queryParams.subscribe(params => {
             if (params["parameter"] != "") {
@@ -132,16 +129,18 @@ export class VisitReportComponent {
                 if (this.menuid == "MARKVISITREPORT") {
                     this.type = options.type;
                     if (!this.gs.isBlank(options.format) && !this.gs.isBlank(options.month)) {
-                        this.report_format = options.format;
-                        this.iMonth = options.month;
+                        this.ms.state.report_format = options.format;
+                        this.ms.state.iMonth = options.month;
                         this.OnChange('report_format');
                     }
                     this.InitComponent();
                 } else {
                     // this.hyperlinkStyle = "hlink3";
                     this.invokeByMenu = false;
-                    this.report_type = 'CUSTOMER'; //if calling from contact master detail
-                    this.report_format = 'MONTH-WISE';
+                    this.ms.state.report_type = 'CUSTOMER'; //if calling from contact master detail
+                    this.ms.state.report_format = 'MONTH-WISE';
+                    this.ms.state.searchstring = this.customer_name;
+                    this.ms.state.Initialized = false;
                     this.OnChange('report_format');
                 }
             }
@@ -150,16 +149,30 @@ export class VisitReportComponent {
 
     // Init Will be called After executing Constructor
     ngOnInit() {
-        this.searchstring = this.customer_name;
         if (!this.InitCompleted) {
             this.InitComponent();
+        }
+        this.ms.init(this.menuid, this.type);
+
+        if (this.type == "INVOKE-FRM-CONTACT") {
+            this.ms.state.report_type = 'CUSTOMER';
+            this.ms.state.report_format = 'MONTH-WISE';
+            this.ms.state.searchstring = this.customer_name;
+            this.ms.state.Initialized = false;
+        }
+
+        this.OnChange('report_format');
+
+        if(!this.ms.state.Initialized){
+            this.List('NEW', 'SCREEN');
+            this.ms.state.Initialized = true;
         }
     }
 
     InitComponent() {
-        let d = new Date();
-        this.iYear = d.getFullYear();
-        this.iYearCaption = this.iYear;
+        // let d = new Date();
+        // this.ms.state.iYear = d.getFullYear();
+        // this.iYearCaption = this.ms.state.iYear;
         this.IsAdmin = false;
         this.IsCompany = false;
         this.bPrint = false;
@@ -177,7 +190,7 @@ export class VisitReportComponent {
                 this.bEmail = true;
         }
         this.LoadCombo();
-        this.List('NEW', 'SCREEN');
+        // this.List('NEW', 'SCREEN');
         this.InitCompleted = true;
     }
 
@@ -186,49 +199,70 @@ export class VisitReportComponent {
         this.sub.unsubscribe();
     }
 
+    /// for restore selected row in list
+    ngAfterViewInit() {
+        this.restoreRowPosition();
+    }
+
+    restoreRowPosition(){
+        setTimeout(() => {
+            this.scrollToRowPosition();
+        }, 100);
+    }
+
+    scrollToRowPosition() {
+        const row = document.getElementById('row-' + this.ms.state.selectedRowIndex);
+        if (row) {
+            row.scrollIntoView({
+            behavior: 'auto',
+            block: 'center'
+            });
+        }
+    }
+
 
     InitLov() {
 
     }
 
     InitCaption() {
-        this.RecordCaption = new MarkReport();
-        this.RecordCaption.d1_caption = '1';
-        this.RecordCaption.d2_caption = '2';
-        this.RecordCaption.d3_caption = '3';
-        this.RecordCaption.d4_caption = '4';
-        this.RecordCaption.d5_caption = '5';
-        this.RecordCaption.d6_caption = '6';
-        this.RecordCaption.d7_caption = '7';
-        this.RecordCaption.d8_caption = '8';
-        this.RecordCaption.d9_caption = '9';
-        this.RecordCaption.d10_caption = '10';
-        this.RecordCaption.d11_caption = '11';
-        this.RecordCaption.d12_caption = '12';
-        this.RecordCaption.d13_caption = '13';
-        this.RecordCaption.d14_caption = '14';
-        this.RecordCaption.d15_caption = '15';
-        this.RecordCaption.d16_caption = '16';
-        this.RecordCaption.d17_caption = '17';
-        this.RecordCaption.d18_caption = '18';
-        this.RecordCaption.d19_caption = '19';
-        this.RecordCaption.d20_caption = '20';
-        this.RecordCaption.d21_caption = '21';
-        this.RecordCaption.d22_caption = '22';
-        this.RecordCaption.d23_caption = '23';
-        this.RecordCaption.d24_caption = '24';
-        this.RecordCaption.d25_caption = '25';
-        this.RecordCaption.d26_caption = '26';
-        this.RecordCaption.d27_caption = '27';
-        this.RecordCaption.d28_caption = '28';
-        this.RecordCaption.d29_caption = '29';
-        this.RecordCaption.d30_caption = '30';
-        this.RecordCaption.d31_caption = '31';
-        this.RecordCaption.w1_caption = 'WEEK-1';
-        this.RecordCaption.w2_caption = 'WEEK-2';
-        this.RecordCaption.w3_caption = 'WEEK-3';
-        this.RecordCaption.w4_caption = 'WEEK-4';
-        this.RecordCaption.w5_caption = 'WEEK-5';
+        // this.ms.state.RecordCaption = new MarkReport();
+        this.ms.state.RecordCaption.d1_caption = '1';
+        this.ms.state.RecordCaption.d2_caption = '2';
+        this.ms.state.RecordCaption.d3_caption = '3';
+        this.ms.state.RecordCaption.d4_caption = '4';
+        this.ms.state.RecordCaption.d5_caption = '5';
+        this.ms.state.RecordCaption.d6_caption = '6';
+        this.ms.state.RecordCaption.d7_caption = '7';
+        this.ms.state.RecordCaption.d8_caption = '8';
+        this.ms.state.RecordCaption.d9_caption = '9';
+        this.ms.state.RecordCaption.d10_caption = '10';
+        this.ms.state.RecordCaption.d11_caption = '11';
+        this.ms.state.RecordCaption.d12_caption = '12';
+        this.ms.state.RecordCaption.d13_caption = '13';
+        this.ms.state.RecordCaption.d14_caption = '14';
+        this.ms.state.RecordCaption.d15_caption = '15';
+        this.ms.state.RecordCaption.d16_caption = '16';
+        this.ms.state.RecordCaption.d17_caption = '17';
+        this.ms.state.RecordCaption.d18_caption = '18';
+        this.ms.state.RecordCaption.d19_caption = '19';
+        this.ms.state.RecordCaption.d20_caption = '20';
+        this.ms.state.RecordCaption.d21_caption = '21';
+        this.ms.state.RecordCaption.d22_caption = '22';
+        this.ms.state.RecordCaption.d23_caption = '23';
+        this.ms.state.RecordCaption.d24_caption = '24';
+        this.ms.state.RecordCaption.d25_caption = '25';
+        this.ms.state.RecordCaption.d26_caption = '26';
+        this.ms.state.RecordCaption.d27_caption = '27';
+        this.ms.state.RecordCaption.d28_caption = '28';
+        this.ms.state.RecordCaption.d29_caption = '29';
+        this.ms.state.RecordCaption.d30_caption = '30';
+        this.ms.state.RecordCaption.d31_caption = '31';
+        this.ms.state.RecordCaption.w1_caption = 'WEEK-1';
+        this.ms.state.RecordCaption.w2_caption = 'WEEK-2';
+        this.ms.state.RecordCaption.w3_caption = 'WEEK-3';
+        this.ms.state.RecordCaption.w4_caption = 'WEEK-4';
+        this.ms.state.RecordCaption.w5_caption = 'WEEK-5';
     }
 
 
@@ -252,89 +286,91 @@ export class VisitReportComponent {
         //   branch_code: this.gs.globalVariables.branch_code
         // };
 
-        // this.ErrorMessage = '';
-        // this.InfoMessage = '';
-        // this.mainService.LoadDefault(SearchData)
+        // this.ms.state.ErrorMessage = '';
+        // this.ms.state.InfoMessage = '';
+        // this.ms.LoadDefault(SearchData)
         //   .subscribe(response => {
         //     this.loading = false;
         //     this.List("NEW");
         //   },
         //     error => {
         //       this.loading = false;
-        //       this.ErrorMessage = this.gs.getError(error);
+        //       this.ms.state.ErrorMessage = this.gs.getError(error);
         //     });
     }
 
 
     LovSelected(_Record: any) {
         if (_Record.controlname == "BRANCH") {
-            this.branch_code = _Record.code;
-            this.branch_name = _Record.name;
+            this.ms.state.branch_code = _Record.code;
+            this.ms.state.branch_name = _Record.name;
         }
     }
 
     // Query List Data
     List(_type: string, _output_type: string = "SCREEN", mailsent: any = null) {
 
-        if (this.report_format == "MONTH-WISE") {
-            if (this.iMonth != 'ALL') {
+        if (this.ms.state.report_format == "MONTH-WISE") {
+            if (this.ms.state.iMonth != 'ALL') {
                 alert('Please select month as ALL and continue.....');
                 return;
             }
         }
 
-        if (this.report_format == "DAY-WISE" || this.report_format == "WEEK-WISE") {
-            if (this.iMonth == 'ALL') {
+        if (this.ms.state.report_format == "DAY-WISE" || this.ms.state.report_format == "WEEK-WISE") {
+            if (this.ms.state.iMonth == 'ALL') {
                 alert('Please select a month and continue.....');
                 return;
             }
         }
 
         if (_output_type != 'EXCEL') {
-            this.search_iMonth = this.iMonth;
-            this.search_format = this.report_format;
+            this.ms.state.search_iMonth = this.ms.state.iMonth;
+            this.ms.state.search_format = this.ms.state.report_format;
             this.InitCaption();
         }
-        this.iYearCaption = this.iYear;
-        this.search_report_type = this.report_type;
+        this.ms.state.iYearCaption = this.ms.state.iYear;
+        this.ms.state.search_report_type = this.ms.state.report_type;
         this.loading = true;
         let SearchData = {
             type: _type,
             filter_source: 'REPORT',
             iscompany: this.IsCompany,
             isadmin: this.IsAdmin,
-            page_count: this.page_count,
-            page_current: this.page_current,
-            page_rows: this.page_rows,
-            page_rowcount: this.page_rowcount,
+            page_count: this.ms.state.page_count,
+            page_current: this.ms.state.page_current,
+            page_rows: this.ms.state.page_rows,
+            page_rowcount: this.ms.state.page_rowcount,
             userid: this.gs.globalVariables.user_pkid,
             usercode: this.gs.globalVariables.user_code,
             companyid: this.gs.globalVariables.comp_code,
             branchid: this.gs.globalVariables.branch_code,
             branchids: this.gs.globalVariables.branch_code,
-            iYear: this.iYear.toString(),
+            iYear: this.ms.state.iYear.toString(),
             output_type: _output_type,
             ispagewise: this.invokeByMenu == true ? true : false,
             file_name: '',
             report_folder: this.gs.globalVariables.report_folder,
-            report_type: this.report_type,
+            report_type: this.ms.state.report_type,
             sman_id: this.gs.isBlank(this.sman_id) ? this.gs.globalVariables.sman_id : this.sman_id,
-            searchstring: this.searchstring,
-            branch_code: this.branch_code,
-            sortby: this.sortby,
-            imonth: this.iMonth,
-            report_format: this.report_format,
-            included: this.included,
+            searchstring: this.ms.state.searchstring,
+            branch_code: this.ms.state.branch_code,
+            sortby: this.ms.state.sortby,
+            imonth: this.ms.state.iMonth,
+            report_format: this.ms.state.report_format,
+            included: this.ms.state.included,
             hostname: window.location.protocol + "//" + window.location.host
         };
 
-        this.ErrorMessage = '';
-        this.InfoMessage = '';
-        this.mainService.DashBoard(SearchData)
+        this.ms.state.selectedRowIndex = 0;
+        this.restoreRowPosition();
+        this.ms.state.ErrorMessage = '';
+        this.ms.state.InfoMessage = '';
+        this.ms.DashBoard(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                this.totdays = response.totdays;
-                this.week5 = response.week5;
+                this.ms.state.totdays = response.totdays;
+                this.ms.state.week5 = response.week5;
                 if (_type == 'PRINT')
                     this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
                 else if (_type == 'MAIL') {
@@ -347,17 +383,17 @@ export class VisitReportComponent {
                 }
                 else {
 
-                    this.RecordList = response.list;
-                    this.RecordCaption = response.recordcaption;
-                    this.page_count = response.page_count;
-                    this.page_current = response.page_current;
-                    this.page_rowcount = response.page_rowcount;
+                    this.ms.state.RecordList = response.list;
+                    this.ms.state.RecordCaption = response.recordcaption;
+                    this.ms.state.page_count = response.page_count;
+                    this.ms.state.page_current = response.page_current;
+                    this.ms.state.page_rowcount = response.page_rowcount;
                 }
             },
                 error => {
                     this.loading = false;
-                    this.ErrorMessage = this.gs.getError(error);
-                    alert(this.ErrorMessage);
+                    this.ms.state.ErrorMessage = this.gs.getError(error);
+                    alert(this.ms.state.ErrorMessage);
                 });
     }
 
@@ -380,20 +416,20 @@ export class VisitReportComponent {
     OnBlur(field: string) {
 
         if (field == 'searchstring') {
-            this.searchstring = this.searchstring.toUpperCase();
+            this.ms.state.searchstring = this.ms.state.searchstring.toUpperCase();
         }
 
     }
 
     OnChange(field: string) {
         if (field == 'report_format') {
-            if (this.report_format == "MONTH-WISE")
-                this.iMonth = "ALL";
+            if (this.ms.state.report_format == "MONTH-WISE")
+                this.ms.state.iMonth = "ALL";
             else {
-                if (this.iMonth == "ALL") {
+                if (this.ms.state.iMonth == "ALL") {
                     if (this.gs.defaultValues.today.trim() != "") {
                         var tempdt = this.gs.defaultValues.today.split('-');
-                        this.iMonth = tempdt[1];
+                        this.ms.state.iMonth = tempdt[1];
                     }
                 }
             }
@@ -412,15 +448,15 @@ export class VisitReportComponent {
         let cust_name: string = '';
         let from_date: string = '';
         let to_date: string = '';
-        if (this.search_iMonth == "ALL") {
+        if (this.ms.state.search_iMonth == "ALL") {
             if (_month == "PREV" || _month == "ALL") {
                 from_date = _rec.min_visit_date;
-                to_date = this.iYear + "-12-31";
+                to_date = this.ms.state.iYear + "-12-31";
                 if (_month == "PREV") {
-                    let prevyr = +this.iYear - 1;
+                    let prevyr = +this.ms.state.iYear - 1;
                     var temparr = _rec.min_visit_date.split('-');
                     let tempyr: number = +temparr[0];
-                    if (tempyr == this.iYear)
+                    if (tempyr == this.ms.state.iYear)
                         from_date = '2001-01-01'
                     to_date = prevyr + "-12-31";
                 }
@@ -428,15 +464,15 @@ export class VisitReportComponent {
         } else {
 
             if (_month == "ALL") {
-                from_date = this.iYear + "-" + this.search_iMonth + "-01";
-                to_date = this.iYear + "-" + this.search_iMonth + "-" + this.totdays.toString();
+                from_date = this.ms.state.iYear + "-" + this.ms.state.search_iMonth + "-01";
+                to_date = this.ms.state.iYear + "-" + this.ms.state.search_iMonth + "-" + this.ms.state.totdays.toString();
             } else {
-                from_date = this.iYear + "-" + this.search_iMonth + "-" + _month;
+                from_date = this.ms.state.iYear + "-" + this.ms.state.search_iMonth + "-" + _month;
                 to_date = from_date;
             }
         }
 
-        if (this.search_report_type == "SALES PERSON") {
+        if (this.ms.state.search_report_type == "SALES PERSON") {
             user_id = _rec.user_id;
             user_name = _rec.user_name;
             cust_id = "";
@@ -452,9 +488,9 @@ export class VisitReportComponent {
             type: 'Report',
             user_id: user_id,
             user_name: user_name,
-            year: this.iYear.toString(),
+            year: this.ms.state.iYear.toString(),
             month: _month,
-            report_type: this.search_report_type,
+            report_type: this.ms.state.search_report_type,
             cust_id: cust_id,
             cust_name: cust_name,
             from_date: from_date,
@@ -465,11 +501,11 @@ export class VisitReportComponent {
         };
 
         // this is for scrollview
-        if (this.search_format == "MONTH-WISE")
+        if (this.ms.state.search_format == "MONTH-WISE")
             this.selectedRowMonth = _rec.user_name;
-        else if (this.search_format == "DAY-WISE")
+        else if (this.ms.state.search_format == "DAY-WISE")
             this.selectedRowDay = _rec.user_name;
-        if (this.search_format == "WEEK-WISE")
+        if (this.ms.state.search_format == "WEEK-WISE")
             this.selectedRowWeek = _rec.user_name;
 
         this.currentPage = "VISIT-REPORT-CHILD";
@@ -488,17 +524,17 @@ export class VisitReportComponent {
         let cust_name: string = '';
         let from_date: string = '';
         let to_date: string = '';
-        if (this.search_iMonth == "ALL") {
+        if (this.ms.state.search_iMonth == "ALL") {
             if (_month == "ALL") {
                 from_date = _rec.min_visit_date;
-                to_date = this.iYear + "-12-31";
+                to_date = this.ms.state.iYear + "-12-31";
             }
         } else {
-            from_date = this.iYear + "-" + this.search_iMonth + "-01";
-            to_date = this.iYear + "-" + this.search_iMonth + "-" + this.totdays.toString();
+            from_date = this.ms.state.iYear + "-" + this.ms.state.search_iMonth + "-01";
+            to_date = this.ms.state.iYear + "-" + this.ms.state.search_iMonth + "-" + this.ms.state.totdays.toString();
         }
 
-        if (this.search_report_type == "SALES PERSON") {
+        if (this.ms.state.search_report_type == "SALES PERSON") {
             user_id = _rec.user_id;
             user_name = _rec.user_name;
             cust_id = "";
@@ -514,9 +550,9 @@ export class VisitReportComponent {
             type: 'Report',
             user_id: user_id,
             user_name: user_name,
-            year: this.iYear.toString(),
+            year: this.ms.state.iYear.toString(),
             month: _month,
-            report_type: this.search_report_type,
+            report_type: this.ms.state.search_report_type,
             cust_id: cust_id,
             cust_name: cust_name,
             from_date: from_date,
@@ -527,11 +563,11 @@ export class VisitReportComponent {
         };
 
         // this is for scrollview
-        if (this.search_format == "MONTH-WISE")
+        if (this.ms.state.search_format == "MONTH-WISE")
             this.selectedRowMonth = _rec.user_name;
-        else if (this.search_format == "DAY-WISE")
+        else if (this.ms.state.search_format == "DAY-WISE")
             this.selectedRowDay = _rec.user_name;
-        else if (this.search_format == "WEEK-WISE")
+        else if (this.ms.state.search_format == "WEEK-WISE")
             this.selectedRowWeek = _rec.user_name;
 
         this.currentPage = "VISIT-REPORT-CHILD2";
@@ -539,11 +575,11 @@ export class VisitReportComponent {
     pageChanged(stype: string) {
         this.currentPage = "ROOT";
 
-        if (this.search_format == "MONTH-WISE")
+        if (this.ms.state.search_format == "MONTH-WISE")
             this.setScrollMonth();
-        else if (this.search_format == "DAY-WISE")
+        else if (this.ms.state.search_format == "DAY-WISE")
             this.setScrollDay();
-        else if (this.search_format == "WEEK-WISE")
+        else if (this.ms.state.search_format == "WEEK-WISE")
             this.setScrollWeek();
     }
 

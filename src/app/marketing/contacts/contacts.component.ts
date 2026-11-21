@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { MarkContacts } from '../models/markcontacts';
@@ -26,24 +26,24 @@ export class ContactsComponent {
   InitCompleted: boolean = false;
   menu_record: any;
 
-  selectedRowIndex = 0;
+  /// selectedRowIndex = 0;
 
   modal: any;
   disableSave = true;
   loading = false;
-  currentTab = 'LIST';
-  searchLeadSource = 'ALL';
-  searchConvrtStatus = 'NA';
-  searchSalesperson = '';
-  searchSalesperson_id = '';
-  searchstring = '';
-  searchvalidation = 'NA';
-  searchsortby = 'a.cont_name';
-  searchdatetype = 'LAST-VISIT-DATE';
-  page_count = 0;
-  page_current = 0;
-  page_rows = 0;
-  page_rowcount = 0;
+  /// currentTab = 'LIST';
+  /// searchLeadSource = 'ALL';
+  /// searchConvrtStatus = 'NA';
+  /// searchSalesperson = '';
+  /// searchSalesperson_id = '';
+  /// searchstring = '';
+  /// searchvalidation = 'NA';
+  /// searchsortby = 'a.cont_name';
+  /// searchdatetype = 'LAST-VISIT-DATE';
+  /// page_count = 0;
+  /// page_current = 0;
+  /// page_rows = 0;
+  /// page_rowcount = 0;
 
   sub: any;
   urlid: string;
@@ -60,17 +60,17 @@ export class ContactsComponent {
 
   jobno: string = '';
 
-  reclocked: boolean = false;
+  /// reclocked: boolean = false;
   cust_lock: boolean = false;
   activeTabId = 'contactTab';
-  ErrorMessage = "";
-  InfoMessage = "";
+  /// ErrorMessage = "";
+  /// InfoMessage = "";
   bDocs: boolean = false;
   bDocsUpload: boolean = false;
-  mode = '';
-  pkid = '';
-  fromdate = '';
-  todate = '';
+  /// mode = '';
+  /// pkid = '';
+  /// fromdate = '';
+  /// todate = '';
   cust_name = '';
   sman_id = '';
   showclosebutton: boolean = true;
@@ -80,17 +80,17 @@ export class ContactsComponent {
   ConvRecList: Jobm[] = [];
 
   // Array For Displaying List
-  RecordList: MarkContacts[] = [];
+  /// RecordList: MarkContacts[] = [];
   // Single Record for add/edit/view details
   Record: MarkContacts = new MarkContacts;
 
-  cont_is_shipper: boolean = false;
-  cont_is_consignee: boolean = false;
-  cont_is_agent: boolean = false;
-  cont_is_carrier: boolean = false;
-  cont_is_buyingagent: boolean = false;
-  cont_is_corporate: boolean = false;
-  cont_is_convert: boolean = false;
+  /// cont_is_shipper: boolean = false;
+  /// cont_is_consignee: boolean = false;
+  /// cont_is_agent: boolean = false;
+  /// cont_is_carrier: boolean = false;
+  /// cont_is_buyingagent: boolean = false;
+  /// cont_is_corporate: boolean = false;
+  /// cont_is_convert: boolean = false;
 
   CATEGORYRECORD: SearchTable = new SearchTable();
   SALESMANRECORD: SearchTable = new SearchTable();
@@ -99,15 +99,15 @@ export class ContactsComponent {
 
   constructor(
     private modalService: NgbModal,
-    private mainService: MarkContactService,
+    public ms: MarkContactService,
     private route: ActivatedRoute,
     public gs: GlobalService
 
   ) {
 
-    this.page_count = 0;
-    this.page_rows = 25;
-    this.page_current = 0;
+    /// this.page_count = 0;
+    /// this.page_rows = 25;
+    /// this.page_current = 0;
 
     this.InitLov();
 
@@ -130,7 +130,7 @@ export class ContactsComponent {
     if (this.iisModalWindow == "Y") {
       this.InitComponent();
       this.showclosebutton = false;
-      this.page_rows = 5;
+      this.ms.state.page_rows = 5;
       if (this.gs.isBlank(this.clientid))
         this.ActionHandler('ADD', '');
       else
@@ -142,16 +142,17 @@ export class ContactsComponent {
         this.InitCompleted = true;
         this.InitComponent();
       }
-
+      this.ms.init(this.menuid, this.type);
       //new change start
-      // this.mainService.init(this.menuid);
-      // if (this.mainService.state.mode == "ADD")
-      //   this.ActionHandler('ADD', '');
-      // else if (this.mainService.state.mode == "EDIT")
-      //   this.ActionHandler('EDIT', this.mainService.state.pkid)
+      if (this.ms.state.mode == "ADD")
+        this.ActionHandler('ADD', '');
+      else if (this.ms.state.mode == "EDIT")
+        this.ActionHandler('EDIT', this.ms.state.pkid)
       //new change end
-
-      this.List('NEW');
+      if(!this.ms.state.Initialized){
+        this.List('NEW');
+        this.ms.state.Initialized = true;
+      }
     }
 
 
@@ -161,14 +162,14 @@ export class ContactsComponent {
   }
 
   InitComponent() {
-    this.searchSalesperson = this.gs.globalVariables.sman_name;
-    this.searchSalesperson_id = this.gs.globalVariables.sman_id;
-    this.fromdate = "";
-    this.todate = "";
+    /// this.ms.state.searchSalesperson = this.gs.globalVariables.sman_name;
+    /// this.ms.state.searchSalesperson_id = this.gs.globalVariables.sman_id;
+    /// this.ms.state.fromdate = "";
+    /// this.ms.state.todate = "";
     this.IsAdmin = false;
     this.bPrint = false;
     this.bDocs = false;
-    this.reclocked = false;
+    ///this.ms.state.reclocked = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -187,6 +188,26 @@ export class ContactsComponent {
     this.sub.unsubscribe();
   }
 
+  /// for restore selected row in list
+  ngAfterViewInit() {
+    this.restoreRowPosition();
+  }
+
+  restoreRowPosition(){
+    setTimeout(() => {
+      this.scrollToRowPosition();
+    }, 100);
+  }
+
+  scrollToRowPosition() {
+    const row = document.getElementById('row-' + this.ms.state.selectedRowIndex);
+    if (row) {
+      row.scrollIntoView({
+        behavior: 'auto',
+        block: 'center'
+      });
+    }
+  }
 
   InitLov() {
 
@@ -236,7 +257,7 @@ export class ContactsComponent {
 
     // this.ErrorMessage = '';
     // this.InfoMessage = '';
-    // this.mainService.LoadDefault(SearchData)
+    // this.ms.LoadDefault(SearchData)
     //   .subscribe(response => {
     //     this.loading = false;
     //     this.List("NEW");
@@ -279,8 +300,8 @@ export class ContactsComponent {
     }
 
     if (_Record.controlname == "SMAN") {
-      this.searchSalesperson_id = _Record.id;
-      this.searchSalesperson = _Record.name;
+      this.ms.state.searchSalesperson_id = _Record.id;
+      this.ms.state.searchSalesperson = _Record.name;
     }
 
   }
@@ -289,27 +310,28 @@ export class ContactsComponent {
 
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string, _name: string = '', _smanid: string = '') {
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
     if (action == 'LIST') {
-      this.mode = '';
-      this.pkid = '';
-      this.currentTab = 'LIST';
+      this.ms.state.mode = '';
+      this.ms.state.pkid = '';
+      this.ms.state.currentTab = 'LIST';
+      this.restoreRowPosition();
     }
     else if (action === 'ADD') {
-      this.currentTab = 'DETAILS';
-      this.mode = 'ADD';
+      this.ms.state.currentTab = 'DETAILS';
+      this.ms.state.mode = 'ADD';
       this.cust_name = '';
       this.sman_id = '';
       this.ResetControls();
       this.NewRecord();
-      this.ActionsRecord.parent_id = this.pkid;
+      this.ActionsRecord.parent_id = this.ms.state.pkid;
     }
     else if (action === 'EDIT') {
-      this.currentTab = 'DETAILS';
-      this.mode = 'EDIT';
+      this.ms.state.currentTab = 'DETAILS';
+      this.ms.state.mode = 'EDIT';
       this.ResetControls();
-      this.pkid = id;
+      this.ms.state.pkid = id;
       this.cust_name = _name;
       this.sman_id = _smanid;
       this.GetRecord(id);
@@ -327,10 +349,10 @@ export class ContactsComponent {
     if (this.menu_record.rights_admin)
       this.disableSave = false;
 
-    if (this.mode == "ADD" && this.menu_record.rights_add)
+    if (this.ms.state.mode == "ADD" && this.menu_record.rights_add)
       this.disableSave = false;
 
-    if (this.mode == "EDIT" && this.menu_record.rights_edit)
+    if (this.ms.state.mode == "EDIT" && this.menu_record.rights_edit)
       this.disableSave = false;
 
     return this.disableSave;
@@ -341,24 +363,24 @@ export class ContactsComponent {
   List(_type: string) {
 
     let sCategory: string = "";
-    if (this.cont_is_shipper)
+    if (this.ms.state.cont_is_shipper)
       sCategory += "SHIPPER";
-    if (this.cont_is_consignee) {
+    if (this.ms.state.cont_is_consignee) {
       if (sCategory != "")
         sCategory += ",";
       sCategory += "CONSIGNEE";
     }
-    if (this.cont_is_agent) {
+    if (this.ms.state.cont_is_agent) {
       if (sCategory != "")
         sCategory += ",";
       sCategory += "COUNTERPART";
     }
-    if (this.cont_is_carrier) {
+    if (this.ms.state.cont_is_carrier) {
       if (sCategory != "")
         sCategory += ",";
       sCategory += "AIRLINE,LINER";
     }
-    if (this.cont_is_buyingagent) {
+    if (this.ms.state.cont_is_buyingagent) {
       if (sCategory != "")
         sCategory += ",";
       sCategory += "BUYINGAGENT";
@@ -369,47 +391,49 @@ export class ContactsComponent {
     let SearchData = {
       type: _type,
       rowtype: this.type,
-      searchstring: this.searchstring.toUpperCase(),
-      searchsalesperson: this.searchSalesperson,
-      leadsource: this.searchLeadSource,
-      conversionstatus: this.searchConvrtStatus,
-      fromdate: this.fromdate,
-      todate: this.todate,
+      searchstring: this.ms.state.searchstring.toUpperCase(),
+      searchsalesperson: this.ms.state.searchSalesperson,
+      leadsource: this.ms.state.searchLeadSource,
+      conversionstatus: this.ms.state.searchConvrtStatus,
+      fromdate: this.ms.state.fromdate,
+      todate: this.ms.state.todate,
       category: sCategory,
-      iscorporate: this.cont_is_corporate ? "Y" : "N",
-      isconvert: this.cont_is_convert ? "Y" : "N",
-      page_count: this.page_count,
-      page_current: this.page_current,
-      page_rows: this.page_rows,
-      page_rowcount: this.page_rowcount,
+      iscorporate: this.ms.state.cont_is_corporate ? "Y" : "N",
+      isconvert: this.ms.state.cont_is_convert ? "Y" : "N",
+      page_count: this.ms.state.page_count,
+      page_current: this.ms.state.page_current,
+      page_rows: this.ms.state.page_rows,
+      page_rowcount: this.ms.state.page_rowcount,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
       report_folder: this.gs.globalVariables.report_folder,
-      searchvalidation: this.searchvalidation,
-      searchsortby: this.searchsortby,
-      searchdatetype: this.searchdatetype,
-      reclocked: this.reclocked
+      searchvalidation: this.ms.state.searchvalidation,
+      searchsortby: this.ms.state.searchsortby,
+      searchdatetype: this.ms.state.searchdatetype,
+      reclocked: this.ms.state.reclocked
     };
 
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.List(SearchData)
+    this.ms.state.selectedRowIndex = 0;
+    this.restoreRowPosition();
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
+    this.ms.List(SearchData)
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
-          this.RecordList = response.list;
-          this.page_count = response.page_count;
-          this.page_current = response.page_current;
-          this.page_rowcount = response.page_rowcount;
+          this.ms.state.RecordList = response.list;
+          this.ms.state.page_count = response.page_count;
+          this.ms.state.page_current = response.page_current;
+          this.ms.state.page_rowcount = response.page_rowcount;
         }
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
@@ -419,9 +443,9 @@ export class ContactsComponent {
 
   NewRecord() {
     this.cust_lock = false;
-    this.pkid = this.gs.getGuid();
+    this.ms.state.pkid = this.gs.getGuid();
     this.Record = new MarkContacts();
-    this.Record.cont_pkid = this.pkid;
+    this.Record.cont_pkid = this.ms.state.pkid;
     this.Record.cont_name = '';
     this.Record.cont_add1 = '';
     this.Record.cont_add2 = '';
@@ -466,7 +490,7 @@ export class ContactsComponent {
     this.Record.cont_contact = '';
     this.Record.cont_lead_source = 'SELF';
     this.Record.cont_converted = 'NA';
-    this.Record.rec_mode = this.mode;
+    this.Record.rec_mode = this.ms.state.mode;
     this.Record.rec_locked = false;
     this.Record.cont_is_project = false;
     this.Record.cont_doc_attached = 'N';
@@ -513,9 +537,9 @@ export class ContactsComponent {
       pkid: Id,
     };
 
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.GetRecord(SearchData)
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
+    this.ms.GetRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
         this.LoadData(response.record);
@@ -523,16 +547,16 @@ export class ContactsComponent {
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
   LoadData(_Record: MarkContacts) {
     this.Record = _Record;
     this.Record.rec_mode = "EDIT";
-    if (this.mode == "ADD") {
-      this.Record.cont_pkid = this.pkid;
+    if (this.ms.state.mode == "ADD") {
+      this.Record.cont_pkid = this.ms.state.pkid;
       this.Record.cont_cust_id = '';
       this.Record.cont_cust_name = '';
       this.Record.cont_is_converted = false;
@@ -571,41 +595,41 @@ export class ContactsComponent {
   // Save Data
   Save() {
     if (!this.allvalid()) {
-      alert(this.ErrorMessage);
+      alert(this.ms.state.ErrorMessage);
       return;
     }
 
     this.loading = true;
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
     this.Record._globalvariables = this.gs.globalVariables;
     if (this.gs.isBlank(this.Record.cont_cust_id))
       this.Record.cont_is_converted = false;
     else
       this.Record.cont_is_converted = true;
-    this.mainService.Save(this.Record)
+    this.ms.Save(this.Record)
       .subscribe(response => {
         this.loading = false;
-        if (this.mode == 'ADD')
+        if (this.ms.state.mode == 'ADD')
           this.cust_name = this.Record.cont_name;//visit report searching
-        this.mode = 'EDIT';
-        this.Record.rec_mode = this.mode;
-        this.InfoMessage = "Save Complete";
-        alert(this.InfoMessage);
+        this.ms.state.mode = 'EDIT';
+        this.Record.rec_mode = this.ms.state.mode;
+        this.ms.state.InfoMessage = "Save Complete";
+        alert(this.ms.state.InfoMessage);
         this.RefreshList();
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
   allvalid() {
     let sError: string = "";
     let bret: boolean = true;
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
 
     // if (this.gs.isBlank(this.Record.cont_name)) {
     //   bret = false;
@@ -639,11 +663,12 @@ export class ContactsComponent {
 
   RefreshList() {
 
-    if (this.RecordList == null)
+    if (this.ms.state.RecordList == null)
       return;
-    var REC = this.RecordList.find(rec => rec.cont_pkid == this.Record.cont_pkid);
+    var REC = this.ms.state.RecordList.find(rec => rec.cont_pkid == this.Record.cont_pkid);
     if (REC == null) {
-      this.RecordList.push(this.Record);
+      this.ms.state.RecordList.push(this.Record);
+      this.ms.state.selectedRowIndex = this.ms.state.RecordList.length - 1;
     }
     else {
       REC.cont_name = this.Record.cont_name;
@@ -733,10 +758,10 @@ export class ContactsComponent {
     }
 
     if (field == 'searchstring') {
-      this.searchstring = this.searchstring.toUpperCase().trim();
+      this.ms.state.searchstring = this.ms.state.searchstring.toUpperCase().trim();
     }
     if (field == 'searchSalesperson') {
-      this.searchSalesperson = this.searchSalesperson.toUpperCase().trim();
+      this.ms.state.searchSalesperson = this.ms.state.searchSalesperson.toUpperCase().trim();
     }
     if (field == 'cont_type2_remarks') {
       this.Record.cont_type2_remarks = this.Record.cont_type2_remarks.toUpperCase();
@@ -761,20 +786,20 @@ export class ContactsComponent {
 
 
   ShowDocuments(doc: any, _rec: MarkContacts = null) {
-    this.ErrorMessage = '';
+    this.ms.state.ErrorMessage = '';
     this.bDocsUpload = true;
     if (_rec != null) {
-      this.pkid = _rec.cont_pkid;
+      this.ms.state.pkid = _rec.cont_pkid;
       this.bDocsUpload = false;
     }
     this.open(doc);
   }
 
   SearchRecord(controlname: string) {
-    this.ErrorMessage = '';
+    this.ms.state.ErrorMessage = '';
     if (this.Record.cont_name.trim().length <= 0) {
-      this.ErrorMessage = 'Please Enter Customer Name and Continue......';
-      alert(this.ErrorMessage);
+      this.ms.state.ErrorMessage = 'Please Enter Customer Name and Continue......';
+      alert(this.ms.state.ErrorMessage);
       return;
     }
     this.loading = true;
@@ -797,26 +822,26 @@ export class ContactsComponent {
       .subscribe(response => {
         this.loading = false;
 
-        this.ErrorMessage = '';
+        this.ms.state.ErrorMessage = '';
         if (!this.gs.isBlank(response.contactname.cont_pkid)) {
           this.GetRecord(response.contactname.cont_pkid);
         }
         else {
-          this.ErrorMessage = 'Contact Name not Found';
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = 'Contact Name not Found';
+          alert(this.ms.state.ErrorMessage);
         }
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
   actionsChanged(comments: any, _rec: MarkContacts) {
 
     if (comments.saction == "SAVE") {
-      for (let rec of this.RecordList.filter(rec => rec.cont_pkid == _rec.cont_pkid)) {
+      for (let rec of this.ms.state.RecordList.filter(rec => rec.cont_pkid == _rec.cont_pkid)) {
         rec.cont_infocount = comments.sfollowupcount;
       }
     }
