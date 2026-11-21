@@ -513,7 +513,8 @@ export class EdilinkComponent {
       || _type == "CARGO-NATURE" || _type == "NFEI"
       || _type == "PAYMENT-TYPE" || _type == "CONTRACT-NATURE"
       || _type == "JOB-TYPE" || _type == "TRANSPORT-MODE"
-      || _type == "IGST-PAYMENT-STATUS" || _type == "STUFFED-AT" || _type == "BILL-OF-LADING")
+      || _type == "IGST-PAYMENT-STATUS" || _type == "STUFFED-AT"
+      || _type == "BILL-OF-LADING" || _type == "SEAL-TYPE" || _type == "RODTEP")
       return true;
     else
       return false;
@@ -591,6 +592,8 @@ export class EdilinkComponent {
         { "code": "TRANSPORT-MODE", "name": "TRANSPORT-MODE" },
         { "code": "UNIT", "name": "UNIT" },
         { "code": "BRANCH", "name": "BRANCH" },
+        { "code": "SEAL-TYPE", "name": "SEAL-TYPE" },
+        { "code": "RODTEP", "name": "RODTEP" },
         { "code": "BILL-OF-LADING", "name": "BILL-OF-LADING" }
       ];
 
@@ -684,8 +687,20 @@ export class EdilinkComponent {
         { "code": "HBL", "name": "HBL" },
         { "code": "MBL", "name": "MBL" },
       ];
+    } else if (_type == "SEAL-TYPE") {
+      this.Value1TypeList = [
+        { "code": "N", "name": "NA" },
+        { "code": "A", "name": "AGENT" },
+        { "code": "S", "name": "SELF SEAL" },
+        { "code": "W", "name": "WAREHOUSE" },
+      ];
+    } else if (_type == "RODTEP") {
+      this.Value1TypeList = [
+        { "code": "NA", "name": "NA" },
+        { "code": "Y", "name": "YES" },
+        { "code": "N", "name": "NO" },
+      ];
     }
-
 
   }
   RemoveList(event: any) {
