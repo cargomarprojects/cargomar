@@ -7,5 +7,6 @@ export class EdiRecord {
     report_folder: string;
     save: string;
     _globalvariables: GlobalVariables;
+    user_code: string;
 }
 
