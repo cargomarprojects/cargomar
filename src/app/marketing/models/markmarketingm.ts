@@ -75,126 +75,109 @@ export class MarkMarketingm {
 }
 
 
-export class MarkReport {
-  user_id: string;
-  user_name: string;
-  jan: number;
-  feb: number;
-  mar: number;
-  apr: number;
-  may: number;
-  jun: number;
-  jul: number;
-  aug: number;
-  sep: number;
-  oct: number;
-  nov: number;
-  dec: number;
-  total: number;
-  d1: number;
-  d2: number;
-  d3: number;
-  d4: number;
-  d5: number;
-  d6: number;
-  d7: number;
-  d8: number;
-  d9: number;
-  d10: number;
-  d11: number;
-  d12: number;
-  d13: number;
-  d14: number;
-  d15: number;
-  d16: number;
-  d17: number;
-  d18: number;
-  d19: number;
-  d20: number;
-  d21: number;
-  d22: number;
-  d23: number;
-  d24: number;
-  d25: number;
-  d26: number;
-  d27: number;
-  d28: number;
-  d29: number;
-  d30: number;
-  d31: number;
-
-  d1_caption: string;
-  d2_caption: string;
-  d3_caption: string;
-  d4_caption: string;
-  d5_caption: string;
-  d6_caption: string;
-  d7_caption: string;
-  d8_caption: string;
-  d9_caption: string;
-  d10_caption: string;
-  d11_caption: string;
-  d12_caption: string;
-  d13_caption: string;
-  d14_caption: string;
-  d15_caption: string;
-  d16_caption: string;
-  d17_caption: string;
-  d18_caption: string;
-  d19_caption: string;
-  d20_caption: string;
-  d21_caption: string;
-  d22_caption: string;
-  d23_caption: string;
-  d24_caption: string;
-  d25_caption: string;
-  d26_caption: string;
-  d27_caption: string;
-  d28_caption: string;
-  d29_caption: string;
-  d30_caption: string;
-  d31_caption: string;
-
-  w1: number;
-  w2: number;
-  w3: number;
-  w4: number;
-  w5: number;
-  w1_caption: string;
-  w2_caption: string;
-  w3_caption: string;
-  w4_caption: string;
-  w5_caption: string;
-  sman_category: string;
-
-  regular: number;
-  inactive: number;
-  reactivated: number;
-  newcustomer: number;
-  prospect: number;
-  nonprospect: number;
-  other: number;
-  joinvisit: number;
-
-  conv_type_total: number;
-  prev_total: number;
-  min_visit_date: string;
-  DataList: MonColumns[] = [];
-  _globalvariables: GlobalVariables;
-}
-
-export class BizdevelopReport {
-  user_id: string;
-  user_name: string;
-  shipper_tot: number;
-  c_shipper_tot: number;
-  consignee_tot: number;
-  agent_tot: number;
-  carrier_tot: number;
-  buyingagent_tot: number;
-  total: number;
-  _globalvariables: GlobalVariables;
-}
+ export class MarkReport {
+   user_id: string;
+   user_name: string;
+   jan: number;
+   feb: number;
+   mar: number;
+   apr: number;
+   may: number;
+   jun: number;
+   jul: number;
+   aug: number;
+   sep: number;
+   oct: number;
+   nov: number;
+   dec: number;
+   total: number;
+   d1: number;
+   d2: number;
+   d3: number;
+   d4: number;
+   d5: number;
+   d6: number;
+   d7: number;
+   d8: number;
+   d9: number;
+   d10: number;
+   d11: number;
+   d12: number;
+   d13: number;
+   d14: number;
+   d15: number;
+   d16: number;
+   d17: number;
+   d18: number;
+   d19: number;
+   d20: number;
+   d21: number;
+   d22: number;
+   d23: number;
+   d24: number;
+   d25: number;
+   d26: number;
+   d27: number;
+   d28: number;
+   d29: number;
+   d30: number;
+   d31: number;
+   d1_caption: string;
+   d2_caption: string;
+   d3_caption: string;
+   d4_caption: string;
+   d5_caption: string;
+   d6_caption: string;
+   d7_caption: string;
+   d8_caption: string;
+   d9_caption: string;
+   d10_caption: string;
+   d11_caption: string;
+   d12_caption: string;
+   d13_caption: string;
+   d14_caption: string;
+   d15_caption: string;
+   d16_caption: string;
+   d17_caption: string;
+   d18_caption: string;
+   d19_caption: string;
+   d20_caption: string;
+   d21_caption: string;
+   d22_caption: string;
+   d23_caption: string;
+   d24_caption: string;
+   d25_caption: string;
+   d26_caption: string;
+   d27_caption: string;
+   d28_caption: string;
+   d29_caption: string;
+   d30_caption: string;
+   d31_caption: string;
+   w1: number;
+   w2: number;
+   w3: number;
+   w4: number;
+   w5: number;
+   w1_caption: string;
+   w2_caption: string;
+   w3_caption: string;
+   w4_caption: string;
+   w5_caption: string;
+   sman_category: string;
+   regular: number;
+   inactive: number;
+   reactivated: number;
+   newcustomer: number;
+   prospect: number;
+   nonprospect: number;
+   other: number;
+   joinvisit: number;
+   conv_type_total: number;
+   prev_total: number;
+   min_visit_date: string;
+   DataList: MonColumns[] = [];
+   _globalvariables: GlobalVariables;
+ }
 
 export class MonColumns {
   col_header_name: string;
@@ -202,46 +185,78 @@ export class MonColumns {
   col_field_value: number;
 }
 
-export interface iBizdevelopReportModel {
+export interface iMarkMarketingmModel {
   // filter Values
+  Initialized: boolean;
   selectedRowIndex: number;
   mode: string;
   pkid: string;
   list_format: string;
   currentTab: string;
-  RecordList: BizdevelopReport[];
+  RecordList: MarkMarketingm[];
 
+  InfoMessage: string;
   ErrorMessage: string;
 
-  searchDateType: string;
-  from_date: string;
-  to_date: string;
-  bCoreTeam: Boolean;
+  search_datetype: string;
+  mark_fromdate: string;
+  mark_todate: string;
+  search_branch_code: string;
+  search_cust_id: string;
+  search_cust_name: string;
+  search_user_id: string;
+  search_user_name: string;
+  search_salesman_id: string;
+  search_salesman_name: string;
+  search_leadsource: string;
+  search_cust_conv_type: string;
+  search_convrtstatus: string;
+  search_commodity: string;
+  status_color1: string;
+  status_color2: string;
+  print_format: string;
+  mark_mode: string;
 
-    // Page Values
+  // Page Values
   page_count: number;
   page_current: number;
   page_rows: number;
   page_rowcount: number;
 };
 
-export const initialState: iBizdevelopReportModel = {
+export const initialState: iMarkMarketingmModel = {
+  Initialized: false,
   selectedRowIndex: 0,
   mode: '',
   pkid: '',
   list_format: '',
-  currentTab: '',
+  currentTab: 'LIST',
   RecordList: [],
-  
+
+  InfoMessage: '',
   ErrorMessage: '',
 
-  searchDateType: '',
-  from_date: '',
-  to_date: '',
-  bCoreTeam: true,
+  search_datetype: 'VISIT-DATE',
+  mark_fromdate: '',
+  mark_todate: '',
+  search_branch_code: '',
+  search_cust_id: '',
+  search_cust_name: '',
+  search_user_id: '',
+  search_user_name: '',
+  search_salesman_id: '',
+  search_salesman_name: '',
+  search_leadsource: 'ALL',
+  search_cust_conv_type: 'NA',
+  search_convrtstatus: 'ALL',
+  search_commodity: '',
+  status_color1: 'blue',
+  status_color2: 'red',
+  print_format: 'DETAIL',
+  mark_mode: 'ALL',
 
   page_count: 0,
   page_current: 0,
-  page_rows: 15,
+  page_rows: 25,
   page_rowcount: 0
 }

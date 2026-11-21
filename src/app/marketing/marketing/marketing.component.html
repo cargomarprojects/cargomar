@@ -9,26 +9,26 @@
     <i *ngIf="loading" class="fa fa-spinner"></i>
   </div>
 </div>
-<div *ngIf="currentTab=='LIST'" class="page-list">
+<div *ngIf="ms.state.currentTab=='LIST'" class="page-list">
   <div class="page-search">
     <div class="row">
       <div class="col-sm-4">
         <div class="form-group row">
           <label *ngIf="type=='PLANNING'" class="col-sm-3 col-form-label col-form-label-sm pr-0">Next Visit Date</label>
           <div *ngIf="type=='VISIT'" class="col-sm-3">
-            <select class="form-control form-control-sm" name="vstdt" [(ngModel)]="search_datetype">
+            <select class="form-control form-control-sm" name="vstdt" [(ngModel)]="ms.state.search_datetype">
               <option [value]="'APPOINTMENT-DATE'">Appointments</option>
               <option [value]="'ENTRY-DATE'">Entry Date</option>
               <option [value]="'VISIT-DATE'">Visit Date</option>
             </select>
           </div>
           <div class="col-sm-4">
-            <app-date [inputdate]="gs.globalData.mark_fromdate" (ValueChanged)="gs.globalData.mark_fromdate=$event">
+            <app-date [inputdate]="ms.state.mark_fromdate" (ValueChanged)="ms.state.mark_fromdate=$event">
             </app-date>
           </div>
           <label class="col-sm-1 col-form-label col-form-label-sm pr-0">To</label>
           <div class="col-sm-4">
-            <app-date [inputdate]="gs.globalData.mark_todate" (ValueChanged)="gs.globalData.mark_todate=$event">
+            <app-date [inputdate]="ms.state.mark_todate" (ValueChanged)="ms.state.mark_todate=$event">
             </app-date>
           </div>
         </div>
@@ -36,7 +36,7 @@
           <label class="col-sm-3 col-form-label col-form-label-sm pr-0">Branch</label>
           <div class="col-sm-9">
             <app-autocomplete3 [controlname]="'BR'" [tabletype]="'BRANCH'" [displaycolumn]="'CODE'"
-              [displaydata]="search_branch_code" (ValueChanged)="LovSelected($event)">
+              [displaydata]="ms.state.search_branch_code" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
           </div>
         </div>
@@ -44,7 +44,7 @@
           <label class="col-sm-3 col-form-label col-form-label-sm">Customer</label>
           <div class="col-sm-9">
             <app-autocomplete3 [controlname]="'CONTACT'" [tabletype]="'MARKETING CONTACT'" [displaycolumn]="'NAME'"
-              [displaydata]="search_cust_name" (ValueChanged)="LovSelected($event)">
+              [displaydata]="ms.state.search_cust_name" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
           </div>
         </div>
@@ -54,7 +54,7 @@
           <label class="col-sm-3 col-form-label col-form-label-sm">Salesperson</label>
           <div class="col-sm-9">
             <app-autocomplete3 [controlname]="'USER'" [tabletype]="'USER'" [displaycolumn]="'NAME'"
-              [displaydata]="search_user_name" [where]="'user_sman_id is not null'"
+              [displaydata]="ms.state.search_user_name" [where]="'user_sman_id is not null'"
               (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
           </div>
@@ -63,7 +63,7 @@
           <label class="col-sm-3 col-form-label col-form-label-sm">Joint Visit</label>
           <div class="col-sm-9">
             <app-autocomplete3 [controlname]="'SMAN'" [tabletype]="'SALESMAN'" [displaycolumn]="'NAME'"
-              [displaydata]="search_salesman_name" (ValueChanged)="LovSelected($event)">
+              [displaydata]="ms.state.search_salesman_name" (ValueChanged)="LovSelected($event)">
             </app-autocomplete3>
           </div>
         </div>
@@ -77,7 +77,7 @@
         <div class="form-group row">
           <label class="col-sm-3 col-form-label col-form-label-sm">Mode</label>
           <div class="col-sm-9">
-            <select class="form-control form-control-sm" name="modertd" [(ngModel)]="mark_mode">
+            <select class="form-control form-control-sm" name="modertd" [(ngModel)]="ms.state.mark_mode">
               <option [value]="'ALL'">ALL</option>
               <option value="PERSONAL VISIT">PERSONAL VISIT</option>
               <option value="TELE MARKETING">TELE MARKETING</option>
@@ -94,7 +94,7 @@
         <div class="form-group row">
           <label class="col-sm-2 col-form-label col-form-label-sm">Lead.Source</label>
           <div class="col-sm-4">
-            <select class="form-control form-control-sm" name="tpecovrtd" [(ngModel)]="search_leadsource">
+            <select class="form-control form-control-sm" name="tpecovrtd" [(ngModel)]="ms.state.search_leadsource">
               <option [value]="'ALL'">ALL</option>
               <option [value]="'NA'">NA</option>
               <option [value]="'SELF'">SELF</option>
@@ -118,7 +118,7 @@
 
           <label class="col-sm-2 col-form-label col-form-label-sm">Cust.Status</label>
           <div class="col-sm-4">
-            <select class="form-control form-control-sm" [(ngModel)]="search_cust_conv_type">
+            <select class="form-control form-control-sm" [(ngModel)]="ms.state.search_cust_conv_type">
               <option [value]="'NA'">NA</option>
               <option [value]="'BLANK'">BLANK DATA</option>
               <option [value]="'REGULAR'">REGULAR CUSTOMER</option>
@@ -133,7 +133,7 @@
           </div>
           <label class="col-sm-2 col-form-label col-form-label-sm">Format</label>
           <div class="col-sm-4">
-            <select *ngIf="bPrint" class="form-control form-control-sm mr-1" [(ngModel)]="print_format">
+            <select *ngIf="bPrint" class="form-control form-control-sm mr-1" [(ngModel)]="ms.state.print_format">
               <option value="DETAIL">GENERAL</option>
               <option value="SUMMARY">SUMMARY</option>
             </select>
@@ -159,10 +159,10 @@
   </div>
 
   <div class="page-pager">
-    <div *ngIf="page_count">
+    <div *ngIf="ms.state.page_count">
       <ul class="pagination pagination-sm mb-1">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
-            (Records-{{page_rowcount}})</a>
+        <li class="page-item"><a class="page-link">Page {{ms.state.page_current}}/{{ms.state.page_count}}
+            (Records-{{ms.state.page_rowcount}})</a>
         </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
         <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
@@ -206,8 +206,8 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
-          (mousedown)="selectedRowIndex=i">
+        <tr *ngFor="let rec of ms.state.RecordList; let i = index" [id]="'row-' + i" [class.active]="i == ms.state.selectedRowIndex"
+          (mousedown)="ms.state.selectedRowIndex=i">
           <td class="hlink" (click)="ActionHandler('EDIT',rec.mark_pkid)">{{rec.mark_id}}</td>
           <td>{{rec.mark_visit_date}}</td>
           <td>{{rec.mark_user_name}}</td>
@@ -262,8 +262,8 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
-          (mousedown)="selectedRowIndex=i">
+        <tr *ngFor="let rec of ms.state.RecordList; let i = index" [id]="'row-' + i" [class.active]="i == ms.state.selectedRowIndex"
+          (mousedown)="ms.state.selectedRowIndex=i">
           <td>{{rec.mark_id}}</td>
           <td>{{rec.mark_next_visit_date}}</td>
           <td>{{rec.mark_user_name}}</td>
@@ -285,10 +285,10 @@
   </div>
 
   <div class="page-pager">
-    <div *ngIf="page_count">
+    <div *ngIf="ms.state.page_count">
       <ul class="pagination pagination-sm mb-1">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}}
-            (Records-{{page_rowcount}})</a>
+        <li class="page-item"><a class="page-link">Page {{ms.state.page_current}}/{{ms.state.page_count}}
+            (Records-{{ms.state.page_rowcount}})</a>
         </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
         <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
@@ -300,7 +300,7 @@
     </div>
   </div>
 </div>
-<div *ngIf="currentTab=='DETAILS'" class="page-details">
+<div *ngIf="ms.state.currentTab=='DETAILS'" class="page-details">
   <div class="page-box">
     <div class="row">
       <div class="col-sm-6">
@@ -406,7 +406,7 @@
             <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.mark_contact_person"
               maxlength="100" (blur)="OnBlur('mark_contact_person')" />
           </div>
-          <div *ngIf="mode == 'EDIT'" class="col-sm-4">
+          <div *ngIf="ms.state.mode == 'EDIT'" class="col-sm-4">
             <input [disabled]="lock_chk_visited" type="checkbox" [(ngModel)]="Record.mark_visited_b" id="visited"><label
               class="col-form-label col-form-label-sm ml-1" for="visited">Visited</label>
           </div>
@@ -601,10 +601,10 @@
           <div class="offset-4 col-sm-8">
             <button [hidden]="disableSave" [disabled]="loading || Record.mark_user_id !=gs.globalVariables.user_pkid"
               (click)="Save()" class="btn btn-success btn-sm">Save</button>
-            <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
+            <button [disabled]="loading" *ngIf="ms.state.mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
               [style.color]="Record.mark_doc_attached=='Y'?'darkred':'white'"
               class="btn btn-success btn-sm">Documents</button>
-            <button *ngIf="mode=='EDIT'" (click)="EmailVisitDetails(emailsent)"
+            <button *ngIf="ms.state.mode=='EDIT'" (click)="EmailVisitDetails(emailsent)"
               class="btn btn-success btn-sm">Appointment Mail</button>
             <button [disabled]="loading" (click)="ActionHandler('LIST','')"
               class="btn btn-success btn-sm">Return</button>
@@ -621,11 +621,11 @@
 </div>
 
 <App-Wait [visible]="loading" [msg]="'Please Wait'"></App-Wait>
-<div *ngIf="InfoMessage" class="alert alert-success">
-  {{InfoMessage}}
+<div *ngIf="ms.state.InfoMessage" class="alert alert-success">
+  {{ms.state.InfoMessage}}
 </div>
-<div *ngIf="ErrorMessage" class="alert alert-danger">
-  {{ErrorMessage}}
+<div *ngIf="ms.state.ErrorMessage" class="alert alert-danger">
+  {{ms.state.ErrorMessage}}
 </div>
 
 <ng-template #content let-c="close" let-d="dismiss">
@@ -645,7 +645,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-mail [pkid]="pkid" [type]="'VISIT DETAILS'" [sHtml]="sMsg" [defaultmessage]="" [defaultcc_ids]="cc_ids"
+    <app-mail [pkid]="ms.state.pkid" [type]="'VISIT DETAILS'" [sHtml]="sMsg" [defaultmessage]="" [defaultcc_ids]="cc_ids"
       [defaultsubject]="sSubject" [updateto_ids]=false [disableUpdateIds]=true [AttachList]="AttachList"></app-mail>
   </div>
 </ng-template>
@@ -657,13 +657,13 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-upload [pkid]="pkid" [type]="'MARK-VISITS'" [canupload]="bDocsUpload"></app-upload>
+    <app-upload [pkid]="ms.state.pkid" [type]="'MARK-VISITS'" [canupload]="bDocsUpload"></app-upload>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-primary btn-sm" (click)="c('Close click')">Close</button>
   </div>
 </ng-template>
-<div *ngIf="Record.mark_visited_b&&mode=='EDIT'&&(IsAdmin||Record.mark_user_id ==gs.globalVariables.user_pkid)"
+<div *ngIf="Record.mark_visited_b&& ms.state.mode=='EDIT'&&(IsAdmin||Record.mark_user_id ==gs.globalVariables.user_pkid)"
   class="page-details">
   <ngb-tabset #_tabset>
     <ngb-tab *ngIf="IsAdmin||Record.mark_user_id ==gs.globalVariables.user_pkid" title="Follow Up Details"

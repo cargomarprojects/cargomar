@@ -1,0 +1,188 @@
+import { GlobalVariables } from "../../core/models/globalvariables";
+export class MarkReport {
+  user_id: string;
+  user_name: string;
+  jan: number;
+  feb: number;
+  mar: number;
+  apr: number;
+  may: number;
+  jun: number;
+  jul: number;
+  aug: number;
+  sep: number;
+  oct: number;
+  nov: number;
+  dec: number;
+  total: number;
+  d1: number;
+  d2: number;
+  d3: number;
+  d4: number;
+  d5: number;
+  d6: number;
+  d7: number;
+  d8: number;
+  d9: number;
+  d10: number;
+  d11: number;
+  d12: number;
+  d13: number;
+  d14: number;
+  d15: number;
+  d16: number;
+  d17: number;
+  d18: number;
+  d19: number;
+  d20: number;
+  d21: number;
+  d22: number;
+  d23: number;
+  d24: number;
+  d25: number;
+  d26: number;
+  d27: number;
+  d28: number;
+  d29: number;
+  d30: number;
+  d31: number;
+
+  d1_caption: string;
+  d2_caption: string;
+  d3_caption: string;
+  d4_caption: string;
+  d5_caption: string;
+  d6_caption: string;
+  d7_caption: string;
+  d8_caption: string;
+  d9_caption: string;
+  d10_caption: string;
+  d11_caption: string;
+  d12_caption: string;
+  d13_caption: string;
+  d14_caption: string;
+  d15_caption: string;
+  d16_caption: string;
+  d17_caption: string;
+  d18_caption: string;
+  d19_caption: string;
+  d20_caption: string;
+  d21_caption: string;
+  d22_caption: string;
+  d23_caption: string;
+  d24_caption: string;
+  d25_caption: string;
+  d26_caption: string;
+  d27_caption: string;
+  d28_caption: string;
+  d29_caption: string;
+  d30_caption: string;
+  d31_caption: string;
+
+  w1: number;
+  w2: number;
+  w3: number;
+  w4: number;
+  w5: number;
+  w1_caption: string;
+  w2_caption: string;
+  w3_caption: string;
+  w4_caption: string;
+  w5_caption: string;
+  sman_category: string;
+
+  regular: number;
+  inactive: number;
+  reactivated: number;
+  newcustomer: number;
+  prospect: number;
+  nonprospect: number;
+  other: number;
+  joinvisit: number;
+
+  conv_type_total: number;
+  prev_total: number;
+  min_visit_date: string;
+  DataList: MonColumns[] = [];
+  _globalvariables: GlobalVariables;
+}
+
+export class MonColumns {
+  col_header_name: string;
+  col_field_name: string;
+  col_field_value: number;
+}
+
+export interface iMarkReportModel {
+  // filter Values
+  Initialized: boolean;
+  selectedRowIndex: number;
+  mode: string;
+  pkid: string;
+  list_format: string;
+  currentTab: string;
+  RecordList: MarkReport[];
+  RecordCaption: MarkReport;
+  week5: number;
+
+  InfoMessage: string;
+  ErrorMessage: string;
+
+  report_format: string;
+  iYear: number;
+  iYearCaption: number;
+  iMonth: string;
+  search_iMonth: string;
+  totdays: number;
+  search_format: string;
+  branch_code: string;
+  branch_name: string;
+  report_type: string;
+  search_report_type: string;
+
+  searchstring: string;
+  included: string;
+  sortby: string;
+  
+
+  // Page Values
+  page_count: number;
+  page_current: number;
+  page_rows: number;
+  page_rowcount: number;
+};
+
+export const initialState: iMarkReportModel = {
+  Initialized: false,
+  selectedRowIndex: 0,
+  mode: '',
+  pkid: '',
+  list_format: '',
+  currentTab: 'LIST',
+  RecordList: [],
+  RecordCaption: new MarkReport(),
+  week5: 0,
+
+  InfoMessage: '',
+  ErrorMessage: '',
+
+  report_format: '',
+  iYear: 0,
+  iYearCaption: 0,
+  iMonth: 'ALL',
+  search_iMonth: '',
+  totdays: 0,
+  branch_code: '',
+  branch_name: '',
+  report_type: '',
+  searchstring: '',
+  included: '',
+  sortby: '',
+  search_format: '',
+  search_report_type: '',
+
+  page_count: 0,
+  page_current: 0,
+  page_rows: 25,
+  page_rowcount: 0
+}

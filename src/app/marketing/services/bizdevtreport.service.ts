@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 
-import { iBizdevelopReportModel, initialState, MarkMarketingm } from '../models/markmarketingm';
+import { iBizdevelopReportModel, initialState } from '../models/markbizdevtreport';
 import { GlobalService } from '../../core/services/global.service';
 
 @Injectable()

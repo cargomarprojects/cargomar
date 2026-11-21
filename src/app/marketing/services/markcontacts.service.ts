@@ -9,17 +9,18 @@ import { GlobalService } from '../../core/services/global.service';
 @Injectable()
 export class MarkContactService {
 
+  private screen_id = '';
+  private screen_type = '';
+  public state: iMarkContactsModel = { ...initialState };
+
   constructor(
     private http2: HttpClient,
     private gs: GlobalService) {
   }
 
-
-  private screen_id = '';
-  public state: iMarkContactsModel = { ...initialState };
-
-  public init(_screen_id: string) {
+  public init(_screen_id: string, _screen_type: string) {
     this.screen_id = _screen_id;
+    this.screen_type = _screen_type;
     this.loadState();
   }
 
@@ -29,8 +30,25 @@ export class MarkContactService {
     else {
       this.state = { ...initialState };
       //default values
-      //this.state.from_date = this.gs.getNewdate(180);
-      //this.state.to_date = this.gs.defaultValues.today;
+      this.state.Initialized = false;
+      this.state.fromdate = '';
+      this.state.todate = '';
+      this.state.searchLeadSource = 'ALL';
+      this.state.searchConvrtStatus = 'NA';
+      this.state.searchSalesperson = this.gs.globalVariables.sman_name;
+      this.state.searchSalesperson_id = this.gs.globalVariables.sman_id;
+      this.state.searchstring = '';
+      this.state.searchvalidation = 'NA';
+      this.state.searchsortby = 'a.cont_name';
+      this.state.searchdatetype = 'LAST-VISIT-DATE';
+      this.state.cont_is_shipper = false;
+      this.state.cont_is_consignee = false;
+      this.state.cont_is_agent = false;
+      this.state.cont_is_carrier = false;
+      this.state.cont_is_buyingagent = false;
+      this.state.cont_is_corporate = false;
+      this.state.cont_is_convert = false;
+
       this.gs.appStates[this.screen_id] = this.state;
     }
   }

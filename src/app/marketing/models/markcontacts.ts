@@ -86,14 +86,34 @@ export class MarkContacts {
 
 export interface iMarkContactsModel {
   // filter Values
+  Initialized: boolean;
   selectedRowIndex: number;
   mode: string;
   pkid: string;
   currentTab: string;
   RecordList: MarkContacts[];
   ErrorMessage: string;
+  InfoMessage: string;
 
+  fromdate: string;
+  todate: string;
+  searchLeadSource: string;
+  searchConvrtStatus: string;
+  searchSalesperson: string;
+  searchSalesperson_id: string;
+  searchstring: string;
+  searchvalidation: string;
+  searchsortby: string;
+  searchdatetype: string;
+  reclocked: boolean;
 
+  cont_is_shipper: boolean;
+  cont_is_consignee: boolean;
+  cont_is_agent: boolean;
+  cont_is_carrier: boolean;
+  cont_is_buyingagent: boolean;
+  cont_is_corporate: boolean;
+  cont_is_convert: boolean;
   // Page Values
   page_count: number;
   page_current: number;
@@ -102,17 +122,37 @@ export interface iMarkContactsModel {
 };
 
 export const initialState: iMarkContactsModel = {
+  Initialized: false,
   selectedRowIndex: 0,
   mode: '',
   pkid: '',
   currentTab: 'LIST',
   RecordList: [],
   ErrorMessage: '',
+  InfoMessage: '',
+
+  fromdate: '',
+  todate: '',
+  searchLeadSource: '',
+  searchConvrtStatus: '',
+  searchSalesperson: '',
+  searchSalesperson_id: '',
+  searchstring: '',
+  searchvalidation: '',
+  searchsortby: '',
+  searchdatetype: '',
+  reclocked: false,
+
+  cont_is_shipper: false,
+  cont_is_consignee: false,
+  cont_is_agent: false,
+  cont_is_carrier: false,
+  cont_is_buyingagent: false,
+  cont_is_corporate: false,
+  cont_is_convert: false,
 
   page_count: 0,
   page_current: 0,
-  page_rows: 15,
+  page_rows: 25,
   page_rowcount: 0
 }
-
-

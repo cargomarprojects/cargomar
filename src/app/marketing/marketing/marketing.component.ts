@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
-import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ActivatedRoute } from '@angular/router';
 import { GlobalService } from '../../core/services/global.service';
 import { MarkMarketingm } from '../models/markmarketingm';
@@ -33,7 +33,7 @@ export class MarketingComponent {
   bDocs: boolean = false;
   bDocsUpload: boolean = false;
 
-  currentTab = 'LIST';
+  /// currentTab = 'LIST';
   sSubject: string;
   sMsg: string;
   cc_ids: string;
@@ -43,33 +43,33 @@ export class MarketingComponent {
 
   searchby = "";
   searchstring = '';
-  search_datetype = 'VISIT-DATE';
-  search_branch_code = '';
-  search_cust_name = '';
-  search_cust_id = '';
-  search_user_name = '';
-  search_user_id = '';
-  search_salesman_name = '';
-  search_salesman_id = '';
-  search_leadsource = 'ALL';
-  search_cust_conv_type = "NA";
-  search_convrtstatus = 'ALL';
-  search_commodity = '';
-  status_color1 = 'blue';
-  status_color2 = 'red';
-  mark_mode: string = "ALL";
-  page_count = 0;
-  page_current = 0;
-  page_rows = 0;
-  page_rowcount = 0;
+  /// search_datetype = 'VISIT-DATE';
+  /// search_branch_code = '';
+  /// search_cust_name = '';
+  /// search_cust_id = '';
+  /// search_user_name = '';
+  /// search_user_id = '';
+  /// search_salesman_name = '';
+  /// search_salesman_id = '';
+  /// search_leadsource = 'ALL';
+  /// search_cust_conv_type = "NA";
+  /// search_convrtstatus = 'ALL';
+  /// search_commodity = '';
+  /// status_color1 = 'blue';
+  /// status_color2 = 'red';
+  /// mark_mode: string = "ALL";
+  /// page_count = 0;
+  /// page_current = 0;
+  /// page_rows = 0;
+  /// page_rowcount = 0;
 
   sub: any;
   urlid: string;
 
-  selectedRowIndex = 0;
+  /// selectedRowIndex = 0;
 
-  ErrorMessage = "";
-  InfoMessage = "";
+  /// ErrorMessage = "";
+  /// InfoMessage = "";
 
   ActionsRecord = {
     parent_id: '',
@@ -90,16 +90,16 @@ export class MarketingComponent {
     save_everyone: true,
     followupstatus: ''
   };
-  mode = '';
-  pkid = '';
+  /// mode = '';
+  /// pkid = '';
   clientid = '';
   lock_chk_visited: boolean = false;
 
   // Array For Displaying List
-  RecordList: MarkMarketingm[] = [];
+  /// RecordList: MarkMarketingm[] = [];
   // Single Record for add/edit/view details
   Record: MarkMarketingm = new MarkMarketingm;
-  print_format = "DETAIL";
+  /// print_format = "DETAIL";
   //to show convertion Info tab
   show_conv_info_tab: boolean = false;
 
@@ -116,16 +116,16 @@ export class MarketingComponent {
 
   constructor(
     private modalService: NgbModal,
-    public mainService: MarkMarketingService,
+    public ms: MarkMarketingService,
     private route: ActivatedRoute,
     public gs: GlobalService
 
   ) {
 
 
-    this.page_count = 0;
-    this.page_rows = 25;
-    this.page_current = 0;
+    /// this.page_count = 0;
+    /// this.page_rows = 25;
+    /// this.page_current = 0;
 
 
     this.InitLov();
@@ -150,6 +150,15 @@ export class MarketingComponent {
     if (!this.InitCompleted) {
       this.InitComponent();
     }
+    this.ms.init(this.menuid, this.type);
+
+    /// to load add/edit screen when selected
+    if (this.ms.state.mode == "ADD")
+        this.ActionHandler('ADD', '');
+    else if (this.ms.state.mode == "EDIT")
+        this.ActionHandler('EDIT', this.ms.state.pkid);
+    if (this.gs.globalVariables.user_code == "ADMIN")
+      this.bUpdateJob = true;
   }
 
   InitComponent() {
@@ -161,15 +170,15 @@ export class MarketingComponent {
     this.bEmail = false;
     this.bDocs = false;
     this.bUpdateJob = false;
-    if (this.type == "VISIT") {
+    /// if (this.type == "VISIT") {
 
-      this.gs.globalData.mark_fromdate = this.gs.defaultValues.monthbegindate;
-      this.gs.globalData.mark_todate = this.gs.defaultValues.today;
-    }
-    else {
-      this.gs.globalData.mark_fromdate = this.gs.defaultValues.today;
-      this.gs.globalData.mark_todate = this.getFuturedate(30);
-    }
+    ///   // this.gs.globalData.mark_fromdate = this.gs.defaultValues.monthbegindate;
+    ///   // this.gs.globalData.mark_todate = this.gs.defaultValues.today;
+    /// }
+    /// else {
+    ///   // this.ms.state.mark_fromdate = this.gs.defaultValues.today;
+    ///   // this.ms.state.mark_todate = this.getFuturedate(30);
+    /// }
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -186,8 +195,8 @@ export class MarketingComponent {
       if (this.menu_record.rights_approval.toString().includes("{UPDATE-JOB}"))
         this.bUpdateJob = true;
     }
-    if (this.gs.globalVariables.user_code == "ADMIN")
-      this.bUpdateJob = true;
+    /// if (this.gs.globalVariables.user_code == "ADMIN")
+    ///   this.bUpdateJob = true;
     this.menu_contact_record = this.gs.getMenu("MARKCONTACTS");
     if (this.menu_contact_record) {
       if (this.menu_contact_record.rights_add)
@@ -203,6 +212,26 @@ export class MarketingComponent {
     this.sub.unsubscribe();
   }
 
+  /// for restore selected row in list
+  ngAfterViewInit() {
+    this.restoreRowPosition();
+  }
+
+  restoreRowPosition(){
+    setTimeout(() => {
+      this.scrollToRowPosition();
+    }, 100);
+  }
+
+  scrollToRowPosition() {
+    const row = document.getElementById('row-' + this.ms.state.selectedRowIndex);
+    if (row) {
+      row.scrollIntoView({
+        behavior: 'auto',
+        block: 'center'
+      });
+    }
+  }
 
   InitLov() {
 
@@ -237,7 +266,7 @@ export class MarketingComponent {
 
     // this.ErrorMessage = '';
     // this.InfoMessage = '';
-    // this.mainService.LoadDefault(SearchData)
+    // this.ms.LoadDefault(SearchData)
     //   .subscribe(response => {
     //     this.loading = false;
     //     this.List("NEW");
@@ -277,19 +306,19 @@ export class MarketingComponent {
     }
 
     if (_Record.controlname == "BR") {
-      this.search_branch_code = _Record.code;
+      this.ms.state.search_branch_code = _Record.code;
     }
     if (_Record.controlname == "CONTACT") {
-      this.search_cust_id = _Record.id;
-      this.search_cust_name = _Record.name;
+      this.ms.state.search_cust_id = _Record.id;
+      this.ms.state.search_cust_name = _Record.name;
     }
     if (_Record.controlname == "USER") {
-      this.search_user_id = _Record.id;
-      this.search_user_name = _Record.name;
+      this.ms.state.search_user_id = _Record.id;
+      this.ms.state.search_user_name = _Record.name;
     }
     if (_Record.controlname == "SMAN") {
-      this.search_salesman_id = _Record.id;
-      this.search_salesman_name = _Record.name;
+      this.ms.state.search_salesman_id = _Record.id;
+      this.ms.state.search_salesman_name = _Record.name;
     }
 
   }
@@ -303,9 +332,9 @@ export class MarketingComponent {
       user_pkid: this.gs.globalVariables.user_pkid
     };
 
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.GetCustDet(SearchData)
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
+    this.ms.GetCustDet(SearchData)
       .subscribe(response => {
         this.loading = false;
         this.Record.mark_contact_source = response.source;
@@ -314,33 +343,34 @@ export class MarketingComponent {
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
   //function for handling LIST/NEW/EDIT Buttons
   ActionHandler(action: string, id: string) {
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
     if (action == 'LIST') {
-      this.mode = '';
-      this.pkid = '';
-      this.currentTab = 'LIST';
+      this.ms.state.mode = '';
+      this.ms.state.pkid = '';
+      this.ms.state.currentTab = 'LIST';
+      this.restoreRowPosition();
     }
     else if (action === 'ADD') {
-      this.currentTab = 'DETAILS';
-      this.mode = 'ADD';
+      this.ms.state.currentTab = 'DETAILS';
+      this.ms.state.mode = 'ADD';
       this.ResetControls();
       this.NewRecord();
-      this.ActionsRecord.parent_id = this.pkid;
-      this.ActionsRecord.followupstatus = this.status_color1;
+      this.ActionsRecord.parent_id = this.ms.state.pkid;
+      this.ActionsRecord.followupstatus = this.ms.state.status_color1;
     }
     else if (action === 'EDIT') {
-      this.currentTab = 'DETAILS';
-      this.mode = 'EDIT';
+      this.ms.state.currentTab = 'DETAILS';
+      this.ms.state.mode = 'EDIT';
       this.ResetControls();
-      this.pkid = id;
+      this.ms.state.pkid = id;
       this.GetRecord(id);
       this.ActionsRecord.parent_id = id;
     }
@@ -355,10 +385,10 @@ export class MarketingComponent {
     if (this.menu_record.rights_admin)
       this.disableSave = false;
 
-    if (this.mode == "ADD" && this.menu_record.rights_add)
+    if (this.ms.state.mode == "ADD" && this.menu_record.rights_add)
       this.disableSave = false;
 
-    if (this.mode == "EDIT" && this.menu_record.rights_edit)
+    if (this.ms.state.mode == "EDIT" && this.menu_record.rights_edit)
       this.disableSave = false;
 
     return this.disableSave;
@@ -379,10 +409,10 @@ export class MarketingComponent {
       searchstring: this.searchstring.toUpperCase(),
       iscompany: this.IsCompany,
       isadmin: this.IsAdmin,
-      page_count: this.page_count,
-      page_current: this.page_current,
-      page_rows: this.page_rows,
-      page_rowcount: this.page_rowcount,
+      page_count: this.ms.state.page_count,
+      page_current: this.ms.state.page_current,
+      page_rows: this.ms.state.page_rows,
+      page_rowcount: this.ms.state.page_rowcount,
       filter_from_date: '',
       filter_to_date: '',
       filter_branch_id: '',
@@ -392,44 +422,46 @@ export class MarketingComponent {
       year_code: this.gs.globalVariables.year_code,
       user_code: this.gs.globalVariables.user_code,
       user_pkid: this.gs.globalVariables.user_pkid,
-      from_date: this.gs.globalData.mark_fromdate,
-      to_date: this.gs.globalData.mark_todate,
+      from_date: this.ms.state.mark_fromdate,
+      to_date: this.ms.state.mark_todate,
       report_folder: this.gs.globalVariables.report_folder,
       isheader: this.IsHeader,
-      print_format: this.print_format,
-      search_datetype: this.search_datetype,
-      search_branch_code: this.search_branch_code,
-      search_cust_id: this.search_cust_id,
-      search_cust_name: this.search_cust_name,
-      search_user_id: this.search_user_id,
-      search_user_name: this.search_user_name,
-      search_salesman_id: this.search_salesman_id,
-      search_salesman_name: this.search_salesman_name,
-      search_commodity: this.search_commodity,
-      search_leadsource: this.search_leadsource,
-      search_convrtstatus: this.search_convrtstatus,
-      search_cust_conv_type: this.search_cust_conv_type,
-      mark_mode: this.mark_mode
+      print_format: this.ms.state.print_format,
+      search_datetype: this.ms.state.search_datetype,
+      search_branch_code: this.ms.state.search_branch_code,
+      search_cust_id: this.ms.state.search_cust_id,
+      search_cust_name: this.ms.state.search_cust_name,
+      search_user_id: this.ms.state.search_user_id,
+      search_user_name: this.ms.state.search_user_name,
+      search_salesman_id: this.ms.state.search_salesman_id,
+      search_salesman_name: this.ms.state.search_salesman_name,
+      search_commodity: this.ms.state.search_commodity,
+      search_leadsource: this.ms.state.search_leadsource,
+      search_convrtstatus: this.ms.state.search_convrtstatus,
+      search_cust_conv_type: this.ms.state.search_cust_conv_type,
+      mark_mode: this.ms.state.mark_mode
     };
 
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.List(SearchData)
+    this.ms.state.selectedRowIndex = 0;
+    this.restoreRowPosition();
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
+    this.ms.List(SearchData)
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
-          this.RecordList = response.list;
-          this.page_count = response.page_count;
-          this.page_current = response.page_current;
-          this.page_rowcount = response.page_rowcount;
+          this.ms.state.RecordList = response.list;
+          this.ms.state.page_count = response.page_count;
+          this.ms.state.page_current = response.page_current;
+          this.ms.state.page_rowcount = response.page_rowcount;
         }
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
@@ -439,9 +471,9 @@ export class MarketingComponent {
 
   NewRecord() {
     this.lock_chk_visited = false;
-    this.pkid = this.gs.getGuid();
+    this.ms.state.pkid = this.gs.getGuid();
     this.Record = new MarkMarketingm();
-    this.Record.mark_pkid = this.pkid;
+    this.Record.mark_pkid = this.ms.state.pkid;
     this.Record.mark_source = this.type;
     this.Record.mark_mode = "PERSONAL VISIT";
     this.Record.rec_category = "";
@@ -465,7 +497,7 @@ export class MarketingComponent {
     this.Record.mark_agent_name = "";
     this.Record.mark_commodity = "";
     this.Record.mark_next_visit_status = "FOLLOW UP REQUIRED";
-    this.Record.rec_mode = this.mode;
+    this.Record.rec_mode = this.ms.state.mode;
     this.Record.rec_created_date = "";
     this.Record.rec_created_by = "";
     this.Record.mark_parent_id = "";
@@ -497,25 +529,25 @@ export class MarketingComponent {
     let SearchData = {
       pkid: Id,
       user_pkid: this.gs.globalVariables.user_pkid,
-      status_color1: this.status_color1
+      status_color1: this.ms.state.status_color1
     };
 
     this.old_customer_id = '';
 
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.GetRecord(SearchData)
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
+    this.ms.GetRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
         this.LoadData(response.record);
-        for (let rec of this.RecordList.filter(rec => rec.mark_pkid == Id)) {
+        for (let rec of this.ms.state.RecordList.filter(rec => rec.mark_pkid == Id)) {
           rec.mark_followupstatus = response.followupstatus;
         }
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
@@ -535,9 +567,9 @@ export class MarketingComponent {
     this.CUSTRECORD.name = this.Record.mark_customer_name;
     this.ActionsRecordContact.parent_id = this.Record.mark_customer_id;
     if (this.Record.mark_user_id == this.gs.globalVariables.user_pkid)
-      this.ActionsRecord.followupstatus = this.status_color1;
+      this.ActionsRecord.followupstatus = this.ms.state.status_color1;
     else
-      this.ActionsRecord.followupstatus = this.status_color2;
+      this.ActionsRecord.followupstatus = this.ms.state.status_color2;
 
     if (this.Record.mark_visited == 'Y')
       this.lock_chk_visited = true;
@@ -558,7 +590,7 @@ export class MarketingComponent {
       mark_pkid: this.Record.mark_pkid
     };
 
-    this.mainService.LoadVisit(SearchData)
+    this.ms.LoadVisit(SearchData)
       .subscribe(response => {
         this.loading = false;
         let mRow = response.record;
@@ -584,8 +616,8 @@ export class MarketingComponent {
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         }
       );
   }
@@ -594,31 +626,31 @@ export class MarketingComponent {
   // Save Data
   Save() {
     if (!this.allvalid()) {
-      alert(this.ErrorMessage);
+      alert(this.ms.state.ErrorMessage);
       return;
     }
 
     this.loading = true;
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
     this.Record.mark_source = this.type;
     this.Record._globalvariables = this.gs.globalVariables;
 
-    this.mainService.Save(this.Record)
+    this.ms.Save(this.Record)
       .subscribe(response => {
         this.loading = false;
-        if (this.mode == "ADD") {
+        if (this.ms.state.mode == "ADD") {
           this.Record.mark_id = response.mark_id;
           this.Record.branch_name = this.gs.globalVariables.branch_name;
           this.Record.mark_user_name = this.gs.globalVariables.user_code;
           this.Record.mark_oldcustomer_id = this.Record.mark_customer_id;
           this.Record.rec_version = response.rec_version;
         }
-        this.mode = 'EDIT';
-        this.Record.rec_mode = this.mode;
-        this.InfoMessage = "Save Complete";
+        this.ms.state.mode = 'EDIT';
+        this.Record.rec_mode = this.ms.state.mode;
+        this.ms.state.InfoMessage = "Save Complete";
         if (response.savemsg)
-          this.InfoMessage += response.savemsg;
+          this.ms.state.InfoMessage += response.savemsg;
 
         if (!this.gs.isBlank(this.tabsetCtrl))
           this.tabsetCtrl.select('FollowUp');
@@ -626,20 +658,20 @@ export class MarketingComponent {
           this.lock_chk_visited = response.mark_visited_b;
 
         this.RefreshList();
-        alert(this.InfoMessage);
+        alert(this.ms.state.InfoMessage);
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
   allvalid() {
     let sError: string = "";
     let bret: boolean = true;
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
 
     if (this.Record.rec_mode == "EDIT" && this.Record.mark_user_id != this.gs.globalVariables.user_pkid) {
       bret = false;
@@ -647,7 +679,7 @@ export class MarketingComponent {
     }
 
     if (bret === false)
-      this.ErrorMessage = sError;
+      this.ms.state.ErrorMessage = sError;
     return bret;
   }
 
@@ -664,12 +696,13 @@ export class MarketingComponent {
 
   RefreshList() {
 
-    if (this.RecordList == null)
+    if (this.ms.state.RecordList == null)
       return;
-    var REC = this.RecordList.find(rec => rec.mark_pkid == this.Record.mark_pkid);
+    var REC = this.ms.state.RecordList.find(rec => rec.mark_pkid == this.Record.mark_pkid);
     if (REC == null) {
-      this.RecordList.push(this.Record);
-      REC = this.RecordList.find(rec => rec.mark_pkid == this.Record.mark_pkid);
+      this.ms.state.RecordList.push(this.Record);
+      this.ms.state.selectedRowIndex = this.ms.state.RecordList.length - 1;
+      REC = this.ms.state.RecordList.find(rec => rec.mark_pkid == this.Record.mark_pkid);
       REC.mark_visit_date = this.mark_visit_date_ctrl.GetDisplayDate();
     }
     else {
@@ -703,12 +736,12 @@ export class MarketingComponent {
         pkid: event.id
       };
 
-      this.ErrorMessage = '';
-      this.InfoMessage = '';
-      this.mainService.DeleteRecord(SearchData)
+      this.ms.state.ErrorMessage = '';
+      this.ms.state.InfoMessage = '';
+      this.ms.DeleteRecord(SearchData)
         .subscribe(response => {
           this.loading = false;
-          this.RecordList.splice(this.RecordList.findIndex(rec => rec.mark_pkid == event.id), 1);
+          this.ms.state.RecordList.splice(this.ms.state.RecordList.findIndex(rec => rec.mark_pkid == event.id), 1);
         },
           error => {
             this.loading = false;
@@ -754,7 +787,7 @@ export class MarketingComponent {
       this.searchstring = this.searchstring.toUpperCase();
     }
     if (field == 'search_commodity') {
-      this.search_commodity = this.search_commodity.toUpperCase();
+      this.ms.state.search_commodity = this.ms.state.search_commodity.toUpperCase();
     }
 
   }
@@ -779,10 +812,10 @@ export class MarketingComponent {
   }
 
   ShowDocuments(doc: any, _rec: MarkMarketingm = null) {
-    this.ErrorMessage = '';
+    this.ms.state.ErrorMessage = '';
     this.bDocsUpload = true;
     if (_rec != null) {
-      this.pkid = _rec.mark_pkid;
+      this.ms.state.pkid = _rec.mark_pkid;
       this.bDocsUpload = false;
     }
     this.open(doc);
@@ -790,7 +823,7 @@ export class MarketingComponent {
 
   actionsChanged(comments: any, _rec: MarkMarketingm) {
     if (comments.saction == "SAVE") {
-      for (let rec of this.RecordList.filter(rec => rec.mark_pkid == _rec.mark_pkid)) {
+      for (let rec of this.ms.state.RecordList.filter(rec => rec.mark_pkid == _rec.mark_pkid)) {
         rec.mark_followupcount = comments.sfollowupcount;
         if (comments.sfollowupstatus)
           rec.mark_followupstatus = comments.sfollowupstatus;
@@ -800,7 +833,7 @@ export class MarketingComponent {
 
   actionsChanged2(comments: any, _rec: MarkMarketingm) {
     if (comments.saction == "SAVE") {
-      for (let rec of this.RecordList.filter(rec => rec.mark_pkid == _rec.mark_pkid)) {
+      for (let rec of this.ms.state.RecordList.filter(rec => rec.mark_pkid == _rec.mark_pkid)) {
         rec.mark_cust_infocount = comments.sfollowupcount;
       }
     }
@@ -814,12 +847,12 @@ export class MarketingComponent {
 
 
   EmailVisitDetails(emailsent: any) {
-    this.ErrorMessage = ''
-    if (this.pkid.length <= 0) {
-      this.ErrorMessage = "\n\r | Invalid ID";
+    this.ms.state.ErrorMessage = ''
+    if (this.ms.state.pkid.length <= 0) {
+      this.ms.state.ErrorMessage = "\n\r | Invalid ID";
     }
-    if (this.ErrorMessage.length > 0) {
-      alert(this.ErrorMessage);
+    if (this.ms.state.ErrorMessage.length > 0) {
+      alert(this.ms.state.ErrorMessage);
       return;
     }
 
@@ -836,7 +869,7 @@ export class MarketingComponent {
       appointment_date: ''
     }
 
-    SearchData.pkid = this.pkid;
+    SearchData.pkid = this.ms.state.pkid;
     SearchData.report_folder = this.gs.globalVariables.report_folder;
     SearchData.company_code = this.gs.globalVariables.comp_code;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
@@ -848,8 +881,8 @@ export class MarketingComponent {
     SearchData.appointment_date = this.Record.mark_appointment_date;
 
     this.loading = true;
-    this.ErrorMessage = '';
-    this.mainService.EmailVisitDetails(SearchData)
+    this.ms.state.ErrorMessage = '';
+    this.ms.EmailVisitDetails(SearchData)
       .subscribe(response => {
         this.loading = false;
         this.AttachList = new Array<any>();
@@ -860,8 +893,8 @@ export class MarketingComponent {
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
