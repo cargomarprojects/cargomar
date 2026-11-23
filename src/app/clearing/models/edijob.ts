@@ -70,6 +70,9 @@ export class EdiJob {
   isconsbuyersame: boolean;
   rec_branch_code: string;
 
+  to_order_name: string;
+  to_order_address: string;
+
   PackingList: EdiJobPacking[] = [];
   rec_mode: string;
   _globalvariables: GlobalVariables;
