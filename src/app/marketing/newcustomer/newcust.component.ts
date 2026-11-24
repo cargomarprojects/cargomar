@@ -24,42 +24,42 @@ export class NewCustComponent {
     modal: any;
     disableSave = true;
     loading = false;
-    currentTab = 'LIST';
+    /// currentTab = 'LIST';
 
-    selectedRowIndex = 0;
+    /// selectedRowIndex = 0;
 
     Is_NewCustomer = false;
-    Is_Nomination = false;
+    /// Is_Nomination = false;
     Is_Clearing = false;
     Is_Forwarding = true;
     Is_Both = true;
     Is_DaysAbove365 = true;
 
     searchMode = "ALL";
-    searchType = "ALL";
-    searchstring = '';
+    /// searchType = "ALL";
+    /// searchstring = '';
 
-    page_count = 0;
-    page_current = 0;
-    page_rows = 0;
-    page_rowcount = 0;
+    /// page_count = 0;
+    /// page_current = 0;
+    /// page_rows = 0;
+    /// page_rowcount = 0;
 
     sub: any;
     urlid: string;
 
-    ErrorMessage = "";
-    InfoMessage = "";
-    fromdate = "";
+    /// ErrorMessage = "";
+    /// InfoMessage = "";
+    /// fromdate = "";
     todate = "";
-    mode = '';
-    pkid = '';
+    /// mode = '';
+    /// pkid = '';
 
     listHdr_Clearing = false;
     listHdr_Forwarding = true;
     listHdr_Both = true;
     processdate = '';
     // Array For Displaying List
-    RecordList: NewCustReport[] = [];
+    /// RecordList: NewCustReport[] = [];
     // Single Record for add/edit/view details
     Record: NewCustReport = new NewCustReport;
 
@@ -69,14 +69,14 @@ export class NewCustComponent {
 
     constructor(
         private modalService: NgbModal,
-        private mainService: NewCustomerService,
+        public ms: NewCustomerService,
         private route: ActivatedRoute,
         public gs: GlobalService
 
     ) {
-        this.page_count = 0;
-        this.page_rows = 20;
-        this.page_current = 0;
+        /// this.page_count = 0;
+        /// this.page_rows = 20;
+        /// this.page_current = 0;
         this.InitLov();
         // URL Query Parameter 
         this.sub = this.route.queryParams.subscribe(params => {
@@ -95,6 +95,12 @@ export class NewCustComponent {
         if (!this.InitCompleted) {
             this.InitComponent();
         }
+        this.ms.init(this.menuid, this.type);
+        if(!this.ms.state.Initialized){
+            this.LoadCombo(); // to load from date once only
+            this.List('NEW');
+            this.ms.state.Initialized = true;
+        }
     }
 
     InitComponent() {
@@ -111,12 +117,33 @@ export class NewCustComponent {
             if (this.menu_record.rights_print)
                 this.bPrint = true;
         }
-        this.LoadCombo();
+        /// this.LoadCombo();
     }
 
     // Destroy Will be called when this component is closed
     ngOnDestroy() {
         this.sub.unsubscribe();
+    }
+
+    /// for restore selected row in list
+    ngAfterViewInit() {
+        this.restoreRowPosition();
+    }
+
+    restoreRowPosition(){
+        setTimeout(() => {
+            this.scrollToRowPosition();
+        }, 100);
+    }
+
+    scrollToRowPosition() {
+        const row = document.getElementById('row-' + this.ms.state.selectedRowIndex);
+        if (row) {
+            row.scrollIntoView({
+            behavior: 'auto',
+            block: 'center'
+            });
+        }
     }
 
     InitLov() {
@@ -131,18 +158,18 @@ export class NewCustComponent {
             branch_code: this.gs.globalVariables.branch_code
         };
 
-        this.ErrorMessage = '';
-        this.InfoMessage = '';
-        this.mainService.LoadDefault(SearchData)
+        this.ms.state.ErrorMessage = '';
+        this.ms.state.InfoMessage = '';
+        this.ms.LoadDefault(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                this.fromdate = response.fromdate;
-                this.List('NEW');
+                this.ms.state.fromdate = response.fromdate;
+                /// this.List('NEW');
             },
                 error => {
                     this.loading = false;
-                    this.ErrorMessage = this.gs.getError(error);
-                    alert(this.ErrorMessage);
+                    this.ms.state.ErrorMessage = this.gs.getError(error);
+                    alert(this.ms.state.ErrorMessage);
                 });
     }
 
@@ -155,11 +182,11 @@ export class NewCustComponent {
     List(_type: string) {
 
         if (_type == 'PROCESS-REPORT') {
-            if (this.gs.isBlank(this.fromdate)) {
+            if (this.gs.isBlank(this.ms.state.fromdate)) {
                 alert('From date cannot be blank?');
                 return;
             }
-            if (!confirm('Process Report start from ' + this.gs.ConvertDate2DisplayFormat(this.fromdate)))
+            if (!confirm('Process Report start from ' + this.gs.ConvertDate2DisplayFormat(this.ms.state.fromdate)))
                 return;
         }
 
@@ -184,26 +211,28 @@ export class NewCustComponent {
             iscompany: this.IsCompany,
             isadmin: this.IsAdmin,
             isnewcustomer: this.Is_NewCustomer,
-            isnomination: this.Is_Nomination,
+            isnomination: this.ms.state.Is_Nomination,
             isclearing: this.Is_Clearing,
             isforwarding: this.Is_Forwarding,
             isboth: this.Is_Both,
             isdaysabove365: this.Is_DaysAbove365,
-            page_count: this.page_count,
-            page_current: this.page_current,
-            page_rows: this.page_rows,
-            page_rowcount: this.page_rowcount,
+            page_count: this.ms.state.page_count,
+            page_current: this.ms.state.page_current,
+            page_rows: this.ms.state.page_rows,
+            page_rowcount: this.ms.state.page_rowcount,
             report_folder: this.gs.globalVariables.report_folder,
             searchmode: this.searchMode,
-            searchtype: this.searchType,
-            searchstring: this.searchstring,
-            fromdate: this.fromdate,
+            searchtype: this.ms.state.searchType,
+            searchstring: this.ms.state.searchstring,
+            fromdate: this.ms.state.fromdate,
             todate: this.todate
         };
 
-        this.ErrorMessage = '';
-        this.InfoMessage = '';
-        this.mainService.List(SearchData)
+        this.ms.state.selectedRowIndex = 0;
+        this.restoreRowPosition();
+        this.ms.state.ErrorMessage = '';
+        this.ms.state.InfoMessage = '';
+        this.ms.List(SearchData)
             .subscribe(response => {
                 this.loading = false;
                 if (_type == 'EXCEL')
@@ -212,17 +241,17 @@ export class NewCustComponent {
                     alert('Successfully Processed');
                 }
                 else {
-                    this.RecordList = response.list;
-                    this.page_count = response.page_count;
-                    this.page_current = response.page_current;
-                    this.page_rowcount = response.page_rowcount;
+                    this.ms.state.RecordList = response.list;
+                    this.ms.state.page_count = response.page_count;
+                    this.ms.state.page_current = response.page_current;
+                    this.ms.state.page_rowcount = response.page_rowcount;
                     this.processdate = response.processdate;
                 }
             },
                 error => {
                     this.loading = false;
-                    this.ErrorMessage = this.gs.getError(error);
-                    alert(this.ErrorMessage);
+                    this.ms.state.ErrorMessage = this.gs.getError(error);
+                    alert(this.ms.state.ErrorMessage);
                 });
     }
 
@@ -243,13 +272,13 @@ export class NewCustComponent {
     OnBlur(field: string) {
 
         if (field == 'searchstring') {
-            this.searchstring = this.searchstring.toUpperCase();
+            this.ms.state.searchstring = this.ms.state.searchstring.toUpperCase();
         }
 
     }
 
     OnChange(field: string) {
-        this.RecordList = null;
+        this.ms.state.RecordList = [];
     }
 
     Close() {
