@@ -24,17 +24,17 @@ export class SalesleadComponent {
     modal: any;
     disableSave = true;
     loading = false;
-    currentTab = 'LIST';
+    /// currentTab = 'LIST';
 
-    from_date: string;
-    to_date: string;
-    searchstring = '';
-    searchstatus = 'ALL';
-    searchconverted = 'ALL';
-    page_count = 0;
-    page_current = 0;
-    page_rows = 0;
-    page_rowcount = 0;
+    /// from_date: string;
+    /// to_date: string;
+    /// searchstring = '';
+    /// searchstatus = 'ALL';
+    /// searchconverted = 'ALL';
+    /// page_count = 0;
+    /// page_current = 0;
+    /// page_rows = 0;
+    /// page_rowcount = 0;
 
     sub: any;
     urlid: string;
@@ -49,11 +49,11 @@ export class SalesleadComponent {
         followupstatus: ''
     };
 
-    ErrorMessage = "";
-    InfoMessage = "";
+    /// ErrorMessage = "";
+    /// InfoMessage = "";
     clientType = "";
-    mode = '';
-    pkid = '';
+    /// mode = '';
+    /// pkid = '';
     sSubject: string = '';
     sMsg: string = '';
     sHtml: string = '';
@@ -63,7 +63,7 @@ export class SalesleadComponent {
     showclosebutton: boolean = true;
     AgentList: any[] = [];
     // Array For Displaying List
-    RecordList: MarkSalesleadm[] = [];
+    /// RecordList: MarkSalesleadm[] = [];
     // Single Record for add/edit/view details
     Record: MarkSalesleadm = new MarkSalesleadm;
 
@@ -85,16 +85,16 @@ export class SalesleadComponent {
 
     constructor(
         private modalService: NgbModal,
-        private mainService: MarkSalesleadService,
+        public ms: MarkSalesleadService,
         private route: ActivatedRoute,
         public gs: GlobalService
 
     ) {
 
 
-        this.page_count = 0;
-        this.page_rows = 25;
-        this.page_current = 0;
+        /// this.page_count = 0;
+        /// this.page_rows = 25;
+        /// this.page_current = 0;
 
 
         this.InitLov();
@@ -117,12 +117,23 @@ export class SalesleadComponent {
         if (!this.InitCompleted) {
             this.InitComponent();
         }
-        this.List('NEW');
+        this.ms.init(this.menuid, this.type);
+        
+        /// to load add/edit screen when selected
+        if (this.ms.state.mode == "ADD")
+            this.ActionHandler('ADD', '');
+        else if (this.ms.state.mode == "EDIT")
+            this.ActionHandler('EDIT', this.ms.state.pkid);
+
+        if(!this.ms.state.Initialized){
+            this.List('NEW');
+            this.ms.state.Initialized = true;
+        }
     }
 
     InitComponent() {
-        this.from_date = '';
-        this.to_date = '';
+        /// this.from_date = '';
+        /// this.to_date = '';
         this.IsAdmin = false;
         this.IsCompany = false;
         this.bPrint = false;
@@ -150,6 +161,26 @@ export class SalesleadComponent {
         this.sub.unsubscribe();
     }
 
+    /// for restore selected row in list
+    ngAfterViewInit() {
+        this.restoreRowPosition();
+    }
+
+    restoreRowPosition(){
+        setTimeout(() => {
+            this.scrollToRowPosition();
+        }, 100);
+    }
+
+    scrollToRowPosition() {
+        const row = document.getElementById('row-' + this.ms.state.selectedRowIndex);
+        if (row) {
+            row.scrollIntoView({
+            behavior: 'auto',
+            block: 'center'
+            });
+        }
+    }
 
     InitLov() {
 
@@ -223,18 +254,18 @@ export class SalesleadComponent {
         SearchData.comp_code = this.gs.globalVariables.comp_code;
         SearchData.branch_code = this.gs.globalVariables.branch_code;
 
-        this.ErrorMessage = '';
-        this.InfoMessage = '';
-        this.mainService.LoadDefault(SearchData)
-            .subscribe(response => {
-                this.loading = false;
+        this.ms.state.ErrorMessage = '';
+        this.ms.state.InfoMessage = '';
+        this.ms.LoadDefault(SearchData)
+           .subscribe(response => {
+               this.loading = false;
                 this.AgentList = response.agentlist;
 
             },
                 error => {
                     this.loading = false;
-                    this.ErrorMessage = this.gs.getError(error);
-                    alert(this.ErrorMessage);
+                    this.ms.state.ErrorMessage = this.gs.getError(error);
+                    alert(this.ms.state.ErrorMessage);
                 });
     }
 
@@ -309,25 +340,26 @@ export class SalesleadComponent {
 
     //function for handling LIST/NEW/EDIT Buttons
     ActionHandler(action: string, id: string) {
-        this.ErrorMessage = '';
-        this.InfoMessage = '';
+        this.ms.state.ErrorMessage = '';
+        this.ms.state.InfoMessage = '';
         if (action == 'LIST') {
-            this.mode = '';
-            this.pkid = '';
-            this.currentTab = 'LIST';
+            this.ms.state.mode = '';
+            this.ms.state.pkid = '';
+            this.ms.state.currentTab = 'LIST';
+            this.restoreRowPosition();
         }
         else if (action === 'ADD') {
-            this.currentTab = 'DETAILS';
-            this.mode = 'ADD';
+            this.ms.state.currentTab = 'DETAILS';
+            this.ms.state.mode = 'ADD';
             this.ResetControls();
             this.NewRecord();
-            this.ActionsRecord.parent_id = this.pkid;
+            this.ActionsRecord.parent_id = this.ms.state.pkid;
         }
         else if (action === 'EDIT') {
-            this.currentTab = 'DETAILS';
-            this.mode = 'EDIT';
+            this.ms.state.currentTab = 'DETAILS';
+            this.ms.state.mode = 'EDIT';
             this.ResetControls();
-            this.pkid = id;
+            this.ms.state.pkid = id;
             this.GetRecord(id);
             this.ActionsRecord.parent_id = id;
         }
@@ -342,10 +374,10 @@ export class SalesleadComponent {
         if (this.menu_record.rights_admin)
             this.disableSave = false;
 
-        if (this.mode == "ADD" && this.menu_record.rights_add)
+        if (this.ms.state.mode == "ADD" && this.menu_record.rights_add)
             this.disableSave = false;
 
-        if (this.mode == "EDIT" && this.menu_record.rights_edit)
+        if (this.ms.state.mode == "EDIT" && this.menu_record.rights_edit)
             this.disableSave = false;
 
         return this.disableSave;
@@ -360,11 +392,11 @@ export class SalesleadComponent {
         let SearchData = {
             type: _type,
             rowtype: this.type,
-            searchstring: this.searchstring.toUpperCase(),
-            page_count: this.page_count,
-            page_current: this.page_current,
-            page_rows: this.page_rows,
-            page_rowcount: this.page_rowcount,
+            searchstring: this.ms.state.searchstring.toUpperCase(),
+            page_count: this.ms.state.page_count,
+            page_current: this.ms.state.page_current,
+            page_rows: this.ms.state.page_rows,
+            page_rowcount: this.ms.state.page_rowcount,
             company_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
             year_code: this.gs.globalVariables.year_code,
@@ -372,32 +404,33 @@ export class SalesleadComponent {
             user_code: this.gs.globalVariables.user_code,
             iscompany: this.IsCompany,
             isadmin: this.IsAdmin,
-            searchstatus: this.searchstatus,
+            searchstatus: this.ms.state.searchstatus,
             report_folder: this.gs.globalVariables.report_folder,
             bwithfollowup: this.bWithFollowup,
-            from_date: this.from_date,
-            to_date: this.to_date,
-            searchconverted: this.searchconverted
+            from_date: this.ms.state.from_date,
+            to_date: this.ms.state.to_date,
+            searchconverted: this.ms.state.searchconverted
         };
-
-        this.ErrorMessage = '';
-        this.InfoMessage = '';
-        this.mainService.List(SearchData)
+        this.ms.state.selectedRowIndex = 0;
+        this.restoreRowPosition();
+        this.ms.state.ErrorMessage = '';
+        this.ms.state.InfoMessage = '';
+        this.ms.List(SearchData)
             .subscribe(response => {
                 this.loading = false;
                 if (_type == 'EXCEL')
                     this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
                 else {
-                    this.RecordList = response.list;
-                    this.page_count = response.page_count;
-                    this.page_current = response.page_current;
-                    this.page_rowcount = response.page_rowcount;
+                    this.ms.state.RecordList = response.list;
+                    this.ms.state.page_count = response.page_count;
+                    this.ms.state.page_current = response.page_current;
+                    this.ms.state.page_rowcount = response.page_rowcount;
                 }
             },
                 error => {
                     this.loading = false;
-                    this.ErrorMessage = this.gs.getError(error);
-                    alert(this.ErrorMessage);
+                    this.ms.state.ErrorMessage = this.gs.getError(error);
+                    alert(this.ms.state.ErrorMessage);
                 });
     }
 
@@ -407,9 +440,9 @@ export class SalesleadComponent {
 
     NewRecord() {
 
-        this.pkid = this.gs.getGuid();
+        this.ms.state.pkid = this.gs.getGuid();
         this.Record = new MarkSalesleadm();
-        this.Record.msl_pkid = this.pkid;
+        this.Record.msl_pkid = this.ms.state.pkid;
         this.Record.msl_slno = 0;
         this.Record.msl_location_id = "";
         this.Record.msl_location_name = this.gs.globalVariables.branch_name;
@@ -458,7 +491,7 @@ export class SalesleadComponent {
         this.Record.msl_buyagent_code = "";
         this.Record.msl_buyagent_name = "";
 
-        this.Record.rec_mode = this.mode;
+        this.Record.rec_mode = this.ms.state.mode;
         this.Record.rec_user_id = this.gs.globalVariables.user_pkid;
         this.InitLov();
     }
@@ -474,17 +507,17 @@ export class SalesleadComponent {
             pkid: Id,
         };
 
-        this.ErrorMessage = '';
-        this.InfoMessage = '';
-        this.mainService.GetRecord(SearchData)
+        this.ms.state.ErrorMessage = '';
+        this.ms.state.InfoMessage = '';
+        this.ms.GetRecord(SearchData)
             .subscribe(response => {
                 this.loading = false;
                 this.LoadData(response.record);
             },
                 error => {
                     this.loading = false;
-                    this.ErrorMessage = this.gs.getError(error);
-                    alert(this.ErrorMessage);
+                    this.ms.state.ErrorMessage = this.gs.getError(error);
+                    alert(this.ms.state.ErrorMessage);
                 });
     }
 
@@ -525,37 +558,37 @@ export class SalesleadComponent {
     // Save Data
     Save() {
         if (!this.allvalid()) {
-            alert(this.ErrorMessage);
+            alert(this.ms.state.ErrorMessage);
             return;
         }
 
         this.loading = true;
-        this.ErrorMessage = '';
-        this.InfoMessage = '';
+        this.ms.state.ErrorMessage = '';
+        this.ms.state.InfoMessage = '';
         this.Record._globalvariables = this.gs.globalVariables;
 
-        this.mainService.Save(this.Record)
+        this.ms.Save(this.Record)
             .subscribe(response => {
                 this.loading = false;
-                if (this.mode == "ADD")
+                if (this.ms.state.mode == "ADD")
                     this.Record.msl_slno = response.slno;
-                this.mode = 'EDIT';
-                this.Record.rec_mode = this.mode;
-                this.InfoMessage = "Save Complete";
+                this.ms.state.mode = 'EDIT';
+                this.Record.rec_mode = this.ms.state.mode;
+                this.ms.state.InfoMessage = "Save Complete";
                 this.RefreshList();
             },
                 error => {
                     this.loading = false;
-                    this.ErrorMessage = this.gs.getError(error);
-                    alert(this.ErrorMessage);
+                    this.ms.state.ErrorMessage = this.gs.getError(error);
+                    alert(this.ms.state.ErrorMessage);
                 });
     }
 
     allvalid() {
         let sError: string = "";
         let bret: boolean = true;
-        this.ErrorMessage = '';
-        this.InfoMessage = '';
+        this.ms.state.ErrorMessage = '';
+        this.ms.state.InfoMessage = '';
 
         // if (this.gs.isBlank(this.Record.msl_shipper_name)) {
         //     bret = false;
@@ -584,11 +617,12 @@ export class SalesleadComponent {
 
     RefreshList() {
 
-        if (this.RecordList == null)
+        if (this.ms.state.RecordList == null)
             return;
-        var REC = this.RecordList.find(rec => rec.msl_pkid == this.Record.msl_pkid);
+        var REC = this.ms.state.RecordList.find(rec => rec.msl_pkid == this.Record.msl_pkid);
         if (REC == null) {
-            this.RecordList.push(this.Record);
+            this.ms.state.RecordList.push(this.Record);
+            this.ms.state.selectedRowIndex = this.ms.state.RecordList.length - 1;
         }
         else {
             REC.msl_date = this.Record.msl_date;
@@ -699,7 +733,7 @@ export class SalesleadComponent {
             this.Record.msl_recommendation = this.Record.msl_recommendation.toUpperCase();
         }
         if (field == 'searchstring') {
-            this.searchstring = this.searchstring.trim().toUpperCase();
+            this.ms.state.searchstring = this.ms.state.searchstring.trim().toUpperCase();
         }
 
 
@@ -723,7 +757,7 @@ export class SalesleadComponent {
         if (comments.saction == "CLOSE")
             _rec.rowdisplayed = false;
         if (comments.saction == "SAVE") {
-            for (let rec of this.RecordList.filter(rec => rec.msl_pkid == _rec.msl_pkid)) {
+            for (let rec of this.ms.state.RecordList.filter(rec => rec.msl_pkid == _rec.msl_pkid)) {
                 rec.msl_followupcount = comments.sfollowupcount;
             }
         }
@@ -741,9 +775,9 @@ export class SalesleadComponent {
             bwithfollowup: this.bWithFollowup
         };
 
-        this.ErrorMessage = '';
-        this.InfoMessage = '';
-        this.mainService.PrintSaleslead(SearchData)
+        this.ms.state.ErrorMessage = '';
+        this.ms.state.InfoMessage = '';
+        this.ms.PrintSaleslead(SearchData)
             .subscribe(response => {
                 this.loading = false;
                 if (_type == 'EXCEL') {
@@ -761,19 +795,19 @@ export class SalesleadComponent {
             },
                 error => {
                     this.loading = false;
-                    this.ErrorMessage = this.gs.getError(error);
-                    alert(this.ErrorMessage);
+                    this.ms.state.ErrorMessage = this.gs.getError(error);
+                    alert(this.ms.state.ErrorMessage);
                 });
 
     }
 
     ShowDocuments(doc: any) {
-        this.ErrorMessage = '';
+        this.ms.state.ErrorMessage = '';
         this.open(doc);
     }
 
     ShowClientModal(content: any, _clientType: string) {
-        this.ErrorMessage = '';
+        this.ms.state.ErrorMessage = '';
         this.clientType = _clientType;
         this.open(content);
     }

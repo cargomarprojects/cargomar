@@ -74,3 +74,53 @@ export class MarkSalesleadd {
     _globalvariables: GlobalVariables;
 
 }
+
+export interface iMarkSalesleadmModel {
+  // filter Values
+  Initialized: boolean;
+  selectedRowIndex: number;
+  mode: string;
+  pkid: string;
+  list_format: string;
+  currentTab: string;
+  RecordList: MarkSalesleadm[];
+
+  InfoMessage: string;
+  ErrorMessage: string;
+
+  from_date: string;
+  to_date: string;
+  searchstring: string;
+  searchstatus: string;
+  searchconverted: string;
+
+  // Page Values
+  page_count: number;
+  page_current: number;
+  page_rows: number;
+  page_rowcount: number;
+};
+
+export const initialState: iMarkSalesleadmModel = {
+  Initialized: false,
+  selectedRowIndex: 0,
+  mode: '',
+  pkid: '',
+  list_format: '',
+  currentTab: 'LIST',
+  RecordList: [],
+
+  InfoMessage: '',
+  ErrorMessage: '',
+
+  from_date: '',
+  to_date: '',
+  searchstring: '',
+  searchstatus: '',
+  searchconverted: '',
+
+  page_count: 0,
+  page_current: 0,
+  page_rows: 25,
+  page_rowcount: 0
+}
