@@ -1,27 +1,34 @@
 <div class="modal-css" *ngIf="visible">
   <div class="modal-body-css">
-    <div class="table-responsive">
+    <div class="table-responsive fixedTableHead" [style.height]="RecordList.length>5?'250px':'auto'"
+      [style.overflow-y]="RecordList.length>5?'scroll':'auto'">
       <table class="table  table-hover table-sm">
         <thead class="page-body-thead">
           <tr>
-            <th width="15%">BRANCH</th>
-            <th width="15%">BALANCE</th>
-            <th width="15%">OVERDUE-AMT</th>
-            <th width="15%">OVERDUE-DAYS</th>
+            <th>CUSTOMER</th>
+            <th>BRANCH</th>
+            <th>OS-AMT</th>
+            <th>CR-LIMIT</th>
+            <th>CR-DAYS</th>
+            <th>OVERDUE-AMT</th>
+            <th>OVERDUE-DAYS</th>
           </tr>
         </thead>
         <tbody class="page-body-tbody">
-          <tr *ngFor="let rec of RecordList">
+          <tr *ngFor="let rec of RecordList" [style.color]="rec.custname=='TOTAL'?'red':''">
+            <td>{{rec.custname}}</td>
             <td>{{rec.brcode}}</td>
-            <td>{{rec.creditamt}}</td>
-            <td>{{rec.overdueamt}}</td>
-            <td>{{rec.overduedays}}</td>
+            <td>{{rec.creditamt===0?'':rec.creditamt}}</td>
+            <td>{{rec.creditlimit===0?'':rec.creditlimit}}</td>
+            <td>{{rec.creditdays===0?'':rec.creditdays}}</td>
+            <td>{{rec.overdueamt===0?'':rec.overdueamt}}</td>
+            <td>{{rec.overduedays===0?'':rec.overduedays}}</td>
           </tr>
         </tbody>
       </table>
-      <div class="center-content">
+      <!-- <div class="center-content">
         {{msg}}
-      </div>
+      </div> -->
       <div *ngIf="!type" class="center-content">
         <button class="btn btn-sm btn-primary" (click)="close1()">Close</button>
       </div>
@@ -29,8 +36,9 @@
     <div *ngIf="type" style="background-color: beige;">
       <hr class="mt-1">
       <div class="row mt-1">
-        <label style="color:red;text-align: center; " class="col-12 col-form-label col-form-label-sm">UNLOCK REQUEST -
-          {{customername}}</label>
+        <label style="color:red;text-align: center; " class="col-12 col-form-label col-form-label-sm">UNLOCK REQUEST
+          <!-- {{customername}} -->
+        </label>
       </div>
       <hr class="mt-1">
       <div class="row mt-2">
@@ -38,7 +46,8 @@
           <div class="form-group row">
             <label class="col-sm-8 col-form-label col-form-label-sm">Expected Billing Amount</label>
             <div class="col-sm-4">
-              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record2.ul_expected_bill_amt" required maxlength="15" />
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record2.ul_expected_bill_amt"
+                required maxlength="15" />
             </div>
           </div>
           <div class="form-group row">
@@ -52,7 +61,8 @@
           <div class="form-group row">
             <label class="col-sm-8 col-form-label col-form-label-sm">Required Job Nos</label>
             <div class="col-sm-4">
-              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record2.ul_job_nos_required" required maxlength="2" />
+              <input type="number" class="form-control form-control-sm" [(ngModel)]="Record2.ul_job_nos_required"
+                required maxlength="2" />
             </div>
           </div>
         </div>
@@ -60,8 +70,8 @@
           <div class="form-group row">
             <label class="col-sm-2 col-form-label col-form-label-sm">Remarks</label>
             <div class="col-sm-10">
-              <textarea rows="2" class="form-control form-control-sm" [(ngModel)]="Record2.ul_user_remarks" (blur)="OnBlur('ul_user_remarks')"
-                 maxlength="250"></textarea>
+              <textarea rows="2" class="form-control form-control-sm" [(ngModel)]="Record2.ul_user_remarks"
+                (blur)="OnBlur('ul_user_remarks')" maxlength="250"></textarea>
             </div>
           </div>
           <div class="form-group row">
