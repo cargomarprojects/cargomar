@@ -89,7 +89,7 @@
                 <th>TO</th>
                 <th>SUBJECT</th>
                 <th>MSG-DATE</th>
-                <th>EDIT</th>
+                <th *ngIf="bSave">EDIT</th>
                 <th>JOB-SL#</th>
                 <th>REFNO</th>
                 <th>REFDATE</th>
@@ -122,7 +122,7 @@
                 <td>{{rec.msg_to_id}}</td>
                 <td>{{rec.msg_subject}}</td>
                 <td>{{rec.msg_date}}</td>
-                <td class="hlink" (click)="editRecord(rec.pkid,jobedit)"><i class="fa fa-pencil fa-md pointer " aria-hidden="true"></i></td>
+                <td *ngIf="bSave" class="hlink" (click)="editRecord(rec.pkid,jobedit)"><i class="fa fa-pencil fa-md pointer " aria-hidden="true"></i></td>
                 <td>{{rec.job_slno}}</td>
                 <td>{{rec.job_ref_no}}</td>
                 <td>{{rec.job_ref_date}}</td>

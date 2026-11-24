@@ -38,6 +38,7 @@ export class EdijobComponent {
   pkid = '';
   searchValue1 = "";
 
+   bSave: boolean = false;
   selectedCount = 0;
   chkallselected: boolean = false;
   selectdeselect: boolean = false;
@@ -100,6 +101,7 @@ export class EdijobComponent {
     this.bExcel = false;
     this.bCompany = false;
     this.bAdmin = false;
+    this.bSave = false;
     this.menu_record = this.gs.getMenu(this.menuid);
     if (this.menu_record) {
       this.title = this.menu_record.menu_name;
@@ -109,6 +111,8 @@ export class EdijobComponent {
         this.bAdmin = true;
       if (this.menu_record.rights_print)
         this.bExcel = true;
+        if (this.menu_record.rights_approval.toString().indexOf('{UPDT}') >= 0 || this.gs.globalVariables.user_code == "ADMIN")
+          this.bSave = true;
     }
     this.Init();
     this.initLov();
