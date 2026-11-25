@@ -121,7 +121,7 @@ export class SalesleadComponent {
         
         /// to load add/edit screen when selected
         if (this.ms.state.mode == "ADD")
-            this.ActionHandler('ADD', '');
+            this.ActionHandler('LIST', '');
         else if (this.ms.state.mode == "EDIT")
             this.ActionHandler('EDIT', this.ms.state.pkid);
 
