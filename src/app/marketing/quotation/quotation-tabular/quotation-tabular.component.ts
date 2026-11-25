@@ -58,26 +58,26 @@ export class QuotationTabularComponent {
   InitCompleted: boolean = false;
   menu_record: any;
 
-  selectedRowIndex = 0;
+  /// selectedRowIndex = 0;
   disableSave = true;
   loading = false;
-  currentTab = 'LIST';
-  mode = '';                 // 'ADD' | 'EDIT' | 'VIEW'
-  pkid = '';
+  /// currentTab = 'LIST';
+  /// mode = '';                 // 'ADD' | 'EDIT' | 'VIEW'
+  /// pkid = '';
 
   freetimelabel = '';
   freetimeorder = 1;
   freetimetype = 'STRING';
   jsonstring = '';
-  searchstring = '';
-  page_count = 0;
-  page_current = 0;
-  page_rows = 0;
-  page_rowcount = 0;
+  /// searchstring = '';
+  /// page_count = 0;
+  /// page_current = 0;
+  /// page_rows = 0;
+  /// page_rowcount = 0;
 
   sub: any;
-  ErrorMessage = '';
-  InfoMessage = '';
+  /// ErrorMessage = '';
+  /// InfoMessage = '';
 
   carrier_lov = 'SEA CARRIER';
   acc_sWhere = " actype_name in ('DIRECT EXPENSE','INDIRECT EXPENSE','DIRECT INCOME','INDIRECT INCOME') ";
@@ -86,7 +86,7 @@ export class QuotationTabularComponent {
   IsCompany: boolean = false;
   bPrint: boolean = false;
 
-  RecordList: Mark_Qtnm[] = [];
+  /// RecordList: Mark_Qtnm[] = [];
   Record: Mark_Qtnm = new Mark_Qtnm;
 
   // Notes (per quotation) + Terms & Conditions (template per quotation type)
@@ -118,13 +118,13 @@ export class QuotationTabularComponent {
   codeFocusRow = '';
 
   constructor(
-    private mainService: QuotationTabularService,
+    public ms: QuotationTabularService,
     private route: ActivatedRoute,
     public gs: GlobalService
   ) {
-    this.page_count = 0;
-    this.page_rows = 25;
-    this.page_current = 0;
+    /// this.page_count = 0;
+    /// this.page_rows = 25;
+    /// this.page_current = 0;
 
     this.sub = this.route.queryParams.subscribe(params => {
 
@@ -145,10 +145,43 @@ export class QuotationTabularComponent {
     if (!this.InitCompleted) {
       this.InitComponent();
     }
+    this.ms.init(this.menuid, this.type);
+        
+    /// to load add/edit screen when selected
+    if (this.ms.state.mode == "ADD")
+        this.ActionHandler('LIST', '');
+    else if (this.ms.state.mode == "EDIT")
+        this.ActionHandler('EDIT', this.ms.state.pkid);
+
+    if(!this.ms.state.Initialized){
+        this.List('NEW');
+        this.ms.state.Initialized = true;
+    }
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+  }
+
+  /// for restore selected row in list
+  ngAfterViewInit() {
+      this.restoreRowPosition();
+  }
+
+  restoreRowPosition(){
+      setTimeout(() => {
+          this.scrollToRowPosition();
+      }, 100);
+  }
+
+  scrollToRowPosition() {
+      const row = document.getElementById('row-' + this.ms.state.selectedRowIndex);
+      if (row) {
+          row.scrollIntoView({
+          behavior: 'auto',
+          block: 'center'
+          });
+      }
   }
 
   InitComponent() {
@@ -175,9 +208,9 @@ export class QuotationTabularComponent {
       branch_code: this.gs.globalVariables.branch_code,
       type: this.type,
     };
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.LoadDefault(SearchData)
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
+    this.ms.LoadDefault(SearchData)
       .subscribe(response => {
         this.loading = false;
         this.FullTermList = response.termlist;
@@ -200,37 +233,38 @@ export class QuotationTabularComponent {
           }
         });
 
-        this.List('NEW');
+        /// this.List('NEW');
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
   // ----- LIST -------------------------------------------------------------
 
   ActionHandler(action: string, id: string) {
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
     this.jsonstring = '';
     if (action == 'LIST') {
-      this.mode = '';
-      this.pkid = '';
-      this.currentTab = 'LIST';
+      this.ms.state.mode = '';
+      this.ms.state.pkid = '';
+      this.ms.state.currentTab = 'LIST';
+      this.restoreRowPosition();
     }
     else if (action === 'ADD') {
-      this.currentTab = 'DETAILS';
-      this.mode = 'ADD';
+      this.ms.state.currentTab = 'DETAILS';
+      this.ms.state.mode = 'ADD';
       this.ResetControls();
       this.NewRecord();
     }
     else if (action === 'EDIT') {
-      this.currentTab = 'DETAILS';
-      this.mode = 'EDIT';                 // selecting a quote opens it directly editable
+      this.ms.state.currentTab = 'DETAILS';
+      this.ms.state.mode = 'EDIT';                 // selecting a quote opens it directly editable
       this.ResetControls();
-      this.pkid = id;
+      this.ms.state.pkid = id;
       this.GetRecord(id);
     }
   }
@@ -241,9 +275,9 @@ export class QuotationTabularComponent {
       return;
     if (this.menu_record.rights_admin)
       this.disableSave = false;
-    if (this.mode == 'ADD' && this.menu_record.rights_add)
+    if (this.ms.state.mode == 'ADD' && this.menu_record.rights_add)
       this.disableSave = false;
-    if (this.mode == 'EDIT' && this.menu_record.rights_edit)
+    if (this.ms.state.mode == 'EDIT' && this.menu_record.rights_edit)
       this.disableSave = false;
   }
 
@@ -252,11 +286,11 @@ export class QuotationTabularComponent {
     let SearchData = {
       type: _type,
       rowtype: this.type,
-      searchstring: this.searchstring.toUpperCase(),
-      page_count: this.page_count,
-      page_current: this.page_current,
-      page_rows: this.page_rows,
-      page_rowcount: this.page_rowcount,
+      searchstring: this.ms.state.searchstring.toUpperCase(),
+      page_count: this.ms.state.page_count,
+      page_current: this.ms.state.page_current,
+      page_rows: this.ms.state.page_rows,
+      page_rowcount: this.ms.state.page_rowcount,
       company_code: this.gs.globalVariables.comp_code,
       branch_code: this.gs.globalVariables.branch_code,
       year_code: this.gs.globalVariables.year_code,
@@ -264,29 +298,31 @@ export class QuotationTabularComponent {
       iscompany: this.IsCompany,
       isadmin: this.IsAdmin
     };
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.List(SearchData)
+    this.ms.state.selectedRowIndex = 0;
+    this.restoreRowPosition();
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
+    this.ms.List(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.RecordList = response.list;
-        this.page_count = response.page_count;
-        this.page_current = response.page_current;
-        this.page_rowcount = response.page_rowcount;
+        this.ms.state.RecordList = response.list;
+        this.ms.state.page_count = response.page_count;
+        this.ms.state.page_current = response.page_current;
+        this.ms.state.page_rowcount = response.page_rowcount;
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
   // ----- NEW / LOAD -------------------------------------------------------
 
   NewRecord() {
-    this.pkid = this.gs.getGuid();
+    this.ms.state.pkid = this.gs.getGuid();
     this.Record = new Mark_Qtnm();
-    this.Record.qtnm_pkid = this.pkid;
+    this.Record.qtnm_pkid = this.ms.state.pkid;
     this.Record.qtnm_cfno = 0;
     this.Record.qtnm_no = '';
     this.Record.qtnm_type = this.type;      // PRD §3.5 discriminator
@@ -327,7 +363,7 @@ export class QuotationTabularComponent {
     this.Record.qtnm_incoterm = '';
     this.Record.qtnm_validity_dt = '';
     this.Record.rec_category = this.type;
-    this.Record.rec_mode = this.mode;
+    this.Record.rec_mode = this.ms.state.mode;
     this.Record.qtnm_detList = new Array<Mark_Qtnd>();
     this.Record.qtnm_detList2 = new Array<Mark_Qtnd2>();
     this.Record.qtnm_remList = new Array<GenRemarks>();
@@ -355,23 +391,23 @@ export class QuotationTabularComponent {
 
   GetRecord(Id: string) {
     this.loading = true;
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.GetRecord({ pkid: Id })
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
+    this.ms.GetRecord({ pkid: Id })
       .subscribe(response => {
         this.loading = false;
         this.LoadData(response.record);
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
   LoadData(_Record: Mark_Qtnm) {
     this.Record = _Record;
-    this.Record.rec_mode = this.mode;
+    this.Record.rec_mode = this.ms.state.mode;
     if (this.gs.isBlank(this.Record.qtnm_detList))
       this.Record.qtnm_detList = new Array<Mark_Qtnd>();
     if (this.gs.isBlank(this.Record.qtnm_detList2))
@@ -394,8 +430,8 @@ export class QuotationTabularComponent {
 
     this.PivotDetail();
     // duplicate-quotation: keep the grid but start a fresh header
-    if (this.mode == 'ADD') {
-      this.Record.qtnm_pkid = this.pkid;
+    if (this.ms.state.mode == 'ADD') {
+      this.Record.qtnm_pkid = this.ms.state.pkid;
       this.Record.qtnm_cfno = 0;
       this.Record.qtnm_no = '';
       this.Record.qtnm_date = this.gs.defaultValues.today;
@@ -562,7 +598,7 @@ export class QuotationTabularComponent {
   }
 
   RenameChip(_kind: string, chip: TabChip) {
-    if (this.mode == 'VIEW')
+    if (this.ms.state.mode == 'VIEW')
       return;
 
     let newName = prompt('Rename', chip.name);   // local label only; master unchanged
@@ -630,11 +666,11 @@ export class QuotationTabularComponent {
       add_pkid: controlid,
       add_parent_id: controlparentid
     };
-    this.ErrorMessage = '';
+    this.ms.state.ErrorMessage = '';
     this.gs.SearchRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
-        this.ErrorMessage = '';
+        this.ms.state.ErrorMessage = '';
         if (controlname == 'CUSTOMERADDRESS') {
           this.Record.qtnm_to_addr1 = '';
           this.Record.qtnm_to_addr2 = '';
@@ -650,14 +686,14 @@ export class QuotationTabularComponent {
           }
         }
         else {
-          this.ErrorMessage = 'Invalid Address';
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = 'Invalid Address';
+          alert(this.ms.state.ErrorMessage);
         }
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
@@ -827,7 +863,7 @@ export class QuotationTabularComponent {
 
   // all carrier columns are editable in ADD/EDIT (no single-carrier restriction)
   IsCellEditable(carrierCode: string): boolean {
-    return this.mode == 'ADD' || this.mode == 'EDIT';
+    return this.ms.state.mode == 'ADD' || this.ms.state.mode == 'EDIT';
   }
 
   // ----- EDIT / SAVE ------------------------------------------------------
@@ -848,7 +884,7 @@ export class QuotationTabularComponent {
             let exrate = this.GetExrate(curr.code);
             let d = new Mark_Qtnd();
             d.qtnd_pkid = this.gs.getGuid();
-            d.qtnd_parent_id = this.pkid;
+            d.qtnd_parent_id = this.ms.state.pkid;
             d.qtnd_type = 'CHARGE';
             d.qtnd_acc_id = ref.id;
             d.qtnd_acc_code = ref.code;
@@ -887,7 +923,7 @@ export class QuotationTabularComponent {
         iCtr++;
         let d = new Mark_Qtnd2();
         d.qtnd2_pkid = this.gs.getGuid();
-        d.qtnd2_parent_id = this.pkid;
+        d.qtnd2_parent_id = this.ms.state.pkid;
         d.qtnd2_carrier_id = carrier.id;
         d.qtnd2_carrier_code = carrier.code;
         d.qtnd2_carrier_name = carrier.name;
@@ -907,20 +943,20 @@ export class QuotationTabularComponent {
   }
 
   allvalid(): boolean {
-    this.ErrorMessage = '';
+    this.ms.state.ErrorMessage = '';
     if (this.gs.isBlank(this.Record.qtnm_to_name)) {
-      this.ErrorMessage = ' | Quote To Cannot be blank';
+      this.ms.state.ErrorMessage = ' | Quote To Cannot be blank';
       return false;
     }
     if (this.Carriers.length == 0 || this.Containers.length == 0 ||
       this.Currencies.length == 0 || this.Refs.length == 0) {
-      this.ErrorMessage = ' | Add at least one carrier, container, currency and charge';
+      this.ms.state.ErrorMessage = ' | Add at least one carrier, container, currency and charge';
       return false;
     }
     // description is mandatory for any row that has a rate entered (code is optional)
     for (let ref of this.Refs) {
       if (this.gs.isBlank(ref.name) && this.RefHasAmount(ref)) {
-        this.ErrorMessage = ' | Description cannot be blank';
+        this.ms.state.ErrorMessage = ' | Description cannot be blank';
         return false;
       }
     }
@@ -929,49 +965,50 @@ export class QuotationTabularComponent {
 
   Save() {
     if (!this.allvalid()) {
-      alert(this.ErrorMessage);
+      alert(this.ms.state.ErrorMessage);
       return;
     }
     this.BuildDetail();
     if (this.Record.qtnm_detList.length == 0) {
-      this.ErrorMessage = ' | Enter at least one rate';
-      alert(this.ErrorMessage);
+      this.ms.state.ErrorMessage = ' | Enter at least one rate';
+      alert(this.ms.state.ErrorMessage);
       return;
     }
     this.loading = true;
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
     this.Record.rec_category = this.type;
     this.Record.qtnm_type = this.type;
     this.Record._globalvariables = this.gs.globalVariables;
-    this.mainService.Save(this.Record)
+    this.ms.Save(this.Record)
       .subscribe(response => {
         this.loading = false;
-        if (this.mode == 'ADD') {
+        if (this.ms.state.mode == 'ADD') {
           this.Record.qtnm_no = response.qtnslno;
-          this.InfoMessage = 'New Quotation ' + this.Record.qtnm_no + ' Generated Successfully';
+          this.ms.state.InfoMessage = 'New Quotation ' + this.Record.qtnm_no + ' Generated Successfully';
         } else
-          this.InfoMessage = 'Save Complete';
-        this.mode = 'EDIT';
-        this.Record.rec_mode = this.mode;
+          this.ms.state.InfoMessage = 'Save Complete';
+        this.ms.state.mode = 'EDIT';
+        this.Record.rec_mode = this.ms.state.mode;
         this.Record.qtnm_detList = response.list;
         this.Record.qtnm_detList2 = response.list2;
         this.RefreshList();
-        alert(this.InfoMessage);
+        alert(this.ms.state.InfoMessage);
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
   RefreshList() {
-    if (this.RecordList == null)
+    if (this.ms.state.RecordList == null)
       return;
-    var REC = this.RecordList.find(rec => rec.qtnm_pkid == this.Record.qtnm_pkid);
+    var REC = this.ms.state.RecordList.find(rec => rec.qtnm_pkid == this.Record.qtnm_pkid);
     if (REC == null) {
-      this.RecordList.push(this.Record);
+      this.ms.state.RecordList.push(this.Record);
+      this.ms.state.selectedRowIndex = this.ms.state.RecordList.length - 1;
     } else {
       REC.qtnm_no = this.Record.qtnm_no;
       REC.qtnm_date = this.Record.qtnm_date;
@@ -1044,7 +1081,7 @@ export class QuotationTabularComponent {
   NewRemarkRecord() {
     let _Rec: GenRemarks = new GenRemarks;
     _Rec.gr_uid = this.gs.getGuid();
-    _Rec.gr_pkid = this.pkid;
+    _Rec.gr_pkid = this.ms.state.pkid;
     _Rec.gr_type = 'QUOTATION';
     _Rec.gr_subtype = this.Record.qtnm_type;
     _Rec.gr_remarks = '';
@@ -1075,41 +1112,41 @@ export class QuotationTabularComponent {
     _saveData.type = this.Record.qtnm_type;
     _saveData._globalvariables = this.gs.globalVariables;
     this.loading = true;
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.SaveTerms(_saveData)
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
+    this.ms.SaveTerms(_saveData)
       .subscribe(response => {
         this.loading = false;
-        this.InfoMessage = 'Save Complete';
-        alert(this.InfoMessage);
+        this.ms.state.InfoMessage = 'Save Complete';
+        alert(this.ms.state.InfoMessage);
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
   SaveQuotationJson() {
     this.loading = true;
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.SaveQuotationJson({ jsonstring: this.jsonstring })
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
+    this.ms.SaveQuotationJson({ jsonstring: this.jsonstring })
       .subscribe(response => {
         this.loading = false;
         if (response.qtnmode == 'ADD')
-          this.InfoMessage = "New Quotation " + response.qtnslno + " Generated Successfully";
+          this.ms.state.InfoMessage = "New Quotation " + response.qtnslno + " Generated Successfully";
         else
-          this.InfoMessage = "Quotation " + response.qtnslno + " Modified Successfully";
-        alert(this.InfoMessage);
+          this.ms.state.InfoMessage = "Quotation " + response.qtnslno + " Modified Successfully";
+        alert(this.ms.state.InfoMessage);
         //this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
-        this.ErrorMessage = response.qtnfile;
-        alert(this.ErrorMessage);
+        this.ms.state.ErrorMessage = response.qtnfile;
+        alert(this.ms.state.ErrorMessage);
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
@@ -1126,17 +1163,17 @@ export class QuotationTabularComponent {
       branch_code: this.gs.globalVariables.branch_code,
       user_name: this.gs.globalVariables.user_name
     };
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.PrintQuotation(SearchData)
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
+    this.ms.PrintQuotation(SearchData)
       .subscribe(response => {
         this.loading = false;
         this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
@@ -1210,9 +1247,9 @@ export class QuotationTabularComponent {
       freetimeorder: this.freetimeorder,
       freetimetype: this.freetimetype
     };
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.SaveFreeTimelabel(SearchData)
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
+    this.ms.SaveFreeTimelabel(SearchData)
       .subscribe(response => {
         this.loading = false;
         alert('Save Complete');
@@ -1220,8 +1257,8 @@ export class QuotationTabularComponent {
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 

@@ -134,3 +134,171 @@ export class SaveTermsData {
     rec_mode: String;
     _globalvariables: GlobalVariables;
 }
+
+export interface iMark_QtnmModel {
+  // filter Values
+  Initialized: boolean;
+  selectedRowIndex: number;
+  mode: string;
+  pkid: string;
+  list_format: string;
+  currentTab: string;
+  RecordList: Mark_Qtnm[];
+
+  InfoMessage: string;
+  ErrorMessage: string;
+
+  searchstring: string;
+
+  // Page Values
+  page_count: number;
+  page_current: number;
+  page_rows: number;
+  page_rowcount: number;
+};
+
+export const initialState: iMark_QtnmModel = {
+  Initialized: false,
+  selectedRowIndex: 0,
+  mode: '',
+  pkid: '',
+  list_format: '',
+  currentTab: 'LIST',
+  RecordList: [],
+
+  InfoMessage: '',
+  ErrorMessage: '',
+
+  searchstring: '',
+
+  page_count: 0,
+  page_current: 0,
+  page_rows: 25,
+  page_rowcount: 0
+}
+
+export interface iMark_QtndFclModel {
+  // filter Values
+  Initialized: boolean;
+  selectedRowIndex: number;
+  mode: string;
+  pkid: string;
+  list_format: string;
+  currentTab: string;
+  RecordList: Mark_Qtnm[];
+
+  InfoMessage: string;
+  ErrorMessage: string;
+
+  searchstring: string;
+
+  // Page Values
+  page_count: number;
+  page_current: number;
+  page_rows: number;
+  page_rowcount: number;
+};
+
+export const initialStateQtnmFcl: iMark_QtndFclModel = {
+  Initialized: false,
+  selectedRowIndex: 0,
+  mode: '',
+  pkid: '',
+  list_format: '',
+  currentTab: 'LIST',
+  RecordList: [],
+
+  InfoMessage: '',
+  ErrorMessage: '',
+
+  searchstring: '',
+
+  page_count: 0,
+  page_current: 0,
+  page_rows: 25,
+  page_rowcount: 0
+}
+
+export interface iMark_QtndAirModel {
+  // filter Values
+  Initialized: boolean;
+  selectedRowIndex: number;
+  mode: string;
+  pkid: string;
+  list_format: string;
+  currentTab: string;
+  RecordList: Mark_Qtnm[];
+
+  InfoMessage: string;
+  ErrorMessage: string;
+
+  searchstring: string;
+
+  // Page Values
+  page_count: number;
+  page_current: number;
+  page_rows: number;
+  page_rowcount: number;
+};
+
+export const initialStateQtnmAir: iMark_QtndAirModel = {
+  Initialized: false,
+  selectedRowIndex: 0,
+  mode: '',
+  pkid: '',
+  list_format: '',
+  currentTab: 'LIST',
+  RecordList: [],
+
+  InfoMessage: '',
+  ErrorMessage: '',
+
+  searchstring: '',
+
+  page_count: 0,
+  page_current: 0,
+  page_rows: 25,
+  page_rowcount: 0
+}
+
+export interface iMark_QtndTabularModel {
+  // filter Values
+  Initialized: boolean;
+  selectedRowIndex: number;
+  mode: string;
+  pkid: string;
+  list_format: string;
+  currentTab: string;
+  RecordList: Mark_Qtnm[];
+
+  InfoMessage: string;
+  ErrorMessage: string;
+
+  searchstring: string;
+
+  // Page Values
+  page_count: number;
+  page_current: number;
+  page_rows: number;
+  page_rowcount: number;
+};
+
+export const initialState_QtnmTabular: iMark_QtndTabularModel = {
+  Initialized: false,
+  selectedRowIndex: 0,
+  mode: '',
+  pkid: '',
+  list_format: '',
+  currentTab: 'LIST',
+  RecordList: [],
+
+  InfoMessage: '',
+  ErrorMessage: '',
+
+  searchstring: '',
+
+  page_count: 0,
+  page_current: 0,
+  page_rows: 25,
+  page_rowcount: 0
+}
