@@ -25,6 +25,7 @@ export class CrLimitComponent {
   @Input() parentid: string = '';
   @Input() customername: string = '';
   @Input() consigneeid: string = '';
+  @Input() shipperid: string = '';
 
   @Output() hidealert = new EventEmitter<boolean>();
 
@@ -175,6 +176,7 @@ export class CrLimitComponent {
     this.Record2.ul_type = this.type;
     this.Record2.ul_parent_id = this.parentid;
     this.Record2.ul_consignee_id = this.consigneeid;
+    this.Record2.ul_shipper_id = this.shipperid;
     this.Record2.ul_remarks = '';
     this.Record2.ul_comments = '';
     this.Record2.ul_from_email_id = this.gs.globalVariables.user_email;
@@ -208,6 +210,7 @@ export class CrLimitComponent {
     this.Record2.ul_comments = this.getComments();
     this.Record2.ul_parent_id = this.parentid;
     this.Record2.ul_consignee_id = this.consigneeid;
+    this.Record2.ul_shipper_id = this.shipperid;
     this.Record2._globalvariables = this.gs.globalVariables;
     this.mainService.Save(this.Record2)
       .subscribe(response => {

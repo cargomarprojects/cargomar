@@ -121,6 +121,7 @@
                 <th>ISSUED-BY</th>
                 <th>ISSUED-DATE</th>
                 <th>CUSTOMER</th>
+                <th>SHIPPER</th>
                 <th>CONSIGNEE</th>
                 <th>SALESPERSON</th>
                 <th>EXPECT-AMT</th>
@@ -154,6 +155,7 @@
                 <td>{{rec.rec_created_by}}</td>
                 <td>{{rec.rec_created_date}}</td>
                 <td>{{rec.cust_name}}</td>
+                <td>{{rec.ul_shipper_name}}</td>
                 <td>{{rec.ul_consignee_name}}</td>
                 <td>{{rec.ul_sman_name}}</td>
                 <td align='right'>{{rec.ul_expected_bill_amt | number : '1.2-2'}}</td>

@@ -688,7 +688,7 @@
 
 
 <app-crlimit [visible]="showalert" [msg]="ErrorMessage" [RecordList]="CrList" [type]="CrLimitType"
-  [parentid]="unlockparentid" [customername]="unlockcustomername" [consigneeid]="Record.hbl_exp_id"
+  [parentid]="unlockparentid" [customername]="unlockcustomername" [consigneeid]="Record.hbl_exp_id"  [shipperid]="Record.hbl_imp_id"
   (hidealert)="showalert=$event"></app-crlimit>
 
 <app-warningalert #WarnMsg></app-warningalert>

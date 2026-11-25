@@ -400,13 +400,18 @@ export class GstReconRepItcComponent {
   }
 
 
-  UpdateItcRowWise(_id: string, _status: string, _remarks: string, _display_claim_period: string, _download_source: string, _match_id: string, _doc_type: string) {
+  UpdateItcRowWise(_id: string, _status: string, _remarks: string, _display_claim_period: string, _download_source: string, _match_id: string, _doc_type: string, _gstdiff: number = 0) {
 
-    if (_status == 'REJECTED' || _status == 'IMS-REJECTED' || _status == 'IMS-PENDING') {
+    if (_status == 'REJECTED' || _status == 'IMS-REJECTED' || _status == 'IMS-PENDING' || _status == 'UNCLAIMED ITC REVERSAL - PY') {
       if (this.gs.isBlank(_remarks)) {
         alert('Remarks cannot be blank');
         return;
       }
+    }
+
+    if (_status == 'OP' || _status == 'P.Y') {
+      alert('Selected status not allowed');
+      return;
     }
 
     let SearchData2 = {
@@ -424,7 +429,8 @@ export class GstReconRepItcComponent {
       jvh_pkid: _download_source == "PURCHASE" ? _id : '',
       match_id: _match_id,
       doc_type: _doc_type,
-      download_source: _download_source
+      download_source: _download_source,
+      gst_diff: _gstdiff
     };
     this.loading = true;
     this.ErrorMessage = '';

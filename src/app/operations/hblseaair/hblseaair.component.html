@@ -766,7 +766,7 @@
 </ng-template>
 
 <app-crlimit [visible]="showalert" [msg]="ErrorMessage" [RecordList]="CrList" [type]="CrLimitType"
-  [parentid]="unlockparentid" [customername]="unlockcustomername" [consigneeid]="Record.hbl_imp_id"
+  [parentid]="unlockparentid" [customername]="unlockcustomername" [consigneeid]="Record.hbl_imp_id" [shipperid]="Record.hbl_exp_id"
   (hidealert)="showalert=$event">
 </app-crlimit>
 <app-warningalert #WarnMsg></app-warningalert>

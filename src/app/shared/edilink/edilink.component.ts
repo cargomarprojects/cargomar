@@ -594,7 +594,8 @@ export class EdilinkComponent {
         { "code": "BRANCH", "name": "BRANCH" },
         { "code": "SEAL-TYPE", "name": "SEAL-TYPE" },
         { "code": "RODTEP", "name": "RODTEP" },
-        { "code": "BILL-OF-LADING", "name": "BILL-OF-LADING" }
+        { "code": "BILL-OF-LADING", "name": "BILL-OF-LADING" },
+        { "code": "END USE", "name": "END USE" }
       ];
 
     } else {

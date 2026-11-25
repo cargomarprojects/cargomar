@@ -182,8 +182,9 @@
               <option [value]="'PENDING'">PENDING</option>
               <option [value]="'REJECTED'">REJECTED</option>
               <option [value]="'POS'">POS</option>
-              <option [value]="'IMS-PENDING'">IMS-PENDING</option>
-              <option [value]="'IMS-REJECTED'">IMS-REJECTED</option>
+              <option *ngIf="rec.download_source=='GSTR-2B'"  [value]="'IMS-PENDING'">IMS-PENDING</option>
+              <option *ngIf="rec.download_source=='GSTR-2B'"  [value]="'IMS-REJECTED'">IMS-REJECTED</option>
+              <option  *ngIf="rec.download_source=='PURCHASE'" [value]="'UNCLAIMED ITC REVERSAL - PY'">UNCLAIMED ITC REVERSAL - PY</option>
               <option [value]="'OP'">OP</option>
               <option [value]="'P.Y'">P.Y</option>
             </select>
@@ -195,7 +196,7 @@
           </td>
           <td *ngIf="!bSave">{{rec.reason}}</td>
           <td *ngIf="bSave" class="hlink"
-            (click)="UpdateItcRowWise(rec.pkid,rec.claim_status,rec.reason,rec.display_claimed_period,rec.download_source,rec.g_match_id,rec.download_type)">
+            (click)="UpdateItcRowWise(rec.pkid,rec.claim_status,rec.reason,rec.display_claimed_period,rec.download_source,rec.g_match_id,rec.download_type,rec.gst_diff)">
             <i class="fa fa-pencil fa-md pointer " aria-hidden="true"></i>
           </td>
           <td>{{rec.claim_created_by}}</td>

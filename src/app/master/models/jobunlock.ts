@@ -37,7 +37,8 @@ export class JobUnlock {
     ul_inv_amt: number;
     ul_diff_amt: number;
     ul_updated_dt: string;
-
+    ul_shipper_id: string;
+    ul_shipper_name: string;
     rec_mode: string;
 
     rec_company_code: string;
