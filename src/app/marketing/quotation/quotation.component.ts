@@ -28,18 +28,18 @@ export class QuotationComponent {
     InitCompleted: boolean = false;
     menu_record: any;
 
-    selectedRowIndex = 0;
+    /// selectedRowIndex = 0;
 
     modal: any;
     disableSave = true;
     loading = false;
-    currentTab = 'LIST';
+    /// currentTab = 'LIST';
 
-    searchstring = '';
-    page_count = 0;
-    page_current = 0;
-    page_rows = 0;
-    page_rowcount = 0;
+    /// searchstring = '';
+    /// page_count = 0;
+    /// page_current = 0;
+    /// page_rows = 0;
+    /// page_rowcount = 0;
 
     sub: any;
     urlid: string;
@@ -47,20 +47,20 @@ export class QuotationComponent {
     bChanged: boolean;
     total_amt: number = 0;
     total_famt: number = 0;
-    ErrorMessage = "";
-    InfoMessage = "";
+    /// ErrorMessage = "";
+    /// InfoMessage = "";
     detailMode = "ADD";
     str_total_amt = "";
     carrier_lov = "SEA CARRIER";
     port_lov = "SEA PORT";
     acc_sWhere = " actype_name in ('DIRECT EXPENSE','INDIRECT EXPENSE','DIRECT INCOME','INDIRECT INCOME') ";
-    mode = '';
-    pkid = '';
+    /// mode = '';
+    /// pkid = '';
     isPrevDetails: boolean = false;
     showclosebutton: boolean = true;
     QtnCategoryList: Param[] = [];
     // Array For Displaying List
-    RecordList: Mark_Qtnm[] = [];
+    /// RecordList: Mark_Qtnm[] = [];
     // Single Record for add/edit/view details
     Record: Mark_Qtnm = new Mark_Qtnm;
     TermList: Mark_Qtnm[] = [];
@@ -86,13 +86,13 @@ export class QuotationComponent {
 
     constructor(
         private modalService: NgbModal,
-        private mainService: QuotationService,
+        public ms: QuotationService,
         private route: ActivatedRoute,
         public gs: GlobalService
     ) {
-        this.page_count = 0;
-        this.page_rows = 25;
-        this.page_current = 0;
+        /// this.page_count = 0;
+        /// this.page_rows = 25;
+        /// this.page_current = 0;
         this.InitLov();
 
         // URL Query Parameter 
@@ -111,6 +111,18 @@ export class QuotationComponent {
     ngOnInit() {
         if (!this.InitCompleted) {
             this.InitComponent();
+        }
+        this.ms.init(this.menuid, this.type);
+        
+        /// to load add/edit screen when selected
+        if (this.ms.state.mode == "ADD")
+            this.ActionHandler('LIST', '');
+        else if (this.ms.state.mode == "EDIT")
+            this.ActionHandler('EDIT', this.ms.state.pkid);
+
+        if(!this.ms.state.Initialized){
+            this.List('NEW');
+            this.ms.state.Initialized = true;
         }
     }
 
@@ -144,6 +156,26 @@ export class QuotationComponent {
     // Destroy Will be called when this component is closed
     ngOnDestroy() {
         this.sub.unsubscribe();
+    }
+    /// for restore selected row in list
+    ngAfterViewInit() {
+        this.restoreRowPosition();
+    }
+
+    restoreRowPosition(){
+        setTimeout(() => {
+            this.scrollToRowPosition();
+        }, 100);
+    }
+
+    scrollToRowPosition() {
+        const row = document.getElementById('row-' + this.ms.state.selectedRowIndex);
+        if (row) {
+            row.scrollIntoView({
+            behavior: 'auto',
+            block: 'center'
+            });
+        }
     }
 
     InitLov() {
@@ -185,19 +217,19 @@ export class QuotationComponent {
         };
         SearchData.comp_code = this.gs.globalVariables.comp_code;
         SearchData.branch_code = this.gs.globalVariables.branch_code;
-        this.ErrorMessage = '';
-        this.InfoMessage = '';
-        this.mainService.LoadDefault(SearchData)
+        this.ms.state.ErrorMessage = '';
+        this.ms.state.InfoMessage = '';
+        this.ms.LoadDefault(SearchData)
             .subscribe(response => {
                 this.loading = false;
                 this.QtnCategoryList = response.qtncategorylist;
                 this.FullTermList = response.termlist;
-                this.List("NEW");
+                /// this.List("NEW");
             },
                 error => {
                     this.loading = false;
-                    this.ErrorMessage = this.gs.getError(error);
-                    alert(this.ErrorMessage);
+                    this.ms.state.ErrorMessage = this.gs.getError(error);
+                    alert(this.ms.state.ErrorMessage);
                 });
     }
 
@@ -357,24 +389,25 @@ export class QuotationComponent {
 
     //function for handling LIST/NEW/EDIT Buttons
     ActionHandler(action: string, id: string) {
-        this.ErrorMessage = '';
-        this.InfoMessage = '';
+        this.ms.state.ErrorMessage = '';
+        this.ms.state.InfoMessage = '';
         if (action == 'LIST') {
-            this.mode = '';
-            this.pkid = '';
-            this.currentTab = 'LIST';
+            this.ms.state.mode = '';
+            this.ms.state.pkid = '';
+            this.ms.state.currentTab = 'LIST';
+            this.restoreRowPosition();
         }
         else if (action === 'ADD') {
-            this.currentTab = 'DETAILS';
-            this.mode = 'ADD';
+            this.ms.state.currentTab = 'DETAILS';
+            this.ms.state.mode = 'ADD';
             this.ResetControls();
             this.NewRecord();
         }
         else if (action === 'EDIT') {
-            this.currentTab = 'DETAILS';
-            this.mode = 'EDIT';
+            this.ms.state.currentTab = 'DETAILS';
+            this.ms.state.mode = 'EDIT';
             this.ResetControls();
-            this.pkid = id;
+            this.ms.state.pkid = id;
             this.GetRecord(id);
         }
     }
@@ -387,10 +420,10 @@ export class QuotationComponent {
         if (this.menu_record.rights_admin)
             this.disableSave = false;
 
-        if (this.mode == "ADD" && this.menu_record.rights_add)
+        if (this.ms.state.mode == "ADD" && this.menu_record.rights_add)
             this.disableSave = false;
 
-        if (this.mode == "EDIT" && this.menu_record.rights_edit)
+        if (this.ms.state.mode == "EDIT" && this.menu_record.rights_edit)
             this.disableSave = false;
 
         return this.disableSave;
@@ -403,11 +436,11 @@ export class QuotationComponent {
         let SearchData = {
             type: _type,
             rowtype: this.type,
-            searchstring: this.searchstring.toUpperCase(),
-            page_count: this.page_count,
-            page_current: this.page_current,
-            page_rows: this.page_rows,
-            page_rowcount: this.page_rowcount,
+            searchstring: this.ms.state.searchstring.toUpperCase(),
+            page_count: this.ms.state.page_count,
+            page_current: this.ms.state.page_current,
+            page_rows: this.ms.state.page_rows,
+            page_rowcount: this.ms.state.page_rowcount,
             company_code: this.gs.globalVariables.comp_code,
             branch_code: this.gs.globalVariables.branch_code,
             year_code: this.gs.globalVariables.year_code,
@@ -417,24 +450,26 @@ export class QuotationComponent {
             isadmin: this.IsAdmin
         };
 
-        this.ErrorMessage = '';
-        this.InfoMessage = '';
-        this.mainService.List(SearchData)
+        this.ms.state.selectedRowIndex = 0;
+        this.restoreRowPosition();
+        this.ms.state.ErrorMessage = '';
+        this.ms.state.InfoMessage = '';
+        this.ms.List(SearchData)
             .subscribe(response => {
                 this.loading = false;
                 if (_type == 'EXCEL')
                     this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
                 else {
-                    this.RecordList = response.list;
-                    this.page_count = response.page_count;
-                    this.page_current = response.page_current;
-                    this.page_rowcount = response.page_rowcount;
+                    this.ms.state.RecordList = response.list;
+                    this.ms.state.page_count = response.page_count;
+                    this.ms.state.page_current = response.page_current;
+                    this.ms.state.page_rowcount = response.page_rowcount;
                 }
             },
                 error => {
                     this.loading = false;
-                    this.ErrorMessage = this.gs.getError(error);
-                    alert(this.ErrorMessage);
+                    this.ms.state.ErrorMessage = this.gs.getError(error);
+                    alert(this.ms.state.ErrorMessage);
                 });
     }
 
@@ -444,9 +479,9 @@ export class QuotationComponent {
 
     NewRecord() {
         this.print_format = "SUMMARY";
-        this.pkid = this.gs.getGuid();
+        this.ms.state.pkid = this.gs.getGuid();
         this.Record = new Mark_Qtnm();
-        this.Record.qtnm_pkid = this.pkid;
+        this.Record.qtnm_pkid = this.ms.state.pkid;
         this.Record.qtnm_cfno = 0;
         this.Record.qtnm_no = '';
         this.Record.qtnm_to_id = '';
@@ -498,7 +533,7 @@ export class QuotationComponent {
         this.Record.qtnm_curr_code = this.gs.defaultValues.param_curr_local_code;
         this.Record.qtnm_exrate = 1;
         this.Record.qtnm_round_off = 0;
-        this.Record.rec_mode = this.mode;
+        this.Record.rec_mode = this.ms.state.mode;
         this.Record.qtnm_print_tot = false;
         this.Record.qtnm_cntr_size = '';
         this.Record.qtnm_incoterm = '';
@@ -525,7 +560,7 @@ export class QuotationComponent {
         let _preRecDet = this.Recorddet;
         this.Recorddet = new Mark_Qtnd();
         this.Recorddet.qtnd_pkid = this.gs.getGuid();
-        this.Recorddet.qtnd_parent_id = this.pkid;
+        this.Recorddet.qtnd_parent_id = this.ms.state.pkid;
         this.Recorddet.qtnd_acc_id = '';
         this.Recorddet.qtnd_acc_code = '';
         this.Recorddet.qtnd_acc_name = '';
@@ -574,9 +609,9 @@ export class QuotationComponent {
             pkid: Id,
         };
 
-        this.ErrorMessage = '';
-        this.InfoMessage = '';
-        this.mainService.GetRecord(SearchData)
+        this.ms.state.ErrorMessage = '';
+        this.ms.state.InfoMessage = '';
+        this.ms.GetRecord(SearchData)
             .subscribe(response => {
                 this.loading = false;
                 this.LoadData(response.record);
@@ -587,14 +622,14 @@ export class QuotationComponent {
             },
                 error => {
                     this.loading = false;
-                    this.ErrorMessage = this.gs.getError(error);
-                    alert(this.ErrorMessage);
+                    this.ms.state.ErrorMessage = this.gs.getError(error);
+                    alert(this.ms.state.ErrorMessage);
                 });
     }
 
     LoadData(_Record: Mark_Qtnm) {
         this.Record = _Record;
-        this.Record.rec_mode = this.mode;
+        this.Record.rec_mode = this.ms.state.mode;
         if (this.gs.isBlank(this.Record.qtnm_detList))
             this.Record.qtnm_detList = new Array<Mark_Qtnd>();
         if (this.gs.isBlank(this.Record.qtnm_remList))
@@ -614,8 +649,8 @@ export class QuotationComponent {
         this.CONTRECORD.code = this.Record.qtnm_cont_code;
 
         //Fill Duplicate Quotation
-        if (this.mode == "ADD") {
-            this.Record.qtnm_pkid = this.pkid;
+        if (this.ms.state.mode == "ADD") {
+            this.Record.qtnm_pkid = this.ms.state.pkid;
             this.Record.qtnm_cfno = 0;
             this.Record.qtnm_no = '';
             this.Record.qtnm_date = this.gs.defaultValues.today;
@@ -631,35 +666,35 @@ export class QuotationComponent {
     // Save Data
     Save() {
         if (!this.allvalid()) {
-            alert(this.ErrorMessage);
+            alert(this.ms.state.ErrorMessage);
             return;
         }
         this.findTotal2();
         this.loading = true;
-        this.ErrorMessage = '';
-        this.InfoMessage = '';
+        this.ms.state.ErrorMessage = '';
+        this.ms.state.InfoMessage = '';
         this.Record.rec_category = this.type;
         this.Record._globalvariables = this.gs.globalVariables;
         this.Record.qtnm_tot_amt = this.total_amt;
         this.Record.qtnm_tot_famt = this.total_famt;
-        this.mainService.Save(this.Record)
+        this.ms.Save(this.Record)
             .subscribe(response => {
                 this.loading = false;
-                if (this.mode == 'ADD') {
+                if (this.ms.state.mode == 'ADD') {
                     this.Record.qtnm_no = response.qtnslno;
-                    this.InfoMessage = "New Quotation " + this.Record.qtnm_no + " Generated Successfully";
+                    this.ms.state.InfoMessage = "New Quotation " + this.Record.qtnm_no + " Generated Successfully";
                 } else
-                    this.InfoMessage = "Save Complete";
-                this.mode = 'EDIT';
-                this.Record.rec_mode = this.mode;
-                alert(this.InfoMessage);
+                    this.ms.state.InfoMessage = "Save Complete";
+                this.ms.state.mode = 'EDIT';
+                this.Record.rec_mode = this.ms.state.mode;
+                alert(this.ms.state.InfoMessage);
                 this.RefreshList();
                 this.Record.qtnm_detList = response.list;
             },
                 error => {
                     this.loading = false;
-                    this.ErrorMessage = this.gs.getError(error);
-                    alert(this.ErrorMessage);
+                    this.ms.state.ErrorMessage = this.gs.getError(error);
+                    alert(this.ms.state.ErrorMessage);
                 });
     }
 
@@ -675,8 +710,8 @@ export class QuotationComponent {
     allvalid() {
         let sError: string = "";
         let bret: boolean = true;
-        this.ErrorMessage = '';
-        this.InfoMessage = '';
+        this.ms.state.ErrorMessage = '';
+        this.ms.state.InfoMessage = '';
 
         // if (this.gs.isBlank(this.Record.cont_name)) {
         //   bret = false;
@@ -715,11 +750,11 @@ export class QuotationComponent {
         SearchData.add_pkid = controlid;
         SearchData.add_parent_id = controlparentid;
 
-        this.ErrorMessage = '';
+        this.ms.state.ErrorMessage = '';
         this.gs.SearchRecord(SearchData)
             .subscribe(response => {
                 this.loading = false;
-                this.ErrorMessage = '';
+                this.ms.state.ErrorMessage = '';
                 if (controlname == 'CUSTOMERADDRESS') {
                     this.Record.qtnm_to_addr1 = '';
                     this.Record.qtnm_to_addr2 = '';
@@ -736,14 +771,14 @@ export class QuotationComponent {
                     }
                 }
                 else {
-                    this.ErrorMessage = 'Invalid Address';
-                    alert(this.ErrorMessage);
+                    this.ms.state.ErrorMessage = 'Invalid Address';
+                    alert(this.ms.state.ErrorMessage);
                 }
             },
                 error => {
                     this.loading = false;
-                    this.ErrorMessage = this.gs.getError(error);
-                    alert(this.ErrorMessage);
+                    this.ms.state.ErrorMessage = this.gs.getError(error);
+                    alert(this.ms.state.ErrorMessage);
                 });
     }
     Isnumeric(i: any) {
@@ -758,11 +793,12 @@ export class QuotationComponent {
     }
 
     RefreshList() {
-        if (this.RecordList == null)
+        if (this.ms.state.RecordList == null)
             return;
-        var REC = this.RecordList.find(rec => rec.qtnm_pkid == this.Record.qtnm_pkid);
+        var REC = this.ms.state.RecordList.find(rec => rec.qtnm_pkid == this.Record.qtnm_pkid);
         if (REC == null) {
-            this.RecordList.push(this.Record);
+            this.ms.state.RecordList.push(this.Record);
+            this.ms.state.selectedRowIndex = this.ms.state.RecordList.length - 1;
         }
         else {
             REC.qtnm_no = this.Record.qtnm_no;
@@ -968,7 +1004,7 @@ export class QuotationComponent {
     NewRemarkRecord() {
         let _Rec: GenRemarks = new GenRemarks;
         _Rec.gr_uid = this.gs.getGuid();
-        _Rec.gr_pkid = this.pkid;
+        _Rec.gr_pkid = this.ms.state.pkid;
         _Rec.gr_type = 'QUOTATION';
         _Rec.gr_subtype = this.Record.qtnm_type;
         _Rec.gr_remarks = '';
@@ -1023,8 +1059,8 @@ export class QuotationComponent {
     AddRecord() {
         let sError: string = "";
         let bret: boolean = true;
-        this.ErrorMessage = '';
-        this.InfoMessage = '';
+        this.ms.state.ErrorMessage = '';
+        this.ms.state.InfoMessage = '';
 
         if (this.Recorddet.qtnd_acc_name == '') {
             bret = false;
@@ -1162,18 +1198,18 @@ export class QuotationComponent {
         _saveData.type = this.Record.qtnm_type;
         _saveData._globalvariables = this.gs.globalVariables;
         this.loading = true;
-        this.ErrorMessage = '';
-        this.InfoMessage = '';
-        this.mainService.SaveTerms(_saveData)
+        this.ms.state.ErrorMessage = '';
+        this.ms.state.InfoMessage = '';
+        this.ms.SaveTerms(_saveData)
             .subscribe(response => {
                 this.loading = false;
-                this.InfoMessage = "Save Complete";
-                alert(this.InfoMessage);
+                this.ms.state.InfoMessage = "Save Complete";
+                alert(this.ms.state.InfoMessage);
             },
                 error => {
                     this.loading = false;
-                    this.ErrorMessage = this.gs.getError(error);
-                    alert(this.ErrorMessage);
+                    this.ms.state.ErrorMessage = this.gs.getError(error);
+                    alert(this.ms.state.ErrorMessage);
                 });
 
     }
@@ -1190,9 +1226,9 @@ export class QuotationComponent {
             user_name: this.gs.globalVariables.user_name
         };
 
-        this.ErrorMessage = '';
-        this.InfoMessage = '';
-        this.mainService.PrintQuotation(SearchData)
+        this.ms.state.ErrorMessage = '';
+        this.ms.state.InfoMessage = '';
+        this.ms.PrintQuotation(SearchData)
             .subscribe(response => {
                 this.loading = false;
                 if (_type == 'PRINT') {
@@ -1209,8 +1245,8 @@ export class QuotationComponent {
             },
                 error => {
                     this.loading = false;
-                    this.ErrorMessage = this.gs.getError(error);
-                    alert(this.ErrorMessage);
+                    this.ms.state.ErrorMessage = this.gs.getError(error);
+                    alert(this.ms.state.ErrorMessage);
                 });
     }
 
@@ -1227,7 +1263,7 @@ export class QuotationComponent {
         this.detailMode = "EDIT";
         this.Recorddet = new Mark_Qtnd();
         this.Recorddet.qtnd_pkid = _rec.qtnd_pkid;
-        this.Recorddet.qtnd_parent_id = this.pkid;
+        this.Recorddet.qtnd_parent_id = this.ms.state.pkid;
         this.Recorddet.qtnd_acc_id = _rec.qtnd_acc_id;
         this.Recorddet.qtnd_acc_code = _rec.qtnd_acc_code;
         this.Recorddet.qtnd_acc_name = _rec.qtnd_acc_name;

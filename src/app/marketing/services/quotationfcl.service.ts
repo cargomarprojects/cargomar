@@ -3,15 +3,37 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 
-import {Mark_Qtnm, Mark_Qtnd,SaveTermsData } from '../models/quotation';
+import {Mark_Qtnm, SaveTermsData, iMark_QtndFclModel, iMark_QtndTabularModel, initialStateQtnmFcl } from '../models/quotation';
 import { GlobalService } from '../../core/services/global.service';
 
 @Injectable()
 export class QuotationFclService {
 
+    private screen_id = '';
+    private screen_type = '';
+    public state: iMark_QtndTabularModel = { ...initialStateQtnmFcl };
+
     constructor(
         private http2: HttpClient,
         private gs: GlobalService) {
+    }
+    
+    public init(_screen_id: string, _screen_type: string) {
+      this.screen_id = _screen_id;
+      this.screen_type = _screen_type;
+      this.loadState();
+    }
+    
+    private loadState() {
+      if (this.gs.appStates[this.screen_id])
+        this.state = this.gs.appStates[this.screen_id];
+      else {
+        this.state = { ...initialStateQtnmFcl };
+        this.state.Initialized = false;
+        this.state.searchstring = '';
+
+        this.gs.appStates[this.screen_id] = this.state;
+      }
     }
 
     List(SearchData : any) {
