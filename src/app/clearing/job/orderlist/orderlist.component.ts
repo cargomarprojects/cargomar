@@ -135,7 +135,7 @@ export class OrderListComponent {
     }
 
     if (this.ms.state.mode == "ADD")
-      this.ActionHandler('ADD', '');
+      this.ActionHandler('LIST', '');
     else if (this.ms.state.mode == "EDIT")
       this.ActionHandler('EDIT', this.ms.state.pkid)
   }
@@ -341,29 +341,29 @@ export class OrderListComponent {
       { "colheadername": "AGENT,SHIPPER,PO", "colname": "agent.cust_name,exp.cust_name,ord_po" }
     ];
 
-    // this.loading = true;
-    // let SearchData = {
-    //   type: 'ORDER',
-    //   comp_code: this.gs.globalVariables.comp_code,
-    //   branch_code: this.gs.globalVariables.branch_code
-    // };
+    this.loading = true;
+    let SearchData = {
+      type: 'ORDER',
+      comp_code: this.gs.globalVariables.comp_code,
+      branch_code: this.gs.globalVariables.branch_code
+    };
 
-    // SearchData.comp_code = this.gs.globalVariables.comp_code;
-    // SearchData.branch_code = this.gs.globalVariables.branch_code;
+    SearchData.comp_code = this.gs.globalVariables.comp_code;
+    SearchData.branch_code = this.gs.globalVariables.branch_code;
 
-    // this.ms.state.ErrorMessage = '';
-    // this.ms.state.InfoMessage = '';
-    // this.ms.LoadDefault(SearchData)
-    //   .subscribe(response => {
-    //     this.loading = false;
-    //     this.OrdColList = response.ordercolumns;
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
+    this.ms.LoadDefault(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.OrdColList = response.ordercolumns;
 
-    //   },
-    //     error => {
-    //       this.loading = false;
-    //       this.ms.state.ErrorMessage = this.gs.getError(error);
-    //       alert(this.ms.state.ErrorMessage);
-    //     });
+      },
+        error => {
+          this.loading = false;
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
+        });
 
   }
 
