@@ -234,10 +234,12 @@ export class CrLimitComponent {
     let _totOverDueDays = 0;
     if (!this.gs.isBlank(this.RecordList)) {
       for (let rec of this.RecordList) {
-        _totBal += rec.creditamt;
-        _totOverDueAmt += rec.overdueamt;
-        if (rec.overduedays > _totOverDueDays)
-          _totOverDueDays = rec.overduedays;
+        if (rec.custname != "TOTAL") {
+          _totBal += rec.creditamt;
+          _totOverDueAmt += rec.overdueamt;
+          if (rec.overduedays > _totOverDueDays)
+            _totOverDueDays = rec.overduedays;
+        }
       }
     }
     _totBal = this.gs.roundNumber(_totBal, 2);
