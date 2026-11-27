@@ -1022,7 +1022,7 @@
     </div>
   </div>
 
-  <div class="page-box" *ngIf="mode == 'EDIT'">
+  <div class="page-box" *ngIf="ms.state.mode == 'EDIT'">
     <div class="col input-group input-group-sm">
       <button [disabled]="loading" (click)="DownloadAppointmentLetter()"
         class="btn btn-success btn-sm mr-1">Download Appointment Letter</button>

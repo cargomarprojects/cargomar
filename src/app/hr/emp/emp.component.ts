@@ -1097,17 +1097,17 @@ export class EmpComponent {
       emp_id: this.Record.emp_pkid
     };
 
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.GenerateDocs(SearchData)
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
+    this.ms.GenerateDocs(SearchData)
       .subscribe(response => {
         this.loading = false;
         this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
