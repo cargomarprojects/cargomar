@@ -106,3 +106,63 @@ export class EmpDocs {
   doc_file_size2: string;
   doc_count: number;
 }
+
+export interface iEmpModel {
+  // filter Values
+  Initialized: boolean;
+  selectedRowIndex: number;
+  mode: string;
+  pkid: string;
+  list_format: string;
+  currentTab: string;
+  RecordList: Emp[];
+
+  InfoMessage: string;
+  ErrorMessage: string;
+
+  search_datetype: string;
+  from_date: string;
+  to_date: string;
+  searchstring: string;
+  allbranch: boolean;
+  bRelieved: boolean;
+  searchconverted: string;
+  radio_emp: string;
+  format_type: string;
+  // CustomReportList: any;
+
+  // Page Values
+  page_count: number;
+  page_current: number;
+  page_rows: number;
+  page_rowcount: number;
+};
+
+export const initialState: iEmpModel = {
+  Initialized: false,
+  selectedRowIndex: 0,
+  mode: '',
+  pkid: '',
+  list_format: '',
+  currentTab: 'LIST',
+  RecordList: [],
+
+  InfoMessage: '',
+  ErrorMessage: '',
+
+  search_datetype: 'DOJ',
+  from_date: '',
+  to_date: '',
+  searchstring: '',
+  allbranch: false,
+  bRelieved: false,
+  searchconverted: '',
+  radio_emp: '',
+  format_type: '',
+  // CustomReportList: [],
+
+  page_count: 0,
+  page_current: 0,
+  page_rows: 30,
+  page_rowcount: 0
+}

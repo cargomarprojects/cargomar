@@ -28,7 +28,7 @@ export class CustomReportComponent implements OnInit {
     @Input() set fieldList(value: CustomReportD[]) {
         this._fieldList = value;
     }
-
+    @Input() Format: string = '';
     @Output() callbackevent = new EventEmitter<any>();
 
     title = 'User Master';
@@ -168,7 +168,12 @@ export class CustomReportComponent implements OnInit {
                 this.RecordList = response.list;
                 this.selectedRowIndex = 0;
                 if (this.RecordList && this.RecordList.length > 0) {
-                    this.selectedformat = this.RecordList[0].rh_report_format;
+                    /// this.selectedformat = this.RecordList[0].rh_report_format;  //changed
+                    /// if Default format is passed assign that else select first in recordList
+                    if(this.gs.isBlank(this.Format))
+                        this.selectedformat = this.RecordList[0].rh_report_format;
+                    else
+                        this.selectedformat = this.Format;
                     this.callBackFormat();
                 }
                 this.ActionHandler('ADD', '');
