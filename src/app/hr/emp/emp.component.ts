@@ -36,13 +36,13 @@ export class EmpComponent {
   @Input() type: string = '';
   InitCompleted: boolean = false;
   menu_record: any;
-  selectedRowIndex = 0;
+  /// selectedRowIndex = 0;
 
   bValueChanged: boolean = false;
 
   disableSave = true;
   loading = false;
-  currentTab = 'LIST';
+  /// currentTab = 'LIST';
 
   upload_type = "EMPLOYEE-MASTER";
   doc_group_id = "";
@@ -50,38 +50,39 @@ export class EmpComponent {
   doc_file_type = "";
   doc_file_size = 0;
   uploadedFilesName: string = '';
-  searchstring = '';
+  /// searchstring = '';
   branch_id = '';
   company_id = '';
-  page_count = 0;
-  page_current = 0;
-  page_rows = 0;
-  page_rowcount = 0;
+  /// page_count = 0;
+  /// page_current = 0;
+  /// page_rows = 0;
+  /// page_rowcount = 0;
   ageinyears = '';
-  search_datetype = 'DOJ';
-  from_date = '';
-  to_date = '';
-  allbranch: boolean = false;
+  /// search_datetype = 'DOJ';
+  /// from_date = '';
+  /// to_date = '';
+  /// allbranch: boolean = false;
 
-  format_type = "GENERAL";
+  /// format_type = "GENERAL";
 
   lock_record: boolean = false;
   bPrint: boolean = false;
   bAdmin: boolean = false;
   bDocs: boolean = false;
-  bRelieved: boolean = false;
+  /// bRelieved: boolean = false;
   bPhoto: boolean = false;
+  bUpload: boolean = false; /// to disable/enable upload option in employee documents
   sub: any;
   urlid: string;
   // type: string;
   modal: any;
 
-  ErrorMessage = "";
-  InfoMessage = "";
-  radio_emp: string = 'EMPLOYEE';
+  /// ErrorMessage = "";
+  /// InfoMessage = "";
+  /// radio_emp: string = 'EMPLOYEE';
 
-  mode = '';
-  pkid = '';
+  /// mode = '';
+  /// pkid = '';
 
   BloodGrList: any[] = [];
   GenderList: any[] = [];
@@ -101,7 +102,7 @@ export class EmpComponent {
   fieldList: CustomReportD[] = [];
 
   // Array For Displaying List
-  RecordList: Emp[] = [];
+  /// RecordList: Emp[] = [];
   // Single Record for add/edit/view details
   Record: Emp = new Emp;
   RecordDocList: EmpDocs[] = [];
@@ -111,14 +112,14 @@ export class EmpComponent {
 
   constructor(
     private modalService: NgbModal,
-    private mainService: EmpService,
+    public ms: EmpService,
     private location: Location,
     private route: ActivatedRoute,
     public gs: GlobalService
   ) {
-    this.page_count = 0;
-    this.page_rows = 30;
-    this.page_current = 0;
+    /// this.page_count = 0;
+    /// this.page_rows = 30;
+    /// this.page_current = 0;
     this.sub = this.route.queryParams.subscribe(params => {
       if (params["parameter"] != "") {
         this.InitCompleted = true;
@@ -136,6 +137,18 @@ export class EmpComponent {
 
     if (!this.InitCompleted) {
       this.InitComponent();
+    }
+    this.ms.init(this.menuid, this.type);
+    // this.LoadFieldlist();
+    /// to load add/edit screen when selected
+    if (this.ms.state.mode == "ADD")
+        this.ActionHandler('LIST', '');
+    else if (this.ms.state.mode == "EDIT")
+        this.ActionHandler('EDIT', this.ms.state.pkid);
+
+    if(!this.ms.state.Initialized){
+        this.List('NEW');
+        this.ms.state.Initialized = true;
     }
   }
 
@@ -169,6 +182,27 @@ export class EmpComponent {
 
   }
 
+  /// for restore selected row in list
+  ngAfterViewInit() {
+      this.restoreRowPosition();
+  }
+
+  restoreRowPosition(){
+      setTimeout(() => {
+          this.scrollToRowPosition();
+      }, 100);
+  }
+
+  scrollToRowPosition() {
+      const row = document.getElementById('row-' + this.ms.state.selectedRowIndex);
+      if (row) {
+          row.scrollIntoView({
+          behavior: 'auto',
+          block: 'center'
+          });
+      }
+  }
+
   LoadCombo() {
 
     this.BloodGrList = [{ "name": "N/A" }, { "name": "A+" }, { "name": "A-" },
@@ -193,9 +227,9 @@ export class EmpComponent {
     SearchData.comp_code = this.gs.globalVariables.comp_code;
     SearchData.branch_code = this.gs.globalVariables.branch_code;
 
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.LoadDefault(SearchData)
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
+    this.ms.LoadDefault(SearchData)
       .subscribe(response => {
         this.loading = false;
         this.CountryList = response.countrylist;
@@ -207,12 +241,12 @@ export class EmpComponent {
         this.StatusList = response.statuslist;
         this.IncentiveTypeList = response.incentivelist;
 
-        this.List("NEW");
+        /// this.List("NEW");
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
@@ -288,7 +322,7 @@ export class EmpComponent {
 
 
   customreportcallbackevent(params: any) {
-    this.format_type = params.format;
+    this.ms.state.format_type = params.format
     this.LoadFieldlist();
   }
 
@@ -296,35 +330,36 @@ export class EmpComponent {
 
 
   //function for handling LIST/NEW/EDIT Buttons
-  ActionHandler(action: string, id: string, brcode: string = '') {
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
+  ActionHandler(action: string, id: string) {
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
     if (action == 'LIST') {
-      this.mode = '';
-      this.pkid = '';
-      this.currentTab = 'LIST';
+      this.ms.state.mode = '';
+      this.ms.state.pkid = '';
+      this.ms.state.currentTab = 'LIST';
+      this.restoreRowPosition();
     }
     else if (action === 'ADD') {
       if (this.type == "EMPLOYEE-DOCUMENTS")
-        this.currentTab = 'DETAILS2';
+        this.ms.state.currentTab = 'DETAILS2';
       else
-        this.currentTab = 'DETAILS';
-      this.mode = 'ADD';
+        this.ms.state.currentTab = 'DETAILS';
+      this.ms.state.mode = 'ADD';
       this.ResetControls();
       this.NewRecord();
     }
     else if (action === 'EDIT') {
-      if (brcode != this.gs.globalVariables.branch_code) {
-        alert("Cannot Show Details from another Branch");
-        return;
-      }
+      // if (brcode != this.gs.globalVariables.branch_code) {
+      //   alert("Cannot Show Details from another Branch");
+      //   return;
+      // }
       if (this.type == "EMPLOYEE-DOCUMENTS")
-        this.currentTab = 'DETAILS2';
+        this.ms.state.currentTab = 'DETAILS2';
       else
-        this.currentTab = 'DETAILS';
-      this.mode = 'EDIT';
+        this.ms.state.currentTab = 'DETAILS';
+      this.ms.state.mode = 'EDIT';
       this.ResetControls();
-      this.pkid = id;
+      this.ms.state.pkid = id;
       this.GetRecord(id);
     }
   }
@@ -337,9 +372,9 @@ export class EmpComponent {
 
     if (this.menu_record.rights_admin)
       this.disableSave = false;
-    if (this.mode == "ADD" && this.menu_record.rights_add)
+    if (this.ms.state.mode == "ADD" && this.menu_record.rights_add)
       this.disableSave = false;
-    if (this.mode == "EDIT" && this.menu_record.rights_edit)
+    if (this.ms.state.mode == "EDIT" && this.menu_record.rights_edit)
       this.disableSave = false;
 
     return this.disableSave;
@@ -355,45 +390,47 @@ export class EmpComponent {
 
       type: _type,
       rowtype: this.type,
-      searchstring: this.searchstring.toUpperCase(),
+      searchstring: this.ms.state.searchstring.toUpperCase(),
       branch_id: this.gs.globalVariables.branch_pkid,
       company_id: this.gs.globalVariables.comp_pkid,
       branch_code: this.gs.globalVariables.branch_code,
       company_code: this.gs.globalVariables.comp_code,
       report_folder: this.gs.globalVariables.report_folder,
       emp_id: this.gs.globalVariables.emp_id,
-      empstatus: this.radio_emp,
+      empstatus: this.ms.state.radio_emp,
       isadmin: this.bAdmin,
-      search_datetype: this.search_datetype,
-      from_date: this.from_date,
-      to_date: this.to_date,
-      allbranch: this.allbranch,
-      brelieved: this.bRelieved,
-      format_type: this.format_type,
-      page_count: this.page_count,
-      page_current: this.page_current,
-      page_rows: this.page_rows,
-      page_rowcount: this.page_rowcount
+      search_datetype: this.ms.state.search_datetype,
+      from_date: this.ms.state.from_date,
+      to_date: this.ms.state.to_date,
+      allbranch: this.ms.state.allbranch,
+      brelieved: this.ms.state.bRelieved,
+      format_type: this.ms.state.format_type,
+      page_count: this.ms.state.page_count,
+      page_current: this.ms.state.page_current,
+      page_rows: this.ms.state.page_rows,
+      page_rowcount: this.ms.state.page_rowcount
     };
 
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.List(SearchData)
+    this.ms.state.selectedRowIndex = 0;
+    this.restoreRowPosition();
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
+    this.ms.List(SearchData)
       .subscribe(response => {
         this.loading = false;
         if (_type == 'EXCEL')
           this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
         else {
-          this.RecordList = response.list;
-          this.page_count = response.page_count;
-          this.page_current = response.page_current;
-          this.page_rowcount = response.page_rowcount;
+          this.ms.state.RecordList = response.list;
+          this.ms.state.page_count = response.page_count;
+          this.ms.state.page_current = response.page_current;
+          this.ms.state.page_rowcount = response.page_rowcount;
         }
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
@@ -402,10 +439,10 @@ export class EmpComponent {
   }
   NewRecord() {
     this.uploadedFilesName = '';
-    this.pkid = this.gs.getGuid();
+    this.ms.state.pkid = this.gs.getGuid();
 
     this.Record = new Emp();
-    this.Record.emp_pkid = this.pkid;
+    this.Record.emp_pkid = this.ms.state.pkid;
     this.Record.emp_no = '';
     this.Record.emp_name = '';
     this.Record.emp_alias = '';
@@ -477,7 +514,7 @@ export class EmpComponent {
     this.ageinyears = '';
     this.Record.emp_branch_group = 1;
     this.Record.rec_branch_code = this.gs.globalVariables.branch_code;
-    this.Record.rec_mode = this.mode;
+    this.Record.rec_mode = this.ms.state.mode;
     this.Record.emp_incentive_type = 'NA';
     this.Record.emp_incentive_type_id = '';
     this.Record.emp_pf_exempted = false;
@@ -521,10 +558,10 @@ export class EmpComponent {
       pkid: Id,
     };
 
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
 
-    this.mainService.GetRecord(SearchData)
+    this.ms.GetRecord(SearchData)
       .subscribe(response => {
         this.loading = false;
         this.LoadData(response.record);
@@ -532,14 +569,14 @@ export class EmpComponent {
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
   LoadData(_Record: Emp) {
     this.Record = _Record;
-    this.Record.rec_mode = this.mode;
+    this.Record.rec_mode = this.ms.state.mode;
     this.Record.emp_branch_name = this.getBranchName(this.Record.rec_branch_code);
     this.ageinyears = '';
     if (this.Record.emp_do_birth != null) {
@@ -547,9 +584,22 @@ export class EmpComponent {
     }
 
     this.lock_record = true;
-    if (this.Record.emp_edit_code.indexOf("{S}") >= 0)
-      this.lock_record = false;
-
+    this.bUpload = true;
+    if (this.Record.emp_edit_code.indexOf("{S}") >= 0) {
+        this.lock_record = false;
+    }
+    if (this.lock_record == false) {
+      /// to dissable/lock save when edit from another branch
+      if ( this.Record.rec_branch_code != this.gs.globalVariables.branch_code) {
+          this.lock_record = true;
+          this.ms.state.ErrorMessage += "| Cannot Edit Employee Details from another Branch";
+          alert(this.ms.state.ErrorMessage);
+      }
+    }
+    /// to dissable upload option in employee documents, edit from another branch
+    if ( this.Record.rec_branch_code != this.gs.globalVariables.branch_code){
+      this.bUpload = false;
+    }
     this.Record.emp_image_src = this.getImageUrl(this.Record.emp_image_name);
   }
   getBranchName(_BrCode: String) {
@@ -568,30 +618,30 @@ export class EmpComponent {
     if (!this.allvalid())
       return;
     this.loading = true;
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
     this.Record.emp_designation_name = this.getDesignation(this.Record.emp_designation_id);
     this.Record.emp_department_name = this.getDepartment(this.Record.emp_department_id);
     this.Record.emp_status_name = this.getStatusName(this.Record.emp_status_id);
     this.Record._globalvariables = this.gs.globalVariables;
-    this.mainService.Save(this.Record)
+    this.ms.Save(this.Record)
       .subscribe(response => {
         this.loading = false;
         // this.InfoMessage = "Save Complete";
-        this.mode = 'EDIT';
-        this.Record.rec_mode = this.mode;
+        this.ms.state.mode = 'EDIT';
+        this.Record.rec_mode = this.ms.state.mode;
         this.ageinyears = '';
         if (this.Record.emp_do_birth != null) {
           this.ageinyears = this.GetAge().ageyears + "Yrs";
         }
-        this.InfoMessage = response.retmsg;
-        alert(this.InfoMessage);
+        this.ms.state.InfoMessage = response.retmsg;
+        alert(this.ms.state.InfoMessage);
         this.RefreshList();
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
@@ -600,8 +650,8 @@ export class EmpComponent {
 
     let sError: string = "";
     let bret: boolean = true;
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
 
     if (this.Record.emp_no.trim().length <= 0) {
 
@@ -666,7 +716,7 @@ export class EmpComponent {
     }
 
 
-    if (this.mode == 'ADD') {
+    if (this.ms.state.mode == 'ADD') {
       // if (this.GetFieldName("CONSULTANT").fieldid != this.Record.emp_status_id) {
       //   if (this.Record.emp_in_payroll == false) {
 
@@ -681,7 +731,7 @@ export class EmpComponent {
       }
     }
 
-    if (this.mode == 'EDIT') {
+    if (this.ms.state.mode == 'EDIT') {
       if (this.Record.emp_in_payroll == false && (this.Record.emp_trans_date.trim().length > 0) || this.Record.emp_is_relieved == true) {
         if (this.Record.emp_remarks.trim().length <= 0) {
 
@@ -726,21 +776,22 @@ export class EmpComponent {
     //}
 
     if (bret === false) {
-      this.ErrorMessage = sError;
-      alert(this.ErrorMessage);
+      this.ms.state.ErrorMessage = sError;
+      alert(this.ms.state.ErrorMessage);
     }
     return bret;
   }
 
   RefreshList() {
 
-    if (this.RecordList == null)
+    if (this.ms.state.RecordList == null)
       return;
 
-    var REC = this.RecordList.find(rec => rec.emp_pkid == this.Record.emp_pkid);
+    var REC = this.ms.state.RecordList.find(rec => rec.emp_pkid == this.Record.emp_pkid);
     if (REC == null) {
-      this.RecordList.push(this.Record);
-      REC = this.RecordList.find(rec => rec.emp_pkid == this.Record.emp_pkid);
+      this.ms.state.RecordList.push(this.Record);
+      this.ms.state.selectedRowIndex = this.ms.state.RecordList.length - 1;
+      REC = this.ms.state.RecordList.find(rec => rec.emp_pkid == this.Record.emp_pkid);
       REC.emp_do_joining = this._do_joining.GetDisplayDate();
       REC.emp_do_confirmation = this._do_confirmation.GetDisplayDate();
       REC.emp_do_relieve = this._do_relieve.GetDisplayDate();
@@ -871,7 +922,7 @@ export class EmpComponent {
     //  this.ageinyears = this.GetAge().ageyears;
     //}
     if (field == 'searchstring') {
-      this.searchstring = this.searchstring.toUpperCase();
+      this.ms.state.searchstring = this.ms.state.searchstring.toUpperCase();
     }
 
     if (field == 'emp_training_period') {
@@ -983,7 +1034,7 @@ export class EmpComponent {
   }
 
   ShowDocuments(doc: any) {
-    this.ErrorMessage = '';
+    this.ms.state.ErrorMessage = '';
     this.upload_type = "EMPLOYEE-MASTER";
     this.doc_group_id = "";
     this.doc_type = "";
@@ -996,7 +1047,7 @@ export class EmpComponent {
   }
 
   showUpload(_rec: EmpDocs, doc: any) {
-    this.ErrorMessage = '';
+    this.ms.state.ErrorMessage = '';
     this.upload_type = "EMPLOYEE DOCUMENTS";
     this.doc_group_id = _rec.doc_pkid;
     this.doc_type = _rec.doc_name;
@@ -1020,17 +1071,17 @@ export class EmpComponent {
       emp_id: _id
     };
 
-    this.ErrorMessage = '';
-    this.InfoMessage = '';
-    this.mainService.DownloadEmpDocs(SearchData)
+    this.ms.state.ErrorMessage = '';
+    this.ms.state.InfoMessage = '';
+    this.ms.DownloadEmpDocs(SearchData)
       .subscribe(response => {
         this.loading = false;
         alert('Download Complete');
       },
         error => {
           this.loading = false;
-          this.ErrorMessage = this.gs.getError(error);
-          alert(this.ErrorMessage);
+          this.ms.state.ErrorMessage = this.gs.getError(error);
+          alert(this.ms.state.ErrorMessage);
         });
   }
 
@@ -1137,12 +1188,12 @@ export class EmpComponent {
     return date.toISOString().split("T")[0];
   }
   ShowHistory(history: any) {
-    this.ErrorMessage = '';
+    this.ms.state.ErrorMessage = '';
     this.open(history);
   }
 
   LoadFieldlist() {
-    this.gs.getCustomReportFields('EMP-LIST', this.format_type).then(resp => {
+    this.gs.getCustomReportFields('EMP-LIST', this.ms.state.format_type).then(resp => {
       this.fieldList = resp;
     });
   }

@@ -9,19 +9,19 @@
   </div>
 </div>
 
-<div *ngIf="currentTab=='LIST'" class="page-list">
+<div *ngIf="ms.state.currentTab=='LIST'" class="page-list">
   <div class="page-search">
     <div class="row">
       <div class="col-sm-4">
         <div class="form-group row">
           <div class="col-sm-4">
-            <select class="form-control form-control-sm" name="empdt" [(ngModel)]="search_datetype">
+            <select class="form-control form-control-sm" name="empdt" [(ngModel)]="ms.state.search_datetype">
               <option [value]="'DOJ'">DOJ-From</option>
               <option [value]="'DOR'">DOR-From</option>
             </select>
           </div>
           <div class="col-sm-8">
-            <app-date [inputdate]="from_date" (ValueChanged)="from_date=$event">
+            <app-date [inputdate]="ms.state.from_date" (ValueChanged)="ms.state.from_date=$event">
             </app-date>
           </div>
         </div>
@@ -29,7 +29,7 @@
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">To</label>
           <div class="col-sm-8">
-            <app-date [inputdate]="to_date" (ValueChanged)="to_date=$event">
+            <app-date [inputdate]="ms.state.to_date" (ValueChanged)="ms.state.to_date=$event">
             </app-date>
           </div>
         </div>
@@ -37,7 +37,7 @@
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm">Search</label>
           <div class="col-sm-8">
-            <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="searchstring"
+            <input type="text" class="col form-control form-control-sm" name="Search" [(ngModel)]="ms.state.searchstring"
               (blur)="OnBlur('searchstring')" />
           </div>
         </div>
@@ -48,11 +48,11 @@
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm"></label>
           <div *ngIf="type!='EMPLOYEE-DOCUMENTS'" class="col-sm-8">
-            <input type="radio" [(ngModel)]="radio_emp" id="employee" [value]="'EMPLOYEE'" />
+            <input type="radio" [(ngModel)]="ms.state.radio_emp" id="employee" [value]="'EMPLOYEE'" />
             <label class="col-form-label col-form-label-sm" for="employee">Employee</label>&nbsp;&nbsp;
-            <input type="radio" [(ngModel)]="radio_emp" id="consultant" [value]="'CONSULTANT'" />
+            <input type="radio" [(ngModel)]="ms.state.radio_emp" id="consultant" [value]="'CONSULTANT'" />
             <label class="col-form-label col-form-label-sm" for="consultant">Consultant</label>&nbsp;&nbsp;
-            <input type="radio" [(ngModel)]="radio_emp" id="apprentice" [value]="'APPRENTICE'" />
+            <input type="radio" [(ngModel)]="ms.state.radio_emp" id="apprentice" [value]="'APPRENTICE'" />
             <label class="col-form-label col-form-label-sm" for="apprentice">Apprentice</label>
           </div>
           <div *ngIf="type=='EMPLOYEE-DOCUMENTS'" class="col-sm-8">
@@ -63,9 +63,9 @@
         <div class="form-group row">
           <label class="col-sm-4 col-form-label col-form-label-sm"></label>
           <div class="col-sm-8">
-            <input *ngIf="bAdmin" type="checkbox" [(ngModel)]="allbranch" id="rbr">
+            <input *ngIf="bAdmin" type="checkbox" [(ngModel)]="ms.state.allbranch" id="rbr">
             <label *ngIf="bAdmin" class="col-form-label col-form-label-sm" for="rbr">All Branch</label>
-            <input type="checkbox" [(ngModel)]="bRelieved" id="ronly">
+            <input type="checkbox" [(ngModel)]="ms.state.bRelieved" id="ronly">
             <label class="col-form-label col-form-label-sm" for="ronly">Include Relieved</label>
           </div>
         </div>
@@ -78,7 +78,7 @@
           <label class="col-sm-4 col-form-label col-form-label-sm">Format</label>
           <div class="col-sm-8">
             <app-customreport #CustRpt [menuid]="menuid" [fieldList]="CustomReportList" [type]="'EMP-LIST'"
-              (callbackevent)="customreportcallbackevent($event)"></app-customreport>
+              (callbackevent)="customreportcallbackevent($event)" [Format]="ms.state.format_type"></app-customreport>
           </div>
         </div>
 
@@ -125,9 +125,9 @@
   </div>
 
   <div class="page-pager">
-    <div *ngIf="page_count">
+    <div *ngIf="ms.state.page_count">
       <ul class="pagination pagination-sm mb-1">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        <li class="page-item"><a class="page-link">Page {{ms.state.page_current}}/{{ms.state.page_count}} (Records-{{ms.state.page_rowcount}})</a>
         </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
         <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
@@ -150,9 +150,9 @@
         </tr>
       </thead>
       <tbody class="page-body-tbody">
-        <tr *ngFor="let rec of RecordList; let i = index" [class.active]="i == selectedRowIndex"
-          (mousedown)="selectedRowIndex=i">
-          <td class="hlink" (click)="ActionHandler('EDIT',rec.emp_pkid,rec.rec_branch_code)">EDIT</td>
+        <tr *ngFor="let rec of ms.state.RecordList; let i = index" [id]="'row-' + i" [class.active]="i == ms.state.selectedRowIndex"
+          (mousedown)="ms.state.selectedRowIndex=i">
+          <td class="hlink" (click)="ActionHandler('EDIT',rec.emp_pkid)">EDIT</td>
           <td *ngFor="let col of fieldList" [ngClass]="{'text-right': col.rd_isright}">
             <ng-container *ngIf="col.rd_format">
               {{ +rec[col.rd_field] | number: col.rd_format }}
@@ -168,9 +168,9 @@
 
 
   <div class="page-pager">
-    <div *ngIf="page_count">
+    <div *ngIf="ms.state.page_count">
       <ul class="pagination pagination-sm mb-1">
-        <li class="page-item"><a class="page-link">Page {{page_current}}/{{page_count}} (Records-{{page_rowcount}})</a>
+        <li class="page-item"><a class="page-link">Page {{ms.state.page_current}}/{{ms.state.page_count}} (Records-{{ms.state.page_rowcount}})</a>
         </li>
         <li class="page-item"><a class="page-link" (click)="List('FIRST')"><span class="fa fa-backward"></span></a></li>
         <li class="page-item"><a class="page-link" (click)="List('PREV')"><span class="fa fa-arrow-left"></span></a>
@@ -184,7 +184,7 @@
 </div>
 
 
-<div *ngIf="currentTab=='DETAILS'" class="page-details">
+<div *ngIf="ms.state.currentTab=='DETAILS'" class="page-details">
 
   <div class="row">
     <!-- <div class="col-sm-6">
@@ -193,7 +193,7 @@
         <label class="col-sm-3 col-form-label  col-form-label-sm">Code</label>
         <div class="col-sm-2">
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_no"
-            [disabled]="mode=='EDIT'&&gs.globalVariables.user_code != 'ADMIN'" required maxlength="30" />
+            [disabled]="ms.state.mode=='EDIT'&&gs.globalVariables.user_code != 'ADMIN'" required maxlength="30" />
         </div>
         <div class="col-sm-7 pr-0">
           <input type="checkbox" [(ngModel)]="Record.emp_in_payroll" id="chkpayroll"> <label for="chkpayroll">In
@@ -257,7 +257,7 @@
         <label class="col-sm-3 col-form-label  col-form-label-sm">Code</label>
         <div class="col-sm-2">
           <input type="text" class="form-control form-control-sm" [(ngModel)]="Record.emp_no"
-            [disabled]="mode=='EDIT'&&gs.globalVariables.user_code != 'ADMIN'" required maxlength="30" />
+            [disabled]="ms.state.mode=='EDIT'&&gs.globalVariables.user_code != 'ADMIN'" required maxlength="30" />
         </div>
         <div class="col-sm-7 pr-0">
           <input type="checkbox" [(ngModel)]="Record.emp_in_payroll" id="chkpayroll"> <label for="chkpayroll">In
@@ -310,7 +310,7 @@
             </div>
           </div>
         </div>
-        <div *ngIf="mode=='EDIT'" class="col-sm-3">
+        <div *ngIf="ms.state.mode=='EDIT'" class="col-sm-3">
           <div class="form-group row">
             <label class="col-sm-2 col-form-label  col-form-label-sm"></label>
             <div class="col-sm-9">
@@ -1003,17 +1003,17 @@
     <div class="col input-group input-group-sm">
       <button [hidden]="disableSave" [disabled]="loading || lock_record" (click)="Save()"
         class="btn btn-success btn-sm mr-1">Save</button>
-      <button [disabled]="loading" *ngIf="mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
+      <button [disabled]="loading" *ngIf="ms.state.mode == 'EDIT' && bDocs" (click)="ShowDocuments(doc)"
         class="btn btn-success btn-sm mr-1">Documents</button>
 
-      <app-fileupload-direct *ngIf="mode=='EDIT' && bPhoto" class="mr-1" [pkid]="pkid" [type]="'EMPLOYEE-PHOTO'"
+      <app-fileupload-direct *ngIf="ms.state.mode=='EDIT' && bPhoto" class="mr-1" [pkid]="ms.state.pkid" [type]="'EMPLOYEE-PHOTO'"
         [islock]="false" [desc]="Record.emp_no" [uploadfilesize]="'10240'" [accepttype]="'.jpeg,.jpg,.png'"
         (callbackevent)="callbackeventupload($event)"></app-fileupload-direct>
-      <button *ngIf="mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)"
+      <button *ngIf="ms.state.mode == 'EDIT'" [disabled]="loading" (click)="ShowHistory(history)"
         class="btn btn-success btn-sm mr-1">History</button>
       <button [disabled]="loading" (click)="ActionHandler('LIST','')"
         class="btn btn-success btn-sm mr-1">Return</button>
-      <label *ngIf="mode=='EDIT'" class="col-form-label col-form-label-sm">
+      <label *ngIf="ms.state.mode=='EDIT'" class="col-form-label col-form-label-sm">
         <font color="RED">
           {{lock_record == true ? 'Details Closed, Cannot Edit' : ''}}
         </font>
@@ -1031,7 +1031,7 @@
 
 </div>
 
-<div *ngIf="currentTab=='DETAILS2'" class="page-details">
+<div *ngIf="ms.state.currentTab=='DETAILS2'" class="page-details">
   <div class="page-header">
     <div class="col">
       <button [disabled]="loading" *ngIf="bAdmin && type=='EMPLOYEE-DOCUMENTS'"
@@ -1053,7 +1053,7 @@
                   <th>FILE TYPE</th>
                   <th>MAXIMUM FILE SIZE</th>
                   <th>DOCS</th>
-                  <th style="text-align:center">UPLOAD</th>
+                  <th *ngIf="bUpload" style="text-align:center">UPLOAD</th>
                 </tr>
               </thead>
               <tbody class="page-body-tbody">
@@ -1063,7 +1063,7 @@
                   <td>{{rec.doc_file_type}}</td>
                   <td>{{rec.doc_file_size2}}</td>
                   <td>{{rec.doc_count}}</td>
-                  <td class="hlink" align="center" (click)="showUpload(rec,doc)">UPLOAD</td>
+                  <td *ngIf="bUpload" class="hlink" align="center" (click)="showUpload(rec,doc)">UPLOAD</td>
                 </tr>
               </tbody>
             </table>
@@ -1082,7 +1082,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-upload [pkid]="pkid" [type]="upload_type" [groupid]="doc_group_id" [uploadfiletype]="doc_file_type"
+    <app-upload [pkid]="ms.state.pkid" [type]="upload_type" [groupid]="doc_group_id" [uploadfiletype]="doc_file_type"
       [uploadfilesize]="doc_file_size"></app-upload>
   </div>
   <div class="modal-footer">
@@ -1098,16 +1098,16 @@
     </button>
   </div>
   <div class="modal-body">
-    <app-history [pkid]="pkid" [type]="'EMPM'" [usetype]="'Y'"></app-history>
+    <app-history [pkid]="ms.state.pkid" [type]="'EMPM'" [usetype]="'Y'"></app-history>
   </div>
 </ng-template>
 
 
 <!-- <br /> -->
 
-<div *ngIf="InfoMessage" class="alert alert-success">
-  {{InfoMessage}}
+<div *ngIf="ms.state.InfoMessage" class="alert alert-success">
+  {{ms.state.InfoMessage}}
 </div>
-<div *ngIf="ErrorMessage" class="alert alert-danger">
-  {{ErrorMessage}}
+<div *ngIf="ms.state.ErrorMessage" class="alert alert-danger">
+  {{ms.state.ErrorMessage}}
 </div>
