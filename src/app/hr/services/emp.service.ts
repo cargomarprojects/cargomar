@@ -31,5 +31,9 @@ export class EmpService {
   DownloadEmpDocs(SearchData: any) {
     return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Emp/DownloadEmpDocs', SearchData, this.gs.headerparam2('authorized'));
   }
+
+  GenerateDocs(SearchData: any) {
+    return this.http2.post<any>(this.gs.baseUrl + '/api/Hr/Emp/GenerateDocs', SearchData, this.gs.headerparam2('authorized'));
+  }
 }
 

@@ -396,7 +396,7 @@ export class EmpComponent {
           alert(this.ErrorMessage);
         });
   }
- 
+
   Downloadfile(filename: string, filetype: string, filedisplayname: string) {
     this.gs.DownloadFile(this.gs.globalVariables.report_folder, filename, filetype, filedisplayname);
   }
@@ -1026,6 +1026,32 @@ export class EmpComponent {
       .subscribe(response => {
         this.loading = false;
         alert('Download Complete');
+      },
+        error => {
+          this.loading = false;
+          this.ErrorMessage = this.gs.getError(error);
+          alert(this.ErrorMessage);
+        });
+  }
+
+  DownloadAppointmentLetter() {
+    this.loading = true;
+    let SearchData = {
+      branch_id: this.gs.globalVariables.branch_pkid,
+      company_id: this.gs.globalVariables.comp_pkid,
+      branch_code: this.gs.globalVariables.branch_code,
+      company_code: this.gs.globalVariables.comp_code,
+      report_folder: this.gs.globalVariables.report_folder,
+      location: this.gs.globalVariables.branch_location,
+      emp_id: this.Record.emp_pkid
+    };
+
+    this.ErrorMessage = '';
+    this.InfoMessage = '';
+    this.mainService.GenerateDocs(SearchData)
+      .subscribe(response => {
+        this.loading = false;
+        this.Downloadfile(response.filename, response.filetype, response.filedisplayname);
       },
         error => {
           this.loading = false;
